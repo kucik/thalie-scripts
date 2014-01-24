@@ -253,7 +253,7 @@ void main()
     int mesto = GetLocalInt(OBJECT_SELF, "JA_MESTO");
 
     /* V meste odkryj mapu */
-    if(mesto)
+    if(mesto || GetLocalInt(OBJECT_SELF, "TH_EXPLORE") == 1)
       ExploreAreaForPlayer(OBJECT_SELF,oPC,TRUE);
 
     if(!mesto && !GetIsDM(oPC) && !GetIsObjectValid(GetMaster(oPC)) ){
