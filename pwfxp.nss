@@ -477,7 +477,9 @@ void main()
     XPPerBoost = 1.0f;
 
   float fBossModifier = 1.0f;
-  if( aiBoss )
+  if( aiBoss == 2)
+    fBossModifier = 3.0f;
+  else if( aiBoss )
     fBossModifier = 6.0f;
 //  float fBBModifier = fBossModifier * XPPerBoost;
 
