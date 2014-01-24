@@ -32,7 +32,7 @@ void main()
 
     oDead = GetNextPC();
     if(oDead == OBJECT_INVALID) {
-      SpeakString("//Hrac "+sPCName+" s postavou "+sPlayerName+" neni ve hre!");
+      SpeakString("//Hrac "+sPlayerName+" s postavou "+sPCName+" neni ve hre!");
       return;
     }
   }
