@@ -1,6 +1,7 @@
 #include "sh_lang_inc"
 #include "ku_libbase"
 #include "ku_libchat"
+#include "mys_music"
 //promenne
     object oSpeaker =GetPCChatSpeaker();
     string sName =  GetName(oSpeaker,FALSE);
@@ -86,6 +87,7 @@ void main()
     ColorSet(sSpoke);
     PCEmoteFunction();
     PCDiceFuntion();
+    MusicInstrumentChoice();
 
 // Now system check last #(KU_MASSAGE_CACHE) messages that player sent for xp system
   int i;

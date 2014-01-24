@@ -92,10 +92,41 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       AssignCommand(oPC, PlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, 10000.0f));
     break;
     case KU_CHAT_CMD_EMO:
-      SetLocalObject(oPC, "dmfi_item",GetItemPossessedBy(oPC,"dmfi_pc_emote"));
-      SetLocalObject(oPC, "dmfi_target",OBJECT_SELF);
-      SetLocalLocation(oPC, "dmfi_location",GetLocation(oPC));
-      ExecuteScriptAndReturnInt("dmfi_activate",oPC);
+      // --------------------------------------------------
+      // Start emote dialog
+      // --------------------------------------------------
+      // SetLocalObject(oPC, "dmfi_item",GetItemPossessedBy(oPC,"dmfi_pc_emote"));
+      // SetLocalObject(oPC, "dmfi_target",OBJECT_SELF);
+      // SetLocalLocation(oPC, "dmfi_location",GetLocation(oPC));
+      // ExecuteScriptAndReturnInt("dmfi_activate",oPC);
+      // ---------------------------------------------------
+      // Emote commands help list
+      // ---------------------------------------------------
+      SendMessageToPC(oPC,"Soupis prikazu emoci - jednorazove:");
+      SendMessageToPC(oPC,"/nod, /scratch, /salute, /bow, /greet, /wave, /steal, /taunt, /bored");
+      SendMessageToPC(oPC,"/smoke");
+      SendMessageToPC(oPC,"=================================");
+      SendMessageToPC(oPC,"Soupis prikazu emoci - nekonecne:");
+      SendMessageToPC(oPC,"/conjure1");
+      SendMessageToPC(oPC,"/conjure2");
+      SendMessageToPC(oPC,"/meditate");
+      SendMessageToPC(oPC,"/worship");
+      SendMessageToPC(oPC,"/dance");
+      SendMessageToPC(oPC,"/spasm");
+      SendMessageToPC(oPC,"/tired");
+      SendMessageToPC(oPC,"/drunk");
+      SendMessageToPC(oPC,"/laught");
+      SendMessageToPC(oPC,"/beg");
+      SendMessageToPC(oPC,"/looks");
+      SendMessageToPC(oPC,"/threaten");
+      SendMessageToPC(oPC,"/getmid");
+      SendMessageToPC(oPC,"/getlow");
+      SendMessageToPC(oPC,"/sit");
+      SendMessageToPC(oPC,"/sitchair");
+      SendMessageToPC(oPC,"/sitread");
+      SendMessageToPC(oPC,"/sitdrink");
+      SendMessageToPC(oPC,"/fprone");
+      SendMessageToPC(oPC,"/fback");
     break;
     case KU_CHAT_CMD_SOUL: {
       //ExportSingleCharacter(oPC);
@@ -144,7 +175,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
     /* HELP */
     case 7: {
       SendMessageToPC(oPC,"Soupis prikazu:");
-      SendMessageToPC(oPC,"/pc emo - vyvola dialog emoci");
+      SendMessageToPC(oPC,"/pc emo - vyvola seznam prikazu emoci");
       SendMessageToPC(oPC,"/pc duse - Ulozi postavu a vyvola dialog duse bytosti.");
       SendMessageToPC(oPC,"/pc sedni - Postava se posadi na zem.");
       SendMessageToPC(oPC,"/pc slow <cislo> - Nastavi zpomaleni postavy.");

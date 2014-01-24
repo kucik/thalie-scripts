@@ -1,4 +1,10 @@
 #include "sh_classes_inc_e"
+
+int GetHealModificator(object oTarget)
+{
+    return GetCurrentHitPoints(oTarget) <= 0 ? (GetCurrentHitPoints(oTarget) * -1) + 1 : 0;
+}
+
 void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object oActivator)
 {
     string sTag = GetTag(oItem);
@@ -7,15 +13,17 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
     int iRegenBand = 0;
     int iSkillHealMin = 0;
     int iPCSkillHeal = GetSkillRank(SKILL_HEAL,oActivator);
-
+    int iHealMod = 0;
+    
     if (sTag =="sh_it_band1")
     {
         iRegenBand = 1;
 
+            iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
-            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin);
+            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
 
     }
@@ -25,10 +33,11 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         iSkillHealMin = 2;
         if (iPCSkillHeal >= iSkillHealMin)
         {
+            iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
-            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin);
+            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
         }
         else
@@ -42,10 +51,11 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         iSkillHealMin = 7;
         if (iPCSkillHeal >= iSkillHealMin)
         {
+            iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
-            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin);
+            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
         }
         else
@@ -59,10 +69,11 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         iSkillHealMin = 10;
         if (iPCSkillHeal >= iSkillHealMin)
         {
+            iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
-            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin);
+            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
         }
         else
@@ -76,10 +87,11 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         iSkillHealMin = 15;
         if (iPCSkillHeal >= iSkillHealMin)
         {
+            iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
-            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin);
+            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
         }
         else
@@ -93,10 +105,11 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         iSkillHealMin = 22;
         if (iPCSkillHeal >= iSkillHealMin)
         {
+            iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
-            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin);
+            eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
         }
         else

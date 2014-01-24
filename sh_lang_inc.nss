@@ -78,12 +78,12 @@ void SmokePipe(object oActivator)
     }
     location lAboveHead = GetLocationAboveAndInFrontOf(oActivator, fDistance, fHeight);
     // emotes
-    switch (d3())
-    {
-        case 1: AssignCommand(oActivator, ActionSpeakString(sEmote1)); break;
-        case 2: AssignCommand(oActivator, ActionSpeakString(sEmote2)); break;
-        case 3: AssignCommand(oActivator, ActionSpeakString(sEmote3));break;
-    }
+    //switch (d3())
+    //{
+        //case 1: AssignCommand(oActivator, ActionSpeakString(sEmote1)); break;
+        //case 2: AssignCommand(oActivator, ActionSpeakString(sEmote2)); break;
+        //case 3: AssignCommand(oActivator, ActionSpeakString(sEmote3));break;
+    //}
     // glow red
     AssignCommand(oActivator, ActionDoCommand(ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_LIGHT_RED_5), oActivator, 0.15)));
     // wait a moment
@@ -1783,38 +1783,38 @@ if(iPCdodge==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_DODGE_SIDE, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCdrink==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_DRINK, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCduck==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_DODGE_DUCK, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCFback==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","falls backwards");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCFprone==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_DEAD_FRONT, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","falls forwards");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCread==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation( ANIMATION_FIREFORGET_READ,1.0));
 DelayCommand(3.0f, AssignCommand(oSpeaker, PlayAnimation( ANIMATION_FIREFORGET_READ, 1.0)));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCsit==TRUE)
 {
@@ -1826,61 +1826,61 @@ if(iPCbeg==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_TALK_PLEADING, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCconjure1==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_CONJURE1, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/conjure1","Conjures");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCconjure2==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_CONJURE2, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/conjure2","Conjures");
-SetPCChatMessage("* "+sNSpoke+" *");;
+SetPCChatMessage("");
 }
 if(iPCgetlow==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/getlow","Bends down");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCgetmid==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_GET_MID, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/getmid","manipulates");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCmeditate==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_MEDITATE, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCthreaten==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_TALK_FORCEFUL, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCworship==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_WORSHIP, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCdance==TRUE)
 {
 EmoteDance(oSpeaker);
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCdrunk==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_PAUSE_DRUNK, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCfollowPC==TRUE && GetIsPC(oSpeaker)||iPCfollowPC==TRUE && GetIsDM(oSpeaker) || iPCfollowPC==TRUE && GetIsDMPossessed(oSpeaker))
 {
@@ -1916,40 +1916,40 @@ if(iPCsmoke==TRUE)
 {
 SmokePipe(oSpeaker);
 string sSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sSpoke+" *");
+SetPCChatMessage("");
 }
 
 if(iPCbow==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_BOW, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCgreet==TRUE ||iPCwaves==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_GREETING, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 
 if(iPCbored==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 
 if(iPCscratch==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");;
+SetPCChatMessage("");
 }
 if(iPCsalute==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_SALUTE, 1.0));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPCsteal==TRUE)
 {
@@ -1986,20 +1986,20 @@ if(iPCnod==TRUE)
 //it really nod animation, weird
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_LISTEN, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPClookf==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_LOOK_FAR, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 
 if(iPCtired==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_PAUSE_TIRED, 1.0,fDur));
 string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("* "+sNSpoke+" *");
+SetPCChatMessage("");
 }
 if(iPClaugh==TRUE)
 {
