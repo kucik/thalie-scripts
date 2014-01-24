@@ -38,6 +38,7 @@
 #include "x2_inc_craft"
 #include "x3_inc_horse"
 #include "sh_spells_inc"
+#include "ja_inc_stamina"
 
 
 const int X2_EVENT_CONCENTRATION_BROKEN = 12400;
@@ -266,6 +267,49 @@ int X3ShapeShiftSpell(object oTarget)
     return FALSE;
 } // X3ShapeShiftSpell()
 
+/*
+ * Funkce prepocita kruh kouzla na lvl castera
+ */
+int KU_RingToLevel(int SpellLevel, int iClass)
+{
+ float fEqLevel = 0.0;
+
+
+ if( (iClass==CLASS_TYPE_RANGER)  ||
+     (iClass==CLASS_TYPE_PALADIN) ) {
+   return FloatToInt(SpellLevel * 3.4 + 0.71);
+ }
+ if( (iClass==CLASS_TYPE_BARD) ) {
+   if(SpellLevel == 2)
+     return 5;
+   if(SpellLevel == 3)
+     return 8;
+
+   return FloatToInt(SpellLevel * 2.5 + 0.5);
+ }
+ else {
+   return (SpellLevel * 2 - 1);
+ }
+
+
+ return 0;
+}
+
+float KU_GetStaminaWoundKoeficient(object oPC, int nSpellID, int iClass)
+{
+  int iKostKoef = 70;
+
+  int iLevel = GetLevelByClass(iClass,oPC);
+  int iSpellRing = getSpellLevel(nSpellID,iClass );
+
+  //spell-like abilita
+  if(iLevel == 0)
+    return 1.0;
+
+  return (IntToFloat(iKostKoef * KU_RingToLevel(iSpellRing, iClass)) / iLevel);
+
+}
+
 
 //------------------------------------------------------------------------------
 // if FALSE is returned by this function, the spell will not be cast
@@ -307,6 +351,37 @@ int X2PreSpellCastCode()
        {
             return TRUE;
        }
+   }
+
+   if(!GetIsObjectValid(GetSpellCastItem()) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)){
+       float fStamina = getStamina(oPC);
+
+       woundStamina( oPC, KU_GetStaminaWoundKoeficient(oPC,iSpell,GetLastSpellCastClass()) );
+//       woundStamina( oPC, 25.0*getSpellLevel(GetLastSpell(), GetLastSpellCastClass()) );
+
+       if(getStatusInt(oPC) == 2){
+            if(Random(100) < 30){
+                SendMessageToPC(oPC, "Seslani kouzla selhalo diky unave!");
+                return FALSE;
+            }
+       }
+
+       if(getStatusInt(oPC) < 2){
+            int iProb = FloatToInt(100*fStamina/(2.0*getMaxStamina(oPC)/5.0));
+
+            if(Random(100) > iProb){
+                SendMessageToPC(oPC, "Seslani kouzla selhalo diky unave!");
+                return FALSE;
+            }
+       }
+
+
+       // Check if the spell is marked as hostile in spells.2da
+       int nHostile = StringToInt(Get2DAString("spells","HostileSetting",iSpell));
+/*       int bTimeStopped = (GetLocalInt(oPC,"ku_spell_timestop_dur") > ku_GetTimeStamp());*/
+       WriteTimestampedLogEntry(GetName(oPC)+" casting "+Get2DAString("spells","Label",iSpell)+"("+IntToString(iSpell)+"). Hostile: "+IntToString(nHostile)+". ");
+
+
    }
 
    //---------------------------------------------------------------------------
