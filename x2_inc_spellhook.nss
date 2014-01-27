@@ -43,6 +43,9 @@
 
 const int X2_EVENT_CONCENTRATION_BROKEN = 12400;
 
+//Returns spell level for oCaster class (or Wizard by default)
+int getSpellLevel( int spellID, int iClass );
+
 
 // Use Magic Device Check.
 // Returns TRUE if the Spell is allowed to be cast, either because the
@@ -75,7 +78,75 @@ int X2GetSpellCastOnSequencerItem(object oItem);
 
 int X2RunUserDefinedSpellScript();
 
+//Returns spell level for oCaster class (or Wizard by default)
+int getSpellLevel( int nSpellID, int iClass ){
 
+    string sClass;
+
+    switch(iClass){
+        default:
+            sClass = "Wiz_Sorc";
+            break;
+        case CLASS_TYPE_BARD:
+            sClass = "Bard";
+            break;
+        case CLASS_TYPE_CLERIC:
+            sClass = "Cleric";
+            break;
+        case CLASS_TYPE_DRUID:
+            sClass = "Druid";
+            break;
+        case CLASS_TYPE_PALADIN:
+            sClass = "Paladin";
+            break;
+        case CLASS_TYPE_RANGER:
+            sClass = "Ranger";
+            break;
+    }
+
+    int nSpellLevel = 0;
+//    SendMessageToPC(GetFirstPC(),"class:"+IntToString(iClass));
+//    SendMessageToPC(GetFirstPC(),"sclass:"+sClass);
+
+    int CacheD = GetLocalInt(GetModule(), "Cached_"+sClass + IntToString(nSpellID));
+    string sSpellLevel;
+    if (CacheD!=1)
+      {
+       sSpellLevel = Get2DAString("spells", sClass, nSpellID);
+       SetLocalString(GetModule(), "2DA_"+sClass+IntToString(nSpellID), sSpellLevel);
+       SetLocalInt(GetModule(), "Cached_"+sClass + IntToString(nSpellID),1);
+       if (DEBUG) SendMessageToPC(GetFirstPC(), "Set Cached Result:"+sSpellLevel);
+      }
+    else
+      {
+       sSpellLevel = GetLocalString(GetModule(), "2DA_"+ sClass + IntToString(nSpellID));
+       if (DEBUG) SendMessageToPC(GetFirstPC(), "Pulled Cached Result:"+sSpellLevel);
+      }
+
+    if(GetStringLength(sSpellLevel)<1) {
+      if(GetLocalInt(GetModule(), "Cached_Innate" + IntToString(nSpellID)) != 1) {
+        sSpellLevel = Get2DAString("spells", "Innate", nSpellID);
+        SetLocalString(GetModule(), "2DA_SPELLS_INNATE"+IntToString(nSpellID), sSpellLevel);
+        SetLocalInt(GetModule(), "Cached_Innate" + IntToString(nSpellID),1);
+        if (DEBUG) SendMessageToPC(GetFirstPC(), "Set Cached Result:"+sSpellLevel);
+      }
+      else {
+        sSpellLevel = GetLocalString(GetModule(), "2DA_SPELLS_INNATE"+IntToString(nSpellID));
+        if (DEBUG) SendMessageToPC(GetFirstPC(), "Pulled Cached Result:"+sSpellLevel);
+      }
+    }
+
+//    string sSpellLevel = Get2DAString("spells",sClass,nSpellID);
+//    SendMessageToPC(GetFirstPC(),"spell:"+sSpellLevel);
+//    WriteTimestampedLogEntry("Casting "+IntToString(nSpellID)+" with spell level "+sSpellLevel+" by "+sClass);
+
+    if (sSpellLevel != "")
+    {
+        nSpellLevel=StringToInt(sSpellLevel);
+    }
+
+    return nSpellLevel;
+}
 
 int X2UseMagicDeviceCheck()
 {
@@ -320,6 +391,7 @@ int X2PreSpellCastCode()
 {
    object oTarget = GetSpellTargetObject();
    int nContinue;
+   int iSpell = GetSpellId();
 
    //---------------------------------------------------------------------------
    // This small addition will check to see if the target is mounted and the
@@ -352,6 +424,8 @@ int X2PreSpellCastCode()
             return TRUE;
        }
    }
+
+   object oPC = OBJECT_SELF;
 
    if(!GetIsObjectValid(GetSpellCastItem()) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)){
        float fStamina = getStamina(oPC);
