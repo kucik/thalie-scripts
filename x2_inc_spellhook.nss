@@ -40,6 +40,7 @@
 #include "sh_spells_inc"
 #include "ja_inc_stamina"
 
+const int DEBUG = FALSE;
 
 const int X2_EVENT_CONCENTRATION_BROKEN = 12400;
 
