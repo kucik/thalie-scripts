@@ -375,6 +375,16 @@ void LOCK_SpawnCreature(location lLoc, string sTAG, string sNewTag="", object oF
 
 }
 
+void ku_LockLoot(object oChest, int iLockDC) {
+
+    if(iLockDC > 0) {
+      SetLocked(oChest,TRUE);
+      SetLockKeyRequired(oChest,FALSE);
+      SetLockUnlockDC(oChest,Random(iLockDC)+(iLockDC/2));
+    }
+  
+}
+
 void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
 {
     // Spawn of the placeable.
@@ -406,11 +416,15 @@ void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
       CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
       if(Random(100) < 40)
         SetTrapOneShot(oObject,FALSE);
+      if(Random(100) < 15)
+        ku_LockLoot(oObject, iTrapPower);
     } else if( (FindSubString(sResref,"chest")>-1) && (Random(100) < (70 * iTrapsProb /100)) ) {
       iTrapPower++;
       CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
       if(Random(100) < 50)
         SetTrapOneShot(oObject,FALSE);
+      if(Random(100) < 50)
+        ku_LockLoot(oObject, iTrapPower);
     } else {
        return;
     }
