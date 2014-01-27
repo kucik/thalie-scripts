@@ -321,7 +321,7 @@ void sh_GetMunitionFromTag(object oToulec,object oPC,object oTarget)
         {
            //SendMessageToPC(oPC,"INIT");
             SetLocalInt(oToulec,"sh_used",TRUE);
-            SetLocalInt(oToulec,"sh_contain",10000);
+            SetLocalInt(oToulec,"sh_contain",2000);
             SetLocalString(oToulec,"name",sMuniceName);
             SetStolenFlag(oToulec,TRUE);
             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),oToulec);
