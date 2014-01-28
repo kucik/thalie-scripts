@@ -100,7 +100,7 @@ void main()
     object oDammager = GetLastDamager(oPC);
     int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
     if(!nSubdual) {
-      object oSoul = GetSoulStone(oDammager);
+      object oSoul = GetAssociateType(oDammager) ? GetSoulStone(GetMaster(oDammager)) : GetSoulStone(oDammager);
       if(GetIsObjectValid(oSoul))
         nSubdual = GetLocalInt(oSoul,"SUBDUAL_MODE");
       else
