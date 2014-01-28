@@ -1,39 +1,45 @@
 #include "sh_classes_inc_e"
 #include "sh_effects_const"
-int UseElixir(object oPC, object oSoul, int iElixirStr)
+int UseElixir(object oPC, object oTarget, object oSoul, int iElixirStr)
 {
+    int iCon = GetAbilityScore(oTarget,ABILITY_CONSTITUTION,TRUE);
+    int iMaxPoints = iCon*30+GetHitDice(oTarget)*5;
     int iFreePoints = GetLocalInt(oSoul,"SH_ELIXIR_POINTS");
-    int iCon = GetAbilityScore(oPC,ABILITY_CONSTITUTION,TRUE);
-    int iMaxPoints = iCon*30+GetHitDice(oPC)*5;
+    if (!iFreePoints)
+    {
+        SetLocalInt(oSoul,"SH_ELIXIR_POINTS",iMaxPoints);
+        iFreePoints = GetLocalInt(oSoul,"SH_ELIXIR_POINTS");
+    }
     float iPercent = IntToFloat(iFreePoints)/IntToFloat(iMaxPoints);
+
     //vypis
     if (iFreePoints >= iElixirStr)
     {
         SetLocalInt(oSoul,"SH_ELIXIR_POINTS",iFreePoints-iElixirStr);
         effect eVis = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_POSITIVE);
-        ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oPC);
+        ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oTarget);
         if (iPercent>= 0.75)
         {
-        SendMessageToPC(oPC,"Jsi naprosto v pohode. Elixiry muzes pouzivat normalne.");
+        SendMessageToPC(oPC, GetName(oTarget)+": elixiry muze pouzivat normalne.");
         }
         else if (iPercent>= 0.50)
         {
-            SendMessageToPC(oPC,"Nejak ti ty lektvary prestavaji chutnat.");
+            SendMessageToPC(oPC, GetName(oTarget)+": lektvary prestavaji chutnat.");
         }
         else if (iPercent>= 0.25)
         {
-            SendMessageToPC(oPC,"Uz toho zacinam mit pokrk.");
+            SendMessageToPC(oPC, GetName(oTarget)+": lektvary prestavaji ucinkovat.");
         }
         else if (iPercent>= 0.1)
         {
-            SendMessageToPC(oPC,"Sakra uz nepij, budes blejt.");
+            SendMessageToPC(oPC, GetName(oTarget)+": bude blejt.");
         }
         return TRUE;
 
     }
     else
     {
-       SendMessageToPC(oPC,"Bleeeee");
+       SendMessageToPC(oPC, GetName(oTarget)+": bleeeee");
        return FALSE;
     }
 }
@@ -54,12 +60,13 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     int iElxStr = 0,iEffectID,iEffect;
     effect efInstant,efTemporary,efTemporary2,efTemporary3,eLink,eLoop;
     object oSoul = GetSoulStone(oPC);
-
+    // kompanion
+    if (oPC != oTarget) oSoul = oTarget;
 
     if (sTag =="sh_it_elx10_heal")
     {
         iElxStr = 10;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             efInstant = EffectHeal(12);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,efInstant,oTarget);
@@ -68,7 +75,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx20_heal")
     {
         iElxStr = 20;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             efInstant = EffectHeal(25);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,efInstant,oTarget);
@@ -77,7 +84,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx30_heal")
     {
         iElxStr = 30;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             efInstant = EffectHeal(55);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,efInstant,oTarget);
@@ -86,7 +93,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx50_heal")
     {
         iElxStr = 50;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             efInstant = EffectHeal(150);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,efInstant,oTarget);
@@ -96,15 +103,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx10_str")
     {
         iElxStr = 10;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_STR;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_STRENGTH,1);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -114,15 +121,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx20_str")
     {
         iElxStr = 20;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_STR;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_STRENGTH,2);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -132,15 +139,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx40_str")
     {
         iElxStr = 40;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_STR;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_STRENGTH,4);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -150,15 +157,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx10_dex")
     {
         iElxStr = 10;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_DEX;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_DEXTERITY,1);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -168,15 +175,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx20_dex")
     {
         iElxStr = 20;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_DEX;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_DEXTERITY,2);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -186,15 +193,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx40_dex")
     {
         iElxStr = 40;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_DEX;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_DEXTERITY,4);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -204,15 +211,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx10_con")
     {
         iElxStr = 10;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_CON;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_CONSTITUTION,1);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -222,15 +229,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx20_con")
     {
         iElxStr = 20;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_CON;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_CONSTITUTION,2);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -240,15 +247,15 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx40_con")
     {
         iElxStr = 40;
-        if (UseElixir(oPC,oSoul,iElxStr))
+        if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
             iEffectID = EFFECT_ELIXIR_CON;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectAbilityIncrease(ABILITY_CONSTITUTION,4);
             SetEffectSpellId(efTemporary,iEffectID);
@@ -260,12 +267,12 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx_afr1")
     {
             iEffectID = EFFECT_ELIXIR_AFR1;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary  = EffectSkillDecrease(SKILL_LISTEN,5);
             efTemporary2 = EffectSkillIncrease(SKILL_PERSUADE,5);
@@ -280,12 +287,12 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx_afr2")
     {
             iEffectID = EFFECT_ELIXIR_AFR2;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary  = EffectSkillDecrease(SKILL_CONCENTRATION,5);
             efTemporary2 = EffectAbilityIncrease(ABILITY_CHARISMA,1);
@@ -300,12 +307,12 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx_afr3")
     {
             iEffectID = EFFECT_ELIXIR_AFR3;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary  = EffectSavingThrowDecrease(SAVING_THROW_REFLEX,1);
             efTemporary2 = EffectSavingThrowIncrease(SAVING_THROW_FORT,1);
@@ -320,12 +327,12 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx_afr4")
     {
             iEffectID = EFFECT_ELIXIR_AFR4;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary  = EffectSkillDecrease(SKILL_DISCIPLINE,3);
             efTemporary2 = EffectAbilityIncrease(ABILITY_CHARISMA,1);
@@ -340,12 +347,12 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx_afr5")
     {
             iEffectID = EFFECT_ELIXIR_AFR5;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary  = EffectAbilityIncrease(SKILL_PERSUADE,3);
             efTemporary2 = EffectAbilityIncrease(ABILITY_CHARISMA,2);
@@ -360,12 +367,12 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
     else if (sTag =="sh_it_elx_afr6")
     {
             iEffectID = EFFECT_ELIXIR_AFR6;
-            effect eLoop = GetFirstEffect(oPC);
+            effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
                 iEffect = GetEffectSpellId(eLoop);
-                if (iEffect== iEffectID) RemoveEffect(oPC,eLoop);
-                eLoop = GetNextEffect(oPC);
+                if (iEffect== iEffectID) RemoveEffect(oTarget,eLoop);
+                eLoop = GetNextEffect(oTarget);
             }
             efTemporary = EffectSavingThrowIncrease(SAVING_THROW_FORT,2);
             efTemporary2 = EffectAbilityIncrease(ABILITY_CHARISMA,2);
@@ -388,4 +395,3 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
 
 
 }
-
