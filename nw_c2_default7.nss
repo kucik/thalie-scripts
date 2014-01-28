@@ -119,6 +119,8 @@ void main()
         ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(iDeathEffect), GetLocation(OBJECT_SELF));
     }
     // Default Commoner alignment changing. (If the commoner is not evil!)
+    // Zruseno
+    /*
     if(GetLevelByClass(CLASS_TYPE_COMMONER) > i0 &&
        GetAlignmentGoodEvil(OBJECT_SELF) != ALIGNMENT_EVIL &&
       !GetSpawnInCondition(AI_FLAG_OTHER_NO_COMMONER_ALIGNMENT_CHANGE, AI_OTHER_MASTER))
@@ -138,6 +140,7 @@ void main()
             }
         }
     }
+    */
     // Always shout when we are killed. Reactions - Morale penalty, and attack the killer.
     AISpeakString(I_WAS_KILLED);
 
