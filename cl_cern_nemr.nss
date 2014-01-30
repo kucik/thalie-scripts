@@ -48,12 +48,12 @@ void main()
     //Apply the summon visual and summon the two undead.
     //ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetSpellTargetLocation());
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), HoursToSeconds(24));
-    effect eSoak =EffectDamageReduction(15,iDamageReductionSoak);
+/*    effect eSoak =EffectDamageReduction(15,iDamageReductionSoak);
     DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSoak,GetAssociate(ASSOCIATE_TYPE_SUMMONED)));
     if (iSword)
     {
         DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_PERMANENT,EffectDamageIncrease(DAMAGE_BONUS_2d6,DAMAGE_TYPE_NEGATIVE),GetAssociate(ASSOCIATE_TYPE_SUMMONED)));
-    }
+    }*/
 }
 
 
