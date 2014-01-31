@@ -55,7 +55,7 @@ void main()
     {
         iBonus = 10;
     }
-    itemproperty ip = ItemPropertyDamageBonus(DAMAGE_TYPE_FIRE,GetIPDamageBonusByValue(iBonus));
+    itemproperty ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE ,GetIPDamageBonusByValue(iBonus));
 
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
