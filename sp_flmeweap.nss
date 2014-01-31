@@ -62,6 +62,7 @@ void main()
         nDuration = nDuration * 2; //Duration is +100%
     }
     float fDuration = RoundsToSeconds(nDuration);
+    object oMyWeapon = oTarget;
 
     // ---------------- TARGETED ON BOLT  -------------------
     if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
@@ -83,7 +84,7 @@ void main()
         }
     }
 
-    object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
