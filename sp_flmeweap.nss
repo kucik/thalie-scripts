@@ -62,6 +62,27 @@ void main()
         nDuration = nDuration * 2; //Duration is +100%
     }
     float fDuration = RoundsToSeconds(nDuration);
+
+    // ---------------- TARGETED ON BOLT  -------------------
+    if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
+    {
+        // special handling for blessing crossbow bolts that can slay rakshasa's
+        int iItemType = GetBaseItemType(oTarget);
+        if (iItemType == BASE_ITEM_BOLT ||
+            iItemType == BASE_ITEM_ARROW ||
+            iItemType == BASE_ITEM_BULLET)
+        {
+          //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+          if (nDuration>0) {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oMyWeapon,fDuration);
+            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(ITEM_VISUAL_FIRE), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+            return;
+          }
+        }
+    }
+
     object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
