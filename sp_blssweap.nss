@@ -74,25 +74,30 @@ void main()
     {
        nDuration = nDuration * 2; //Duration is +100%
     }
+    object oMyWeapon   = oTarget;
 
     // ---------------- TARGETED ON BOLT  -------------------
     if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
     {
         // special handling for blessing crossbow bolts that can slay rakshasa's
         int iItemType = GetBaseItemType(oTarget);
-        if (iItemType == BASE_ITEM_BOLT ||
-            iItemType == BASE_ITEM_ARROW ||
-            iItemType == BASE_ITEM_BULLET)
-        {
+        if (iItemType == BASE_ITEM_BOLT) {
            SignalEvent(GetItemPossessor(oTarget), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
            IPSafeAddItemProperty(oTarget, ItemPropertyOnHitCastSpell(123,1), RoundsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_KEEP_EXISTING );
            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oTarget));
            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oTarget), TurnsToSeconds(nDuration));
+        }
+        if (iItemType == BASE_ITEM_BOLT ||
+            iItemType == BASE_ITEM_ARROW ||
+            iItemType == BASE_ITEM_BULLET) {
+           AddBlessEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
+           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
            return;
         }
     }
 
-   object oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
+   oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
    if(GetIsObjectValid(oMyWeapon) )
    {
         SignalEvent(GetItemPossessor(oMyWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
