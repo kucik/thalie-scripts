@@ -69,6 +69,7 @@ void main()
     object oTarget = GetSpellTargetObject();
     int nDuration = 2 * GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF),FALSE);
     int nMetaMagic = GetMetaMagicFeat();
+    int iBlessed = FALSE;
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
        nDuration = nDuration * 2; //Duration is +100%
@@ -78,7 +79,10 @@ void main()
     if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
     {
         // special handling for blessing crossbow bolts that can slay rakshasa's
-        if (GetBaseItemType(oTarget) ==  BASE_ITEM_BOLT)
+        int iItemType = GetBaseItemType(oTarget);
+        if (iItemType == BASE_ITEM_BOLT ||
+            iItemType == BASE_ITEM_ARROW ||
+            iItemType == BASE_ITEM_BULLET)
         {
            SignalEvent(GetItemPossessor(oTarget), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
            IPSafeAddItemProperty(oTarget, ItemPropertyOnHitCastSpell(123,1), RoundsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_KEEP_EXISTING );
@@ -99,12 +103,7 @@ void main()
            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
         }
-        return;
-    }
-        else
-    {
-           FloatingTextStrRefOnCreature(83615, OBJECT_SELF);
-           return;
+        iBlessed = TRUE;
     }
 
    oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
@@ -118,13 +117,11 @@ void main()
            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
         }
-        return;
+        iBlessed = TRUE;
     }
-        else
-    {
-           FloatingTextStrRefOnCreature(83615, OBJECT_SELF);
-           return;
-    }
+    // If there was blessed weapon. Do onot bless Gloves
+    if(iBlessed)
+      return;
 
    oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
    if(GetIsObjectValid(oMyWeapon) )
@@ -138,10 +135,5 @@ void main()
            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
         }
         return;
-    }
-        else
-    {
-           FloatingTextStrRefOnCreature(83615, OBJECT_SELF);
-           return;
     }
 }
