@@ -30,12 +30,14 @@ void main()
         while (oPodpal!=OBJECT_INVALID)
         {
           sPodpalTag = GetTag(oPodpal);
-          if( ( ((sPodpalTag == "ka_podpal1") || (sPodpalTag == "sy_kresadlo")) &&  (sOhnTag == "sy_ohnisko") ) ||  // na povrchu
-              ( (sPodpalTag == "ka_podpal2") &&  (sOhnTag == "ka_pohen"  ) ) )   // v podtemnu
+          if( ( ((sPodpalTag == "ka_podpal1") || 
+                 (sPodpalTag == "sy_kresadlo")) &&  (sOhnTag == "sy_ohnisko") ) ||  // na povrchu
+              ( ((sPodpalTag == "ka_podpal2") || 
+                 (sPodpalTag == "sy_kresadlop")) &&  (sOhnTag == "ka_pohen"  ) ) )   // v podtemnu
             break;
           oPodpal = GetNextItemInInventory(oPlayer);
         }
-        if(sPodpalTag == "sy_kresadlo") {
+        if(GetStringLeft(sPodpalTag, 11) == "sy_kresadlo") {
           remove = FALSE;
         }
 
