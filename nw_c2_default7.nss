@@ -195,7 +195,8 @@ void SetNextSpawn() {
   object oNPC = OBJECT_SELF;
 //  SendMessageToPC(GetFirstPC(),"NPC death");
 
-  if(!GetLocalInt(oNPC,"AI_BOSS"))
+  int ai_boss = GetLocalInt(oNPC,"AI_BOSS");
+  if(!ai_boss)
     return;
 
   WriteTimestampedLogEntry("BOSS NextSpawn '"+GetName(oNPC)+"' in '"+GetName(GetArea(oNPC))+"'");
@@ -209,6 +210,10 @@ void SetNextSpawn() {
   if(iSpawnDelay == 0) {
     iSpawnDelay = 6; // Default Six hours
   }
+  // Low boss has half respawn time.
+  if(ai_boss == 2)
+    iSpawnDelay = iSpawnDelay / 2;
+
   iSpawnDelay = iSpawnDelay * 6; //Real time to In Game time
   int iSpawnDelayMin = Random(iSpawnDelay*5);
 
