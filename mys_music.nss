@@ -16,49 +16,49 @@ void MusicInstrumentChoice()
     string sText = GetPCChatMessage();
     string sParam = GetSubString(sText, 4, GetStringLength(sText) - 4);
     
-    int iDebugChatCommandMatch = 0;
+    //int iDebugChatCommandMatch = 0;
     string sDialogResRef = "";
     
     if (sParam == MUSIC_INSTRUMENT_PIANO_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_PIANO_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
+        //iDebugChatCommandMatch = 1;
         if (MusicGetIsInstrumentNearby(oPC, MUSIC_INSTRUMENT_PIANO_TAG, MUSIC_APPEARANCE_TYPE_LIGHT_WOOD_PIANO, MUSIC_APPEARANCE_TYPE_DARK_WOOD_PIANO, MUSIC_APPEARANCE_TYPE_BLACK_GRAND_PIANO, MUSIC_APPEARANCE_TYPE_CEP24_PIANO))
             sDialogResRef = "myd_mus_piano";
     }
     else if (sParam == MUSIC_INSTRUMENT_GUITAR_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_GUITAR_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
+        //iDebugChatCommandMatch = 1;
         if (MusicGetIsInstrumentEquipped(oPC, MUSIC_INSTRUMENT_GUITAR_TAG, MUSIC_APPEARANCE_ITEM_GUITAR))
             sDialogResRef = "myd_mus_guitar";
     }
     else if (sParam == MUSIC_INSTRUMENT_LUTE_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_LUTE_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
+        //iDebugChatCommandMatch = 1;
         if (MusicGetIsInstrumentEquipped(oPC, MUSIC_INSTRUMENT_LUTE_TAG, MUSIC_APPEARANCE_ITEM_LUTE))
             sDialogResRef = "myd_mus_lute";
     }
     else if (sParam == MUSIC_INSTRUMENT_VIOLIN_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_VIOLIN_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
+        //iDebugChatCommandMatch = 1;
         if (MusicGetIsInstrumentEquipped(oPC, MUSIC_INSTRUMENT_VIOLIN_TAG, MUSIC_APPEARANCE_ITEM_FIDDLESTICK))
             sDialogResRef = "myd_mus_violin";
     }
     else if (sParam == MUSIC_INSTRUMENT_PIPE_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_PIPE_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
+        //iDebugChatCommandMatch = 1;
         if (MusicGetIsInstrumentEquipped(oPC, MUSIC_INSTRUMENT_PIPE_TAG, MUSIC_APPEARANCE_ITEM_PIPE))
             sDialogResRef = "myd_mus_pipe";
     }
     else if (sParam == MUSIC_INSTRUMENT_HARP_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_HARP_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
+        //iDebugChatCommandMatch = 1;
         if (MusicGetIsInstrumentNearby(oPC, MUSIC_INSTRUMENT_HARP_TAG, MUSIC_APPEARANCE_TYPE_HARP, MUSIC_APPEARANCE_TYPE_STANDING_HARP) || MusicGetIsInstrumentEquipped(oPC, MUSIC_INSTRUMENT_HARP_TAG, MUSIC_APPEARANCE_ITEM_HARP))
             sDialogResRef = "myd_mus_harp";
     }
     else if (sParam == MUSIC_INSTRUMENT_DRUM_CHAT_COMMAND_1 || sParam == MUSIC_INSTRUMENT_DRUM_CHAT_COMMAND_2)
     {
-        iDebugChatCommandMatch = 1;
-        if (MusicGetIsInstrumentNearby(oPC, MUSIC_INSTRUMENT_DRUM_TAG, MUSIC_APPEARANCE_TYPE_DRUM, MUSIC_APPEARANCE_TYPE_MEDIUM_TAIKO_DRUM))
+        //iDebugChatCommandMatch = 1;
+        if (MusicGetIsInstrumentNearby(oPC, MUSIC_INSTRUMENT_DRUM_TAG, MUSIC_APPEARANCE_TYPE_DRUM, MUSIC_APPEARANCE_TYPE_MEDIUM_TAIKO_DRUM) || MusicGetIsInstrumentEquipped(oPC, MUSIC_INSTRUMENT_DRUM_TAG, MUSIC_APPEARANCE_ITEM_DRUM))
             sDialogResRef = "myd_mus_drum";
     }
     else if (sParam == "music reset")
@@ -67,21 +67,21 @@ void MusicInstrumentChoice()
     }
     else return;
     
-    if (iDebugChatCommandMatch)
-        MusicDebugOutput("Èisté G");
-    else
-        MusicDebugOutput("Falešné Fis");
+    //if (iDebugChatCommandMatch)
+    //    MusicDebugOutput("Èisté G");
+    //else
+    //    MusicDebugOutput("Falešné Fis");
     
     if (sDialogResRef != "")
     {
-        MusicDebugOutput("Èisté H");
+        //MusicDebugOutput("Èisté H");
         AssignCommand(oPC, ActionStartConversation(oPC, sDialogResRef, TRUE, FALSE));
     }
-    else
-        MusicDebugOutput("Èisté b: Nástroj není k dispozici.");
+    //else
+    //    MusicDebugOutput("Èisté b: Nástroj není k dispozici.");
         
-    MusicDebugOutput(sDialogResRef);
-    MusicDebugOutput("Èisté D");
+    //MusicDebugOutput(sDialogResRef);
+    //MusicDebugOutput("Èisté D");
 }
 
 int MusicGetMusicianPerformRank(object oPC, int iValue)
@@ -285,31 +285,31 @@ void MusicChangeTrack(object oArea, int iTrackId)
     {
         MusicBackgroundChangeDay(oArea, iTrackId);
         MusicBackgroundPlay(oArea);
-        MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
+        //MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
     }
     else
     {
         MusicBackgroundChangeNight(oArea, iTrackId);
         MusicBackgroundPlay(oArea);
-        MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
+        //MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
     }
 }
 
 void ActionMusicReset(object oPC)
 {
-    MusicDebugOutput("ActionMusicReset");
+    //MusicDebugOutput("ActionMusicReset");
     
     string sName = GetName(oPC);
     object oArea = GetArea(oPC);
-    object oPC = GetFirstPC();    
+    object oPCinArea = GetFirstPC();    
     
     // Send info msg to all PCs in area (let everybody knows who screw the performance).
-    while(GetIsObjectValid(oPC))
+    while(GetIsObjectValid(oPCinArea))
     {
-        if (GetArea(oPC) == oArea)
+        if (GetArea(oPCinArea) == oArea)
         {
-            SendMessageToPC(oPC, sName + " resetoval hudbu v lokaci.");
-            oPC = GetNextPC();
+            SendMessageToPC(oPCinArea, sName + " resetoval hudbu v lokaci.");
+            oPCinArea = GetNextPC();
         }
     }
     
