@@ -33,7 +33,11 @@ void main()
     object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_MEDIUM, GetSpellTargetLocation(), TRUE);
     while(GetIsObjectValid(oTarget))
     {
-        if (oTarget == OBJECT_SELF) continue;
+        if (oTarget == OBJECT_SELF)
+        {
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_MEDIUM, GetSpellTargetLocation(), TRUE);
+            continue;
+        } 
         iSpot = GetSkillRank(SKILL_SPOT,oTarget);
         iSearch = GetSkillRank(SKILL_SEARCH,oTarget);
         iGender = GetGender(oTarget);

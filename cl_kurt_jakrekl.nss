@@ -50,6 +50,11 @@ void main()
     oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_MEDIUM, GetSpellTargetLocation(), TRUE);
     while(GetIsObjectValid(oTarget))
     {
+        if (oTarget == OBJECT_SELF)
+        {
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_MEDIUM, GetSpellTargetLocation(), TRUE);
+            continue;
+        }
         if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
         {
             fDelay = GetRandomDelay();
