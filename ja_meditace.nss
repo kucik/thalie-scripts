@@ -64,7 +64,7 @@ void main()
         return;
     }
 
-    int length = 10 + 2 * GetHitDice(oPC); // v minutach (tazich)
+    int length = 10 + GetHitDice(oPC); // v minutach (tazich)
     //KURTIZANA JE IMUNNI NA UNAVU
     if (GetHasFeat(FEAT_KURTIZANA_CELE_NOCI_OKA_NEZAMHOURI,oPC) == TRUE)
     {
