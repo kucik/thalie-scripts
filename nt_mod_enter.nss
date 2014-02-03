@@ -12,6 +12,16 @@
 #include "ku_dlg_inc"
 #include "sh_lang_start"
 
+void SendWelcomeMessages(object oPC)
+{
+    // Send info about Thalie-datum to player
+    string sThalieDatum = "Hodina " + IntToString(GetTimeHour()) + ". "
+                          + "dne " + IntToString(GetCalendarDay()) + ". "
+                          + "mesice " + IntToString(GetCalendarMonth()) + ". "
+                          + "roku " + IntToString(GetCalendarYear()) + " k.l.";
+    SendMessageToPC(oPC, sThalieDatum);
+}
+
 void DestroyTHSkins(object oPC)
 {
     object oItem = GetFirstItemInInventory(oPC);
@@ -432,6 +442,9 @@ void main()
   {
     SetLocalInt(oSoulStone,"sh_AllowKurtizana",1);
   }
+  
+  // Send welcome messages to player
+  DelayCommand(30.0, SendWelcomeMessages(oPC));
 
 
   /* Bugfixy */
