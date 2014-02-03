@@ -177,7 +177,8 @@ void ku_GiveXPPerTime(object oPC)
   if(XP > 0) {//zaporny XP by se asi nelibil
     XP = ku_ReduceXPGainForDeath(oPC, XP, TRUE);
    
-    if(GetXP(oPC) > 525000) return;
+//    if(GetXP(oPC) > 525000) return; //15. level
+    if(GetXP(oPC) > 2175000) return; //30 level
    
     SetXP(oPC,GetXP(oPC) + XP);
     SetLocalInt(oSoul,"ku_XPbyXPPT",XPbyXPPT + XP);

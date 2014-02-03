@@ -270,7 +270,8 @@ const float PWFXP_XP_DIVISOR_FAMILIAR = 0.0;
 // used in case i can't determine the associate type
 const float PWFXP_XP_DIVISOR_UNKNOWN = 0.5;
 //Limit XP
-const int PWFXP_XP_LIMIT = 525000;
+const int PWFXP_XP_LIMIT = 525000; //15. level
+const int PWFXP_XP_LIMIT = 2175000; //30. level
 
 // don't change these
 float PWFXP_APL_MODIFIER = PWFXP_SCALAR / (PWFXP_APL_NOXP - PWFXP_APL_REDUCTION);
