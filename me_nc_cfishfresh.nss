@@ -15,9 +15,10 @@ void main()
   int iFishingSkill = 0;
   int iFishingChance = 0;
   object oPC = OBJECT_SELF;
+  int iTypVody = GetLocalInt(oPC, "TypVody");
 
   if (
-        (GetLocalInt(oPC, "TypVody")!=1) ||(GetLocalInt(oPC, "LOCWATER")==99)
+        (iTypVody == 0) 
      )
      {
         FloatingTextStringOnCreature("Tady ryby nechytis.",oPC,FALSE);
@@ -123,6 +124,8 @@ void main()
     int iFishNormalFlag = 0;
     iRandom = Random(iFishRange)+1;
 
+    // Sladka voda 
+    if(iTypVody == 1) {
       switch (iRandom)
        {
           // fish001 - okoun - ry_ryba_okoun
@@ -189,6 +192,39 @@ void main()
          }
 
      }
+     // Slaná voda
+     else if(iTypVody == 2) {
+       switch (iRandom)
+       {
+            // ---------------begin saltwater fish descriptors
+  // fish01 - treska - ry_ryba_treska
+  // fish02 - ry_ryba_madm
+  // fish03 - ry_ryba_zralok
+        case 1:
+         {
+          sFishResRef = "ry_ryba_treska";
+          sSuccessMessage = "Podarilo se Ti chytit tresku...";
+          break;
+         }
+        case 1:
+         {
+          sFishResRef = "ry_ryba_madm";
+          sSuccessMessage = "Chytil jsi pořádnou rybu";
+          break;
+         }
+        default:
+         {
+           sFishResRef = "ry_ryba_zralok";
+           sSuccessMessage = "Chytil jsi Zraloka";
+           break;
+         }
+       }
+     }
+     else {
+       sFishResRef = "";
+       sSuccessMessage = "Voda nevypadá dobře a divně páchne. Nevidíš žádné ryby";
+     }
+   }
 
     //Assign a 1 in 20 chance of a non-fish retrieval
     if (d20(1) == 10)
