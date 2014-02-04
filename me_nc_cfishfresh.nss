@@ -190,7 +190,7 @@ void main()
           sSuccessMessage = "A rak je tvuj.";
           break;
          }
-
+       }
      }
      // Slaná voda
      else if(iTypVody == 2) {
