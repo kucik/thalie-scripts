@@ -206,7 +206,7 @@ void main()
           sSuccessMessage = "Podarilo se Ti chytit tresku...";
           break;
          }
-        case 1:
+        case 2:
          {
           sFishResRef = "ry_ryba_madm";
           sSuccessMessage = "Chytil jsi pořádnou rybu";
