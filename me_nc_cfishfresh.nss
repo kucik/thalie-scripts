@@ -224,7 +224,6 @@ void main()
        sFishResRef = "";
        sSuccessMessage = "Voda nevypadá dobře a divně páchne. Nevidíš žádné ryby";
      }
-   }
 
     //Assign a 1 in 20 chance of a non-fish retrieval
     if (d20(1) == 10)
