@@ -41,7 +41,7 @@ string sy_get_remeslo()
         case CLASS_TYPE_SAMURAJ          : return "samuraje";
         case CLASS_TYPE_EXORCISTA          : return "exorcisty";
         case CLASS_TYPE_PURPLE_DRAGON_KNIGHT          : return "vojevudce";
-
+        case CLASS_TYPE_KURTIZANA       : return "kurtizany";
     }
     return "BUG:spatny parametre na NPC trenerovi v povolani c.1";
 }
@@ -79,6 +79,7 @@ int KU_GetPriceForClass()
         case CLASS_TYPE_SAMURAJ          : return 20;
         case CLASS_TYPE_EXORCISTA          : return 15;
         case CLASS_TYPE_PURPLE_DRAGON_KNIGHT          : return 15;
+        case CLASS_TYPE_KURTIZANA       : return 20;
     }
     return 20;
 }
