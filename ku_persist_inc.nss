@@ -1221,7 +1221,19 @@ int Persist_SavePlaceable(object oPlc,object oArea) {
    sSlots = Persist_SaveItemsInCreatureSlots(oPlc);
    SetLocalString(oPlc,"KU_PERSIST_INVENTORYSLOTS",sSlots);
  }
+ /* Placeable attributes */
  string sAttr = "";
+ {
+   /* Plc Expiration */
+   int iPlcExpiration = GetLocalInt(oPlc,"PLC_EXPIRATION");
+   if(iPlcExpiration > 0) {
+     sAttr = sAttr+"PLC_EXPIRATION"+PERSISTANCE_SECONDARY_DELIMITER+
+             "1"+PERSISTANCE_SECONDARY_DELIMITER+
+             IntToString("PLC_EXPIRATION")
+             +PROPERTIES_DELIMITER;
+   }
+ } 
+ /* ~Placeable attributes */
  string sValues = "'"+GetResRef(oArea)+"',"+
                   "'"+GetTag(oArea)+"',"+
                   "'"+GetResRef(oPlc)+"',"+
@@ -1251,6 +1263,82 @@ int Persist_SavePlaceable(object oPlc,object oArea) {
    return -1;
  }
 
+}
+
+void __placeableExpired(object oPlc) {
+  if(!GetIsObjectValid(oPlc))
+    return;
+
+  SpeakString("*"+GetName(oPlc)+" se rozpadl*");
+  Persist_DeleteObjectFromDB(oPlc);
+  DestroyObject(oPlc);
+
+}
+
+void __recreateAttribute(object oItem, string sIP) {
+    int iStart = 0;
+    int iEnd;
+    string name,var;
+    int type;
+    int iDLen = GetStringLength(PERSISTANCE_SECONDARY_DELIMITER);
+
+//    SendMessageToPC(GetFirstPC(),sIP);
+
+    iEnd = FindSubString(sIP,PERSISTANCE_SECONDARY_DELIMITER,iStart);
+    name = GetSubString(sIP,iStart,iEnd - iStart);
+
+    iStart = iEnd + iDLen;
+    iEnd = FindSubString(sIP,PERSISTANCE_SECONDARY_DELIMITER,iStart);
+    type = StringToInt(GetSubString(sIP,iStart,iEnd - iStart));
+
+    iStart = iEnd + iDLen;
+//    iEnd = FindSubString(sIP,PERSISTANCE_SECONDARY_DELIMITER,iStart);
+    var = GetSubString(sIP,iStart,GetStringLength(sIP) - iStart);
+
+    switch(type) {
+      case 1:
+        SetLocalInt(oItem,name,StringToInt(var));
+        break;
+      case 2:
+        SetLocalFloat(oItem,name,StringToFloat(var));
+        break;
+      case 3:
+        SetLocalString(oItem,name,var);
+        break;
+      case 4:
+//        SetLocalObject(oItem,name,var);
+        break;
+      case 5:
+        SetLocalLocation(oItem,name,StringToLocation(var));
+        break;
+    }
+
+  if(name == "PLC_EXPIRATION") {
+    float fDuration = IntToFloat(StringToInt(var) - ku_GetTimeStamp());
+    if(fDuration < 1.0)
+      fDuration = 1.0;
+    
+    if(fDuration < 43200.0) //less than restart
+      DelayCommand(fDuration, __placeableExpired(oItem));
+    return;
+  }
+
+  return;
+}
+
+void __recreateAttributesOnPLC(object oPlc, string sIP) {
+   int iNum = 0;
+   int iStart = 0;
+   int DLen = GetStringLength(PROPERTIES_DELIMITER);
+   int iEnd = FindSubString(sIP,PROPERTIES_DELIMITER,iStart);
+   while(iEnd > -1) {
+     __recreateAttribute(oPlc,GetSubString(sIP,iStart,iEnd - iStart));
+
+     iStart = iEnd + DLen;
+     iEnd = FindSubString(sIP,PROPERTIES_DELIMITER,iStart);
+   }
+
+   return;
 }
 
 void Persist_LoadAddedPlaceables(object oArea, int object_type = -1, int from = -1) {
@@ -1324,6 +1412,8 @@ void Persist_LoadAddedPlaceables(object oArea, int object_type = -1, int from = 
         SetLocalInt(oPlc,"KU_PERSIST_PLC_DB_ID",StringToInt(id));
         break;
     }
+
+    __recreateAttributesOnPLC(oPlc, sAttr);
 
   }
 
