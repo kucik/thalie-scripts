@@ -15,9 +15,9 @@
 void SendWelcomeMessages(object oPC)
 {
     // Send info about Thalie-datum to player
-    string sThalieDatum = "Hodina " + IntToString(GetTimeHour()) + ". "
-                          + "dne " + IntToString(GetCalendarDay()) + ". "
-                          + "mesice " + IntToString(GetCalendarMonth()) + ". "
+    string sThalieDatum = "Hodina " + IntToString(GetTimeHour()) + "., "
+                          + "dne " + IntToString(GetCalendarDay()) + "., "
+                          + "mesice " + IntToString(GetCalendarMonth()) + "., "
                           + "roku " + IntToString(GetCalendarYear()) + " k.l.";
     SendMessageToPC(oPC, sThalieDatum);
 }
