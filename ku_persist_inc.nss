@@ -1229,7 +1229,7 @@ int Persist_SavePlaceable(object oPlc,object oArea) {
    if(iPlcExpiration > 0) {
      sAttr = sAttr+"PLC_EXPIRATION"+PERSISTANCE_SECONDARY_DELIMITER+
              "1"+PERSISTANCE_SECONDARY_DELIMITER+
-             IntToString("PLC_EXPIRATION")
+             IntToString(iPlcExpiration)
              +PROPERTIES_DELIMITER;
    }
  } 
