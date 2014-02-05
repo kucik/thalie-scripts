@@ -203,7 +203,10 @@ void MusicQueueAddTrack(object oPC, int iTrackId, int iMinutes, int iSeconds)
     //MusicDebugOutput("fDelay = " + FloatToString(fDelay));
     
     if (!iTracksInQueue)
-        MusicPlayTrack(oPC, oArea);
+    {
+        MusicBackgroundStoreOriginalTracks(oArea);
+        MusicPlayTrack(oPC, oArea);        
+    }
     else
         SendMessageToPC(oPC, "Poøadí ve frontì: " + IntToString(iTracksInQueue + 1));
 }
@@ -309,13 +312,16 @@ void ActionMusicReset(object oPC)
         if (GetArea(oPCinArea) == oArea)
         {
             SendMessageToPC(oPCinArea, sName + " resetoval hudbu v lokaci.");
-            oPCinArea = GetNextPC();
         }
+        oPCinArea = GetNextPC();        
     }
     
     // Check how many tracks are in area's queue.
     int iTracksInQueue = MusicGetTracksInQueue(oArea);
     int i = 0;
+    
+    if (!iTracksInQueue)
+        MusicBackgroundStoreOriginalTracks(oArea);
     
     for (i = 0; i < iTracksInQueue; i++)
     {
