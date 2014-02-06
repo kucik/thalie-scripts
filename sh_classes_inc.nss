@@ -586,6 +586,11 @@ void ApplyFeats(object oPC)
     {
         AddKnownFeat(oPC,FEAT_KEEN_SENSE);
     }
+    // General feats for all
+    if (!GetHasFeat(FEAT_GENERAL_SEBRAT, oPC))
+    {
+        AddKnownFeat(oPC, FEAT_GENERAL_SEBRAT);
+    }
 }
 
 
