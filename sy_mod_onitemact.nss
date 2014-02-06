@@ -16,6 +16,8 @@
 
 //#include "x2_inc_switches"
 #include "me_pcneeds_inc"
+#include "ku_libtime"
+#include "ku_persist_inc"
 void main()
 {
     //zistim ktora vec sa pouzila
@@ -108,17 +110,43 @@ void main()
         return;
     }
 
-    //16.8.2006
     if (iItemType==3) //sviecka,stan,deka...
     {
+        // svice maji "Vyzor" prefix "sy_svicka"
+        // stany maji "Vyzor" prefix "sy_stan"
+        
         object   oPlayer = GetItemActivator();
         string   sVyzor  = GetLocalString(oItem,"Vyzor");
         vector   vPos    = GetPosition(oPlayer);
         float    fOsZ    = GetLocalFloat(oItem,"sy_osZ");
         vPos.z = vPos.z - fOsZ;
         location lPoz = Location(GetArea(oPlayer),vPos,GetFacing(oPlayer));
-
-        object   oSvica  = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
+        object   oPlc  = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
+        
+        SetUseableFlag(oPlc, FALSE);
+        SetLocalString(oPlc, "collectableItemResRef", GetResRef(oItem));        
+        
+        // Candles
+        if (GetStringLeft(sVyzor, 9) == "sy_svicka")
+        {
+            // Aply expiration counter
+            // Expire in 2 hours
+            DestroyObject(oPlc, 7200.0);
+        }
+        
+        // Tents
+        if (GetStringLeft(sVyzor, 7) == "sy_stan")
+        {
+            // Set up expiration
+            // Default 3 real days.
+            int iExpiration = GetLocalInt(oItem, "expiration");
+            iExpiration = iExpiration ? ku_GetTimeStamp(iExpiration) : ku_GetTimeStamp(0,0,0,3);
+            
+            SetLocalInt(oPlc, "PLC_EXPIRATION", iExpiration);
+            
+            // Set placeable persistent
+            Persist_SavePlaceable(oPlc, GetArea(oPlayer));
+        }
 
         DestroyObject(oItem, 0.0f);
         return;
@@ -155,15 +183,25 @@ void main()
         object   oPlayer = GetItemActivator();
         location lPoz    = GetLocation(oPlayer);
         string   sVyzor  = GetLocalString(oItem,"Vyzor");
-        object   oDeka   = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
+        object   oPlc    = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
 
-        FloatingTextStringOnCreature("*Polozi deku*", oPlayer,TRUE);
-
-        //sadne na deku polozenu na zemi
-        AssignCommand (oPlayer, ActionPlayAnimation (ANIMATION_LOOPING_SIT_CROSS, 1.0, 10000.0));
+        SetUseableFlag(oPlc, FALSE);
+        
+        // Default expiration = 3 real days.
+        int iExpiration = GetLocalInt(oItem, "expiration");
+        iExpiration = iExpiration ? ku_GetTimeStamp(iExpiration) : ku_GetTimeStamp(0,0,0,3);
+        
+        // Set placeable variables (expiration and item resref)
+        SetLocalString(oPlc, "collectableItemResRef", GetResRef(oItem));
+        SetLocalInt(oPlc, "PLC_EXPIRATION", iExpiration);
+        
+        // Set placeable persistent
+        Persist_SavePlaceable(oPlc, GetArea(oPlayer));
 
         //zmazem deku z inventara hraca
         DestroyObject(oItem, 0.0f);
+        
+        AssignCommand (oPlayer, ActionPlayAnimation (ANIMATION_LOOPING_GET_LOW, 0.5, 2.0));
         return;
     }
 
