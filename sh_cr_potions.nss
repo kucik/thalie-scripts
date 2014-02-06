@@ -105,7 +105,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 10;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_STR;
+            iEffectID = SPELL_BULLS_STRENGTH;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -123,7 +123,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 20;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_STR;
+            iEffectID = SPELL_BULLS_STRENGTH;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -141,7 +141,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 40;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_STR;
+            iEffectID = SPELL_BULLS_STRENGTH;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -159,7 +159,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 10;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_DEX;
+            iEffectID = SPELL_CATS_GRACE;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -177,7 +177,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 20;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_DEX;
+            iEffectID = SPELL_CATS_GRACE;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -195,7 +195,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 40;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_DEX;
+            iEffectID = SPELL_CATS_GRACE;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -213,7 +213,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 10;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_CON;
+            iEffectID = SPELL_ENDURANCE;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -231,7 +231,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 20;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_CON;
+            iEffectID = SPELL_ENDURANCE;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
@@ -249,7 +249,7 @@ void sh_ModuleOnActivationItemCheckElixirs(object oItem, object oTarget, object 
         iElxStr = 40;
         if (UseElixir(oPC,oTarget,oSoul,iElxStr))
         {
-            iEffectID = EFFECT_ELIXIR_CON;
+            iEffectID = SPELL_ENDURANCE;
             effect eLoop = GetFirstEffect(oTarget);
             while (GetIsEffectValid(eLoop))
             {
