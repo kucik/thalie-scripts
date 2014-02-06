@@ -31,6 +31,9 @@ struct loveq_q ku_lqGetRandomTrophy() {
     quest.sName = SQLGetData(2);
     quest.sTag = SQLGetData(3);
   }
+  else {
+    SpeakString("Chyba! Není mozne vybrat quest!");
+  }
 
   return quest;
 }
