@@ -591,6 +591,10 @@ void ApplyFeats(object oPC)
     {
         AddKnownFeat(oPC, FEAT_GENERAL_SEBRAT);
     }
+    if (!GetHasFeat(FEAT_GENERAL_POUZIT, oPC))
+        AddKnownFeat(oPC, FEAT_GENERAL_POUZIT);
+    if (!GetHasFeat(FEAT_GENERAL_TARGET, oPC))
+        AddKnownFeat(oPC, FEAT_GENERAL_TARGET);
 }
 
 
