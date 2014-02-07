@@ -273,7 +273,7 @@ void main()
                 CopyItem(oObj,oWP,TRUE);
                 DestroyObject(oObj);
                 SetLocalInt(oWP,"sy_veci",iVeci);
-                SetName("rozrytá puda");
+                SetName(oWP, "rozrytá puda");
                 AssignCommand(oPC, ActionPlayAnimation (ANIMATION_LOOPING_GET_LOW, 1.0, 3.0));
             } else
             {
