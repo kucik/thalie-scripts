@@ -25,7 +25,7 @@ int ku_GetNumberOfTrophy() {
 struct loveq_q ku_lqGetRandomTrophy() {
   struct loveq_q quest;
 
-  string sSQL = "SELECT id, param1, param2 from static_quests WHERE quest = 'lovec_trofeji' AND name = 'trofej' ORDER BY RAND() LIMIT 0,1;";
+  string sSql = "SELECT id, param1, param2 from static_quests WHERE quest = 'lovec_trofeji' AND name = 'trofej' ORDER BY RAND() LIMIT 0,1;";
   SQLExecDirect(sSql);
   if (SQLFetch() == SQL_SUCCESS) {
     quest.id = StringToInt(SQLGetData(1));
