@@ -254,7 +254,7 @@ void MusicPlayTrack(object oPC, object oArea)
         SendMessageToPC(oPC, "Pøehrávám skladbu id: " + IntToString(iTrackId));
         MusicChangeTrack(oArea, iTrackId);
         AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea)));
-        AssignCommand(GetModule(), DelayCommand(fDelay + 2.0f, MusicPlayTrack(oPC, oArea)));
+        AssignCommand(GetModule(), DelayCommand(fDelay + 0.2f, MusicPlayTrack(oPC, oArea)));
     }
     else
     {
