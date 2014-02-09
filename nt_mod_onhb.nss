@@ -11,6 +11,7 @@ const int time_update_database  = 10;         //every xth update_locations
 const int time_pc_needs = 13;
 const int time_fagitue_check = 18;
 const int time_upd_LOC_and_HP = 5;
+const int time_effect_dying_pc = 3;
 
 void FagitueCheck(object oPC)
 {
@@ -38,6 +39,12 @@ void FagitueCheck(object oPC)
 
 }
 
+void EffectDyingPC(object oPC)
+{
+    effect eDmg = EffectDamage(1, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY);
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, eDmg, oPC);
+}
+    
 void main()
 {
 //==stampedLogEntry("START");
@@ -115,6 +122,15 @@ if(t % time_update_locations == 0){
         if(t%time_fagitue_check == 0)
         {
             FagitueCheck(oPC);
+        }
+        
+        // umirajici postava
+        if (t % time_effect_dying_pc == 0)
+        {
+            if (GetCurrentHitPoints(oPC) <= 0)
+            {
+                EffectDyingPC(oPC);
+            }
         }
 
         // ulozeni hrace

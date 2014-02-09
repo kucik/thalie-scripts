@@ -84,9 +84,9 @@ void main()
     HABDRegenerationItemsUnequip(oPC);
 
     // Create the effect to apply
-    effect eHPLoss = EffectHitPointChangeWhenDying(-0.3);
+    //effect eHPLoss = EffectHitPointChangeWhenDying(-0.3);
 
     // Apply the effect to the object
-    ApplyEffectToObject(DURATION_TYPE_INSTANT, eHPLoss, oPC);
+    //ApplyEffectToObject(DURATION_TYPE_INSTANT, eHPLoss, oPC);
 }
 
