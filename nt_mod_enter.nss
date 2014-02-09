@@ -12,14 +12,23 @@
 #include "ku_dlg_inc"
 #include "sh_lang_start"
 
-void SendWelcomeMessages(object oPC)
+// Compose text info about Thalie-datum
+string GetInGameDateMessage()
 {
-    // Send info about Thalie-datum to player
-    string sThalieDatum = "Hodina " + IntToString(GetTimeHour()) + "., "
-                          + "dne " + IntToString(GetCalendarDay()) + "., "
-                          + "mesice " + IntToString(GetCalendarMonth()) + "., "
-                          + "roku " + IntToString(GetCalendarYear()) + " k.l.";
-    SendMessageToPC(oPC, sThalieDatum);
+    return "Datum: hodina " + IntToString(GetTimeHour()) + "., "
+           + "dne " + IntToString(GetCalendarDay()) + "., "
+           + "mìsíce " + IntToString(GetCalendarMonth()) + "., "
+           + "roku " + IntToString(GetCalendarYear()) + " k.l.";
+}
+
+void SendDMWelcomeMessages(object oPC)
+{
+    SendMessageToPC(oPC, GetInGameDateMessage());
+}
+
+void SendPCWelcomeMessages(object oPC)
+{
+    SendMessageToPC(oPC, GetInGameDateMessage());
 }
 
 void DestroyTHSkins(object oPC)
@@ -238,7 +247,9 @@ void main()
     /* ~IP bany */
     if(GetIsDM(oPC))
     {
-
+        // Send welcome messages to DM player
+        DelayCommand(30.0, SendDMWelcomeMessages(oPC));
+        
         return;
     }
 //~safety*/
@@ -444,7 +455,7 @@ void main()
   }
   
   // Send welcome messages to player
-  DelayCommand(30.0, SendWelcomeMessages(oPC));
+  DelayCommand(30.0, SendPCWelcomeMessages(oPC));
 
 
   /* Bugfixy */
