@@ -1,9 +1,10 @@
 void main()
 {
-object oPC = GetPCSpeaker();
+    object oPC = GetPCSpeaker();
+    int iPrice = GetLocalString(OBJECT_SELF, "CHRAM") == "CHRAM_JUANA_KARATHA" ? 0 : 60;
 
-    if (GetGold(oPC) >= 60) {
-        TakeGoldFromCreature(60, oPC);
+    if (GetGold(oPC) >= iPrice) {
+        if (iPrice) TakeGoldFromCreature(iPrice, oPC);
         ClearAllActions();
         ActionPauseConversation();
         ActionCastSpellAtObject( SPELL_CURE_MODERATE_WOUNDS, oPC, METAMAGIC_ANY, TRUE );
