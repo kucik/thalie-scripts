@@ -11,7 +11,7 @@ const int time_update_database  = 10;         //every xth update_locations
 const int time_pc_needs = 13;
 const int time_fagitue_check = 18;
 const int time_upd_LOC_and_HP = 5;
-const int time_effect_dying_pc = 3;
+const int time_effect_dying_pc = 7;
 
 void FagitueCheck(object oPC)
 {
@@ -43,6 +43,12 @@ void EffectDyingPC(object oPC)
 {
     effect eDmg = EffectDamage(1, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY);
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eDmg, oPC);
+}
+
+void ExperienceFunctions(object oPC)
+{
+    ku_CheckXPStop(oPC);
+    ku_GiveXPPerTime(oPC);
 }
     
 void main()
@@ -91,22 +97,21 @@ if(t % time_update_locations == 0){
 
 //kk
         if(iActRound == 3 ) { // Kontrola zmeny den/noc pro subrasy
-            Subraces_ModuleHeartBeatPC(oPC);
+            DelayCommand(0.0, Subraces_ModuleHeartBeatPC(oPC));
         }
 
         if(iActRound == 2 )
         {
-            ku_CheckXPStop(oPC);
-            ku_GiveXPPerTime(oPC);
+            DelayCommand(0.0, ExperienceFunctions(oPC));
         }
 //kk
         // system zavislosti na drogach
-        if((t % 20)==0) ds_doHB(oPC);
+        if((t % 20)==0) DelayCommand(0.0, ds_doHB(oPC));
 
         // system potreby jidla a piti
         if(t % time_pc_needs == 0){
-            woundStamina(oPC, IntToFloat(time_pc_needs));
-            PC_NeedsHB(oPC);
+            DelayCommand(0.0, woundStamina(oPC, IntToFloat(time_pc_needs)));
+            DelayCommand(0.0, PC_NeedsHB(oPC));
         }
 
         // aktualizace pozice a hp hrace
@@ -121,7 +126,7 @@ if(t % time_update_locations == 0){
         // system unavy
         if(t%time_fagitue_check == 0)
         {
-            FagitueCheck(oPC);
+            DelayCommand(0.0, FagitueCheck(oPC));
         }
         
         // umirajici postava
@@ -129,7 +134,7 @@ if(t % time_update_locations == 0){
         {
             if (GetCurrentHitPoints(oPC) <= 0)
             {
-                EffectDyingPC(oPC);
+                DelayCommand(0.0, EffectDyingPC(oPC));
             }
         }
 
