@@ -13,32 +13,6 @@ const int time_fagitue_check = 18;
 const int time_upd_LOC_and_HP = 5;
 const int time_effect_dying_pc = 7;
 
-void FagitueCheck(object oPC)
-{
-            int iStatus = getStatusInt(oPC);
-
-            if(iStatus < 4)
-              SendMessageToPC(oPC, "Prave jsi "+getStatusString(oPC)+".");
-
-            if(iStatus < 3 && !GetLocalInt(oPC, "KU_STAMINA_PENALTY") ){
-                SetLocalInt(oPC, "KU_STAMINA_PENALTY", 1);
-                effect ePenalty = ExtraordinaryEffect(EffectAttackDecrease(2));
-                ePenalty = EffectLinkEffects(ExtraordinaryEffect(EffectACDecrease(2)),ePenalty);
-                ApplyEffectToObject( DURATION_TYPE_PERMANENT, ExtraordinaryEffect(ePenalty), oPC );
-            }
-
-            if(iStatus < 2 && !GetLocalInt(oPC, "JA_STAMINA_SLOWED") ){
-                SetLocalInt(oPC, "JA_STAMINA_SLOWED", 1);
-                effect eSlow = ExtraordinaryEffect(EffectSlow());
-
-                ApplyEffectToObject( DURATION_TYPE_PERMANENT, eSlow, oPC );
-            }
-            if( (iStatus < 1) && (!GetLocalInt(oPC,"ku_sleeping")) ){
-                AssignCommand(oPC, ActionRest(TRUE));
-            }
-
-}
-
 void EffectDyingPC(object oPC)
 {
     effect eDmg = EffectDamage(1, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY);
@@ -126,7 +100,7 @@ if(t % time_update_locations == 0){
         // system unavy
         if(t%time_fagitue_check == 0)
         {
-            DelayCommand(0.0, FagitueCheck(oPC));
+            DelayCommand(0.0, FatigueCheck(oPC, TRUE));
         }
         
         // umirajici postava

@@ -13,6 +13,7 @@
 //:://////////////////////////////////////////////
 
 #include "x2_inc_spellhook"
+#include "ja_inc_stamina"
 
 // return TRUE if the effect created by a supernatural force and can't be dispelled by spells
 int GetIsSupernaturalCurse(effect eEff);
@@ -59,6 +60,10 @@ void main()
         }
         eBad = GetNextEffect(oTarget);
     }
+    
+    // Apply eventual fatigue effects (fatigue/stamina system)
+    FatigueCheck(oTarget, FALSE); 
+    
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_LESSER_RESTORATION, FALSE));
 

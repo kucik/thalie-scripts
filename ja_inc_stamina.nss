@@ -96,3 +96,35 @@ string getStatusString(object oPC){
     return sState;
 }
 
+void FatigueCheck(object oPC, int bStatusMessages = TRUE)
+{
+    if (!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC) || GetIsPossessedFamiliar(oPC))
+        return;
+    
+    int iStatus = getStatusInt(oPC);
+
+    if(iStatus < 4)
+        if (bStatusMessages)
+            SendMessageToPC(oPC, "Prave jsi "+getStatusString(oPC)+".");
+
+    if(iStatus < 3 && !GetLocalInt(oPC, "KU_STAMINA_PENALTY"))
+    {
+        SetLocalInt(oPC, "KU_STAMINA_PENALTY", 1);
+        effect ePenalty = ExtraordinaryEffect(EffectAttackDecrease(2));
+        ePenalty = EffectLinkEffects(ExtraordinaryEffect(EffectACDecrease(2)),ePenalty);
+        ApplyEffectToObject( DURATION_TYPE_PERMANENT, ExtraordinaryEffect(ePenalty), oPC );
+    }
+
+    if(iStatus < 2 && !GetLocalInt(oPC, "JA_STAMINA_SLOWED"))
+    {
+        SetLocalInt(oPC, "JA_STAMINA_SLOWED", 1);
+        effect eSlow = ExtraordinaryEffect(EffectSlow());
+
+        ApplyEffectToObject( DURATION_TYPE_PERMANENT, eSlow, oPC );
+    }
+    
+    if((iStatus < 1) && (!GetLocalInt(oPC,"ku_sleeping")))
+    {
+        AssignCommand(oPC, ActionRest(TRUE));
+    }
+}
