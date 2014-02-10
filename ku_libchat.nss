@@ -99,34 +99,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       // SetLocalObject(oPC, "dmfi_target",OBJECT_SELF);
       // SetLocalLocation(oPC, "dmfi_location",GetLocation(oPC));
       // ExecuteScriptAndReturnInt("dmfi_activate",oPC);
-      // ---------------------------------------------------
-      // Emote commands help list
-      // ---------------------------------------------------
-      SendMessageToPC(oPC,"Soupis prikazu emoci - jednorazove:");
-      SendMessageToPC(oPC,"/nod, /scratch, /salute, /bow, /greet, /wave, /steal, /taunt, /bored");
-      SendMessageToPC(oPC,"/smoke");
-      SendMessageToPC(oPC,"=================================");
-      SendMessageToPC(oPC,"Soupis prikazu emoci - nekonecne:");
-      SendMessageToPC(oPC,"/conjure1");
-      SendMessageToPC(oPC,"/conjure2");
-      SendMessageToPC(oPC,"/meditate");
-      SendMessageToPC(oPC,"/worship");
-      SendMessageToPC(oPC,"/dance");
-      SendMessageToPC(oPC,"/spasm");
-      SendMessageToPC(oPC,"/tired");
-      SendMessageToPC(oPC,"/drunk");
-      SendMessageToPC(oPC,"/laught");
-      SendMessageToPC(oPC,"/beg");
-      SendMessageToPC(oPC,"/looks");
-      SendMessageToPC(oPC,"/threaten");
-      SendMessageToPC(oPC,"/getmid");
-      SendMessageToPC(oPC,"/getlow");
-      SendMessageToPC(oPC,"/sit");
-      SendMessageToPC(oPC,"/sitchair");
-      SendMessageToPC(oPC,"/sitread");
-      SendMessageToPC(oPC,"/sitdrink");
-      SendMessageToPC(oPC,"/fprone");
-      SendMessageToPC(oPC,"/fback");
+      AssignCommand(oPC, ActionStartConversation(oPC, "myd_emote", TRUE, FALSE));
     break;
     case KU_CHAT_CMD_SOUL: {
       //ExportSingleCharacter(oPC);
@@ -355,6 +328,34 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       PerformDiceRoll(oPC,param);
       break;
     }
+    // Emote commands help list
+    case 19:
+      SendMessageToPC(oPC,"Soupis prikazu emoci - jednorazove:");
+      SendMessageToPC(oPC,"/nod, /scratch, /salute, /bow, /greet, /wave, /steal, /taunt, /bored");
+      SendMessageToPC(oPC,"/smoke");
+      SendMessageToPC(oPC,"=================================");
+      SendMessageToPC(oPC,"Soupis prikazu emoci - nekonecne:");
+      SendMessageToPC(oPC,"/conjure1");
+      SendMessageToPC(oPC,"/conjure2");
+      SendMessageToPC(oPC,"/meditate");
+      SendMessageToPC(oPC,"/worship");
+      SendMessageToPC(oPC,"/dance");
+      SendMessageToPC(oPC,"/spasm");
+      SendMessageToPC(oPC,"/tired");
+      SendMessageToPC(oPC,"/drunk");
+      SendMessageToPC(oPC,"/laught");
+      SendMessageToPC(oPC,"/beg");
+      SendMessageToPC(oPC,"/looks");
+      SendMessageToPC(oPC,"/threaten");
+      SendMessageToPC(oPC,"/getmid");
+      SendMessageToPC(oPC,"/getlow");
+      SendMessageToPC(oPC,"/sit");
+      SendMessageToPC(oPC,"/sitchair");
+      SendMessageToPC(oPC,"/sitread");
+      SendMessageToPC(oPC,"/sitdrink");
+      SendMessageToPC(oPC,"/fprone");
+      SendMessageToPC(oPC,"/fback");
+      break;
   }
 }
 
@@ -393,6 +394,7 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(16,"meditace");
    ku_DefineChatCommand(17,"batoh");
    ku_DefineChatCommand(18,"hod");
+   ku_DefineChatCommand(19,"emo ?");
 }
 
 void ku_SlowMe(int speed) {
