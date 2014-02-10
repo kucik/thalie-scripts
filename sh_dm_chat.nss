@@ -88,6 +88,9 @@ void main()
     PCEmoteFunction();
     PCDiceFuntion();
     MusicInstrumentChoice();
+    
+    // Myrpa's test (testing conversations without need of action)
+    if ( GetPCChatMessage() == "/myrpatest" ) { ExecuteScript("test_chatexe", GetPCChatSpeaker()); }
 
 // Now system check last #(KU_MASSAGE_CACHE) messages that player sent for xp system
   int i;
