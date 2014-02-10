@@ -64,6 +64,7 @@ void MusicInstrumentChoice()
     else if (sParam == "music reset")
     {
         ActionMusicReset(oPC);
+        return;
     }
     else return;
     
@@ -77,8 +78,8 @@ void MusicInstrumentChoice()
         //MusicDebugOutput("Èisté H");
         AssignCommand(oPC, ActionStartConversation(oPC, sDialogResRef, TRUE, FALSE));
     }
-    //else
-    //    MusicDebugOutput("Èisté b: Nástroj není k dispozici.");
+    else
+        SendMessageToPC(oPC, "Nástroj není k dispozici.");
         
     //MusicDebugOutput(sDialogResRef);
     //MusicDebugOutput("Èisté D");
