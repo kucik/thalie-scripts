@@ -19,6 +19,35 @@
 #include "sy_main_lib"
 #include "sh_classes_inc"
 
+// Drop items which cannot be beared to Astharoth's kingdom
+void DropDisallowedItems(object oPC)
+{
+    object oItem = GetFirstItemInInventory(oPC);
+    {
+        if(GetResRef(oItem) == "mrtvola")
+        {
+            object oCorpse = oItem;
+
+            string sPlayerName = GetLocalString(oCorpse, "PLAYER");
+            string sPCName = GetLocalString(oCorpse, "PC");
+            string sCorpseTag = GetTag(oCorpse);
+            int iSubdual = GetLocalInt(oCorpse,"SUBDUAL");
+
+            DestroyObject(oCorpse, 0.0f);
+
+            location lCorpse = GetLocation(oPC);
+
+            oCorpse = CreateObject( OBJECT_TYPE_PLACEABLE, "player_corpse", lCorpse, FALSE, sCorpseTag);
+            SetName(oCorpse, sPCName);
+            SetLocalString(oCorpse, "PLAYER", sPlayerName);
+            SetLocalString(oCorpse, "PC", sPCName);
+            SetLocalInt(oCorpse,"SUBDUAL",iSubdual);
+        }
+        
+        oItem = GetNextItemInInventory(oPC);
+    }
+}
+
 void ClearAllFactionMembers(object oMember, object oPC)
 {
 //    AssignCommand(oMember, SpeakString("here"));
@@ -223,6 +252,8 @@ void main()
       oKiller = oDammager;
     }
     DeathLog(oPC,oKiller,nSubdual);
+    
+    DelayCommand(0.0f, DropDisallowedItems(oPC));
 
     DelayCommand(1.0f, Raise(oPC));
     object wpDeath = GetObjectByTag("WP_DEATH");
