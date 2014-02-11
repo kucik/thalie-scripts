@@ -669,7 +669,7 @@ void ku_GetMunitionFromPack(object oPC, string sPack,int iBaseItem,int count) {
   /* Init toulce */
   if(!GetLocalInt(oToulec,"ku_used")) {
     SetLocalInt(oToulec,"ku_used",TRUE);
-    SetLocalInt(oToulec,"ku_contain",10000);
+    SetLocalInt(oToulec,"ku_contain",2002);
     SetLocalString(oToulec,"name",GetName(oToulec));
     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),oToulec);
   }
@@ -688,10 +688,12 @@ void ku_GetMunitionFromPack(object oPC, string sPack,int iBaseItem,int count) {
       oItem = CreateItemOnObject(sTemplate,oPC,count);
 
 //    SendMessageToPC(oPC,"Vytvoreno "+GetName(oItem)+" stack "+IntToString(iPack));
-    SetPlotFlag(oItem,1);
-    SetStolenFlag(oItem,1);
+    SetPlotFlag(oItem,TRUE);
+    SetStolenFlag(oItem,TRUE);
     count = count - iPack;
   }
+  SetPlotFlag(oToulec,TRUE);
+//  SetStolenFlag(oToulec,TRUE);
   SetLocalInt(oToulec,"ku_contain",iObsah);
   SetLocalString(oSoul,"ku_ammo_"+sBase,"");
 
