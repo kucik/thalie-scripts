@@ -59,7 +59,7 @@ void main()
 
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_REGENERATE, FALSE));
     //Apply effects and VFX
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nLevel));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nLevel)/2.0);
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
 
 }
