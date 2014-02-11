@@ -17,7 +17,7 @@ int StartingConditional()
     while( (oDeadPC != OBJECT_INVALID) ){
        if(GetPCPlayerName(oDeadPC) == sPlayerName && GetName(oDeadPC) == sPCName){
          int ilvl = GetHitDice(oDeadPC);
-         iPrice = ilvl * ilvl * 50;
+         iPrice = ilvl * ilvl * 25;
          break;
        }
        oDeadPC = GetNextPC();
