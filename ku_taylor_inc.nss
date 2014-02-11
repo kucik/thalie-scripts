@@ -247,7 +247,7 @@ int ku_TaylorCalculatePrice(object oCloth, object oOldCloth) {
   int mCount = ku_TaylorGetModelChangesCount(oCloth);
   int iCost = GetGoldPieceValue(oOldCloth);
 //  SpeakString("Counts:"+IntToString(cCount)+";"+IntToString(mCount)+" cost="+IntToString(iCost));
-  if(iCost < 1000)
+  //if(iCost < 1000)
     iCost = 1000;
   int iPrice = FloatToInt((20 * cCount) + (0.02 * iCost * mCount));
   return iPrice;
