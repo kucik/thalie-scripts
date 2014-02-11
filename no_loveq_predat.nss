@@ -2,12 +2,6 @@
 
 #include "ku_libtime"
 
-object no_Item;
-object no_oPC;
-string no_nazev;
-int no_pocet;
-int no_stacksize;
-
 const int ItemMaxAge = 129600; // 36hours in seconds
 
 int CheckItem(object oItem, string sResref) {
@@ -87,7 +81,8 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");*/
 /// no_ 25 zari///
     cnt = GetItemStackSize(oItem);
 
-    GiveGoldToCreature(no_oPC, cnt*price); //vykoupi dvakrate draze, nez normalne
+    GiveGoldToCreature(oPC, cnt*price); //vykoupi 4x draze, nez normalne
+    DestroyObject(oItem);
     SpeakString( " Dekuji. Kdyztak se zase nekdy zastav, mozna pro tebe budu mit i jinou praci. " );
 
     //remove quest
