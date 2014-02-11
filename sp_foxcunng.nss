@@ -51,7 +51,7 @@ void main()
     {
         nRaise = 6; //Damage/Healing is +50%
     }
-    else if (nMetaMagic == METAMAGIC_EXTEND)
+    if (nMetaMagic == METAMAGIC_EXTEND)
     {
         nDuration = nDuration *2; //Duration is +100%
     }
