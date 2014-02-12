@@ -13,6 +13,11 @@
 void ApplyCompanionBonuses(object oPC)
 {
     object oSummon = GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION);
+    /* Disable boosts for new set of animal companions */
+    if(GetStringLeft(GetResRef(oSummon),3) == "ac_") {
+      return;
+    }
+
     int iLevel = GetLevelByClass(CLASS_TYPE_DRUID,oPC)+GetLevelByClass(CLASS_TYPE_RANGER,oPC);
     int iAC = (iLevel+1)/2;
     int iEnch = (iLevel/6);  //IP
