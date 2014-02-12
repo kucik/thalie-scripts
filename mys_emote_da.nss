@@ -6,6 +6,8 @@ void main()
     string sText = GetSelectedNodeText();
     object oPC = GetPCSpeaker();
     
+    SendMessageToPC(oPC, "Emote Debug Start Line ---");
+    
     // *************************************************************************
     // Pokøiky
     // *************************************************************************
@@ -33,6 +35,7 @@ void main()
     else if (sText == "vítìzný 3")
     {
         ActionPlayEmote(oPC, 13);
+        SendMessageToPC(oPC, "Debug: 13.");
     }
     
     // *************************************************************************
@@ -50,6 +53,7 @@ void main()
     else if (sText == "zamávat")
     {
         ActionPlayEmote(oPC, 5);
+        SendMessageToPC(oPC, "Debug: 5.");
     }
     else if (sText == "salutovat")
     {
@@ -95,6 +99,7 @@ void main()
     else if (sText == "ležet na bøiše")
     {
         ActionPlayEmote(oPC, 22);
+        SendMessageToPC(oPC, "Debug: 22.");
     }
     else if (sText == "ležet na zádech")
     {
@@ -160,6 +165,7 @@ void main()
     else if (sText == "sedìt na zemi")
     {
         ActionPlayEmote(oPC, 32);
+        SendMessageToPC(oPC, "Debug: 32.");
     }
     else if (sText == "sedìt na nìèem")
     {
@@ -176,6 +182,7 @@ void main()
     else if (sText == "napít se v sedì")
     {
         ActionPlayEmote(oPC, 35);
+        SendMessageToPC(oPC, "Debug: 32.");
     }
     
     // *************************************************************************

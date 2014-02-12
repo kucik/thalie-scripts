@@ -3,11 +3,13 @@ void ActionPlayEmoteDance(object oSubject);
 void ActionPlayEmoteSmoke(object oSubject);
 
 // Used by smoke animation.
-location GetLocationAboveAndInFrontOf(object oPC, float fDist, float fHeight);
+location GetLocationAboveAndInFrontOf(object oTarget, float fDist, float fHeight);
 
 void ActionPlayEmote(object oSubject, int iEmote)
 {
     float fDur = 9999.0f;
+    
+    SendMessageToPC(oSubject, "Debug: emote = " + IntToString(iEmote) + " pc = " + GetName(oSubject));
     
     switch(iEmote)
     {
@@ -233,10 +235,8 @@ void ActionPlayEmote(object oSubject, int iEmote)
         case 39:
             ActionPlayEmoteSmoke(oSubject);
             break;
-            
-        default:
-            break;
     }
+    SendMessageToPC(oSubject, "Emote Debug Finish Line ---");
 }
 
 void ActionSitNearestPlaceable(object oSubject)
@@ -311,10 +311,9 @@ void ActionPlayEmoteSmoke(object oSubject)
         AssignCommand(oSubject, ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 1.0, 5.0));
 }
 
-location GetLocationAboveAndInFrontOf(object oPC, float fDist, float fHeight)
+location GetLocationAboveAndInFrontOf(object oTarget, float fDist, float fHeight)
 {
     float fDistance = -fDist;
-    object oTarget = (oPC);
     object oArea = GetArea(oTarget);
     vector vPosition = GetPosition(oTarget);
     vPosition.z += fHeight;
