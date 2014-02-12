@@ -43,6 +43,7 @@ void main()
     int iEsenceType = GetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);
     effect eEf,eEf1,eEf2,eRay,eVis,eDur;
     object oTarget,oHolder;
+    int iMaxTargets = ((iCasterLevel + 1) / 5) + 1;
     nCnt =1;
     iTouchAttackResult = TouchAttackRanged(oFirstTarget);
     if (MyResistSpell(OBJECT_SELF, oFirstTarget))
@@ -65,7 +66,7 @@ void main()
 
             //dalsi cile
             oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(oFirstTarget), TRUE, OBJECT_TYPE_CREATURE);
-            while (GetIsObjectValid(oTarget) && nCnt <= 5)
+            while (GetIsObjectValid(oTarget) && nCnt <= iMaxTargets)
             {
                 if (oTarget != oFirstTarget && oTarget != OBJECT_SELF)
                 {
@@ -294,7 +295,7 @@ void main()
 
     //Get the first target in the spell shape
     oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(oFirstTarget), TRUE, OBJECT_TYPE_CREATURE);
-    while (GetIsObjectValid(oTarget) && nCnt <= 5)
+    while (GetIsObjectValid(oTarget) && nCnt <= iMaxTargets)
     {
         //Make sure the caster's faction is not hit and the first target is not hit
         if (oTarget != oFirstTarget && oTarget != OBJECT_SELF)
