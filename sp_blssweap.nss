@@ -69,76 +69,60 @@ void main()
     object oTarget = GetSpellTargetObject();
     int nDuration = 2 * GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF),FALSE);
     int nMetaMagic = GetMetaMagicFeat();
-    int iBlessed = FALSE;
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
        nDuration = nDuration * 2; //Duration is +100%
     }
-    object oMyWeapon   = oTarget;
-
-    // ---------------- TARGETED ON BOLT  -------------------
-    if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
+    
+    if (GetIsObjectValid(oTarget) && nDuration)
     {
-        // special handling for blessing crossbow bolts that can slay rakshasa's
-        int iItemType = GetBaseItemType(oTarget);
-        if (iItemType == BASE_ITEM_BOLT) {
-           SignalEvent(GetItemPossessor(oTarget), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-           IPSafeAddItemProperty(oTarget, ItemPropertyOnHitCastSpell(123,1), RoundsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_KEEP_EXISTING );
-           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oTarget));
-           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oTarget), TurnsToSeconds(nDuration));
-        }
-        if (iItemType == BASE_ITEM_BOLT ||
-            iItemType == BASE_ITEM_ARROW ||
-            iItemType == BASE_ITEM_BULLET) {
-           AddBlessEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
-           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
-           return;
-        }
-    }
-
-   oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
-   if(GetIsObjectValid(oMyWeapon) )
-   {
-        SignalEvent(GetItemPossessor(oMyWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-
-        if (nDuration>0)
+        if (GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
         {
-           AddBlessEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
-           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
+            SignalEvent(GetItemPossessor(oTarget), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+            if (GetBaseItemType(oTarget) == BASE_ITEM_BOLT)
+                IPSafeAddItemProperty(oTarget, ItemPropertyOnHitCastSpell(123,1), RoundsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_KEEP_EXISTING );
+            AddBlessEffectToWeapon(oTarget, TurnsToSeconds(nDuration));
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oTarget));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oTarget), TurnsToSeconds(nDuration));
+            return;
         }
-        iBlessed = TRUE;
-    }
-
-   oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
-   if(GetIsObjectValid(oMyWeapon) )
-   {
-        SignalEvent(GetItemPossessor(oMyWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-
-        if (nDuration>0)
+        else if (GetObjectType(oTarget) == OBJECT_TYPE_CREATURE)
         {
-           AddBlessEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
-           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
-        }
-        iBlessed = TRUE;
-    }
-    // If there was blessed weapon. Do onot bless Gloves
-    if(iBlessed)
-      return;
+            object oWeapon;
+            int iBlessed;
+            oWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oTarget);
+            
+            if (GetIsObjectValid(oWeapon))
+            {
+                SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+                AddBlessEffectToWeapon(oWeapon, TurnsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oWeapon));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
+                iBlessed = TRUE;
+            }
 
-   oMyWeapon   = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
-   if(GetIsObjectValid(oMyWeapon) )
-   {
-        SignalEvent(GetItemPossessor(oMyWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+            oWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oTarget);
+            
+            if (GetIsObjectValid(oWeapon))
+            {
+                SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+                AddBlessEffectToWeapon(oWeapon, TurnsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oWeapon));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
+                iBlessed = TRUE;
+            }
+            
+            if (iBlessed) return;
 
-        if (nDuration>0)
-        {
-           AddBlessEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
-           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
+            oWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS, oTarget);
+            
+            if(GetIsObjectValid(oWeapon))
+            {
+                SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+                AddBlessEffectToWeapon(oWeapon, TurnsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oWeapon));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
+            }
         }
-        return;
-    }
+    }    
 }
