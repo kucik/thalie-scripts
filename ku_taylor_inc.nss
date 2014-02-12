@@ -74,6 +74,7 @@ int ku_TaylorGetNearestNextPartBy2DA(int iPart, int iPrev, string sModelType = "
     if(sAC == "") {
       sAC = "0.00";
     }
+    int iAC = StringToInt(sAC);
     string sGot = "";
     while((GetStringLength(sGot) == 0) || (sGot != sAC )) {
       i = i + order;
