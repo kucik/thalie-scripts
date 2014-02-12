@@ -2,6 +2,7 @@
     System meditace/modlitby
 */
 
+#include "ja_inc_stamina"
 #include "ja_inc_meditace"
 #include "sh_cr_potions"
 #include "sh_classes_inc"
@@ -34,6 +35,7 @@ void finish(object oPC){
             ApplyEffectToObject( DURATION_TYPE_INSTANT, e, oPC );
         }
         sh_OnRestResetElixirPoints(oPC,oSoul);
+        FatigueCheck(oPC, FALSE);
     }
     else{
         SendMessageToPC(oPC, "Prerusil jsi sve soustredeni!");
