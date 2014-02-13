@@ -124,7 +124,7 @@ void main()
         object   oPlc  = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
         
         SetUseableFlag(oPlc, FALSE);
-        SetLocalString(oPlc, "collectableItemResRef", GetResRef(oItem));        
+        SetLocalString(oPlc, "PLC_ITEMRESREF", GetResRef(oItem));        
         
         // Candles
         if (GetStringLeft(sVyzor, 9) == "sy_svicka")
@@ -192,7 +192,7 @@ void main()
         iExpiration = iExpiration ? ku_GetTimeStamp(iExpiration) : ku_GetTimeStamp(0,0,0,3);
         
         // Set placeable variables (expiration and item resref)
-        SetLocalString(oPlc, "collectableItemResRef", GetResRef(oItem));
+        SetLocalString(oPlc, "PLC_ITEMRESREF", GetResRef(oItem));
         SetLocalInt(oPlc, "PLC_EXPIRATION", iExpiration);
         
         // Set placeable persistent

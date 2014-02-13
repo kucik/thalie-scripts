@@ -3,7 +3,7 @@
 void main()
 {
     object oTarget = GetNearestObjectToLocation(OBJECT_TYPE_PLACEABLE, GetSpellTargetLocation());
-    string sCollectableItemResRef = GetLocalString(oTarget, "collectableItemResRef");
+    string sCollectableItemResRef = GetLocalString(oTarget, "PLC_ITEMRESREF");
     
     // Debug
     SendMessageToPC(OBJECT_SELF, "Používáš feat Sebrat na: " + GetName(oTarget) + ".");
