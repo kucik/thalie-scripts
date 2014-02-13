@@ -56,7 +56,7 @@ void main()
             {
                 sDialog = "x2_associate";
             }
-            BeginConversation(sDialog);
+            BeginConversation("nw_g_animal");
         }
     } else {
         // listening pattern matched

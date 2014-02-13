@@ -39,7 +39,7 @@ void main()
     if(!GetLocalInt(GetArea(OBJECT_SELF),"ku_notempty"))
       return;
 
-    if(proceedMaster()){
+    if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_ac2", OBJECT_SELF);
         return;
     }

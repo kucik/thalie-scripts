@@ -32,7 +32,7 @@ int GetOurSpellLevelImmunity();
 
 void main()
 {
-    if(proceedMaster()){
+    if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_acb", OBJECT_SELF);
         return;
     }

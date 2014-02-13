@@ -70,15 +70,10 @@
 
 void SetupSpawn()
 {
-    int ai_boss = GetLocalInt(OBJECT_SELF, "AI_BOSS");
+    SetLocalInt(OBJECT_SELF, "AI_ANIMAL_COMPANION",1);
 
 /************************ [Important Spawn Settings] **************************/
-    if(ai_boss) {
-     SetAIInteger(AI_INTELLIGENCE, 8);
-    }
-    else {
-     SetAIInteger(AI_INTELLIGENCE, 3);
-    }
+   SetAIInteger(AI_INTELLIGENCE, 3);
         // Intelligence value of the creauture. Can be 1-10, read readme's for help.
     SetAIInteger(AI_MORALE, 10);
         // Will save (See readme). Remember: -1 or below means they always flee.
@@ -376,15 +371,12 @@ void SetupSpawn()
     Leaders/Bosses can be set to issue some orders and inspire more morale - and bring
     a lot of allies to a battle at once!
 ************************* [Combat Other - Leaders] ****************************/
-    if(ai_boss)
-      SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_GROUP_LEADER, AI_OTHER_COMBAT_MASTER);
+//      SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_GROUP_LEADER, AI_OTHER_COMBAT_MASTER);
         // Special leader. Can issuse some orders. See readme for details.
-    if(ai_boss) {
-     SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_BOSS_MONSTER_SHOUT, AI_OTHER_COMBAT_MASTER);
+//     SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_BOSS_MONSTER_SHOUT, AI_OTHER_COMBAT_MASTER);
         // Boss shout. 1 time use - calls all creatures in X meters (below) for battle!
-     SetAIInteger(AI_BOSS_MONSTER_SHOUT_RANGE, 30);
+//     SetAIInteger(AI_BOSS_MONSTER_SHOUT_RANGE, 30);
         // Defaults to a 60 M range. This can change it. Note: 1 toolset square = 10M.
-    }
 
 /************************ [Combat Other - Leaders] ****************************/
 
@@ -392,15 +384,13 @@ void SetupSpawn()
     This is generic behaviours - alright, really it is all things that cannot
     really be categorised.
 ************************* [Other - Behaviour/Generic] *************************/
-if(ai_boss){
-    SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_GROUP_LEADER, AI_OTHER_COMBAT_MASTER);
+//    SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_GROUP_LEADER, AI_OTHER_COMBAT_MASTER);
         // Special leader. Can issuse some orders. See readme for details.
 
-    SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_BOSS_MONSTER_SHOUT, AI_OTHER_COMBAT_MASTER);
+//    SetSpawnInCondition(AI_FLAG_OTHER_COMBAT_BOSS_MONSTER_SHOUT, AI_OTHER_COMBAT_MASTER);
         // Boss shout. 1 time use - calls all creatures in X meters (below) for battle!
-    SetAIInteger(AI_BOSS_MONSTER_SHOUT_RANGE, 60);
+//    SetAIInteger(AI_BOSS_MONSTER_SHOUT_RANGE, 60);
         // Defaults to a 60 M range. This can change it. Note: 1 toolset square = 10M.
-}
 
     //SetSpawnInCondition(AI_FLAG_OTHER_NO_CLEAR_ACTIONS_BEFORE_CONVERSATION, AI_OTHER_MASTER);
         // No ClearAllActions() before BeginConversation. May keep a creature sitting.
@@ -416,10 +406,8 @@ if(ai_boss){
     //AI_CreateRandomOther(-2, 2, -2, 2, -2, 2, -2, 2);
         // Create (Effect-applied) random HP, saves, AC.
 
-    if(ai_boss){
-        SetSpawnInCondition(AI_FLAG_OTHER_RETURN_TO_SPAWN_LOCATION, AI_OTHER_MASTER);
+//        SetSpawnInCondition(AI_FLAG_OTHER_RETURN_TO_SPAWN_LOCATION, AI_OTHER_MASTER);
            // This will store our spawn location, and then move back there after combat.
-    }
 
     SetSpawnInCondition(AI_FLAG_OTHER_DONT_RESPOND_TO_EMOTES, AI_OTHER_MASTER);
         // This will ignore ALL chat by PC's (Enemies) who speak actions in Stars - *Bow*
@@ -451,15 +439,13 @@ if(ai_boss){
 
     //SetAIConstant(AI_DEATH_VISUAL_EFFECT, VFX_FNF_IMPLOSION);
         // Fires this visual effect number instantly on death. Use FNF and IMP ones.
-    if(!ai_boss)
-      SetAIInteger(AI_CORPSE_DESTROY_TIME, 15);
+//      SetAIInteger(AI_CORPSE_DESTROY_TIME, 15);
         // Seconds before body finally gets destroyed. Used for Clerical Raise Dead on NPC's.
 
     //SetSpawnInCondition(AI_FLAG_OTHER_TURN_OFF_CORPSES, AI_OTHER_MASTER);
         // This turns off the SetDestroyable() usually performed, and the above timer.
 
-if(ai_boss) {
-    SetSpawnInCondition(AI_FLAG_OTHER_USE_BIOWARE_LOOTING, AI_OTHER_MASTER);
+//    SetSpawnInCondition(AI_FLAG_OTHER_USE_BIOWARE_LOOTING, AI_OTHER_MASTER);
         // Makes the death file use Bioware's cool SetLootable() feature when corpses would disappear.
     }
 

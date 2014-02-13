@@ -46,7 +46,7 @@ int RangedAttack(object oTarget = OBJECT_INVALID);
 
 void main()
 {
-    if(proceedMaster()){
+    if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_ace", OBJECT_SELF);
         return;
     }

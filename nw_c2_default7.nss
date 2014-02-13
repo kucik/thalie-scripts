@@ -40,7 +40,7 @@ void main()
       return;
     }
 
-    if(proceedMaster()){
+    if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_ac7", OBJECT_SELF);
         return;
     }

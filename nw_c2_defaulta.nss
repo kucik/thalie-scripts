@@ -27,7 +27,7 @@ void LoopResetTriggers(string sString, object oTrigger);
 
 void main()
 {
-    if(proceedMaster()){
+    if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_aca", OBJECT_SELF);
         return;
     }

@@ -84,7 +84,7 @@
 
 void main()
 {
-    if(proceedMaster()){
+    if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_acd", OBJECT_SELF);
         return;
     }

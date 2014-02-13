@@ -163,5 +163,8 @@ void main()
             FloatingTextStrRefOnCreature(63489, GetMaster(), FALSE);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDam, GetMaster());
         }
+        if(GetLocalInt(OBJECT_SELF, "AI_ANIMAL_COMPANION")) {
+           ExecuteScript("j_ai_destroyself", OBJECT_SELF);
+        }
     }
 }
