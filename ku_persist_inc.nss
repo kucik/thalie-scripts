@@ -1211,6 +1211,41 @@ int Persist_GetItemGPValue(object oItem) {
  ***********************************************
  ***********************************************/
 
+string __colectPlcAttributes(object oPlc) {
+ /* Placeable attributes */
+ int iVar;
+ string sVar;
+
+ string sAttr = "";
+
+   /* Plc Expiration */
+   int iVar = GetLocalInt(oPlc,"PLC_EXPIRATION");
+   if(iVar > 0) {
+     sAttr = sAttr+"PLC_EXPIRATION"+PERSISTANCE_SECONDARY_DELIMITER+
+             "1"+PERSISTANCE_SECONDARY_DELIMITER+
+             IntToString(iVar)
+             +PROPERTIES_DELIMITER;
+   }
+   /* Useable flag */
+   sAttr = sAttr+"USEABLE_FLAG"+PERSISTANCE_SECONDARY_DELIMITER+
+           "99"+PERSISTANCE_SECONDARY_DELIMITER+
+             IntToString(GetUseableFlag(oPlc))
+             +PROPERTIES_DELIMITER;
+   /* Plot flag */
+   sAttr = sAttr+"PLOT_FLAG"+PERSISTANCE_SECONDARY_DELIMITER+
+           "99"+PERSISTANCE_SECONDARY_DELIMITER+
+             IntToString(GetPlotFlag(oPlc))
+             +PROPERTIES_DELIMITER;
+   /* PLC_ITEMS */
+   sVar = GetLocalString(oPlc,"PLC_ITEMRESREF");
+   if(GetStringLength(sVar) > 0) {
+   sAttr = sAttr+"PLC_ITEMRESREF"+PERSISTANCE_SECONDARY_DELIMITER+
+           "3"+PERSISTANCE_SECONDARY_DELIMITER+
+             sVar
+             +PROPERTIES_DELIMITER;
+   }
+}
+
 int Persist_SavePlaceable(object oPlc,object oArea) {
 
  string sDynAppearance = "";
@@ -1222,18 +1257,8 @@ int Persist_SavePlaceable(object oPlc,object oArea) {
    SetLocalString(oPlc,"KU_PERSIST_INVENTORYSLOTS",sSlots);
  }
  /* Placeable attributes */
- string sAttr = "";
- {
-   /* Plc Expiration */
-   int iPlcExpiration = GetLocalInt(oPlc,"PLC_EXPIRATION");
-   if(iPlcExpiration > 0) {
-     sAttr = sAttr+"PLC_EXPIRATION"+PERSISTANCE_SECONDARY_DELIMITER+
-             "1"+PERSISTANCE_SECONDARY_DELIMITER+
-             IntToString(iPlcExpiration)
-             +PROPERTIES_DELIMITER;
-   }
- } 
- /* ~Placeable attributes */
+ string sAttr = __colectPlcAttributes(oPlc);
+ 
  string sValues = "'"+GetResRef(oArea)+"',"+
                   "'"+GetTag(oArea)+"',"+
                   "'"+GetResRef(oPlc)+"',"+
@@ -1296,20 +1321,26 @@ void __recreateAttribute(object oItem, string sIP) {
     var = GetSubString(sIP,iStart,GetStringLength(sIP) - iStart);
 
     switch(type) {
-      case 1:
+      case VARIABLE_TYPE_INT:
         SetLocalInt(oItem,name,StringToInt(var));
         break;
-      case 2:
+      case VARIABLE_TYPE_FLOAT:
         SetLocalFloat(oItem,name,StringToFloat(var));
         break;
-      case 3:
+      case VARIABLE_TYPE_STRING:
         SetLocalString(oItem,name,var);
         break;
-      case 4:
+      case VARIABLE_TYPE_OBJECT:
 //        SetLocalObject(oItem,name,var);
         break;
-      case 5:
+      case VARIABLE_TYPE_LOCATION:
         SetLocalLocation(oItem,name,StringToLocation(var));
+        break;
+      case 99:
+        if(name == "USEABLE_FLAG")
+          SetUseableFlag(oItem, StringToInt(var));
+        if(name == "PLOT_FLAG")
+          SetPlotFlag(oItem, StringToInt(var));
         break;
     }
 
