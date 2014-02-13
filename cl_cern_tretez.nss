@@ -215,7 +215,10 @@ void main()
       /* Apply spell */
 
       /* Send event */
-      SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, TRUE));
+      if(GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, FALSE));
+      else
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, TRUE));
 
       /* Calculate ray jump distance and according dmg lose */
       if(i > 0) {
@@ -238,6 +241,9 @@ void main()
 
           /* compose and apply dmg */
           effect eDmg = EffectDamage(nDmg, iDamgeType);
+          if(GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) {
+            eDmg =  EffectHeal(nDmg);;
+          }
           DelayCommand(fDelay, AssignCommand(oCaster,ApplyEffectToObject(DURATION_TYPE_INSTANT, eDmg, oTarget)));
         }
 
