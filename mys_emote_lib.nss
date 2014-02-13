@@ -9,8 +9,6 @@ void ActionPlayEmote(object oSubject, int iEmote)
 {
     float fDur = 9999.0f;
     
-    SendMessageToPC(oSubject, "Debug: emote = " + IntToString(iEmote) + " pc = " + GetName(oSubject));
-    
     switch(iEmote)
     {
         // ---------------------------------------------------------------------
@@ -236,7 +234,6 @@ void ActionPlayEmote(object oSubject, int iEmote)
             ActionPlayEmoteSmoke(oSubject);
             break;
     }
-    SendMessageToPC(oSubject, "Emote Debug Finish Line ---");
 }
 
 void ActionSitNearestPlaceable(object oSubject)
