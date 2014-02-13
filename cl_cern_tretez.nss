@@ -1,452 +1,263 @@
 //::///////////////////////////////////////////////
-//:: Chain Lightning
-//:: NW_S0_ChLightn
-//:: Copyright (c) 2001 Bioware Corp.
+//:: Cernokneznikuv tajemny retez
+//:: cl_cern_tretez
+//:: Copyleft thalie.pilsfree.cz
 //:://////////////////////////////////////////////
-/*
-    The primary target is struck with 1d6 per caster,
-    1/2 with a reflex save.  1 secondary target per
-    level is struck for 1d6 / 2 caster levels.  No
-    repeat targets can be chosen.
-*/
-//:://////////////////////////////////////////////
-//:: Created By: Brennon Holmes
-//:: Created On:  March 8, 2001
-//:://////////////////////////////////////////////
-//:: Last Updated By: Preston Watamaniuk, On: April 26, 2001
-//:: Update Pass By: Preston W, On: July 26, 2001
 
-/*
-bugfix by Kovi 2002.07.28
-- successful saving throw and (improved) evasion was ignored for
- secondary targets,
-- all secondary targets suffered exactly the same damage
-2002.08.25
-- primary target was not effected
-*/
+//:://////////////////////////////////////////////
+//:: Created By: Shaman
+//:: Refactored By Kucik 2014-02-14
+//:://////////////////////////////////////////////
+
+
+struct EssenceEffect {
+  effect eff;
+  float  fduration;
+  int iSave;
+  int iSaveType;
+  int iValid;
+};
 
 #include "x0_I0_SPELLS"
 #include "x2_inc_spellhook"
 #include "sh_classes_inc_e"
 #include "sh_effects_const"
+#include "ku_libtime"
+
+int GetEssenceDmgType(int iDmgType, int iEssence) {
+
+  switch(iEssence) {
+    case ESENCE_MAGIC:       return DAMAGE_TYPE_MAGICAL; //Chybi popis
+    case ESENCE_SZIRAVA:     return -1; // no damage
+    case ESENCE_STRASLIVA:   return -1; //no damage
+    case ESENCE_OSLEPUJICI:  return -1; //no damage
+    case ESENCE_PEKELNA:     return -1; // no damage
+    case ESENCE_MRAZIVA:     return DAMAGE_TYPE_COLD;
+//    case ESENCE_UHRANCIVA:
+//    case ESENCE_ZADRZUJICI:
+//    case ESENCE_ZHOUBNA:
+    case ESENCE_LEPTAVA:     return DAMAGE_TYPE_ACID;
+    case ESENCE_SVAZUJICI:   return -1; // no damage
+    case ESENCE_TEMNA:       return DAMAGE_TYPE_NEGATIVE;
+  }
+
+  return iDmgType;
+}
+
+struct EssenceEffect GetEssenceAditionalEffect(int iEssence) {
+  struct EssenceEffect s_eff;
+  s_eff.iValid = TRUE;
+
+  switch(iEssence) {
+//    case ESENCE_MAGIC:
+    case ESENCE_SZIRAVA:
+      s_eff.eff = EffectSlow();
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_WILL; // ??
+      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
+      return s_eff;
+
+    case ESENCE_STRASLIVA:
+      s_eff.eff = EffectFrightened();
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_WILL;
+      s_eff.iSaveType = SAVING_THROW_TYPE_FEAR;
+      return s_eff;
+
+    case ESENCE_OSLEPUJICI:
+      s_eff.eff = EffectBlindness();
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_WILL;
+      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
+      return s_eff;
+
+//    case ESENCE_PEKELNA:
+    case ESENCE_MRAZIVA:
+      s_eff.eff = EffectAbilityDecrease(ABILITY_DEXTERITY,4);
+      s_eff.fduration = TurnsToSeconds(10);
+      s_eff.iSave = SAVING_THROW_FORT;
+      s_eff.iSaveType = SAVING_THROW_TYPE_COLD;
+      return s_eff;
+
+    case ESENCE_UHRANCIVA:
+      s_eff.eff = EffectConfused();
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_FORT;
+      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
+      return s_eff;
+
+    case ESENCE_ZADRZUJICI:
+      s_eff.eff = EffectSlow();
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_WILL;
+      s_eff.iSaveType = SAVING_THROW_TYPE_TRAP;
+      return s_eff;
+
+    case ESENCE_ZHOUBNA:
+      s_eff.eff = EffectParalyze(); //Stun or paralyze ???
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_WILL;
+      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
+      return s_eff;
+
+//    case ESENCE_LEPTAVA:
+    case ESENCE_SVAZUJICI:
+      s_eff.eff = EffectKnockdown();
+      s_eff.fduration = RoundsToSeconds(1);
+      s_eff.iSave = SAVING_THROW_WILL;
+      s_eff.iSaveType = SAVING_THROW_TYPE_TRAP;
+      return s_eff;
+    case ESENCE_TEMNA:
+      s_eff.eff = EffectNegativeLevel(6);
+      s_eff.fduration = 0.0;
+      s_eff.iSave = SAVING_THROW_FORT;
+      s_eff.iSaveType = SAVING_THROW_TYPE_EVIL;
+      return s_eff;
+  }
+
+  s_eff.iValid = FALSE;;
+  return s_eff;
+}
+
+int GetEssenceSpellResist(object oCaster, object oTarget, int iEssence) {
+  if(ESENCE_LEPTAVA)
+    return FALSE;
+
+  return MyResistSpell(oCaster, oTarget);
+}
+
+void EssenceProcessSpecs(object oTarget, int iEsence) {
+  if(iEsence == ESENCE_PEKELNA)
+    ExecuteScript("x0_s0_inferno",oTarget);
+
+  return;
+}
+
+object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpell, float fMaxJump = 5.0, float fMaxRange = 30.0) {
+
+    int i = 1;
+    int iTime = ku_GetTimeStamp();
+    string sMark = "HITBYCHAINSPELL"+IntToString(iSpell);
+    object oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
+    while(GetIsObjectValid(oNextTarget)) {
+      /* Limited jump size */
+      if(GetDistanceBetween(oTarget, oNextTarget) > fMaxJump) {
+        oNextTarget = OBJECT_INVALID;
+        break;
+      }
+      /* Limited distance from caster */
+      if(GetDistanceBetween(oTarget, oCaster) > fMaxRange) {
+        oNextTarget = OBJECT_INVALID;
+        break;
+      }
+      /* If target was already hit in last 1 second*/
+      if(GetLocalInt(oNextTarget,sMark) + 1 >= iTime) {
+        i++;
+        oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
+        continue;
+      }
+      /* Do not jump back */
+      if(oSource == oNextTarget) {
+        i++;
+        oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
+        continue;
+      }
+      else {
+        break;
+      }
+    }
+
+   if(GetIsObjectValid(oNextTarget)) {
+     SetLocalInt(oNextTarget,sMark,iTime);
+     DelayCommand(1.0, DeleteLocalInt(oNextTarget,sMark));
+   }
+
+   return oNextTarget;
+
+}
 
 void main()
 {
 
-    //Declare major variables
-    int iDCShape = 4;
-    effect eLightning = EffectBeam(VFX_BEAM_BLACK, OBJECT_SELF, BODY_NODE_HAND);;
-    object oFirstTarget = GetSpellTargetObject();
-    int iDamage,iDC,iDur,iTouchAttackResult,nCnt;
-    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
-    object oSaveItem = GetSoulStone(OBJECT_SELF);
+    object oTarget = GetSpellTargetObject();
     int iEsenceType = GetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);
-    effect eEf,eEf1,eEf2,eRay,eVis,eDur;
-    object oTarget,oHolder;
-    int iMaxTargets = ((iCasterLevel + 1) / 5) + 1;
-    nCnt =1;
-    iTouchAttackResult = TouchAttackRanged(oFirstTarget);
-    if (MyResistSpell(OBJECT_SELF, oFirstTarget))
-    {
-        //first target
-        if (iEsenceType== ESENCE_LEPTAVA)
-        {
-            iDamage = d6((iCasterLevel+1)/2);
-            if(iTouchAttackResult == 2)
-            {
-                iDamage *= 2;
-            }
-            eEf = EffectDamage(iDamage, DAMAGE_TYPE_ACID);
-            AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oFirstTarget));
+    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int iMaxTargets = ((iCasterLevel + 1) / 5);
+    int iDamgeType = GetEssenceDmgType(DAMAGE_TYPE_MAGICAL, iEsenceType);
+    struct EssenceEffect s_eff = GetEssenceAditionalEffect(iEsenceType);
+    object oCaster = OBJECT_SELF;
+    float fMaxJump = 5.0;
+    float fMaxRange = 30.0;
+    int iTouchAttackResult;
+    effect eRay;
 
-            effect eRay = EffectBeam(VFX_BEAM_BLACK, OBJECT_SELF, BODY_NODE_HAND);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eRay, oFirstTarget, 1.7);
-            eLightning = EffectBeam(VFX_BEAM_BLACK, oFirstTarget, BODY_NODE_CHEST);
-            float fDelay = 0.2;
-
-            //dalsi cile
-            oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(oFirstTarget), TRUE, OBJECT_TYPE_CREATURE);
-            while (GetIsObjectValid(oTarget) && nCnt <= iMaxTargets)
-            {
-                if (oTarget != oFirstTarget && oTarget != OBJECT_SELF)
-                {
-                    iDamage=FloatToInt(iDamage*(1-(nCnt/(IntToFloat(nCnt)+1))));
-                    //Connect the new lightning stream to the older target and the new target
-                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLightning,oTarget,1.7));
-                    // samotny kod
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_ACID);
-                    AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oTarget));
-                    //
-                    oHolder = oTarget;
-
-                    //change the currect holder of the lightning stream to the current target
-                    eLightning = EffectBeam(VFX_BEAM_BLACK, oHolder, BODY_NODE_CHEST);
-                    fDelay = fDelay + 0.1f;
-                }
-                nCnt++;
-
-                oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(oFirstTarget), TRUE, OBJECT_TYPE_CREATURE);
-            }
-        }
-        return;
-    }
-    //Damage the initial target
-    if (spellsIsTarget(oFirstTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
-    {
-        if (( iTouchAttackResult > 0) && (GetArcaneSpellFailure(OBJECT_SELF)<= 20))
-        {
-                switch (iEsenceType)
-                {
-                    case ESENCE_MAGIC:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDamage *= 2;
-                    }
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_MAGICAL);
-                    AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oFirstTarget));
-                    break;
-
-                    case ESENCE_SZIRAVA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 2 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 10;
-                        iDur = 3;
-                    }
-                    eEf = EffectSlow();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_TRAP, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_STRASLIVA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 2 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 10;
-                        iDur = 3;
-                    }
-                    eEf = EffectFrightened();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_FEAR, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_OSLEPUJICI:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 10;
-                        iDur = 3;
-                    }
-                    eEf = EffectBlindness();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_PEKELNA:
-                    ExecuteScript("x0_s0_inferno",oFirstTarget);
-                    break;
-
-                    case ESENCE_MRAZIVA:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA);
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDamage *= 2;
-                        iDC += 10;
-                    }
-                    eDur = EffectAbilityDecrease(ABILITY_DEXTERITY,4);
-                    if(!MySavingThrow(SAVING_THROW_FORT, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_COLD, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oFirstTarget,TurnsToSeconds(10)));
-                    }
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_COLD);
-                    AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oFirstTarget));
-                    break;
-
-                    case ESENCE_UHRANCIVA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 6;
-                        iDur = 3;
-                    }
-                    eEf = EffectConfused();
-                    if(!MySavingThrow(SAVING_THROW_FORT, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_ZADRZUJICI:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 6;
-                        iDur = 3;
-                    }
-                    eEf = EffectSlow();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_ZHOUBNA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 6 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 6;
-                        iDur = 3;
-                    }
-                    eEf = EffectParalyze();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_LEPTAVA:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDamage *= 2;
-                    }
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_ACID);
-                    AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oFirstTarget));
-                    break;
-
-                    case ESENCE_SVAZUJICI:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 7 + GetAbilityModifier(ABILITY_CHARISMA);
-                    iDur = 1;
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDC += 6;
-                        iDur = 3;
-                    }
-                    eEf = EffectKnockdown();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_TRAP, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,RoundsToSeconds(iDur)));
-                    }
-                    break;
-
-                    case ESENCE_TEMNA:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    iDC = 10 + 8 + GetAbilityModifier(ABILITY_CHARISMA);
-                    if(iTouchAttackResult == 2)
-                    {
-                        iDamage *= 2;
-                        iDC += 6;
-                    }
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_NEGATIVE);
-                    AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oFirstTarget));
-                    eEf1 = EffectNegativeLevel(6);
-                    if(!MySavingThrow(SAVING_THROW_WILL, oFirstTarget, iDC+iDCShape, SAVING_THROW_TYPE_EVIL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oFirstTarget,TurnsToSeconds(10)));
-                    }
-                    break;
-
-                    default:
-                //konec switche
-                }
-                effect eRay = EffectBeam(VFX_BEAM_BLACK, OBJECT_SELF, BODY_NODE_HAND);
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eRay, oFirstTarget, 1.7);
+    object oSource = oCaster;
+    object oNewTarget = OBJECT_INVALID;
+    int i=1;
+    float fDistance = 0.0;
+    float fDamage = IntToFloat(d6((iCasterLevel+1)/2));
+    int nDmg;
+    float fDelay = 0.0;
+    int iDC = 10 + 2 + GetAbilityModifier(ABILITY_CHARISMA);
 
 
-        }
-        else
-        {
-            effect eRay = EffectBeam(VFX_BEAM_BLACK, OBJECT_SELF, BODY_NODE_HAND,TRUE);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eRay, oFirstTarget, 1.7);
-
-        }
-
-
-    }
-    eLightning = EffectBeam(VFX_BEAM_BLACK, oFirstTarget, BODY_NODE_CHEST);
-    float fDelay = 0.2;
-
-
-    // *
-    // * Secondary Targets
-    // *
-
-
-    //Get the first target in the spell shape
-    oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(oFirstTarget), TRUE, OBJECT_TYPE_CREATURE);
-    while (GetIsObjectValid(oTarget) && nCnt <= iMaxTargets)
-    {
-        //Make sure the caster's faction is not hit and the first target is not hit
-        if (oTarget != oFirstTarget && oTarget != OBJECT_SELF)
-        {
-            //Connect the new lightning stream to the older target and the new target
-            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLightning,oTarget,1.7));
-
-
-            // samotny kod
-                switch (iEsenceType)
-                {
-                    case ESENCE_MAGIC:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    iDamage=FloatToInt(iDamage*(1-(nCnt/(IntToFloat(nCnt)+1))));
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_MAGICAL);
-                    AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oTarget)));
-                    break;
-
-                    case ESENCE_SZIRAVA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 5 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectSlow();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_STRASLIVA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 1 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectFrightened();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_FEAR, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_OSLEPUJICI:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 1 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectBlindness();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_PEKELNA:
-                    ExecuteScript("x0_s0_inferno",oTarget);
-                    break;
-
-                    case ESENCE_MRAZIVA:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    iDamage=FloatToInt(iDamage*(1-(nCnt/(IntToFloat(nCnt)+1))));
-                    iDC = 10 + 3 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    eDur = EffectAbilityDecrease(ABILITY_DEXTERITY,4);
-                    if(!MySavingThrow(SAVING_THROW_FORT, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_COLD, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget,TurnsToSeconds(10))));
-                    }
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_COLD);
-                    AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oTarget)));
-                    break;
-
-                    case ESENCE_UHRANCIVA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectConfused();
-                    if(!MySavingThrow(SAVING_THROW_FORT, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_ZADRZUJICI:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 5 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectSlow();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_TRAP, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_ZHOUBNA:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 6 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectParalyze();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, iDC, SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_LEPTAVA:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    iDamage=FloatToInt(iDamage*(1-(nCnt/(IntToFloat(nCnt)+1))));
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_ACID);
-                    AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oTarget)));
-                    break;
-
-                    case ESENCE_SVAZUJICI:
-                    //UTOK DOTYKEM NA DALKU
-                    iDC = 10 + 7 + GetAbilityModifier(ABILITY_CHARISMA)-2*nCnt;
-                    iDur = 1;
-                    eEf = EffectKnockdown();
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_TRAP, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                         AssignCommand(OBJECT_SELF,DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf, oTarget,RoundsToSeconds(iDur))));
-                    }
-                    break;
-
-                    case ESENCE_TEMNA:
-                    iDamage = d6((iCasterLevel+1)/2);
-                    iDamage=FloatToInt(iDamage*(1-(nCnt/(IntToFloat(nCnt)+1))))-2*nCnt;
-                    iDC = 10 + 8 + GetAbilityModifier(ABILITY_CHARISMA);
-                    eEf = EffectDamage(iDamage, DAMAGE_TYPE_NEGATIVE);
-                    eEf1 = EffectHeal(iDamage);
-                    if (GetRacialType(oTarget)!= RACIAL_TYPE_UNDEAD)
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf, oTarget));
-                    }
-                    else
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_INSTANT, eEf1, oTarget));
-                    }
-                    eEf2 = EffectNegativeLevel(6);
-                    if(!MySavingThrow(SAVING_THROW_FORT, oTarget, iDC+iDCShape, SAVING_THROW_TYPE_EVIL, OBJECT_SELF, GetRandomDelay(0.4, 1.2)))
-                    {
-                        AssignCommand(OBJECT_SELF,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eEf2, oTarget,60.0));
-                    }
-                    break;
-
-                    default:
-                //konec switche
-                }
-            //
-            oHolder = oTarget;
-
-            //change the currect holder of the lightning stream to the current target
-            eLightning = EffectBeam(VFX_BEAM_BLACK, oHolder, BODY_NODE_CHEST);
-            fDelay = fDelay + 0.1f;
-        }
-        nCnt++;
-        oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(oFirstTarget), TRUE, OBJECT_TYPE_CREATURE);
+    while(GetIsObjectValid(oTarget)) {
+      /* Limit number of targets */
+      if(i > iMaxTargets) {
+        break;
       }
+      /* Try touch attack */
+      iTouchAttackResult = TouchAttackRanged(oTarget);
+      if(iTouchAttackResult <= 0) {
+        break;
+      }
+
+      /* Apply spell */
+
+      /* Send event */
+      SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, TRUE));
+
+      /* Calculate ray jump distance and according dmg lose */
+      if(i > 0) {
+        fDistance = fDistance +  GetDistanceBetween(oSource, oTarget);
+        fDelay = 0.01 * fDistance;
+      }
+      nDmg = FloatToInt(fDamage * ((100.0 - (fDistance * 2.0)) /100.0));
+
+      /* Prepare and apply #1 visual */
+      if(i == 1)
+        eRay = EffectBeam(VFX_BEAM_CHAIN , oSource, BODY_NODE_HAND);
+      else
+        eRay = EffectBeam(VFX_BEAM_CHAIN , oSource, BODY_NODE_CHEST);
+      DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eRay, oTarget, 1.7));
+
+      /* If spell is resisted, it continues to another target */
+      if(!GetEssenceSpellResist(oCaster, oTarget, iEsenceType)) {
+        /* If spell makes damage */
+        if(iDamgeType != -1) {
+
+          /* compose and apply dmg */
+          effect eDmg = EffectDamage(nDmg, iDamgeType);
+          DelayCommand(fDelay, AssignCommand(oCaster,ApplyEffectToObject(DURATION_TYPE_INSTANT, eDmg, oTarget)));
+        }
+
+        /* Additional spell effects */
+        if(s_eff.iValid) {
+          if(!MySavingThrow(s_eff.iSave, oTarget, iDC, s_eff.iSaveType, oCaster, fDelay)) {
+             int iDurType = DURATION_TYPE_TEMPORARY;
+             if(s_eff.fduration <= 0.0)
+               iDurType = DURATION_TYPE_INSTANT;
+            DelayCommand(fDelay,AssignCommand(oCaster,ApplyEffectToObject(iDurType, s_eff.eff, oTarget,s_eff.fduration)));
+          }
+        }
+        /* Specific esssence funcions */
+        DelayCommand(fDelay,EssenceProcessSpecs(oTarget, iEsenceType));
+      }
+
+      oNewTarget = __chainNextJump(oCaster, oTarget, oSource, 869, fMaxJump, fMaxRange);
+      oSource = oTarget;
+      oTarget = oNewTarget;
+      i++;
+    }
  }
+
