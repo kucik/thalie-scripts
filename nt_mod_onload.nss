@@ -276,8 +276,6 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
 
 void __InitWeaponsFeats() {
 
-  SetWeaponIsMonkWeapon(304,1);     //nunchaku
-  SetWeaponIsMonkWeapon(303,1);      //  sai
   SetWeaponFocusFeat(202,1116);// Social_Beermug
   SetWeaponFocusFeat(203,1117);// Short Spear
   SetWeaponFocusFeat(300,1118);// Trident 1h
