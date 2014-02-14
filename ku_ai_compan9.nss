@@ -447,7 +447,7 @@ void SetupSpawn()
 
 //    SetSpawnInCondition(AI_FLAG_OTHER_USE_BIOWARE_LOOTING, AI_OTHER_MASTER);
         // Makes the death file use Bioware's cool SetLootable() feature when corpses would disappear.
-    }
+//    }
 
       /*** Lag and a few performance settings - still under AI_OTHER_MASTER ***/
 

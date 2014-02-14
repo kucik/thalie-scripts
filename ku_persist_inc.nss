@@ -1219,7 +1219,7 @@ string __colectPlcAttributes(object oPlc) {
  string sAttr = "";
 
    /* Plc Expiration */
-   int iVar = GetLocalInt(oPlc,"PLC_EXPIRATION");
+   iVar = GetLocalInt(oPlc,"PLC_EXPIRATION");
    if(iVar > 0) {
      sAttr = sAttr+"PLC_EXPIRATION"+PERSISTANCE_SECONDARY_DELIMITER+
              "1"+PERSISTANCE_SECONDARY_DELIMITER+
@@ -1244,6 +1244,7 @@ string __colectPlcAttributes(object oPlc) {
              sVar
              +PROPERTIES_DELIMITER;
    }
+   return sAttr;
 }
 
 int Persist_SavePlaceable(object oPlc,object oArea) {
@@ -1258,7 +1259,7 @@ int Persist_SavePlaceable(object oPlc,object oArea) {
  }
  /* Placeable attributes */
  string sAttr = __colectPlcAttributes(oPlc);
- 
+
  string sValues = "'"+GetResRef(oArea)+"',"+
                   "'"+GetTag(oArea)+"',"+
                   "'"+GetResRef(oPlc)+"',"+
@@ -1348,7 +1349,7 @@ void __recreateAttribute(object oItem, string sIP) {
     float fDuration = IntToFloat(StringToInt(var) - ku_GetTimeStamp());
     if(fDuration < 1.0)
       fDuration = 1.0;
-    
+
     if(fDuration < 43200.0) //less than restart
       DelayCommand(fDuration, __placeableExpired(oItem));
     return;
