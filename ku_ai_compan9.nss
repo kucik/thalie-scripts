@@ -694,6 +694,7 @@ void SetupSpawn()
 
 void main(){
 
+ ExecuteScript("nw_ch_ac9", OBJECT_SELF);
  DelayCommand(0.1f, SetupSpawn());
 
 /* // Kucik Vraceni se na svuj spawn point
