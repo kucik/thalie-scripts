@@ -225,7 +225,7 @@ void main()
         fDistance = fDistance +  GetDistanceBetween(oSource, oTarget);
         fDelay = 0.01 * fDistance;
       }
-      nDmg = FloatToInt(fDamage * ((100.0 - (fDistance * 2.0)) /100.0));
+      nDmg = iTouchAttackResult * FloatToInt(fDamage * ((100.0 - (fDistance * 2.0)) /100.0));
 
       /* Prepare and apply #1 visual */
       if(i == 1)
