@@ -91,12 +91,24 @@ void UnspellItems(object oPC){
 }
  */
 void FixMovementSpeed(object oPC) {
-  int iSubrace = Subraces_GetCharacterSubrace(oPC);
-  /*if(iSubrace == SUBRACE_HALFORC_HALFOGRE ||
-     iSubrace == SUBRACE_HALFORC_BLACK_HALFOGRE) {
-
-    SetMovementRate(oPC,MOVEMENT_RATE_PC);
-  }    */
+  int iAppearance = GetAppearanceType(oPC);
+  if(GetIsDM(oPC))
+    return;
+  
+  switch(iAppearance) {
+    case 984: //Kobold
+    case 985: //Half ogre
+    case 1000: //Wemic
+    case 1002: //Brownie
+    case 1030: //Armor stand
+    case 1052: //Illithid
+    case 1769: //Skeleton
+      SetMovementRate(oPC,MOVEMENT_RATE_PC);
+      break;
+    default:
+      //none
+      break;
+  }
 }
 
 void AddPlayerToDump(object oPC){
