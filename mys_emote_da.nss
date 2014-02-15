@@ -1,6 +1,11 @@
 #include "nwnx_events"
 #include "mys_emote_lib"
 
+string GetDialogActionText(string sText)
+{
+    return "<StartAction>[" + sText + "]</Start>";
+}
+
 void main()
 {
     string sText = GetSelectedNodeText();
@@ -10,27 +15,27 @@ void main()
     // Pokøiky
     // *************************************************************************
     
-    if (sText == "bojový 1")
+    if (sText == GetDialogActionText("bojový 1"))
     {
         ActionPlayEmote(oPC, 14);
     }
-    else if (sText == "bojový 2")
+    else if (sText == GetDialogActionText("bojový 2"))
     {
         ActionPlayEmote(oPC, 15);
     }
-    else if (sText == "bojový 3")
+    else if (sText == GetDialogActionText("bojový 3"))
     {
         ActionPlayEmote(oPC, 16);
     }
-    else if (sText == "vítìzný 1")
+    else if (sText == GetDialogActionText("vítìzný 1"))
     {
         ActionPlayEmote(oPC, 11);
     }
-    else if (sText == "vítìzný 2")
+    else if (sText == GetDialogActionText("vítìzný 2"))
     {
         ActionPlayEmote(oPC, 12);
     }
-    else if (sText == "vítìzný 3")
+    else if (sText == GetDialogActionText("vítìzný 3"))
     {
         ActionPlayEmote(oPC, 13);
     }
@@ -39,116 +44,136 @@ void main()
     // Jednorázové animace
     // *************************************************************************
     
-    else if (sText == "souhlas")
+    else if (sText == GetDialogActionText("souhlas"))
     {
-        ActionPlayEmote(oPC, 37);
+        ActionPlayEmote(oPC, 47);
     }
-    else if (sText == "rozpaky")
+    else if (sText == GetDialogActionText("rozpaky"))
     {
         ActionPlayEmote(oPC, 8);
     }
-    else if (sText == "zamávat")
+    else if (sText == GetDialogActionText("zamávat"))
     {
         ActionPlayEmote(oPC, 5);
     }
-    else if (sText == "salutovat")
+    else if (sText == GetDialogActionText("salutovat"))
     {
         ActionPlayEmote(oPC, 7);
     }
-    else if (sText == "úklona")
+    else if (sText == GetDialogActionText("úklona"))
     {
         ActionPlayEmote(oPC, 1);
     }
-    else if (sText == "výzva")
+    else if (sText == GetDialogActionText("výzva"))
     {
         ActionPlayEmote(oPC, 10);
     }
-    else if (sText == "úhyb")
+    else if (sText == GetDialogActionText("úhyb"))
     {
         ActionPlayEmote(oPC, 2);
     }
-    else if (sText == "døep")
+    else if (sText == GetDialogActionText("døep"))
     {
         ActionPlayEmote(oPC, 4);
     }
-    else if (sText == "prùtah")
+    else if (sText == GetDialogActionText("prùtah"))
     {
         ActionPlayEmote(oPC, 0);
     }
-    else if (sText == "okrást")
+    else if (sText == GetDialogActionText("okrást"))
     {
         ActionPlayEmote(oPC, 9);
     }
-    else if (sText == "èetba")
+    else if (sText == GetDialogActionText("èetba"))
     {
         ActionPlayEmote(oPC, 6);
     }
-    else if (sText == "napít se")
+    else if (sText == GetDialogActionText("napít se"))
     {
         ActionPlayEmote(oPC, 3);
+    }
+    else if (sText == GetDialogActionText("skok"))
+    {
+        ActionPlayEmote(oPC, 38);
     }
     
     // *************************************************************************
     // Trvalé animace
     // *************************************************************************
     
-    else if (sText == "ležet na bøiše")
+    else if (sText == GetDialogActionText("založit ruce"))
     {
-        ActionPlayEmote(oPC, 22);
+        ActionPlayEmote(oPC, 37);
     }
-    else if (sText == "ležet na zádech")
+    else if (sText == GetDialogActionText("pøemýšlet"))
     {
-        ActionPlayEmote(oPC, 21);
+        ActionPlayEmote(oPC, 35);
     }
-    else if (sText == "dívat do dáli")
+    else if (sText == GetDialogActionText("dívat do dáli"))
     {
         ActionPlayEmote(oPC, 26);
     }
-    else if (sText == "kleèet")
+    else if (sText == GetDialogActionText("zakleknout"))
+    {
+        ActionPlayEmote(oPC, 40);
+    }
+    else if (sText == GetDialogActionText("kleèet"))
     {
         ActionPlayEmote(oPC, 27);
     }
-    else if (sText == "prosit")
+    else if (sText == GetDialogActionText("prosit"))
     {
         ActionPlayEmote(oPC, 17);
     }
-    else if (sText == "únava")
+    else if (sText == GetDialogActionText("ukázat"))
     {
-        ActionPlayEmote(oPC, 29);
+        ActionPlayEmote(oPC, 34);
     }
-    else if (sText == "smích")
+    else if (sText == GetDialogActionText("pobízet"))
     {
-        ActionPlayEmote(oPC, 25);
+        ActionPlayEmote(oPC, 39);
     }
-    else if (sText == "opilost")
-    {
-        ActionPlayEmote(oPC, 20);
-    }
-    else if (sText == "záchvat")
-    {
-        ActionPlayEmote(oPC, 28);
-    }
-    else if (sText == "hrozit")
+    else if (sText == GetDialogActionText("hrozit"))
     {
         ActionPlayEmote(oPC, 30);
     }
-    else if (sText == "uctívat")
+    else if (sText == GetDialogActionText("krýt hlavu"))
+    {
+        ActionPlayEmote(oPC, 36);
+    }    
+    else if (sText == GetDialogActionText("únava"))
+    {
+        ActionPlayEmote(oPC, 29);
+    }
+    else if (sText == GetDialogActionText("smích"))
+    {
+        ActionPlayEmote(oPC, 25);
+    }
+    else if (sText == GetDialogActionText("opilost"))
+    {
+        ActionPlayEmote(oPC, 20);
+    }
+    else if (sText == GetDialogActionText("záchvat"))
+    {
+        ActionPlayEmote(oPC, 28);
+    }
+    else if (sText == GetDialogActionText("uctívat"))
     {
         ActionPlayEmote(oPC, 31);
     }
-    else if (sText == "èáry")
+    else if (sText == GetDialogActionText("èáry"))
     {
         ActionPlayEmote(oPC, 18);
     }
-    else if (sText == "èáry nad hlavou")
+    else if (sText == GetDialogActionText("èáry nad hlavou"))
     {
         ActionPlayEmote(oPC, 19);
     }
-    else if (sText == "nìco na zemi")
+    else if (sText == GetDialogActionText("nìco na zemi"))
     {
         ActionPlayEmote(oPC, 23);
     }
-    else if (sText == "nìco v úrovni pasu")
+    else if (sText == GetDialogActionText("nìco v úrovni pasu"))
     {
         ActionPlayEmote(oPC, 24);
     }
@@ -157,38 +182,63 @@ void main()
     // Animace sezení
     // *************************************************************************
     
-    else if (sText == "sedìt na zemi")
+    else if (sText == GetDialogActionText("sedìt na zemi"))
     {
         ActionPlayEmote(oPC, 32);
     }
-    else if (sText == "sedìt na nìèem")
+    else if (sText == GetDialogActionText("sedìt na nìèem"))
     {
         ActionPlayEmote(oPC, 33);
     }
-    else if (sText == "sedìt na nejbližší vìci")
+    else if (sText == GetDialogActionText("sedìt na nejbližší vìci"))
     {
-        ActionPlayEmote(oPC, 34);
+        ActionPlayEmote(oPC, 44);
     }
-    else if (sText == "èíst v sedì")
+    else if (sText == GetDialogActionText("èíst v sedì"))
     {
-        ActionPlayEmote(oPC, 36);
+        ActionPlayEmote(oPC, 46);
     }
-    else if (sText == "napít se v sedì")
+    else if (sText == GetDialogActionText("napít se v sedì"))
     {
-        ActionPlayEmote(oPC, 35);
+        ActionPlayEmote(oPC, 45);
+    }
+    
+    // *************************************************************************
+    // Animace ležení
+    // *************************************************************************
+    
+    else if (sText == GetDialogActionText("ležet na bøiše"))
+    {
+        ActionPlayEmote(oPC, 22);
+    }
+    else if (sText == GetDialogActionText("ležet na zádech"))
+    {
+        ActionPlayEmote(oPC, 21);
+    }
+    else if (sText == GetDialogActionText("ležet na boku"))
+    {
+        ActionPlayEmote(oPC, 43);
     }
     
     // *************************************************************************
     // Ostatní animace
     // *************************************************************************
     
-    else if (sText == "kouøit")
+    else if (sText == GetDialogActionText("kouøit"))
     {
-        ActionPlayEmote(oPC, 39);
+        ActionPlayEmote(oPC, 49);
     }
-    else if (sText == "tanec")
+    else if (sText == GetDialogActionText("tanec"))
     {
-        ActionPlayEmote(oPC, 38);
+        ActionPlayEmote(oPC, 48);
+    }
+    else if (sText == GetDialogActionText("rubat"))
+    {
+        ActionPlayEmote(oPC, 42);
+    }
+    else if (sText == GetDialogActionText("viset"))
+    {
+        ActionPlayEmote(oPC, 41);
     }
     else
     {

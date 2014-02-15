@@ -197,40 +197,94 @@ void ActionPlayEmote(object oSubject, int iEmote)
             break;
             
         //----------------------------------------------------------------------
+        // CUSTOM FROM VAULT
+        //----------------------------------------------------------------------
+        
+        // point
+        case 34:
+            AssignCommand(oSubject, PlayAnimation(21, 1.0, fDur));
+            break;
+        
+        // think
+        case 35:
+            AssignCommand(oSubject, PlayAnimation(22, 1.0, fDur));
+            break;
+            
+        // cover head
+        case 36:
+            AssignCommand(oSubject, PlayAnimation(23, 1.0, fDur));
+            break;
+            
+        // arms chest-crossed
+        case 37:
+            AssignCommand(oSubject, PlayAnimation(24, 1.0, fDur));
+            break;
+            
+        // jump
+        case 38:
+            AssignCommand(oSubject, PlayAnimation(25, 1.5, fDur));
+            break;
+            
+        // follow gesture
+        case 39:
+            AssignCommand(oSubject, PlayAnimation(26, 1.5, fDur));
+            break;
+            
+        // kneel
+        case 40:
+            AssignCommand(oSubject, PlayAnimation(27, 1.0, fDur));
+            break;
+            
+        // hang
+        case 41:
+            AssignCommand(oSubject, PlayAnimation(28, 1.0, fDur));
+            break;
+            
+        // mine
+        case 42:
+            AssignCommand(oSubject, PlayAnimation(29, 1.0, fDur));
+            break;
+            
+        // sleep
+        case 43:
+            AssignCommand(oSubject, PlayAnimation(30, 1.0, fDur));
+            break;
+        
+        //----------------------------------------------------------------------
         // CUSTOM AND LATER-ADDED
         //----------------------------------------------------------------------
         
         // sit nearest placeable
-        case 34:
+        case 44:
             ActionSitNearestPlaceable(oSubject);
             break;
         
         // drink while sitting
-        case 35:
+        case 45:
             AssignCommand(oSubject, ActionPlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur));
             DelayCommand(1.0f, AssignCommand(oSubject, PlayAnimation(ANIMATION_FIREFORGET_DRINK, 1.0)));
             DelayCommand(3.0f, AssignCommand(oSubject, PlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur)));
             break;
             
         // read while sitting
-        case 36:
+        case 46:
             AssignCommand(oSubject, ActionPlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur));
             DelayCommand(1.0f, AssignCommand(oSubject, PlayAnimation(ANIMATION_FIREFORGET_READ, 1.0)));
             DelayCommand(3.0f, AssignCommand(oSubject, PlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur)));
             break;
         
         // nod
-        case 37:
+        case 47:
             AssignCommand(oSubject, PlayAnimation(ANIMATION_LOOPING_LISTEN, 1.0, 3.0f));
             break;
         
         // dance
-        case 38:
+        case 48:
             ActionPlayEmoteDance(oSubject);
             break;
             
         // smoke
-        case 39:
+        case 49:
             ActionPlayEmoteSmoke(oSubject);
             break;
     }
