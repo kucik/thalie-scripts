@@ -662,7 +662,6 @@ void SetupSpawn()
     //CTG_GenerateNPCTreasure();
         // SoU. Requires "x0_i0_treasure" to be uncommented. See readme
 
-    GenerateNPCTreasure();
 
 
     string ai_level = GetLocalString(OBJECT_SELF, "AI_LEVEL");
@@ -681,13 +680,6 @@ void SetupSpawn()
        SetAILevel(OBJECT_SELF, l);
     }
 
-
-    string sChair = GetLocalString(OBJECT_SELF, "AI_SITONSPAWN");
-    if( sChair != "" ){
-        object oChair;
-        oChair = GetNearestObjectByTag(sChair, OBJECT_SELF);
-        DelayCommand(3.0f, ActionSit(oChair));
-    }
 }
 
 
