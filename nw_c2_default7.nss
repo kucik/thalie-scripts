@@ -32,6 +32,9 @@ void SetPeltTimeStamp();
 
 void main()
 {
+    // Who killed us? (alignment changing, debug, XP).
+    object oKiller = GetLastKiller();
+
     // Boss shortcut because of missing body
     if(GetLocalInt(OBJECT_SELF,"AI_BOSS")) {
       ExecuteScript("pwfxp", OBJECT_SELF);
@@ -54,9 +57,6 @@ void main()
         if(ExitFromUDE(EVENT_DEATH_PRE_EVENT)) return;
 
     // Note: No AI on/off check here.
-
-    // Who killed us? (alignment changing, debug, XP).
-    object oKiller = GetLastKiller();
 
     // Stops if we just applied EffectDeath to ourselves.
     if(GetLocalTimer(AI_TIMER_DEATH_EFFECT_DEATH)) return;
@@ -98,6 +98,7 @@ void main()
 //        SendMessageToPC(GetFirstPC(),"BOSS death");
         SetNextSpawn();
 
+        WriteTimestampedLogEntry(GetName(OBJECT_SELF)+" killed by "+GetName(oKiller));
 /************************ [Experience] ****************************************/
     }
 
@@ -194,12 +195,13 @@ void DeathCheck(int iDeaths)
 void SetNextSpawn() {
   object oNPC = OBJECT_SELF;
 //  SendMessageToPC(GetFirstPC(),"NPC death");
+  object oKiller = GetLastKiller();
 
   int ai_boss = GetLocalInt(oNPC,"AI_BOSS");
   if(!ai_boss)
     return;
 
-  WriteTimestampedLogEntry("BOSS NextSpawn '"+GetName(oNPC)+"' in '"+GetName(GetArea(oNPC))+"'");
+  WriteTimestampedLogEntry("BOSS NextSpawn '"+GetName(oNPC)+"' in '"+GetName(GetArea(oNPC))+"' killed by "+GetName(oKiller));
   ku_LootCreateBossUniqueLootItems(oNPC);
   SetPeltTimeStamp();
 
