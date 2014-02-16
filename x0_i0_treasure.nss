@@ -221,11 +221,11 @@ string sTreasureGeneratedVarname = "X0_TREASURE_HAS_BEEN_GENERATED";
 
 // Major treasure categories
 
-int TREASURE_TYPE_LOW    = 1;
-int TREASURE_TYPE_MED    = 2;
-int TREASURE_TYPE_HIGH   = 3;
-int TREASURE_TYPE_UNIQUE = 4;
-int TREASURE_TYPE_MONSTER = 5;
+const int TREASURE_TYPE_LOW    = 1;
+const int TREASURE_TYPE_MED    = 2;
+const int TREASURE_TYPE_HIGH   = 3;
+const int TREASURE_TYPE_UNIQUE = 4;
+const int TREASURE_TYPE_MONSTER = 5;
 
 
 // Special generalized base types.
@@ -774,6 +774,20 @@ void CTG_CreateTreasure(int nTreasureType,
 {
     // To avoid code duplication, this actually just uses the specific
     // version and passes an invalid item type
+    switch(nTreasureType) {
+      case TREASURE_TYPE_LOW:
+        GenerateLowTreasure(oAdventurer, oCont);
+        break;
+      case TREASURE_TYPE_MED:
+        GenerateMediumTreasure(oAdventurer, oCont);
+        break;
+      case TREASURE_TYPE_HIGH:
+      case TREASURE_TYPE_UNIQUE:
+        GenerateHighTreasure(oAdventurer, oCont);
+        break;
+    }
+    return;
+
     CTG_CreateSpecificBaseTypeTreasure(nTreasureType, oAdventurer, oCont);
 }
 
