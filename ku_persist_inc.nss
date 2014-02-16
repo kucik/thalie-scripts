@@ -1282,7 +1282,7 @@ int Persist_SavePlaceable(object oPlc,object oArea) {
    string sRET = SQLGetData(1);
 //   SpeakString(sRET);
    SetLocalInt(oPlc,"ku_plc_origin",2); /* Created from persistance */
-   SetLocalInt(oItem,"KU_PERSISTANT_DB_ID",id);
+   SetLocalInt(oPlc,"KU_PERSIST_PLC_DB_ID",StringToInt(sRET));
    return StringToInt(sRET);
  }
  else {
