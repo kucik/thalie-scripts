@@ -150,8 +150,20 @@ object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpel
         oNextTarget = OBJECT_INVALID;
         break;
       }
-      /* If target was already hit in last 1 second*/
+      /* If target was already hit in last 1 second */
       if(GetLocalInt(oNextTarget,sMark) + 1 >= iTime) {
+        i++;
+        oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
+        continue;
+      }
+      /* Do not hit caster */
+      if(oCaster == oNextTarget) {
+        i++;
+        oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
+        continue;
+      }
+      /* Do not hit dead corpses */
+      if(GetIsDead(oNextTarget)) {
         i++;
         oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
         continue;
