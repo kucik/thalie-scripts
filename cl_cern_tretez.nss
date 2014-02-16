@@ -221,7 +221,7 @@ void main()
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, TRUE));
 
       /* Calculate ray jump distance and according dmg lose */
-      if(i > 0) {
+      if(i > 1) {
         fDistance = fDistance +  GetDistanceBetween(oSource, oTarget);
         fDelay = 0.01 * fDistance;
       }
