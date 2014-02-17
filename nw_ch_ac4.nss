@@ -56,7 +56,10 @@ void main()
             {
                 sDialog = "x2_associate";
             }
-            BeginConversation("nw_g_animal");
+            if(GetAssociateType(OBJECT_SELF) == ASSOCIATE_TYPE_ANIMALCOMPANION) {
+              sDialog = "nw_g_animal";
+            }
+            BeginConversation(sDialog);
         }
     } else {
         // listening pattern matched
