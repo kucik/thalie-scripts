@@ -227,7 +227,8 @@ void main()
       /* Apply spell */
 
       /* Send event */
-      if(GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
+      if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&  
+          (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) )
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, FALSE));
       else
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, TRUE));
@@ -253,7 +254,8 @@ void main()
 
           /* compose and apply dmg */
           effect eDmg = EffectDamage(nDmg, iDamgeType);
-          if(GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) {
+          if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) && 
+              (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) ) {
             eDmg =  EffectHeal(nDmg);;
           }
           DelayCommand(fDelay, AssignCommand(oCaster,ApplyEffectToObject(DURATION_TYPE_INSTANT, eDmg, oTarget)));
