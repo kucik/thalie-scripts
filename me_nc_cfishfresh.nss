@@ -1,6 +1,7 @@
 //#include "_persist_01a"
 #include "cnr_persist_inc"
 #include "ku_libtime"
+#include "ku_water_inc"
 
 void CreatePlaceable(object oPC, string sObject, location lPlace, float fDuration);
 void CreateAMonster(string sMonster, object oPC, int iNumberOfMonsters);
@@ -15,7 +16,7 @@ void main()
   int iFishingSkill = 0;
   int iFishingChance = 0;
   object oPC = OBJECT_SELF;
-  int iTypVody = GetLocalInt(oPC, "TypVody");
+  int iTypVody = ku_FishWater(GetLocalInt(oPC, "TypVody"));
 
   if (
         (iTypVody == 0) 

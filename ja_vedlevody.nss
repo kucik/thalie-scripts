@@ -1,3 +1,4 @@
+#include "ku_water_inc"
 
 int StartingConditional()
 {
@@ -5,7 +6,7 @@ int StartingConditional()
     int iTypVody = GetLocalInt(oPC, "TypVody");
 
     //pitna voda
-    if (iTypVody==1)
+    if (ku_GetIsDrinkable(iTypVody))
     {
         return TRUE;
     }

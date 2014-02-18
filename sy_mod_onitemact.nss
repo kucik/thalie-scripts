@@ -18,6 +18,8 @@
 #include "me_pcneeds_inc"
 #include "ku_libtime"
 #include "ku_persist_inc"
+#include "ku_water_inc"
+
 void main()
 {
     //zistim ktora vec sa pouzila
@@ -39,9 +41,16 @@ void main()
         int    iTypVody = GetLocalInt(oPlayer,"TypVody");
 
         //ak niesom pri vode tak mozem skoncit
-        if (iTypVody==0)
+        if (!ku_GetIsDrinkable(iTypVody))
         {
             FloatingTextStringOnCreature("Musis stat u vodneho zdroja.", oPlayer,TRUE);
+            return;
+        }
+
+        if(ku_GetIsSickWater(iTypVody) && !GetLocalInt(oPlayer,"ku_water_warn")) {
+            FloatingTextStringOnCreature("Voda divne zapacha. Opravdu zde chces nabrat vodu?", oPlayer,TRUE);
+            SetLocalInt(oPlayer,"ku_water_warn",TRUE);
+            DelayCommand(10.0, DeleteLocalInt(oPlayer,"ku_water_warn"));
             return;
         }
 
@@ -62,10 +71,16 @@ void main()
     {
         //ak stojim vo vode doplnim cutoru
         object oPlayer   = GetItemActivator();
-        int    iVodaType = GetLocalInt(oPlayer,"TypVody");
-        if (iVodaType>0)
+        int    iTypVody = GetLocalInt(oPlayer,"TypVody");
+        if (iTypVody>0)
         {
-            SetLocalInt(oItem,"VodaType",iVodaType);
+            if(ku_GetIsSickWater(iTypVody) && !GetLocalInt(oPlayer,"ku_water_warn")) {
+              FloatingTextStringOnCreature("Voda divne zapacha. Opravdu zde chces nabrat vodu?", oPlayer,TRUE);
+              SetLocalInt(oPlayer,"ku_water_warn",TRUE);
+              DelayCommand(10.0, DeleteLocalInt(oPlayer,"ku_water_warn"));
+              return;
+            }
+            SetLocalInt(oItem,"VodaType",iTypVody);
             int iMaxNaplni = GetLocalInt(oItem,"MaxNaplni");
             SetLocalInt(oItem,"AktNaplni",iMaxNaplni);
             SetName(oItem,"Plna cutora ("+IntToString(iMaxNaplni)+")");
@@ -76,20 +91,20 @@ void main()
 
         //lognem si z cutory
         int iAktNaplni = GetLocalInt(oItem,"AktNaplni");
-            iVodaType  = GetLocalInt(oItem,"VodaType");
+            iTypVody  = GetLocalInt(oItem,"VodaType");
 
         AssignCommand(oPlayer, ActionPlayAnimation (ANIMATION_FIREFORGET_DRINK, 1.0, 3.0));
 
-        if (iVodaType==1) {
+        if (ku_GetIsDrinkable(iTypVody) && !ku_GetIsSickWater(iTypVody)) {
             FloatingTextStringOnCreature("*Napijes se* Aaah, prijemne osviezujici.", oPlayer,TRUE);
             PC_ConsumeItValues(oPlayer,0.0,10.0,0.0);
         }
-        if (iVodaType==2) {
+        if (!ku_GetIsDrinkable(iTypVody)) {
             FloatingTextStringOnCreature("*Napijes se* Fuj, slana je!", oPlayer,TRUE);
             effect eEfx = EffectAbilityDecrease(ABILITY_CONSTITUTION,4);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT,eEfx,oPlayer,0.0f);
         }
-        if (iVodaType==3) {
+        if (ku_GetIsSickWater(iTypVody)) {
             FloatingTextStringOnCreature("*Napijes se* Uff, nejak nechuti dobre.", oPlayer,TRUE);
             effect eEfx = EffectDisease(DISEASE_SHAKES);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT,eEfx,oPlayer,0.0f);

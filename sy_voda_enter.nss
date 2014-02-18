@@ -4,6 +4,8 @@
   ju nabrat do cutory
 */
 
+#include "ku_water_inc"
+
 void main()
 {
     //zistit kto aktivoval event
@@ -15,5 +17,8 @@ void main()
 
     //na hraca nastavi flag ze stoji vo vode = typ vody
     SetLocalInt(oPlayer,"TypVody",iTypVody);
-    SendMessageToPC(oPlayer,"<cDa >Stojis blizko pitneho zdroja</c>");
+    if(ku_GetIsDrinkable(iTypVody) && !ku_GetIsSickWater(iTypVody))
+      SendMessageToPC(oPlayer,"<cDa >Stojis blizko pitneho zdroja</c>");
+    else 
+      SendMessageToPC(oPlayer,"<cDa >Stojis blizko vody</c>");
 }

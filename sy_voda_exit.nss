@@ -8,7 +8,7 @@ void main()
 {
     //na hracovi nastavim flag ze uz nestoji vo vode
     object oPlayer = GetExitingObject();
-    SetLocalInt(oPlayer,"TypVody",0);
+//    SetLocalInt(oPlayer,"TypVody",0);
     DeleteLocalInt(oPlayer,"TypVody");
     SendMessageToPC(oPlayer,"<cDa >Opustas miesto s pitnym zdrojom</c>");
 }
