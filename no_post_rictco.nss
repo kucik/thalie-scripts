@@ -4,6 +4,7 @@
 void main()
 {
   object oPC = GetPCSpeaker();
+  object oNPC = OBJECT_SELF;
   int iID = GetLocalInt(oNPC,"SQ_BALIKY_ID");
 
   if(iID <= 0) {
@@ -26,7 +27,7 @@ void main()
   string sTo = GetLocalString(OBJECT_SELF,"sq_balik_to");
   int iPrice = GetLocalInt(oItem,"sq_balik_price");
 
-  SpeakString("Mam tady balik pro " + sTo + " vazici " + IntToString(GetWeight(oItem)/10) + " liber. Kdyz ho stihnes dorucit za " +IntToString(GetLocalInt(OBEJCT_SELF,"sq_balik_timelimit")) + " hodin, daji ti za nej " + IntToString(iPrice) + " gresli. Kdyz to nestihnes, daji ti jen petinu gresli. Jako zalohu si od tebe vezmu desetinu ceny baliku. ");
+  SpeakString("Mam tady balik pro " + sTo + " vazici " + IntToString(GetWeight(oItem)/10) + " liber. Kdyz ho stihnes dorucit za " +IntToString(GetLocalInt(OBJECT_SELF,"sq_balik_timelimit")) + " hodin, daji ti za nej " + IntToString(iPrice) + " gresli. Kdyz to nestihnes, daji ti jen petinu gresli. Jako zalohu si od tebe vezmu desetinu ceny baliku. ");
 
   if  (GetGold(oPC) < (iPrice/10)) {
 SendMessageToPC(oPC, "-------------------------------------" );

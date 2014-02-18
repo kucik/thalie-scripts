@@ -5,6 +5,7 @@
 void main()
 {
   object oPC = GetPCSpeaker();
+  object oNPC = OBJECT_SELF;
   int iID = GetLocalInt(oNPC,"SQ_BALIKY_ID");
 
   if(iID <= 0) {
@@ -37,7 +38,7 @@ void main()
 
   if  (GetGold(oPC) < iPrice/10 ) {
     SpeakString(" Nesnaz se me podvadet ! ");
-    SendMessageToAllDMs("postava " + ObjectToString(no_oPC) + "podvadi pri postovnim Q. Dava pravdepodobne zalohu na zem");
+    SendMessageToAllDMs("postava " + ObjectToString(oPC) + "podvadi pri postovnim Q. Dava pravdepodobne zalohu na zem");
     return;
   }
 

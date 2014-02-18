@@ -3,6 +3,7 @@
 
 void main()
 {
+  object oNPC = OBJECT_SELF;
   object oPC = GetPCSpeaker();
   int iID = GetLocalInt(oNPC,"SQ_BALIKY_ID");
   
@@ -26,10 +27,10 @@ void main()
 
   int iPrice = GetLocalInt(oItem,"sq_balik_price");
   if(GetLocalInt(oItem, "sq_balik_time") < ku_GetTimeStamp()) {
-    DelayCommand(no_delay,SpeakString(" *prohlidne si balik* Tenhle balik uz tu davno mel byt. Dostanes za nej jen petinu ceny, coz dela " + IntToString(iPrice/5) + " gresli"));
+    DelayCommand(0.2,SpeakString(" *prohlidne si balik* Tenhle balik uz tu davno mel byt. Dostanes za nej jen petinu ceny, coz dela " + IntToString(iPrice/5) + " gresli"));
     return;
   }
-  DelayCommand(no_delay,SpeakString(" *prohlidne si balik* Tak, tenhleten balik je tu vcas, coz dela " + IntToString(iPrice)  + " gresli"));
+  DelayCommand(0.2,SpeakString(" *prohlidne si balik* Tak, tenhleten balik je tu vcas, coz dela " + IntToString(iPrice)  + " gresli"));
   
   
 }

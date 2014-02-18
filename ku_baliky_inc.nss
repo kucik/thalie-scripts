@@ -8,10 +8,10 @@ struct q_balik
   int iTo;
   string sTo;
   int iDifficulty;
-}
+};
 
 
-int ku_bal_GetRandomRoute(int iID) {
+struct q_balik ku_bal_GetRandomRoute(int iID) {
   struct q_balik route;
   route.iTo = 0;
 
@@ -27,7 +27,7 @@ int ku_bal_GetRandomRoute(int iID) {
     SpeakString("Chyba! Není mozne vybrat trasu baliku!");
   }
 
-  return quest;
+  return route;
 }
 
 
