@@ -42,7 +42,6 @@ void main()
 
     //Declare major variables
     object oTarget;
-    object oLowest;
     effect eDeath =  EffectDeath();
     effect eVis = EffectVisualEffect(VFX_IMP_DEATH);
     effect eFNF = EffectVisualEffect(VFX_FNF_LOS_EVIL_20);
@@ -66,7 +65,6 @@ void main()
 
     while ((bContinueLoop))
     {
-        int nLow = nMax; //Set nLow to the lowest HD creature in the last pass through the loop
         bContinueLoop = FALSE; //Set this to false so that the loop only continues in the case of new low HD creature
         //Get first target creature in loop
         oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_LARGE, GetSpellTargetLocation());
@@ -75,7 +73,7 @@ void main()
             //Make sure the currect target is not an enemy
             if (oTarget != OBJECT_SELF)
             {
-                SignalEvent(oLowest, EventSpellCastAt(OBJECT_SELF, SPELL_CIRCLE_OF_DEATH));
+                SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_CIRCLE_OF_DEATH));
                 fDelay = GetRandomDelay();
                 //Make a Fort Save versus death effects
                 if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DEATH, OBJECT_SELF, fDelay))
