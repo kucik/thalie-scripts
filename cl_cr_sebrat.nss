@@ -8,7 +8,9 @@ void ActionPickUp(object oTarget, string sCollectableItemResRef)
         SendMessageToPC(OBJECT_SELF, "Výsledek: sbíráš " + GetName(oTarget) + ".");
         
         CreateItemOnObject(sCollectableItemResRef, OBJECT_SELF);
-        Persist_DeleteObjectFromDB(oTarget);
+        int iDeleted = Persist_DeleteObjectFromDB(oTarget);
+        if (iDeleted < 0)
+            SendMessageToPC(OBJECT_SELF, "Odstranìní z persistence se nezdaøilo.");
         DestroyObject(oTarget);
     }
 }
