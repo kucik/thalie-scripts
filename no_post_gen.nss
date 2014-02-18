@@ -64,8 +64,8 @@ void main() {
 
 
   //Compute price
-  float fRandomBonus = 1.0 + IntToFloat(Random(20)) / 10.0; // 1.0 - 2.9
-  int iPrice = FloatToInt(10.0 * IntToFloat(3 + route.iDifficulty) * fRandomBonus * sqrt(IntToFloat(GetWeight(oItem)/10)));
+  float fRandomBonus = 1.0 + IntToFloat(Random(6)) / 10.0; // 1.0 - 1.5
+  int iPrice = FloatToInt(3.0 * IntToFloat(5 + route.iDifficulty) * fRandomBonus * sqrt(IntToFloat(GetWeight(oItem)/10)));
   SetLocalInt(oNPC,"sq_balik_price", iPrice); 
   SetLocalInt(oItem,"sq_balik_price", iPrice);
   SetLocalInt(oItem,"sq_balik_to",route.iTo);
