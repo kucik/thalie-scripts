@@ -13,7 +13,7 @@ int StartingConditional()
 
   object oPC = GetPCSpeaker();
 
-  if(!GetLocalInt(oNPC,"sq_balik_waiting"))
+  if(!GetLocalInt(OBJECT_SELF,"sq_balik_waiting"))
     return FALSE;
 
   int iPrice = GetLocalInt(OBJECT_SELF,"sq_balik_price");
@@ -22,5 +22,5 @@ int StartingConditional()
     return  FALSE;
 
 
-  return TRUE
+  return TRUE;
 }
