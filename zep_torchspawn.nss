@@ -90,10 +90,13 @@
 */
 
 #include "zep_inc_main"
-
+#include "nwnx_funcsext"
 
 void main()
 {
+    // Run only once
+    SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "");
+    
     int nLightCycle = GetLocalInt(OBJECT_SELF, "CEP_L_LIGHTCYCLE");
     int nInitialized = GetLocalInt(OBJECT_SELF, "CEP_L_LIGHTINITIALIZED");
     //0 if the first time this function has run for this torch, 1 if it has run before

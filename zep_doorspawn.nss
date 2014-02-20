@@ -13,9 +13,13 @@
 //:: Created On:  January 2002
 //:://////////////////////////////////////////////
 
+#include "nwnx_funcsext"
 
 void main()
 {
+    // Run only once
+    SetScript(OBJECT_SELF, DOOR_SCRIPT_HEARTBEAT, "");
+    
     int nIsOpen = GetIsOpen(OBJECT_SELF);
     if(nIsOpen == 1)return; //if door is open, quit
     if(GetLocalObject(OBJECT_SELF, "DOORWAY_BREAK") != OBJECT_INVALID) return; //if gateblock is already in place, quit
