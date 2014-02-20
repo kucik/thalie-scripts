@@ -9,6 +9,7 @@ void ActionPickUp(object oTarget, string sCollectableItemResRef)
         
         CreateItemOnObject(sCollectableItemResRef, OBJECT_SELF);
         int iDeleted = Persist_DeleteObjectFromDB(oTarget);
+        SendMessageToPC(OBJECT_SELF, "DEBUG: " + IntToString(iDeleted));
         if (iDeleted < 0)
             SendMessageToPC(OBJECT_SELF, "Odstranìní z persistence se nezdaøilo.");
         DestroyObject(oTarget);
