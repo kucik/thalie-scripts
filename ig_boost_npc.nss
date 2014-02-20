@@ -35,15 +35,19 @@ int ModifyAbility(int nAbility, int nModify) { //Aplikujeme modifikaci
      if(nModify > 0) {
        nModify = nModify / 2;  // Udelame sude cislo
        nModify = nModify * 2;
-       eChange = EffectAbilityIncrease(nAbility,nModify);
+       //eChange = EffectAbilityIncrease(nAbility,nModify);
      }
      else {
-       nModify = (1 - nModify) / 2;
+       /*nModify = (1 - nModify) / 2; //udelej liche cislo
        nModify = (nModify * 2) - 1;
-       eChange = EffectAbilityDecrease(nAbility,nModify);
+       //eChange = EffectAbilityDecrease(nAbility,nModify);
+       */
+       nModify = (nModify - 1) /2;
+       nModify = nModify *2 +1;
      }
 
-     ApplyEffectToObject(DURATION_TYPE_PERMANENT, eChange, OBJECT_SELF);
+     //ApplyEffectToObject(DURATION_TYPE_PERMANENT, eChange, OBJECT_SELF);
+     ModifyAbilityScore(OBJECT_SELF, nAbility, nModify);
 
      return nModify;
 }
