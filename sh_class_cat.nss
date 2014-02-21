@@ -844,7 +844,7 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
     // Deklarace bonusu do skillu
     int iAnimalEmpathy = 0;
     int iAppraise = 0;
-   `int iBluff = 0;
+    int iBluff = 0;
     int iConcetration = 0;
     int iDisableTrap = 0;
     int iDiscipline = 0;
