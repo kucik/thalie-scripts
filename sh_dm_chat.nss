@@ -2,34 +2,8 @@
 #include "ku_libbase"
 #include "ku_libchat"
 #include "mys_music"
-//promenne
-    object oSpeaker =GetPCChatSpeaker();
-    string sName =  GetName(oSpeaker,FALSE);
-    object oCarmour = GetItemInSlot(INVENTORY_SLOT_CARMOUR,oSpeaker);
-    string sSpoke =GetPCChatMessage();
-    int iDM =GetIsDM(oSpeaker);
-    int iDMp =GetIsDMPossessed(oSpeaker);
-    int iPC =GetIsPC(oSpeaker);
-    string sLeftDM =GetStringLeft(sSpoke,4);
-    string sDMstring  =GetLocalString(oSpeaker,"DMstring");
-    object oCheck = GetSoulStone(oSpeaker);
-    int iDMSetNumber =GetLocalInt(oCarmour,"DMSetNumber");
-    int iLength= GetStringLength(sSpoke);
-    int iGetVolume = GetPCChatVolume();
-
-    object oTargetSpeak = GetLocalObject(oSpeaker, "dmfi_Lang_target");
-    string sNameTarget =  GetName(oTargetSpeak,FALSE);
-    int iGettype = GetObjectType(oTargetSpeak);
-    int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
-
-    int HideText = FALSE;
-void main()
-{
-     string left = GetStringLeft(sSpoke,3);
-  if(left == "/pc") {
-    ku_ChatCommand(oSpeaker,sSpoke,iGetVolume);
-    HideText = TRUE;
- }
+#include "mys_dmlisten_lib"
+    
     /*
     int    TALKVOLUME_TALK          = 0;
     int    TALKVOLUME_WHISPER       = 1;
@@ -63,59 +37,105 @@ void main()
     int    LANGUAGE_UNDERCOMMON     = 19;
     int    LANGUAGE_PLANT           = 20;
     int    LANGUAGE_ANIMAL          = 21;
-    */
+    */    
+    
+    object oSpeaker = GetPCChatSpeaker();
+    string sName = GetName(oSpeaker, FALSE);
+    object oCarmour = GetItemInSlot(INVENTORY_SLOT_CARMOUR,oSpeaker);
+    string sSpoke = GetPCChatMessage();
+    int iDM = GetIsDM(oSpeaker);
+    int iDMp = GetIsDMPossessed(oSpeaker);
+    int iPC = GetIsPC(oSpeaker);
+    string sLeftDM = GetStringLeft(sSpoke, 4);
+    string sDMstring = GetLocalString(oSpeaker, "DMstring");
+    object oCheck = GetSoulStone(oSpeaker);
+    int iDMSetNumber = GetLocalInt(oCarmour, "DMSetNumber");
+    int iLength = GetStringLength(sSpoke);
+    int iGetVolume = GetPCChatVolume();
 
-    // obsah
-    LanguageSet();
+    object oTargetSpeak = GetLocalObject(oSpeaker, "dmfi_Lang_target");
+    string sNameTarget =  GetName(oTargetSpeak,FALSE);
+    int iGettype = GetObjectType(oTargetSpeak);
+    int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
 
-
-    string sTspeak =GetStringLeft(GetPCChatMessage(),1);
-    //if(iGettype==OBJECT_TYPE_ITEM || iGettype==OBJECT_TYPE_PLACEABLE || iGettype==OBJECT_TYPE_CREATURE && iDM ==TRUE && oSpeaker != oTargetSpeak ||  iGettype==OBJECT_TYPE_DOOR || iDMp ==TRUE)
-    DmSpeakFunction();
-    if(oTargetSpeak!=OBJECT_INVALID && GetPCChatMessage() != "" &&  sTspeak != "/")
+void ChatXpSystem();
+void TestingCommands();
+    
+void main()
+{
+    if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
+    {
+        // DM commands
+        if ((iDM || iDMp) && GetStringLeft(sSpoke, 3) == "/dm")
+            DmSpeakFunction();
+        
+        else if (GetStringLeft(sSpoke, 3) == "/pc")
+        {
+            MusicInstrumentChoice();
+            ku_ChatCommand(oSpeaker,sSpoke,iGetVolume);
+        }
+        else if (sSpoke == "/emo")
+            AssignCommand(oSpeaker, ActionStartConversation(oSpeaker, "myd_emote", TRUE, FALSE));
+            
+        else if (GetStringLeft(sSpoke, 5) == "/test")
+            TestingCommands();
+            
+        else if (GetIsObjectValid(oTargetSpeak))
+            oSpeaker = oTargetSpeak;
+                    
+        else
+        {
+            PCEmoteFunction();
+            PCDiceFuntion();
+            LanguageSet();
+        }
+        SetPCChatVolume(TALKVOLUME_TELL);
+        SetPCChatMessage("");
+        return;
+    }
+    
+    if (GetIsObjectValid(oTargetSpeak))
     {
         TargetSpeak(oTargetSpeak);
         SetPCChatMessage("");
         return;
     }
-    if(oTargetSpeak!=OBJECT_INVALID && GetPCChatMessage() != "" &&  sTspeak == "/")
-    {
-        oSpeaker=oTargetSpeak;
-    }
-
     Languagespeech();
-    ColorSet(sSpoke);
-    PCEmoteFunction();
-    PCDiceFuntion();
-    MusicInstrumentChoice();
-    
-    // Myrpa's test (testing conversations without need of action)
-    if ( GetPCChatMessage() == "/myrpatest" ) { ExecuteScript("test_chatexe", GetPCChatSpeaker()); }
+    ChatXpSystem();
 
-// Now system check last #(KU_MASSAGE_CACHE) messages that player sent for xp system
-  int i;
-  int match = FALSE;
-  for(i=0;i < KU_CHAT_CACHE_SIZE ;i++) {
-    if(sSpoke == GetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(i)) ) {
-      match = TRUE;
-      break;
+    // Send chat to DMs
+    SendChatToListeners(oSpeaker, sSpoke);
+}
+
+void ChatXpSystem()
+{
+    // Now system check last #(KU_MASSAGE_CACHE) messages that player sent for xp system
+    int i;
+    int match = FALSE;
+    for (i=0;i < KU_CHAT_CACHE_SIZE ;i++)
+    {
+        if (sSpoke == GetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(i)) )
+        {
+            match = TRUE;
+            break;
+        }
     }
-  }
-  // Prodluz pridelovani xp
-  if(!match) {
-    SetLocalInt(oSpeaker,"ku_LastActionStamp",ku_GetTimeStamp(0,5)); // +5 minutes
-  }
-  int CacheIndex = GetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX");
-  CacheIndex = (CacheIndex + 1) % KU_CHAT_CACHE_SIZE;
-  SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoke);
-  SetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX",CacheIndex);
-//  SendMessageToPC(oPC,"chat index="+IntToString(CacheIndex));
-  SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
-// End of xp system
+    
+    // Prodluz pridelovani xp
+    if (!match)
+        SetLocalInt(oSpeaker,"ku_LastActionStamp",ku_GetTimeStamp(0,5)); // +5 minutes
+    
+    int CacheIndex = GetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX");
+    CacheIndex = (CacheIndex + 1) % KU_CHAT_CACHE_SIZE;
+    
+    SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoke);
+    SetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX",CacheIndex);
+    SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
+}
 
-
-  if(HideText) {
-    SetPCChatVolume(TALKVOLUME_TELL);
-    SetPCChatMessage("");
-  }
+void TestingCommands()
+{
+    // Myrpa's test (testing conversations without need of action)
+    if ( sSpoke == "/test 5an9jt" )
+        ExecuteScript("test_chatexe", GetPCChatSpeaker());
 }
