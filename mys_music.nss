@@ -1,3 +1,4 @@
+#include "ku_libtime"
 #include "mys_music_c"
 #include "mys_music_h"
 
@@ -183,6 +184,16 @@ int MusicGetTracksInQueue(object oArea)
     return i;
 }
 
+int MusicGetTrackTimestamp(object oArea)
+{
+    return GetLocalInt(oArea, "MUSIC_QUEUE_TRACK_TIMESTAMP_0");
+}
+
+void MusicSetTrackTimestamp(object oArea, int iTimestamp)
+{
+    SetLocalInt(oArea, "MUSIC_QUEUE_TRACK_TIMESTAMP_0", iTimestamp);
+}
+
 void MusicQueueAddTrack(object oPC, int iTrackId, int iMinutes, int iSeconds)
 {
     //MusicDebugOutput("MusicQueueAddTrack");
@@ -205,16 +216,24 @@ void MusicQueueAddTrack(object oPC, int iTrackId, int iMinutes, int iSeconds)
     
     if (!iTracksInQueue)
     {
+        // Unique timestamp to identify track
+        int iTrackTimestamp = ku_GetTimeStamp();
+        
         MusicBackgroundStoreOriginalTracks(oArea);
-        MusicPlayTrack(oPC, oArea);        
+        MusicSetTrackTimestamp(oArea, iTrackTimestamp);
+        MusicPlayTrack(oPC, oArea, iTrackTimestamp);        
     }
     else
         SendMessageToPC(oPC, "Poøadí ve frontì: " + IntToString(iTracksInQueue + 1));
 }
 
-void MusicQueueRemoveLastTrack(object oPC, object oArea)
+void MusicQueueRemoveLastTrack(object oPC, object oArea, int iTrackTimestamp)
 {
     //MusicDebugOutput("MusicQueueRemoveLastTrack");
+    
+    if (iTrackTimestamp != MusicGetTrackTimestamp(oArea))
+        return;
+    
     SendMessageToPC(oPC, "Skladba dohrála.");
     
     // Check how many tracks are in area's queue.
@@ -235,9 +254,12 @@ void MusicQueueRemoveLastTrack(object oPC, object oArea)
     DeleteLocalFloat(oArea, "MUSIC_QUEUE_DELAY_" + IntToString(iTracksInQueue - 1));
 }
 
-void MusicPlayTrack(object oPC, object oArea)
+void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp)
 {
     //MusicDebugOutput("MusicPlayTrack");
+    
+    if (iTrackTimestamp != MusicGetTrackTimestamp(oArea))
+        return;
     
     // Check how many tracks are in area's queue.
     int iTracksInQueue = MusicGetTracksInQueue(oArea);
@@ -245,6 +267,9 @@ void MusicPlayTrack(object oPC, object oArea)
     // Get queue-last-track info
     int iTrackId = GetLocalInt(oArea, "MUSIC_QUEUE_TRACK_ID_0");
     float fDelay = GetLocalFloat(oArea, "MUSIC_QUEUE_DELAY_0");
+    
+    // Unique timestamp to identify track
+    int iTrackTimestamp = ku_GetTimeStamp();
     
     //MusicDebugOutput("iTracksInQueue = " + IntToString(iTracksInQueue));
     //MusicDebugOutput("iTrackId = " + IntToString(iTrackId));
@@ -254,8 +279,9 @@ void MusicPlayTrack(object oPC, object oArea)
     {
         SendMessageToPC(oPC, "Pøehrávám skladbu id: " + IntToString(iTrackId));
         MusicChangeTrack(oArea, iTrackId);
-        AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea)));
-        AssignCommand(GetModule(), DelayCommand(fDelay + 0.2f, MusicPlayTrack(oPC, oArea)));
+        MusicSetTrackTimestamp(oArea, iTrackTimestamp);        
+        AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));
+        AssignCommand(GetModule(), DelayCommand(fDelay + 0.2f, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
     }
     else
     {
@@ -329,6 +355,9 @@ void ActionMusicReset(object oPC)
         DeleteLocalInt(oArea, "MUSIC_QUEUE_TRACK_ID_" + IntToString(i));
         DeleteLocalFloat(oArea, "MUSIC_QUEUE_DELAY_" + IntToString(i));
     }
+    
+    // Reset unique timestamp of currently playing track
+    MusicSetTrackTimestamp(oArea, 0);
     
     // Reset area music to defaults.
     MusicChangeTracksToDefault(oArea);

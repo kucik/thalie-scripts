@@ -34,6 +34,12 @@ int MusicGetNearestInstrumentReady(object oPC, int iRequiedPerformSkillRank, str
 
 int MusicGetTracksInQueue(object oArea);
 
+// Returns unique timestamp of currently playing track.
+int MusicGetTrackTimestamp(object oArea);
+
+// Sets unique timestamp of currently playing track.
+void MusicSetTrackTimestamp(object oArea, int iTimestamp);
+
 // Adds music track to area queue.
 // - oPC: Musician object.
 // - iTrackId: Int value of ambientmusic.2da row.
@@ -44,12 +50,14 @@ void MusicQueueAddTrack(object oPC, int iTrackId, int iMinutes, int iSeconds);
 // Removes music track from area queue.
 // - oPC: Musician object.
 // - oArea: Area object.
-void MusicQueueRemoveLastTrack(object oPC, object oArea);
+// - iTrackTimestamp: unique timestamp to identify track.
+void MusicQueueRemoveLastTrack(object oPC, object oArea, int iTrackTimestamp);
 
 // Calls function for playing next track in area queue or resets to original area music tracks.
 // - oPC: Musician object.
 // - oArea: Area object.
-void MusicPlayTrack(object oPC, object oArea);
+// - iTrackTimestamp: unique timestamp to identify track.
+void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp);
 
 void MusicBackgroundStoreOriginalTracks(object oArea);
 
