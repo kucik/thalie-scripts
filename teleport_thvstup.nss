@@ -1,13 +1,5 @@
-#include "aps_include"
-#include "persistence"
-#include "zep_inc_phenos"
-#include "ja_inc_stamina"
-#include "me_pcneeds_inc"
 #include "ja_inc_frakce"
-#include "ku_libbase"
-// kuly alchymii
-#include "tc_constants"
-#include "sh_classes_inc"
+
 void main()
 {
     object oPC = GetLastUsedBy();
