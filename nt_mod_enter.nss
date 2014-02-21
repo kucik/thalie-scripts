@@ -330,12 +330,19 @@ void main()
         object oItem = GetFirstItemInInventory(oPC);
         while(GetIsObjectValid(oItem))
         {
-            DestroyObject(oItem);
+            DestroyObject(oItem, 0.2); // always destroy item after delay.
             oItem = GetNextItemInInventory(oPC);
         }
 
         DestroyObject(GetItemInSlot(INVENTORY_SLOT_CHEST, oPC));
         DestroyObject(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC));
+        int i;
+        for(i = 0; i<=17; i++) {
+          oItem = GetItemInSlot(i, oPC);
+          if(GetIsObjectValid(oItem)) {
+            DestroyObject(oItem, 0.2); // always destroy item after delay.
+          }
+        }
         TakeGoldFromCreature(GetGold(oPC), oPC, TRUE);
         GiveGoldToCreature(oPC, 3000);
         SetPersistentInt(oPC, "HP", GetCurrentHitPoints(oPC));
