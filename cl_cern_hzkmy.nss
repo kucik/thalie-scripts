@@ -29,6 +29,8 @@ void main()
     int iDC = 10 + 9 + GetAbilityModifier(ABILITY_CHARISMA);
     if(!GetIsReactionTypeFriendly(oTarget))
     {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
+        
         // Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {

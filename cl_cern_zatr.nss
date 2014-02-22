@@ -32,6 +32,8 @@ void main()
     int nCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
     if(!GetIsReactionTypeFriendly(oTarget))
     {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
+        
         // Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {

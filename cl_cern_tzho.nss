@@ -40,7 +40,13 @@ void main()
                 fDelay = GetDistanceBetween(OBJECT_SELF, oTarget)/20.0;
 
 
-           //
+            /* Send event */
+            if (iEsenceType == ESENCE_TEMNA && GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
+                SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+            else
+                SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), TRUE));
+            
+            /* Apply spell */
             if (!MyResistSpell(OBJECT_SELF, oTarget))
             {
                 switch (iEsenceType)
