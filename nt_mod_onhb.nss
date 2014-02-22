@@ -80,7 +80,7 @@ void HeartbeatPCActions(object oPC, int t)
     }
         
     // Kontrola zmeny den/noc pro subrasy
-    if (t % time_subraces_check == 0)
+    if (t % time_minute == time_subraces_check)
         Subraces_ModuleHeartBeatPC(oPC);
 
     // Fce systemu zkusenosti
