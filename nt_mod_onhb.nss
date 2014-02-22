@@ -26,7 +26,8 @@ void main()
 {
     int i;
     int t = GetLocalInt(OBJECT_SELF, "TIME");
-    float fPCDelayStep = 5.8f / IntToFloat(GetLocalInt(OBJECT_SELF, "LAST_PC_COUNTER_RECORD"));
+    int iPCCount = GetLocalInt(OBJECT_SELF, "LAST_PC_COUNTER_RECORD");
+    float fPCDelayStep = iPCCount ? 5.8f / IntToFloat(iPCCount) : 5.8f;
     float fPCDelay = fPCDelayStep;
     object oPC = GetFirstPC();
 

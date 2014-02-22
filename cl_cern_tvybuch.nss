@@ -26,6 +26,13 @@ void main()
     iTouchAttackResult = TouchAttackRanged(oTarget);
     if (( iTouchAttackResult > 0) && (GetArcaneSpellFailure(OBJECT_SELF)<= 20))
     {
+        /* Send event */
+        if (iEsenceType == ESENCE_TEMNA && GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
+            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        else
+            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), TRUE));
+        
+        /* Apply spell */
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {
             switch (iEsenceType)
