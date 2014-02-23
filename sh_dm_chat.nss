@@ -63,6 +63,13 @@ void TestingCommands();
     
 void main()
 {
+    // Allow shout only for DMs
+    if (iGetVolume == TALKVOLUME_SHOUT)
+    {
+        if (!iDM && !iDMp)
+            SetPCChatVolume(TALKVOLUME_TALK);
+    }
+    
     if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
     {
         // DM commands
