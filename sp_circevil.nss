@@ -60,5 +60,5 @@ void main()
 
     //Create an instance of the AOE Object using the Apply Effect function
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis2, oTarget);
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(nDuration));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration));
 }
