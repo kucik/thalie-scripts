@@ -39,7 +39,7 @@ void main()
 
 
     //Declare major variables including Area of Effect Object
-    effect eAOE = EffectAreaOfEffect(AOE_PER_FOGACID,"sp_acidfoga","sp_acidfogc","sp_acidfog");
+    effect eAOE = EffectAreaOfEffect(AOE_PER_FOGACID,"sp_acidfoga","sp_acidfogc","sp_acidfogb");
     location lTarget = GetSpellTargetLocation();
     int nDuration = GetCasterLevel(OBJECT_SELF) / 2;
     int nMetaMagic = GetMetaMagicFeat();
