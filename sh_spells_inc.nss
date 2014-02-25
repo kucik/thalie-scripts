@@ -8,6 +8,14 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
          iModifiedCasterLevel+= GetLevelByClass(CLASS_TYPE_EXORCISTA,oCaster);
     }
 
+    /* For boost spells always reduce caster level. Cannot be higher than caster 
+       level*/
+    if (bChangeCL)
+    {
+         int iHD = GetHitDice(oTarget);
+         if (iModifiedCasterLevel>iHD) iModifiedCasterLevel=iHD;
+    }
+
     return iModifiedCasterLevel;
 }
 
