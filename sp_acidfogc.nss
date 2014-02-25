@@ -19,6 +19,7 @@
 //:://////////////////////////////////////////////
 
 #include "X0_I0_SPELLS"
+#include "sh_spells_inc"
 
 void main()
 {
