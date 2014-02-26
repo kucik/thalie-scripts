@@ -15,42 +15,23 @@
 //:: Created On: July 23 2002
 //:://////////////////////////////////////////////
 //:: Last Updated By: Andrew Nobbs May 14, 2003
+//:: Last Updated By: P.A., Feb 27, 2014
 //:: Notes: Changed damage to non-undead to 6d6
-//:: 2003-10-09: GZ Added Subrace check for vampire special case, bugfix
+//:: If an vampire passed reflex check and is not insta-death,
+//:: deal it with damage to non-undead units.
+
 
 #include "X0_I0_SPELLS"
-#include "x2_inc_spellhook"
-
 float nSize =  RADIUS_SIZE_COLOSSAL;
-
-
 
 void main()
 {
-
-/*
-  Spellcast Hook Code
-  Added 2003-06-20 by Georg
-  If you want to make changes to all spells,
-  check x2_inc_spellhook.nss to find out more
-
-*/
-
-    if (!X2PreSpellCastCode())
-    {
-    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
-        return;
-    }
-
-// End of Spell Cast Hook
-
-
     //Declare major variables
     object oCaster = OBJECT_SELF;
     int nCasterLvl = GetCasterLevel(oCaster);
-    nCasterLvl = GetThalieCaster(OBJECT_SELF,oCaster,nCasterLvl,FALSE);
     int nMetaMagic = GetMetaMagicFeat();
-    int nDamage = 0;
+    int nDamage = 0;     // dmg to be dealed to the target
+    int bDoNotDoDamage; // logical variable that short-cut evaluation of code for instant-death vampires
     float fDelay;
     effect eExplode = EffectVisualEffect(VFX_IMP_SUNSTRIKE);
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_HOLY);
@@ -66,8 +47,6 @@ void main()
     }
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eLOS, GetSpellTargetLocation());
-    int bDoNotDoDamage = FALSE;
-
 
     //Declare the spell shape, size and the location.  Capture the first target object in the shape.
     object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);
@@ -75,71 +54,65 @@ void main()
     while (GetIsObjectValid(oTarget))
     {
         if (spellsIsTarget(oTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
-        {
+        	{
             //Fire cast spell at event for the specified target
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_SUNBURST));
             //This visual effect is applied to the target object not the location as above.  This visual effect
             //represents the flame that erupts on the target not on the ground.
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eHitVis, oTarget);
-
             if (!MyResistSpell(OBJECT_SELF, oTarget, fDelay))
-            {
+            {     // spell not resisted
                 if (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
-                {
-                    //Roll damage for each target
+                {    //Roll damage for each undead target
                     nDamage = MaximizeOrEmpower(6, nCasterLvl, nMetaMagic);
                 }
                 else
-                {
+                {    // target is not unded
                     nDamage = MaximizeOrEmpower(6, 6, nMetaMagic);
-               }
-
+                }
+                bDoNotDoDamage = FALSE; // initialization
                 // * if a vampire then destroy it
-                if (GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_MALE || GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_FEMALE || GetStringLowerCase(GetSubRace(oTarget)) == "vampire" )
-                {
-                    // SpeakString("I vampire");
-                    // * if reflex saving throw fails no blindness
-                    if (!ReflexSave(oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_SPELL))
+                if (GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_MALE || GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_FEMALE)
+                {   // target is vampire, try to destroy it by instant-death if failed reflex save
+                    if (!ReflexSave(oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_SPELL))
                     {
                         effect eDead = EffectDamage(GetCurrentHitPoints(oTarget));
                         //ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_FLAME_M), oTarget);
 
                         //Apply epicenter explosion on caster
                         ApplyEffectToObject(DURATION_TYPE_INSTANT, eExplode, oTarget);
-
+                        // Apply instant-death effect
                         DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDead, oTarget));
-                        bDoNotDoDamage = TRUE;
+                        bDoNotDoDamage = TRUE;    // target is destroyed, do not any other damage to it
                     }
                 }
                 if (bDoNotDoDamage == FALSE)
-                    //Adjust the damage based on the Reflex Save, Evasion and Improved Evasion.
-                    nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_SPELL);
-
-                // * Do damage
-                if ((nDamage > 0) && (bDoNotDoDamage == FALSE))
                 {
-                    //Set the damage effect
-                    eDam = EffectDamage(nDamage, DAMAGE_TYPE_MAGICAL);
-
-                    // Apply effects to the currently selected target.
-                    DelayCommand(0.01, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
-
-                     // * if reflex saving throw fails apply blindness
-                    if (!ReflexSave(oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_SPELL))
+                    //Adjust the damage based on the Reflex Save, Evasion and Improved Evasion.
+                    nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_SPELL);
+                    // * Do damage
+                    if (nDamage > 0)
                     {
-                        effect eBlindness = EffectBlindness();
-                        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eBlindness, oTarget);
-                    }
-                } // nDamage > 0
-             }
+                        //Set the damage effect
+                        eDam = EffectDamage(nDamage, DAMAGE_TYPE_MAGICAL);
+                        // Apply effects to the currently selected target.
+                        ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget);
+                        if (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
+                        {
+                            // * if reflex saving throw fails no blindness
+                            // TO DO - CHECK LIGHT-SENSITIVE SUBRACES, IF DETECTED, IMPROVE SpellSaveDC by amount of N
+                            if (!ReflexSave(oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_SPELL))
+                            {
+                                effect eBlindness = EffectBlindness();
+                                ApplyEffectToObject(DURATION_TYPE_PERMANENT, eBlindness, oTarget);
+                            }
+                        }  // end of if (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
 
-             //-----------------------------------------------------------------
-             // GZ: Bugfix, reenable damage for next object
-             //-----------------------------------------------------------------
-             bDoNotDoDamage = FALSE;
-        }
-       //Select the next target within the spell shape.
-       oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);
-    }
+                    } // end of if (nDamage > 0)
+                } // end of (bDoNotDoDamage == FALSE)
+            }  // end of if (!MyResistSpell(OBJECT_SELF, oTarget, fDelay))
+            //Select the next target within the spell shape.
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);
+        }    // end of if (spellsIsTarget(oTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
+    } // end of     while (GetIsObjectValid(oTarget))
 }
-
