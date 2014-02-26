@@ -1463,7 +1463,7 @@ int Persist_DeleteObjectFromDB(object oPlc) {
     return -1;
   }
 
-  string sSQL = "DELETE FROM loc_persist_plc WHERE  id ='"+IntToString(iPersID)+"' ';";
+  string sSQL = "DELETE FROM loc_persist_plc WHERE  id="+IntToString(iPersID)+";";
   SQLExecDirect(sSQL);
 
   return 0;
