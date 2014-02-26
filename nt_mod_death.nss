@@ -18,6 +18,27 @@
 #include "ja_lib"
 #include "sy_main_lib"
 #include "sh_classes_inc"
+#include "pc_lib"
+
+int GetSubdualMode(object oDammager)
+{
+    int nSubdual = GetLocalInt(oDammager, "SUBDUAL_MODE");
+    
+    if (!nSubdual)
+    {
+        if (GetIsPlayer(oDammager))
+            nSubdual = GetLocalInt(GetSoulStone(oDammager), "SUBDUAL_MODE");
+                            
+        else if (GetAssociateType(oDammager))
+        {
+            object oMaster = GetTopMaster(oDammager);
+            nSubdual = GetLocalInt(oMaster, "SUBDUAL_MODE");
+            if (!nSubdual)
+                nSubdual = GetLocalInt(GetSoulStone(oMaster), "SUBDUAL_MODE");
+        }
+    }
+    return nSubdual;
+}
 
 // Drop items which cannot be beared to Astharoth's kingdom
 void DropDisallowedItems(object oPC)
@@ -127,6 +148,8 @@ void main()
 
     object oPC = GetLastPlayerDied();
     object oDammager = GetLastDamager(oPC);
+    
+    /*
     int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
     if(!nSubdual) {
       object oSoul = GetAssociateType(oDammager) ? GetSoulStone(GetMaster(oDammager)) : GetSoulStone(oDammager);
@@ -135,7 +158,13 @@ void main()
       else
         nSubdual = GetLocalInt(oDammager,"SUBDUAL_MODE");
 
-    }
+    }*/
+    
+    // Get subdual damage (stínovky)
+    int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
+    if (!nSubdual)
+        nSubdual = GetSubdualMode(oDammager);
+    
     OnDeathClassSystem(oPC);
 /*    if(nSubdual==2) {
 //      SendMessageToPC(oPC,"//Debug info: Upadl jsi do bezvedomi, pri pouiti stinovych zraneni.");

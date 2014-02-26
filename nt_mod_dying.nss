@@ -16,6 +16,28 @@
 //:://////////////////////////////////////////////
 // melvik upava na novy zpusob nacitani soulstone 16.5.2009
 #include "sh_classes_inc_e"
+#include "pc_lib"
+
+int GetSubdualMode(object oDammager)
+{
+    int nSubdual = GetLocalInt(oDammager, "SUBDUAL_MODE");
+    
+    if (!nSubdual)
+    {
+        if (GetIsPlayer(oDammager))
+            nSubdual = GetLocalInt(GetSoulStone(oDammager), "SUBDUAL_MODE");
+                            
+        else if (GetAssociateType(oDammager))
+        {
+            object oMaster = GetTopMaster(oDammager);
+            nSubdual = GetLocalInt(oMaster, "SUBDUAL_MODE");
+            if (!nSubdual)
+                nSubdual = GetLocalInt(GetSoulStone(oMaster), "SUBDUAL_MODE");
+        }
+    }
+    return nSubdual;
+}
+
 void HABDRegenerationItemsUnequip(object oPC)
 {
     // If the player already has unequiped items they never had a re-equip
@@ -54,6 +76,7 @@ void main()
 //    SendMessageToPC(oPC,"Subdual check");
 
     object oDammager = GetLastDamager(oPC);
+    /*
     int nSubdual = 0;
     object oSoul =GetSoulStone(oDammager);
 
@@ -61,7 +84,11 @@ void main()
       nSubdual = GetLocalInt(oSoul,"SUBDUAL_MODE");
     else
       nSubdual = GetLocalInt(oDammager,"SUBDUAL_MODE");
-
+    */
+    
+    // Get subdual damage (stínovky)
+    int nSubdual = GetSubdualMode(oDammager);
+    
     if(!nSubdual) {
       nSubdual=1;
       SendMessageToPC(oPC,"//Debug info: Zranil te "+GetName(oDammager)+" bez pouziti stinovych zraneni. Umiras.");
