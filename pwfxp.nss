@@ -186,7 +186,7 @@
 //#include "subraces"
 
 
-float th_GetChallengeRating(oDead) {
+float th_GetChallengeRating(object oDead) {
 
    int iCR = GetLocalInt(oDead,"CR");
    float fCR = IntToFloat(iCR);
@@ -394,7 +394,7 @@ void PWFXP_GiveXP(object oPC, int nXP)
     return;
   }
   // Reduce XP for death
-  nXP = ku_ReduceXPGainForDeath(oPC, nXP)';
+  nXP = ku_ReduceXPGainForDeath(oPC, nXP);
   nXP = ku_ReduceXPForPlayer(oPC, nXP);
 
   if(GetXP(oPC) > PWFXP_XP_LIMIT) return;
