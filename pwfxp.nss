@@ -185,6 +185,19 @@
 #include "ku_libbase"
 //#include "subraces"
 
+
+float th_GetChallengeRating(oDead) {
+
+   int iCR = GetLocalInt(oDead,"CR");
+   float fCR = IntToFloat(iCR);
+   if(iCR <= 0)
+     fCR = GetChallengeRating(oDead);
+
+   return fCR;
+}
+
+
+
 //Calculate xp for player
 int CalculateXPforGrpMember(object oGroupMbr, object oDead, object oKiller, float fAvgLevel,float fCR, int nGroupSize,
                             float fModCR, float fDivisor, float fBossModifier,float XPPerBoost, int iLessXP = 200, int bPrecalc=FALSE);
@@ -460,7 +473,7 @@ void main()
   // groupmember level
   float fMbrLevel;
   // get creature CR
-  float fCR = GetChallengeRating(oDead);
+  float fCR = th_GetChallengeRating(oDead);
   // Bos specific CR
   if(aiBoss) {
     fCR = IntToFloat(GetLocalInt(GetArea(oDead),"TREASURE_VALUE"));
