@@ -6,7 +6,8 @@
 /*
   Grants a +1 enhancement bonus per 4 caster levels
   (maximum of +5) do any weapon(s) equipped by target
-  of the spell. Lasts 1 turn per level
+  of the spell. Lasts 1 turn per level. Updated to 
+  suppport empowered version (max bonus +7).
 */
 //:://////////////////////////////////////////////
 //:: Created By: Andrew Nobbs
@@ -81,23 +82,14 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-    /*   preprared for metamagic feats EMPOWER and MAXIMIZED
     else
     {
       if (nMetaMagic == METAMAGIC_EMPOWER )
       { // spell is empowered
-           // do something here
-      }
-      else
-      {
-        if (nMetaMagic == METAMAGIC_MAXIMIZE )
-        { // spell is maximized
-           // do something here        
-        }
+           iBonus = 1.5*iBonus;
       }
     } 
-    */
-    
+
     if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
     {
         nDuration = nDuration * 2; //Duration is +100%
