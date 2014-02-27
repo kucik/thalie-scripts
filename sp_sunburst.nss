@@ -109,7 +109,7 @@ void main()
                               { // adjust spell's DC
                                 sLine = "DEBUG: Target identified as underdark PC, ID=" + ObjectToString(oTarget);  //debug
                                 PrintString(sLine); //debug
-                                nBlindDC = nBlindDC + 4;
+                                nBlindDC = nBlindDC + 2;
                               }
                             }
                             else
@@ -118,7 +118,7 @@ void main()
                               { // adjust spell's DC
                                 sLine = "DEBUG: Target identified as underdark NPC, ID=" + ObjectToString(oTarget);  //debug
                                 PrintString(sLine); //debug
-                                nBlindDC = nBlindDC + 4;
+                                nBlindDC = nBlindDC + 2;
                               } 
                             }  // end of else of if GetIsPC(oTarget)                        
 
