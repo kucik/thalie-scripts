@@ -32,6 +32,7 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     int nDamage = 0;     // dmg to be dealed to the target
     int bDoNotDoDamage; // logical variable that short-cut evaluation of code for instant-death vampires
+    int nBlindDC; // defines DC for blind enemies
     float fDelay;
     effect eExplode = EffectVisualEffect(VFX_IMP_SUNSTRIKE);
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_HOLY);
@@ -98,15 +99,37 @@ void main()
                         // Apply effects to the currently selected target.
                         ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget);
                         if (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
-                        {
+                        {   // not undead target
+                            //Set DC of blind effect
+                            nBlindDC = GetSpellSaveDC();
+                            // Check if the oTarget is sensivitve to bright light, if so, improve the spell's DC                        
+                            if GetIsPC(oTarget)
+                            {  // target is PC
+                              if (Subraces_GetIsCharacterFromUnderdark(oTarget)) // test for PC faction
+                              { // adjust spell's DC
+                                sLine = "DEBUG: Target identified as underdark PC, ID=" + ObjectToString(oTarget);  //debug
+                                PrintString(sLine); //debug
+                                nBlindDC = nBlindDC + 4;
+                              }
+                            }
+                            else
+                            { // target is not PC, check if its faction is underdark
+                              if (GetStringLeft(GetNPCFaction(oNPC),8) == "Podtemno");  // test for NPC faction
+                              { // adjust spell's DC
+                                sLine = "DEBUG: Target identified as underdark NPC, ID=" + ObjectToString(oTarget);  //debug
+                                PrintString(sLine); //debug
+                                nBlindDC = nBlindDC + 4;
+                              } 
+                            }  // end of else of if GetIsPC(oTarget)                        
+
                             // * if reflex saving throw fails no blindness
                             // TO DO - CHECK LIGHT-SENSITIVE SUBRACES, IF DETECTED, IMPROVE SpellSaveDC by amount of N
-                            if (!ReflexSave(oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_SPELL))
+                            if (!ReflexSave(oTarget, nBlindDC, SAVING_THROW_TYPE_SPELL))
                             {
                                 effect eBlindness = EffectBlindness();
                                 ApplyEffectToObject(DURATION_TYPE_PERMANENT, eBlindness, oTarget);
                             }
-                        }  // end of if (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
+                        }  // end of else of if (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
 
                     } // end of if (nDamage > 0)
                 } // end of (bDoNotDoDamage == FALSE)
