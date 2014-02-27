@@ -451,7 +451,7 @@ int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay) {
     return TRUE;
   }
 
-  return FALSE';
+  return FALSE;
 
 }
 
