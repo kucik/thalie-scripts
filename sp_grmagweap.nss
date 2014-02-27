@@ -4,9 +4,9 @@
 //:: Copyright (c) 2001 Bioware Corp.
 //:://////////////////////////////////////////////
 /*
-  Grants a +1 enhancement bonus per 3 caster levels
-  (maximum of +5).
-  lasts 1 hour per level
+  Grants a +1 enhancement bonus per 4 caster levels
+  (maximum of +5) do any weapon(s) equipped by target
+  of the spell. Lasts 1 turn per level
 */
 //:://////////////////////////////////////////////
 //:: Created By: Andrew Nobbs
@@ -15,6 +15,7 @@
 //:: Updated by Andrew Nobbs May 08, 2003
 //:: 2003-07-07: Stacking Spell Pass, Georg Zoeller
 //:: 2003-07-17: Complete Rewrite to make use of Item Property System
+//:: Updated by P.A., 27.2.2014
 
 
 
@@ -22,11 +23,21 @@
 #include "x2_inc_spellhook"
 #include "sh_classes_const"
 #include "nwnx_funcs"
+
+/*
 void  AddAttackEffectToWeapon(object oMyWeapon, float fDuration, int nBonus)
 {
    IPSafeAddItemProperty(oMyWeapon,ItemPropertyAttackBonus(nBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
    return;
 }
+*/
+
+void  AddGreaterEnhancementEffectToWeapon(object oMyWeapon, float fDuration, int nBonus)
+{
+   IPSafeAddItemProperty(oMyWeapon,ItemPropertyEnhancementBonus(nBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+   return;
+}
+
 
 void main()
 {
@@ -54,7 +65,7 @@ void main()
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel);
-    int iBonus = iCasterLevel /5;
+    int iBonus = iCasterLevel /4;
     int nDuration =  iCasterLevel ;
     int nMetaMagic = GetMetaMagicFeat();
 
@@ -70,7 +81,23 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-
+    /*   preprared for metamagic feats EMPOWER and MAXIMIZED
+    else
+    {
+      if (nMetaMagic == METAMAGIC_EMPOWER )
+      { // spell is empowered
+           // do something here
+      }
+      else
+      {
+        if (nMetaMagic == METAMAGIC_MAXIMIZE )
+        { // spell is maximized
+           // do something here        
+        }
+      }
+    } 
+    */
+    
     if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
     {
         nDuration = nDuration * 2; //Duration is +100%
@@ -80,11 +107,12 @@ void main()
     if(GetIsObjectValid(oMyWeapon) )
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
+        // if (nDuration>0) // nDuration is always larger than 0, IF deleted
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
-            AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus);
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014            
         }
 
     }
@@ -94,11 +122,12 @@ void main()
     if(GetIsObjectValid(oMyWeapon) )
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
+        // if (nDuration>0) // nDuration is always larger than 0, IF deleted
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
-            AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus);
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014                        
         }
 
     }
@@ -108,11 +137,12 @@ void main()
     if(GetIsObjectValid(oMyWeapon) && GetBaseItemType(oMyWeapon) == BASE_ITEM_GLOVES )
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
+        // if (nDuration>0) // nDuration is always larger than 0, IF deleted
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon),TurnsToSeconds(nDuration));
-            AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus);
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus);// tvar z pred 27.2.2014
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014                        
         }
 
     }
