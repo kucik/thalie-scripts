@@ -10,6 +10,7 @@
 #include "nwnx_funcs"
 #include "x0_i0_position"
 #include "strings_inc"
+#include "ku_exp_inc"
 
 const int KU_CHAT_CACHE_SIZE = 50;
 const string KU_CHAT_CACHE = "KU_CHAT_CACHE_";
@@ -114,7 +115,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       float fMaxStamina = getMaxStamina(oPC);
       float fAlcoholR = GetLocalFloat(oPC, "AlcoholRating");
       object oSoul = GetSoulStone(oPC);
-      int iDebt = GetLocalInt(oSoul,"KU_XP_DEBT");
+      int iDebt = ku_GetXpDebt(oPC);
       SendMessageToPC(oPC,"<cX >Postih za smrt</c> : "+IntToString(iDebt) +" XP");
       SetCustomToken(7006, sy_num_to_percent("<c X >Hlad</c> : ", MAX_FOOD, fFoodR) );
       SetCustomToken(7007, sy_num_to_percent("<c XX>Zizen</c> : ", MAX_WATER, fWaterR) );

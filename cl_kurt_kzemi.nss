@@ -10,7 +10,7 @@ Cíl: Humanoidní bytost mužského pohlaví
 */
 #include "sh_classes_inc_e"
 #include "x0_i0_spells"
-#include "ku_libtimenss"
+#include "ku_libtime"
 
 
 void main()

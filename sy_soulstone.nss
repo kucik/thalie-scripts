@@ -1,6 +1,7 @@
 //script sa spusti po aktivacii predmetu dusa bytosti TAG = sy_soul_stone
 
 #include "ja_lib"
+#include "ku_exp_inc"
 
 
 string sy_num_to_percent(string sText, float fMax, float fAkt, int nInvert = 0)
@@ -47,7 +48,6 @@ void main()
     object oPC = GetItemActivator();
     object oItem = GetItemActivatedTarget();
     object oSoul = GetItemActivated();
-    //SendMessageToPC(oPC,"XP dluh postavy je " + IntToString(GetLocalInt(oSoul,"KU_XP_DEBT")));
     // Efekty zbrani
     if( (GetObjectType(oItem)==OBJECT_TYPE_ITEM) && (GetIsObjectValid(oItem)) ) {
       ku_switch_weapon_effect(oPC,IntToString(GetBaseItemType(oItem)));
@@ -68,7 +68,7 @@ void main()
     float fStaminaR = GetLocalFloat(oPC, "JA_STAMINA");
     float fMaxStamina = getMaxStamina(oPC);
     float fAlcoholR = GetLocalFloat(oPC, "AlcoholRating");
-    int iDebt = GetLocalInt(oSoul,"KU_XP_DEBT");
+    int iDebt = ku_GetXpDebt(oPC);
       SendMessageToPC(oPC,"<cX >Postih za smrt</c> : "+IntToString(iDebt) +" XP");
     SetCustomToken(7006, sy_num_to_percent("<c X >Hlad</c> : ", MAX_FOOD, fFoodR) );
     SetCustomToken(7007, sy_num_to_percent("<c XX>Zizen</c> : ", MAX_WATER, fWaterR) );

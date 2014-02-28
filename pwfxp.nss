@@ -182,8 +182,9 @@
  */
 
 #include "pwfxp_def"
-#include "ku_libbase"
-//#include "subraces"
+//#include "ku_libbase"
+#include "ku_exp_inc"
+#include "subraces"
 
 
 float th_GetChallengeRating(object oDead) {
@@ -395,7 +396,7 @@ void PWFXP_GiveXP(object oPC, int nXP)
   }
   // Reduce XP for death
   nXP = ku_ReduceXPGainForDeath(oPC, nXP);
-  nXP = ku_ReduceXPForPlayer(oPC, nXP);
+  nXP = ku_SaveXPPerKill(oPC, nXP);
 
   if(GetXP(oPC) > PWFXP_XP_LIMIT) return;
   if(PWFXP_USE_SETXP)

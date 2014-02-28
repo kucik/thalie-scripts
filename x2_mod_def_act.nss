@@ -16,7 +16,8 @@
  */
 
 #include "x2_inc_switches"
-#include "ku_libbase"
+//#include "ku_libbase"
+#include "ku_exp_time"
 #include "sh_cr_potions"
 #include "sh_cr_bandages"
 

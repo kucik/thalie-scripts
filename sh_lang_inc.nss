@@ -1909,13 +1909,13 @@ SetPCChatMessage("");
 if(iPCspasm==TRUE)
 {
 AssignCommand(oSpeaker, PlayAnimation( ANIMATION_LOOPING_SPASM, 1.0, fDur));
-string sSpoke =StringReplace(sSpoke,"/","");
+string sNSpoke =StringReplace(sSpoke,"/","");
 SetPCChatMessage("");
 }
 if(iPCsmoke==TRUE)
 {
 SmokePipe(oSpeaker);
-string sSpoke =StringReplace(sSpoke,"/","");
+string sNSpoke =StringReplace(sSpoke,"/","");
 SetPCChatMessage("");
 }
 

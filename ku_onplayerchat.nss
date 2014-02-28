@@ -4,8 +4,10 @@
  * Created 19. 10. 2008 By kucik
  */
 
-#include "ku_libbase"
+//#include "ku_libbase"
+#include "ku_exp_time"
 #include "ku_libchat"
+
 
 
 

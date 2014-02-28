@@ -1,4 +1,8 @@
-#include "ku_libbase"
+//#include "ku_libbase"
+#include "ku_exp_time"
+#include "subraces"
+#include "ja_lib"
+
 #include "tc_ds_system_inc"
 
 // dat ruzne hodnoty casu, at se ukony co se maji pravodet nepotkavaji v jedno HB -> odlehceni HB

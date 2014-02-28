@@ -86,7 +86,7 @@ void AddListener(object oSpeaker, object oListener)
     __SetListenerObject(GetName(oSpeaker), iCounter, oListener);
 }
 
-void RemoveListener(object oSpeaker, object oListener)
+int RemoveListener(object oSpeaker, object oListener)
 {
     int iCounter, bRemoved;
     string sName = GetName(oSpeaker);
@@ -118,6 +118,7 @@ void RemoveListener(object oSpeaker, object oListener)
         sListenerId = __GetListenerId(sName, iCounter);
         oListenerObject = __GetListenerObject(sName, iCounter);
     }
+    return FALSE;
 }
 
 object GetListener(object oSpeaker, int iCounter)

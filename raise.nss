@@ -1,9 +1,10 @@
 //EDIT Sylm : osetrenie cheatovania uniku z podsvetia cez Thaala
 
-#include "aps_include"
+//#include "aps_include"
 #include "raiseinc"
-#include "sy_main_lib"
-#include "ku_libbase"
+//#include "sy_main_lib"
+//#include "ku_libbase"
+#include "ku_exp_inc"
 
 void ApplyPenalty(object oDead)
 {
@@ -72,7 +73,7 @@ void main()
    ApplyPenalty(oPC);
 
    //edit Sylm : pri uspesnom oziveni cez Astarotha odstranim priznak smrti z duse bytosti
-   object oSoulItem = sy_has_soulitem(oPC);
+   object oSoulItem = GetSoulStone(oPC);
    DeleteLocalInt(oSoulItem,"isDead");
    //end Sylm
 

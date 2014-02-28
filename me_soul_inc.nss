@@ -9,10 +9,6 @@ object GetSoulStone(object oPC){
     }
 
     oSoul = GetItemPossessedBy(oPC, "sy_soulstone");
-    if(!GetIsObjectValid(oSoul) && GetIsPC(oPC)){
-      oSoul = CreateItemOnObject("sy_soulstone", oPC);
-    }
-
     SetLocalObject(oPC,"SoulStone",oSoul);
     return oSoul;
 }

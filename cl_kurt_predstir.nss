@@ -8,7 +8,7 @@ Cíl: Humanoidní bytost libovolného pohlaví
 */
 #include "sh_classes_inc_e"
 #include "x0_i0_spells"
-#include "ku_libtimenss"
+#include "ku_libtime"
 void main()
 {
     int iCasterLevel = GetLevelByClass(CLASS_TYPE_KURTIZANA);

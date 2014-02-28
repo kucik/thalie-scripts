@@ -4,7 +4,8 @@
 #include "ja_inc_stamina"
 #include "me_pcneeds_inc"
 #include "ja_inc_frakce"
-#include "ku_libbase"
+//#include "ku_libbase"
+#include "ku_exp_time"
 // kuly alchymii
 #include "tc_constants"
 #include "sh_classes_inc"

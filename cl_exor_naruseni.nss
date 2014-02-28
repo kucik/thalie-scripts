@@ -10,7 +10,7 @@
 
 //:://////////////////////////////////////////////
 #include "sh_classes_inc"
-#include "ku_libtimenss"
+#include "ku_libtime"
 
 void main()
 {

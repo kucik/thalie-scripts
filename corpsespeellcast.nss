@@ -1,8 +1,9 @@
-#include "aps_include"
+//#include "aps_include"
 #include "raiseinc"
-#include "sy_main_lib"
+//#include "sy_main_lib"
 
-#include "ku_libbase"
+//#include "ku_libbase"
+#include "ku_exp_inc"
 
 void ApplyPenalty(object oDead, float nPerc)
 {
@@ -59,7 +60,7 @@ void main()
                   Raise(oPC);
 
                   //edit Sylm : po oziveni zmazem priznak smrti isDead = 0
-                  object oSoulItem = sy_has_soulitem(oPC);
+                  object oSoulItem = GetSoulStone(oPC);
                   DeleteLocalInt(oSoulItem,"isDead");
                   //end Sylm
 

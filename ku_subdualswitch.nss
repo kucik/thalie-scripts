@@ -1,5 +1,5 @@
 // melvik upava na novy zpusob nacitani soulstone 16.5.2009
-#include "me_lib"
+#include "me_soul_inc"
 void main()
 {
   object oPC = GetPCSpeaker();

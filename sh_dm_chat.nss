@@ -1,5 +1,6 @@
 #include "sh_lang_inc"
-#include "ku_libbase"
+//#include "ku_libbase"
+#include "ku_exp_time"
 #include "ku_libchat"
 #include "mys_music"
 #include "mys_dmlisten_lib"

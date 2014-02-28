@@ -212,11 +212,7 @@ void SEI_SendSubraceInitMsg( object a_oCharacter, int a_nSubrace )
 // **********************
 
 object SEI_GetSoul(object oPC) {
-   object oSoul = GetSoulStone(oPC);
-   if(!GetIsObjectValid(oSoul)) {
-      oSoul = CreateItemOnObject("sy_soulstone", oPC);
-   }
-   return oSoul;
+   return GetSoulStone(oPC);
 }
 
 // Returns a new subrace structure and saves it to the global object.
