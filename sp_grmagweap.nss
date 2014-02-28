@@ -86,7 +86,7 @@ void main()
     {
       if (nMetaMagic == METAMAGIC_EMPOWER )
       { // spell is empowered
-           iBonus = 1.5*iBonus;
+           iBonus = 3*iBonus / 2;
       }
     } 
 
