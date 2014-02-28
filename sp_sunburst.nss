@@ -103,7 +103,7 @@ void main()
                             //Set DC of blind effect
                             nBlindDC = GetSpellSaveDC();
                             // Check if the oTarget is sensivitve to bright light, if so, improve the spell's DC                        
-                            if GetIsPC(oTarget)
+                            if (GetIsPC(oTarget))
                             {  // target is PC
                               if (Subraces_GetIsCharacterFromUnderdark(oTarget)) // test for PC faction
                               { // adjust spell's DC
