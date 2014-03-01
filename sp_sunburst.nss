@@ -56,7 +56,7 @@ void main()
     while (GetIsObjectValid(oTarget))
     {
         if (spellsIsTarget(oTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
-        	{
+        {
             //Fire cast spell at event for the specified target
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_SUNBURST));
             //This visual effect is applied to the target object not the location as above.  This visual effect
@@ -135,8 +135,8 @@ void main()
                     } // end of if (nDamage > 0)
                 } // end of (bDoNotDoDamage == FALSE)
             }  // end of if (!MyResistSpell(OBJECT_SELF, oTarget, fDelay))
-            //Select the next target within the spell shape.
-            oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);
         }    // end of if (spellsIsTarget(oTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
+        //Select the next target within the spell shape.
+        oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);        
     } // end of     while (GetIsObjectValid(oTarget))
 }
