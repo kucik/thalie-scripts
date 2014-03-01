@@ -58,7 +58,7 @@ void main()
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel);
     int nDuration  = iCasterLevel;
     int nMetaMagic = GetMetaMagicFeat();
-    int nAmount = iCasterLevel/5;
+    int nAmount = iCasterLevel/4;
     if (nDuration<=4)
     {
          nDuration = 5;
@@ -75,6 +75,13 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
+    else
+    {
+      if (nMetaMagic == METAMAGIC_EMPOWER )
+      { // spell is empowered
+           nAmount = 3*nAmount / 2;
+      }
+    }     
     if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
     {
         nDuration = nDuration * 2; //Duration is +100%
