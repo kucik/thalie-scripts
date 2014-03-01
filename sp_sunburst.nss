@@ -22,6 +22,7 @@
 
 
 #include "X0_I0_SPELLS"
+#include "subraces"
 float nSize =  RADIUS_SIZE_COLOSSAL;
 
 void main()
