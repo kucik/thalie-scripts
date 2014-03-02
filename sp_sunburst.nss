@@ -103,6 +103,7 @@ void main()
                         {   // not undead target
                             //Set DC of blind effect
                             nBlindDC = GetSpellSaveDC();
+                            /* Change of DC for light-sensitive (sub)races has been cancelled.
                             // Check if the oTarget is sensivitve to bright light, if so, improve the spell's DC                        
                             if (GetIsPC(oTarget))
                             {  // target is PC
@@ -121,7 +122,8 @@ void main()
                                 PrintString(sLine); //debug
                                 nBlindDC = nBlindDC + 2;
                               } 
-                            }  // end of else of if GetIsPC(oTarget)                        
+                            }  // end of else of if GetIsPC(oTarget)  
+                            */
 
                             // * if reflex saving throw fails no blindness
                             // TO DO - CHECK LIGHT-SENSITIVE SUBRACES, IF DETECTED, IMPROVE SpellSaveDC by amount of N
