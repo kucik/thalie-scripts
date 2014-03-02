@@ -52,8 +52,10 @@ void main()
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,GetCasterLevel(OBJECT_SELF),FALSE);
     int nMetaMagic = GetMetaMagicFeat();
-    itemproperty ip1 = ItemPropertyAttackBonus(nCasterLevel / 5);
-    itemproperty ip2 = ItemPropertyVampiricRegeneration(nCasterLevel / 5);
+    int nPower = nCasterLevel / 4;
+    if (nPower > 5)  nPower = 5;  // * max of +5 bonus
+    itemproperty ip1 = ItemPropertyAttackBonus(nPower);
+    itemproperty ip2 = ItemPropertyVampiricRegeneration(nPower);
     object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,OBJECT_SELF);
     if(GetIsObjectValid(oMyWeapon) )
     {
