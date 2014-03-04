@@ -14,8 +14,9 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
-#include "sh_classes_const"
-#include "nwnx_funcs"
+//#include "sh_classes_const"
+//#include "sh_classes_inc_e"
+//#include "nwnx_funcs"
 #include "sh_deity_inc"
 
 void main()

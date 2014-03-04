@@ -36,7 +36,7 @@ void main()
     //Declare major variables including Area of Effect Object
     effect eAOE = EffectAreaOfEffect(AOE_PER_DARKNESS);
     location lTarget = GetSpellTargetLocation();
-    int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK);;
+    int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_SHADOWDANCER,OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF);
     int nMetaMagic = GetMetaMagicFeat();
     //Make sure duration does no equal 0
     if (nDuration < 1)
@@ -47,6 +47,10 @@ void main()
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
        nDuration = nDuration *2;    //Duration is +100%
+    }
+    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_PODZEMI || GetClericDomain(OBJECT_SELF,2)==DOMENA_PODZEMI)
+    {
+        nDuration = nDuration * 2; //Duration is +100%
     }
     //Create an instance of the AOE Object using the Apply Effect function
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eAOE, lTarget, RoundsToSeconds(nDuration));
