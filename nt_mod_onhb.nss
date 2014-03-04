@@ -12,7 +12,7 @@ const int time_pc_needs = 13;
 const int time_drugs_check = 20;
 const int time_fatigue_check = 18;
 const int time_upd_LOC_and_HP = 5;
-const int time_effect_dying_pc = 7;
+const int time_effect_dying_pc = 2;
 const int time_subraces_check = 3;
 const int time_minute = 10; //10 heartbeats is minute
 // soucasny system expeni nastaven na hodnotu 2; nemenit, nechcete-li menit rychlost expeni
