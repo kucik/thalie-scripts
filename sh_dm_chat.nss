@@ -60,7 +60,6 @@
     int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
 
 void ChatXpSystem();
-void TestingCommands();
     
 void main()
 {
@@ -84,9 +83,6 @@ void main()
         }
         else if (sSpoke == "/emo")
             AssignCommand(oSpeaker, ActionStartConversation(oSpeaker, "myd_emote", TRUE, FALSE));
-            
-        else if (GetStringLeft(sSpoke, 5) == "/test")
-            TestingCommands();
             
         else if (GetIsObjectValid(oTargetSpeak))
             oSpeaker = oTargetSpeak;
@@ -112,7 +108,7 @@ void main()
     ChatXpSystem();
 
     // Send chat to DMs
-    SendChatToListeners(oSpeaker, sSpoke);
+    SendChatToListeners(oSpeaker, sSpoke, iGetVolume);
 }
 
 void ChatXpSystem()
@@ -139,11 +135,4 @@ void ChatXpSystem()
     SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoke);
     SetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX",CacheIndex);
     SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
-}
-
-void TestingCommands()
-{
-    // Myrpa's test (testing conversations without need of action)
-    if ( sSpoke == "/test 5an9jt" )
-        ExecuteScript("test_chatexe", GetPCChatSpeaker());
 }

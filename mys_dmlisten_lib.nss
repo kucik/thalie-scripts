@@ -1,10 +1,10 @@
 #include "npcact_h_colors"
 
 // Send chat messaget to all listener objects of oSpeaker.
-void SendChatToListeners(object oSpeaker, string sSpoken);
+void SendChatToListeners(object oSpeaker, string sSpoken, int iVolume);
 
 // Send chat message to specific listener object of oSpeaker.
-void SendChatToListener(object oListener, object oSpeaker, string sSpoken);
+void SendChatToListener(object oListener, object oSpeaker, string sSpoken, int iVolume);
 
 // Assign oListener as listener object to oSpeaker.
 void AddListener(object oSpeaker, object oListener);
@@ -30,7 +30,7 @@ object __GetListenerObject(string sSpeakerName, int iIndex);
 void __SetListenerObject(string sSpeakerName, int iIndex, object oListener);
 void __RemoveListenerObject(string sSpeakerName, int iIndex);
 
-void SendChatToListeners(object oSpeaker, string sSpoken)
+void SendChatToListeners(object oSpeaker, string sSpoken, int iVolume)
 {
     int iCounter;
     object oListener;
@@ -41,18 +41,20 @@ void SendChatToListeners(object oSpeaker, string sSpoken)
     {
         oListener = GetListener(oSpeaker, iCounter);
         if (GetIsObjectValid(oListener))
-            SendChatToListener(oListener, oSpeaker, sSpoken);
+            SendChatToListener(oListener, oSpeaker, sSpoken, iVolume);
         
         iCounter ++;
         sListenerId = __GetListenerId(sName, iCounter);
     }
 }
 
-void SendChatToListener(object oListener, object oSpeaker, string sSpoken)
+void SendChatToListener(object oListener, object oSpeaker, string sSpoken, int iVolume)
 {
     if (GetIsDM(oListener) || GetIsDMPossessed(oListener))
     {
-        string sMessage = ColorRGBString(GetName(oSpeaker),2,2,6) + ": " + ColorString(sSpoken, COLOR_WHITE);
+        string sMessage = iVolume == TALKVOLUME_WHISPER
+            ? ColorRGBString(GetName(oSpeaker)+":",2,2,6) + " " + ColorRGBString(sSpoken,2,2,2)
+            : ColorRGBString(GetName(oSpeaker)+":",2,2,6) + " " + ColorRGBString(sSpoken,6,6,6);
         SendMessageToPC(oListener, sMessage);
     }
 }
@@ -118,7 +120,7 @@ int RemoveListener(object oSpeaker, object oListener)
         sListenerId = __GetListenerId(sName, iCounter);
         oListenerObject = __GetListenerObject(sName, iCounter);
     }
-    return FALSE;
+    return bRemoved;
 }
 
 object GetListener(object oSpeaker, int iCounter)
