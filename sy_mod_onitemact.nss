@@ -211,8 +211,7 @@ void main()
         SetLocalInt(oPlc, "PLC_EXPIRATION", iExpiration);
         
         // Set placeable persistent
-        int iDebug = Persist_SavePlaceable(oPlc, GetArea(oPlayer));
-        SendMessageToPC(oPlayer, "DEBUG: " + IntToString(iDebug));
+        Persist_SavePlaceable(oPlc, GetArea(oPlayer));
 
         //zmazem deku z inventara hraca
         DestroyObject(oItem, 0.0f);

@@ -8,9 +8,7 @@ void ActionPickUp(object oTarget, string sCollectableItemResRef)
         SendMessageToPC(OBJECT_SELF, "Výsledek: sbíráš " + GetName(oTarget) + ".");
         
         CreateItemOnObject(sCollectableItemResRef, OBJECT_SELF);
-        SendMessageToPC(OBJECT_SELF, "DEBUG: " + IntToString(GetLocalInt(oTarget,"KU_PERSIST_PLC_DB_ID")));
         int iDeleted = Persist_DeleteObjectFromDB(oTarget);
-        SendMessageToPC(OBJECT_SELF, "DEBUG: " + IntToString(iDeleted));
         if (iDeleted < 0)
             SendMessageToPC(OBJECT_SELF, "Odstranìní ID "+ IntToString(GetLocalInt(oTarget,"KU_PERSIST_PLC_DB_ID"))+ " z persistence se nezdaøilo.");
         DestroyObject(oTarget);
