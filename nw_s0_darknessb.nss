@@ -31,10 +31,13 @@ void main()
         {
             int nID = GetEffectSpellId(eAOE);
             //If the effect was created by the spell then remove it
-            if( nID== SPELL_DARKNESS || nID == SPELLABILITY_AS_DARKNESS  || nID == SPELL_SHADOW_CONJURATION_DARKNESS
-            //|| nID == 1291 //SD temnota
-            //|| nID == 1439 //cernokneznik temnota
-           // || nID == 1523 //drow temnota
+            if( nID == SPELL_DARKNESS || 
+                nID == SPELLABILITY_AS_DARKNESS  || 
+                nID == SPELL_SHADOW_CONJURATION_DARKNESS ||
+                nID == 688 || // GWildShape_DriderDarkness
+                nID == 842 || // SD_TEMNOTA
+                nID == 865 || // FEAT_CERNOKNEZNIK_INVOKACE1_TEMNOTA
+                nID == 911 // FEAT_SUBRACE_DROW_TEMNOTA 
             )
             {
                 RemoveEffect(oTarget, eAOE);
