@@ -103,9 +103,8 @@ void FatigueCheck(object oPC, int bStatusMessages = TRUE)
     
     int iStatus = getStatusInt(oPC);
 
-    if(iStatus < 4)
-        if (bStatusMessages)
-            SendMessageToPC(oPC, "Prave jsi "+getStatusString(oPC)+".");
+    if(iStatus < 4 && bStatusMessages)
+        SendMessageToPC(oPC, "Prave jsi "+getStatusString(oPC)+".");
 
     if(iStatus < 3 && !GetLocalInt(oPC, "KU_STAMINA_PENALTY"))
     {
