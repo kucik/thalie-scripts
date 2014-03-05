@@ -68,7 +68,7 @@ void main()
     {
         if(GetIsFriend(oTarget) && OBJECT_SELF != oTarget)
         {
-            SendMessageToPC( OBJECT_SELF,  ("target =" + IntToString(nTargets)+ ""));
+            // SendMessageToPC( OBJECT_SELF,  ("target =" + IntToString(nTargets)+ "")); // debug msg
             fDelay = GetRandomDelay();
             fNormalizedCasterDuration = fDuration * GetThalieCaster(OBJECT_SELF,oTarget,nCasterLvl) / nCasterLvl; // spell duration normalized by NT caster level of the target
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));      // apply visual effect of the casted spell
