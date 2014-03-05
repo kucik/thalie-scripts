@@ -54,23 +54,6 @@ void main()
     kill_himself(oPlayer);
   }
 
-  // Knihy
-  if (sActivated=="ku_readable_book"){
-    string sReadBookDialog = "read_book";
-    SetCustomToken(8001,GetName(oActivated));
-    AssignCommand(oPlayer,ActionStartConversation(OBJECT_SELF,"read_book",TRUE,FALSE));
-    return;
-  }
-
-  // Prehozy na zbroje
-  if (GetStringLeft(sActivated,13) == "ku_armordust_" ) {
-     object oActArmor = GetItemInSlot(INVENTORY_SLOT_CHEST,oPlayer);
-     if(oTarget==oActArmor)
-       KU_ChangeArmorDust(oPlayer,oTarget,oActivated);
-     else
-       KU_ChangeArmorDust(oPlayer,oTarget,oActivated,FALSE);
-  }
-
   // Lodni listek "ku_ship_ticket"
   if (GetStringLeft(sActivated,14) == "ku_ship_ticket" ) {
      ku_ShipsTellDepartureTime(GetStringRight(sActivated,GetStringLength(sActivated) - 14),oPlayer);
