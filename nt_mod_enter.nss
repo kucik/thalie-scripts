@@ -12,6 +12,7 @@
 #include "sh_deity_inc"
 #include "ku_dlg_inc"
 #include "sh_lang_start"
+#include "mys_mount_lib"
 
 // Compose text info about Thalie-datum
 string GetInGameDateMessage()
@@ -482,6 +483,10 @@ void main()
   DeleteLocalInt(oPC,"ku_sleeping");
   DeleteLocalInt(oPC,"KU_DEATH_NOLOG");
   DelayCommand(10.0,FixMovementSpeed(oPC));
+  
+  // Dismount mounted PC
+  if (GetLocalInt(oPC, "MOUNTED"))
+    Dismount(oPC, oSoulStone);
 
   //ku_EtherealClientEnter(oPC);
 }

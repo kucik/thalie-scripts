@@ -26,6 +26,13 @@ void main()
 
     object oPC = GetLastPCRested();
     int restType = GetLastRestEventType();
+    
+    // No rest if mounted
+    if (GetLocalInt(oPC, "MOUNTED"))
+    {
+        SendMessageToPC(oPC, "Akci nelze provést v sedle.");
+        return;
+    }
 
     string sInn = GetLocalString(GetArea(oPC), "INN");
     int insideInn = GetLocalInt(oPC, sInn);

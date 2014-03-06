@@ -59,6 +59,13 @@ void main()
 {
 
     object oPC = OBJECT_SELF;
+    
+    // No meditation if mounted
+    if (GetLocalInt(oPC, "MOUNTED"))
+    {
+        SendMessageToPC(oPC, "Akci nelze provést v sedle.");
+        return;
+    }
 
     int restStyle = getRestStyle(oPC);
     if(restStyle == SPANEK){
