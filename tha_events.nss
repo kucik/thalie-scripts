@@ -1,6 +1,7 @@
 #include "nwnx_events"
 #include "sh_classes_inc"
 #include "ku_hire_inc"
+#include "shm_pick_pocket"
 
 void ZrusSDRychlost(object oPC)
 {
@@ -124,6 +125,12 @@ void main()
             FloatingTextStringOnCreature(GetName(oPC)+" used feat  #"+IntToString(nSubID)+" on "+GetName(oTarget), oPC, FALSE);
             RandomBypass(oPC);
             break;*/
+        case EVENT_PICKPOCKET:
+            oPC = OBJECT_SELF;
+            oTarget = GetActionTarget();
+            shm_PickPocket(oPC,oTarget);
+            BypassEvent();
+            break;
         case EVENT_EXAMINE:
             oPC = OBJECT_SELF;
             oTarget = GetActionTarget();
