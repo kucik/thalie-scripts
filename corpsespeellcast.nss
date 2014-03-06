@@ -4,6 +4,7 @@
 
 //#include "ku_libbase"
 #include "ku_exp_inc"
+#include "ja_inc_stamina"
 
 void ApplyPenalty(object oDead, float nPerc)
 {
@@ -69,12 +70,11 @@ void main()
                   AssignCommand(oPC, JumpToLocation(lRaise));
                   if (i == SPELL_RAISE_DEAD){
                       ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(GetCurrentHitPoints(oPC)-1),oPC);
-                      ApplyPenalty(oPC,3.0);
-                  }
-                  else if (bIsItCleric)
                       ApplyPenalty(oPC,1.0);
+                      woundStamina(oPC, getMaxStamina(oPC));
+                  }
                   else {
-                      ApplyPenalty(oPC,(35-iCasterlvl)/10.0);
+                      ApplyPenalty(oPC,1.0);
                   }
                   ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_RAISE_DEAD), lRaise);
                   SetLocalLocation(oPC, "LOCATION", lRaise);
