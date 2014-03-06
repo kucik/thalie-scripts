@@ -1,5 +1,7 @@
 #include "nwnx_events"
 #include "sh_classes_inc"
+#include "ku_hire_inc"
+
 void ZrusSDRychlost(object oPC)
 {
         if (GetStealthMode(oPC)==STEALTH_MODE_DISABLED)
@@ -122,6 +124,12 @@ void main()
             FloatingTextStringOnCreature(GetName(oPC)+" used feat  #"+IntToString(nSubID)+" on "+GetName(oTarget), oPC, FALSE);
             RandomBypass(oPC);
             break;*/
+        case EVENT_EXAMINE:
+            oPC = OBJECT_SELF;
+            oTarget = GetActionTarget();
+            ku_HireCheckHireLeft(oTarget);
+            break;
+
         case EVENT_TOGGLE_MODE:
             oPC = OBJECT_SELF;
             nSubID = GetEventSubType();  //ACTION_MODE_*

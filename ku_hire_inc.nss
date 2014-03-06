@@ -26,7 +26,7 @@ void ku_HireCleanExpiredHires();
 
 // For conditionals - Check if room is empty for this PC
 // PC is there for future functionality, if we want to extend hire time
-int ku_HireIsEmptyRoom(int iRoomID, object oPC);
+int ku_HireIsEmptyRoom(int iRoomID, object oPC, int bShifted = FALSE);
 
 // Hire this room.
 int ku_HireHireRoom(int iRoomID, object oPC);
@@ -42,6 +42,20 @@ object ku_HireGenereteKey(int iRoomID, object oPC);
 
 // Check if key is expired and have to be deleted
 int ku_HireGetIsKeyExpired(object oKey);
+
+//Check is oPC is owner of this room
+int ku_HireIsRoomOwner(int iRoomID, object oPC, int bShifted = FALSE);
+
+//Go throught all keys inventory and extend it's expiration time
+int ku_HireExtendAllKeys(int iRoomID, object oPC, int iExpires);
+
+//Make new key for this room
+int ku_HireMakeKeyCopy(int iRoomID, object oPC);
+
+//Extend Room hire
+int ku_HireExtendHireRoom(int iRoomID, object oPC);
+
+int ku_HireCheckHireLeft(object oKey);
 
 int ku_HireInitLessor(object oLessor) {
   ku_HireCleanExpiredHires();
@@ -61,7 +75,7 @@ int ku_HireInitLessor(object oLessor) {
   string sTime = IntToString(iTime);
 
   //Read rooms status from DB
-  string sSQL = "SELECT room_id, hire_from, hire_expire FROM room_hire WHERE lessor_id='"+sLessorId+"' AND hire_expire > "+sTime+" ;";
+  string sSQL = "SELECT room_id, hire_from, hire_expire, player, name FROM room_hire WHERE lessor_id='"+sLessorId+"' AND hire_expire > "+sTime+" ;";
 //  SpeakString(sSQL);
   string sRoomID;
   int iDateFrom, iDateExpire;
@@ -72,6 +86,9 @@ int ku_HireInitLessor(object oLessor) {
     iDateExpire = StringToInt(SQLGetData(3));
     SetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE",iDateExpire);
     SetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_HIRED_FROM",iDateFrom);
+    SetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_PLAYER",SQLGetData(4));
+    SetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_NAME",SQLGetData(5));
+//    SpeakString(SQLGetData(1)+";"+SQLGetData(2)+";"+SQLGetData(3)+";"+SQLGetData(4)+";"+SQLGetData(5)+";");
   }
 
   SetLocalInt(oLessor,"KU_HIRE_INITIALIZED",TRUE);
@@ -86,8 +103,12 @@ void ku_HireCleanExpiredHires() {
 }
 
 
-int ku_HireIsEmptyRoom(int iRoomID, object oPC) {
+int ku_HireIsEmptyRoom(int iRoomID, object oPC, int bShifted = FALSE) {
   object oLessor = OBJECT_SELF;
+  if(!bShifted) {
+    iRoomID = iRoomID + GetLocalInt(oLessor,"KU_HIRE_LESSOR_SHIFT");
+  }
+
   if(!ku_HireInitLessor(oLessor))
     return FALSE;
 
@@ -106,8 +127,17 @@ int ku_HireIsEmptyRoom(int iRoomID, object oPC) {
 
 int ku_HireHireRoom(int iRoomID, object oPC) {
   object oLessor = OBJECT_SELF;
+
+  iRoomID = iRoomID + GetLocalInt(oLessor,"KU_HIRE_LESSOR_SHIFT");
+
+
+  if(ku_HireIsRoomOwner(iRoomID,oPC,TRUE)) {
+    return ku_HireExtendHireRoom(iRoomID,oPC);
+  }
+
+//  iRoomID = iRoomID + GetLocalInt(oLessor,"KU_HIRE_LESSOR_SHIFT");
   string sRoomID = IntToString(iRoomID);
-  if(!ku_HireIsEmptyRoom(iRoomID,oPC)) {
+  if(!ku_HireIsEmptyRoom(iRoomID,oPC,TRUE)) {
     SpeakString("Toto ma jiz pronajato nekdo jiny.");
     return FALSE;
   }
@@ -146,6 +176,12 @@ int ku_HireHireRoom(int iRoomID, object oPC) {
   SQLExecDirect(sSQL);
   SetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE",iExpires);
   SetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_HIRED_FROM",iTime);
+  SetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_PLAYER",SQLEncodeSpecialChars(GetPCPlayerName(oPC)));
+  SetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_NAME",SQLEncodeSpecialChars(GetName(oPC)));
+
+  //
+  SetLocalInt(oPC,"KU_HIRE_HIREDOK",1);
+  DelayCommand(20.0,DeleteLocalInt(oPC,"KU_HIRE_HIREDOK"));
 
   return TRUE;
 }
@@ -235,4 +271,170 @@ int ku_HireGetIsKeyExpired(object oKey) {
     return TRUE;
   }
   return FALSE;
+}
+
+int ku_HireCheckHireLeft(object oKey) {
+  if(GetBaseItemType(oKey) != BASE_ITEM_KEY) {
+    return FALSE;
+  }
+
+  if(GetStringLeft(GetTag(oKey),8) != "ku_hire_" )
+    return FALSE;
+
+  string sOrigDesc = GetLocalString(oKey,"ORIG_DESCRIPTION");
+  if(GetStringLength(sOrigDesc) < 1) {
+    sOrigDesc = GetDescription(oKey);
+    SetLocalString(oKey,"ORIG_DESCRIPTION",sOrigDesc);
+  }
+
+  int iLeft = (GetLocalInt(oKey,"KU_HIRE_EXPIRATION") - ku_GetTimeStamp())/FloatToInt(HoursToSeconds(1))/24; //To IC days
+  SetDescription(oKey,sOrigDesc+"        Do vyprseni klice zbyva "+IntToString(iLeft)+" dni.");
+
+  return TRUE;
+}
+
+int ku_HireIsRoomOwner(int iRoomID, object oPC, int bShifted=FALSE) {
+  object oLessor = OBJECT_SELF;
+  if(!ku_HireInitLessor(oLessor))
+    return FALSE;
+
+  if(!bShifted) {
+    iRoomID = iRoomID + GetLocalInt(oLessor,"KU_HIRE_LESSOR_SHIFT");
+  }
+
+  string sRoomID = IntToString(iRoomID);
+  int iExpire = GetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE");
+  if(iExpire) {
+
+    string sPCName = GetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_PLAYER");
+    string sName   = GetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_NAME");
+    if( (iExpire > ku_GetTimeStamp()) &&
+        (sPCName == SQLEncodeSpecialChars(GetPCPlayerName(oPC))) &&
+        (sName == SQLEncodeSpecialChars(GetName(oPC))) ) {
+
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+
+int ku_HireMakeKeyCopy(int iRoomID, object oPC){
+  object oLessor = OBJECT_SELF;
+
+  iRoomID = iRoomID + GetLocalInt(oLessor,"KU_HIRE_LESSOR_SHIFT");
+
+
+  string sRoomID = IntToString(iRoomID);
+
+  if(!ku_HireIsRoomOwner(iRoomID, oPC,TRUE)) {
+    SpeakString("Tenhle pokoj ti nepatri.");
+    return FALSE;
+  }
+
+  int iPrice = 100;
+  if(GetGold(oPC) < iPrice) {
+    SpeakString("Za novy klic chci sto zlatych.");
+    return FALSE;
+  }
+
+
+  /* Take gold */
+  TakeGoldFromCreature(iPrice,oPC,TRUE);
+
+  /* Create key */
+  object oKey = ku_HireGenereteKey(iRoomID,oPC);
+//  int iTime = ku_GetTimeStamp();
+//  int iExpires = iTime + ku_HireGetHireLength(iRoomID); GetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE");
+  int iExpires = GetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE");
+//  DelayCommand(IntToFloat(ku_HireGetHireLength(iRoomID)),DestroyObject(oKey));
+
+  /* Set Key expiration */
+  SetLocalInt(oKey,"KU_HIRE_EXPIRATION",iExpires);
+
+  SetLocalInt(oPC,"KU_HIRE_HIREDOK",1);
+  DelayCommand(20.0,DeleteLocalInt(oPC,"KU_HIRE_HIREDOK"));
+
+  return TRUE;
+}
+
+
+int ku_HireExtendHireRoom(int iRoomID, object oPC) {
+  object oLessor = OBJECT_SELF;
+  string sRoomID = IntToString(iRoomID);
+  if(!ku_HireIsRoomOwner(iRoomID,oPC,TRUE)) {
+    SpeakString("Tebe tu nemam zapsaneho jako najemce.");
+    return FALSE;
+  }
+
+  int iPrice = ku_HireGetPrice(iRoomID);
+  if(GetGold(oPC) < iPrice) {
+    SpeakString("Nemas dost zlata na pronajem pokoje.");
+    return FALSE;
+  }
+
+
+
+  /* Extend Keys */
+//  object oKey = ku_HireGenereteKey(iRoomID,oPC);
+  int iTime = GetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE");
+  int iExtend = ku_HireGetHireLength(iRoomID);
+  int iExpires = iTime + iExtend;
+  int iMaxExtend = GetLocalInt(oLessor,"KU_HIRE_MAX_EXTEND");
+  int iStamp = ku_GetTimeStamp();
+
+//  SpeakString("Compare "+IntToString(iStamp)+" + () <"+IntToString(iExpires));
+  if(iStamp + (iExtend*iMaxExtend)  <  iExpires) {
+    SpeakString("Nemuzes si pokoj prodlouzit na takovou dobu dopredu.");
+    return FALSE;
+  }
+
+  /* Take gold */
+  TakeGoldFromCreature(iPrice,oPC,TRUE);
+
+  /* Extend Keys */
+  ku_HireExtendAllKeys(iRoomID,oPC,iExpires);
+
+  /* Set Key expiration */
+//  SetLocalInt(oKey,"KU_HIRE_EXPIRATION",iExpires);
+//  DelayCommand(IntToFloat(ku_HireGetHireLength(iRoomID)),DestroyObject(oKey));
+
+  /* Save info into DB */
+  string sLessorId = IntToString(GetLocalInt(oLessor,"KU_HIRE_LESSORID"));
+  string sSQL = "UPDATE room_hire SET hire_expire = '"+IntToString(iExpires)+"' WHERE lessor_id = '"+sLessorId+"' AND room_id = '"+sRoomID+"';";
+//  SpeakString(sSQL);
+  SQLExecDirect(sSQL);
+  SetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_EXPIRE",iExpires);
+//  SetLocalInt(oLessor,"KU_HIRE_ROOM"+sRoomID+"_HIRED_FROM",iTime);
+//  SetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_PLAYER",GetPCPlayerName(oPC));
+//  SetLocalString(oLessor,"KU_HIRE_ROOM"+sRoomID+"_OWN_NAME",GetName(oPC));
+
+  //
+  SetLocalInt(oPC,"KU_HIRE_HIREDOK",1);
+  DelayCommand(20.0,DeleteLocalInt(oPC,"KU_HIRE_HIREDOK"));
+
+  return TRUE;
+}
+
+
+int ku_HireExtendAllKeys(int iRoomID, object oPC, int iExpires) {
+
+  object oLessor = OBJECT_SELF;
+  string sRoomID = IntToString(iRoomID);
+
+  string sLessorId = IntToString(GetLocalInt(oLessor,"KU_HIRE_LESSORID"));
+  string sTag = "ku_hire_"+sLessorId+"_"+sRoomID;
+
+  int i=0;
+  object oKey = GetFirstItemInInventory(oPC);
+  while(GetIsObjectValid(oKey)) {
+    if(GetTag(oKey) == sTag) {
+      SetLocalInt(oKey,"KU_HIRE_EXPIRATION",iExpires);
+      i++;
+    }
+    oKey = GetNextItemInInventory(oPC);
+  }
+
+  return i;
 }
