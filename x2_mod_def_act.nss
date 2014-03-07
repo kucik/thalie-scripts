@@ -3,9 +3,11 @@
 #include "sh_cr_potions"
 #include "sh_cr_bandages"
 #include "me_pcneeds_inc"
+#include "mys_hen_lib"
 
 void DeadBody(object oActivator, object oItem);
 void SkinningKnife(object oActivator, object oItem);
+void UseHenchmanKey(object oActivator, object oItem);
 
 void main()
 {
@@ -49,6 +51,13 @@ void main()
         return;
     }
     
+    // Henchman key
+    if (GetResRef(oItem) == HENCHMAN_KEY_TAG)
+    {
+        UseHenchmanKey(oActivator, oItem);
+        return;
+    }
+    
     if (ExecuteScriptAndReturnInt("sy_mod_onitemact", OBJECT_SELF))
         return;
 
@@ -89,4 +98,23 @@ void SkinningKnife(object oActivator, object oItem)
         AssignCommand(oActivator, DelayCommand(1.0, SendMessageToPC(oActivator, "Ziskavat ze zvirat maso.")));
         SetName(oItem, GetName(oItem, TRUE));
     }
+}
+
+void UseHenchmanKey(object oActivator, object oItem)
+{
+    // If henchman exists, unsummon him first.
+    object oHenchman = GetLocalObject(oItem, "HENCHMAN");
+    if (GetIsObjectValid(oHenchman))
+    {
+        SetCommandable(TRUE, oHenchman);
+        DestroyObject(oHenchman);
+    }
+    // Summmon henchman or destroy key if lease expired.
+    if (!GetIsHenchmanKeyExpired(oItem))
+        DelayCommand(2.0f, SummonHenchman(oItem));
+    else
+    {
+        SendMessageToPC(oActivator, "Pronájem zvíøete vypršel.");
+        DestroyObject(oItem);
+    }        
 }

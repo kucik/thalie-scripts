@@ -1,0 +1,210 @@
+#include "ku_libtime"
+
+const int HENCHMAN_LEASE_PRICE_DEFAULT = 50000;
+const int HENCHMAN_LEASE_LENGTH_DEFAULT = 51840000; // 1 IC rok
+const string HENCHMAN_KEY_TAG = "myi_hen_key";
+const string HENCHMAN_LEASE_TAG = "henchman_leasable";
+
+// Info stored on key item
+//object  HENCHMAN                  - object henchmana (když je nevalidní, mùžeme summonovat)
+//string  HENCHMAN_RESREF           - resref henchmana
+//string  HENCHMAN_LESSOR_TAG       - tag najemnce henchmana (kvuli prodlouzeni najmu)
+//int     HENCHMAN_LEASE_EXPIRATION  - cas vyprseni pronajmu henchmana v sekundach
+//int     HENCHMAN_LEASE_PRICE       - cena pronajmu henchmana
+
+// Dialog tokens
+// Lease price token = 6891
+
+void SummonHenchman(object oKey);
+int RenameHenchman(object oHenchman, string sNewName);
+int GetIsHenchmanKeyExpired(object oKey);
+void CopyHenchmanVars(object oFrom, object oTo);
+
+int HireHenchman(object oHenchman, object oPC, object oLessor = OBJECT_INVALID);
+int ExtendHenchmanKey(object oKey, object oLessor = OBJECT_INVALID);
+int GetHenchmanHirePrice(object oHenchman);
+object GetHenchmanByName(object oLessor, string sName);
+object GetKeyByName(object oPC, string sName);
+
+void SummonHenchman(object oKey)
+{
+    object oPC = GetItemPossessor(oKey);
+    string sResRef = GetLocalString(oKey, "HENCHMAN_RESREF");
+    location lLocation = GetLocation(oPC);
+    
+    if (sResRef != "")
+    {
+        object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation);
+        SetLocalObject(oKey, "HENCHMAN", oHenchman);
+        CopyHenchmanVars(oKey, oHenchman);
+        SetName(oHenchman, GetName(oKey));
+    }
+}
+
+int RenameHenchman(object oHenchman, string sNewName)
+{
+    if (!GetIsObjectValid(oHenchman) || sNewName == "")
+        return FALSE; 
+    
+    object oPC = GetMaster(oHenchman);
+    object oItem = GetFirstItemInInventory(oPC);
+    string sCurrentName = GetName(oHenchman);
+    
+    while (GetIsObjectValid(oItem))
+    {
+        if (GetName(oItem) == sCurrentName)
+        {
+            SetName(oItem, sNewName);
+            SetName(oHenchman, sNewName);
+            return TRUE;
+        }
+        oItem = GetNextItemInInventory(oPC);
+    }
+    return FALSE;
+}
+
+int GetIsHenchmanKeyExpired(object oKey)
+{
+    if (GetTag(oKey) == HENCHMAN_KEY_TAG)
+    {
+        if (ku_GetTimeStamp() > GetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION"))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+void __CopyInt(object oFrom, object oTo, string sVarName)
+{
+    if (GetLocalInt(oFrom, sVarName))
+        SetLocalInt(oTo, sVarName, GetLocalInt(oFrom, sVarName));
+}
+
+void __CopyFloat(object oFrom, object oTo, string sVarName)
+{
+    if (GetLocalFloat(oFrom, sVarName) != 0.0f)
+        SetLocalFloat(oTo, sVarName, GetLocalFloat(oFrom, sVarName));
+}
+
+void __CopyString(object oFrom, object oTo, string sVarName)
+{
+    if (GetLocalString(oFrom, sVarName) != "")
+        SetLocalString(oTo, sVarName, GetLocalString(oFrom, sVarName));
+}
+
+void CopyHenchmanVars(object oFrom, object oTo)
+{
+    __CopyInt(oFrom, oTo, "MOUNT_TAIL");
+    __CopyInt(oFrom, oTo, "MOUNT_PHENOTYPE");
+    __CopyInt(oFrom, oTo, "MOUNT_PHENOTYPE_L");
+    __CopyInt(oFrom, oTo, "MOUNT_SPEED");
+    __CopyInt(oFrom, oTo, "HENCHMAN_LEASE_PRICE");
+}
+
+int HireHenchman(object oHenchman, object oPC, object oLessor)
+{
+    int iPrice = GetHenchmanHirePrice(oHenchman);
+    
+    if (GetGold(oPC) < iPrice) {
+        if (GetIsObjectValid(oLessor))
+            AssignCommand(oLessor, ClearAllActions(TRUE));
+        SendMessageToPC(oPC, "Nemáš u sebe dost grešlí.");
+        return FALSE;
+    }
+
+    // Take gold
+    TakeGoldFromCreature(iPrice, oPC, TRUE);
+
+    // Create key
+    object oKey = CreateItemOnObject(HENCHMAN_KEY_TAG, oPC, 1, HENCHMAN_KEY_TAG);
+
+    // Set key expiration
+    int iTime = ku_GetTimeStamp();
+    int iExpiresIn = HENCHMAN_LEASE_LENGTH_DEFAULT;
+    if (iExpiresIn < 43200)
+        DelayCommand(IntToFloat(iExpiresIn), DestroyObject(oKey));
+    
+    // Set key variables
+    CopyHenchmanVars(oHenchman, oKey);
+    SetLocalString(oKey, "HENCHMAN_RESREF", GetResRef(oHenchman));
+    SetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION", iTime + iExpiresIn);
+    if (GetIsObjectValid(oLessor))
+        SetLocalString(oKey, "HENCHMAN_LESSOR_TAG", GetTag(oLessor));
+    SetName(oKey, GetName(oHenchman));
+    SetDescription(oKey, "Konec pronájmu: " + ku_GetDateFromTimeStamp(iTime + iExpiresIn));
+
+    return TRUE;
+}
+
+int ExtendHenchmanKey(object oKey, object oLessor)
+{
+    if (GetLocalString(oKey, "HENCHMAN_LESSOR_TAG") != "")
+    {
+        if (GetTag(oLessor) != GetLocalString(oKey, "HENCHMAN_LESSOR_TAG"))
+            return FALSE;
+    }
+    
+    int iTime = ku_GetTimeStamp();
+    int iExpireTime = GetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION");
+    
+    iExpireTime = iTime > iExpireTime ? iTime : iExpireTime;
+    iExpireTime += HENCHMAN_LEASE_LENGTH_DEFAULT;
+    
+    SetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION", iExpireTime);
+    SetDescription(oKey, "Konec pronájmu: " + ku_GetDateFromTimeStamp(iExpireTime));
+
+    if (iExpireTime < iTime + 43200)
+        DelayCommand(IntToFloat(iExpireTime), DestroyObject(oKey));
+    
+    return TRUE;
+}
+
+int GetHenchmanHirePrice(object oHenchman)
+{
+    int iPrice = GetLocalInt(oHenchman, "HENCHMAN_LEASE_PRICE");
+    return iPrice ? iPrice : HENCHMAN_LEASE_PRICE_DEFAULT;
+}
+
+object GetHenchmanByName(object oLessor, string sName)
+{
+    if (!GetIsObjectValid(oLessor) || sName == "")
+        return OBJECT_INVALID;
+    
+    object oArea = GetArea(oLessor);
+    object oHenchman = GetFirstObjectInArea(oArea);
+    
+    while (GetIsObjectValid(oHenchman))
+    {
+        if (GetObjectType(oHenchman) == OBJECT_TYPE_CREATURE)
+        {
+            if (GetName(oHenchman) == sName)
+            {
+                if (GetTag(oHenchman) == HENCHMAN_LEASE_TAG
+                && !GetIsDM(oHenchman)
+                && !GetIsDMPossessed(oHenchman)
+                && !GetIsObjectValid(GetMaster(oHenchman)))
+                  return oHenchman;
+            }
+        }
+        oHenchman = GetNextObjectInArea(oArea);
+    }
+    return OBJECT_INVALID;
+}
+
+object GetKeyByName(object oPC, string sName)
+{
+    if (!GetIsObjectValid(oPC) || sName == "")
+        return OBJECT_INVALID;
+    
+    object oKey = GetFirstItemInInventory(oPC);
+    
+    while (GetIsObjectValid(oKey))
+    {
+        if (GetName(oKey) == sName)
+        {
+            if (GetTag(oKey) == HENCHMAN_KEY_TAG)
+                return oKey;
+        }
+        oKey = GetNextItemInInventory(oPC);
+    }
+    return OBJECT_INVALID;
+}
