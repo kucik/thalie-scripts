@@ -40,7 +40,27 @@
 // * CONSTANTS
 // * ---------
 
-
+/**
+ * LOOT ITEM TYPES 
+ */
+const int LOOT_TYPE_DISP           =1;
+const int LOOT_TYPE_AMMO           =2;
+const int LOOT_TYPE_GOLD           =4;             // actually gold and gems
+const int LOOT_TYPE_ITEM           =8;            // char specific Item
+const int LOOT_TYPE_BOOK           =16;
+const int LOOT_TYPE_ANIMAL         =32;
+const int LOOT_TYPE_JUNK           =64;
+const int LOOT_TYPE_GEM            =128;
+const int LOOT_TYPE_JEWEL          =256;
+const int LOOT_TYPE_SCROLL_A       =512;
+const int LOOT_TYPE_SCROLL_D       =1024;
+const int LOOT_TYPE_KIT            =2048;
+const int LOOT_TYPE_POTION         =4096;
+const int LOOT_TYPE_WEAPON         =8192;
+const int LOOT_TYPE_WEAPON_RANGED  =16384;
+const int LOOT_TYPE_WEAPON_MELEE   =32768;
+const int LOOT_TYPE_ARMOR          =65536;
+const int LOOT_TYPE_CLOTHING       =131072;
 
 // * tweaking constants
 
@@ -3817,6 +3837,11 @@ void GenerateMediumTreasure(object oLastOpener, object oCreateOn=OBJECT_INVALID)
  GenerateTreasure(TREASURE_MEDIUM, oLastOpener, oCreateOn);
 }
 void GenerateHighTreasure(object oLastOpener, object oCreateOn=OBJECT_INVALID)
+{
+ GenerateTreasure(TREASURE_HIGH, oLastOpener, oCreateOn);
+}
+
+void GenerateUniqueTreasure(object oLastOpener, object oCreateOn=OBJECT_INVALID)
 {
  GenerateTreasure(TREASURE_HIGH, oLastOpener, oCreateOn);
 }

@@ -17,10 +17,10 @@ const int X2_DTS_CLASS_LOW     = 0;       //Treasure Class Low
 const int X2_DTS_CLASS_MEDIUM  = 1;       //Treasure Clas Medium
 const int X2_DTS_CLASS_HIGH    = 2;       //Treasure Class High
 
-const int X2_DTS_TYPE_DISP =1;
-const int X2_DTS_TYPE_AMMO=2;
-const int X2_DTS_TYPE_GOLD=4;             // actually gold and gems
-const int X2_DTS_TYPE_ITEM=8;            // char specific Item
+const int X2_DTS_TYPE_DISP = LOOT_TYPE_DISP;
+const int X2_DTS_TYPE_AMMO = LOOT_TYPE_AMMO;
+const int X2_DTS_TYPE_GOLD = LOOT_TYPE_GOLD;             // actually gold and gems
+const int X2_DTS_TYPE_ITEM = LOOT_TYPE_ITEM;            // char specific Item
 
 
 // These are the system default values
@@ -361,7 +361,7 @@ int DTSGetHighestClass(object oCreature)
     }
     else
     {
-        return GetClassByPosition(3, oCreature);\
+        return GetClassByPosition(3, oCreature);
     }
 }
 
@@ -629,6 +629,7 @@ int DTSGetNumberofPartyMembers(object oPC)
 void DTSGenerateTreasureOnContainer (object oContainer, object oOpener, int nClass, int nType = 5)
 {
     SetLocalInt(oContainer,"X2_DTS_TYPE",nType);
+    SetLocalInt(oContainer,"TREASURE_BASE_TYPE",nType);
     switch(nClass) {
       case X2_DTS_CLASS_HIGH:
         GenerateHighTreasure(oOpener, oContainer);

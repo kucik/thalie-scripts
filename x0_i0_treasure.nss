@@ -232,12 +232,12 @@ const int TREASURE_TYPE_MONSTER = 5;
 // Giving these large values to make sure they never
 // conflict with the actual base type values -- that
 // would cause those base types to be non-specifiable.
-int TREASURE_BASE_TYPE_WEAPON = 13000;
-int TREASURE_BASE_TYPE_WEAPON_NOAMMO = 13001;
-int TREASURE_BASE_TYPE_WEAPON_RANGED = 13002;
-int TREASURE_BASE_TYPE_WEAPON_MELEE = 13003;
-int TREASURE_BASE_TYPE_ARMOR = 13004;
-int TREASURE_BASE_TYPE_CLOTHING = 13005;
+int TREASURE_BASE_TYPE_WEAPON = LOOT_TYPE_WEAPON;
+int TREASURE_BASE_TYPE_WEAPON_NOAMMO = LOOT_TYPE_WEAPON;
+int TREASURE_BASE_TYPE_WEAPON_RANGED = LOOT_TYPE_WEAPON_RANGED;
+int TREASURE_BASE_TYPE_WEAPON_MELEE = LOOT_TYPE_WEAPON_MELEE;
+int TREASURE_BASE_TYPE_ARMOR = LOOT_TYPE_ARMOR;
+int TREASURE_BASE_TYPE_CLOTHING = LOOT_TYPE_CLOTHING;
 
 // Probability of a single item being generated,
 // in percentage
@@ -782,8 +782,10 @@ void CTG_CreateTreasure(int nTreasureType,
         GenerateMediumTreasure(oAdventurer, oCont);
         break;
       case TREASURE_TYPE_HIGH:
-      case TREASURE_TYPE_UNIQUE:
         GenerateHighTreasure(oAdventurer, oCont);
+        break;
+      case TREASURE_TYPE_UNIQUE:
+        GenerateUniqueTreasure(oAdventurer, oCont);
         break;
     }
     return;
@@ -819,6 +821,25 @@ void CTG_CreateSpecificBaseTypeTreasure(int nTreasureType,
                                         int nBaseType2=BASE_ITEM_INVALID,
                                         int nBaseType3=BASE_ITEM_INVALID)
 {
+    int nTreasureBaseType = nBaseType1 + nBaseType2 + nBaseType3;
+    SetLocalInt(oCont, "TREASURE_BASE_TYPE",nTreasureBaseType);
+
+    switch(nTreasureType) {
+      case TREASURE_TYPE_LOW:
+        GenerateLowTreasure(oAdventurer, oCont);
+        break;
+      case TREASURE_TYPE_MED:
+        GenerateMediumTreasure(oAdventurer, oCont);
+        break;
+      case TREASURE_TYPE_HIGH:
+        GenerateHighTreasure(oAdventurer, oCont);
+        break;
+      case TREASURE_TYPE_UNIQUE:
+        GenerateUniqueTreasure(oAdventurer, oCont);
+        break;
+    }
+    return;
+
     // Prevent duplicate treasure generation
     if (CTG_GetIsTreasureGenerated(oCont)) {return;}
     CTG_SetIsTreasureGenerated(oCont);
