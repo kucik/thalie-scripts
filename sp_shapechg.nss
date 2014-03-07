@@ -32,10 +32,9 @@ void main()
 
     //Declare major variables
     int nSpell = GetSpellId();
-     object oTarget = GetSpellTargetObject();
     effect  eV        = EffectVisualEffect(VFX_IMP_HEAD_ODD);
     effect   eImpact     = EffectVisualEffect(VFX_FNF_DISPEL_DISJUNCTION);
-    spellsDispelMagic(oTarget, 30, eV, eImpact, FALSE,TRUE);
+    spellsDispelMagic(OBJECT_SELF, 30, eV, eImpact, TRUE,TRUE);
     effect eVis = EffectVisualEffect(VFX_FNF_SUMMON_MONSTER_3);
     effect ePoly;
     int nPoly;
@@ -71,10 +70,10 @@ void main()
     }
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target
-    SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_SHAPECHANGE, FALSE));
+    SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELL_SHAPECHANGE, FALSE));
 
     //Apply the VFX impact and effects
-    ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetLocation(oTarget));
-    DelayCommand(0.4, AssignCommand(oTarget, ClearAllActions())); // prevents an exploit
-    DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ePoly, oTarget, HoursToSeconds(nDuration)));
+    ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetLocation(OBJECT_SELF));
+    DelayCommand(0.4, AssignCommand(OBJECT_SELF, ClearAllActions())); // prevents an exploit
+    DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ePoly, OBJECT_SELF, HoursToSeconds(nDuration)));
 }
