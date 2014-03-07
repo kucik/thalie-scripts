@@ -171,7 +171,7 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
 
    restart();
 
-   SetMaxHenchmen(2);
+   SetMaxHenchmen(5);
 
    ExecuteScript("sd_check", GetModule());
    //ExecuteScript("cnr_module_oml", OBJECT_SELF);
