@@ -5,7 +5,7 @@
 //:://////////////////////////////////////////////
 /*
     dazed vs strength check (+14 on strength check); Target knocked down.
-    Target dazed down for 1 round per level of caster
+    Target dazed down for (1+ caster lvl / 4) rounds if fails refex throw. 
 
 */
 //:://////////////////////////////////////////////
@@ -39,12 +39,13 @@ void main()
 
     //Declare major variables
     object oTarget = GetSpellTargetObject();
-    int nDuration = 4;
+    float fDurationSec;  
+    fDurationSec = RoundsToSeconds(1 + GetCasterLevel(OBJECT_SELF) / 4); // length of spell, (1 + 1/4 lvl)rounds 
     int nMetaMagic = GetMetaMagicFeat();
     //Check for metamagic extend
     if (nMetaMagic == METAMAGIC_EXTEND) //Duration is +100%
     {
-         nDuration = nDuration * 2;
+         fDurationSec = fDurationSec * 2;
     }
     if(!GetIsReactionTypeFriendly(oTarget))
     {
@@ -67,8 +68,8 @@ void main()
                 effect eLink = EffectLinkEffects(eKnockdown, eDur);
                 eLink = EffectLinkEffects(eLink, eKnockdown2);
                 //Apply the penalty
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oTarget, RoundsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fDurationSec);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oTarget, fDurationSec);
                 // * Bull Rush succesful
                 FloatingTextStrRefOnCreature(8966,OBJECT_SELF, FALSE);
             }
