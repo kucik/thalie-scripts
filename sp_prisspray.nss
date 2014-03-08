@@ -184,10 +184,10 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
     effect eLink;
     int nVis;
     float fDelay = 0.5 + GetDistanceBetween(OBJECT_SELF, oTarget)/20;
-    int nEffectSecDuration = RoundsToSeconds(4); // Length of effects: 4 rounds 
+    float fEffectSecDuration = RoundsToSeconds(4); // Length of effects: 4 rounds 
     if (GetMetaMagicFeat() == METAMAGIC_EXTEND )
     {
-        nEffectSecDuration = 2*nEffectSecDuration;
+        fEffectSecDuration = 2*fEffectSecDuration;
     }
     //Based on the random number passed in, apply the appropriate effect and set the visual to
     //the correct constant
@@ -202,7 +202,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
                 // if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay)) // will save canceled
                 {
                     nVis = VFX_IMP_CONFUSION_S;
-                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, nEffectSecDuration));
+                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fEffectSecDuration));
                 }
             }
         break;
@@ -238,7 +238,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
                     ePrism = EffectParalyze();
                     eLink = EffectLinkEffects(eDur, ePrism);
                    eLink = EffectLinkEffects(eLink, eDur2);
-                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, nEffectSecDuration));
+                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fEffectSecDuration));
                 }
             }
         break;
