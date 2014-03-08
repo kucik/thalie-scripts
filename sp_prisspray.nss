@@ -4,7 +4,8 @@
 //:: Copyright (c) 2000 Bioware Corp.
 //:://////////////////////////////////////////////
 //:: Sends out a prismatic cone that has a random
-//:: effect for each target struck.
+//:: effect for each target struck. Length of effects
+//:: set to 4 rounds.
 //:://////////////////////////////////////////////
 //:: Created By: Preston Watamaniuk
 //:: Created On: Dec 19, 2000
@@ -183,10 +184,10 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
     effect eLink;
     int nVis;
     float fDelay = 0.5 + GetDistanceBetween(OBJECT_SELF, oTarget)/20;
-    int nEffectSecDuration = 10; // in seconds
+    int nEffectSecDuration = RoundsToSeconds(4); // Length of effects: 4 rounds 
     if (GetMetaMagicFeat() == METAMAGIC_EXTEND )
     {
-        nEffectSecDuration = 20;
+        nEffectSecDuration = 2*nEffectSecDuration;
     }
     //Based on the random number passed in, apply the appropriate effect and set the visual to
     //the correct constant
@@ -201,7 +202,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
                 // if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay)) // will save canceled
                 {
                     nVis = VFX_IMP_CONFUSION_S;
-                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nEffectSecDuration)));
+                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, nEffectSecDuration));
                 }
             }
         break;
@@ -237,7 +238,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
                     ePrism = EffectParalyze();
                     eLink = EffectLinkEffects(eDur, ePrism);
                    eLink = EffectLinkEffects(eLink, eDur2);
-                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nEffectSecDuration)));
+                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, nEffectSecDuration));
                 }
             }
         break;
