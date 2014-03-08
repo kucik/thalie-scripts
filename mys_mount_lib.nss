@@ -19,6 +19,7 @@ const int MOUNT_SPEED_DEFAULT = 50;
 //int     MOUNTED                         Mounted status: 1 = mounted; 0 = not
 //int     MOUNT_RIDER_TAIL                Rider's original tail (nwn mount only)
 //int     MOUNT_RIDER_PHENOTYPE           Rider's original phenotype (DLA mount only)
+//int     MOUNT_RIDER_APPEARANCE          Rider's original appearance
 
 // Temporary info about mount creature
 //string  MOUNT_CREATURE_RESREF           Unmounted creature resref
@@ -83,6 +84,7 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
     if (!GetIsObjectValid(oRider) || !GetIsObjectValid(oMount) || !GetIsObjectValid(oSoul) || GetTag(oMount) != MOUNT_TAG)
         return;
 
+    int iOriginalAppearance = GetAppearanceType(oRider);
     int iOriginalPhenoType = GetPhenoType(oRider);
     int iOriginalTail = GetCreatureTailType(oRider);
 
@@ -108,6 +110,7 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
         SetLocalInt(oSoul, "MOUNTED", 1);
         SetLocalInt(oSoul, "MOUNT_RIDER_TAIL", iOriginalTail);
         SetLocalInt(oSoul, "MOUNT_RIDER_PHENOTYPE", iOriginalPhenoType);
+        SetLocalInt(oSoul, "MOUNT_RIDER_APPEARANCE", iOriginalAppearance);
 
         // Store info about mount creature
         SetLocalInt(oSoul, "MOUNT_TAIL", GetLocalInt(oMount, "MOUNT_TAIL"));
@@ -153,6 +156,7 @@ void Dismount(object oRider, object oSoul)
     string sMountName = GetLocalString(oSoul, "MOUNT_CREATURE_NAME");
     int iMountAppearance = GetLocalInt(oSoul, "MOUNT_CREATURE_APPEARANCE");
 
+    int iOriginalAppearance = GetLocalInt(oSoul, "MOUNT_RIDER_APPEARANCE");
     int iOriginalTail = GetLocalInt(oSoul, "MOUNT_RIDER_TAIL");
     int iOriginalPhenoType = GetLocalInt(oSoul, "MOUNT_RIDER_PHENOTYPE");
 
@@ -160,6 +164,7 @@ void Dismount(object oRider, object oSoul)
 
     if (bMounted)
     {
+        SetCreatureAppearanceType(oRider, iOriginalAppearance);
         SetPhenoType(iOriginalPhenoType);
         SetCreatureTailType(iOriginalTail, oRider);
         object oMount = CreateObject(OBJECT_TYPE_CREATURE, sMountResRef, GetLocation(oRider), FALSE, MOUNT_TAG);
@@ -186,6 +191,7 @@ void Dismount(object oRider, object oSoul)
         DeleteLocalInt(oSoul, "MOUNTED");
         DeleteLocalInt(oSoul, "MOUNT_RIDER_TAIL");
         DeleteLocalInt(oSoul, "MOUNT_RIDER_PHENOTYPE");
+        DeleteLocalInt(oSoul, "MOUNT_RIDER_APPEARANCE");
 
         // Sweep-out - mount creature info
         DeleteLocalString(oSoul, "MOUNT_CREATURE_RESREF");
