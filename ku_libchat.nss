@@ -164,6 +164,8 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc kourit - Spusti animaci koureni.");
       SendMessageToPC(oPC,"/pc desc+ <text> - Prida odstavec do popisu postavy.");
       SendMessageToPC(oPC,"/pc desc- - Odebere posledni odstavec do popisu postavy.");
+      SendMessageToPC(oPC,"/pc tatto1 <0-175> - Zmìní barvu tetování1.");
+      SendMessageToPC(oPC,"/pc tatto2 <0-175> - Zmìní barvu tetování2.");
       SendMessageToPC(oPC,"/pc autodislike - Zapne/vypne automaticke nastavovani odporu po prihlaseni.");
       SendMessageToPC(oPC,"/pc meditace <1-3> - Zmeni animaci pri meditaci/modleni.");
       SendMessageToPC(oPC,"/pc batoh <0-11> - Zobrazi/skryje model batohu/mece atd na zadech postavy.");
@@ -357,6 +359,19 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/fprone");
       SendMessageToPC(oPC,"/fback");
       break;
+    // Tattoo 1 color change
+    case 20: {
+      int iColor = StringToInt(param);
+      if (iColor > 0 && iColor < 176)
+        SetColor(oPC, COLOR_CHANNEL_TATTOO_1, iColor);
+      break;
+    }
+    case 21: {
+      int iColor = StringToInt(param);
+      if (iColor > 0 && iColor < 176)
+        SetColor(oPC, COLOR_CHANNEL_TATTOO_2, iColor);
+      break;
+    }
   }
 }
 
@@ -396,6 +411,8 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(17,"batoh");
    ku_DefineChatCommand(18,"hod");
    ku_DefineChatCommand(19,"emo ?");
+   ku_DefineChatCommand(20,"tattoo1");
+   ku_DefineChatCommand(21,"tattoo2");
 }
 
 void ku_SlowMe(int speed) {
