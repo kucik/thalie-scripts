@@ -4,8 +4,8 @@
 //:: Copyright (c) 2002 Bioware Corp.
 //:://////////////////////////////////////////////
 /*
-    make an attack roll. If succesful target is held for 1 round/level
-
+    Make an attack roll. If target fails fotitude throw,
+    it is held for lvl/3 rounds.
 
 */
 //:://////////////////////////////////////////////
@@ -13,6 +13,7 @@
 //:: Created On: September 7, 2002
 //:://////////////////////////////////////////////
 //:: VFX Pass By:
+//:: Updated by P.A., March 8, 2014
 
 #include "x0_i0_spells"
 
@@ -41,7 +42,7 @@ void main()
     //Declare major variables
     object oTarget = GetSpellTargetObject();
     int nDuration = GetCasterLevel(OBJECT_SELF);
-    nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE)/3;
+    nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE) / 3; // duration changed to lvl/3 rounds
     int nMetaMagic = GetMetaMagicFeat();
     effect eVis = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_DISABLED);
 
