@@ -19,6 +19,8 @@
 #include "ja_inc_frakce"
 #include "subraces"
 #include "aps_include"
+#include "mys_mount_lib"
+#include "me_soul_inc"
 
 
 void MakeAnimalFriends(object oPC){
@@ -243,7 +245,10 @@ void main()
 
     // Only if the entering creature is a PC or DM.
     if (!(GetIsPC(oPC) || GetIsDMPossessed(oPC) || GetIsDM(oPC))) return;
-
+    
+    // Dismount in interior areas
+    if (GetIsAreaInterior(OBJECT_SELF) && GetLocalInt(oPC, "MOUNTED"))
+        Dismount(oPC, GetSoulStone(oPC));
 
     if(Subraces_GetIsCharacterFromUnderdark(oPC ))
       SendMessageToPC(oPC,GetLocalString(OBJECT_SELF,"ph_hloubka"));

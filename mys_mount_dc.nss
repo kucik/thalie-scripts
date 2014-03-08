@@ -16,7 +16,7 @@ int StartingConditional()
         }
         return oPC == oMaster ? TRUE : FALSE;
     }
-    else if (sTag == "mount_leasable")
+    else if (sTag == "henchman_leasable")
     {
         if (sText == "Pronajmout zvíøe.")
         {

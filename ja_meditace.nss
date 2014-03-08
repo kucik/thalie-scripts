@@ -18,6 +18,20 @@ string getRestString(int type){
     return "---CHYBA - REPORTUJ DM TENTO UDAJ: (ja_meditace:"+IntToString(type)+")---";
 }
 
+void InventoryActions(object oPC)
+{
+    object oItem = GetFirstItemInInventory(oPC);
+    
+    while (GetIsObjectValid(oItem))
+    {
+        // Reset henchman key uses.
+        if (GetTag(oItem) == "myi_hen_key")
+            SetLocalInt(oItem, "HENCHMAN_USES", 1);
+        
+        oItem = GetNextItemInInventory(oPC);
+    }
+}
+
 void finish(object oPC){
 
     if(GetCurrentAction(oPC) == ACTION_WAIT){   //uspech
@@ -36,6 +50,7 @@ void finish(object oPC){
         }
         sh_OnRestResetElixirPoints(oPC,oSoul);
         FatigueCheck(oPC, FALSE);
+        InventoryActions(oPC);
     }
     else{
         SendMessageToPC(oPC, "Prerusil jsi sve soustredeni!");

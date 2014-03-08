@@ -1,5 +1,6 @@
 #include "nwnx_events"
 #include "mys_hen_lib"
+#include "mys_mount_lib"
 
 void main()
 {
@@ -8,6 +9,9 @@ void main()
     
     if (sText == "<StartAction>[Odvolat]</Start>")
     {
+        object oKey = GetKeyByName(oPC, GetName(OBJECT_SELF));
+        DeleteLocalObject(oKey, "HENCHMAN");
+        SetLocalInt(oKey, "HENCHMAN_USES", 1);
         ClearAllActions(TRUE);
         DestroyObject(OBJECT_SELF);
     }
@@ -34,9 +38,10 @@ void main()
     {
         if (GetIsObjectValid(OBJECT_SELF))
         {
-            int bHired = HireHenchman(OBJECT_SELF, oPC);
-            if (bHired)
+            object oKey = HireHenchman(OBJECT_SELF, oPC);
+            if (GetIsObjectValid(oKey))
             {
+                StoreMountInfo(OBJECT_SELF, oKey);
                 DestroyObject(OBJECT_SELF);
                 SendMessageToPC(oPC, "Zvíøe je tvé. Pronájem vyprší za 1 rok.");                        
             }

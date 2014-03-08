@@ -15,18 +15,25 @@ const string HENCHMAN_LEASE_TAG = "henchman_leasable";
 // Dialog tokens
 // Lease price token = 6891
 
-void SummonHenchman(object oKey);
+// Returns henchman object.
+object SummonHenchman(object oKey);
+
+// Return TRUE if renaming was successful. FALSE otherwise.
 int RenameHenchman(object oHenchman, string sNewName);
+
+// Returns TRUE if key lease is expired.
 int GetIsHenchmanKeyExpired(object oKey);
+
 void CopyHenchmanVars(object oFrom, object oTo);
 
-int HireHenchman(object oHenchman, object oPC, object oLessor = OBJECT_INVALID);
+// Returns key object.
+object HireHenchman(object oHenchman, object oPC, object oLessor = OBJECT_INVALID);
 int ExtendHenchmanKey(object oKey, object oLessor = OBJECT_INVALID);
 int GetHenchmanHirePrice(object oHenchman);
 object GetHenchmanByName(object oLessor, string sName);
 object GetKeyByName(object oPC, string sName);
 
-void SummonHenchman(object oKey)
+object SummonHenchman(object oKey)
 {
     object oPC = GetItemPossessor(oKey);
     string sResRef = GetLocalString(oKey, "HENCHMAN_RESREF");
@@ -35,10 +42,14 @@ void SummonHenchman(object oKey)
     if (sResRef != "")
     {
         object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation);
+        AssignCommand(oHenchman, AddHenchman(oPC, oHenchman));
         SetLocalObject(oKey, "HENCHMAN", oHenchman);
+        DeleteLocalInt(oKey, "HENCHMAN_USES");
         CopyHenchmanVars(oKey, oHenchman);
         SetName(oHenchman, GetName(oKey));
+        return oHenchman;
     }
+    return OBJECT_INVALID;
 }
 
 int RenameHenchman(object oHenchman, string sNewName)
@@ -100,7 +111,7 @@ void CopyHenchmanVars(object oFrom, object oTo)
     __CopyInt(oFrom, oTo, "HENCHMAN_LEASE_PRICE");
 }
 
-int HireHenchman(object oHenchman, object oPC, object oLessor)
+object HireHenchman(object oHenchman, object oPC, object oLessor)
 {
     int iPrice = GetHenchmanHirePrice(oHenchman);
     
@@ -108,7 +119,7 @@ int HireHenchman(object oHenchman, object oPC, object oLessor)
         if (GetIsObjectValid(oLessor))
             AssignCommand(oLessor, ClearAllActions(TRUE));
         SendMessageToPC(oPC, "Nemáš u sebe dost grešlí.");
-        return FALSE;
+        return OBJECT_INVALID;
     }
 
     // Take gold
@@ -127,12 +138,13 @@ int HireHenchman(object oHenchman, object oPC, object oLessor)
     CopyHenchmanVars(oHenchman, oKey);
     SetLocalString(oKey, "HENCHMAN_RESREF", GetResRef(oHenchman));
     SetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION", iTime + iExpiresIn);
+    SetLocalInt(oKey, "HENCHMAN_USES", 1);
     if (GetIsObjectValid(oLessor))
         SetLocalString(oKey, "HENCHMAN_LESSOR_TAG", GetTag(oLessor));
     SetName(oKey, GetName(oHenchman));
     SetDescription(oKey, "Konec pronájmu: " + ku_GetDateFromTimeStamp(iTime + iExpiresIn));
-
-    return TRUE;
+    
+    return oKey;
 }
 
 int ExtendHenchmanKey(object oKey, object oLessor)

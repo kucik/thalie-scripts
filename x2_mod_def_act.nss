@@ -4,6 +4,7 @@
 #include "sh_cr_bandages"
 #include "me_pcneeds_inc"
 #include "mys_hen_lib"
+#include "mys_mount_lib"
 
 void DeadBody(object oActivator, object oItem);
 void SkinningKnife(object oActivator, object oItem);
@@ -58,6 +59,12 @@ void main()
         return;
     }
     
+    if (GetTag(oItem) == "me_fishingpole")
+    {
+        ExecuteScript("me_nc_cfishfresh", oActivator);
+        return;
+    }
+    
     if (ExecuteScriptAndReturnInt("sy_mod_onitemact", OBJECT_SELF))
         return;
 
@@ -102,19 +109,33 @@ void SkinningKnife(object oActivator, object oItem)
 
 void UseHenchmanKey(object oActivator, object oItem)
 {
-    // If henchman exists, unsummon him first.
-    object oHenchman = GetLocalObject(oItem, "HENCHMAN");
-    if (GetIsObjectValid(oHenchman))
-    {
-        SetCommandable(TRUE, oHenchman);
-        DestroyObject(oHenchman);
-    }
-    // Summmon henchman or destroy key if lease expired.
+    
+    
     if (!GetIsHenchmanKeyExpired(oItem))
-        DelayCommand(2.0f, SummonHenchman(oItem));
+    {
+        object oHenchman = GetLocalObject(oItem, "HENCHMAN");
+        SendMessageToPC(oActivator, "name="+GetName(oHenchman));
+        
+        // Summon when exists elsewhere, or is unsummoned.
+        if (GetLocalInt(oItem, "HENCHMAN_USES") || GetIsObjectValid(oHenchman))
+        {
+            // If henchman exists, unsummon him first.
+            if (GetIsObjectValid(oHenchman))
+            {
+                SetCommandable(TRUE, oHenchman);
+                DestroyObject(oHenchman);
+            }
+            // Summmon henchman.
+            object oMount = SummonHenchman(oItem);
+            SetMountProperties(oMount, oItem);
+        }
+        else
+            SendMessageToPC(oActivator, "Došla použití pro tento den.");
+    }
     else
     {
+        // Destroy key if lease expired.
         SendMessageToPC(oActivator, "Pronájem zvíøete vypršel.");
         DestroyObject(oItem);
-    }        
+    }
 }

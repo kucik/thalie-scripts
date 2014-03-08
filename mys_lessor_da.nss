@@ -1,5 +1,6 @@
 #include "nwnx_events"
 #include "mys_hen_lib"
+#include "mys_mount_lib"
 
 void main()
 {
@@ -13,9 +14,10 @@ void main()
         object oHenchman = GetHenchmanByName(OBJECT_SELF, sChat);
         if (GetIsObjectValid(oHenchman))
         {
-            int bHired = HireHenchman(oHenchman, oPC, OBJECT_SELF);
-            if (bHired)
+            object oKey = HireHenchman(oHenchman, oPC, OBJECT_SELF);
+            if (GetIsObjectValid(oKey))
             {
+                StoreMountInfo(oHenchman, oKey);
                 DestroyObject(oHenchman);
                 SendMessageToPC(oPC, "Dìkuji za obchod. Zvíøe je tvé.");                        
             }

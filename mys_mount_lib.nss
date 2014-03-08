@@ -24,6 +24,9 @@ const int MOUNT_SPEED_DEFAULT = 50;
 //string  MOUNT_CREATURE_RESREF           Unmounted creature resref
 //string  MOUNT_CREATURE_NAME             Unmounted creature name
 //int     MOUNT_CREATURE_APPEARANCE       Unmounted creature appearance
+//string  MOUNT_CREATURE_PORTRAIT         Unmounted creature portrait
+//int     MOUNT_CREATURE_RACE             Unmounted creature race
+//int     MOUNT_CREATURE_FACTION          Unmounted creature faction
 
 
 void Mount(object oRider, object oMount, object oSoul, int bJousting = FALSE);
@@ -40,6 +43,9 @@ int GetMountedRaceAppearance(object oRider);
 // To be applied on mount object.
 int GetMountedNullAppearance(object oRider);
 
+// Stores relevant mount properties as key variables
+void StoreMountInfo(object oMount, object oKey);
+
 
 // Notes
 //lLoc=HORSE_SupportGetMountLocation(oHorse,oRider,-90.0);
@@ -47,6 +53,30 @@ int GetMountedNullAppearance(object oRider);
 //const int HORSE_ANIMATION_MOUNT =                      41;
 //const int HORSE_ANIMATION_DISMOUNT =                   42;
 
+
+void StoreMountInfo(object oMount, object oKey)
+{
+    SetLocalInt(oKey, "MOUNT_TAIL", GetLocalInt(oMount, "MOUNT_TAIL"));
+    SetLocalInt(oKey, "MOUNT_PHENOTYPE", GetLocalInt(oMount, "MOUNT_PHENOTYPE"));
+    SetLocalInt(oKey, "MOUNT_PHENOTYPE_L", GetLocalInt(oMount, "MOUNT_PHENOTYPE_L"));
+    SetLocalInt(oKey, "MOUNT_SPEED", GetLocalInt(oMount, "MOUNT_SPEED"));
+    
+    SetLocalString(oKey, "MOUNT_CREATURE_NAME", GetName(oMount));
+    SetLocalInt(oKey, "MOUNT_CREATURE_APPEARANCE", GetAppearanceType(oMount));        
+    SetLocalInt(oKey, "MOUNT_CREATURE_PORTRAIT", GetPortraitId(oMount));
+}
+
+void SetMountProperties(object oMount, object oKey)
+{
+    SetLocalInt(oMount, "MOUNT_TAIL", GetLocalInt(oKey, "MOUNT_TAIL"));
+    SetLocalInt(oMount, "MOUNT_PHENOTYPE", GetLocalInt(oKey, "MOUNT_PHENOTYPE"));
+    SetLocalInt(oMount, "MOUNT_PHENOTYPE_L", GetLocalInt(oKey, "MOUNT_PHENOTYPE_L"));
+    SetLocalInt(oMount, "MOUNT_SPEED", GetLocalInt(oKey, "MOUNT_SPEED"));
+    
+    SetCreatureAppearanceType(oMount, GetLocalInt(oKey, "MOUNT_CREATURE_APPEARANCE"));
+    SetPortraitId(oMount, GetLocalInt(oKey, "MOUNT_CREATURE_PORTRAIT"));
+    SetName(oMount, GetLocalString(oKey, "MOUNT_CREATURE_NAME"));
+}
 
 void Mount(object oRider, object oMount, object oSoul, int bJousting)
 {
@@ -80,12 +110,14 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
         SetLocalInt(oSoul, "MOUNT_RIDER_PHENOTYPE", iOriginalPhenoType);
 
         // Store info about mount creature
-        SetLocalString(oSoul, "MOUNT_CREATURE_RESREF", GetResRef(oMount));
-        SetLocalString(oSoul, "MOUNT_CREATURE_NAME", GetName(oMount));
-        SetLocalInt(oSoul, "MOUNT_CREATURE_APPEARANCE", GetAppearanceType(oMount));
         SetLocalInt(oSoul, "MOUNT_TAIL", GetLocalInt(oMount, "MOUNT_TAIL"));
         SetLocalInt(oSoul, "MOUNT_PHENOTYPE", GetLocalInt(oMount, "MOUNT_PHENOTYPE"));
         SetLocalInt(oSoul, "MOUNT_SPEED", GetLocalInt(oMount, "MOUNT_SPEED"));
+        
+        SetLocalString(oSoul, "MOUNT_CREATURE_RESREF", GetResRef(oMount));
+        SetLocalString(oSoul, "MOUNT_CREATURE_NAME", GetName(oMount));
+        SetLocalInt(oSoul, "MOUNT_CREATURE_APPEARANCE", GetAppearanceType(oMount));        
+        SetLocalInt(oSoul, "MOUNT_CREATURE_PORTRAIT", GetPortraitId(oMount));
         
         if (iMountNullAppearance)
             SetCreatureAppearanceType(oMount, iMountNullAppearance);
@@ -103,7 +135,6 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
 
         // Apply mounted effects
         ApplyMountedSpeed(oRider, iMountedSpeed);
-        ApplyMountedSkillBonus(oRider, SKILL_DISCIPLINE, 2);
 
         SetCommandable(TRUE, oMount);
         AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectCutsceneGhost(), oMount));
@@ -118,9 +149,9 @@ void Dismount(object oRider, object oSoul)
     if (!GetIsObjectValid(oRider) || !GetIsObjectValid(oSoul))
         return;
 
-    string sMountResRef = GetLocalString(oRider, "MOUNT_CREATURE_RESREF");
-    string sMountName = GetLocalString(oRider, "MOUNT_CREATURE_NAME");
-    int iMountAppearance = GetLocalInt(oRider, "MOUNT_CREATURE_APPEARANCE");
+    string sMountResRef = GetLocalString(oSoul, "MOUNT_CREATURE_RESREF");
+    string sMountName = GetLocalString(oSoul, "MOUNT_CREATURE_NAME");
+    int iMountAppearance = GetLocalInt(oSoul, "MOUNT_CREATURE_APPEARANCE");
 
     int iOriginalTail = GetLocalInt(oSoul, "MOUNT_RIDER_TAIL");
     int iOriginalPhenoType = GetLocalInt(oSoul, "MOUNT_RIDER_PHENOTYPE");
@@ -133,16 +164,21 @@ void Dismount(object oRider, object oSoul)
         SetCreatureTailType(iOriginalTail, oRider);
         object oMount = CreateObject(OBJECT_TYPE_CREATURE, sMountResRef, GetLocation(oRider), FALSE, MOUNT_TAG);
         SetCreatureAppearanceType(oMount, iMountAppearance);
+        SetPortraitId(oMount, GetLocalInt(oSoul, "MOUNT_CREATURE_PORTRAIT"));
         SetCommandable(TRUE, oMount);
         SetName(oMount, sMountName);
+        AssignCommand(oMount, AddHenchman(oRider, oMount));
+        // Temporary storage - rework and delete this in future
+        SetLocalObject(oRider, "MOUNT_OBJECT", oMount);
+        
         SetLocalInt(oMount, "MOUNT_TAIL", GetLocalInt(oSoul, "MOUNT_TAIL"));
         SetLocalInt(oMount, "MOUNT_PHENOTYPE", GetLocalInt(oSoul, "MOUNT_PHENOTYPE"));
         SetLocalInt(oMount, "MOUNT_SPEED", GetLocalInt(oSoul, "MOUNT_SPEED"));        
-        AssignCommand(oMount, AddHenchman(oRider, oMount));
 
         // Remove mounted effects
         RemoveMountedEffects(oRider);
         
+        // Instantly invis mount creature to avoid "fade out" destroy effect
         AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectCutsceneGhost(), oMount, 1.0f));
         AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_CUTSCENE_INVISIBILITY), oMount, 1.0f));
 
@@ -155,8 +191,11 @@ void Dismount(object oRider, object oSoul)
         DeleteLocalString(oSoul, "MOUNT_CREATURE_RESREF");
         DeleteLocalString(oSoul, "MOUNT_CREATURE_NAME");
         DeleteLocalString(oSoul, "MOUNT_CREATURE_APPEARANCE");
+        DeleteLocalString(oSoul, "MOUNT_CREATURE_PORTRAIT");
+        
         DeleteLocalInt(oSoul, "MOUNT_TAIL");
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE");
+        DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE_L");
         DeleteLocalInt(oSoul, "MOUNT_SPEED");
     }
 }
@@ -225,7 +264,7 @@ void RemoveMountedEffects(object oRider)
 
 int GetMountedRaceAppearance(object oRider)
 {
-    return 482 + GetRacialType(oRider) + !GetGender(oRider);
+    return 482 + GetRacialType(oRider) * 2 + !GetGender(oRider);
 }
 
 int GetMountedNullAppearance(object oRider)
