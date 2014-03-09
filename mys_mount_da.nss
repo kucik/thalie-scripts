@@ -42,7 +42,6 @@ void main()
             if (GetIsObjectValid(oKey))
             {
                 StoreMountInfo(OBJECT_SELF, oKey);
-                DestroyObject(OBJECT_SELF);
                 SendMessageToPC(oPC, "Zvíøe je tvé. Pronájem vyprší za 1 rok.");                        
             }
             else

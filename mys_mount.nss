@@ -20,11 +20,11 @@ void main()
     object oSoul = GetIsPlayer(OBJECT_SELF) ? GetSoulStone(OBJECT_SELF) : OBJECT_SELF;
     
     // Not usable in interior areas.
-    if (GetIsAreaInterior(GetArea(OBJECT_SELF)))
-    {
-        SendMessageToPC(OBJECT_SELF, "Nelze použít uvnitø.");
-        return;
-    }
+    //if (GetIsAreaInterior(GetArea(OBJECT_SELF)))
+    //{
+        //SendMessageToPC(OBJECT_SELF, "Nelze použít uvnitø.");
+        //return;
+    //}
     
     switch (GetSpellId())
     {

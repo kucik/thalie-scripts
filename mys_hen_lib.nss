@@ -1,16 +1,17 @@
 #include "ku_libtime"
 
 const int HENCHMAN_LEASE_PRICE_DEFAULT = 50000;
-const int HENCHMAN_LEASE_LENGTH_DEFAULT = 51840000; // 1 IC rok
+const int HENCHMAN_LEASE_LENGTH_DEFAULT = 4838400; // 1 IC rok
 const string HENCHMAN_KEY_TAG = "myi_hen_key";
 const string HENCHMAN_LEASE_TAG = "henchman_leasable";
 
 // Info stored on key item
-//object  HENCHMAN                  - object henchmana (když je nevalidní, mùžeme summonovat)
-//string  HENCHMAN_RESREF           - resref henchmana
-//string  HENCHMAN_LESSOR_TAG       - tag najemnce henchmana (kvuli prodlouzeni najmu)
-//int     HENCHMAN_LEASE_EXPIRATION  - cas vyprseni pronajmu henchmana v sekundach
-//int     HENCHMAN_LEASE_PRICE       - cena pronajmu henchmana
+//object  HENCHMAN                    - object henchmana (když je nevalidní, mùžeme summonovat)
+//string  HENCHMAN_TAG                - resref henchmana
+//string  HENCHMAN_RESREF             - resref henchmana
+//string  HENCHMAN_LESSOR_TAG         - tag najemnce henchmana (kvuli prodlouzeni najmu)
+//int     HENCHMAN_LEASE_EXPIRATION   - cas vyprseni pronajmu henchmana v sekundach
+//int     HENCHMAN_LEASE_PRICE        - cena pronajmu henchmana
 
 // Dialog tokens
 // Lease price token = 6891
@@ -32,16 +33,21 @@ int ExtendHenchmanKey(object oKey, object oLessor = OBJECT_INVALID);
 int GetHenchmanHirePrice(object oHenchman);
 object GetHenchmanByName(object oLessor, string sName);
 object GetKeyByName(object oPC, string sName);
+string GetDateFromTimeStamp(int iStamp, int bTime = FALSE);
 
 object SummonHenchman(object oKey)
 {
     object oPC = GetItemPossessor(oKey);
     string sResRef = GetLocalString(oKey, "HENCHMAN_RESREF");
+    string sTag = GetLocalString(oKey, "HENCHMAN_TAG");
     location lLocation = GetLocation(oPC);
+    
+    // Temporary setting
+    sTag = "mount";
     
     if (sResRef != "")
     {
-        object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation);
+        object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation, FALSE, sTag);
         AssignCommand(oHenchman, AddHenchman(oPC, oHenchman));
         SetLocalObject(oKey, "HENCHMAN", oHenchman);
         DeleteLocalInt(oKey, "HENCHMAN_USES");
@@ -142,7 +148,7 @@ object HireHenchman(object oHenchman, object oPC, object oLessor)
     if (GetIsObjectValid(oLessor))
         SetLocalString(oKey, "HENCHMAN_LESSOR_TAG", GetTag(oLessor));
     SetName(oKey, GetName(oHenchman));
-    SetDescription(oKey, "Konec pronájmu: " + ku_GetDateFromTimeStamp(iTime + iExpiresIn));
+    SetDescription(oKey, "Konec pronájmu: " + GetDateFromTimeStamp(iTime + iExpiresIn));
     
     return oKey;
 }
@@ -219,4 +225,23 @@ object GetKeyByName(object oPC, string sName)
         oKey = GetNextItemInInventory(oPC);
     }
     return OBJECT_INVALID;
+}
+
+string GetDateFromTimeStamp(int iStamp, int bTime = FALSE)
+{
+    int iSec = iStamp % 60;
+    iStamp = iStamp / 60;
+    int iMin = iStamp % 10;
+    iStamp = iStamp / 10;
+    int iHour = iStamp % 24;
+    iStamp = iStamp / 24;
+    int iDay = (iStamp % 28) + 1;
+    iStamp = iStamp / 28;
+    int iMon = (iStamp % 12) + 1;
+    iStamp = iStamp / 12;
+    int iYear = iStamp + KU_NULLYEAR;
+    string sDate = IntToString(iDay)+". "+IntToString(iMon)+". "+IntToString(iYear);
+    if (bTime)
+        sDate = sDate+" "+IntToString(iHour)+":"+IntToString(iMin);
+    return sDate;
 }

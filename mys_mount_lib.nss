@@ -57,6 +57,8 @@ void StoreMountInfo(object oMount, object oKey);
 
 void StoreMountInfo(object oMount, object oKey)
 {
+    SetLocalString(oKey, "HENCHMAN_TAG", MOUNT_TAG);
+    
     SetLocalInt(oKey, "MOUNT_TAIL", GetLocalInt(oMount, "MOUNT_TAIL"));
     SetLocalInt(oKey, "MOUNT_PHENOTYPE", GetLocalInt(oMount, "MOUNT_PHENOTYPE"));
     SetLocalInt(oKey, "MOUNT_PHENOTYPE_L", GetLocalInt(oMount, "MOUNT_PHENOTYPE_L"));

@@ -18,7 +18,6 @@ void main()
             if (GetIsObjectValid(oKey))
             {
                 StoreMountInfo(oHenchman, oKey);
-                DestroyObject(oHenchman);
                 SendMessageToPC(oPC, "Dìkuji za obchod. Zvíøe je tvé.");                        
             }
             else
