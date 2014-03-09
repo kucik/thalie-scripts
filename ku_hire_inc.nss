@@ -287,8 +287,20 @@ int ku_HireCheckHireLeft(object oKey) {
     SetLocalString(oKey,"ORIG_DESCRIPTION",sOrigDesc);
   }
 
-  int iLeft = (GetLocalInt(oKey,"KU_HIRE_EXPIRATION") - ku_GetTimeStamp())/FloatToInt(HoursToSeconds(1))/24; //To IC days
-  SetDescription(oKey,sOrigDesc+"        Do vyprseni klice zbyva "+IntToString(iLeft)+" dni.");
+  int iExpiration = GetLocalInt(oKey,"KU_HIRE_EXPIRATION");
+  int iActual = ku_GetTimeStamp();
+  string sLeft = "";
+  int iLeft = (iExpiration - iActual)/FloatToInt(HoursToSeconds(1))/24; //To IC days
+  if(iLeft > 0)
+    sLeft = IntToString(iLeft)+" dni";
+  iLeft = (iExpiration - iActual)/FloatToInt(HoursToSeconds(1)); //To IC hours
+  if(iLeft > 0)
+    sLeft = sLeft+" "+IntToString(iLeft)+" hodin";
+  iLeft = (iExpiration - iActual)/FloatToInt(HoursToSeconds(1)/60.0); //To IC minutes
+  if(iLeft > 0)
+    sLeft = sLeft+" "+IntToString(iLeft)+" minut";
+
+  SetDescription(oKey,sOrigDesc+"        Do vyprseni klice zbyva "+sLeft+".");
 
   return TRUE;
 }
