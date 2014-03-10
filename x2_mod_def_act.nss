@@ -114,7 +114,6 @@ void UseHenchmanKey(object oActivator, object oItem)
     if (!GetIsHenchmanKeyExpired(oItem))
     {
         object oHenchman = GetLocalObject(oItem, "HENCHMAN");
-        SendMessageToPC(oActivator, "name="+GetName(oHenchman));
         
         // Summon when exists elsewhere, or is unsummoned.
         if (GetLocalInt(oItem, "HENCHMAN_USES") || GetIsObjectValid(oHenchman))

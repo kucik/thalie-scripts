@@ -18,7 +18,7 @@ int StartingConditional()
     }
     else if (sTag == "henchman_leasable")
     {
-        if (sText == "Pronajmout zvíøe.")
+        if (sText == "Informace o pronájmu.")
         {
             SetCustomToken(6891, IntToString(GetHenchmanHirePrice(OBJECT_SELF)));
             return TRUE;

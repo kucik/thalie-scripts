@@ -34,7 +34,7 @@ void main()
         else
             SendMessageToPC(oPC, "Zmìna jména se nezdaøila.");
     }
-    else if (sText == "Pronajmout.")
+    else if (sText == "Pronajmout zvíøe.")
     {
         if (GetIsObjectValid(OBJECT_SELF))
         {
