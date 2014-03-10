@@ -109,11 +109,14 @@ void SkinningKnife(object oActivator, object oItem)
 
 void UseHenchmanKey(object oActivator, object oItem)
 {
-    
-    
     if (!GetIsHenchmanKeyExpired(oItem))
     {
         object oHenchman = GetLocalObject(oItem, "HENCHMAN");
+        
+        // Debug:
+        SendMessageToPC(oActivator, "DEBUG: Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
+        if (GetIsObjectValid(oHenchman))
+            SendMessageToPC(oActivator, "DEBUG: Mount jménem " + GetName(oHenchman) + " je již vyvolán. Pøivolávám.");                      
         
         // Summon when exists elsewhere, or is unsummoned.
         if (GetLocalInt(oItem, "HENCHMAN_USES") || GetIsObjectValid(oHenchman))
@@ -125,8 +128,14 @@ void UseHenchmanKey(object oActivator, object oItem)
                 DestroyObject(oHenchman);
             }
             // Summmon henchman.
+            SendMessageToPC(oActivator, "DEBUG: Povolávám mounta...");
             object oMount = SummonHenchman(oItem);
             SetMountProperties(oMount, oItem);
+            if (GetIsObjectValid(oMount))
+            {
+                SendMessageToPC(oActivator, "DEBUG: Mount povolán.");
+                SendMessageToPC(oActivator, "DEBUG: Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
+            }
         }
         else
             SendMessageToPC(oActivator, "Došla použití pro tento den.");
