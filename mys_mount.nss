@@ -1,3 +1,4 @@
+#include "area_lib"
 #include "pc_lib"
 #include "me_soul_inc"
 #include "mys_mount_lib"
@@ -20,11 +21,11 @@ void main()
     object oSoul = GetIsPlayer(OBJECT_SELF) ? GetSoulStone(OBJECT_SELF) : OBJECT_SELF;
     
     // Not usable in interior areas.
-    //if (GetIsAreaInterior(GetArea(OBJECT_SELF)))
-    //{
-        //SendMessageToPC(OBJECT_SELF, "Nelze použít uvnitø.");
-        //return;
-    //}
+    if (!GetIsAreaExterior(GetArea(OBJECT_SELF)))
+    {
+        SendMessageToPC(OBJECT_SELF, "Nelze použít uvnitø.");
+        return;
+    }
     
     switch (GetSpellId())
     {
