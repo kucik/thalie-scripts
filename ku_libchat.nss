@@ -34,6 +34,7 @@ vector ku_GetSmokePossition(int iApp, int iGender);
 void ku_makeSmoke(object oTarget);
 void SetBackpack(object oPC, int iType);
 void PerformDiceRoll(object oPC, string sParam);
+void SetBodyColor(object oPC, int iChannel, int iColor, string sSubject = "");
 
 string ku_GetLastChatMesage(object oPC) {
   int CacheIndex = GetLocalInt(oPC,"KU_CHAT_CACHE_INDEX");
@@ -164,8 +165,10 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc kourit - Spusti animaci koureni.");
       SendMessageToPC(oPC,"/pc desc+ <text> - Prida odstavec do popisu postavy.");
       SendMessageToPC(oPC,"/pc desc- - Odebere posledni odstavec do popisu postavy.");
-      SendMessageToPC(oPC,"/pc tatto1 <0-175> - Zmìní barvu tetování1.");
-      SendMessageToPC(oPC,"/pc tatto2 <0-175> - Zmìní barvu tetování2.");
+      SendMessageToPC(oPC,"/pc barvat1 <0-175> - Zmeni barvu tetovani1.");
+      SendMessageToPC(oPC,"/pc barvat2 <0-175> - Zmeni barvu tetovani2.");
+      SendMessageToPC(oPC,"/pc barvatvlasu <0-175> - Zmeni barvu vlasu (pouze v lokaci dotvarejici postavu).");
+      SendMessageToPC(oPC,"/pc barvakuze <0-175> - Zmeni barvu kuze (pouze v lokaci dotvarejici postavu).");
       SendMessageToPC(oPC,"/pc autodislike - Zapne/vypne automaticke nastavovani odporu po prihlaseni.");
       SendMessageToPC(oPC,"/pc meditace <1-3> - Zmeni animaci pri meditaci/modleni.");
       SendMessageToPC(oPC,"/pc batoh <0-11> - Zobrazi/skryje model batohu/mece atd na zadech postavy.");
@@ -361,15 +364,21 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       break;
     // Tattoo 1 color change
     case 20: {
-      int iColor = StringToInt(param);
-      if (iColor > 0 && iColor < 176)
-        SetColor(oPC, COLOR_CHANNEL_TATTOO_1, iColor);
+      SetBodyColor(oPC, COLOR_CHANNEL_TATTOO_1, StringToInt(param), "tetování 1");
       break;
     }
     case 21: {
-      int iColor = StringToInt(param);
-      if (iColor > 0 && iColor < 176)
-        SetColor(oPC, COLOR_CHANNEL_TATTOO_2, iColor);
+      SetBodyColor(oPC, COLOR_CHANNEL_TATTOO_2, StringToInt(param), "tetování 2");
+      break;
+    }
+    case 22: {
+      if (GetTag(GetArea(oPC)) == "th_start_gp")
+          SetBodyColor(oPC, COLOR_CHANNEL_HAIR, StringToInt(param), "vlasù");
+      break;
+    }
+    case 23: {
+      if (GetTag(GetArea(oPC)) == "th_start_gp")
+          SetBodyColor(oPC, COLOR_CHANNEL_SKIN, StringToInt(param), "kùže");
       break;
     }
   }
@@ -411,8 +420,10 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(17,"batoh");
    ku_DefineChatCommand(18,"hod");
    ku_DefineChatCommand(19,"emo ?");
-   ku_DefineChatCommand(20,"tattoo1");
-   ku_DefineChatCommand(21,"tattoo2");
+   ku_DefineChatCommand(20,"barvat1");
+   ku_DefineChatCommand(21,"barvat2");
+   ku_DefineChatCommand(22,"barvavlasu");
+   ku_DefineChatCommand(23,"barvakuze");
 }
 
 void ku_SlowMe(int speed) {
@@ -695,3 +706,13 @@ void PerformDiceRoll(object oPC, string sParam)
     }
 }
 
+void SetBodyColor(object oPC, int iChannel, int iColor, string sSubject)
+{
+    sSubject = sSubject != "" ? sSubject + " " : sSubject;
+    int iPrevColor = GetColor(oPC, iChannel);
+    if (iColor > 0 && iColor < 176)
+    {
+        SetColor(oPC, iChannel, iColor);
+        SendMessageToPC(oPC, "Barva " + sSubject + "zmìnìna: " + IntToString(iPrevColor) + " -> " + IntToString(iColor));
+    }
+}
