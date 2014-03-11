@@ -21,6 +21,8 @@ void main()
         {
             SetCommandable(TRUE);
             AddHenchman(oPC, OBJECT_SELF);
+            // for /h chat command
+            SetLocalObject(oPC, "HENCHMAN", OBJECT_SELF);
         }
     }    
     else if (sText == "<StartAction>[Pøejmenovat zvíøe]</Start>")

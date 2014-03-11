@@ -131,6 +131,8 @@ void UseHenchmanKey(object oActivator, object oItem)
             //SendMessageToPC(oActivator, "[DEBUG] Povolávám mounta...");
             object oMount = SummonHenchman(oItem);
             SetMountProperties(oMount, oItem);
+            // for /h chat command
+            SetLocalObject(oActivator, "HENCHMAN", oMount);            
             if (GetIsObjectValid(oMount))
             {
                 //SendMessageToPC(oActivator, "[DEBUG] Mount povolán.");

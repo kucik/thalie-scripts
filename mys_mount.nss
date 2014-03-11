@@ -11,6 +11,9 @@ void DismountAfterActions(object oKey)
     SetLocalObject(oKey, "HENCHMAN", oHenchman);
     DeleteLocalObject(OBJECT_SELF, "MOUNT_OBJECT");
     
+    // for /h chat command
+    SetLocalObject(OBJECT_SELF, "HENCHMAN", oHenchman);
+    
     // Restore key uses
     SetLocalInt(oKey, "HENCHMAN_USES", 1);    
 }
