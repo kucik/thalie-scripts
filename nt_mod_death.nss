@@ -156,7 +156,9 @@ void main()
     if (!nSubdual)
         nSubdual = GetSubdualMode(oDammager);
     
-    Dismount(oPC, oSoul, TRUE);
+    if (GetLocalInt(oPC, "MOUNTED"))
+        Dismount(oPC, oPC, TRUE);
+        
     OnDeathClassSystem(oPC);
     
 //    SendMessageToPC(oPC,"//Debug info: Zabil te "+GetName(oDammager)+", subdual=."+IntToString(nSubdual));
