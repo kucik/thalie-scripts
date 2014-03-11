@@ -19,15 +19,19 @@ void main()
 {
     object oTarget = GetSpellTargetObject();
     object oSoul = GetIsPlayer(OBJECT_SELF) ? GetSoulStone(OBJECT_SELF) : OBJECT_SELF;
+    int iSpellId = GetSpellId();
     
-    // Not usable in interior areas.
-    if (!GetIsAreaExterior(GetArea(OBJECT_SELF)))
+    // Mount and jousting mount are not usable in interior areas.
+    if (iSpellId == 813 || iSpellId == 815)
     {
-        SendMessageToPC(OBJECT_SELF, "Nelze použít uvnitø.");
-        return;
+        if (!GetIsAreaExterior(GetArea(OBJECT_SELF)))
+        {
+            SendMessageToPC(OBJECT_SELF, "Nelze použít uvnitø.");
+            return;
+        }
     }
     
-    switch (GetSpellId())
+    switch (iSpellId)
     {
         // Mount
         case 813:

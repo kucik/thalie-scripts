@@ -28,7 +28,7 @@ int GetIsHenchmanKeyExpired(object oKey);
 void CopyHenchmanVars(object oFrom, object oTo);
 
 // Returns key object.
-object HireHenchman(object oHenchman, object oPC, object oLessor = OBJECT_INVALID);
+object HireHenchman(object oHenchman, object oPC, object oLessor = OBJECT_INVALID, float fDurModificator = 1.0f);
 int ExtendHenchmanKey(object oKey, object oLessor = OBJECT_INVALID);
 int GetHenchmanHirePrice(object oHenchman);
 object GetHenchmanByName(object oLessor, string sName);
@@ -48,11 +48,11 @@ object SummonHenchman(object oKey)
     if (sResRef != "")
     {
         object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation, FALSE, sTag);
+        AssignCommand(oHenchman, SetName(oHenchman, GetName(oKey)));
         AssignCommand(oHenchman, AddHenchman(oPC, oHenchman));
         SetLocalObject(oKey, "HENCHMAN", oHenchman);
         DeleteLocalInt(oKey, "HENCHMAN_USES");
         CopyHenchmanVars(oKey, oHenchman);
-        SetName(oHenchman, GetName(oKey));
         return oHenchman;
     }
     return OBJECT_INVALID;
@@ -117,9 +117,15 @@ void CopyHenchmanVars(object oFrom, object oTo)
     __CopyInt(oFrom, oTo, "HENCHMAN_LEASE_PRICE");
 }
 
-object HireHenchman(object oHenchman, object oPC, object oLessor)
+object HireHenchman(object oHenchman, object oPC, object oLessor, float fDurModificator)
 {
-    int iPrice = GetHenchmanHirePrice(oHenchman);
+    int iPrice = FloatToInt( IntToFloat(GetHenchmanHirePrice(oHenchman)) * fDurModificator );
+    int iDur = FloatToInt( IntToFloat(HENCHMAN_LEASE_LENGTH_DEFAULT) * fDurModificator );
+    
+    SendMessageToPC(oPC, "[DEBUG] iHenPrice = " + IntToString(GetHenchmanHirePrice(oHenchman)));
+    SendMessageToPC(oPC, "[DEBUG] fDurMod = " + FloatToString(fDurModificator));
+    SendMessageToPC(oPC, "[DEBUG] iDur = " + IntToString(iDur));
+    SendMessageToPC(oPC, "[DEBUG] iPrice = " + IntToString(iPrice));
     
     if (GetGold(oPC) < iPrice) {
         if (GetIsObjectValid(oLessor))
@@ -129,14 +135,14 @@ object HireHenchman(object oHenchman, object oPC, object oLessor)
     }
 
     // Take gold
-    TakeGoldFromCreature(iPrice, oPC, TRUE);
+    AssignCommand(oPC, TakeGoldFromCreature(iPrice, oPC, TRUE));
 
     // Create key
     object oKey = CreateItemOnObject(HENCHMAN_KEY_TAG, oPC, 1, HENCHMAN_KEY_TAG);
 
     // Set key expiration
     int iTime = ku_GetTimeStamp();
-    int iExpiresIn = HENCHMAN_LEASE_LENGTH_DEFAULT;
+    int iExpiresIn = iDur;
     if (iExpiresIn < 43200)
         DelayCommand(IntToFloat(iExpiresIn), DestroyObject(oKey));
     

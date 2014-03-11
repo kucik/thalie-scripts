@@ -23,6 +23,7 @@
 #include "me_soul_inc"
 #include "area_lib"
 
+void ApplyDeadlandsEffects(object oPC);
 
 void MakeAnimalFriends(object oPC){
     int classD = GetLevelByClass(CLASS_TYPE_DRUID, oPC);
@@ -247,10 +248,6 @@ void main()
     // Only if the entering creature is a PC or DM.
     if (!(GetIsPC(oPC) || GetIsDMPossessed(oPC) || GetIsDM(oPC))) return;
     
-    // Dismount in interior areas
-    if (!GetIsAreaExterior(OBJECT_SELF) && GetLocalInt(oPC, "MOUNTED"))
-        Dismount(oPC, GetSoulStone(oPC));
-
     if(Subraces_GetIsCharacterFromUnderdark(oPC ))
       SendMessageToPC(oPC,GetLocalString(OBJECT_SELF,"ph_hloubka"));
 
@@ -313,15 +310,30 @@ void main()
     }
 
 
-   if( (GetTag(OBJECT_SELF)=="Sferamrtvych") ) {
-
-
-
-
-     if( !GetIsDM(oPC) && (GetAppearanceType(oPC)!=APPEARANCE_TYPE_SPECTRE) ){
-       SetLocalInt(GetSoulStone(oPC),"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
-       SetCreatureAppearanceType(oPC,APPEARANCE_TYPE_SPECTRE);
-     }
+   if( (GetTag(OBJECT_SELF)=="Sferamrtvych") )
+   {
+        if (GetLocalInt(oPC, "MOUNTED"))
+        {
+            AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, GetSoulStone(oPC), FALSE)));
+            if(!GetIsDM(oPC) && (GetAppearanceType(oPC) != APPEARANCE_TYPE_SPECTRE))
+                DelayCommand(1.0f, ApplyDeadlandsEffects(oPC));
+        }
+        else
+        {
+            if( !GetIsDM(oPC) && (GetAppearanceType(oPC)!=APPEARANCE_TYPE_SPECTRE) )
+                DelayCommand(0.0f, ApplyDeadlandsEffects(oPC));
+        }         
+   }
+   // Dismount in interior areas
+   else if (!GetIsAreaExterior(OBJECT_SELF) && GetLocalInt(oPC, "MOUNTED"))
+   {
+        AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, GetSoulStone(oPC))));
    }
 
+}
+
+void ApplyDeadlandsEffects(object oPC)
+{
+    SetLocalInt(GetSoulStone(oPC),"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
+    SetCreatureAppearanceType(oPC,APPEARANCE_TYPE_SPECTRE);
 }

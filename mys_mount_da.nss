@@ -34,7 +34,23 @@ void main()
         else
             SendMessageToPC(oPC, "Zmìna jména se nezdaøila.");
     }
-    else if (sText == "Pronajmout zvíøe.")
+    else if (sText == "Pronajmout zvíøe na pùl roku.")
+    {
+        if (GetIsObjectValid(OBJECT_SELF))
+        {
+            object oKey = HireHenchman(OBJECT_SELF, oPC, OBJECT_INVALID, 0.5f);
+            if (GetIsObjectValid(oKey))
+            {
+                StoreMountInfo(OBJECT_SELF, oKey);
+                SendMessageToPC(oPC, "Zvíøe je tvé. Pronájem vyprší za pùl roku.");                        
+            }
+            else
+                SendMessageToPC(oPC, "Nesrovnalosti ti zabránily pronajmout si zvíøe.");
+        }
+        else
+            SendMessageToPC(oPC, "Zvíøe není k dispozici.");
+    }
+    else if (sText == "Pronajmout zvíøe na 1 rok.")
     {
         if (GetIsObjectValid(OBJECT_SELF))
         {
@@ -42,7 +58,7 @@ void main()
             if (GetIsObjectValid(oKey))
             {
                 StoreMountInfo(OBJECT_SELF, oKey);
-                SendMessageToPC(oPC, "Zvíøe je tvé. Pronájem vyprší za 1 rok.");                        
+                SendMessageToPC(oPC, "Zvíøe je tvé. Pronájem vyprší za rok.");                        
             }
             else
                 SendMessageToPC(oPC, "Nesrovnalosti ti zabránily pronajmout si zvíøe.");

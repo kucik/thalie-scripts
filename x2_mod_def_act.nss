@@ -114,9 +114,9 @@ void UseHenchmanKey(object oActivator, object oItem)
         object oHenchman = GetLocalObject(oItem, "HENCHMAN");
         
         // Debug:
-        SendMessageToPC(oActivator, "DEBUG: Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
-        if (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman))
-            SendMessageToPC(oActivator, "DEBUG: Mount jménem " + GetName(oHenchman) + " je již vyvolán. Pøivolávám.");                      
+        //SendMessageToPC(oActivator, "[DEBUG] Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
+        //if (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman))
+            //SendMessageToPC(oActivator, "[DEBUG] Mount jménem " + GetName(oHenchman) + " je již vyvolán. Pøivolávám.");                      
         
         // Summon when exists elsewhere, or is unsummoned.
         if (GetLocalInt(oItem, "HENCHMAN_USES") || (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman)))
@@ -128,13 +128,13 @@ void UseHenchmanKey(object oActivator, object oItem)
                 DestroyObject(oHenchman);
             }
             // Summmon henchman.
-            SendMessageToPC(oActivator, "DEBUG: Povolávám mounta...");
+            //SendMessageToPC(oActivator, "[DEBUG] Povolávám mounta...");
             object oMount = SummonHenchman(oItem);
             SetMountProperties(oMount, oItem);
             if (GetIsObjectValid(oMount))
             {
-                SendMessageToPC(oActivator, "DEBUG: Mount povolán.");
-                SendMessageToPC(oActivator, "DEBUG: Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
+                //SendMessageToPC(oActivator, "[DEBUG] Mount povolán.");
+                //SendMessageToPC(oActivator, "[DEBUG] Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
             }
         }
         else

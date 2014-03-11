@@ -19,7 +19,6 @@
 #include "sy_main_lib"
 #include "sh_classes_inc"
 #include "pc_lib"
-#include "mys_mount_lib"
 
 int GetSubdualMode(object oDammager)
 {
@@ -149,16 +148,12 @@ void main()
 
     object oPC = GetLastPlayerDied();
     object oDammager = GetLastDamager(oPC);
-    object oSoul = GetSoulStone(oPC);
     
     // Get subdual damage (stínovky)
     int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
     if (!nSubdual)
         nSubdual = GetSubdualMode(oDammager);
     
-    if (GetLocalInt(oPC, "MOUNTED"))
-        Dismount(oPC, oPC, TRUE);
-        
     OnDeathClassSystem(oPC);
     
 //    SendMessageToPC(oPC,"//Debug info: Zabil te "+GetName(oDammager)+", subdual=."+IntToString(nSubdual));

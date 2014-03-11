@@ -31,7 +31,7 @@ const int MOUNT_SPEED_DEFAULT = 50;
 
 
 void Mount(object oRider, object oMount, object oSoul, int bJousting = FALSE);
-void Dismount(object oRider, object oSoul, int bDead = FALSE);
+void Dismount(object oRider, object oSoul, int bSummonMount = TRUE);
 void RemoveMountedEffects(object oRider);
 void ApplyMountedSpeed(object oRider, int iSpeed);
 void ApplyMountedSkillBonus(object oRider, int iSkill, int iValue);
@@ -83,8 +83,17 @@ void SetMountProperties(object oMount, object oKey)
 
 void Mount(object oRider, object oMount, object oSoul, int bJousting)
 {
+    //SendMessageToPC(oRider, "[DEBUG] Mount action is starting...");
+    
+    SendMessageToPC(oRider, IntToString(GetIsObjectValid(oRider)));
+    SendMessageToPC(oRider, IntToString(GetIsObjectValid(oMount)));
+    SendMessageToPC(oRider, IntToString(GetIsObjectValid(oSoul)));
+    SendMessageToPC(oRider, IntToString(GetTag(oMount) == MOUNT_TAG));
+    
     if (!GetIsObjectValid(oRider) || !GetIsObjectValid(oMount) || !GetIsObjectValid(oSoul) || GetTag(oMount) != MOUNT_TAG)
         return;
+        
+    //SendMessageToPC(oRider, "[DEBUG] Mount action is running...");
 
     int iOriginalAppearance = GetAppearanceType(oRider);
     int iOriginalPhenoType = GetPhenoType(oRider);
@@ -149,10 +158,14 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
     }
 }
 
-void Dismount(object oRider, object oSoul, int bDead)
+void Dismount(object oRider, object oSoul, int bSummonMount)
 {
+    //SendMessageToPC(oRider, "[DEBUG] Dismount action is starting...");
+    
     if (!GetIsObjectValid(oRider) || !GetIsObjectValid(oSoul))
         return;
+        
+    //SendMessageToPC(oRider, "[DEBUG] Dismount action is running...");
 
     string sMountResRef = GetLocalString(oSoul, "MOUNT_CREATURE_RESREF");
     string sMountName = GetLocalString(oSoul, "MOUNT_CREATURE_NAME");
@@ -169,30 +182,31 @@ void Dismount(object oRider, object oSoul, int bDead)
         SetCreatureAppearanceType(oRider, iOriginalAppearance);
         SetPhenoType(iOriginalPhenoType);
         SetCreatureTailType(iOriginalTail, oRider);
-        object oMount = CreateObject(OBJECT_TYPE_CREATURE, sMountResRef, GetLocation(oRider), FALSE, MOUNT_TAG);
-        SetCreatureAppearanceType(oMount, iMountAppearance);
-        SetPortraitId(oMount, GetLocalInt(oSoul, "MOUNT_CREATURE_PORTRAIT"));
-        SetCommandable(TRUE, oMount);
-        SetName(oMount, sMountName);
-        AssignCommand(oMount, AddHenchman(oRider, oMount));
-        // Temporary storage - rework and delete this in future
-        SetLocalObject(oRider, "MOUNT_OBJECT", oMount);
         
-        SetLocalInt(oMount, "MOUNT_TAIL", GetLocalInt(oSoul, "MOUNT_TAIL"));
-        SetLocalInt(oMount, "MOUNT_PHENOTYPE", GetLocalInt(oSoul, "MOUNT_PHENOTYPE"));
-        SetLocalInt(oMount, "MOUNT_SPEED", GetLocalInt(oSoul, "MOUNT_SPEED"));        
-
-        // Remove mounted effects
-        RemoveMountedEffects(oRider);
-        
-        if (bDead)
-            AssignCommand(GetModule(), ApplyEffectToObject(0, EffectDamage(9999), oMount));
-        else
+        if (bSummonMount)
         {
+            object oMount = CreateObject(OBJECT_TYPE_CREATURE, sMountResRef, GetLocation(oRider), FALSE, MOUNT_TAG);
+            SetCreatureAppearanceType(oMount, iMountAppearance);
+            SetPortraitId(oMount, GetLocalInt(oSoul, "MOUNT_CREATURE_PORTRAIT"));
+            SetCommandable(TRUE, oMount);
+            SetName(oMount, sMountName);
+            AssignCommand(oMount, AddHenchman(oRider, oMount));
+            // Temporary storage - rework and delete this in future
+            SetLocalObject(oRider, "MOUNT_OBJECT", oMount);
+        
+            SetLocalInt(oMount, "MOUNT_TAIL", GetLocalInt(oSoul, "MOUNT_TAIL"));
+            SetLocalInt(oMount, "MOUNT_PHENOTYPE", GetLocalInt(oSoul, "MOUNT_PHENOTYPE"));
+            SetLocalInt(oMount, "MOUNT_SPEED", GetLocalInt(oSoul, "MOUNT_SPEED"));
+            
             // Instantly invis mount creature to avoid "fade out" destroy effect
             AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectCutsceneGhost(), oMount, 1.0f));
             AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_CUTSCENE_INVISIBILITY), oMount, 1.0f));
         }
+        else
+            SendMessageToPC(oRider, "[DEBUG] Mounted death");        
+
+        // Remove mounted effects
+        RemoveMountedEffects(oRider);
 
         // Sweep-out - rider info
         DeleteLocalInt(oSoul, "MOUNTED");
@@ -210,8 +224,6 @@ void Dismount(object oRider, object oSoul, int bDead)
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE");
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE_L");
         DeleteLocalInt(oSoul, "MOUNT_SPEED");
-        
-        if (bDead) SendMessageToPC(oRider, "[DEBUG] Mounted death");
     }
 }
 
