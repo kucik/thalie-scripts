@@ -19,6 +19,7 @@
 #include "sy_main_lib"
 #include "sh_classes_inc"
 #include "pc_lib"
+#include "mys_mount_lib"
 
 int GetSubdualMode(object oDammager)
 {
@@ -148,40 +149,16 @@ void main()
 
     object oPC = GetLastPlayerDied();
     object oDammager = GetLastDamager(oPC);
-    
-    /*
-    int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
-    if(!nSubdual) {
-      object oSoul = GetAssociateType(oDammager) ? GetSoulStone(GetMaster(oDammager)) : GetSoulStone(oDammager);
-      if(GetIsObjectValid(oSoul))
-        nSubdual = GetLocalInt(oSoul,"SUBDUAL_MODE");
-      else
-        nSubdual = GetLocalInt(oDammager,"SUBDUAL_MODE");
-
-    }*/
+    object oSoul = GetSoulStone(oPC);
     
     // Get subdual damage (stínovky)
     int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
     if (!nSubdual)
         nSubdual = GetSubdualMode(oDammager);
     
+    Dismount(oPC, oSoul, TRUE);
     OnDeathClassSystem(oPC);
-/*    if(nSubdual==2) {
-//      SendMessageToPC(oPC,"//Debug info: Upadl jsi do bezvedomi, pri pouiti stinovych zraneni.");
-//      SendMessageToPC(oPC,"Subdual death");
-      FloatingTextStringOnCreature("Upadl do bezvedomi",oPC);
-      DelayCommand(10.0f,FloatingTextStringOnCreature("Lezi v bezvedomi",oPC));
-      DelayCommand(20.0f,FloatingTextStringOnCreature("Probira se",oPC));
-      AssignCommand(oDammager,ClearAllActions(TRUE));
-      DelayCommand(30.0f, Raise(oPC));
-      DelayCommand(30.0f, AssignCommand(oPC, ClearAllActions(TRUE)));
-      effect eDmg = EffectDamage(GetMaxHitPoints(oPC)-1);
-      DelayCommand(30.2f, ApplyEffectToObject(DURATION_TYPE_INSTANT,eDmg,oPC));
-      SetLocalInt(oPC,"SUBDAMADE_TYPE",0);
-      return;
-    }
-*/
-
+    
 //    SendMessageToPC(oPC,"//Debug info: Zabil te "+GetName(oDammager)+", subdual=."+IntToString(nSubdual));
     if(nSubdual == 2) {
       if(CheckIsSubdualValid(oPC))

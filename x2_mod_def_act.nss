@@ -115,11 +115,11 @@ void UseHenchmanKey(object oActivator, object oItem)
         
         // Debug:
         SendMessageToPC(oActivator, "DEBUG: Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
-        if (GetIsObjectValid(oHenchman))
+        if (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman))
             SendMessageToPC(oActivator, "DEBUG: Mount jménem " + GetName(oHenchman) + " je již vyvolán. Pøivolávám.");                      
         
         // Summon when exists elsewhere, or is unsummoned.
-        if (GetLocalInt(oItem, "HENCHMAN_USES") || GetIsObjectValid(oHenchman))
+        if (GetLocalInt(oItem, "HENCHMAN_USES") || (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman)))
         {
             // If henchman exists, unsummon him first.
             if (GetIsObjectValid(oHenchman))

@@ -31,7 +31,7 @@ const int MOUNT_SPEED_DEFAULT = 50;
 
 
 void Mount(object oRider, object oMount, object oSoul, int bJousting = FALSE);
-void Dismount(object oRider, object oSoul);
+void Dismount(object oRider, object oSoul, int bDead = FALSE);
 void RemoveMountedEffects(object oRider);
 void ApplyMountedSpeed(object oRider, int iSpeed);
 void ApplyMountedSkillBonus(object oRider, int iSkill, int iValue);
@@ -149,7 +149,7 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
     }
 }
 
-void Dismount(object oRider, object oSoul)
+void Dismount(object oRider, object oSoul, int bDead)
 {
     if (!GetIsObjectValid(oRider) || !GetIsObjectValid(oSoul))
         return;
@@ -185,9 +185,14 @@ void Dismount(object oRider, object oSoul)
         // Remove mounted effects
         RemoveMountedEffects(oRider);
         
-        // Instantly invis mount creature to avoid "fade out" destroy effect
-        AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectCutsceneGhost(), oMount, 1.0f));
-        AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_CUTSCENE_INVISIBILITY), oMount, 1.0f));
+        if (bDead)
+            AssignCommand(GetModule(), ApplyEffectToObject(0, EffectDamage(9999), oMount));
+        else
+        {
+            // Instantly invis mount creature to avoid "fade out" destroy effect
+            AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectCutsceneGhost(), oMount, 1.0f));
+            AssignCommand(oMount, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_CUTSCENE_INVISIBILITY), oMount, 1.0f));
+        }
 
         // Sweep-out - rider info
         DeleteLocalInt(oSoul, "MOUNTED");
@@ -205,6 +210,8 @@ void Dismount(object oRider, object oSoul)
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE");
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE_L");
         DeleteLocalInt(oSoul, "MOUNT_SPEED");
+        
+        if (bDead) SendMessageToPC(oRider, "[DEBUG] Mounted death");
     }
 }
 
