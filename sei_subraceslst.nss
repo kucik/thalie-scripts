@@ -564,7 +564,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
-    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
+//    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     stSubrace.m_nAlignmentMask = 770;                                    // no good
     stSubrace = SEI_AddTrait( stSubrace, "dvojity_palcat" );
