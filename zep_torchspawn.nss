@@ -96,6 +96,7 @@ void main()
 {
     // Run only once
     SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "");
+    return;
     
     int nLightCycle = GetLocalInt(OBJECT_SELF, "CEP_L_LIGHTCYCLE");
     int nInitialized = GetLocalInt(OBJECT_SELF, "CEP_L_LIGHTINITIALIZED");
