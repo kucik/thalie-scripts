@@ -7,6 +7,7 @@ void main()
      if (GetIsPC(oPC))
      {
           int iXP = GetTrapDisarmDC(OBJECT_SELF) - GetSkillRank(SKILL_DISABLE_TRAP,oPC) + d10();
+          WriteTimestampedLogEntry("TRAP disarm: "+GetName(oPC)+" disarmed trap DC "+IntToString(GetTrapDisarmDC(OBJECT_SELF)) + "with skill"+IntToString(GetSkillRank(SKILL_DISABLE_TRAP,oPC))+". Got "+IntToString(iXP)+"XP");
           if(iXP > 0)
             SetXP(oPC,GetXP(oPC) + iXP);
      }
