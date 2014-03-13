@@ -85,10 +85,10 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
 {
     //SendMessageToPC(oRider, "[DEBUG] Mount action is starting...");
     
-    SendMessageToPC(oRider, IntToString(GetIsObjectValid(oRider)));
-    SendMessageToPC(oRider, IntToString(GetIsObjectValid(oMount)));
-    SendMessageToPC(oRider, IntToString(GetIsObjectValid(oSoul)));
-    SendMessageToPC(oRider, IntToString(GetTag(oMount) == MOUNT_TAG));
+    //SendMessageToPC(oRider, IntToString(GetIsObjectValid(oRider)));
+    //SendMessageToPC(oRider, IntToString(GetIsObjectValid(oMount)));
+    //SendMessageToPC(oRider, IntToString(GetIsObjectValid(oSoul)));
+    //SendMessageToPC(oRider, IntToString(GetTag(oMount) == MOUNT_TAG));
     
     if (!GetIsObjectValid(oRider) || !GetIsObjectValid(oMount) || !GetIsObjectValid(oSoul) || GetTag(oMount) != MOUNT_TAG)
         return;
