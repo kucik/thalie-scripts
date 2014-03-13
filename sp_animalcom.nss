@@ -10,6 +10,10 @@
 //:: Created By: Preston Watamaniuk
 //:: Created On: Sept 27, 2001
 //:://////////////////////////////////////////////
+
+#include "me_soul_inc"
+#include "mys_assoc_lib"
+
 void ApplyCompanionBonuses(object oPC)
 {
     object oSummon = GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION);
@@ -92,6 +96,19 @@ void main()
 {
     //Yep thats it
     SummonAnimalCompanion();
+    
+    // Set custom name and apearance
+    int iAssociateType = ASSOCIATE_TYPE_ANIMALCOMPANION;
+    object oAssociate = GetAssociate(iAssociateType, OBJECT_SELF);
+    object oSoul = GetSoulStone(OBJECT_SELF);
+    int iAppearance = GetAssociateAppearanceType(oSoul, oAssociate, iAssociateType);
+    string sName = GetAssociateName(oSoul, oAssociate, iAssociateType);
+    
+    if (sName != "")
+        SetName(oAssociate, sName);
+        
+    if (iAppearance)
+        SetCreatureAppearanceType(oAssociate, iAppearance);
 
     DelayCommand(3.0,ApplyCompanionBonuses(OBJECT_SELF));
 }
