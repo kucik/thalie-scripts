@@ -265,7 +265,7 @@ void ku_SetTrapDC(object oObject, int iTrapPower)
 
 void ku_SetRandomTrap(object oObject, int iTrapPower)
 {
-  CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
+  CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
   ku_SetTrapDC(oObject,iTrapPower);
 }
 
@@ -406,21 +406,21 @@ void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
 
     if( (FindSubString(sResref,"corpse")>-1) && (Random(100)  < (15 * iTrapsProb /100) ) ) {
       iTrapPower--;
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
+      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm");
     } else if( (FindSubString(sResref,"treasure")>-1) && (Random(100) < (5 * iTrapsProb /100)) )  {
       iTrapPower--;
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
+      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
     } else if( (FindSubString(sResref,"barrel")>-1) && (Random(100) < (30 * iTrapsProb /100)) ) {
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
+      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
     } else if( (FindSubString(sResref,"box")>-1) && (Random(100) < (50 * iTrapsProb /100)) ) {
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
+      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
       if(Random(100) < 40)
         SetTrapOneShot(oObject,FALSE);
       if(Random(100) < 15)
         ku_LockLoot(oObject, iTrapPower);
     } else if( (FindSubString(sResref,"chest")>-1) && (Random(100) < (70 * iTrapsProb /100)) ) {
       iTrapPower++;
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject);
+      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
       if(Random(100) < 50)
         SetTrapOneShot(oObject,FALSE);
       if(Random(100) < 50)
@@ -1235,7 +1235,7 @@ void lock_SpawnBossLoot(object oArea) {
 
     //TRAPS
     if(iTrapsProb != 0) {
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oChest);
+      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oChest, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
       if(Random(100) < 50)
         SetTrapOneShot(oChest,FALSE);
       SetTrapDetectDC(oChest,5 + 4*iTrapPower + d4());
