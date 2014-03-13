@@ -234,7 +234,9 @@ void main()
 {
     object oPC = GetEnteringObject();
     object oLoc = OBJECT_SELF;
-   // WriteTimestampedLogEntry("Player "+GetPCPlayerName(oPC)+", character "+GetName(oPC)+" entering "+GetName(OBJECT_SELF)+"("+GetTag(OBJECT_SELF)+")");
+    if(GetIsPC(oPC) || GetIsDM(oPC) ) {
+      WriteTimestampedLogEntry("Player "+GetPCPlayerName(oPC)+", character "+GetName(oPC)+"["+IntToString(GetHitDice(oPC))+"] entering "+GetName(OBJECT_SELF)+"("+GetTag(OBJECT_SELF)+")TV:["+IntToString(GetLocalInt(OBJECT_SELF, "TREASURE_VALUE"))+"]");
+    }
 
     /* Nastav, ze lokace neni prazdna */
     if(GetIsPC(oPC)) {
