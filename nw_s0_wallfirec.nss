@@ -1,15 +1,17 @@
 //::///////////////////////////////////////////////
 //:: Wall of Fire: Heartbeat
-//:: NW_S0_WallFireA.nss
+//:: nw_s0_wallfirec.nss
 //:: Copyright (c) 2001 Bioware Corp.
 //:://////////////////////////////////////////////
 /*
-    Person within the AoE take 4d6 fire damage
-    per round.
+    Person within the AoE take up to lvl*d6 fire damage
+    per round (up to 15d6). If target fails reflex throw
+    it is knocked down for one round.
 */
 //:://////////////////////////////////////////////
 //:: Created By: Preston Watamaniuk
 //:: Created On: May 17, 2001
+//:: Last updated by P.A., March 14, 2014
 //:://////////////////////////////////////////////
 
 #include "X0_I0_SPELLS"
@@ -61,11 +63,14 @@ void main()
                      nDamage = nDamage + (nDamage/2); //Damage/Healing is +50%
                 }
             nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
-            if (MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
+            // if target fails reflex save - knock it down
+            if (!MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
             {
                 effect eKnockDown = EffectKnockdown();
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockDown, oTarget,RoundsToSeconds(1));
-            }if(nDamage > 0)
+            }
+            // apply damage
+            if(nDamage > 0)
                 {
                     // Apply effects to the currently selected target.
                     eDam = EffectDamage(nDamage, DAMAGE_TYPE_FIRE);
