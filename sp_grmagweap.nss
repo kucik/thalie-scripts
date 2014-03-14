@@ -6,8 +6,8 @@
 /*
   Grants a +1 enhancement bonus per 4 caster levels
   (maximum of +5) do any weapon(s) equipped by target
-  of the spell. Lasts 1 turn per level. Updated to 
-  suppport empowered version (max bonus +7).
+  of the spell. Lasts 1 turn per level. 
+  Commented: Updated to suppport empowered version (max bonus +7).
 */
 //:://////////////////////////////////////////////
 //:: Created By: Andrew Nobbs
@@ -16,7 +16,7 @@
 //:: Updated by Andrew Nobbs May 08, 2003
 //:: 2003-07-07: Stacking Spell Pass, Georg Zoeller
 //:: 2003-07-17: Complete Rewrite to make use of Item Property System
-//:: Updated by P.A., 27.2.2014
+//:: Updated by P.A., March 14, 2014
 
 
 
@@ -82,13 +82,15 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
+    /*
     else
     {
       if (nMetaMagic == METAMAGIC_EMPOWER )
       { // spell is empowered
            iBonus = 3*iBonus / 2;
       }
-    } 
+    }
+    */
 
     if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
     {
