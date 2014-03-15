@@ -59,7 +59,13 @@ void main()
         //----------------------------------------------------------------------
         // Targeted Dispel - Dispel all
         //----------------------------------------------------------------------
-        spellsDispelMagic(oTarget, nCasterLevel, eVis, eImpact,TRUE,TRUE);
+        spellsDispelMagic(oTarget, nCasterLevel, eVis, eImpact,TRUE,TRUE); /* Here the last boolean (TRUE)
+        // means that after a try to dispell all on a target, greater spell breach will also be applied. I.e.
+        // if the last boolean is TRUE, this raw equals to:
+        // spellsDispelMagic(oTarget, nCasterLevel, eVis, eImpact, TRUE);
+        // DoSpellBreach(oTarget, 6, 10, GetSpellId());
+        // End of comment, P. A. March 15, 2014
+        */
     }
     else
     {
