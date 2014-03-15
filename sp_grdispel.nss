@@ -6,6 +6,7 @@
 //:: Created By: Preston Watamaniuk
 //:: Created On: Jan 7, 2002
 //:: Updated On: Oct 20, 2003, Georg Zoeller
+//:: Last updated by P.A., March 15, 2014
 //:://////////////////////////////////////////////
 #include "x0_i0_spells"
 #include "x2_inc_spellhook"
@@ -29,7 +30,7 @@ void main()
 
     effect   eVis         = EffectVisualEffect( VFX_IMP_BREACH );
     effect   eImpact      = EffectVisualEffect( VFX_FNF_DISPEL_GREATER );
-    int      nCasterLevel = GetCasterLevel( OBJECT_SELF )+15;
+    int      nCasterLevel = GetCasterLevel( OBJECT_SELF ); // here the caster lvl was increased by 15!
     object   oTarget      = GetSpellTargetObject();
     location lLocal   =     GetSpellTargetLocation();
 
@@ -44,7 +45,7 @@ void main()
         // Targeted Dispel - Dispel all
         //----------------------------------------------------------------------
         spellsDispelMagic(oTarget, nCasterLevel, eVis, eImpact);
-        DoSpellBreach(oTarget, 2,0);
+        // DoSpellBreach(oTarget, 2,0); // why spell breach??? commented out!
     }
     else
     {
