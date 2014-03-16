@@ -79,7 +79,6 @@ void AssocSetAppearance(object oPC, int iAssociateType)
         SendMessageToPC(oPC, "Zmìna vzhledu se nezdaøila.");
 }
 
-/*
 void main()
 {
     string sText = GetSelectedNodeText();
@@ -112,4 +111,3 @@ void main()
     }
 
 }
-*/
