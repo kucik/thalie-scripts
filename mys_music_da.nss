@@ -110,6 +110,35 @@ void main()
     {
         MusicQueueAddTrack(oPC, 25, 3,35);
     }
+    else if (sText == "5:20 Andìl")
+    {
+        MusicQueueAddTrack(oPC, 191, 5,36);
+    }
+    else if (sText == "1:26 Vážka")
+    {
+        MusicQueueAddTrack(oPC, 192, 1,26);
+    }
+    else if (sText == "1:26 Širý kraj")
+    {
+        MusicQueueAddTrack(oPC, 193, 1,26);
+    }
+    else if (sText == "2:01 Dupák")
+    {
+        MusicQueueAddTrack(oPC, 194, 2,01);
+    }
+    else if (sText == "2:14 Lesní milování")
+    {
+        MusicQueueAddTrack(oPC, 195, 2,25);
+    }
+    else if (sText == "3:57 Divoká jízda")
+    {
+        MusicQueueAddTrack(oPC, 196, 3,57);
+    }
+    else if (sText == "5:18 Souboj")
+    {
+        MusicQueueAddTrack(oPC, 197, 5,18);
+    }
+    
 
     // *************************************************************************
     // Harfa
@@ -312,6 +341,38 @@ void main()
     {
         MusicQueueAddTrack(oPC, 165, 1,16);
     }
+    else if (sText == "2:38 Pramen Jaarig")
+    {
+        MusicQueueAddTrack(oPC, 177, 2,38);
+    }
+    else if (sText == "2:16 Gnómská skoèná")
+    {
+        MusicQueueAddTrack(oPC, 178, 2,16);
+    }
+    else if (sText == "1:12 Pastýøský tanec")
+    {
+        MusicQueueAddTrack(oPC, 179, 1,12);
+    }
+    else if (sText == "1:16 Dvorský tanec")
+    {
+        MusicQueueAddTrack(oPC, 180, 1,16);
+    }
+    else if (sText == "2:11 Spi, mùj milý, spi")
+    {
+        MusicQueueAddTrack(oPC, 181, 2,11);
+    }
+    else if (sText == "4:02 Ivorský kozeleèek")
+    {
+        MusicQueueAddTrack(oPC, 182, 4,02);
+    }
+    else if (sText == "2:00 Na vojnu se dej")
+    {
+        MusicQueueAddTrack(oPC, 183, 2,00);
+    }
+    else if (sText == "2:09 Medvìdí øeka")
+    {
+        MusicQueueAddTrack(oPC, 184, 2,09);
+    }    
 
     // *************************************************************************
     // Klavír
@@ -614,6 +675,30 @@ void main()
     {
         MusicQueueAddTrack(oPC, 144, 3,36);
     }
+    else if (sText == "3:26 Støecha svìta")
+    {
+        MusicQueueAddTrack(oPC, 185, 3,26);
+    }
+    else if (sText == "4:04 Zlatý drak")
+    {
+        MusicQueueAddTrack(oPC, 186, 4,04);
+    }
+    else if (sText == "2:30 Západ slunce")
+    {
+        MusicQueueAddTrack(oPC, 187, 2,30);
+    }
+    else if (sText == "2:29 S vìtrem v zádech")
+    {
+        MusicQueueAddTrack(oPC, 188, 2,29);
+    }
+    else if (sText == "4:29 Rej masek")
+    {
+        MusicQueueAddTrack(oPC, 189, 4,29);
+    }
+    else if (sText == "2:33 Na lovu")
+    {
+        MusicQueueAddTrack(oPC, 190, 2,33);
+    }
 
     // *************************************************************************
     // Housle
@@ -732,7 +817,7 @@ void main()
     {
         MusicQueueAddTrack(oPC, 173, 4,49);
     }
-    else if (sText == "6:30 Píseò dìtí pramene")
+    else if (sText == "5:26 Píseò dìtí pramene")
     {
         MusicQueueAddTrack(oPC, 174, 6,30);
     }
@@ -743,6 +828,34 @@ void main()
     else if (sText == "3:23 Rituální")
     {
         MusicQueueAddTrack(oPC, 176, 3,23);
+    }
+    else if (sText == "2:16 Zbrojní tanec")
+    {
+        MusicQueueAddTrack(oPC, 198, 2,16);
+    }
+    else if (sText == "3:20 Karathsky kozeleèek")
+    {
+        MusicQueueAddTrack(oPC, 199, 3,20);
+    }
+    else if (sText == "0:51 Vojenský pochod 1")
+    {
+        MusicQueueAddTrack(oPC, 200, 0,51);
+    }
+    else if (sText == "0:53 Pøehlídka")
+    {
+        MusicQueueAddTrack(oPC, 201, 0,53);
+    }
+    else if (sText == "0:46 Víøení")
+    {
+        MusicQueueAddTrack(oPC, 202, 0,46);
+    }
+    else if (sText == "0:39 Víøení 2")
+    {
+        MusicQueueAddTrack(oPC, 203, 0,39);
+    }
+    else if (sText == "1:15 Vojenský pochod 2")
+    {
+        MusicQueueAddTrack(oPC, 204, 1,15);
     }
 
     // *************************************************************************

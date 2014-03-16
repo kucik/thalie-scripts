@@ -114,6 +114,34 @@ int StartingConditional()
     {
         return MusicGetMusicianPerformRank(oPC, 35);
     }
+    else if (sText == "5:20 Andìl")
+    {
+        return MusicGetMusicianPerformRank(oPC, 35);
+    }
+    else if (sText == "1:26 Vážka")
+    {
+        return MusicGetMusicianPerformRank(oPC, 35);
+    }
+    else if (sText == "1:26 Širý kraj")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:01 Dupák")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:14 Lesní milování")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "3:57 Divoká jízda")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "5:18 Souboj")
+    {
+        return MusicGetMusicianPerformRank(oPC, 45);
+    }
 
     // *************************************************************************
     // Harfa
@@ -315,6 +343,38 @@ int StartingConditional()
     else if (sText == "1:16 Duch plání")
     {
         return MusicGetMusicianPerformRank(oPC, 20);
+    }
+    else if (sText == "2:38 Pramen Jaarig")
+    {
+        return MusicGetMusicianPerformRank(oPC, 30);
+    }
+    else if (sText == "2:16 Gnómská skoèná")
+    {
+        return MusicGetMusicianPerformRank(oPC, 30);
+    }
+    else if (sText == "1:12 Pastýøský tanec")
+    {
+        return MusicGetMusicianPerformRank(oPC, 35);
+    }
+    else if (sText == "1:16 Dvorský tanec")
+    {
+        return MusicGetMusicianPerformRank(oPC, 35);
+    }
+    else if (sText == "2:11 Spi, mùj milý, spi")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "4:02 Ivorský kozeleèek")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:00 Na vojnu se dej")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:09 Medvìdí øeka")
+    {
+        return MusicGetMusicianPerformRank(oPC, 45);
     }
 
     // *************************************************************************
@@ -618,6 +678,30 @@ int StartingConditional()
     {
         return MusicGetMusicianPerformRank(oPC, 35);
     }
+    else if (sText == "3:26 Støecha svìta")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "4:04 Zlatý drak")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:30 Západ slunce")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:29 S vìtrem v zádech")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "4:29 Rej masek")
+    {
+        return MusicGetMusicianPerformRank(oPC, 40);
+    }
+    else if (sText == "2:33 Na lovu")
+    {
+        return MusicGetMusicianPerformRank(oPC, 45);
+    }
 
     // *************************************************************************
     // Housle
@@ -705,7 +789,7 @@ int StartingConditional()
     }
     
     // *************************************************************************
-    // Housle
+    // Buben
     // *************************************************************************
 
     else if (sText == "5:25 Buben")
@@ -736,7 +820,7 @@ int StartingConditional()
     {
         return MusicGetMusicianPerformRank(oPC, 20);
     }
-    else if (sText == "6:30 Píseò dìtí pramene")
+    else if (sText == "5:26 Píseò dìtí pramene")
     {
         return MusicGetMusicianPerformRank(oPC, 20);
     }
@@ -745,6 +829,34 @@ int StartingConditional()
         return MusicGetMusicianPerformRank(oPC, 25);
     }
     else if (sText == "3:23 Rituální")
+    {
+        return MusicGetMusicianPerformRank(oPC, 25);
+    }
+    else if (sText == "2:16 Zbrojní tanec")
+    {
+        return MusicGetMusicianPerformRank(oPC, 15);
+    }
+    else if (sText == "3:20 Karathsky kozeleèek")
+    {
+        return MusicGetMusicianPerformRank(oPC, 15);
+    }
+    else if (sText == "0:51 Vojenský pochod 1")
+    {
+        return MusicGetMusicianPerformRank(oPC, 15);
+    }
+    else if (sText == "0:53 Pøehlídka")
+    {
+        return MusicGetMusicianPerformRank(oPC, 20);
+    }
+    else if (sText == "0:46 Víøení")
+    {
+        return MusicGetMusicianPerformRank(oPC, 20);
+    }
+    else if (sText == "0:39 Víøení 2")
+    {
+        return MusicGetMusicianPerformRank(oPC, 20);
+    }
+    else if (sText == "1:15 Vojenský pochod 2")
     {
         return MusicGetMusicianPerformRank(oPC, 25);
     }
