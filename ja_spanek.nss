@@ -25,10 +25,11 @@ void main()
 {
 
     object oPC = GetLastPCRested();
+    object oSoul = GetSoulStone(oPC);
     int restType = GetLastRestEventType();
     
     // No rest if mounted
-    if (GetLocalInt(oPC, "MOUNTED"))
+    if (GetLocalInt(oSoul, "MOUNTED"))
     {
         SendMessageToPC(oPC, "Akci nelze provést v sedle.");
         return;
@@ -173,7 +174,6 @@ void main()
             DeleteLocalInt(oPC, sInn);
             PC_NeedsOnRest(oPC);
             RestoreFeatUses(oPC);
-            object oSoul = GetSoulStone(oPC);
             DeleteLocalInt(oSoul,"KURTIZANA_KZEMI");
 
             DeleteLocalInt(oPC, "JA_MED_HP");

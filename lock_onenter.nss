@@ -23,7 +23,7 @@
 #include "me_soul_inc"
 #include "area_lib"
 
-void ApplyDeadlandsEffects(object oPC);
+void ApplyDeadlandsEffects(object oPC, object oSoul);
 
 void MakeAnimalFriends(object oPC){
     int classD = GetLevelByClass(CLASS_TYPE_DRUID, oPC);
@@ -233,6 +233,7 @@ void spawn(object oPC){
 void main()
 {
     object oPC = GetEnteringObject();
+    object oSoul = GetSoulStone(oPC);
     object oLoc = OBJECT_SELF;
     if(GetIsPC(oPC) || GetIsDM(oPC) ) {
       WriteTimestampedLogEntry("Player "+GetPCPlayerName(oPC)+", character "+GetName(oPC)+"["+IntToString(GetHitDice(oPC))+"] entering "+GetName(OBJECT_SELF)+"("+GetTag(OBJECT_SELF)+")TV:["+IntToString(GetLocalInt(OBJECT_SELF, "TREASURE_VALUE"))+"]");
@@ -314,28 +315,28 @@ void main()
 
    if( (GetTag(OBJECT_SELF)=="Sferamrtvych") )
    {
-        if (GetLocalInt(oPC, "MOUNTED"))
+        if (GetLocalInt(oSoul, "MOUNTED"))
         {
-            AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, GetSoulStone(oPC), FALSE)));
+            AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, oSoul, FALSE)));
             if(!GetIsDM(oPC) && (GetAppearanceType(oPC) != APPEARANCE_TYPE_SPECTRE))
-                DelayCommand(1.0f, ApplyDeadlandsEffects(oPC));
+                DelayCommand(1.0f, ApplyDeadlandsEffects(oPC, oSoul));
         }
         else
         {
             if( !GetIsDM(oPC) && (GetAppearanceType(oPC)!=APPEARANCE_TYPE_SPECTRE) )
-                DelayCommand(0.0f, ApplyDeadlandsEffects(oPC));
+                DelayCommand(0.0f, ApplyDeadlandsEffects(oPC, oSoul));
         }         
    }
    // Dismount in interior areas
    else if (!GetIsAreaExterior(OBJECT_SELF) && GetLocalInt(oPC, "MOUNTED"))
    {
-        AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, GetSoulStone(oPC))));
+        AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, oSoul)));
    }
 
 }
 
-void ApplyDeadlandsEffects(object oPC)
+void ApplyDeadlandsEffects(object oPC, object oSoul)
 {
-    SetLocalInt(GetSoulStone(oPC),"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
+    SetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
     SetCreatureAppearanceType(oPC,APPEARANCE_TYPE_SPECTRE);
 }

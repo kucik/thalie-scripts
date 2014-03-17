@@ -74,9 +74,10 @@ void main()
 {
 
     object oPC = OBJECT_SELF;
+    object oSoul = GetSoulStone(oPC);
     
     // No meditation if mounted
-    if (GetLocalInt(oPC, "MOUNTED"))
+    if (GetLocalInt(oSoul, "MOUNTED"))
     {
         SendMessageToPC(oPC, "Akci nelze provést v sedle.");
         return;
@@ -110,7 +111,6 @@ void main()
             act = "*modli se*";
             animation = ANIMATION_LOOPING_WORSHIP;
         }
-        object oSoul = GetSoulStone(oPC);
         int iAltAnim = GetLocalInt(oSoul,"KU_MEDITATE_ANIM");
         if(iAltAnim > 0) {
           animation = iAltAnim;
