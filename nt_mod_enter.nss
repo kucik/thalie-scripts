@@ -485,7 +485,7 @@ void main()
   DelayCommand(10.0,FixMovementSpeed(oPC));
   
   // Dismount mounted PC
-  if (GetLocalInt(oPC, "MOUNTED"))
+  if (GetLocalInt(oSoulStone, "MOUNTED"))
     Dismount(oPC, oSoulStone);
 
   //ku_EtherealClientEnter(oPC);
