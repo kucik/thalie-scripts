@@ -2,7 +2,7 @@
 const float MUSIC_PLACEABLE_INSTRUMENT_MAX_DISTANCE = 4.0f;
 
 // Maximal allowed number of tracks in area queue
-const int MUSIC_AREA_QUEUE_MAX_ALLOWED_TRACKS = 20;
+const int MUSIC_AREA_QUEUE_MAX_ALLOWED_TRACKS = 99;
 
 // Item instruments
 // Item GetItemAppearance(oItem, ITEM_APPR_TYPE_WEAPON_MODEL, ITEM_APPR_WEAPON_MODEL_MIDDLE) return values.
