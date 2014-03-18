@@ -15,6 +15,7 @@
 //:: Created On: November 6, 2001
 //:://////////////////////////////////////////////
 // melvik upava na novy zpusob nacitani soulstone 16.5.2009
+#include "aps_include"
 #include "sh_classes_inc_e"
 #include "pc_lib"
 
