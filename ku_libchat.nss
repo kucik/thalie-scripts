@@ -173,6 +173,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc meditace <1-3> - Zmeni animaci pri meditaci/modleni.");
       SendMessageToPC(oPC,"/pc batoh <0-11> - Zobrazi/skryje model batohu/mece atd na zadech postavy.");
       SendMessageToPC(oPC,"/pc hod <kostky> - Provede hod kostkami (pøíklad: '/pc hod k10', '/pc hod 3k6'");
+      SendMessageToPC(oPC,"/pc strip - Svlekani casti odevu.");
       SendMessageToPC(oPC,"/pc help ");
       SendMessageToPC(oPC,"/pc ? - vypise tento vypis");
       SendMessageToPC(oPC,"/h <text> - vypise text jako by mluvil tvuj kun.");
@@ -381,6 +382,9 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
           SetBodyColor(oPC, COLOR_CHANNEL_SKIN, StringToInt(param), "kùže");
       break;
     }
+    case 24:
+      AssignCommand(oPC, ActionStartConversation(oPC, "myd_strip", TRUE, FALSE));
+      break;
   }
 }
 
@@ -424,6 +428,7 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(21,"barvat2");
    ku_DefineChatCommand(22,"barvavlasu");
    ku_DefineChatCommand(23,"barvakuze");
+   ku_DefineChatCommand(24,"strip");
 }
 
 void ku_SlowMe(int speed) {

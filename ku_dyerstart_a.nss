@@ -6,6 +6,11 @@
  * rev. 27.06.2008 Kucik Nahrazeni move funkci za copy
  */
 
+const string STRIPPED = "STRIPPED";
+
+// Remove clothing/armor strip variables
+void RemoveStripVars(object oChest);
+
 void main()
 {
   object oDyer = OBJECT_SELF;
@@ -14,6 +19,8 @@ void main()
   object oPC = GetPCSpeaker();
   int iDiscount;
 
+  RemoveStripVars(oChest); 
+  
   ku_TaylorInit(oDyer);
 
 
@@ -77,4 +84,18 @@ void main()
 
 
   SetCustomToken(6001,"0");
+}
+
+void RemoveStripVars(object oChest)
+{
+    DeleteLocalInt(oChest, STRIPPED + "rukavice");
+    DeleteLocalInt(oChest, STRIPPED + "boty");
+    DeleteLocalInt(oChest, STRIPPED + "svršek");
+    DeleteLocalInt(oChest, STRIPPED + "kalhoty");
+    
+    int iPart;
+    for (iPart = 0; iPart < 19; iPart++)
+    {
+        DeleteLocalInt(oChest, STRIPPED + IntToString(iPart));
+    }
 }
