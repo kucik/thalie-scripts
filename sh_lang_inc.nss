@@ -1,233 +1,6 @@
-#include    "x3_inc_string"
-#include    "sh_classes_inc_e"
-void FollowNearestPDM(object oSelf)
-{
-    location lTarget =GetLocation(oSelf);
-    object oPDM;
-    oPDM = GetFirstObjectInShape(SHAPE_SPHERE,50.0,lTarget,FALSE,OBJECT_TYPE_CREATURE);
-    while(GetIsObjectValid(oPDM))
-    {
-        if(GetIsDMPossessed(oPDM))
-        {
-            string sFname =GetName(oPDM,FALSE);
-            AssignCommand(oSelf, ActionForceFollowObject(oPDM, 3.5f));
-            string sNSpoke =StringReplace(sSpoke,"/","");
-            SetPCChatMessage("");
-            AssignCommand(oSelf,SpeakString("I am following "+sFname+" now", GetPCChatVolume()));
-            return;
-        }
-    oPDM =GetNextObjectInShape(SHAPE_SPHERE,50.0,lTarget,FALSE,OBJECT_TYPE_CREATURE);
-    }
-}
+#include "sh_chat_colors"
+#include "sh_classes_inc_e"
 
-location GetLocationAboveAndInFrontOf(object oPC, float fDist, float fHeight)
-{
-    float fDistance = -fDist;
-    object oTarget = (oPC);
-    object oArea = GetArea(oTarget);
-    vector vPosition = GetPosition(oTarget);
-    vPosition.z += fHeight;
-    float fOrientation = GetFacing(oTarget);
-    vector vNewPos = AngleToVector(fOrientation);
-    float vZ = vPosition.z;
-    float vX = vPosition.x - fDistance * vNewPos.x;
-    float vY = vPosition.y - fDistance * vNewPos.y;
-    fOrientation = GetFacing(oTarget);
-    vX = vPosition.x - fDistance * vNewPos.x;
-    vY = vPosition.y - fDistance * vNewPos.y;
-    vNewPos = AngleToVector(fOrientation);
-    vZ = vPosition.z;
-    vNewPos = Vector(vX, vY, vZ);
-    return Location(oArea, vNewPos, fOrientation);
-}
-
-void SmokePipe(object oActivator)
-{
-    string sEmote1 = "*puffs on a pipe*";
-    string sEmote2 = "*inhales from a pipe*";
-    string sEmote3 = "*pulls a mouthful of smoke from a pipe*";
-    float fHeight = 1.7;
-    float fDistance = 0.1;
-    // Set height based on race and gender
-    if (GetGender(oActivator) == GENDER_MALE)
-    {
-        switch (GetRacialType(oActivator))
-        {
-            case RACIAL_TYPE_HUMAN:
-            case RACIAL_TYPE_HALFELF: fHeight = 1.7; fDistance = 0.12; break;
-            case RACIAL_TYPE_ELF: fHeight = 1.55; fDistance = 0.08; break;
-            case RACIAL_TYPE_GNOME:
-            case RACIAL_TYPE_HALFLING: fHeight = 1.15; fDistance = 0.12; break;
-            case RACIAL_TYPE_DWARF: fHeight = 1.2; fDistance = 0.12; break;
-            case RACIAL_TYPE_HALFORC: fHeight = 1.9; fDistance = 0.2; break;
-        }
-    }
-    else
-    {
-        // FEMALES
-        switch (GetRacialType(oActivator))
-        {
-            case RACIAL_TYPE_HUMAN:
-            case RACIAL_TYPE_HALFELF: fHeight = 1.6; fDistance = 0.12; break;
-            case RACIAL_TYPE_ELF: fHeight = 1.45; fDistance = 0.12; break;
-            case RACIAL_TYPE_GNOME:
-            case RACIAL_TYPE_HALFLING: fHeight = 1.1; fDistance = 0.075; break;
-            case RACIAL_TYPE_DWARF: fHeight = 1.2; fDistance = 0.1; break;
-            case RACIAL_TYPE_HALFORC: fHeight = 1.8; fDistance = 0.13; break;
-        }
-    }
-    location lAboveHead = GetLocationAboveAndInFrontOf(oActivator, fDistance, fHeight);
-    // emotes
-    //switch (d3())
-    //{
-        //case 1: AssignCommand(oActivator, ActionSpeakString(sEmote1)); break;
-        //case 2: AssignCommand(oActivator, ActionSpeakString(sEmote2)); break;
-        //case 3: AssignCommand(oActivator, ActionSpeakString(sEmote3));break;
-    //}
-    // glow red
-    AssignCommand(oActivator, ActionDoCommand(ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_LIGHT_RED_5), oActivator, 0.15)));
-    // wait a moment
-    AssignCommand(oActivator, ActionWait(3.0));
-    // puff of smoke above and in front of head
-    AssignCommand(oActivator, ActionDoCommand(ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SMOKE_PUFF), lAboveHead)));
-    // if female, turn head to left
-    if ((GetGender(oActivator) == GENDER_FEMALE) && (GetRacialType(oActivator) != RACIAL_TYPE_DWARF))
-        AssignCommand(oActivator, ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 1.0, 5.0));
-}
-
-void EmoteDance(object oPC)
-{
-object oRightHand = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
-object oLeftHand =  GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
-
-AssignCommand(oPC,ActionUnequipItem(oRightHand));
-AssignCommand(oPC,ActionUnequipItem(oLeftHand));
-
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY2,1.0));
-AssignCommand(oPC,ActionDoCommand(PlayVoiceChat(VOICE_CHAT_LAUGH,oPC)));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_LOOPING_TALK_LAUGHING, 2.0, 2.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY1,1.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY3,2.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_LOOPING_GET_MID, 3.0, 1.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_LOOPING_TALK_FORCEFUL,1.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY2,1.0));
-AssignCommand(oPC,ActionDoCommand(PlayVoiceChat(VOICE_CHAT_LAUGH,oPC)));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_LOOPING_TALK_LAUGHING, 2.0, 2.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY1,1.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY3,2.0));
-AssignCommand(oPC,ActionDoCommand(PlayVoiceChat(VOICE_CHAT_LAUGH,oPC)));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_LOOPING_GET_MID, 3.0, 1.0));
-AssignCommand(oPC,ActionPlayAnimation( ANIMATION_FIREFORGET_VICTORY2,1.0));
-
-AssignCommand(oPC,ActionDoCommand(ActionEquipItem(oLeftHand,INVENTORY_SLOT_LEFTHAND)));
-AssignCommand(oPC,ActionDoCommand(ActionEquipItem(oRightHand,INVENTORY_SLOT_RIGHTHAND)));
-}
-
-void SitInNearestChair(object oPC)
-{
-object oSit,oRightHand,oLeftHand,oChair,oCouch,oBenchPew,oStool;
-float fDistSit;int nth;
-// get the closest chair, couch bench or stool
-   nth = 1;oChair = GetNearestObjectByTag("Chair", oPC,nth);
-   while(oChair != OBJECT_INVALID &&  GetSittingCreature(oChair) != OBJECT_INVALID)
-   {nth++;oChair = GetNearestObjectByTag("Chair", oPC,nth);}
-
-   nth = 1;oCouch = GetNearestObjectByTag("Couch", oPC,nth);
-   while(oCouch != OBJECT_INVALID && GetSittingCreature(oCouch) != OBJECT_INVALID)
-      {nth++;oChair = GetNearestObjectByTag("Couch", oPC,nth);}
-
-   nth = 1;oBenchPew = GetNearestObjectByTag("BenchPew", oPC,nth);
-   while(oBenchPew != OBJECT_INVALID && GetSittingCreature(oBenchPew) != OBJECT_INVALID)
-      {nth++;oChair = GetNearestObjectByTag("BenchPew", oPC,nth);}
-/* 1.27 bug
-   nth = 1;oStool = GetNearestObjectByTag("Stool", oPC,nth);
-   while(oStool != OBJECT_INVALID && GetSittingCreature(oStool) != OBJECT_INVALID)
-      {nth++;oStool = GetNearestObjectByTag("Stool", oPC,nth);}
-*/
-// get the distance between the user and each object (-1.0 is the result if no
-// object is found
-float fDistanceChair = GetDistanceToObject(oChair);
-float fDistanceBench = GetDistanceToObject(oBenchPew);
-float fDistanceCouch = GetDistanceToObject(oCouch);
-float fDistanceStool = GetDistanceToObject(oStool);
-
-// if any of the objects are invalid (not there), change the return value
-// to a high number so the distance math can work
-if (fDistanceChair == -1.0)
-{fDistanceChair =1000.0;}
-
-if (fDistanceBench == -1.0)
-{fDistanceBench = 1000.0;}
-
-if (fDistanceCouch == -1.0)
-{fDistanceCouch = 1000.0;}
-
-if (fDistanceStool == -1.0)
-{fDistanceStool = 1000.0;}
-
-// find out which object is closest to the PC
-if (fDistanceChair<fDistanceBench && fDistanceChair<fDistanceCouch && fDistanceChair<fDistanceStool)
-{oSit=oChair;fDistSit=fDistanceChair;}
-else
-if (fDistanceBench<fDistanceChair && fDistanceBench<fDistanceCouch && fDistanceBench<fDistanceStool)
-{oSit=oBenchPew;fDistSit=fDistanceBench;}
-else
-if (fDistanceCouch<fDistanceChair && fDistanceCouch<fDistanceBench && fDistanceCouch<fDistanceStool)
-{oSit=oCouch;fDistSit=fDistanceCouch;}
-else
-//if (fDistanceStool<fDistanceChair && fDistanceStool<fDistanceBench && fDistanceStool<fDistanceCouch)
-{oSit=oStool;fDistSit=fDistanceStool;}
-
- if(oSit !=  OBJECT_INVALID && fDistSit < 12.0)
-    {
-     // if no one is sitting in the object the PC is closest to, have him sit in it
-     if (GetSittingCreature(oSit) == OBJECT_INVALID)
-         {
-           oRightHand = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
-           oLeftHand =  GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
-           AssignCommand(oPC,ActionMoveToObject(oSit,FALSE,2.0)); //:: Presumably this will be fixed in a patch so that Plares will not run to chair
-           ActionUnequipItem(oRightHand); //:: Added to resolve clipping issues when seated
-           ActionUnequipItem(oLeftHand);  //:: Added to resolve clipping issues when seated
-           ActionDoCommand(AssignCommand(oPC,ActionSit(oSit)));
-
-        }
-      else
-        {SendMessageToPC(oPC,"The nearest chair is already taken ");}
-    }
-  else
-    {SendMessageToPC(oPC,"There are no chairs nearby");}
-}
-// Set the text after this fuction to the color you specify.
-// Numbers from (0-15)
-//  (1,1,1)  =  Black
-//  (15,15,1):= YELLOW
-//  (15,5,1) := ORANGE
-//  (15,1,1) := RED
-//  (7,7,15) := BLUE
-//  (1,15,1) := NEON GREEN
-//  (1,11,1) := GREEN
-//  (9,6,1)  := BROWN
-//  (11,9,11):= LIGHT PURPLE
-//  (12,10,7):= TAN
-//  (8,1,8)  := PURPLE
-//  (13,9,13):= PLUM
-//  (1,7,7)  := TEAL
-//  (1,15,15):= CYAN
-//  (1,1,15) := BRIGHT BLUE
-//  (0,0,0) or (15,15,15) = WHITE
-string ColorTextRGB(int red = 15,int green = 15,int blue = 15);
-
-string ColorTextRGB(int red = 15,int green = 15,int blue = 15)
-{
-    string sColor = GetLocalString(GetModule(),"ColorSet");
-    if(red > 15) red = 15; if(green > 15) green = 15; if(blue > 15) blue = 15;
-
-    return "<c" +
-    GetSubString(sColor, red - 1, 1) +
-    GetSubString(sColor, green - 1, 1) +
-    GetSubString(sColor, blue - 1, 1) +">";
-
-}
 string ConvertCustom(string sLetter, int iRotate)
 {
     if (GetStringLength(sLetter) >= 1)
@@ -1369,15 +1142,15 @@ string TranslateCommonToLanguage(int iLang, string sText)
     return "";
 }
 
-void Languagespeech()
+void LanguageSpeech(object oSpeaker, object oSoul, string sSpoken, int iVolume)
 {
-    int iVolume = GetPCChatVolume();
     if (TALKVOLUME_TALK!=iVolume && TALKVOLUME_WHISPER!=iVolume)
     {
         return;
     }
     //it and emote or function so end it.
-    string sLanguageleft =GetStringLeft(sSpoke,1);
+    int iLanguageSpeaker = GetLocalInt(oSoul,"Language");
+    string sLanguageleft =GetStringLeft(sSpoken,1);
     if(sLanguageleft=="/")return;
     if(iLanguageSpeaker!= 0)
     {
@@ -1492,12 +1265,12 @@ void Languagespeech()
                 //Translation send to you in a send message
                 // SendMessageToPC(oSpeaker,"DEBUG2");
                 //SendMessageToPC(oTarget,ColorTextRGB(9,8,15)+sName+ColorTextRGB(15,1,1)+sLangSpeak+ColorTextRGB()+sSpoke);
-                SendMessageToPC(oTarget,sName+sLangSpeak+sSpoke);
+                SendMessageToPC(oTarget,GetName(oSpeaker)+sLangSpeak+sSpoken);
                 SetPCChatMessage("");
             }
             if(oTarget == oSpeaker)
             {
-                AssignCommand(oTarget,SpeakString(TranslateCommonToLanguage(iLanguageSpeaker,sSpoke), iGetVolume));
+                AssignCommand(oTarget,SpeakString(TranslateCommonToLanguage(iLanguageSpeaker,sSpoken), iVolume));
             }
             iHear=0;
             oTarget = GetNextObjectInShape(SHAPE_SPHERE, fSpeakDistance, GetLocation(oSpeaker), FALSE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_INVALID);
@@ -1505,12 +1278,13 @@ void Languagespeech()
     }
 }
 
-void TargetSpeak(object oTargetspeak)
+void TargetSpeak(object oSpeaker, object oSoul, string sSpoken, int iVolume)
 {
     object oTargetspeak = GetLocalObject(oSpeaker, "dmfi_Lang_target");
+    int iLanguageSpeaker = GetLocalInt(oSoul,"Language");
     if(iLanguageSpeaker==0)
     {
-        AssignCommand(oTargetspeak,SpeakString(sSpoke, GetPCChatVolume()));
+        AssignCommand(oTargetspeak,SpeakString(sSpoken, iVolume));
         return;
     }
     //everyone knows common :)
@@ -1635,12 +1409,12 @@ void TargetSpeak(object oTargetspeak)
             {
                 //Translation send to you in a send message
                 // SendMessageToPC(oSpeaker,"DEBUG2");
-                SendMessageToPC(oTarget,ColorTextRGB(9,8,15)+sNameTarget+ColorTextRGB(15,1,1)+sLangSpeak+ColorTextRGB()+sSpoke);
+                SendMessageToPC(oTarget,ColorTextRGB(9,8,15)+GetName(oTargetspeak,FALSE)+ColorTextRGB(15,1,1)+sLangSpeak+ColorTextRGB()+sSpoken);
                 SetPCChatMessage("");
             }
             if(oTarget == oSpeaker)
             {
-                AssignCommand(oTargetspeak,SpeakString(TranslateCommonToLanguage(iLanguageSpeaker,sSpoke), GetPCChatVolume()));
+                AssignCommand(oTargetspeak,SpeakString(TranslateCommonToLanguage(iLanguageSpeaker,sSpoken), iVolume));
             }
             iHear=0;
             oTarget = GetNextObjectInShape(SHAPE_SPHERE, fSpeakDistance, GetLocation(oSpeaker), FALSE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_INVALID);
@@ -1650,978 +1424,13 @@ void TargetSpeak(object oTargetspeak)
 
 
 
-void DmSpeakFunction()
-{
-    object oItem = GetObjectByTag("dm_tool");
-    object oDMtool = GetItemPossessor(oItem);
-    if(oSpeaker == oDMtool)iDM =TRUE;
-
-    if(iDMp==TRUE) iDM =TRUE;
-    // give the DM the skin piece if he/she missing it
-    object oCheck2 = GetSoulStone(oSpeaker);
-    //if(oCheck2==OBJECT_INVALID && iDM ==TRUE) HorseAddHorseMenu(oSpeaker);
-
-    // give the DM the skin piece if he/she missing it
-
-    //DM String
-    int iDmString = TestStringAgainstPattern("**/dms**",sSpoke);
-    if(iDmString==TRUE && iDM ==TRUE)
-    {
-        string sDMright = GetStringRight(sSpoke,iLength-5);
-        SetLocalString(oSpeaker,"DMstring",sDMright);
-        SendMessageToPC(oSpeaker,"DM string set");
-        SetPCChatMessage("");
-    }
-
-    //DM Interger
-    int iDminteger = TestStringAgainstPattern("**/dmi**",sSpoke);
-    if(iDminteger==TRUE && iDM ==TRUE)
-    {
-        string sDMright = GetStringRight(sSpoke,iLength-5);
-        int iDmConstant =StringToInt(sDMright);
-        SetLocalInt(oCarmour,"DMSetNumber",iDmConstant);
-        SendMessageToPC(oSpeaker,"DM constant set");
-        SetPCChatMessage("");
-    }
-
-    // DM Craft
-    string sCraftcheck = GetSubString(sSpoke,5,1);
-    int iDmCraftInt = TestStringAgainstPattern("**/dmci**",sSpoke);
-    if(iDmCraftInt==TRUE && iDM ==TRUE && sCraftcheck != "2")
-    {
-        string sDMright = GetStringRight(sSpoke,iLength-6);
-        int iDmCraftconstent =StringToInt(sDMright);
-        SetLocalInt(oCheck,"DMCNumber",iDmCraftconstent);
-        SendMessageToPC(oSpeaker,"DM Craft int set");
-        //SendMessageToPC(oSpeaker,sCraftcheck);
-        SetPCChatMessage("");
-    }
-
-    //DM Craft 2
-    int iDmCraftInt2 = TestStringAgainstPattern("**/dmci2**",sSpoke);
-    if(iDmCraftInt2==TRUE && iDM ==TRUE && sCraftcheck == "2")
-    {
-        string sDMright = GetStringRight(sSpoke,iLength-7);
-        int iDmCraftconstent2 =StringToInt(sDMright);
-        SetLocalInt(oCheck,"DMCNumber2",iDmCraftconstent2);
-        SendMessageToPC(oSpeaker,"DM Craft int 2 set");
-        //SendMessageToPC(oSpeaker,sCraftcheck);
-        SetPCChatMessage("");
-    }
-}
-
-void PCEmoteFunction()
-{
-//give pc PC tool if they do not already have it.
-int iPCtool = TestStringAgainstPattern("**/pctool**",sSpoke);
-object oPCtool = GetItemPossessedBy(oSpeaker,"cf_em_info");
-
-//emotes
-int iPCdodge = TestStringAgainstPattern("**/dodge**",sSpoke);
-int iPCdrink = TestStringAgainstPattern("**/drink**",sSpoke);
-int iPCduck = TestStringAgainstPattern("**/duck**",sSpoke);
-int iPCFback = TestStringAgainstPattern("**/Fback**",sSpoke);
-int iPCFprone = TestStringAgainstPattern("**/Fprone**",sSpoke);
-int iPCread = TestStringAgainstPattern("**/read**",sSpoke);
-int iPCsit = TestStringAgainstPattern("**/sit**",sSpoke);
-//continuous emots
-int iPCbeg = TestStringAgainstPattern("**/beg**",sSpoke);
-int iPCconjure1 = TestStringAgainstPattern("**/conjure1**",sSpoke);
-int iPCconjure2 = TestStringAgainstPattern("**/conjure2**",sSpoke);
-int iPCgetlow = TestStringAgainstPattern("**/getlow**",sSpoke);
-int iPCgetmid = TestStringAgainstPattern("**/getmid**",sSpoke);
-int iPCmeditate = TestStringAgainstPattern("**/meditate**",sSpoke);
-int iPCthreaten = TestStringAgainstPattern("**/threaten**",sSpoke);
-int iPCworship = TestStringAgainstPattern("**/worship**",sSpoke);
-
-int iPCdance = TestStringAgainstPattern("**/dance**",sSpoke);
-int iPCdrunk = TestStringAgainstPattern("**/drunk**",sSpoke);
-int iPCfollowPC = TestStringAgainstPattern("**/followpc**",sSpoke);
-int iPCfollowDM = TestStringAgainstPattern("**/followdm**",sSpoke);
-int iPCsitchair = TestStringAgainstPattern("**/sitchair**",sSpoke);
-int iPCsitdrink = TestStringAgainstPattern("**/sitdrink**",sSpoke);
-int iPCsitread = TestStringAgainstPattern("**/sitread**",sSpoke);
-int iPCspasm = TestStringAgainstPattern("**/spasm**",sSpoke);
-int iPCsmoke = TestStringAgainstPattern("**/smoke**",sSpoke);
-
-//standards missed
-int iPCbow = TestStringAgainstPattern("**/bow**",sSpoke);
-int iPCgreet = TestStringAgainstPattern("**/greet**",sSpoke);
-int iPCwaves = TestStringAgainstPattern("**/wave**",sSpoke);
-int iPCbored = TestStringAgainstPattern("**/bored**",sSpoke);
-int iPCscratch = TestStringAgainstPattern("**/scratch**",sSpoke);
-int iPCsalute = TestStringAgainstPattern("**/salute**",sSpoke);
-int iPCsteal = TestStringAgainstPattern("**/steal**",sSpoke);
-int iPCtaunt = TestStringAgainstPattern("**/taunt**",sSpoke);
-int iPCvic1 = TestStringAgainstPattern("**/vic1**",sSpoke);
-int iPCvic2 = TestStringAgainstPattern("**/vic2**",sSpoke);
-int iPCvic3 = TestStringAgainstPattern("**/vic3**",sSpoke);
-int iPCnod = TestStringAgainstPattern("**/nod**",sSpoke);
-int iPClookf = TestStringAgainstPattern("**/looks**",sSpoke);
-int iPCtired = TestStringAgainstPattern("**/tired**",sSpoke);
-int iPClaugh = TestStringAgainstPattern("**/laugh**",sSpoke);
-int ibattleCry = TestStringAgainstPattern("**/battle1**",sSpoke);
-int ibattleCry2 = TestStringAgainstPattern("**/battle2**",sSpoke);
-int ibattleCry3 = TestStringAgainstPattern("**/battle3**",sSpoke);
 
 
-float fDur = 9999.0f;
-
-if(iPCtool==TRUE && oPCtool == OBJECT_INVALID)
+void LanguageSet(object oSpeaker, object oSoul, string sSpoken)
 {
-CreateItemOnObject("cf_em_info",oSpeaker,1);
-SetPCChatMessage("");
-}
-
-if(iPCtool==TRUE && oPCtool != OBJECT_INVALID)
-{
-DestroyObject(oPCtool,0.0);
-SetPCChatMessage("");
-}
-
-if(iPCdodge==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_DODGE_SIDE, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCdrink==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_DRINK, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCduck==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_DODGE_DUCK, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCFback==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","falls backwards");
-SetPCChatMessage("");
-}
-if(iPCFprone==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_DEAD_FRONT, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","falls forwards");
-SetPCChatMessage("");
-}
-if(iPCread==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation( ANIMATION_FIREFORGET_READ,1.0));
-DelayCommand(3.0f, AssignCommand(oSpeaker, PlayAnimation( ANIMATION_FIREFORGET_READ, 1.0)));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCsit==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCbeg==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_TALK_PLEADING, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCconjure1==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_CONJURE1, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/conjure1","Conjures");
-SetPCChatMessage("");
-}
-if(iPCconjure2==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_CONJURE2, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/conjure2","Conjures");
-SetPCChatMessage("");
-}
-if(iPCgetlow==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/getlow","Bends down");
-SetPCChatMessage("");
-}
-if(iPCgetmid==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_GET_MID, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/getmid","manipulates");
-SetPCChatMessage("");
-}
-if(iPCmeditate==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_MEDITATE, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCthreaten==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_TALK_FORCEFUL, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCworship==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_WORSHIP, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCdance==TRUE)
-{
-EmoteDance(oSpeaker);
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCdrunk==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_PAUSE_DRUNK, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCfollowPC==TRUE && GetIsPC(oSpeaker)||iPCfollowPC==TRUE && GetIsDM(oSpeaker) || iPCfollowPC==TRUE && GetIsDMPossessed(oSpeaker))
-{
-object oFollowing = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oSpeaker);
-string sFname =GetName(oFollowing,FALSE);
-AssignCommand(oSpeaker, ActionForceFollowObject(oFollowing, 3.5f));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-SendMessageToPC(oSpeaker,"You start following "+sFname+" now");
-}
-if(iPCsitchair==TRUE)
-{
-SitInNearestChair(oSpeaker);
-SetPCChatMessage("");
-}
-if(iPCsitdrink==TRUE)
-{
-AssignCommand(oSpeaker, ActionPlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur)); DelayCommand(1.0f, AssignCommand(oSpeaker, PlayAnimation( ANIMATION_FIREFORGET_DRINK, 1.0))); DelayCommand(3.0f, AssignCommand(oSpeaker, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur)));
-SetPCChatMessage("");
-}
-if(iPCsitread==TRUE)
-{
-AssignCommand(oSpeaker, ActionPlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur)); DelayCommand(1.0f, AssignCommand(oSpeaker, PlayAnimation( ANIMATION_FIREFORGET_READ, 1.0))); DelayCommand(3.0f, AssignCommand(oSpeaker, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur)));
-SetPCChatMessage("");
-}
-if(iPCspasm==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation( ANIMATION_LOOPING_SPASM, 1.0, fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCsmoke==TRUE)
-{
-SmokePipe(oSpeaker);
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-
-if(iPCbow==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_BOW, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCgreet==TRUE ||iPCwaves==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_GREETING, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-
-if(iPCbored==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-
-if(iPCscratch==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCsalute==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_SALUTE, 1.0));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPCsteal==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_STEAL, 1.0));
-SetPCChatMessage("");
-}
-if(iPCtaunt==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_TAUNT, 1.0));
-PlayVoiceChat(VOICE_CHAT_TAUNT, oSpeaker);
-SetPCChatMessage("");
-}
-
-if(iPCvic1==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0));
-PlayVoiceChat(VOICE_CHAT_CHEER, oSpeaker);
-SetPCChatMessage("");
-}
-if(iPCvic2==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_VICTORY2, 1.0));
-PlayVoiceChat(VOICE_CHAT_CHEER, oSpeaker);
-SetPCChatMessage("");
-}
-if(iPCvic3==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_VICTORY3, 1.0));
-PlayVoiceChat(VOICE_CHAT_CHEER, oSpeaker);
-SetPCChatMessage("");
-}
-if(iPCnod==TRUE)
-{
-//it really nod animation, weird
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_LISTEN, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPClookf==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_LOOK_FAR, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-
-if(iPCtired==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_LOOPING_PAUSE_TIRED, 1.0,fDur));
-string sNSpoke =StringReplace(sSpoke,"/","");
-SetPCChatMessage("");
-}
-if(iPClaugh==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation( ANIMATION_LOOPING_TALK_LAUGHING, 1.0, fDur));
-PlayVoiceChat(VOICE_CHAT_LAUGH, oSpeaker);
-SetPCChatMessage("");
-}
-if(ibattleCry==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0));
-PlayVoiceChat(VOICE_CHAT_BATTLECRY1, oSpeaker);
-SetPCChatMessage("");
-}
-if(ibattleCry2==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_TAUNT, 1.0));
-PlayVoiceChat(VOICE_CHAT_BATTLECRY2, oSpeaker);
-SetPCChatMessage("");
-}
-if(ibattleCry3==TRUE)
-{
-AssignCommand(oSpeaker, PlayAnimation(ANIMATION_FIREFORGET_VICTORY3, 1.0));
-PlayVoiceChat(VOICE_CHAT_BATTLECRY3, oSpeaker);
-SetPCChatMessage("");
-}
-int iAnimate = TestStringAgainstPattern("**/Animate**",sSpoke);
-if(iAnimate==TRUE)
-{
- if (GetLocalInt(oSpeaker, "dmfi_dice_no_animate")==1)
-{
-SetLocalInt(oSpeaker, "dmfi_dice_no_animate", 0);
- FloatingTextStringOnCreature("Rolls will show animation", oSpeaker);
- SetPCChatMessage("");
- }
-else
-{
-SetLocalInt(oSpeaker, "dmfi_dice_no_animate", 1);
-FloatingTextStringOnCreature("Rolls will NOT show animation", oSpeaker);
-SetPCChatMessage("");
-}
-}
-if(iPCfollowDM==TRUE && GetIsPC(oSpeaker))
-{
-FollowNearestPDM(oSpeaker);
-SetPCChatMessage("");
-}
-
-if(!GetIsPC(oSpeaker) && iPCfollowDM != TRUE)
-{
-string sNSpoke =StringReplace(sSpoke,"/","");
-AssignCommand(oSpeaker,SpeakString("* "+sNSpoke+" *", GetPCChatVolume()));
-SetPCChatMessage("");
-}
-if(iPCfollowDM==TRUE && !GetIsPC(oSpeaker))
-{
-FollowNearestPDM(oSpeaker);
-SetPCChatMessage("");
-}
-}
-
-
-//setting the color of speech by volume
-void ColorSet(string sChat)
-{
-    string sChat =GetPCChatMessage();
-    if(iGetVolume==TALKVOLUME_PARTY)
-    {
-        SetPCChatMessage(ColorTextRGB(15,1,1)+sChat);
-        SetPCChatVolume(GetPCChatVolume());
-    }
-    if(iGetVolume==TALKVOLUME_WHISPER)
-    {
-        SetPCChatMessage(ColorTextRGB(15,15,15)+sChat);
-    }
-}
-
-
-void PCDiceFuntion()
-{
-    int iRandom = TestStringAgainstPattern("**/Random**",sSpoke);
-    int iSTR = TestStringAgainstPattern("**/STR.**",sSpoke);
-    int iDEX = TestStringAgainstPattern("**/DEX.**",sSpoke);
-    int iCON = TestStringAgainstPattern("**/CON.**",sSpoke);
-    int iINT = TestStringAgainstPattern("**/INT.**",sSpoke);
-    int iWIS = TestStringAgainstPattern("**/WIS.**",sSpoke);
-    int iCHA = TestStringAgainstPattern("**/CHA.**",sSpoke);
-
-    int iFORTITUDE = TestStringAgainstPattern("**/FOR.**",sSpoke);
-    int iREFLEX = TestStringAgainstPattern("**/REF.**",sSpoke);
-    int iWILL = TestStringAgainstPattern("**/WILL.**",sSpoke);
-
-    int iAnimalEmp = TestStringAgainstPattern("**/A.E.**",sSpoke);
-    int iAppraise = TestStringAgainstPattern("**/Appraise**",sSpoke);
-    int iBluff = TestStringAgainstPattern("**/Bluff**",sSpoke);
-    int iConcentration = TestStringAgainstPattern("**/Concentration**",sSpoke);
-    int iCArmor = TestStringAgainstPattern("**/CArmor**",sSpoke);
-    int iCTrap = TestStringAgainstPattern("**/CTrap**",sSpoke);
-    int iCWeapon = TestStringAgainstPattern("**/CWeapon**",sSpoke);
-    int iDTrap = TestStringAgainstPattern("**/DTrap**",sSpoke);
-    int iDis = TestStringAgainstPattern("**/Dis.**",sSpoke);
-    int iHeal = TestStringAgainstPattern("**/Heal**",sSpoke);
-    int iHide = TestStringAgainstPattern("**/Hide**",sSpoke);
-    int iIntimidate = TestStringAgainstPattern("**/Intimidate**",sSpoke);
-    int iListen = TestStringAgainstPattern("**/Listen**",sSpoke);
-    int iLore = TestStringAgainstPattern("**/Lore**",sSpoke);
-    int iMS = TestStringAgainstPattern("**/M.S.**",sSpoke);
-    int iOL = TestStringAgainstPattern("**/O.L.**",sSpoke);
-    int iParry = TestStringAgainstPattern("**/Parry**",sSpoke);
-    int iPerform= TestStringAgainstPattern("**/Perform**",sSpoke);
-    int iRide= TestStringAgainstPattern("**/Ride**",sSpoke);
-    int iPersuade= TestStringAgainstPattern("**/Persuade**",sSpoke);
-    int iPP= TestStringAgainstPattern("**/P.P.**",sSpoke);
-    int iSearch= TestStringAgainstPattern("**/Search**",sSpoke);
-    int iST= TestStringAgainstPattern("**/S.T.**",sSpoke);
-    int iSpellcraft= TestStringAgainstPattern("**/Spellcraft**",sSpoke);
-    int iSpot= TestStringAgainstPattern("**/Spot**",sSpoke);
-    int iTaunt= TestStringAgainstPattern("**/sTaunt**",sSpoke);
-    int iTumble= TestStringAgainstPattern("**/Tumble**",sSpoke);
-    int iUMD= TestStringAgainstPattern("**/U.M.D.**",sSpoke);
-
-
-    if(iSTR==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 61);
-    string sNSpoke = StringReplace(sSpoke,"/str.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/STR.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iDEX==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 62);
-    string sNSpoke = StringReplace(sSpoke,"/dex.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/DEX.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iCON==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 63);
-    string sNSpoke = StringReplace(sSpoke,"/con.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/CON.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iINT==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 64);
-    string sNSpoke = StringReplace(sSpoke,"/int.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/INT.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iWIS==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 65);
-    string sNSpoke = StringReplace(sSpoke,"/wis.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/WIS.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iCHA==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 66);
-    string sNSpoke = StringReplace(sSpoke,"/cha.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/CHA.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iFORTITUDE==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 67);
-    string sNSpoke = StringReplace(sSpoke,"/for.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/FOR.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iREFLEX==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 68);
-    string sNSpoke = StringReplace(sSpoke,"/ref.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/REF.","");
-    //SetPCChatMessage("* "+sNSpoke2+" *");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iWILL==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 69);
-    string sNSpoke = StringReplace(sSpoke,"/will.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/WILL.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iAnimalEmp==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 71);
-    string sNSpoke = StringReplace(sSpoke,"/a.e.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/A.E.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iAppraise==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 72);
-    string sNSpoke = StringReplace(sSpoke,"/appraise","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/APPRAISE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iBluff==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 73);
-    string sNSpoke = StringReplace(sSpoke,"/bluff","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/BLUFF","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iConcentration==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 74);
-    string sNSpoke = StringReplace(sSpoke,"/concentration","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/CONCENTRATION","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iCArmor==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 75);
-    string sNSpoke = StringReplace(sSpoke,"/carmor","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/CARMOR","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iCTrap==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 76);
-    string sNSpoke = StringReplace(sSpoke,"/ctrap","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/CTRAP","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iCWeapon==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 77);
-    string sNSpoke = StringReplace(sSpoke,"/cweapon","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/CWEAPON","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iDTrap==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 78);
-    string sNSpoke = StringReplace(sSpoke,"/dtrap","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/DTRAP","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iDis==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 79);
-    string sNSpoke = StringReplace(sSpoke,"/dis.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/DIS.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iHeal==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 81);
-    string sNSpoke = StringReplace(sSpoke,"/heal","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/HEAL","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iHide==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 82);
-    string sNSpoke = StringReplace(sSpoke,"/hide","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/HIDE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iIntimidate==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 83);
-    string sNSpoke = StringReplace(sSpoke,"/intimidate","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/INTIMIDATE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iListen==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 84);
-    string sNSpoke = StringReplace(sSpoke,"/listen","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/LISTEN","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iLore==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 85);
-    string sNSpoke = StringReplace(sSpoke,"/lore","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/LORE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iMS==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 86);
-    string sNSpoke = StringReplace(sSpoke,"/m.s.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/M.S.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iOL==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 87);
-    string sNSpoke = StringReplace(sSpoke,"/o.l.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/O.L.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iParry==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 88);
-    string sNSpoke = StringReplace(sSpoke,"/parry","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/PARRY","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iPerform==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 89);
-    string sNSpoke = StringReplace(sSpoke,"/perform","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/PERFORM","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iRide==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 90);
-    string sNSpoke = StringReplace(sSpoke,"/ride","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/RIDE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iPersuade==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 91);
-    string sNSpoke = StringReplace(sSpoke,"/persuade","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/PERSUADE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iPP==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 92);
-    string sNSpoke = StringReplace(sSpoke,"/p.p.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/P.P.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iSearch==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 93);
-    string sNSpoke = StringReplace(sSpoke,"/search","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/SEARCH","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iST==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 94);
-    string sNSpoke = StringReplace(sSpoke,"/s.t.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/S.T.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iSpellcraft==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 95);
-    string sNSpoke = StringReplace(sSpoke,"/spellcraft","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/SPELLCRAFT","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iSpot==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 96);
-    string sNSpoke = StringReplace(sSpoke,"/spot","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/SPOT","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iTaunt==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 97);
-    string sNSpoke = StringReplace(sSpoke,"/staunt","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/STAUNT","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iTumble==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 98);
-    string sNSpoke = StringReplace(sSpoke,"/tumble","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/TUMBLE","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-    if(iUMD==TRUE)
-    {
-    SetLocalInt(oSpeaker, "dmfi_univ_int", 99);
-    string sNSpoke = StringReplace(sSpoke,"/u.m.d.","");
-    string sNSpoke2 = StringReplace(sNSpoke,"/U.M.D.","");
-    SetPCChatMessage("");
-    SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-    ExecuteScript("sh_dm_execute", oSpeaker);
-            return;
-    }
-
-/*
-BCMP Broadcast Mode set to Private
-BCMG Broadcast Mode set to Global
-BCML Broadcast Mode set to Local
-*/
-
-
-int iBroadP= TestStringAgainstPattern("**/BCMP**",sSpoke);
-int iBroadG= TestStringAgainstPattern("**/BCMG**",sSpoke);
-int iBroadL= TestStringAgainstPattern("**/BCML**",sSpoke);
-
-if(iBroadL==TRUE)
-{
-SetLocalInt(oSpeaker, "dmfi_univ_int", 101);
-SetPCChatMessage("");
-SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-ExecuteScript("sh_dm_execute", oSpeaker);
-        return;
-}
-if(iBroadG==TRUE)
-{
-SetLocalInt(oSpeaker, "dmfi_univ_int", 102);
-SetPCChatMessage("");
-SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-ExecuteScript("sh_dm_execute", oSpeaker);
-        return;
-}
-if(iBroadP==TRUE)
-{
-SetLocalInt(oSpeaker, "dmfi_univ_int", 103);
-SetPCChatMessage("");
-SetLocalString(oSpeaker, "dmfi_univ_conv", "pc_dicebag");
-ExecuteScript("sh_dm_execute", oSpeaker);
-        return;
-}
-
-
-
-
-if(iRandom==TRUE)
-{
-string sRright = GetStringRight(sSpoke,iLength-8);
-int iRandom =StringToInt(sRright);
-int iTotal =Random(iRandom)+1;
-string sTotal =IntToString(iTotal);
-string sNew ="Random Roll from 1 - "+sRright+" = "+sTotal;
-SetPCChatMessage(sNew);
-ColorSet(sNew);
-}
-
-string sFirst =GetStringLeft(sSpoke,1);
-int iDnumber = TestStringAgainstPattern("**d**",sSpoke);
-string sSecond =GetSubString(sSpoke,1,1);
-int iSecond =StringToInt(sSecond);
-
-if(iDnumber == TRUE && sFirst == "/" && iSecond != 0)
-{
-//SendMessageToPC(oSpeaker,"DEBUG");
-
-int iFind_d =FindSubString(sSpoke,"d",1);
-int iFind_big_D =FindSubString(sSpoke,"D",1);
-int iCount;
-if(iFind_d >=1 && iFind_big_D == -1)
-{
-int iCount = iFind_d;
-int iNCount = iCount+1;
-int iLength =GetStringLength(sSpoke);
-string sRightNumber = GetStringRight(sSpoke,iLength-iNCount);
-string sLeftNumber =GetSubString(sSpoke,1,iCount-1);
-int iLeftNumber =StringToInt(sLeftNumber);
-int iRightNumber =StringToInt(sRightNumber);
-int iDice;
-int iValidnumber=0;
-if(iRightNumber==2)iDice = d2(iLeftNumber);
-if(iRightNumber==3)iDice = d3(iLeftNumber);
-if(iRightNumber==4)iDice = d4(iLeftNumber);
-if(iRightNumber==6)iDice = d6(iLeftNumber);
-if(iRightNumber==8)iDice = d8(iLeftNumber);
-if(iRightNumber==10)iDice = d10(iLeftNumber);
-if(iRightNumber==12)iDice = d12(iLeftNumber);
-if(iRightNumber==20)iDice = d20(iLeftNumber);
-if(iRightNumber==100)iDice = d100(iLeftNumber);
-if(iRightNumber != 100 && iRightNumber != 20 && iRightNumber != 12
-&& iRightNumber != 10 && iRightNumber != 8 && iRightNumber != 6
-&& iRightNumber != 4 && iRightNumber != 3 && iRightNumber != 2)iValidnumber=1;
-string sDice =IntToString(iDice);
-string sRoll ="Roll "+sLeftNumber+"d"+sRightNumber+" = "+sDice;
-if(iValidnumber==1)sRoll = "Not a valid die, 2, 3, 4, 6, 8, 10, 12, 20, 100 are valid";
-SetPCChatMessage(sRoll);
-ColorSet(sRoll);
-}
-if(iFind_d ==-1 && iFind_big_D >= 1)
-{
-int iCount = iFind_big_D;
-int iNCount = iCount+1;
-int iLength =GetStringLength(sSpoke);
-string sRightNumber = GetStringRight(sSpoke,iLength-iNCount);
-string sLeftNumber =GetSubString(sSpoke,1,iCount-1);
-int iLeftNumber =StringToInt(sLeftNumber);
-int iRightNumber =StringToInt(sRightNumber);
-int iDice;
-int iValidnumber=0;
-if(iRightNumber==2)iDice = d2(iLeftNumber);
-if(iRightNumber==3)iDice = d3(iLeftNumber);
-if(iRightNumber==4)iDice = d4(iLeftNumber);
-if(iRightNumber==6)iDice = d6(iLeftNumber);
-if(iRightNumber==8)iDice = d8(iLeftNumber);
-if(iRightNumber==10)iDice = d10(iLeftNumber);
-if(iRightNumber==12)iDice = d12(iLeftNumber);
-if(iRightNumber==20)iDice = d20(iLeftNumber);
-if(iRightNumber==100)iDice = d100(iLeftNumber);
-if(iRightNumber != 100 && iRightNumber != 20 && iRightNumber != 12
-&& iRightNumber != 10 && iRightNumber != 8 && iRightNumber != 6
-&& iRightNumber != 4 && iRightNumber != 3 && iRightNumber != 2)iValidnumber=1;
-string sDice =IntToString(iDice);
-string sRoll ="Roll "+sLeftNumber+"d"+sRightNumber+" = "+sDice;
-if(iValidnumber==1)sRoll = "Not a valid die, 2, 3, 4, 6, 8, 10, 12, 20, 100 are valid(Number on the right)";
-SetPCChatMessage(sRoll);
-ColorSet(sRoll);
-}
-}
-}
-
-
-void LanguageSet()
-{
-    string sHenchFam =GetStringLeft(sSpoke,3);
-    int iLength =GetStringLength(sSpoke);
-    string sHenchFamR =GetStringRight(sSpoke,iLength-4);
+    string sHenchFam =GetStringLeft(sSpoken,3);
+    int iLength =GetStringLength(sSpoken);
+    string sHenchFamR =GetStringRight(sSpoken,iLength-4);
     object oHench =GetHenchman(oSpeaker,1);
     object oHench2 =GetHenchman(oSpeaker,2);
     object oAsAnimal =GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION,oSpeaker);
@@ -2674,141 +1483,141 @@ void LanguageSet()
     int iL_PLANT = GetLocalInt(oLangcheck,"PLANT");
     int iL_ANIMAL = GetLocalInt(oLangcheck,"ANIMAL");
 
-    int iLanguage = TestStringAgainstPattern("**/l**",sSpoke);
+    int iLanguage = TestStringAgainstPattern("**/l**",sSpoken);
     if(iLanguage==TRUE)
     {
-    string sRright = GetStringRight(sSpoke,iLength-2);
+    string sRright = GetStringRight(sSpoken,iLength-2);
     int iNumber =StringToInt(sRright);
 
     if(iNumber == 0 && iL_COMMON == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking COMMON now.");
     SetPCChatMessage("");
     }
     if(iNumber == 1 && iL_ABYSSAL == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Abyssal now.");
     SetPCChatMessage("");
     }
     if(iNumber == 2 && iL_AQUAN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Aquan now.");
     SetPCChatMessage("");
     }
     if(iNumber == 3 && iL_AURAN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Auran now.");
     SetPCChatMessage("");
     }
     if(iNumber == 4 && iL_CELESTIAL == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Celestial now.");
     SetPCChatMessage("");
     }
     if(iNumber == 5 && iL_DRACONIC == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Draconic now.");
     SetPCChatMessage("");
     }
     if(iNumber == 6 && iL_DRUIDIC == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Druidic now.");
     SetPCChatMessage("");
     }
     if(iNumber == 7 && iL_DWARVEN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Dwarven now.");
     SetPCChatMessage("");
     }
     if(iNumber == 8 && iL_ELVEN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Elven now.");
     SetPCChatMessage("");
     }
     if(iNumber == 9 && iL_GIANT == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Giant now.");
     SetPCChatMessage("");
     }
     if(iNumber == 10 && iL_GNOME == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Gnome now.");
     SetPCChatMessage("");
     }
     if(iNumber == 11 && iL_GOBLIN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Goblin now.");
     SetPCChatMessage("");
     }
     if(iNumber == 12 && iL_GNOLL == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Gnoll now.");
     SetPCChatMessage("");
     }
     if(iNumber == 13 && iL_HALFLING == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Halfling now.");
     SetPCChatMessage("");
     }
     if(iNumber == 14 && iL_IGNAN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Ignan now.");
     SetPCChatMessage("");
     }
     if(iNumber == 15 && iL_INFERNAL == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Infernal now.");
     SetPCChatMessage("");
     }
     if(iNumber == 16 && iL_ORC == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Orc now.");
     SetPCChatMessage("");
     }
     if(iNumber == 17 && iL_SYLVAN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Sylvan now.");
     SetPCChatMessage("");
     }
     if(iNumber == 18 && iL_TERRAN == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Terran now.");
     SetPCChatMessage("");
     }
     if(iNumber == 19 && iL_UNDERCOMMON == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Undercommon now.");
     SetPCChatMessage("");
     }
     if(iNumber == 20 && iL_PLANT == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Plant now.");
     SetPCChatMessage("");
     }
     if(iNumber == 21 && iL_ANIMAL == 1)
     {
-    SetLocalInt(oCheck,"Language",iNumber);
+    SetLocalInt(oSoul,"Language",iNumber);
     SendMessageToPC(oSpeaker,"You speaking Animal now.");
     SetPCChatMessage("");
     }
