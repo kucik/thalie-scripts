@@ -178,17 +178,14 @@ void DislikeFactions(object oPC) {
 
 void main()
 {
- object oPC = GetEnteringObject();
+    object oPC = GetEnteringObject();
 // FAZE 1. BANY-------------------------------------------------------------------
 //safety
 
     string Player = SQLEncodeSpecialChars(GetPCPlayerName(oPC));
     string IP     = GetPCIPAddress(oPC);
     string CDKEY  = GetPCPublicCDKey(oPC);
-    object oSoulStone = GetSoulStone(oPC);
 
-    object oPCSkin = GetPCSkin(oPC);
-    SetLocalObject(oSoulStone,"PCSKIN",oPCSkin);
     WriteTimestampedLogEntry("Try to login: Player "+Player+" from "+IP+":"+IntToString(GetPCPort(oPC))+" CDKEY:"+CDKEY+", with character: "+GetName(oPC)+".");
 
     string sql = "SELECT IP, CDKEY, NOIPCHECK, privilegies FROM pwplayers WHERE login='"+Player+"';";
@@ -287,6 +284,20 @@ void main()
     WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", dal body do skillu.");
     return;
  }
+
+ // Check duplicit character
+ int iPlayed = GetPersistentInt(oPC, "PLAYED","pwchars");
+ object oSoulStone = GetSoulStone(oPC);
+ if(iPlayed && !GetIsObejctValid(oSoulStone)) {
+    BootPC(oPC);
+    WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", Duplicit character "+GetName(oPC)+".");
+    return;
+ }
+
+ // Get soul
+ CheckHasSpecialItems(oPC);
+ oSoulStone = GetSoulStone(oPC);
+ 
  //------- PODVODY
  // kontrola na to zda postava na prvnim lvlu dala body do skillu
  iSkill = 0;
@@ -320,11 +331,12 @@ void main()
 
  //zapoznakovani Shaman - vyhazuje ze serveru
  // FAZE 2. ROZDELENI - PRVNI VSTUP-------------------------------------------------------------------
- int iPlayed = GetPersistentInt(oPC, "PLAYED","pwchars");
+ int iPlayedAfterReboot = GetLocalInt(oPC, "PLAYED");
  if (iPlayed)  //uz tady byl
  {
     int iHP = GetPersistentInt(oPC, "HP");
-    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oPC)-iHP,DAMAGE_TYPE_MAGICAL,DAMAGE_POWER_PLUS_FIVE), oPC);
+    if(!iPlayedAfterReboot)
+      ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oPC)-iHP,DAMAGE_TYPE_MAGICAL,DAMAGE_POWER_PLUS_FIVE), oPC);
  }
  else //prvni lognuti
  {
@@ -352,11 +364,14 @@ void main()
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
 
  }
- CheckHasSpecialItems(oPC);
  setFactionsToPC(oPC, getFaction(oPC));
  ku_OnClientEnter(oPC); // Inicializace eXPiciho systemu pri loginu hrace.
  Subraces_InitSubrace( oPC ); //Inicializace subrasy
  //KU_CalcAndGiveSkillPoints(oPC); //Nastav postave spravne volne skillpointy
+
+ // PC Skin 
+ object oPCSkin = GetPCSkin(oPC);
+ SetLocalObject(oSoulStone,"PCSKIN",oPCSkin);
 
 
  //povolani
@@ -463,7 +478,7 @@ void main()
  SetLocalInt(oSoulStone,"LOGED_OUT",0);
 //~Get XP and GOLD backup from DB
 
- DelayCommand(1.0, CheckHasSpecialItems(oPC));
+// DelayCommand(1.0, CheckHasSpecialItems(oPC));
 
 // Set dislike automagicaly
  DelayCommand(60.0, DislikeFactions(oPC));
@@ -483,12 +498,15 @@ void main()
   DeleteLocalInt(oPC,"ku_sleeping");
   DeleteLocalInt(oPC,"KU_DEATH_NOLOG");
   DelayCommand(10.0,FixMovementSpeed(oPC));
+
+  SetLocalInt(oPC, "PLAYED",TRUE);
   
   // Dismount mounted PC
   if (GetLocalInt(oSoulStone, "MOUNTED"))
     Dismount(oPC, oSoulStone);
 
   //ku_EtherealClientEnter(oPC);
+  SkinCleanup(oPC);
 }
 
 

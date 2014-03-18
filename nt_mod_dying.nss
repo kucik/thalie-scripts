@@ -98,6 +98,9 @@ void main()
 
     SetLocalInt(oPC,"SUBDAMADE_TYPE",nSubdual);
 
+    // Save HP
+    SetPersistentInt(oPC, "HP", GetCurrentHitPoints(oPC));
+
     /*
     AssignCommand(GetLastDamager(oPC),ClearAllActions(TRUE));
     effect eHeal = EffectHeal(1 - GetCurrentHitPoints(oPC));

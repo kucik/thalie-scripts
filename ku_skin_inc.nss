@@ -29,7 +29,13 @@ object GetPCSkin(object oPC) {
       return CreatePCSkin(oPC);
     }
   }
-
+  else {
+    oSkin = GetItemPossessedBy(oPC, "th_pcskin");
+    if(GetIsObjectValid(oSkin)) {
+      AssignCommand(oPC, ActionUnequipItem(oSkin));
+      return oSkin;
+    }
+  }
 
   oSkin = CreatePCSkin(oPC);
   return oSkin;
@@ -41,4 +47,24 @@ void ReequipSkin(object oPC) {
   AssignCommand(oPC, ActionUnequipItem(oSkin));
 
   DelayCommand(0.2,AssignCommand(oPC, ActionEquipItem(oSkin, INVENTORY_SLOT_CARMOUR)));
+}
+
+void __skinCelanup(object oPC) {
+
+  object oItem = GetFirstItemInInventory(oPC);
+  while (GetIsObjectValid(oItem)) {
+    if(GetTag(oItem) == "th_pcskin") {
+      DestroyObject(oItem, 0.2);
+    }
+    oItem = GetNextItemInInventory(oPC);
+  }
+
+}
+
+void SkinCleanup(object oPC) {
+  // Equip correct skin
+  GetPCSkin(oPC);
+
+
+  DelayCommand(0.1,__skinCelanup(oPC));
 }
