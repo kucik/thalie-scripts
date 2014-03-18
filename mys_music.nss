@@ -281,7 +281,7 @@ void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp)
         MusicChangeTrack(oArea, iTrackId);
         MusicSetTrackTimestamp(oArea, iTrackTimestamp);        
         AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));
-        AssignCommand(GetModule(), DelayCommand(fDelay, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
+        AssignCommand(GetModule(), DelayCommand(fDelay + 0.2f, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
     }
     else
     {
