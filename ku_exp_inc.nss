@@ -32,6 +32,9 @@ int ku_GetLevelForXP(int XP) {
 }
 
 int ku_GetXpDebt(object oPC) {
+  if (!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC) || GetIsPossessedFamiliar(oPC))
+        return 0;
+
   int iXPDebt = GetPersistentInt(oPC,"XP_DEBT");
   
 
@@ -45,6 +48,9 @@ int ku_GetXpDebt(object oPC) {
 }
 
 int ku_ReduceXPGainForDeath(object oPC, int iXP, int bTimeXP = FALSE) {
+  if (!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC) || GetIsPossessedFamiliar(oPC))
+        return iXP;
+
   int iXPDebt = ku_GetXpDebt(oPC);
 
   if(iXPDebt <= 0)
@@ -70,6 +76,9 @@ int ku_ReduceXPGainForDeath(object oPC, int iXP, int bTimeXP = FALSE) {
 }
 
 void ku_GiveXPDebt(object oPC, int iXP) {
+  if (!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC) || GetIsPossessedFamiliar(oPC))
+        return;
+
   int iXPDebt = ku_GetXpDebt(oPC);
 
   // in case of bug
@@ -82,6 +91,9 @@ void ku_GiveXPDebt(object oPC, int iXP) {
 
 int ku_SaveXPPerKill(object oPC, int xp)
 {
+ if (!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC) || GetIsPossessedFamiliar(oPC))
+        return xp;
+
  object oSoul = GetSoulStone(oPC);
  float xpk = IntToFloat(GetLocalInt(oSoul,"ku_XPbyKill"));
 
