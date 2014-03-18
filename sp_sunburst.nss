@@ -23,6 +23,8 @@
 
 #include "X0_I0_SPELLS"
 #include "subraces"
+#include "ja_lib"
+#include "ja_inc_frakce"
 float nSize =  RADIUS_SIZE_COLOSSAL;
 
 void main()
@@ -40,6 +42,7 @@ void main()
     effect eHitVis = EffectVisualEffect(VFX_IMP_DIVINE_STRIKE_FIRE);
     effect eLOS = EffectVisualEffect(VFX_FNF_LOS_HOLY_30);
     effect eDam;
+    string sLine;
     //Get the spell target location as opposed to the spell target.
     location lTarget = GetSpellTargetLocation();
     //Limit Caster level for the purposes of damage
@@ -103,17 +106,18 @@ void main()
                         {   // not undead target
                             //Set DC of blind effect
                             nBlindDC = GetSpellSaveDC();
-                            /* Change of DC for light-sensitive (sub)races has been cancelled.
+                            // Change of DC for light-sensitive (sub)races has been cancelled.
                             // Check if the oTarget is sensivitve to bright light, if so, improve the spell's DC                        
                             if (GetIsPC(oTarget))
                             {  // target is PC
                               if (Subraces_GetIsCharacterFromUnderdark(oTarget)) // test for PC faction
                               { // adjust spell's DC
-                                sLine = "DEBUG: Target identified as underdark PC, ID=" + ObjectToString(oTarget);  //debug
+                                sLine = "DEBUG: Target identified as underdark PC, DC increased"; //, ID=" + ObjectToString(oTarget);  //debug
                                 PrintString(sLine); //debug
                                 nBlindDC = nBlindDC + 2;
                               }
                             }
+                            /*
                             else
                             { // target is not PC, check if its faction is underdark
                               if (GetStringLeft(GetNPCFaction(oNPC),8) == "Podtemno");  // test for NPC faction
