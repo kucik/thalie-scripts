@@ -328,7 +328,7 @@ void main()
         }         
    }
    // Dismount in interior areas
-   else if (!GetIsAreaExterior(OBJECT_SELF) && GetLocalInt(oPC, "MOUNTED"))
+   else if (!GetIsAreaExterior(OBJECT_SELF) && GetLocalInt(oSoul, "MOUNTED"))
    {
         AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, oSoul)));
    }

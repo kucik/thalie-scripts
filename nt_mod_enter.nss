@@ -288,7 +288,7 @@ void main()
  // Check duplicit character
  int iPlayed = GetPersistentInt(oPC, "PLAYED","pwchars");
  object oSoulStone = GetSoulStone(oPC);
- if(iPlayed && !GetIsObejctValid(oSoulStone)) {
+ if(iPlayed && !GetIsObjectValid(oSoulStone)) {
     BootPC(oPC);
     WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", Duplicit character "+GetName(oPC)+".");
     return;
@@ -503,7 +503,7 @@ void main()
   
   // Dismount mounted PC
   if (GetLocalInt(oSoulStone, "MOUNTED"))
-    Dismount(oPC, oSoulStone);
+    AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, oSoulStone)));
 
   //ku_EtherealClientEnter(oPC);
   SkinCleanup(oPC);

@@ -28,13 +28,6 @@ void main()
     object oSoul = GetSoulStone(oPC);
     int restType = GetLastRestEventType();
     
-    // No rest if mounted
-    if (GetLocalInt(oSoul, "MOUNTED"))
-    {
-        SendMessageToPC(oPC, "Akci nelze provést v sedle.");
-        return;
-    }
-
     string sInn = GetLocalString(GetArea(oPC), "INN");
     int insideInn = GetLocalInt(oPC, sInn);
 
@@ -61,7 +54,14 @@ void main()
             AssignCommand(oPC, ClearAllActions());
             return;
         }*/
-
+        
+        // No rest if mounted
+        if (GetLocalInt(oSoul, "MOUNTED"))
+        {
+            SendMessageToPC(oPC, "Akci nelze provést v sedle.");
+            AssignCommand(oPC, ClearAllActions());
+            return;
+        }
 
         // V techto lokacich se budem shanet po ohynku
         if( (zone == "high") ||
