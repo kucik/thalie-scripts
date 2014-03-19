@@ -64,7 +64,7 @@ void main()
                 }
             nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
             // if target fails reflex save - knock it down
-            if (MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)) == FALSE)
+            if (MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)) == 0)
             { // target fails in reflex save - knock it down
                 effect eKnockDown = EffectKnockdown();
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockDown, oTarget,RoundsToSeconds(1));
