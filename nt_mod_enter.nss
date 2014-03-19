@@ -1,3 +1,4 @@
+#include "me_soul_inc"
 #include "aps_include"
 #include "persistence"
 //#include "zep_inc_phenos"
@@ -295,8 +296,7 @@ void main()
  }
 
  // Get soul
- CheckHasSpecialItems(oPC);
- oSoulStone = GetSoulStone(oPC);
+ oSoulStone = CreateSoulStone(oPC);
  
  //------- PODVODY
  // kontrola na to zda postava na prvnim lvlu dala body do skillu

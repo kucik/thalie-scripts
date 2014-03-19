@@ -12,3 +12,13 @@ object GetSoulStone(object oPC){
     SetLocalObject(oPC,"SoulStone",oSoul);
     return oSoul;
 }
+
+object CreateSoulStone(object oPC) {
+   object oSoul = GetSoulStone(oPC);
+
+   if(!GetIsObjectValid(oSoul)){
+     oSoul = CreateItemOnObject("sy_soulstone", oPC);
+     SetLocalObject(oPC,"SoulStone",oSoul);
+   }
+   return oSoul;
+}
