@@ -66,5 +66,5 @@ void SkinCleanup(object oPC) {
   GetPCSkin(oPC);
 
 
-  DelayCommand(0.1,__skinCelanup(oPC));
+  DelayCommand(1.1,__skinCelanup(oPC));
 }
