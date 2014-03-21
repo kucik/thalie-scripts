@@ -18,9 +18,7 @@ struct EssenceEffect {
   int iValid;
 };
 
-#include "x0_I0_SPELLS"
 #include "x2_inc_spellhook"
-#include "sh_classes_inc_e"
 #include "sh_effects_const"
 #include "ku_libtime"
 
