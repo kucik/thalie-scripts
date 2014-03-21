@@ -64,6 +64,9 @@ void main()
     // Save number of PCs playing
     if (t % time_update_database == 0)
         SetLocalInt(OBJECT_SELF, "LAST_PC_COUNTER_RECORD", i);
+
+    // Server system commands processing
+    ExecuteScript("ku_server_cmd");
 }
 
 void HeartbeatPCActions(object oPC, int t)
