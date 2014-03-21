@@ -6,6 +6,8 @@
 #include "ja_inc_stamina"
 #include "persistence"
 #include "ku_libtime"
+#include "sh_feat_uses"
+#include "me_soul_inc"
 
 void main()
 {
@@ -109,6 +111,8 @@ void main()
             }
 
             restoreStamina(oPC, getMaxStamina(oPC) * mult);
+            RestoreFeatUses(oPC);
+            DeleteLocalInt(GetSoulStone(oPC),"KURTIZANA_KZEMI");
             SendMessageToPC(oPC,sMessage);
         }
 
