@@ -93,5 +93,5 @@ if(oCheck2==OBJECT_INVALID) HorseAddHorseMenu(oUser);
 
 //if(!IsInConversation(oUser)) AssignCommand(oUser, ActionStartConversation(oUser, "Languages", TRUE, FALSE));
 // AssignCommand(oUser, ActionStartConversation(oUser, "sh_languages", TRUE, FALSE)); // former Shaman's version, it has been changed on 2014_03_22
-AssignCommand(oUser, BeginConversation("sh_languages", OBJECT_SELF) ); // added on 2014_03_22
+BeginConversation("sh_languages", OBJECT_SELF); // added on 2014_03_22
 }

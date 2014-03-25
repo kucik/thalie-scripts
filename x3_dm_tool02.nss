@@ -260,7 +260,7 @@ if(oCheck2==OBJECT_INVALID) HorseAddHorseMenu(oUser);
 DeleteLocalInt(oUser, "sh_dm_univ_int");
 AssignCommand(oUser, ClearAllActions());
 // AssignCommand(oUser, ActionStartConversation(OBJECT_SELF, "sh_dmt_place", TRUE, FALSE)); // former Shaman's version, it has been changed on 2014_03_22
-AssignCommand(oUser, BeginConversation("sh_dmt_place", OBJECT_SELF) ); // added on 2014_03_22
+BeginConversation("sh_dmt_place", OBJECT_SELF); // added on 2014_03_22
 
 }
 
