@@ -1,11 +1,10 @@
-#include "pc_lib"
-#include "sh_chat_inc"
 #include "sh_lang_inc"
+//#include "ku_libbase"
 #include "ku_exp_time"
 #include "ku_libchat"
 #include "mys_music"
 #include "mys_dmlisten_lib"
-
+    
     /*
     int    TALKVOLUME_TALK          = 0;
     int    TALKVOLUME_WHISPER       = 1;
@@ -39,171 +38,101 @@
     int    LANGUAGE_UNDERCOMMON     = 19;
     int    LANGUAGE_PLANT           = 20;
     int    LANGUAGE_ANIMAL          = 21;
-    */
+    */    
+    
+    object oSpeaker = GetPCChatSpeaker();
+    string sName = GetName(oSpeaker, FALSE);
+    object oCarmour = GetItemInSlot(INVENTORY_SLOT_CARMOUR,oSpeaker);
+    string sSpoke = GetPCChatMessage();
+    int iDM = GetIsDM(oSpeaker);
+    int iDMp = GetIsDMPossessed(oSpeaker);
+    int iPC = GetIsPC(oSpeaker);
+    string sLeftDM = GetStringLeft(sSpoke, 4);
+    string sDMstring = GetLocalString(oSpeaker, "DMstring");
+    object oCheck = GetSoulStone(oSpeaker);
+    int iDMSetNumber = GetLocalInt(oCarmour, "DMSetNumber");
+    int iLength = GetStringLength(sSpoke);
+    int iGetVolume = GetPCChatVolume();
 
-void ChatXpSystem(object oSpeaker, string sSpoken);
-void AssociateSpeak(object oAssociate, string sRight);
-object GetAssociateSpeaker(object oSpeaker, int iPlayerType, string sVarName);
+    object oTargetSpeak = GetLocalObject(oSpeaker, "dmfi_Lang_target");
+    string sNameTarget =  GetName(oTargetSpeak,FALSE);
+    int iGettype = GetObjectType(oTargetSpeak);
+    int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
 
-void Test_MountDebug(object oPC);
-void Test_MountSetValue(object oPC, string sSpoken);
-
+void ChatXpSystem();
+    
 void main()
 {
-    object oSpeaker = GetPCChatSpeaker();
-    object oSoul = GetSoulStone(oSpeaker);
-    object oTargetSpeaker = GetLocalObject(oSpeaker, "dmfi_Lang_target");
-    string sSpoken = GetPCChatMessage();
-    string sLeft3 = GetStringLeft(sSpoken, 3);
-    int iLength = GetStringLength(sSpoken);
-    int iVolume = GetPCChatVolume();
-    int iPlayerType = GetPlayerType(oSpeaker);
-
     // Allow shout only for DMs
-    if (GetPCChatVolume() == TALKVOLUME_SHOUT)
+    if (iGetVolume == TALKVOLUME_SHOUT)
     {
-        if (GetIsPlayer(GetPCChatSpeaker()))
-        {
+        if (!iDM && !iDMp)
             SetPCChatVolume(TALKVOLUME_TALK);
-            iVolume = TALKVOLUME_TALK;
-        }
     }
-
-    if (GetStringLeft(sSpoken, 1) == "/" && GetStringLeft(sSpoken, 2) != "//")
+    
+    if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
     {
         // DM commands
-        if ((iPlayerType == PLAYER_TYPE_DM || iPlayerType == PLAYER_TYPE_DM_POSSESSED) && sLeft3 == "/dm")
-            DmSpeakFunction(oSpeaker, oSoul, sSpoken, iPlayerType);
-
-        else if (sLeft3 == "/pc")
+        if ((iDM || iDMp) && GetStringLeft(sSpoke, 3) == "/dm")
+            DmSpeakFunction();
+        
+        else if (GetStringLeft(sSpoke, 3) == "/pc")
         {
             MusicInstrumentChoice();
-            ku_ChatCommand(oSpeaker, sSpoken, iVolume);
+            ku_ChatCommand(oSpeaker,sSpoke,iGetVolume);
         }
-        else if (sLeft3 == "/f ")
-            AssociateSpeak(GetAssociateSpeaker(oSpeaker, iPlayerType, "FAMILIAR"), GetStringRight(sSpoken, iLength - 3));
-        else if (sLeft3 == "/c ")
-            AssociateSpeak(GetAssociateSpeaker(oSpeaker, iPlayerType, "COMPANION"), GetStringRight(sSpoken, iLength - 3));
-        else if (sLeft3 == "/h ")
-            AssociateSpeak(GetAssociateSpeaker(oSpeaker, iPlayerType, "HENCHMAN"), GetStringRight(sSpoken, iLength - 3));
-
-        else if (sSpoken == "/emo")
+        else if (sSpoke == "/emo")
             AssignCommand(oSpeaker, ActionStartConversation(oSpeaker, "myd_emote", TRUE, FALSE));
-
-        else if (GetStringLeft(sSpoken, 5) == "/test")
-        {
-            Test_MountSetValue(oSpeaker, sSpoken);
-            Test_MountDebug(oSpeaker);
-        }
-        
+            
+        else if (GetIsObjectValid(oTargetSpeak))
+            oSpeaker = oTargetSpeak;
+                    
         else
         {
-            PCEmoteFunction(oSpeaker, sSpoken);
-            PCDiceFuntion(oSpeaker, sSpoken);
-            LanguageSet(oSpeaker, oSoul, sSpoken);
+            PCEmoteFunction();
+            PCDiceFuntion();
+            LanguageSet();
         }
         SetPCChatVolume(TALKVOLUME_TELL);
         SetPCChatMessage("");
         return;
     }
-
-    if (GetIsObjectValid(oTargetSpeaker))
+    
+    if (GetIsObjectValid(oTargetSpeak))
     {
-        TargetSpeak(oTargetSpeaker, oSoul, sSpoken, iVolume);
+        TargetSpeak(oTargetSpeak);
         SetPCChatMessage("");
         return;
     }
-    LanguageSpeech(oSpeaker, oSoul, sSpoken, iVolume);
-    ChatXpSystem(oSpeaker, sSpoken);
+    Languagespeech();
+    ChatXpSystem();
 
     // Send chat to DMs
-    SendChatToListeners(oSpeaker, sSpoken, iVolume);
+    SendChatToListeners(oSpeaker, sSpoke, iGetVolume);
 }
 
-void ChatXpSystem(object oSpeaker, string sSpoken)
+void ChatXpSystem()
 {
     // Now system check last #(KU_MASSAGE_CACHE) messages that player sent for xp system
     int i;
     int match = FALSE;
     for (i=0;i < KU_CHAT_CACHE_SIZE ;i++)
     {
-        if (sSpoken == GetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(i)) )
+        if (sSpoke == GetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(i)) )
         {
             match = TRUE;
             break;
         }
     }
-
+    
     // Prodluz pridelovani xp
     if (!match)
         SetLocalInt(oSpeaker,"ku_LastActionStamp",ku_GetTimeStamp(0,5)); // +5 minutes
-
+    
     int CacheIndex = GetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX");
     CacheIndex = (CacheIndex + 1) % KU_CHAT_CACHE_SIZE;
-
-    SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoken);
+    
+    SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoke);
     SetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX",CacheIndex);
     SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
-}
-
-object GetAssociateSpeaker(object oSpeaker, int iPlayerType, string sVarName)
-{
-    if (iPlayerType == PLAYER_TYPE_PC_POSSESSED)
-        return GetMaster(oSpeaker);
-    else
-        return GetLocalObject(oSpeaker, sVarName);
-}
-
-void AssociateSpeak(object oAssociate, string sRight)
-{
-    if (!GetIsObjectValid(oAssociate) || sRight == "")
-        return;
-
-    float fDur = 9999.0f;
-
-    if(sRight == "*sedni*") {
-      AssignCommand(oAssociate, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur));
-    } else if(sRight == "*lehni*") {
-      AssignCommand(oAssociate, PlayAnimation( ANIMATION_LOOPING_DEAD_BACK, 1.0, fDur));
-    } else if(sRight == "*uhni*") {
-      AssignCommand(oAssociate, PlayAnimation( ANIMATION_FIREFORGET_DODGE_SIDE, 1.0));
-    } else {
-      AssignCommand(oAssociate, SpeakString(sRight));
-    }
-}
-
-void Test_MountDebug(object oPC)
-{
-    int iAppearance = GetAppearanceType(oPC);
-    int iPhenoType = GetPhenoType(oPC);    
-    int iWing = GetCreatureWingType(oPC);
-    int iTail = GetCreatureTailType(oPC);
-    
-    SendMessageToPC(oPC, "("+GetName(oPC)+") appearance="+IntToString(iPhenoType));
-    SendMessageToPC(oPC, "("+GetName(oPC)+") phenotype="+IntToString(iPhenoType));    
-    SendMessageToPC(oPC, "("+GetName(oPC)+") wing="+IntToString(iPhenoType));
-    SendMessageToPC(oPC, "("+GetName(oPC)+") tail="+IntToString(iPhenoType));
-}
-
-void Test_MountSetValue(object oPC, string sSpoken)
-{
-    int iLen = GetStringLength(sSpoken);
-    string sVal = GetStringRight(sSpoken, iLen - 8);
-    
-    if (GetStringLeft(sSpoken, 8) == "/test89 ")
-    {
-         SetCreatureAppearanceType(oPC, StringToInt(sVal));
-    }
-    if (GetStringLeft(sSpoken, 8) == "/test90 ")
-    {
-        SetPhenoType(StringToInt(sVal), oPC); 
-    }
-    if (GetStringLeft(sSpoken, 8) == "/test91 ")
-    {
-        SetCreatureWingType(StringToInt(sVal), oPC); 
-    }
-    if (GetStringLeft(sSpoken, 8) == "/test92 ")
-    {
-        SetCreatureTailType(StringToInt(sVal), oPC); 
-    }
 }
