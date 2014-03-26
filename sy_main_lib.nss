@@ -243,7 +243,7 @@ object sy_has_soulitem(object oPC)
     //na kameni je ulozene info pre moje scripty
     //ak nieje ulozeny pointer na hracovi, tak prehladavam inventar
     //ak nema ani u seba soulstone, vytvorim mu novy
-    object oSoulItem = GetLocalObject(oPC,"soulitem");
+/*    object oSoulItem = GetLocalObject(oPC,"soulitem");
     if (oSoulItem == OBJECT_INVALID)
     {
         oSoulItem = GetSoulStone(oPC);
@@ -256,7 +256,8 @@ object sy_has_soulitem(object oPC)
         }
     }
 
-    return oSoulItem;
+    return oSoulItem;*/
+   return GetSoulStone(oPC);
 }
 
 //------------------------------------------------------------------------------
