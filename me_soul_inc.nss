@@ -18,12 +18,13 @@ object GetSoulStone(object oPC){
 }
 
 object CreateSoulStone(object oPC) {
+   WriteTimestampedLogEntry("Do create soul on Player "+GetPCPlayerName(oPC)+" char:."+GetName(oPC));
    object oSoul = GetSoulStone(oPC);
 
    if(!GetIsObjectValid(oSoul)){
      oSoul = CreateItemOnObject("sy_soulstone", oPC);
      SetLocalObject(oPC,"SoulStone",oSoul);
-      WriteTimestampedLogEntry("Created soul on Player "+GetPCPlayerName(oPC)+" char:."+GetName(oPC));
+     WriteTimestampedLogEntry("Created soul on Player "+GetPCPlayerName(oPC)+" char:."+GetName(oPC));
    }
    return oSoul;
 }
