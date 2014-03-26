@@ -295,9 +295,6 @@ void main()
     return;
  }
 
- // Get soul
- oSoulStone = CreateSoulStone(oPC);
- 
  //------- PODVODY
  // kontrola na to zda postava na prvnim lvlu dala body do skillu
  iSkill = 0;
@@ -324,7 +321,6 @@ void main()
  int iMonkLevel = GetLevelByClass(CLASS_TYPE_MONK,oPC);
  if (iMonkLevel > 0 && iMonkLevel<11) RemoveKnownFeat(oPC,FEAT_MONK_AC_BONUS);
  //~Opravy chyb//
- SetLocalInt(oPC,"SUBDUAL_MODE",GetLocalInt(oSoulStone,"SUBDUAL_MODE"));
  DelayCommand(120.0,UpdateLoginIP(oPC));
 
  AddPlayerToDump(oPC);
@@ -364,6 +360,12 @@ void main()
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
 
  }
+ // Get soul
+ oSoulStone = CreateSoulStone(oPC);
+
+ // Subdual damage
+ SetLocalInt(oPC,"SUBDUAL_MODE",GetLocalInt(oSoulStone,"SUBDUAL_MODE"));
+
  setFactionsToPC(oPC, getFaction(oPC));
  ku_OnClientEnter(oPC); // Inicializace eXPiciho systemu pri loginu hrace.
  Subraces_InitSubrace( oPC ); //Inicializace subrasy
