@@ -4,6 +4,7 @@ object GetPCSkin(object oPC);
 
 object CreatePCSkin(object oPC) {
   object oSkin = CreateItemOnObject("th_pcskin",oPC,1);
+  SetLocalObject(oPC, "th_pcskin", oSkin);
 
   AssignCommand(oPC, ActionUnequipItem(oSkin));
   DelayCommand(0.2,AssignCommand(oPC, ActionEquipItem(oSkin, INVENTORY_SLOT_CARMOUR)));
@@ -14,7 +15,12 @@ object CreatePCSkin(object oPC) {
 }
 
 object CheckPCSkin(object oPC) {
-  return GetItemInSlot(INVENTORY_SLOT_CARMOUR, oPC);
+  object oSkin = GetLocalObject(oPC, "th_pcskin");
+  object oEquiped =  GetItemInSlot(INVENTORY_SLOT_CARMOUR, oPC);
+  if(oSkin != oEquiped) {
+    DelayCommand(0.2,AssignCommand(oPC, ActionEquipItem(oSkin, INVENTORY_SLOT_CARMOUR)));
+  }
+  return oSkin;
 }
 
 object GetPCSkin(object oPC) {
@@ -50,10 +56,10 @@ void ReequipSkin(object oPC) {
 }
 
 void __skinCelanup(object oPC) {
-
+  object oSkin = GetPCSkin(oPC);
   object oItem = GetFirstItemInInventory(oPC);
   while (GetIsObjectValid(oItem)) {
-    if(GetTag(oItem) == "th_pcskin") {
+    if(GetTag(oItem) == "th_pcskin" && oItem != oSkin) {
       DestroyObject(oItem, 0.2);
     }
     oItem = GetNextItemInInventory(oPC);
