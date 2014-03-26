@@ -627,7 +627,7 @@ void OnLvlupClassSystem(object oPC)
 {
    //volani kuze postavy musi byt v kratke chvili jen jednou jinak hrozi jeji duplikovani
    object oDuse = GetSoulStone(oPC);
-   object oPCSkin = GetLocalObject(oDuse,"PCSKIN");
+   object oPCSkin = GetPCSkin(oPC);
    //vymazani bonusu
    RemoveClassItemPropertyAndEffects(oPC,oPCSkin);
 
@@ -668,7 +668,7 @@ void OnRestClassSystem(object oPC)
 void OnEquipClassSystem(object oPC, object oItem)
 {
   object oDuse = GetSoulStone(oPC);
-   object oPCSkin = GetLocalObject(oDuse,"PCSKIN");
+   object oPCSkin = GetPCSkin(oPC);
 
  ApplyKensaiLimitation( oPC,oItem);
  AddZbranThalie(oPC,oItem);
@@ -679,7 +679,7 @@ void OnEquipClassSystem(object oPC, object oItem)
 void OnUnEquipClassSystem(object oPC,object oItem)
 {
     object oDuse = GetSoulStone(oPC);
-    object oPCSkin = GetLocalObject(oDuse,"PCSKIN");
+    object oPCSkin = GetPCSkin(oPC);
 
 
     RemoveZbranThalie(oPC,oItem);
