@@ -32,7 +32,7 @@ object GetPCSkin(object oPC) {
   object oSkin = CheckPCSkin(oPC);
 
   if(GetIsObjectValid(oSkin)) {
-    SendMessageToPC(oPC, "Checking for skin. Skin found: "+GetName(oSkin));
+//    SendMessageToPC(oPC, "Checking for skin. Skin found: "+GetName(oSkin));
     if(GetTag(oSkin) == "th_pcskin")
       return oSkin;
     else {
