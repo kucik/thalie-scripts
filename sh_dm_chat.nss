@@ -60,6 +60,7 @@
     int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
 
 void ChatXpSystem();
+void HenchmanChat();
     
 void main()
 {
@@ -135,4 +136,45 @@ void ChatXpSystem()
     SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoke);
     SetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX",CacheIndex);
     SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
+}
+
+void HenchmanChat() {
+  object oPC = GetPCChatSpeaker();
+  int bCreatureCommand = FALSE;
+  int HideText = FALSE;
+
+  object oFam = OBJECT_INVALID;
+  if(left == "/f ") {
+    oFam = GetLocalObject(oPC,"FAMILIAR");
+    bCreatureCommand = TRUE;
+  }
+  if(left == "/c ") {
+    bCreatureCommand = TRUE;
+    oFam = GetLocalObject(oPC,"COMPANION");
+  }
+  if(left == "/h ") {
+    bCreatureCommand = TRUE;
+    oFam = GetLocalObject(oPC,"JA_HORSE_OBJECT");
+  }
+  if( (bCreatureCommand) &&
+      (GetIsObjectValid(oFam)) ) {
+    string sRight = GetSubString(mess,3,100);
+    float fDur = 9999.0f; //Duration
+    if(sRight == "*sedni*") {
+      AssignCommand(oFam, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur));
+    } else if(sRight == "*lehni*") {
+      AssignCommand(oFam, PlayAnimation( ANIMATION_LOOPING_DEAD_BACK, 1.0, fDur));
+    } else if(sRight == "*uhni*") {
+      AssignCommand(oFam, PlayAnimation( ANIMATION_FIREFORGET_DODGE_SIDE, 1.0));
+    } else {
+      AssignCommand(oFam,SpeakString(sRight));
+    }
+    HideText = TRUE;
+  }
+ 
+  if(HideText) {
+    SetPCChatVolume(TALKVOLUME_TELL);
+    SetPCChatMessage("");
+  }
+
 }
