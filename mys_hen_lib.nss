@@ -40,6 +40,7 @@ object SummonHenchman(object oKey)
     object oPC = GetItemPossessor(oKey);
     string sResRef = GetLocalString(oKey, "HENCHMAN_RESREF");
     string sTag = GetLocalString(oKey, "HENCHMAN_TAG");
+    int iHP = GetLocalInt(oKey, "HENCHMAN_HP");
     location lLocation = GetLocation(oPC);
     
     // Temporary setting
@@ -48,6 +49,11 @@ object SummonHenchman(object oKey)
     if (sResRef != "")
     {
         object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation, FALSE, sTag);
+        
+        // Set proper hitpoints
+        if (iHP < GetCurrentHitPoints(oHenchman))
+            ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oHenchman) - iHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oHenchman);
+        
         AssignCommand(oHenchman, SetName(oHenchman, GetName(oKey)));
         AssignCommand(oHenchman, AddHenchman(oPC, oHenchman));
         SetLocalObject(oKey, "HENCHMAN", oHenchman);

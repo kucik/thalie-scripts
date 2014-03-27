@@ -14,6 +14,9 @@
 #include "ku_dlg_inc"
 #include "sh_lang_start"
 #include "mys_mount_lib"
+#include "mys_hen_lib"
+
+void DismountAfterActions(object oPC, object oSoul);
 
 // Compose text info about Thalie-datum
 string GetInGameDateMessage()
@@ -505,10 +508,23 @@ void main()
   
   // Dismount mounted PC
   if (GetLocalInt(oSoulStone, "MOUNTED"))
+  {
     AssignCommand(oPC, DelayCommand(0.0f, Dismount(oPC, oSoulStone)));
+    AssignCommand(oPC, DelayCommand(1.0f, DismountAfterActions(oPC, oSoulStone)));
+  }
 
   //ku_EtherealClientEnter(oPC);
   SkinCleanup(oPC);
+}
+
+void DismountAfterActions(object oPC, object oSoul)
+{
+    object oHenchman = GetLocalObject(OBJECT_SELF, "MOUNT_OBJECT");
+    object oKey = GetKeyByName(oPC, GetLocalString(oSoul, "MOUNT_CREATURE_NAME"));
+    DeleteLocalObject(OBJECT_SELF, "MOUNT_OBJECT");
+    
+    // Restore key uses
+    SetLocalInt(oKey, "HENCHMAN_USES", 1);    
 }
 
 

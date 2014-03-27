@@ -1,6 +1,8 @@
 // Notes:
 // Neudelat jednu fci ridici all speed effects postavy?
 // Zkusit restoration, dispell.
+// TODO:
+// Pridat rovnou info o klici (store object), kvuli restore uses, abych nemusle jen kvuli tomu porad includovat knihovnu henchmanu
 
 
 // Mount creature tag
@@ -28,6 +30,7 @@ const int MOUNT_SPEED_DEFAULT = 50;
 //string  MOUNT_CREATURE_PORTRAIT         Unmounted creature portrait
 //int     MOUNT_CREATURE_RACE             Unmounted creature race
 //int     MOUNT_CREATURE_FACTION          Unmounted creature faction
+//int     MOUNT_CREATURE_HP               Unmounted creature hitpoints
 
 
 void Mount(object oRider, object oMount, object oSoul, int bJousting = FALSE);
@@ -67,6 +70,7 @@ void StoreMountInfo(object oMount, object oKey)
     SetLocalString(oKey, "MOUNT_CREATURE_NAME", GetName(oMount));
     SetLocalInt(oKey, "MOUNT_CREATURE_APPEARANCE", GetAppearanceType(oMount));        
     SetLocalInt(oKey, "MOUNT_CREATURE_PORTRAIT", GetPortraitId(oMount));
+    SetLocalInt(oKey, "MOUNT_CREATURE_HP", GetCurrentHitPoints(oMount));
 }
 
 void SetMountProperties(object oMount, object oKey)
@@ -132,6 +136,7 @@ void Mount(object oRider, object oMount, object oSoul, int bJousting)
         SetLocalString(oSoul, "MOUNT_CREATURE_NAME", GetName(oMount));
         SetLocalInt(oSoul, "MOUNT_CREATURE_APPEARANCE", GetAppearanceType(oMount));        
         SetLocalInt(oSoul, "MOUNT_CREATURE_PORTRAIT", GetPortraitId(oMount));
+        SetLocalInt(oSoul, "MOUNT_CREATURE_HP", GetCurrentHitPoints(oMount));
         
         if (iMountNullAppearance)
             SetCreatureAppearanceType(oMount, iMountNullAppearance);
@@ -170,6 +175,7 @@ void Dismount(object oRider, object oSoul, int bSummonMount)
     string sMountResRef = GetLocalString(oSoul, "MOUNT_CREATURE_RESREF");
     string sMountName = GetLocalString(oSoul, "MOUNT_CREATURE_NAME");
     int iMountAppearance = GetLocalInt(oSoul, "MOUNT_CREATURE_APPEARANCE");
+    int iMountHP = GetLocalInt(oSoul, "MOUNT_CREATURE_HP");
 
     int iOriginalAppearance = GetLocalInt(oSoul, "MOUNT_RIDER_APPEARANCE");
     int iOriginalTail = GetLocalInt(oSoul, "MOUNT_RIDER_TAIL");
@@ -186,11 +192,20 @@ void Dismount(object oRider, object oSoul, int bSummonMount)
         if (bSummonMount)
         {
             object oMount = CreateObject(OBJECT_TYPE_CREATURE, sMountResRef, GetLocation(oRider), FALSE, MOUNT_TAG);
+            
+            // Set mount properties
             SetCreatureAppearanceType(oMount, iMountAppearance);
             SetPortraitId(oMount, GetLocalInt(oSoul, "MOUNT_CREATURE_PORTRAIT"));
             SetCommandable(TRUE, oMount);
             SetName(oMount, sMountName);
+            
+            // Set mount proper hitpoints
+            if (iMountHP < GetCurrentHitPoints(oMount))
+                ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oMount) - iMountHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oMount);
+            
+            // Add mount to party
             AssignCommand(oMount, AddHenchman(oRider, oMount));
+            
             // Temporary storage - rework and delete this in future
             SetLocalObject(oRider, "MOUNT_OBJECT", oMount);
         
@@ -219,6 +234,7 @@ void Dismount(object oRider, object oSoul, int bSummonMount)
         DeleteLocalString(oSoul, "MOUNT_CREATURE_NAME");
         DeleteLocalString(oSoul, "MOUNT_CREATURE_APPEARANCE");
         DeleteLocalString(oSoul, "MOUNT_CREATURE_PORTRAIT");
+        DeleteLocalString(oSoul, "MOUNT_CREATURE_HP");
         
         DeleteLocalInt(oSoul, "MOUNT_TAIL");
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE");

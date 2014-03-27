@@ -10,6 +10,7 @@ void main()
     if (sText == "<StartAction>[Odvolat]</Start>")
     {
         object oKey = GetKeyByName(oPC, GetName(OBJECT_SELF));
+        SetLocalInt(oKey, "HENCHMAN_HP", GetCurrentHitPoints(OBJECT_SELF));
         DeleteLocalObject(oKey, "HENCHMAN");
         SetLocalInt(oKey, "HENCHMAN_USES", 1);
         ClearAllActions(TRUE);
