@@ -18,7 +18,7 @@ void main()
     effect eCharm = EffectCharmed();
     effect eMind = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_NEGATIVE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
-    int iDC = 10 + 8 + GetAbilityModifier(ABILITY_CHARISMA);
+    int iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA) + GetThalieSpellDCBonus(OBJECT_SELF);
     //Link effects
     effect eLink = EffectLinkEffects(eMind, eCharm);
     eLink = EffectLinkEffects(eLink, eDur);
@@ -33,7 +33,7 @@ void main()
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {
             // Make Will save vs Mind-Affecting
-            if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_MIND_SPELLS))
+            if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, iDC, SAVING_THROW_TYPE_MIND_SPELLS))
             {
                 //Apply impact and linked effect
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
