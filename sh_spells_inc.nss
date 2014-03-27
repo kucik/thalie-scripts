@@ -8,7 +8,7 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
          iModifiedCasterLevel+= GetLevelByClass(CLASS_TYPE_EXORCISTA,oCaster);
     }
 
-    /* For boost spells always reduce caster level. Cannot be higher than caster 
+    /* For boost spells always reduce caster level. Cannot be higher than caster
        level*/
     if (bChangeCL)
     {
@@ -22,7 +22,21 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
 
 int GetThalieSpellDCBonus(object oPCNPC)
 {
-    return 0;
+    int iBonus = 0;
+    //Epic DC bonus - +1 za kazde 2 lvly nad epic
+    int iClass = GetLastSpellCastClass();
+    if ((iClass == CLASS_TYPE_SORCERER
+    || iClass == CLASS_TYPE_WIZARD
+    || iClass == CLASS_TYPE_CLERIC
+    || iClass == CLASS_TYPE_DRUID
+    || iClass == CLASS_TYPE_BARD)
+    && GetLevelByClass(iClass,oPCNPC) >= 21)
+    {
+        iBonus += (GetLevelByClass(iClass,oPCNPC)-19)/2;
+    }
+
+
+    return iBonus;
 }
 // nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel);
 //+GetThalieSpellDCBonus(OBJECT_SELF)
