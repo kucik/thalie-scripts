@@ -56,7 +56,8 @@ void main()
           else {
 //            SpeakString("Dyer");
             int iSlot = GetLocalInt(oDyer,"DYE_INV_SLOT");
-            object oNCloth = CopyItemAndModify(oCloth,ITEM_APPR_TYPE_ARMOR_COLOR,iPart,iNum,TRUE);
+            int iType = GetLocalInt(OBJECT_SELF, "KU_PART") > 255 ? GetLocalInt(OBJECT_SELF, "KU_TYPE") : ITEM_APPR_TYPE_ARMOR_COLOR;
+            object oNCloth = CopyItemAndModify(oCloth,iType,iPart,iNum,TRUE);
             AssignCommand(oShouter,ActionEquipItem(oNCloth,iSlot));
             DestroyObject(oCloth);
             SetLocalObject(oDyer,"ITEM",oNCloth);
