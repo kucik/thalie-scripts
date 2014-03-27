@@ -12,5 +12,5 @@ void main()
         SetLocalInt(OBJECT_SELF, "TEMPLATE" + IntToString(iPart), iVal);
     }
     SetLocalInt(OBJECT_SELF, "TEMPLATEAC", iAC);
-    SpeakString("Míry odìvu odebrány a zapsány jako vzor.");
+    SpeakString("Míry odìvu odebrány.");
 }

@@ -4,6 +4,7 @@ void main()
 {
     object oPC = GetPCSpeaker();
     object oItem = GetItemInSlot(INVENTORY_SLOT_CHEST, oPC);
+    object oNewItem;
     int iPart;
     int iVal = GetItemAppearance(oItem, ITEM_APPR_TYPE_ARMOR_MODEL, ITEM_APPR_ARMOR_MODEL_TORSO);
     int iAC = StringToInt(Get2DAString("parts_chest", "ACBONUS", iVal));
@@ -17,4 +18,9 @@ void main()
         iVal = GetLocalInt(OBJECT_SELF, "TEMPLATE" + IntToString(iPart));
         SetItemAppearance(oItem, iPart, iVal);
     }
+    
+    oNewItem = CopyItem(oItem, oPC, TRUE);
+    AssignCommand(oPC, ActionEquipItem(oNewItem, INVENTORY_SLOT_CHEST));
+    DestroyObject(oItem);
+    SetLocalObject(OBJECT_SELF, "ITEM", oNewItem);
 }
