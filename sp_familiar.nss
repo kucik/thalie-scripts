@@ -86,6 +86,9 @@ void main()
 {
     //Yep thats it
     SummonFamiliar();
+    
+    // for /f chat command
+    SetLocalObject(OBJECT_SELF, "FAMILIAR", GetAssociate(ASSOCIATE_TYPE_FAMILIAR));
 
     DelayCommand(3.0,ApplyFamiliarBonuses(OBJECT_SELF));
 

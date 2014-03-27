@@ -1,5 +1,5 @@
+#include "pc_lib"
 #include "sh_lang_inc"
-//#include "ku_libbase"
 #include "ku_exp_time"
 #include "ku_libchat"
 #include "mys_music"
@@ -60,10 +60,19 @@
     int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
 
 void ChatXpSystem();
-void HenchmanChat(string mess);
+
+// Speaks as associate/master.
+// Returns name of speaker.
+string AssociateSpeak(object oAssociate, string sRight);
+object GetAssociateSpeaker(int iPlayerType, string sVarName);
     
 void main()
 {
+    int bXP;
+    int iPlayerType = GetPlayerType(oSpeaker);
+    string sSpeakerName = GetName(oSpeaker);
+    string sLeft3 = GetStringLeft(sSpoke, 3);
+    
     // Allow shout only for DMs
     if (iGetVolume == TALKVOLUME_SHOUT)
     {
@@ -74,16 +83,37 @@ void main()
     if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
     {
         // DM commands
-        if ((iDM || iDMp) && GetStringLeft(sSpoke, 3) == "/dm")
+        if ((iDM || iDMp) && sLeft3 == "/dm")
             DmSpeakFunction();
         
-        else if (GetStringLeft(sSpoke, 3) == "/pc")
+        else if (sLeft3 == "/pc")
         {
             MusicInstrumentChoice();
             ku_ChatCommand(oSpeaker,sSpoke,iGetVolume);
+            bXP = TRUE;
         }
         else if (sSpoke == "/emo")
+        {
             AssignCommand(oSpeaker, ActionStartConversation(oSpeaker, "myd_emote", TRUE, FALSE));
+            bXP = TRUE;
+        }
+            
+        // Talking as associate/master
+        else if (sLeft3 == "/f ")
+        {
+            sSpeakerName = AssociateSpeak(GetAssociateSpeaker(iPlayerType, "FAMILIAR"), GetStringRight(sSpoke, iLength - 3));
+            bXP = TRUE;
+        }
+        else if (sLeft3 == "/c ")
+        {
+            sSpeakerName = AssociateSpeak(GetAssociateSpeaker(iPlayerType, "COMPANION"), GetStringRight(sSpoke, iLength - 3));
+            bXP = TRUE;
+        }
+        else if (sLeft3 == "/h ")
+        {
+            sSpeakerName = AssociateSpeak(GetAssociateSpeaker(iPlayerType, "HENCHMAN"), GetStringRight(sSpoke, iLength - 3));
+            bXP = TRUE;
+        }
             
         else if (GetIsObjectValid(oTargetSpeak))
             oSpeaker = oTargetSpeak;
@@ -93,10 +123,13 @@ void main()
             PCEmoteFunction();
             PCDiceFuntion();
             LanguageSet();
-            HenchmanChat(sSpoke);
         }
         SetPCChatVolume(TALKVOLUME_TELL);
         SetPCChatMessage("");
+        
+        if (bXP)
+             ChatXpSystem();
+             
         return;
     }
     
@@ -110,7 +143,9 @@ void main()
     ChatXpSystem();
 
     // Send chat to DMs
-    SendChatToListeners(oSpeaker, sSpoke, iGetVolume);
+    // if speaker is associate, add its name to spoken message
+    sSpeakerName = sSpeakerName == GetName(oSpeaker) ? "" : "(" + sSpeakerName + ") ";
+    SendChatToListeners(oSpeaker, sSpeakerName + sSpoke, iGetVolume);
 }
 
 void ChatXpSystem()
@@ -139,44 +174,30 @@ void ChatXpSystem()
     SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
 }
 
-void HenchmanChat(string mess) {
-  object oPC = GetPCChatSpeaker();
-  int bCreatureCommand = FALSE;
-  int HideText = FALSE;
-  string left = GetStringLeft(mess,3);
+object GetAssociateSpeaker(int iPlayerType, string sVarName)
+{
+    if (iPlayerType == PLAYER_TYPE_PC_POSSESSED)
+        return GetMaster(oSpeaker);
+    else
+        return GetLocalObject(oSpeaker, sVarName);
+}
 
-  object oFam = OBJECT_INVALID;
-  if(left == "/f ") {
-    oFam = GetLocalObject(oPC,"FAMILIAR");
-    bCreatureCommand = TRUE;
-  }
-  if(left == "/c ") {
-    bCreatureCommand = TRUE;
-    oFam = GetLocalObject(oPC,"COMPANION");
-  }
-  if(left == "/h ") {
-    bCreatureCommand = TRUE;
-    oFam = GetLocalObject(oPC,"JA_HORSE_OBJECT");
-  }
-  if( (bCreatureCommand) &&
-      (GetIsObjectValid(oFam)) ) {
-    string sRight = GetSubString(mess,3,100);
-    float fDur = 9999.0f; //Duration
+string AssociateSpeak(object oAssociate, string sRight)
+{
+    if (!GetIsObjectValid(oAssociate) || sRight == "")
+        return "";
+
+    float fDur = 9999.0f;
+
     if(sRight == "*sedni*") {
-      AssignCommand(oFam, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur));
+      AssignCommand(oAssociate, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, fDur));
     } else if(sRight == "*lehni*") {
-      AssignCommand(oFam, PlayAnimation( ANIMATION_LOOPING_DEAD_BACK, 1.0, fDur));
+      AssignCommand(oAssociate, PlayAnimation( ANIMATION_LOOPING_DEAD_BACK, 1.0, fDur));
     } else if(sRight == "*uhni*") {
-      AssignCommand(oFam, PlayAnimation( ANIMATION_FIREFORGET_DODGE_SIDE, 1.0));
+      AssignCommand(oAssociate, PlayAnimation( ANIMATION_FIREFORGET_DODGE_SIDE, 1.0));
     } else {
-      AssignCommand(oFam,SpeakString(sRight));
+      AssignCommand(oAssociate, SpeakString(sRight));
+      return GetName(oAssociate);
     }
-    HideText = TRUE;
-  }
- 
-  if(HideText) {
-    SetPCChatVolume(TALKVOLUME_TELL);
-    SetPCChatMessage("");
-  }
-
+    return GetName(oSpeaker);
 }

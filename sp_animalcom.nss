@@ -109,6 +109,9 @@ void main()
         
     if (iAppearance)
         SetCreatureAppearanceType(oAssociate, iAppearance);
+        
+    // for /c chat command
+    SetLocalObject(OBJECT_SELF, "COMPANION", oAssociate);
 
     DelayCommand(3.0,ApplyCompanionBonuses(OBJECT_SELF));
 }
