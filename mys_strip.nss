@@ -55,6 +55,7 @@ void main()
     string sText = GetSelectedNodeText();
     object oPC = GetPCSpeaker();
     object oArmor = GetItemInSlot(INVENTORY_SLOT_CHEST, oPC);
+    object oNewArmor;
     
     //--------------------------------------------------------------------------
     // ONE PART
@@ -150,5 +151,9 @@ void main()
     }
     
     else
-        SendMessageToPC(OBJECT_SELF, "[Chyba] Neurèená akce.");
+        SendMessageToPC(oPC, "[Chyba] Neurèená akce.");
+        
+    oNewArmor = CopyItem(oArmor, oPC, TRUE);
+    AssignCommand(oPC, ActionEquipItem(oNewArmor, INVENTORY_SLOT_CHEST));
+    DestroyObject(oArmor);
 }
