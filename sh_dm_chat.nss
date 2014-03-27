@@ -60,7 +60,7 @@
     int iLanguageSpeaker = GetLocalInt(oCheck,"Language");
 
 void ChatXpSystem();
-void HenchmanChat();
+void HenchmanChat(string mess);
     
 void main()
 {
@@ -93,6 +93,7 @@ void main()
             PCEmoteFunction();
             PCDiceFuntion();
             LanguageSet();
+            HenchmanChat(sSpoke);
         }
         SetPCChatVolume(TALKVOLUME_TELL);
         SetPCChatMessage("");
@@ -138,10 +139,11 @@ void ChatXpSystem()
     SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);
 }
 
-void HenchmanChat() {
+void HenchmanChat(string mess) {
   object oPC = GetPCChatSpeaker();
   int bCreatureCommand = FALSE;
   int HideText = FALSE;
+  string left = GetStringLeft(mess,3);
 
   object oFam = OBJECT_INVALID;
   if(left == "/f ") {
