@@ -38,7 +38,7 @@ void main()
 
   if  (GetGold(oPC) < iPrice/10 ) {
     SpeakString(" Nesnaz se me podvadet ! ");
-    SendMessageToAllDMs("postava " + ObjectToString(oPC) + "podvadi pri postovnim Q. Dava pravdepodobne zalohu na zem");
+    SendMessageToAllDMs("postava " + GetName(oPC) + "podvadi pri postovnim Q. Dava pravdepodobne zalohu na zem");
     return;
   }
 
