@@ -17,8 +17,13 @@ object CreatePCSkin(object oPC) {
 object CheckPCSkin(object oPC) {
   object oSkin = GetLocalObject(oPC, "th_pcskin");
   object oEquiped =  GetItemInSlot(INVENTORY_SLOT_CARMOUR, oPC);
-  if(oSkin != oEquiped) {
+  if(GetIsObjectValid(oSkin) && oSkin != oEquiped) {
     DelayCommand(0.2,AssignCommand(oPC, ActionEquipItem(oSkin, INVENTORY_SLOT_CARMOUR)));
+  }
+  else {
+    oSkin = oEquiped;
+    if(GetIsObjectValid(oSkin))
+      SetLocalObject(oPC, "th_pcskin", oSkin);
   }
   return oSkin;
 }
