@@ -25,14 +25,17 @@ int GetThalieSpellDCBonus(object oPCNPC)
     int iBonus = 0;
     //Epic DC bonus - +1 za kazde 2 lvly nad epic
     int iClass = GetLastSpellCastClass();
-    if ((iClass == CLASS_TYPE_SORCERER
-    || iClass == CLASS_TYPE_WIZARD
-    || iClass == CLASS_TYPE_CLERIC
-    || iClass == CLASS_TYPE_DRUID
-    || iClass == CLASS_TYPE_BARD)
-    && GetLevelByClass(iClass,oPCNPC) >= 21)
-    {
-        iBonus += (GetLevelByClass(iClass,oPCNPC)-19)/2;
+    switch(iClass) {
+      case CLASS_TYPE_SORCERER:
+      case CLASS_TYPE_WIZARD:
+      case CLASS_TYPE_CLERIC:
+      case CLASS_TYPE_DRUID:
+      case CLASS_TYPE_BARD:
+        if(GetLevelByClass(iClass,oPCNPC) >= 21)
+          iBonus += (GetLevelByClass(iClass,oPCNPC)-19)/2;
+        break;
+      default: //nothing
+        break;
     }
 
 
