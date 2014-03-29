@@ -43,12 +43,12 @@ void main()
         //ak niesom pri vode tak mozem skoncit
         if (!ku_GetIsDrinkable(iTypVody))
         {
-            FloatingTextStringOnCreature("Musis stat u vodneho zdroja.", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "Musis stat u vodneho zdroja.");
             return;
         }
 
         if(ku_GetIsSickWater(iTypVody) && !GetLocalInt(oPlayer,"ku_water_warn")) {
-            FloatingTextStringOnCreature("Voda divne zapacha. Opravdu zde chces nabrat vodu?", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "Voda divne zapacha. Opravdu zde chces nabrat vodu?");
             SetLocalInt(oPlayer,"ku_water_warn",TRUE);
             DelayCommand(10.0, DeleteLocalInt(oPlayer,"ku_water_warn"));
             return;
@@ -62,7 +62,7 @@ void main()
 
         //znicim prazdnu cutotu z invu
         DestroyObject(oItem, 0.0f);
-        FloatingTextStringOnCreature("*Naplni cutoru*", oPlayer,TRUE);
+        SendMessageToPC(oPlayer, "*Naplni cutoru*");
         AssignCommand(oPlayer, ActionPlayAnimation (ANIMATION_LOOPING_GET_LOW, 1.0, 3.0));
         return;
     }
@@ -75,7 +75,7 @@ void main()
         if (iTypVody>0)
         {
             if(ku_GetIsSickWater(iTypVody) && !GetLocalInt(oPlayer,"ku_water_warn")) {
-              FloatingTextStringOnCreature("Voda divne zapacha. Opravdu zde chces nabrat vodu?", oPlayer,TRUE);
+              SendMessageToPC(oPlayer, "Voda divne zapacha. Opravdu zde chces nabrat vodu?");
               SetLocalInt(oPlayer,"ku_water_warn",TRUE);
               DelayCommand(10.0, DeleteLocalInt(oPlayer,"ku_water_warn"));
               return;
@@ -84,7 +84,7 @@ void main()
             int iMaxNaplni = GetLocalInt(oItem,"MaxNaplni");
             SetLocalInt(oItem,"AktNaplni",iMaxNaplni);
             SetName(oItem,"Plna cutora ("+IntToString(iMaxNaplni)+")");
-            FloatingTextStringOnCreature("*Naplni cutoru*", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "*Naplni cutoru*");
             AssignCommand(oPlayer, ActionPlayAnimation (ANIMATION_LOOPING_GET_LOW, 1.0, 3.0));
             return;
         }
@@ -96,16 +96,16 @@ void main()
         AssignCommand(oPlayer, ActionPlayAnimation (ANIMATION_FIREFORGET_DRINK, 1.0, 3.0));
 
         if (ku_GetIsDrinkable(iTypVody) && !ku_GetIsSickWater(iTypVody)) {
-            FloatingTextStringOnCreature("*Napijes se* Aaah, prijemne osviezujici.", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "*Napijes se* Aaah, prijemne osviezujici.");
             PC_ConsumeItValues(oPlayer,0.0,10.0,0.0);
         }
         if (!ku_GetIsDrinkable(iTypVody)) {
-            FloatingTextStringOnCreature("*Napijes se* Fuj, slana je!", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "*Napijes se* Fuj, slana je!");
             effect eEfx = EffectAbilityDecrease(ABILITY_CONSTITUTION,4);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT,eEfx,oPlayer,0.0f);
         }
         if (ku_GetIsSickWater(iTypVody)) {
-            FloatingTextStringOnCreature("*Napijes se* Uff, nejak nechuti dobre.", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "*Napijes se* Uff, nejak nechuti dobre.");
             effect eEfx = EffectDisease(DISEASE_SHAKES);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT,eEfx,oPlayer,0.0f);
         }
@@ -119,7 +119,7 @@ void main()
             //vytvorim prazdnu cutoru pre hraca
             string sVyzor = GetLocalString(oItem, "Vyzor");
             CreateItemOnObject(sVyzor, oPlayer, 1, "");
-            FloatingTextStringOnCreature("Dosla ti voda.", oPlayer,TRUE);
+            SendMessageToPC(oPlayer, "Dosla ti voda.");
             DestroyObject(oItem, 0.0f);
         }
         return;
@@ -172,9 +172,9 @@ void main()
         object oPlayer  = GetItemActivator();
         int    iNahodne = Random(3);
 
-        if (iNahodne==0) FloatingTextStringOnCreature("Chrum chrum... chuti to dobre.", oPlayer,TRUE);
-        if (iNahodne==1) FloatingTextStringOnCreature("Ehm, mirne nedopecene.", oPlayer,TRUE);
-        if (iNahodne==2) FloatingTextStringOnCreature("No snad to preziju.", oPlayer,TRUE);
+        if (iNahodne==0) SendMessageToPC(oPlayer, "Chrum chrum... chuti to dobre.");
+        if (iNahodne==1) SendMessageToPC(oPlayer, "Ehm, mirne nedopecene.");
+        if (iNahodne==2) SendMessageToPC(oPlayer, "No snad to preziju.");
 
         //doplni hlad
         PC_ConsumeItValues(oPlayer,13.0,0.0,0.0);
