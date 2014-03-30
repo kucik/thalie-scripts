@@ -51,7 +51,7 @@ object SummonHenchman(object oKey)
         object oHenchman = CreateObject(OBJECT_TYPE_CREATURE, sResRef, lLocation, FALSE, sTag);
         
         // Set proper hitpoints
-        if (iHP < GetCurrentHitPoints(oHenchman))
+        if (iHP && iHP < GetCurrentHitPoints(oHenchman))
             ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oHenchman) - iHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oHenchman);
         
         AssignCommand(oHenchman, SetName(oHenchman, GetName(oKey)));
