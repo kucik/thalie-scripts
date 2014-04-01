@@ -10,7 +10,7 @@ void __loadArea(string sResref) {
   WriteTimestampedLogEntry("Loaded area "+sResref+" -> "+GetName(oArea));
 }
 
-int __processCommand(string sCmd, string sVal) {
+int __processCommand(string sCmd, string sVal, string sParam1) {
   // Known commands one by one
 
   // Area load through resman
@@ -49,6 +49,23 @@ int __processCommand(string sCmd, string sVal) {
     }
     return TRUE;
   }
+
+  // Change player appearance
+  if(sCmd == "chgappearance") {
+    object oPC;
+    int i = 0;
+
+    oPC = GetFirstPC();
+    while (GetIsObjectValid(oPC)) {
+      if(sVal == SQLEncodeSpecialChars(GetPCPlayerName(oPC))) {
+        int iParam = StringToInt(sParam1);
+        SetCreatureAppearanceType(oPC,iParam);
+        return TRUE;
+      }
+      oPC = GetNextPC();
+    }
+    return FALSE;
+  }
  
   return FALSE;
 }
@@ -59,6 +76,7 @@ int __processCommands() {
   string sID;
   string sCmd;
   string sVal;
+  string sParam1;
 
   /* Fetch commands to be processed */ 
   string sSql = "SELECT * FROM server_commands ORDER BY datestamp;";
@@ -67,8 +85,9 @@ int __processCommands() {
     sID = SQLGetData(1);
     sCmd = SQLGetData(2);
     sVal = SQLGetData(3);
+    sParam1 = SQLGetData(5);
 
-    if(__processCommand(sCmd, sVal)) {
+    if(__processCommand(sCmd, sVal, sParam1)) {
       sSql = "DELETE FROM server_commands WHERE id='"+sID+"';";
       return TRUE; 
     }
