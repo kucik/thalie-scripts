@@ -240,6 +240,47 @@ void main()
     {
         ActionPlayEmote(oPC, 41);
     }
+    
+    // *************************************************************************
+    // Zvukové projevy
+    // *************************************************************************
+    else if (sText == GetDialogActionText("pískat si"))
+    {
+        ActionPlaySoundEmote(oPC, 0);
+    }
+    else if (sText == GetDialogActionText("krknout"))
+    {
+        ActionPlaySoundEmote(oPC, 1);
+    }
+    else if (sText == GetDialogActionText("odplivnout"))
+    {
+        ActionPlaySoundEmote(oPC, 2);
+    }
+    else if (sText == GetDialogActionText("kýchnout"))
+    {
+        ActionPlaySoundEmote(oPC, 3);
+    }
+    else if (sText == GetDialogActionText("kašlat"))
+    {
+        ActionPlaySoundEmote(oPC, 4);
+    }
+    else if (sText == GetDialogActionText("zívnout"))
+    {
+        ActionPlaySoundEmote(oPC, 5);
+    }
+    else if (sText == GetDialogActionText("chrápat"))
+    {
+        ActionPlaySoundEmote(oPC, 6);
+    }
+    else if (sText == GetDialogActionText("pláè"))
+    {
+        ActionPlaySoundEmote(oPC, 7);
+    }
+    else if (sText == GetDialogActionText("modlení"))
+    {
+        ActionPlaySoundEmote(oPC, 8);
+    }    
+    
     else
     {
         SendMessageToPC(oPC, "Chyba: neurèená animace.");

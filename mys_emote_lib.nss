@@ -290,6 +290,81 @@ void ActionPlayEmote(object oSubject, int iEmote)
     }
 }
 
+void ActionPlaySoundEmote(object oSubject, int iEmote)
+{
+    string sSoundTag;
+    int iGender = GetGender(oSubject);
+    
+    switch(iEmote)
+    {
+        // whistle
+        case 0:
+            sSoundTag = "as_pl_whistle" + IntToString(Random(2) + 1);
+            AssignCommand(oSubject, SpeakString("*píska si*"));
+            PlaySound(sSoundTag);
+            break;
+        
+        // krknout
+        case 1:
+            sSoundTag = "as_pl_x2rghtav" + IntToString(Random(3) + 1);
+            AssignCommand(oSubject, SpeakString("*krkne*"));
+            PlaySound(sSoundTag);
+            break;
+        
+        // spit
+        case 2:
+            sSoundTag = "as_pl_spittingm" + IntToString(Random(2) + 1);
+            AssignCommand(oSubject, SpeakString("*plivne*"));
+            PlaySound(sSoundTag);
+            AssignCommand(oSubject, ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 1.0, 2.0));
+            break;
+            
+        // sneeze
+        case 3:
+            sSoundTag = iGender == GENDER_MALE ? "as_pl_sneezingm1" : "as_pl_sneezingf1";
+            AssignCommand(oSubject, SpeakString("*kýchne*"));
+            PlaySound(sSoundTag);
+            break;
+            
+        // cough
+        case 4:
+            sSoundTag = iGender == GENDER_MALE ? "as_pl_coughm" : "as_pl_coughf";
+            sSoundTag += IntToString(Random(6) + 2);
+            AssignCommand(oSubject, SpeakString("*kašle*"));
+            PlaySound(sSoundTag);
+            break;
+        
+        // sleepy
+        case 5:
+            sSoundTag = iGender == GENDER_MALE ? "as_pl_yawningm1" : "as_pl_yawningf1";
+            AssignCommand(oSubject, SpeakString("*zívá*"));
+            PlaySound(sSoundTag);
+            AssignCommand(oSubject, ActionPlayAnimation (ANIMATION_LOOPING_PAUSE_TIRED, 1.0, 3.0));
+            break;
+        
+        // snore
+        case 6:
+            sSoundTag = iGender == GENDER_MALE ? "as_pl_snoringm1" : "as_pl_snoringf1";
+            AssignCommand(oSubject, SpeakString("*chrápe*"));
+            PlaySound(sSoundTag);
+            break;
+            
+        // cry
+        case 7:
+            sSoundTag = iGender == GENDER_MALE ? "as_pl_cryingm" : "as_pl_cryingf";
+            sSoundTag += IntToString(Random(3) + 1);
+            AssignCommand(oSubject, SpeakString("*breèí*"));
+            PlaySound(sSoundTag);
+            break;
+            
+        // chant
+        case 8:
+            sSoundTag = iGender == GENDER_MALE ? "as_pl_chantingm1" : "as_pl_chantingf1";
+            PlaySound(sSoundTag);
+            break;
+    }
+}
+
 void ActionSitNearestPlaceable(object oSubject)
 {
     object oPlaceable = GetNearestObject(OBJECT_TYPE_PLACEABLE, oSubject);
