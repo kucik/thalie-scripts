@@ -42,7 +42,7 @@ void main()
         iSearch = GetSkillRank(SKILL_SEARCH,oTarget);
         iGender = GetGender(oTarget);
         iRacial = GetRacialType(oTarget);
-        if ((
+        if (iGender == GENDER_MALE && (
         iRacial == RACIAL_TYPE_DWARF ||
         iRacial == RACIAL_TYPE_ELF ||
         iRacial == RACIAL_TYPE_GNOME ||
