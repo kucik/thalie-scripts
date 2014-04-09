@@ -1,13 +1,21 @@
+#include "me_soul_inc"
 #include "ku_libtime"
 
 void main()
 {
     object oPC = OBJECT_SELF;
+    object oSoul = GetSoulStone(oPC);
     location lTarget = GetSpellTargetLocation();
     int iTime = ku_GetTimeStamp();
     int iPrev = GetLocalInt(oPC,"SUBRACE_LET_TIME");
-    SendMessageToPC(oPC,"Cas je "+IntToString(iTime));
     effect eAp;
+    
+    if (GetLocalInt(oSoul, "MOUNTED"))
+    {
+        SendMessageToPC(oPC, "Nelze létat v sedle.");
+        return;
+    }
+    
     if ((iTime-iPrev)>= 1800 || iPrev == 0) //delsi cas nez 30 minut
     {
         eAp = EffectDisappearAppear(lTarget);
