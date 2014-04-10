@@ -11,27 +11,27 @@ Dale obsahuje pomocne funkce
 // Vraci o kolik se zvednou staty pri barbarove rage
 int GetBarbarianAbilityBonus(object oPC)
 {
-    if (GetHasFeat(FEAT_LEGENDARNI_ZURIVOST3,oPC) == TRUE)
+    if (GetKnowsFeat(FEAT_LEGENDARNI_ZURIVOST3, oPC))
     {
         return 16;
     }
-    if (GetHasFeat(FEAT_LEGENDARNI_ZURIVOST2,oPC) == TRUE)
+    if (GetKnowsFeat(FEAT_LEGENDARNI_ZURIVOST2, oPC))
     {
         return 14;
     }
-    if (GetHasFeat(FEAT_LEGENDARNI_ZURIVOST1,oPC) == TRUE)
+    if (GetKnowsFeat(FEAT_LEGENDARNI_ZURIVOST1, oPC))
     {
         return 12;
     }
-    if (GetHasFeat(FEAT_EPICKA_ZURIVOST,oPC) == TRUE)
+    if (GetKnowsFeat(FEAT_EPICKA_ZURIVOST, oPC))
     {
         return 10;
     }
-     if (GetHasFeat(FEAT_MOCNA_ZURIVOST,oPC) == TRUE)
+    if (GetKnowsFeat(FEAT_MOCNA_ZURIVOST, oPC))
     {
         return 8;
     }
-     if (GetHasFeat(FEAT_VETSI_ZURIVOST,oPC) == TRUE)
+    if (GetKnowsFeat(FEAT_VETSI_ZURIVOST, oPC))
     {
         return 6;
     }
