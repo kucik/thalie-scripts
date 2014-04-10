@@ -40,6 +40,8 @@ void main()
     effect eVis = EffectVisualEffect(VFX_FNF_SUMMON_GATE);
     object oTarget = GetSpellTargetObject();
     location lSpellTargetLOC;
+    int Alignment = GetAlignmentGoodEvil(OBJECT_SELF);
+    
     if (GetIsObjectValid(oTarget))
     {
         if ((GetRacialType((oTarget)) == RACIAL_TYPE_OUTSIDER))
@@ -69,9 +71,19 @@ void main()
     }
     //Summon the Balor and apply the VFX impact
     //ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetSpellTargetLocation());
+    
+    if(Alignment == ALIGNMENT_GOOD){
+        eSummon = EffectSummonCreature("ry_s_dracspl", VFX_FNF_SUMMON_GATE, 3.0);
+        float fSeconds = RoundsToSeconds(nDuration);
+        DelayCommand(3.0, ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, lSpellTargetLOC, fSeconds));
+    }
+    else if(Alignment == ALIGNMENT_NEUTRAL){
+        eSummon = EffectSummonCreature("ry_s_bslaad", VFX_FNF_SUMMON_GATE, 3.0);
+        float fSeconds = RoundsToSeconds(nDuration);
+        DelayCommand(3.0, ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, lSpellTargetLOC, fSeconds));
+    }
 
-
-    if(GetHasSpellEffect(SPELL_PROTECTION_FROM_EVIL) ||
+    else if(GetHasSpellEffect(SPELL_PROTECTION_FROM_EVIL) ||
        GetHasSpellEffect(SPELL_MAGIC_CIRCLE_AGAINST_EVIL) ||
        GetHasSpellEffect(SPELL_HOLY_AURA))
     {
