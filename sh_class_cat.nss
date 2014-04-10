@@ -1642,7 +1642,7 @@ void ApplyRegeneration(object oPC, object oPCSkin)
     {
         itemproperty eRegen = ItemPropertyRegeneration(iRegeneration);
         SetItemPropertySpellId(eRegen,IP_REGENERATION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,eRegen,oPCSkin,9999.0);
+        AddItemProperty(DURATION_TYPE_TEMPORARY,eRegen,oPCSkin,43200.0);
 
     }
 }
