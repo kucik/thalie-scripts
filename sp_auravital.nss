@@ -43,20 +43,21 @@ void main()
 
     effect eVis = EffectVisualEffect(VFX_IMP_IMPROVE_ABILITY_SCORE);
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_HOLY_30);
-    int nDuration = GetCasterLevel(OBJECT_SELF);
-    nDuration = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nDuration,FALSE);
+    int iCasterLvl = GetCasterLevel(OBJECT_SELF);
+    int iDurationCasterLvlIncluded; // duration of spell, where the lvl of target is included
     float fDelay;
 
     int nMetaMagic = GetMetaMagicFeat();
-    //Enter Metamagic conditions
-    if (nMetaMagic == METAMAGIC_EXTEND)
+    //Enter Empower Metamagic conditions, exteded metamagic is dealed later
+    /*if (nMetaMagic == METAMAGIC_EXTEND)
     {
         nDuration *= 2; //Duration is +100%
-    }
+    }*/
     if (nMetaMagic == METAMAGIC_EMPOWER)
     {
         iBonus = 6; //Duration is +100%
     }
+    // strength of effects are ThalieCaster-independent, define them here
     effect eStr = EffectAbilityIncrease(ABILITY_STRENGTH,iBonus);
     effect eDex = EffectAbilityIncrease(ABILITY_DEXTERITY,iBonus);
     effect eCon = EffectAbilityIncrease(ABILITY_CONSTITUTION,iBonus);
@@ -71,10 +72,17 @@ void main()
         if(GetFactionEqual(oTarget) || GetIsReactionTypeFriendly(oTarget))
         {
             fDelay = GetRandomDelay(0.4, 1.1);
+            // adjust duration of the spell with respect to lvl of a target
+            iDurationCasterLvlIncluded = GetThalieCaster(OBJECT_SELF, oTarget, iCasterLvl, TRUE);
+            // deal with extended spells
+            if (nMetaMagic == METAMAGIC_EXTEND) 
+            {
+                iDurationCasterLvlIncluded *= 2; //Duration is +100%
+            }            
             //Signal the spell cast at event
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_AURA_OF_VITALITY, FALSE));
             //Apply effects and VFX to target
-            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
+            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(iDurationCasterLvlIncluded)));
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
         }
         oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));
