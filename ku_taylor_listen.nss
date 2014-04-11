@@ -57,6 +57,12 @@ void main()
 //            SpeakString("Dyer");
             int iSlot = GetLocalInt(oDyer,"DYE_INV_SLOT");
             int iType = GetLocalInt(OBJECT_SELF, "KU_PART") > 255 ? GetLocalInt(OBJECT_SELF, "KU_TYPE") : ITEM_APPR_TYPE_ARMOR_COLOR;
+            // cloak models only 1-32
+            if (GetLocalInt(OBJECT_SELF, "KU_PART") > 255 && (!iNum || iNum > 32))
+            {
+                SpeakString("Vzhled není.");
+                return;
+            }
             object oNCloth = CopyItemAndModify(oCloth,iType,iPart,iNum,TRUE);
             AssignCommand(oShouter,ActionEquipItem(oNCloth,iSlot));
             DestroyObject(oCloth);
