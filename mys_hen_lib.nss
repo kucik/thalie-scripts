@@ -128,10 +128,10 @@ object HireHenchman(object oHenchman, object oPC, object oLessor, float fDurModi
     int iPrice = FloatToInt( IntToFloat(GetHenchmanHirePrice(oHenchman)) * fDurModificator );
     int iDur = FloatToInt( IntToFloat(HENCHMAN_LEASE_LENGTH_DEFAULT) * fDurModificator );
     
-    SendMessageToPC(oPC, "[DEBUG] iHenPrice = " + IntToString(GetHenchmanHirePrice(oHenchman)));
-    SendMessageToPC(oPC, "[DEBUG] fDurMod = " + FloatToString(fDurModificator));
-    SendMessageToPC(oPC, "[DEBUG] iDur = " + IntToString(iDur));
-    SendMessageToPC(oPC, "[DEBUG] iPrice = " + IntToString(iPrice));
+    //SendMessageToPC(oPC, "[DEBUG] iHenPrice = " + IntToString(GetHenchmanHirePrice(oHenchman)));
+    //SendMessageToPC(oPC, "[DEBUG] fDurMod = " + FloatToString(fDurModificator));
+    //SendMessageToPC(oPC, "[DEBUG] iDur = " + IntToString(iDur));
+    //SendMessageToPC(oPC, "[DEBUG] iPrice = " + IntToString(iPrice));
     
     if (GetGold(oPC) < iPrice) {
         if (GetIsObjectValid(oLessor))
