@@ -19,6 +19,9 @@
 // return TRUE if the effect created by a supernatural force and can't be dispelled by spells
 int GetIsSupernaturalCurse(effect eEff);
 
+// return TRUE if spell effect should not be removed by Greater Restoration 
+int GetIsExcludedSpell(effect eEff);
+
 void main()
 {
 
@@ -62,7 +65,7 @@ void main()
             GetEffectType(eBad) == EFFECT_TYPE_NEGATIVELEVEL)
             {
                 //Remove effect if it is negative.
-                if(!GetIsSupernaturalCurse(eBad))
+                if(!GetIsSupernaturalCurse(eBad) && !GetIsExcludedSpell(eBad))
                     RemoveEffect(oTarget, eBad);
             }
         eBad = GetNextEffect(oTarget);
@@ -82,5 +85,18 @@ int GetIsSupernaturalCurse(effect eEff)
     object oCreator = GetEffectCreator(eEff);
     if(GetTag(oCreator) == "q6e_ShaorisFellTemple")
         return TRUE;
+    return FALSE;
+}
+
+int GetIsExcludedSpell(effect eEff)
+{
+    int iSpellId = GetEffectSpellId(eEff);
+    
+    if (iSpellId == 78  // Haste
+     || iSpellId == 113 // Mass haste
+    )
+    {
+        return TRUE;
+    }
     return FALSE;
 }
