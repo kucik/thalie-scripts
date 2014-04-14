@@ -12,6 +12,7 @@
 //:://////////////////////////////////////////////
 
 #include "x2_inc_spellhook"
+#include "ku_libtime"
 
 void main()
 {
