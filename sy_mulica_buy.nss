@@ -34,7 +34,7 @@ void main()
     //zaplatil tak vytvorim mulicu
     location lPoz   = GetLocation(oPC);
     string   sAppr  = GetLocalString(OBJECT_SELF,"sy_predava");
-    object   oMula  = CreateObject(OBJECT_TYPE_CREATURE,sAppr,lPoz);
+    object   oMula  = CreateObject(OBJECT_TYPE_CREATURE,sAppr,lPoz, FALSE, sAppr);
     string   sMeno  = GetName(oPC,TRUE);
     SetName(oMula,GetName(oMula,TRUE) + " ("+sMeno+")");
     SetLocalString(oMula,"sy_majitel",sMeno);
