@@ -52,7 +52,10 @@ object SummonHenchman(object oKey)
         
         // Set proper hitpoints
         if (iHP && iHP < GetCurrentHitPoints(oHenchman))
-            ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oHenchman) - iHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oHenchman);
+        {
+            AssignCommand(GetModule(), ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oHenchman) - iHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oHenchman));
+            AssignCommand(oHenchman, ClearAllActions(TRUE));
+        }
         
         AssignCommand(oHenchman, SetName(oHenchman, GetName(oKey)));
         AssignCommand(oHenchman, AddHenchman(oPC, oHenchman));

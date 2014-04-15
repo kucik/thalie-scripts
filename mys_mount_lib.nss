@@ -202,7 +202,10 @@ void Dismount(object oRider, object oSoul, int bSummonMount)
             
             // Set mount proper hitpoints
             if (iMountHP && iMountHP < GetCurrentHitPoints(oMount))
-                ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oMount) - iMountHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oMount);
+            {
+                AssignCommand(GetModule(), ApplyEffectToObject( DURATION_TYPE_INSTANT, EffectDamage(GetCurrentHitPoints(oMount) - iMountHP, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY), oMount));
+                AssignCommand(oMount, ClearAllActions(TRUE));
+            }
             
             // Add mount to party
             AssignCommand(oMount, AddHenchman(oRider, oMount));
