@@ -37,6 +37,65 @@ void main()
         else
             SendMessageToPC(oPC, "Zmìna jména se nezdaøila.");
     }
+    else if (sText == "<StartAction>[Prodloužit pronájem o pùl roku]</Start>")
+    {
+        object oKey = GetLocalObject(OBJECT_SELF, "KEY");
+        
+        if (GetIsObjectValid(oKey))
+        {
+            int iPrice = GetLocalInt(oKey, "HENCHMAN_LEASE_PRICE") / 2;
+            if (!iPrice)
+            {
+                SendMessageToPC(oPC, "Nesrovnalosti s cenou mi zabránily prodloužit pronájem.");
+                return;
+            }
+            
+            if (GetGold(oPC) < iPrice)
+            {
+                SendMessageToPC(oPC, "Nemáš dost grešlí.");
+                return;
+            }
+            
+            int bExtended = ExtendHenchmanKey(oKey, OBJECT_SELF, 2419200);
+            if (bExtended)
+            {
+                TakeGoldFromCreature(iPrice, oPC, TRUE);
+                SendMessageToPC(oPC, "Tvùj pronájem byl prodloužen o další pùlrok.");
+            }                        
+            else
+                SendMessageToPC(oPC, "Nesrovnalosti mi zabránily prodloužit pronájem.");
+        }
+    }
+    else if (sText == "<StartAction>[Prodloužit pronájem o rok]</Start>")
+    {
+        object oKey = GetLocalObject(OBJECT_SELF, "KEY");
+        
+        if (GetIsObjectValid(oKey))
+        {
+            int iPrice = GetLocalInt(oKey, "HENCHMAN_LEASE_PRICE");
+            if (!iPrice)
+            {
+                SendMessageToPC(oPC, "Nesrovnalosti s cenou mi zabránily prodloužit pronájem.");
+                return;
+            }
+            
+            if (GetGold(oPC) < iPrice)
+            {
+                SendMessageToPC(oPC, "Nemáš dost grešlí.");
+                return;
+            }
+            
+            int bExtended = ExtendHenchmanKey(oKey, OBJECT_SELF);
+            if (bExtended)
+            {
+                TakeGoldFromCreature(iPrice, oPC, TRUE);
+                SendMessageToPC(oPC, "Tvùj pronájem byl prodloužen o další rok.");
+            }                        
+            else
+                SendMessageToPC(oPC, "Nesrovnalosti mi zabránily prodloužit pronájem.");
+        }
+    }
+    
     else if (sText == "Pronajmout zvíøe na pùl roku.")
     {
         if (GetIsObjectValid(OBJECT_SELF))

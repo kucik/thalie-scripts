@@ -75,6 +75,7 @@ void StoreMountInfo(object oMount, object oKey)
 
 void SetMountProperties(object oMount, object oKey)
 {
+    SetLocalObject(oMount, "KEY", oKey);
     SetLocalInt(oMount, "MOUNT_TAIL", GetLocalInt(oKey, "MOUNT_TAIL"));
     SetLocalInt(oMount, "MOUNT_PHENOTYPE", GetLocalInt(oKey, "MOUNT_PHENOTYPE"));
     SetLocalInt(oMount, "MOUNT_PHENOTYPE_L", GetLocalInt(oKey, "MOUNT_PHENOTYPE_L"));

@@ -29,7 +29,7 @@ void CopyHenchmanVars(object oFrom, object oTo);
 
 // Returns key object.
 object HireHenchman(object oHenchman, object oPC, object oLessor = OBJECT_INVALID, float fDurModificator = 1.0f);
-int ExtendHenchmanKey(object oKey, object oLessor = OBJECT_INVALID);
+int ExtendHenchmanKey(object oKey, object oLessor = OBJECT_INVALID, int iEnlongation = 0);
 int GetHenchmanHirePrice(object oHenchman);
 object GetHenchmanByName(object oLessor, string sName);
 object GetKeyByName(object oPC, string sName);
@@ -125,7 +125,8 @@ void CopyHenchmanVars(object oFrom, object oTo)
 
 object HireHenchman(object oHenchman, object oPC, object oLessor, float fDurModificator)
 {
-    int iPrice = FloatToInt( IntToFloat(GetHenchmanHirePrice(oHenchman)) * fDurModificator );
+    int iHenchmanHirePrice = GetHenchmanHirePrice(oHenchman);
+    int iPrice = FloatToInt( IntToFloat(iHenchmanHirePrice) * fDurModificator );
     int iDur = FloatToInt( IntToFloat(HENCHMAN_LEASE_LENGTH_DEFAULT) * fDurModificator );
     
     //SendMessageToPC(oPC, "[DEBUG] iHenPrice = " + IntToString(GetHenchmanHirePrice(oHenchman)));
@@ -156,6 +157,7 @@ object HireHenchman(object oHenchman, object oPC, object oLessor, float fDurModi
     CopyHenchmanVars(oHenchman, oKey);
     SetLocalString(oKey, "HENCHMAN_RESREF", GetResRef(oHenchman));
     SetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION", iTime + iExpiresIn);
+    SetLocalInt(oKey, "HENCHMAN_LEASE_PRICE", iHenchmanHirePrice);
     SetLocalInt(oKey, "HENCHMAN_USES", 1);
     if (GetIsObjectValid(oLessor))
         SetLocalString(oKey, "HENCHMAN_LESSOR_TAG", GetTag(oLessor));
@@ -165,7 +167,7 @@ object HireHenchman(object oHenchman, object oPC, object oLessor, float fDurModi
     return oKey;
 }
 
-int ExtendHenchmanKey(object oKey, object oLessor)
+int ExtendHenchmanKey(object oKey, object oLessor, int iEnlongation)
 {
     if (GetLocalString(oKey, "HENCHMAN_LESSOR_TAG") != "")
     {
@@ -173,14 +175,16 @@ int ExtendHenchmanKey(object oKey, object oLessor)
             return FALSE;
     }
     
+    if (!iEnlongation) iEnlongation = HENCHMAN_LEASE_LENGTH_DEFAULT;
+    
     int iTime = ku_GetTimeStamp();
     int iExpireTime = GetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION");
     
     iExpireTime = iTime > iExpireTime ? iTime : iExpireTime;
-    iExpireTime += HENCHMAN_LEASE_LENGTH_DEFAULT;
+    iExpireTime += iEnlongation;
     
     SetLocalInt(oKey, "HENCHMAN_LEASE_EXPIRATION", iExpireTime);
-    SetDescription(oKey, "Konec pronájmu: " + ku_GetDateFromTimeStamp(iExpireTime));
+    SetDescription(oKey, "Konec pronájmu: " + GetDateFromTimeStamp(iExpireTime));
 
     if (iExpireTime < iTime + 43200)
         DelayCommand(IntToFloat(iExpireTime), DestroyObject(oKey));
