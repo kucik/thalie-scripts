@@ -171,7 +171,6 @@ void ApplyBarbarianDamageReduction(object oPC)
         effect ef3 = EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING,lvl+bonus);
         effect eLink = EffectLinkEffects(ef1,ef2);
                eLink =  EffectLinkEffects(eLink,ef3);
-               eLink = ExtraordinaryEffect(eLink);
                eLink = SupernaturalEffect(eLink);
 
         SetEffectSpellId(eLink,EFFECT_BARBAR_SNIZENI_ZRANENI);
@@ -217,7 +216,6 @@ void ApplyShadowDancerZrak(object oPC)
     if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC) >= 1)
     {
         effect eLink = EffectUltravision();
-        eLink = ExtraordinaryEffect(eLink);
         eLink = SupernaturalEffect(eLink);
         SetEffectSpellId(eLink,EFFECT_SD_ZRAK);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
