@@ -41,7 +41,8 @@ void finish(object oPC){
 
         int lastHP = GetCurrentHitPoints(oPC);
         ForceRest(oPC);
-        OnRestClassSystem(oPC);
+        OnLvlupClassSystem(oPC);
+        OnRestClassSystem(oPC);        
         PanoveRadiPlavovlaskyBarvaVlasu(oPC);
         int damage = GetCurrentHitPoints(oPC) - lastHP;
         if(lastHP > 0 && damage > 0){
