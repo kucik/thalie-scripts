@@ -97,16 +97,66 @@ int ku_IsPCNear(object oPC, float distance = 15.0, int IncludeHidden = 0)
  return 0;
 }
 
+int ku_GetPartyXPBonus(object oPC, float distance = 15.0, int IncludeHidden = 0)
+{
+    int i, iPCCounter;
+    object oNearPC;
+    
+    if (IncludeHidden == 1)
+    {
+        for (i = 1; i < 5; i++)
+        {
+            oNearPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oPC, i);
+            if (!GetIsObjectValid(oNearPC))
+                break;
+            if (GetDistanceBetween(oPC, oNearPC) <= distance)
+                iPCCounter ++;
+        }
+    }
+    else
+    {
+        for (i = 1; i < 5; i++)
+        {
+            oNearPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oPC, i, CREATURE_TYPE_PERCEPTION, PERCEPTION_SEEN);
+            if (!GetIsObjectValid(oNearPC))
+                break;
+            if (GetDistanceBetween(oPC, oNearPC) <= distance)
+                iPCCounter ++;
+        }
+        for (i = 1; i < 5; i++)
+        {
+            oNearPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oPC, i, CREATURE_TYPE_PERCEPTION, PERCEPTION_HEARD_AND_NOT_SEEN);
+            if (!GetIsObjectValid(oNearPC))
+                break;
+            if (GetDistanceBetween(oPC, oNearPC) <= distance)
+                iPCCounter ++;
+        }
+    }
+    
+    if (iPCCounter < 1)
+        return 0;
+    
+    switch (iPCCounter)
+    {
+        case 1: return 5;
+        case 2: return 7;
+        case 3: return 9;
+    }
+    return 10;
+}
+
 void ku_GiveXPPerTime(object oPC)
 {
+ object oArea = GetArea(oPC);
  int StopXP = GetLocalInt(oPC,"ku_StopXP");
+ int bDungeon = GetLocalString(oArea, "REST_ZONE") == "nosleep" ? TRUE : FALSE;
 // int IsPCNear = GetLocalInt(oPC,"ku_PCNear");
 
 // int ECL = Subrace_GetECLClass(oPC);
 // int ECL = GetLocalInt(oPC,"ku_ECLClass");
 
- if(StopXP == 0) {
-  int IsPCNear = ku_IsPCNear(oPC);
+ if(StopXP == 0 && !bDungeon) {
+  //int IsPCNear = ku_IsPCNear(oPC);
 
 //  if(KU_XPPT_DEBUG)
 //MessageToPC(oPC,"XP_DEBUG IsPCNear=" + IntToString(IsPCNear));
@@ -126,8 +176,15 @@ void ku_GiveXPPerTime(object oPC)
   }
   XP = XP - HPPenalty;
 
-  if(IsPCNear == 1)
-    XP = XP + 5; //+2
+  //if(IsPCNear == 1)
+    //XP = XP + 5; //+2
+    
+  // Bonus za PC postavy kolem
+  XP += ku_GetPartyXPBonus(oPC);
+  
+  // Specificky bonus/postih lokace
+  int iLocationBonus = GetLocalInt(oArea, "XP_BONUS");
+  XP += iLocationBonus;
 
   // Bonus za prevod stare postavy
   int iBonusLevel = GetLocalInt(oSoul,"NT_XP_BONUS_LEVEL");
