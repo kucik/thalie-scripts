@@ -3990,6 +3990,8 @@ void SetNextSpawn() {
   iSpawnDelay = iSpawnDelay * 6; //Real time to In Game time
   int iSpawnDelayMin = Random(iSpawnDelay*5);
 
+  WriteTimestampedLogEntry("BOSS NextSpawn 'BOSS_LOOT' in '"+GetName(GetArea(oNPC))+"'. Next: in ("+IntToString(iNextSpawn)+")"+IntToString(iSpawnDelay)+"h 0min");
+
   SetLocalInt(oArea,"NEXT_BOSS_SPAWN_TIME",iNextSpawn);
 
   string sResRef = GetResRef(oArea);

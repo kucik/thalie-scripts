@@ -201,7 +201,6 @@ void SetNextSpawn() {
   if(!ai_boss)
     return;
 
-  WriteTimestampedLogEntry("BOSS NextSpawn '"+GetName(oNPC)+"' in '"+GetName(GetArea(oNPC))+"' killed by "+GetName(oKiller));
   ku_LootCreateBossUniqueLootItems(oNPC);
   SetPeltTimeStamp();
 
@@ -220,6 +219,8 @@ void SetNextSpawn() {
   int iSpawnDelayMin = Random(iSpawnDelay*5);
 
   int iNextSpawn = ku_GetTimeStamp(0,iSpawnDelayMin,iSpawnDelay);
+  WriteTimestampedLogEntry("BOSS NextSpawn '"+GetName(oNPC)+"' in '"+GetName(GetArea(oNPC))+"' killed by "+GetName(oKiller)+". Next: in ("+IntToString(iNextSpawn)+")"+IntToString(iSpawnDelay)+"h "+IntToString(iSpawnDelayMin)+"min");
+
   SetLocalInt(oArea,"NEXT_BOSS_SPAWN_TIME",iNextSpawn);
 
   string sResRef = GetResRef(oArea);
