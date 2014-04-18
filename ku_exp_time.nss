@@ -123,14 +123,6 @@ int ku_GetPartyXPBonus(object oPC, float distance = 15.0, int IncludeHidden = 0)
             if (GetDistanceBetween(oPC, oNearPC) <= distance)
                 iPCCounter ++;
         }
-        for (i = 1; i < 5; i++)
-        {
-            oNearPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oPC, i, CREATURE_TYPE_PERCEPTION, PERCEPTION_HEARD_AND_NOT_SEEN);
-            if (!GetIsObjectValid(oNearPC))
-                break;
-            if (GetDistanceBetween(oPC, oNearPC) <= distance)
-                iPCCounter ++;
-        }
     }
     
     if (iPCCounter < 1)
