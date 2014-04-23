@@ -196,5 +196,11 @@ void main()
             //RandomBypass(oPC);
 
             break;
+        
+        case EVENT_TYPE_VALIDATE_CHARACTER:
+            BypassEvent();
+            SetReturnValue(0);
+            break;
+
     }
 }
