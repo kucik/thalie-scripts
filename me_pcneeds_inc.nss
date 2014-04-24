@@ -294,7 +294,7 @@ string CheckAlcohol( object oPC)
     else if( (fRating >= (MAX_ALCOHOL * 0.7)) &&  (fRating <= (MAX_ALCOHOL * 0.9)) )
         {
             if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol3( oPC);
-            return  "<cX  >Uz skoro nic necitis.</c>";
+            return  "<cX  >Jsi jak sliva.</c>";
         }
     else if( (fRating >= (MAX_ALCOHOL * 0.9)) &&  (fRating <= (MAX_ALCOHOL * 1.1)) )
         {

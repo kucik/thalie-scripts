@@ -44,6 +44,8 @@ void DrunkenFoolThree(object oPC)
 //------------------------------------------------------------------------------
 void DrunkenFoolFour(object oPC)
 {
+    DrunkenFoolThree(oPC);
+    return;
     object oItem1 = GetItemInSlot(INVENTORY_SLOT_HEAD, oPC);
     object oItem2 = GetItemInSlot(INVENTORY_SLOT_CHEST, oPC);
     object oItem3 = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC);
@@ -87,6 +89,8 @@ void DrunkenFoolFive(object oPC)
 
     else
     {
+        DrunkenFoolTwo(oPC);
+        return;
         AssignCommand(oPC, SpeakString ("Pojd sem, skus me trefit. No tak, pojd."));
         AssignCommand(oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_DODGE_DUCK));
         DelayCommand(1.5,AssignCommand(oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_DODGE_SIDE)));
@@ -123,6 +127,8 @@ void DrunkenFoolSix(object oPC)
     }
     else
     {
+       DrunkenFoolTwo(oPC);
+       return;
        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1));
        DelayCommand(1.0,AssignCommand(oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY2)));
        DelayCommand(2.0,AssignCommand(oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY3)));
@@ -138,6 +144,8 @@ void DrunkenFoolSix(object oPC)
 //------------------------------------------------------------------------------
 void DrunkenFoolSeven(object oPC)
 {
+    DrunkenFoolTwo(oPC);
+    return;
     object oLover = GetNearestCreature(CREATURE_TYPE_IS_ALIVE,TRUE,oPC,d4());
 
     AssignCommand (oPC,ClearAllActions());
