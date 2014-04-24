@@ -52,6 +52,11 @@
 void __saveAllPlayers(float delay);
 void __InitWeaponsFeats();
 
+void __setResmanLocStatus() {
+  string sql = "UPDATE resman_locations SET status='3';";
+  SQLExecDirect(sql);
+}
+
 void __saveAllPlayers(float delay) {
   object oPC = GetFirstPC();
 
@@ -181,6 +186,8 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
 
    string sql = "TRUNCATE TABLE dump;";
    SQLExecDirect(sql);
+
+   __setResmanLocStatus();
 
    /* Trofeje */
    ku_InitTrofeje();
