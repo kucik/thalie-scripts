@@ -586,13 +586,13 @@ void ApplyFeats(object oPC)
     }
     // General feats for all
     if (!GetHasFeat(FEAT_GENERAL_SEBRAT, oPC))
-    {
         AddKnownFeat(oPC, FEAT_GENERAL_SEBRAT);
-    }
     if (!GetHasFeat(FEAT_GENERAL_POUZIT, oPC))
         AddKnownFeat(oPC, FEAT_GENERAL_POUZIT);
     if (!GetHasFeat(FEAT_GENERAL_TARGET, oPC))
         AddKnownFeat(oPC, FEAT_GENERAL_TARGET);
+    if (!GetHasFeat(FEAT_HORSE_MENU, oPC))
+        AddKnownFeat(oPC, FEAT_HORSE_MENU);
 }
 
 
