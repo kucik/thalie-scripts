@@ -15,6 +15,7 @@ const int time_upd_LOC_and_HP = 5;
 const int time_effect_dying_pc = 2;
 const int time_subraces_check = 3;
 const int time_minute = 10; //10 heartbeats is minute
+const int time_xp_interval = 5; //10 heartbeats is minute
 // soucasny system expeni nastaven na hodnotu 2; nemenit, nechcete-li menit rychlost expeni
 const int time_xp_system = 2;
 
@@ -91,7 +92,7 @@ void HeartbeatPCActions(object oPC, int t)
         Subraces_ModuleHeartBeatPC(oPC);
 
     // Fce systemu zkusenosti
-    if (t % time_minute == time_xp_system)
+    if (t % time_xp_interval == time_xp_system)
     {
         ku_CheckXPStop(oPC);
         ku_GiveXPPerTime(oPC);
