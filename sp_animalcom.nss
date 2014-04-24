@@ -11,6 +11,7 @@
 //:: Created On: Sept 27, 2001
 //:://////////////////////////////////////////////
 
+#include "nwnx_funcs"
 #include "me_soul_inc"
 #include "mys_assoc_lib"
 
@@ -97,11 +98,13 @@ void main()
     //Yep thats it
     SummonAnimalCompanion();
     
-    // Set custom name and apearance
+    // Set custom properties
     int iAssociateType = ASSOCIATE_TYPE_ANIMALCOMPANION;
     object oAssociate = GetAssociate(iAssociateType, OBJECT_SELF);
     object oSoul = GetSoulStone(OBJECT_SELF);
     int iAppearance = GetAssociateAppearanceType(oSoul, oAssociate, iAssociateType);
+    int iSoundset = GetAssociateSoundset(oSoul, oAssociate, iAssociateType);
+    string sPortrait = GetAssociatePortraitResRef(oSoul, oAssociate, iAssociateType);
     string sName = GetAssociateName(oSoul, oAssociate, iAssociateType);
     
     if (sName != "")
@@ -109,6 +112,12 @@ void main()
         
     if (iAppearance)
         SetCreatureAppearanceType(oAssociate, iAppearance);
+    
+    if (sPortrait != "")
+        SetPortraitResRef(oAssociate, sPortrait);
+    
+    if (iSoundset)
+        SetSoundset(oAssociate, iSoundset);
         
     // for /c chat command
     SetLocalObject(OBJECT_SELF, "COMPANION", oAssociate);

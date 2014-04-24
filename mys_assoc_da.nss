@@ -1,3 +1,4 @@
+#include "nwnx_funcs"
 #include "nwnx_events"
 #include "me_soul_inc"
 #include "mys_assoc_lib"
@@ -17,6 +18,53 @@ void AssocSetName(object oPC, int iAssociateType)
     }
     SendMessageToPC(oPC, "Zmìna jména se nezdaøila.");
 }
+
+void AssocSetAppearance(object oPC, int iAssociateType)
+{
+    object oAssociate = GetAssociate(iAssociateType, oPC);
+    object oSoul = GetSoulStone(GetMaster(oAssociate));
+    int iRow = GetAssociateAppearanceIndex(oSoul, oAssociate, iAssociateType) + 1;
+    int iStartingRow = iRow;
+    int iAppearance, iSoundset;
+    string sName;
+    string sPortrait;
+    string sCurrentSign = GetAssociateTagSignature(GetTag(oAssociate));
+    string sSign = Get2DAString("associate", "sign", iRow);
+    
+    while(TRUE)
+    {
+        if (sSign == sCurrentSign)
+        {
+            sName = Get2DAString("associate", "name", iRow);
+            iAppearance = StringToInt(Get2DAString("associate", "appearance", iRow));
+            iSoundset = StringToInt(Get2DAString("associate", "soundset", iRow));
+            sPortrait = Get2DAString("associate", "portrait", iRow);                        
+            
+            SetAssociateAppearanceIndex(oSoul, oAssociate, iAssociateType, iRow);
+            if (iAppearance)
+                SetAssociateAppearanceType(oSoul, oAssociate, iAssociateType, iAppearance);
+            if (sPortrait != "")
+                SetAssociatePortraitResRef(oSoul, oAssociate, iAssociateType, sPortrait);
+            if (iSoundset)
+                SetAssociateSoundset(oSoul, oAssociate, iAssociateType, iSoundset);
+            
+            SendMessageToPC(oPC, "Vzhled zmìnìn na: " + sName);
+            return;
+        }
+        iRow++;
+        sSign = Get2DAString("associate", "sign", iRow);
+        if (sSign == "")
+        {
+            iRow = 0;
+            sSign = Get2DAString("associate", "sign", iRow);
+        }
+        if (iRow == iStartingRow) break;
+    }
+    SendMessageToPC(oPC, "Zmìna vzhledu se nezdaøila.");
+}
+
+/*
+* USED NO MORE
 
 void AssocSetAppearance(object oPC, int iAssociateType)
 {
@@ -78,6 +126,7 @@ void AssocSetAppearance(object oPC, int iAssociateType)
     else
         SendMessageToPC(oPC, "Zmìna vzhledu se nezdaøila.");
 }
+*/
 
 void main()
 {
