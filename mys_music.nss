@@ -192,6 +192,7 @@ int MusicGetTrackTimestamp(object oArea)
 void MusicSetTrackTimestamp(object oArea, int iTimestamp)
 {
     SetLocalInt(oArea, "MUSIC_QUEUE_TRACK_TIMESTAMP_0", iTimestamp);
+    //MusicDebugOutput("[DEBUG] iTrackTimestamp = " + IntToString(GetLocalInt(oArea, "MUSIC_QUEUE_TRACK_TIMESTAMP_0")));
 }
 
 void MusicQueueAddTrack(object oPC, int iTrackId, int iMinutes, int iSeconds)
@@ -273,15 +274,15 @@ void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp)
     
     //MusicDebugOutput("iTracksInQueue = " + IntToString(iTracksInQueue));
     //MusicDebugOutput("iTrackId = " + IntToString(iTrackId));
-    //MusicDebugOutput("fDelay = " + FloatToString(fDelay));
+    //MusicDebugOutput("[DEBUG] fDelay = " + FloatToString(fDelay));
     
     if (iTracksInQueue > 0)
     {
         SendMessageToPC(oPC, "Pøehrávám skladbu id: " + IntToString(iTrackId));
-        MusicChangeTrack(oArea, iTrackId);
-        MusicSetTrackTimestamp(oArea, iTrackTimestamp);        
+        MusicSetTrackTimestamp(oArea, iTrackTimestamp);
+        MusicChangeTrack(oArea, iTrackId);                
         AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));
-        AssignCommand(GetModule(), DelayCommand(fDelay + 0.2f, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
+        AssignCommand(GetModule(), DelayCommand(fDelay + 0.5f, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
     }
     else
     {
@@ -314,14 +315,16 @@ void MusicChangeTrack(object oArea, int iTrackId)
     if (GetIsDay() || GetIsDawn())
     {
         MusicBackgroundChangeDay(oArea, iTrackId);
-        MusicBackgroundPlay(oArea);
+        //MusicBackgroundPlay(oArea);
         //MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
+        //MusicDebugOutput("[DEBUG] Area (day) track id = " + IntToString(MusicBackgroundGetDayTrack(oArea)));
     }
     else
     {
         MusicBackgroundChangeNight(oArea, iTrackId);
-        MusicBackgroundPlay(oArea);
+        //MusicBackgroundPlay(oArea);
         //MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
+        //MusicDebugOutput("[DEBUG] Area (night) track id = " + IntToString(MusicBackgroundGetNightTrack(oArea)));
     }
 }
 
