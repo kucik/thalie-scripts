@@ -184,7 +184,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
     effect eLink;
     int nVis;
     float fDelay = 0.5 + GetDistanceBetween(OBJECT_SELF, oTarget)/20;
-    float fEffectSecDuration = RoundsToSeconds(4); // Length of effects: 4 rounds 
+    float fEffectSecDuration = RoundsToSeconds(10); // Length of effects: 10 rounds 
     if (GetMetaMagicFeat() == METAMAGIC_EXTEND )
     {
         fEffectSecDuration = 2*fEffectSecDuration;
@@ -199,7 +199,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
                 ePrism = EffectConfused();
                 eLink = EffectLinkEffects(eMind, ePrism);
                 eLink = EffectLinkEffects(eLink, eDur);
-                // if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay)) // will save canceled
+                if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay)) // will save canceled
                 {
                     nVis = VFX_IMP_CONFUSION_S;
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fEffectSecDuration));
@@ -233,7 +233,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
         case 5: //Paralyze
             {
                 effect eDur2 = EffectVisualEffect(VFX_DUR_PARALYZED);
-                // if (MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()) == 0) // fortitude save canceled
+                if (MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()) == 0) // fortitude save canceled
                 {
                     ePrism = EffectParalyze();
                     eLink = EffectLinkEffects(eDur, ePrism);
