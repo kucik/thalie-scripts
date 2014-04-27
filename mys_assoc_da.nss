@@ -23,8 +23,8 @@ void AssocSetAppearance(object oPC, int iAssociateType)
 {
     object oAssociate = GetAssociate(iAssociateType, oPC);
     object oSoul = GetSoulStone(GetMaster(oAssociate));
-    int iRow = GetAssociateAppearanceIndex(oSoul, oAssociate, iAssociateType) + 1;
-    int iStartingRow = iRow;
+    int iStartingRow = GetAssociateAppearanceIndex(oSoul, oAssociate, iAssociateType);
+    int iRow = iStartingRow + 1;
     int iAppearance, iSoundset;
     string sName;
     string sPortrait;

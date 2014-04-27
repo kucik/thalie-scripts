@@ -16,7 +16,7 @@ int GetAssociateAppearanceIndex(object oSoul, object oAssociate, int iAssociateT
 
 void SetAssociateAppearanceIndex(object oSoul, object oAssociate, int iAssociateType, int iIndex)
 {
-    if (GetIsObjectValid(oSoul) && GetIsObjectValid(oAssociate) && iAssociateType && iIndex)
+    if (GetIsObjectValid(oSoul) && GetIsObjectValid(oAssociate) && iAssociateType)
     {
         SetLocalInt(oSoul, "ASSOCIATE_APPEARANCE_INDEX" + IntToString(iAssociateType), iIndex);
     }    
