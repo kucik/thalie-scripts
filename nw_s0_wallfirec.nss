@@ -66,13 +66,13 @@ void main()
             nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
             if (GetIsPC( oTarget ) ) // DEBUG
             {  // DEBUG 
-                SendMessageToPC(oPC, "DEBUG 1: dmg=" + IntToString(nDamage));  // DEBUG 
+                SendMessageToPC(oTarget, "DEBUG 1: dmg=" + IntToString(nDamage));  // DEBUG 
             }    // DEBUG
             // if target fails reflex save - knock it down
             nDebug = MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_REFLEX);
             if (GetIsPC( oTarget ) ) // DEBUG
             { // DEBUG
-                SendMessageToPC(oPC, "DEBUG 2: knock-test result = " + IntToString(nDebug)); // DEBUG
+                SendMessageToPC(oTarget, "DEBUG 2: knock-test result = " + IntToString(nDebug)); // DEBUG
             }     // DEBUG          
             //if (!MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_REFLEX) )
             if (nDebug == 0 )
