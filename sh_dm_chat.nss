@@ -114,10 +114,16 @@ void main()
             sSpeakerName = AssociateSpeak(GetAssociateSpeaker(iPlayerType, "HENCHMAN"), GetStringRight(sSpoke, iLength - 3));
             bXP = TRUE;
         }
-            
+        
         else if (GetIsObjectValid(oTargetSpeak))
             oSpeaker = oTargetSpeak;
                     
+        else if (sLeft3 == "/oo")
+        {
+            ExecuteScript("mys_chat_debug", OBJECT_SELF);
+            return;
+        }
+        
         else
         {
             PCEmoteFunction();
