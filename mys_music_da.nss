@@ -122,7 +122,7 @@ void main()
     {
         MusicQueueAddTrack(oPC, 193, 1,26);
     }
-    else if (sText == "2:12 Dupák")
+    else if (sText == "2:01 Dupák")
     {
         MusicQueueAddTrack(oPC, 194, 2,01);
     }
