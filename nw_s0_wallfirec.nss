@@ -23,6 +23,7 @@ void main()
     //Declare major variables
     int nMetaMagic = GetMetaMagicFeat();
     int nDamage;
+    int nDebug;
     effect eDam;
     object oTarget;
     //Declare and assign personal impact visual effect.
@@ -63,8 +64,18 @@ void main()
                      nDamage = nDamage + (nDamage/2); //Damage/Healing is +50%
                 }
             nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
+            if (GetIsPC( oTarget ) ) // DEBUG
+            {  // DEBUG 
+                SendMessageToPC(oPC, "DEBUG 1: dmg=" + IntToString(nDamage));  // DEBUG 
+            }    // DEBUG
             // if target fails reflex save - knock it down
-            if (MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)) == 0)
+            nDebug = MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_REFLEX);
+            if (GetIsPC( oTarget ) ) // DEBUG
+            { // DEBUG
+                SendMessageToPC(oPC, "DEBUG 2: knock-test result = " + IntToString(nDebug)); // DEBUG
+            }     // DEBUG          
+            //if (!MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_REFLEX) )
+            if (nDebug == 0 )
             { // target fails in reflex save - knock it down
                 effect eKnockDown = EffectKnockdown();
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockDown, oTarget,RoundsToSeconds(1));
