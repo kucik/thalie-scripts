@@ -97,7 +97,7 @@ int ku_IsPCNear(object oPC, float distance = 15.0, int IncludeHidden = 0)
  return 0;
 }
 
-int ku_GetPartyXPBonus(object oPC, float distance = 15.0, int IncludeHidden = 0)
+int ku_GetPCsNearbyCount(object oPC, float distance = 15.0, int IncludeHidden = 0)
 {
     int i, iPCCounter;
     object oNearPC;
@@ -125,6 +125,11 @@ int ku_GetPartyXPBonus(object oPC, float distance = 15.0, int IncludeHidden = 0)
         }
     }
     
+    return iPCCounter;
+}
+
+int ku_GetPartyXPBonus(int iPCCounter = 0)
+{
     if (iPCCounter < 1)
         return 0;
     
@@ -139,6 +144,9 @@ int ku_GetPartyXPBonus(object oPC, float distance = 15.0, int IncludeHidden = 0)
 
 void ku_GiveXPPerTime(object oPC)
 {
+  // if(GetXP(oPC) > 525000) return; //15. level
+  if(GetXP(oPC) > 2175000) return; //30 level
+ 
  object oArea = GetArea(oPC);
  int StopXP = GetLocalInt(oPC,"ku_StopXP");
  int bDungeon = GetLocalString(oArea, "REST_ZONE") == "nosleep" ? TRUE : FALSE;
@@ -155,24 +163,28 @@ void ku_GiveXPPerTime(object oPC)
 
   object oSoul = GetSoulStone(oPC);
   int XPbyXPPT = GetLocalInt(oSoul,"ku_XPbyXPPT");
-  int XP=30;         //6
+  // int XP = 30;         //6
 
 
 //  int HitDice = GetHitDice(oPC) - 10; //redukce XP
 //  int HitDice =  FloatToInt(0.5 + sqrt(0.25 + ( IntToFloat(GetXP(oPC)) / 500 ))) - 10; //1000xp per level
 //  int HitDice =  FloatToInt(1.0 + sqrt(1.0 + 8.0 *( IntToFloat(GetXP(oPC)) / 5000.0 )))/2; //5000xp per level
   int HitDice =  ku_GetLevelForXP(GetXP(oPC)); //5000xp per level
-  int HPPenalty = HitDice;// / 5;
-  if(HPPenalty <= 0) {
-    HPPenalty = 0;
-  }
-  XP = XP - HPPenalty;
+  //int HPPenalty = HitDice;// / 5;
+  //if(HPPenalty <= 0) {
+    //HPPenalty = 0;
+  //}
+  //XP = XP - HPPenalty;
+  
+  // (m-lvl*s)*(1+(p-1)*a)*k
+  int p = ku_GetPCsNearbyCount(oPC);
+  int XP = FloatToInt((50.0f - IntToFloat(HitDice) * 0.6f) * (1.0f + (IntToFloat(p) - 1.0f) * 0.25f) * 0.75f);
 
   //if(IsPCNear == 1)
     //XP = XP + 5; //+2
     
   // Bonus za PC postavy kolem
-  XP += ku_GetPartyXPBonus(oPC);
+  // XP += ku_GetPartyXPBonus(ku_GetPCsNearbyCount(oPC));
   
   // Specificky bonus/postih lokace
   int iLocationBonus = GetLocalInt(oArea, "XP_BONUS");
@@ -197,9 +209,8 @@ void ku_GiveXPPerTime(object oPC)
   if(XP > 0) {//zaporny XP by se asi nelibil
     XP = ku_ReduceXPGainForDeath(oPC, XP, TRUE);
 
-//    if(GetXP(oPC) > 525000) return; //15. level
-    if(GetXP(oPC) > 2175000) return; //30 level
-
+    
+    //SendMessageToPC(oPC, "Mìl bych dostat: "+IntToString(XP)+" xp");
     SetXP(oPC,GetXP(oPC) + XP);
     SetLocalInt(oSoul,"ku_XPbyXPPT",XPbyXPPT + XP);
   }
