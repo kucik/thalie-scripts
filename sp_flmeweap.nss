@@ -26,6 +26,22 @@
 #include "nw_i0_spells"
 #include "x2_i0_spells"
 
+// Test if the object oMyWeapon has been enchantment with temporaly ITEM_PROPERTY_DAMAGE_BONUS,
+// if so, the function removes the enchantment.
+void TestAndRemoveTemporalDmgBonus(object oMyWeapon)
+{
+  itemproperty ipLoop=GetFirstItemProperty(oMyWeapon);
+  while (GetIsItemPropertyValid(ipLoop))
+  {
+    if (GetItemPropertyType(ipLoop) == ITEM_PROPERTY_DAMAGE_BONUS )
+    {
+      // Now remove the temporaly dmg bonus
+      IPRemoveMatchingItemProperties(oMyWeapon, ITEM_PROPERTY_DAMAGE_BONUS, DURATION_TYPE_TEMPORARY, -1);
+    }
+    ipLoop=GetNextItemProperty(oMyWeapon);
+  }
+}
+
 
 void main()
 {
@@ -124,6 +140,7 @@ void main()
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
+        TestAndRemoveTemporalDmgBonus(oMyWeapon); 
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
         if (nDuration>0)
         {
@@ -139,6 +156,7 @@ void main()
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
         if (nDuration>0)
         {
@@ -155,6 +173,7 @@ void main()
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
     if(GetIsObjectValid(oMyWeapon) && GetBaseItemType(oMyWeapon) == BASE_ITEM_GLOVES )
     {
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);    
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
         if (nDuration>0)
         {
