@@ -115,6 +115,11 @@ void main()
             bXP = TRUE;
         }
         
+        else if (sSpoke == "/mount" || sSpoke == "/mount2" || sSpoke == "/dismount")
+        {
+            ExecuteScript("mys_mount_chat", oSpeaker);
+        }
+        
         else if (GetIsObjectValid(oTargetSpeak))
             oSpeaker = oTargetSpeak;
                     
