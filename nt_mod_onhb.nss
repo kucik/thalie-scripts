@@ -15,7 +15,7 @@ const int time_upd_LOC_and_HP = 5;
 const int time_effect_dying_pc = 2;
 const int time_subraces_check = 3;
 const int time_minute = 10; //10 heartbeats is minute
-const int time_xp_interval = 5; //10 heartbeats is minute
+const int time_xp_interval = 6; //10 heartbeats is minute
 // soucasny system expeni nastaven na hodnotu 2; nemenit, nechcete-li menit rychlost expeni
 const int time_xp_system = 2;
 
