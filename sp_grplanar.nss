@@ -84,7 +84,7 @@ void main()
         switch (nAlign)
         {
             case ALIGNMENT_EVIL:
-                eSummon = EffectSummonCreature("ry_s_demval", VFX_FNF_SUMMON_GATE, 3.0);
+                eSummon = EffectSummonCreature("ry_s_osyluth", VFX_FNF_SUMMON_GATE, 3.0);
                 //eGate = EffectVisualEffect(VFX_FNF_SUMMON_GATE);
             break;
             case ALIGNMENT_GOOD:
