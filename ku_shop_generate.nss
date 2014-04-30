@@ -34,6 +34,42 @@ void MoveShopSortiment(int i) {
  }
 }
 
+int AddRandomItems() {
+
+ object oItem = OBJECT_INVALID;
+ int SortimentSize = 0;
+ int iAdded = 0;
+
+ // Import nahodnych predmetu pro obchody ala dobrodruh
+ int iShopImport = GetLocalInt(OBJECT_SELF,"ku_shop_import");
+ if(iShopImport) {
+   iShopImport = iShopImport * 2/3 + Random(iShopImport/3) + 1;
+   object oNearShop = GetNearestObjectByTag("ku_shop_warehouse");
+
+//   SendMessageToPC(GetFirstPC(),"Coppying "+IntToString(iShopImport)+" items. ");
+   /* Sum number of items in shop */
+   oItem = GetFirstItemInInventory(oNearShop);
+   while(GetIsObjectValid(oItem)) {
+     SortimentSize++;
+     oItem = GetNextItemInInventory(oNearShop);
+   }
+
+  
+   // Copy items 
+   oItem = GetFirstItemInInventory(oNearShop);
+   while(GetIsObjectValid(oItem)) {
+     if(Random(SortimentSize) < iShopImport) {
+       CopyItem(oItem,OBJECT_SELF,TRUE);
+       iAdded++;
+     }
+     oItem = GetNextItemInInventory(oNearShop);
+   } 
+
+ }
+ 
+  return iAdded;
+}
+
 void main()
 {
  if (GetLocalInt(OBJECT_SELF,"KU_SHOP_GENERATED")) // pokud je uz obsah pripravenej
@@ -46,7 +82,7 @@ void main()
  int i = 1;
  int j;
  object oItem = OBJECT_INVALID;
-
+/*
  // Import nahodnych predmetu pro obchody ala dobrodruh
  int iShopImport = GetLocalInt(OBJECT_SELF,"ku_shop_import");
  if(iShopImport) {
@@ -73,9 +109,14 @@ void main()
    }
 
  }
+*/
+ AddRandomItems();
 
+ 
  if(GetObjectType(OBJECT_SELF)==OBJECT_TYPE_STORE) {
    SetLocalInt(OBJECT_SELF,"KU_SHOP_GENERATED",TRUE);
+   /* Random shop reset to generate new items once more */
+   DelayCommand(IntToFloat(Random(11*60*60)), DeleteLocalInt(OBJECT_SELF, "KU_SHOP_GENERATED"));
    return;
  }
 
