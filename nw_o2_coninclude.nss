@@ -3987,8 +3987,8 @@ void SetNextSpawn() {
     return;
   }
 
-  iSpawnDelay = iSpawnDelay * 6; //Real time to In Game time
-  int iSpawnDelayMin = Random(iSpawnDelay*5);
+//  iSpawnDelay = iSpawnDelay * 6; //Real time to In Game time
+//  int iSpawnDelayMin = Random(iSpawnDelay*5);
 
   WriteTimestampedLogEntry("BOSS NextSpawn 'BOSS_LOOT' in '"+GetName(GetArea(oNPC))+"'. Next: in ("+IntToString(iNextSpawn)+")"+IntToString(iSpawnDelay)+"h 0min");
 
@@ -3996,7 +3996,7 @@ void SetNextSpawn() {
 
   string sResRef = GetResRef(oArea);
   string sTag = GetTag(oArea);
-  string sSQL = "UPDATE location_property SET boss_spawn_time = '"+IntToString(iNextSpawn)+"' WHERE resref = '"+sResRef+"' AND tag = '"+sTag+"'; ";
+  string sSQL = "UPDATE location_property SET boss_spawn_time = '"+IntToString(iNextSpawn)+"' WHERE resref = '"+sResRef+"' AND tag = '"+sTag+"' AND boss_spawn_time < "+IntToString(iNextSpawn)+"; ";
 //  SendMessageToPC(GetFirstPC(),sSQL);
   SQLExecDirect(sSQL);
 
