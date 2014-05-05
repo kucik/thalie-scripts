@@ -220,7 +220,8 @@ void MusicQueueAddTrack(object oPC, int iTrackId, int iMinutes, int iSeconds)
         // Unique timestamp to identify track
         int iTrackTimestamp = ku_GetTimeStamp();
         
-        MusicBackgroundStoreOriginalTracks(oArea);
+        if (!MusicGetIsOriginalTracksStored(oArea))
+            MusicBackgroundStoreOriginalTracks(oArea);
         MusicSetTrackTimestamp(oArea, iTrackTimestamp);
         MusicPlayTrack(oPC, oArea, iTrackTimestamp);        
     }
@@ -281,14 +282,19 @@ void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp)
         SendMessageToPC(oPC, "Pøehrávám skladbu id: " + IntToString(iTrackId));
         MusicSetTrackTimestamp(oArea, iTrackTimestamp);
         MusicChangeTrack(oArea, iTrackId);                
-        AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));
-        AssignCommand(GetModule(), DelayCommand(fDelay + 0.5f, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
+        AssignCommand(GetModule(), DelayCommand(fDelay, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
+        AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));        
     }
     else
     {
         SendMessageToPC(oPC, "Všechny skladby z fronty dohrály.");
         MusicChangeTracksToDefault(oArea);
     }
+}
+
+int MusicGetIsOriginalTracksStored(object oArea)
+{
+    return GetLocalInt(oArea, MUSIC_ORIGINAL_AREA_MUSIC_DAY) || GetLocalInt(oArea, MUSIC_ORIGINAL_AREA_MUSIC_NIGHT) ? TRUE : FALSE;
 }
 
 void MusicBackgroundStoreOriginalTracks(object oArea)
@@ -350,7 +356,7 @@ void ActionMusicReset(object oPC)
     int iTracksInQueue = MusicGetTracksInQueue(oArea);
     int i = 0;
     
-    if (!iTracksInQueue)
+    if (!iTracksInQueue && !MusicGetIsOriginalTracksStored(oArea))
         MusicBackgroundStoreOriginalTracks(oArea);
     
     for (i = 0; i < iTracksInQueue; i++)

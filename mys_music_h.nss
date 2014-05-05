@@ -59,6 +59,8 @@ void MusicQueueRemoveLastTrack(object oPC, object oArea, int iTrackTimestamp);
 // - iTrackTimestamp: unique timestamp to identify track.
 void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp);
 
+int MusicGetIsOriginalTracksStored(object oArea);
+
 void MusicBackgroundStoreOriginalTracks(object oArea);
 
 void MusicChangeTracksToDefault(object oArea);
