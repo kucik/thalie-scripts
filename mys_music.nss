@@ -279,16 +279,18 @@ void MusicPlayTrack(object oPC, object oArea, int iTrackTimestamp)
     
     if (iTracksInQueue > 0)
     {
-        SendMessageToPC(oPC, "Pøehrávám skladbu id: " + IntToString(iTrackId));
+        SendMessageToPC(oPC, "Pøehrávám skladbu id: " + IntToString(iTrackId) + ". Skladeb ve frontì: " + IntToString(iTracksInQueue));
         MusicSetTrackTimestamp(oArea, iTrackTimestamp);
+        AssignCommand(GetModule(), MusicBackgroundStop(oArea));
         MusicChangeTrack(oArea, iTrackId);                
-        AssignCommand(GetModule(), DelayCommand(fDelay, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));
-        AssignCommand(GetModule(), DelayCommand(fDelay, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));        
+        AssignCommand(GetModule(), DelayCommand(fDelay + 1.0f, MusicQueueRemoveLastTrack(oPC, oArea, iTrackTimestamp)));
+        AssignCommand(GetModule(), DelayCommand(fDelay + 2.0f, MusicPlayTrack(oPC, oArea, iTrackTimestamp)));        
     }
     else
     {
         SendMessageToPC(oPC, "Všechny skladby z fronty dohrály.");
-        MusicChangeTracksToDefault(oArea);
+        AssignCommand(GetModule(), MusicBackgroundStop(oArea));
+        AssignCommand(GetModule(), DelayCommand(1.0f, MusicChangeTracksToDefault(oArea)));
     }
 }
 
@@ -309,29 +311,25 @@ void MusicChangeTracksToDefault(object oArea)
 {
     //MusicDebugOutput("MusicChangeTracksToDefault");
     
-    MusicBackgroundChangeDay(oArea, GetLocalInt(oArea, MUSIC_ORIGINAL_AREA_MUSIC_DAY));
-    MusicBackgroundChangeNight(oArea, GetLocalInt(oArea, MUSIC_ORIGINAL_AREA_MUSIC_NIGHT));
-    MusicBackgroundPlay(oArea);
+    int iOrigDayTrack = GetLocalInt(oArea, MUSIC_ORIGINAL_AREA_MUSIC_DAY);
+    int iOrigNightTrack = GetLocalInt(oArea, MUSIC_ORIGINAL_AREA_MUSIC_NIGHT);
+    
+    if (MusicBackgroundGetDayTrack(oArea) != iOrigDayTrack)
+        AssignCommand(GetModule(), MusicBackgroundChangeDay(oArea, iOrigDayTrack));
+    if (MusicBackgroundGetNightTrack(oArea) != iOrigNightTrack)
+        AssignCommand(GetModule(), MusicBackgroundChangeNight(oArea, iOrigNightTrack));
+    AssignCommand(GetModule(), MusicBackgroundPlay(oArea));
 }
 
 void MusicChangeTrack(object oArea, int iTrackId)
 {
     //MusicDebugOutput("MusicChangeTrack");
     
-    if (GetIsDay() || GetIsDawn())
-    {
-        MusicBackgroundChangeDay(oArea, iTrackId);
-        //MusicBackgroundPlay(oArea);
-        //MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
-        //MusicDebugOutput("[DEBUG] Area (day) track id = " + IntToString(MusicBackgroundGetDayTrack(oArea)));
-    }
-    else
-    {
-        MusicBackgroundChangeNight(oArea, iTrackId);
-        //MusicBackgroundPlay(oArea);
-        //MusicDebugOutput("Playing track id = " + IntToString(iTrackId));
-        //MusicDebugOutput("[DEBUG] Area (night) track id = " + IntToString(MusicBackgroundGetNightTrack(oArea)));
-    }
+    if (MusicBackgroundGetDayTrack(oArea) != iTrackId)
+        AssignCommand(GetModule(), MusicBackgroundChangeDay(oArea, iTrackId));
+    if (MusicBackgroundGetNightTrack(oArea) != iTrackId)
+        AssignCommand(GetModule(), MusicBackgroundChangeNight(oArea, iTrackId));
+    AssignCommand(GetModule(), MusicBackgroundPlay(oArea));
 }
 
 void ActionMusicReset(object oPC)
