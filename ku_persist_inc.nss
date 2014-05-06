@@ -383,6 +383,7 @@ int Persist_SaveItemToDB(object oItem, string sContID="") {
  if (SQLFetch() == SQL_SUCCESS) {
    string sRET = SQLGetData(1);
 //   SpeakString(sRET);
+   SetLocalInt(oItem,"KU_PERSISTANT_DB_ID".StringToInt(sRET));
    return StringToInt(sRET);
  }
  else {
@@ -635,7 +636,8 @@ string Persist_GetLocalVariables(object oItem) {
   for(i=0;i<cnt;i++) {
     lv = GetLocalVariableByPosition(oItem,i);
     if(GetStringLeft(lv.name,5) != "NWNX!" &&
-                        lv.name != "DESCRIPTION" ) {
+                        lv.name != "DESCRIPTION" && 
+                        lv.name != "KU_PERSISTANT_DB_ID") {
     switch(lv.type) {
       case 1: {
 //        SpeakString("DEBUG: Reading variable"+lv.name+"="+IntToString(GetLocalInt(oItem,lv.name)));
