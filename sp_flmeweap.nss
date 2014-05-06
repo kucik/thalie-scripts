@@ -33,10 +33,12 @@ void TestAndRemoveTemporalDmgBonus(object oMyWeapon)
   itemproperty ipLoop=GetFirstItemProperty(oMyWeapon);
   while (GetIsItemPropertyValid(ipLoop))
   {
-    if (GetItemPropertyType(ipLoop) == ITEM_PROPERTY_DAMAGE_BONUS )
+    if (GetItemPropertyType(ipLoop) == ITEM_PROPERTY_DAMAGE_BONUS &&
+       GetItemPropertyDurationType(ipLoop) == DURATION_TYPE_TEMPORARY)
     {
       // Now remove the temporaly dmg bonus
-      IPRemoveMatchingItemProperties(oMyWeapon, ITEM_PROPERTY_DAMAGE_BONUS, DURATION_TYPE_TEMPORARY, -1);
+      //IPRemoveMatchingItemProperties(oMyWeapon, ITEM_PROPERTY_DAMAGE_BONUS, DURATION_TYPE_TEMPORARY, -1);
+      RemoveItemProperty(oMyWeapon, ipLoop);
     }
     ipLoop=GetNextItemProperty(oMyWeapon);
   }
