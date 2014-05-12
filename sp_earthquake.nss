@@ -91,7 +91,7 @@ void main()
                     //represents the flame that erupts on the target not on the ground.
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                 }
-                if (!MySavingThrow(SAVING_THROW_WILL,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
+                if (!MySavingThrow(SAVING_THROW_REFLEX,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
                 {
 
                      DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockdown, oTarget,RoundsToSeconds(2)));
