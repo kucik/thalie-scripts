@@ -199,7 +199,7 @@ void main()
        {
             // ---------------begin saltwater fish descriptors
   // fish01 - treska - ry_ryba_treska
-  // fish02 - ry_ryba_madm
+  // fish02 - ry_ryba_modm
   // fish03 - ry_ryba_zralok
         case 1:
          {
@@ -209,7 +209,7 @@ void main()
          }
         case 2:
          {
-          sFishResRef = "ry_ryba_madm";
+          sFishResRef = "ry_ryba_modm";
           sSuccessMessage = "Chytil jsi pořádnou rybu";
           break;
          }
@@ -341,7 +341,7 @@ void main()
 
   // ---------------begin saltwater fish descriptors
   // fish01 - treska - ry_ryba_treska
-  // fish02 - ry_ryba_madm
+  // fish02 - ry_ryba_modm
   // fish03 - ry_ryba_zralok
 
 
