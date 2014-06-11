@@ -3,6 +3,10 @@
 void CreateAnObject(string sResource, object oPC, int iSkill);
 void CreatePlaceable(string sObject, location lPlace, float fDuration);
 
+int GetPeltCostByCR(float fCR) {
+  return FloatToInt((pow(1.12, fCR) * 28.0) - 25.0);  
+}
+
 void main()
 {
   if (GetLocalInt(OBJECT_SELF,"sIAmUsed") != 0) return;
@@ -199,6 +203,12 @@ void CreateAnObject(string sResource, object oPC, int iSkill)
         return;
   }
   int iAct = GetLocalInt(oItem, "TROFEJ");
+  float fCR = GetLocalFloat(OBJECT_SELF, "MonsterCR");
+  /* Calculate cost from CR, but not for Bosses */
+  if(fCR > 0.0 && GetLocalInt(OBJECT_SELF, "AI_BOSS") <= 0) {
+    iAct = GetPeltCostByCR(fCR);
+  }
+
   if (iAct == 0)  iAct = 5;  //navyseni zlatek
 
   if (GetItemStackSize(oItem)==1)

@@ -64,6 +64,12 @@ void main()
       return;
     }
 
+    /* Get creature CR */
+    float fCR = IntToFloat(GetLocalInt(OBJECT_SELF,"CR"));
+    if(fCR <= 0.0)
+      fCR = GetChallengeRating(OBJECT_SELF);
+    int ai_boss = GetLocalInt(OBJECT_SELF, "AI_BOSS");
+
     SetIsDestroyable(FALSE,FALSE,FALSE);
     object oTemp = CreatePlaceable("corpse",GetLocation(OBJECT_SELF),240.0);
 
@@ -72,6 +78,11 @@ void main()
     SetLocalString(oTemp,"sMisc",GetLocalString(OBJECT_SELF, "sMisc"));
     SetLocalInt(oTemp,"iPenalty",GetLocalInt(OBJECT_SELF, "iPenalty"));
     SetLocalObject(oTemp,"oCorpse",OBJECT_SELF);
+
+    
+    SetLocalFloat(oTemp, "MonsterCR", fCR);
+    if(ai_boss > 0)
+      SetLocalInt(oTemp, "AI_BOSS", ai_boss);
 
 
     destroyAllOn(OBJECT_SELF);
