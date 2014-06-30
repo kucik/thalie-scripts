@@ -259,8 +259,10 @@ int ku_ChooseTrap(int power, int type) {
 
 void ku_SetTrapDC(object oObject, int iTrapPower)
 {
-    SetTrapDetectDC(oObject,5 + 4*iTrapPower + d4());
-    SetTrapDisarmDC(oObject,19 + 5*iTrapPower + Random(5));
+    if(iTrapPower < 0) 
+      iTrapPower = 0;
+    SetTrapDetectDC(oObject,3 + 3*iTrapPower + d4());
+    SetTrapDisarmDC(oObject,14 + 4*iTrapPower + Random(5));
 }
 
 void ku_SetRandomTrap(object oObject, int iTrapPower)
@@ -296,13 +298,13 @@ void ku_SpawnTrap(object oSpawner) {
   int iOneShot = GetLocalInt(oSpawner,"TRAP_ONESHOT");
   if(iOneShot < 0 || iOneShot > 1) {
     iOneShot = TRUE;
-    if(Random(100) > 70)
+    if(Random(100) > 90)
       iOneShot = FALSE;
   }
   //Trap power
   int iTrapPower = GetLocalInt(oSpawner,"TRAP_POWER");
   if(iTrapPower == -1)
-    iTrapPower = iTreasureValue / 5 + d2()-2;
+    iTrapPower = iTreasureValue / 5 + d2()-4;
   if(iTrapPower < 1)
     iTrapPower == 1;
   if(iTrapPower > 5)
@@ -316,7 +318,7 @@ void ku_SpawnTrap(object oSpawner) {
   if(sFaction != "")
     SetTrapCreator(oTrap, GetFactionMember(sFaction));
   if(iDC == -1)
-    ku_SetTrapDC(oTrap, iTrapPower);
+    ku_SetTrapDC(oTrap, iTrapPower -1);
   else {
         SetTrapDetectDC(oTrap,abs(iDC - 15));
         SetTrapDisarmDC(oTrap,iDC);
