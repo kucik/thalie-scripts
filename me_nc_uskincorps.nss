@@ -135,7 +135,8 @@ void main()
         if (Random(1000)<=(iSkinChance - 200))  sMeatTag = "ry_maso_2";
         if (Random(1000)<=(iSkinChance - 400))  sMeatTag = "ry_maso_3";
 
-        AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMeatTag,oPC,iSkinChance)));
+        if(GetStringLength(sMeatTag) > 1)
+          AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMeatTag,oPC,iSkinChance)));
         fPause = fPause+0.3;
        }
      }
