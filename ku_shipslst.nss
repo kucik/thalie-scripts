@@ -141,7 +141,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                      // odjezd v 24
     stShip.m_sName      = "Charaxss - Zril´Mar";        // Nazev trasy
     stShip.m_nCost      = 100;                          // Cena listku
-    stShip.m_nSpent     = 6;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ph_otrokprod_cha1";          // Tag prodavace listku
     stShip.m_sPort      = "ph_lod_zril_char_c";         // Tag bodu, odkud lod vyrazi
@@ -185,7 +185,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                       // odjezd ve 23
     stShip.m_sName      = "Hagol - Zril´Mar";           // Nazev trasy
     stShip.m_nCost      = 100;                          // Cena listku
-    stShip.m_nSpent     = 6;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ph_otrokprod_hag";           // Tag prodavace listku
     stShip.m_sPort      = "ph_lod_zril_hag_h";          // Tag bodu, odkud lod vyrazi
@@ -405,7 +405,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                       // odjezd ve 23
     stShip.m_sName      = "Karatha - Alwariel";        // Nazev trasy
     stShip.m_nCost      = 150;                          // Cena listku
-    stShip.m_nSpent     = 7;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lisprod_kar1";          // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_kar_alw_z";         // Tag bodu, odkud lod vyrazi
@@ -449,7 +449,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                       // odjezd ve 23
     stShip.m_sName      = "Alwariel - Karatha";           // Nazev trasy
     stShip.m_nCost      = 180;                          // Cena listku
-    stShip.m_nSpent     = 7;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lisprod_alw";          // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_alw_kar_z";          // Tag bodu, odkud lod vyrazi
@@ -493,7 +493,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                      // odjezd ve 4
     stShip.m_sName      = "Karatha - Kel-A-Hazr";        // Nazev trasy
     stShip.m_nCost      = 140;                          // Cena listku
-    stShip.m_nSpent     = 7;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lisprod_kar2";          // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_kar_kel_c";         // Tag bodu, odkud lod vyrazi
@@ -537,7 +537,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                       // odjezd ve 24
     stShip.m_sName      = "Kel-A-Hazr - Karatha";           // Nazev trasy
     stShip.m_nCost      = 140;                          // Cena listku
-    stShip.m_nSpent     = 7;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lisprod_kel2";           // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_kel_kar_c";          // Tag bodu, odkud lod vyrazi
@@ -581,7 +581,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                        // odjezd ve 23
     stShip.m_sName      = "Kel-A-Hazr - Alwariel";           // Nazev trasy
     stShip.m_nCost      = 150;                           // Cena listku
-    stShip.m_nSpent     = 8;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lisprod_kel1";          // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_kel_alw_c";          // Tag bodu, odkud lod vyrazi
@@ -625,7 +625,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                       // odjezd ve 23
     stShip.m_sName      = "Alwariel - Kel-A-Hazr";           // Nazev trasy
     stShip.m_nCost      = 150;                           // Cena listku
-    stShip.m_nSpent     = 8;                            // cas, straveny na mori
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lisprod_alw1";           // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_alw_kel_z";          // Tag bodu, odkud lod vyrazi
