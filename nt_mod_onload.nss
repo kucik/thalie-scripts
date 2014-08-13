@@ -41,6 +41,7 @@
 #include "x2_inc_switches"
 #include "x2_inc_restsys"
 #include "nwnx_weapons"
+#include "nwnx_areas"
 #include "restart"
 #include "subraces"
 #include "ku_ships"
@@ -78,8 +79,8 @@ void __loadLocations() {
     string sResRef = SQLGetData(1);
     LoadArea(sResRef);
     __setMarkLocationLoaded(sResRef);
-  } 
-  
+  }
+
 }
 
 
@@ -215,7 +216,7 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
    SQLExecDirect(sql);
 
    /* Load location from resman */
-   __resetResmanLocStatus
+   __resetResmanLocStatus();
    DelayCommand(5.0, __loadLocations()); /* Timing before factions */
 
    /* Trofeje */
