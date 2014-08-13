@@ -208,7 +208,7 @@ void main()
          return;
         }
 
-        if( GetIsDM(oPC) && (n_priv < 1) ) {
+        if( GetIsDM(oPC) && (n_priv % 2 < 1) ) {
           BootPC(oPC);
           WriteTimestampedLogEntry("UNAUTHORIZED DM LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", should be "+n_IP+", "+n_CDKEY+" Don't have  DM privilegies");
           return;
