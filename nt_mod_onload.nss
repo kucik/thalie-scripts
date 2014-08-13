@@ -52,10 +52,37 @@
 void __saveAllPlayers(float delay);
 void __InitWeaponsFeats();
 
-void __setResmanLocStatus() {
-  string sql = "UPDATE resman_locations SET status='3';";
+void __resetResmanLocStatus() {
+  string sql = "UPDATE resman_locations SET status='0';";
   SQLExecDirect(sql);
 }
+
+void __setMarkLocationLoaded(string sResRef) {
+  string sql = "UPDATE resman_locations SET status='3' where location = '"+sResRef+"';";
+  SQLExecDirect(sql);
+}
+
+void __loadLocations() {
+  object oArea;
+
+  /* Mark locations in module */
+  while(GetIsObjectValid(oArea)) {
+    __setMarkLocationLoaded(GetTag(oArea));
+    oArea = GetNextArea();
+  }
+
+  /* Load the rest of locations */
+  string sSql = "SELECT location from resman_locations where status='0';";
+  SQLExecDirect(sSql);
+  while (SQLFetch() == SQL_SUCCESS) {
+    string sResRef = SQLGetData(1);
+    LoadArea(sResRef);
+    __setMarkLocationLoaded(sResRef);
+  } 
+  
+}
+
+
 
 void __saveAllPlayers(float delay) {
   object oPC = GetFirstPC();
@@ -187,7 +214,9 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
    string sql = "TRUNCATE TABLE dump;";
    SQLExecDirect(sql);
 
-   __setResmanLocStatus();
+   /* Load location from resman */
+   __resetResmanLocStatus
+   DelayCommand(5.0, __loadLocations()); /* Timing before factions */
 
    /* Trofeje */
    ku_InitTrofeje();
