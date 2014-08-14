@@ -18,6 +18,9 @@ object GetFactionMemory();
 // Get NPC faction identification. Wo not work for PC and party members.
 string GetNPCFaction(object oNPC);
 
+// Set NPC as member of passed faction/
+int SetNPCFaction(object oNPC, string sFac);
+
 void SetFactionReputation(object oPC, object oFirst, int reputation){
 
    object oMember = GetFirstFactionMember(oFirst, FALSE);
@@ -166,6 +169,10 @@ int OverrideFaction(object oNPC) {
     return FALSE;
   }
 
+  return SetNPCFaction(oNPC, sFac);
+}
+
+int SetNPCFaction(object oNPC, string sFac)  {
   object oFaction = GetFactionMember(sFac);
   if(GetIsObjectValid(oFaction)) {
       ChangeFaction(oNPC,oFaction);
@@ -174,7 +181,6 @@ int OverrideFaction(object oNPC) {
 
   return FALSE;
 }
-
 
 object GetFactionMemory() {
   object oMem;
