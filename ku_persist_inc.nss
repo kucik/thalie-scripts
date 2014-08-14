@@ -13,7 +13,6 @@
 #include "ku_items_inc"
 #include "aps_include"
 #include "ku_creatures_inc"
-#include "ja_inc_frakce"
 
 /* Global Constants */
 const string KU_PERS_SPEC_VARNAME = "KU_PERS_SPECIAL";
@@ -1229,13 +1228,6 @@ string __colectPlcAttributes(object oPlc) {
              IntToString(iVar)
              +PROPERTIES_DELIMITER;
    }
-   /* Save faction */
-   if(GetObjectType(oPlc) == OBJECT_TYPE_CREATURE) {
-     sAttr = sAttr+"FACTION"+PERSISTANCE_SECONDARY_DELIMITER+
-             "99"+PERSISTANCE_SECONDARY_DELIMITER+
-             GetNPCFaction(oPlc);
-             +PROPERTIES_DELIMITER;
-   }
    /* Useable flag */
    sAttr = sAttr+"USEABLE_FLAG"+PERSISTANCE_SECONDARY_DELIMITER+
            "99"+PERSISTANCE_SECONDARY_DELIMITER+
@@ -1353,8 +1345,6 @@ void __recreateAttribute(object oItem, string sIP) {
           SetUseableFlag(oItem, StringToInt(var));
         if(name == "PLOT_FLAG")
           SetPlotFlag(oItem, StringToInt(var));
-        if(name == "FACTION") {
-          SetNPCFaction(oItem, var);
         break;
     }
 
@@ -1367,7 +1357,7 @@ void __recreateAttribute(object oItem, string sIP) {
       DelayCommand(fDuration, __placeableExpired(oItem));
     return;
   }
- 
+
   return;
 }
 
