@@ -90,10 +90,10 @@ void main()
                         GetEffectType(eBad) == EFFECT_TYPE_NEGATIVELEVEL)
                         {
 
-                                RemoveEffect(oTarget, eBad);
+                                RemoveEffect(OBJECT_SELF, eBad);
                         }
                     eBad = GetNextEffect(OBJECT_SELF);
-    }
+                }
             }
         }
     }
