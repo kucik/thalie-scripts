@@ -67,6 +67,7 @@ void __loadLocations() {
   object oArea;
 
   /* Mark locations in module */
+  oArea = GetFirstArea();
   while(GetIsObjectValid(oArea)) {
     __setMarkLocationLoaded(GetTag(oArea));
     oArea = GetNextArea();
