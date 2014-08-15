@@ -45,6 +45,9 @@ void ku_Ship_Arrival(int iShip);
 // Nacasuje odjezd lodi
 void ku_Ships_PrepareNextShipDeparture(int ship);
 
+// Sell ticket to PC
+void KU_SellTicket(object oPC);
+
 // vrati cislo lode s timto pristavem.
 int KU_GetShipByPort(string sPort)
 {
@@ -74,12 +77,32 @@ int KU_GetShipByPort(string sPort)
  return 0;
 }
 
+// vrati cislo lode s timto pristavem.
+int KU_GetShipByMerchant(string sMerchant)
+{
+ object oMod = GetModule();
+
+ string si;
+ int i = 1;
+
+
+ int NumOfShips = GetLocalInt(oMod,KU_SHIPS_COUNT);
+ while (i <= NumOfShips ) {
+   si = IntToString(i);
+
+   if (GetLocalString(oMod,KU_SHIPS_STRUCT_TAG + "_Merchant" + si) == sMerchant) {
+     return i;
+   }
+ i++;
+ }
+ return 0;
+}
+
 // nastavi vstupenku
-void KU_ShipsTicketSold(string sPort, object oPC)
+void KU_ShipsTicketSoldID(int iShip, object oPC)
 {
      object oMod = GetModule();
 
-     int iShip = KU_GetShipByPort(sPort);
      string si = IntToString(iShip);
      if(SHIPS_DEBUG)
        SendMessageToPC(oPC,"Linka cislo"+si);
@@ -99,6 +122,20 @@ void KU_ShipsTicketSold(string sPort, object oPC)
      }
 }
 
+void KU_ShipsTicketSold(string sPort, object oPC)
+{
+
+     int iShip = KU_GetShipByPort(sPort);
+
+     KU_ShipsTicketSoldID(iShip, oPC);
+}
+
+void KU_SellTicket(object oPC) {
+     int iShip = KU_GetShipByMerchant(GetTag(OBJECT_SELF));
+
+     KU_ShipsTicketSoldID(iShip, oPC);
+
+}
 
 /*
  * Funkce pro kontrolu casu a odjezd lodi
