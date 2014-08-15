@@ -53,7 +53,8 @@ void main()
             {
                 ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDrain, oTarget);
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-                effect eBad = GetFirstEffect(oTarget);
+                object oCaster = OBJECT_SELF;
+                effect eBad = GetFirstEffect(oCaster);
                 //Search for negative effects
                 while(GetIsEffectValid(eBad))
                 {
@@ -81,9 +82,9 @@ void main()
                         GetEffectType(eBad) == EFFECT_TYPE_SLOW ||
                         GetEffectType(eBad) == EFFECT_TYPE_STUNNED)
                     {
-                      RemoveEffect(oTarget, eBad);
+                      RemoveEffect(oCaster, eBad);
                     }
-                    eBad = GetNextEffect(oTarget);
+                    eBad = GetNextEffect(oCaster);
                 }
                 //Apply the VFX impact and effects
                 int nHeal = 10*iCasterLvl;
@@ -93,12 +94,12 @@ void main()
                 }
 
                     effect eHeal = EffectHeal(nHeal);
-                    ApplyEffectToObject(DURATION_TYPE_INSTANT, eHeal, oTarget);
+                    ApplyEffectToObject(DURATION_TYPE_INSTANT, eHeal, oCaster);
 
                 //Fire cast spell at event for the specified target
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_GREATER_RESTORATION, FALSE));
                 effect eVisual = EffectVisualEffect(VFX_IMP_RESTORATION_GREATER);
-                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVisual, oTarget);
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVisual, oCaster);
             }
 
 

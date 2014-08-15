@@ -38,7 +38,7 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_REDUCE_ABILITY_SCORE);
     object oTarget = GetSpellTargetObject();
     int nMetaMagic = GetMetaMagicFeat();
-    int nDrain = d4();
+    int nDrain = d6();
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
