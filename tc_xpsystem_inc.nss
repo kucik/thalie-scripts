@@ -1,6 +1,6 @@
 #include "tc_constants"
 #include "aps_include"
-#include "me_lib"
+#include "me_soul_inc"
 /*
     TC(Thalia craft) - XP system
 

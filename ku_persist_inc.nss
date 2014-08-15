@@ -1233,7 +1233,7 @@ string __colectPlcAttributes(object oPlc) {
    if(GetObjectType(oPlc) == OBJECT_TYPE_CREATURE) {
      sAttr = sAttr+"FACTION"+PERSISTANCE_SECONDARY_DELIMITER+
              "99"+PERSISTANCE_SECONDARY_DELIMITER+
-             GetNPCFaction(oPlc);
+             GetNPCFaction(oPlc)
              +PROPERTIES_DELIMITER;
    }
    /* Useable flag */
@@ -1353,7 +1353,7 @@ void __recreateAttribute(object oItem, string sIP) {
           SetUseableFlag(oItem, StringToInt(var));
         if(name == "PLOT_FLAG")
           SetPlotFlag(oItem, StringToInt(var));
-        if(name == "FACTION") {
+        if(name == "FACTION")
           SetNPCFaction(oItem, var);
         break;
     }
@@ -1367,7 +1367,7 @@ void __recreateAttribute(object oItem, string sIP) {
       DelayCommand(fDuration, __placeableExpired(oItem));
     return;
   }
- 
+
   return;
 }
 
