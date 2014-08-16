@@ -54,6 +54,12 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     int nPower = nCasterLevel / 4;
     if (nPower > 5)  nPower = 5;  // * max of +5 bonus
+    int nDuration = nCasterLevel;
+    if (nMetaMagic == METAMAGIC_EXTEND)
+    {
+        nDuration = nDuration * 2; //Duration is +100%
+    }
+    float fDuration = TurnsToSeconds(nDuration);
     itemproperty ip1 = ItemPropertyAttackBonus(nPower);
     itemproperty ip2 = ItemPropertyVampiricRegeneration(nPower);
     object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,OBJECT_SELF);
@@ -63,9 +69,9 @@ void main()
         if (nCasterLevel>0)
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nCasterLevel));
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oMyWeapon,TurnsToSeconds(nCasterLevel));
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip2,oMyWeapon,TurnsToSeconds(nCasterLevel));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oMyWeapon,fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip2,oMyWeapon,fDuration);
         }
     }
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,OBJECT_SELF);
@@ -75,9 +81,9 @@ void main()
         if (nCasterLevel>0)
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nCasterLevel));
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oMyWeapon,TurnsToSeconds(nCasterLevel));
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip2,oMyWeapon,TurnsToSeconds(nCasterLevel));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oMyWeapon,fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip2,oMyWeapon,fDuration);
         }
 
     }
@@ -90,9 +96,9 @@ void main()
         if (nCasterLevel>0)
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nCasterLevel));
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oMyWeapon,TurnsToSeconds(nCasterLevel));
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip2,oMyWeapon,TurnsToSeconds(nCasterLevel));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oMyWeapon,fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY,ip2,oMyWeapon,fDuration);
         }
 
     }
