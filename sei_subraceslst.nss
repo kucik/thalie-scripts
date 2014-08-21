@@ -325,6 +325,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nAlignmentMask = 7;                                     // good
     stSubrace.m_nWingType = CREATURE_WING_TYPE_ANGEL;                   // Andelska kridla
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
     // Define the "Tiefling" subrace.
@@ -340,6 +341,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = CREATURE_TAIL_TYPE_DEVIL;                   // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
     // Clovek Genasi vodni
@@ -348,6 +350,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Con
     stSubrace = SEI_AddTrait( stSubrace, "genasi_kuzel_mrazu" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
     // Clovek Genasi vzdusny
@@ -356,6 +359,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
     stSubrace = SEI_AddTrait( stSubrace, "genasi_zavan_vetru" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
     // Clovek Genasi vzdusny
@@ -364,6 +368,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
     stSubrace = SEI_AddTrait( stSubrace, "genasi_kamenna_kuze" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
      // Clovek Genasi ohnivy
@@ -372,6 +377,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
     stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
     stSubrace = SEI_AddTrait( stSubrace, "genasi_fireball" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
 //////////////////////////-- Elfove --//////////////////////////
@@ -674,6 +680,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "finty" );
     stSubrace = SEI_AddTrait( stSubrace, "kridla_let" );
     stSubrace.m_nChangeAppearance = 1002;
+    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
 //////////////////////////-- Pulelfove --//////////////////////////
@@ -698,6 +705,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 9;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_cerny" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
     SEI_SaveSubrace( stSubrace );
 
     // Modry puldrak
@@ -711,6 +719,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 10;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_modry" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
     SEI_SaveSubrace( stSubrace );
 
     // Zeleny puldrak
@@ -724,6 +733,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 11;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_zeleny" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
     SEI_SaveSubrace( stSubrace );
 
     // Cerveny puldrak
@@ -737,6 +747,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 12;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_cerveny" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
     SEI_SaveSubrace( stSubrace );
 
     // Bily puldrak
@@ -750,6 +761,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 13;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_bily" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
     SEI_SaveSubrace( stSubrace );
 
     // Illithid
@@ -767,6 +779,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nChangeAppearance = 413;
     stSubrace = SEI_AddTrait( stSubrace, "zamereni_ocarovani" );
     stSubrace = SEI_AddTrait( stSubrace, "illithid_zachrane_hody" );
+    stSubrace.m_nRacialType = RACIAL_TYPE_ABERRATION;
     SEI_SaveSubrace( stSubrace );
 
 

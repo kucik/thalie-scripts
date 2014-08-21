@@ -247,6 +247,7 @@ struct Subrace SEI_CreateSubrace( int a_nSubrace, int a_nBaseRace, string a_sDes
     stSubrace.m_nWingLevel                  = 0;
     stSubrace.m_nTailLevel                  = 0;
     stSubrace.m_nChangeAppearance           = 0;
+    stSubrace.m_nRacialType                 = -1;
 //  END KUCIK
 
     // Save the mapping of subrace ID to index.
@@ -352,6 +353,7 @@ void SEI_SaveSubraceIdx( struct Subrace a_stSubrace, int a_nSubraceIdx )
     SetLocalInt( oModule, sTag + "WINL",  a_stSubrace.m_nWingLevel );
     SetLocalInt( oModule, sTag + "TAL",  a_stSubrace.m_nTailLevel );
     SetLocalInt( oModule, sTag + "APP",  a_stSubrace.m_nChangeAppearance );
+    SetLocalInt( oModule, sTag + "RACI",  a_stSubrace.m_nRacialType );
 //  END KUCIK
 
 } // End SEI_SaveSubraceIdx
@@ -389,6 +391,7 @@ struct Subrace SEI_LoadSubraceIdx( int a_nSubraceIdx )
     stSubrace.m_nWingLevel          = GetLocalInt( oModule, sTag + "WINL" );
     stSubrace.m_nTailLevel          = GetLocalInt( oModule, sTag + "TAL" );
     stSubrace.m_nChangeAppearance   = GetLocalInt( oModule, sTag + "APP" );
+    stSubrace.m_nRacialType         = GetLocalInt( oModule, sTag + "RACI" );
 //  END KUCIK
 
     return stSubrace;
@@ -1917,6 +1920,11 @@ void SEI_InitSubraceTraits( object a_oCharacter)
 
         // Apply the subrace's racial traits to the character.
         AssignCommand(oPermEffect,SEI_ApplySubraceTraits( stSubrace, a_oCharacter ));
+
+        //Set Racial Type
+        if(stSubrace.m_nRacialType >= 0 ) {
+          SetRacialType(a_oCharacter, stSubrace.m_nRacialType);
+        }
 
         // Apply effects based on the area settings if needed.
 //        object oExecutor = GetObjectByTag(KU_SUBRACES_AREA_TAG);

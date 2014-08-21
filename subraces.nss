@@ -59,6 +59,7 @@ struct Subrace
     int m_nTailType;
     int m_nTailLevel;
     int m_nChangeAppearance;
+    int m_nRacialType;
 //  END KUCIK
 };
 
