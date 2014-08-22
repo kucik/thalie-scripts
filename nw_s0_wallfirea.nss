@@ -46,7 +46,7 @@ void main()
                      nDamage = nDamage + (nDamage/2); //Damage/Healing is +50%
                 }
             nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
-            if (MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
+            if (MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE ))
             {
                 effect eKnockDown = EffectKnockdown();
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockDown, oTarget,RoundsToSeconds(1));
