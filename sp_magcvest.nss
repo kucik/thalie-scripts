@@ -95,8 +95,8 @@ void main()
         itemproperty ipLoop = GetFirstItemProperty(oArmor);
         while (GetIsItemPropertyValid(ipLoop))
         {
-            iIP = GetItemPropertyInteger(ipLoop,1);
-            if(iIP== GetLocalInt(OBJECT_SELF,"MAGIC_VESTMENT_ARMOR"))
+            if(GetItemPropertyType(ipLoop) == ITEM_PROPERTY_AC_BONUS &&
+               GetItemPropertyDurationType(ipLoop) == DURATION_TYPE_TEMPORARY)
             {
                 bHasArmorBonus = TRUE;
                 break;
@@ -105,7 +105,11 @@ void main()
         }
     }
     object oShield = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
-    if((bHasArmorBonus==TRUE)&&(GetIsObjectValid(oShield)) && ((GetBaseItemType(oShield) == BASE_ITEM_LARGESHIELD) ||(GetBaseItemType(oShield) == BASE_ITEM_SMALLSHIELD) || (GetBaseItemType(oShield) == BASE_ITEM_TOWERSHIELD)))
+    if(   (bHasArmorBonus==TRUE) && 
+          (GetIsObjectValid(oShield)) && 
+          ( (GetBaseItemType(oShield) == BASE_ITEM_LARGESHIELD) ||
+            (GetBaseItemType(oShield) == BASE_ITEM_SMALLSHIELD) || 
+            (GetBaseItemType(oShield) == BASE_ITEM_TOWERSHIELD)))
     {
         DelayCommand(1.3f, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
         ip = ItemPropertyACBonus(nAmount);
