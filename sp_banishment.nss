@@ -71,8 +71,8 @@ void main()
             if(
                (GetAssociate(ASSOCIATE_TYPE_SUMMONED, oMaster) == oTarget ||
                GetAssociate(ASSOCIATE_TYPE_FAMILIAR, oMaster) == oTarget ||
-               GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION, oMaster) == oTarget ) ||
-               (GetRacialType((oTarget)) == RACIAL_TYPE_OUTSIDER)  &&
+               GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION, oMaster) == oTarget  ||
+               (GetRacialType((oTarget)) == RACIAL_TYPE_OUTSIDER) ) &&
                (nPool > 0)
                )
             {
