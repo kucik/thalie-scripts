@@ -12,6 +12,13 @@
 #include "sh_classes_const"
 void main()
 {
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+   
+
     object oTarget = OBJECT_SELF;
     if (GetArcaneSpellFailure(OBJECT_SELF)> 20)
     {
@@ -25,7 +32,7 @@ void main()
     //eLink = EffectLinkEffects(eLink, eVis);
 
     //Fire cast spell at event for the specified target
-    SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_INVISIBILITY, FALSE));
+    SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 885, FALSE)); //FEAT_CERNOKNEZNIK_INVOKACE3_PROJDI_NESPATREN
      //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(24));
 

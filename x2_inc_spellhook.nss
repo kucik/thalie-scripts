@@ -382,6 +382,16 @@ float KU_GetStaminaWoundKoeficient(object oPC, int nSpellID, int iClass)
 
 }
 
+void __checkEffects(object oPC) {
+  effect eff = GetFirstEffect(oPC);
+  while(GetIsEffectValid(eff)) {
+    switch(GetEffectSpellId(eff)) {
+      case 885: //FEAT_CERNOKNEZNIK_INVOKACE3_PROJDI_NESPATREN
+        RemoveEffect(oPC,eff);
+    }
+    eff = GetNextEffect(oPC);
+  }
+}
 
 //------------------------------------------------------------------------------
 // if FALSE is returned by this function, the spell will not be cast
@@ -427,6 +437,8 @@ int X2PreSpellCastCode()
    }
 
    object oPC = OBJECT_SELF;
+
+   __checkEffects(oPC);
 
    if(!GetIsObjectValid(GetSpellCastItem()) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)){
        float fStamina = getStamina(oPC);
