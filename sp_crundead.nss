@@ -49,19 +49,19 @@ void main()
     //Set the summoned undead to the appropriate template based on the caster level
     if (nCasterLevel <= 11)
     {
-        eSummon = EffectSummonCreature("NW_S_GHOUL",VFX_FNF_SUMMON_UNDEAD);
+        eSummon = EffectSummonCreature("x2_s_mummy",VFX_FNF_SUMMON_UNDEAD);
     }
     else if ((nCasterLevel >= 12) && (nCasterLevel <= 13))
     {
-        eSummon = EffectSummonCreature("NW_S_GHAST",VFX_FNF_SUMMON_UNDEAD);
+        eSummon = EffectSummonCreature("x2_s_mummy_9",VFX_FNF_SUMMON_UNDEAD);
     }
     else if ((nCasterLevel >= 14) && (nCasterLevel <= 15))
     {
-        eSummon = EffectSummonCreature("NW_S_WIGHT",VFX_FNF_SUMMON_UNDEAD); // change later
+        eSummon = EffectSummonCreature("nw_s_mumfight",VFX_FNF_SUMMON_UNDEAD); // change later
     }
     else if ((nCasterLevel >= 16))
     {
-        eSummon = EffectSummonCreature("NW_S_SPECTRE",VFX_FNF_SUMMON_UNDEAD);
+        eSummon = EffectSummonCreature("nw_s_mumcleric",VFX_FNF_SUMMON_UNDEAD);
     }
 
     //Apply VFX impact and summon effect
