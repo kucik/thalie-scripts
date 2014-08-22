@@ -71,6 +71,7 @@ void main()
             // SendMessageToPC( OBJECT_SELF, ("target =" + IntToString(nTargets)+ "")); // debug msg
             fDelay = GetRandomDelay();
             fNormalizedCasterDuration = fDuration * GetThalieCaster(OBJECT_SELF,oTarget,nCasterLvl) / nCasterLvl; // spell duration normalized by NT caster level of the target
+            DelayCommand(fDelay,SignalEvent(oTarget, EventSpellCastAt(oTarget, SPELL_OWLS_WISDOM, FALSE)));
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget)); // apply visual effect of the casted spell
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fNormalizedCasterDuration)); // apply spell effects
             nTargets--;
