@@ -668,9 +668,11 @@ void SEI_DefineSubraces()
     // Pixie
     stSubrace = SEI_CreateSubrace( SUBRACE_GNOME_PIXIE, RACIAL_TYPE_GNOME, "Pixie" );
     stSubrace = SEI_AddFieldText( stSubrace, "pixie" );           // "pixie"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 2" );           // -2 Con
+//    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 2" );           // -2 Con
+    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 4" );           // -4 Str
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 4" );           // +4 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 4" );           // -2 Con
+//    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 4" );           // -2 Con
+    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 2" );           // -2 Con
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2

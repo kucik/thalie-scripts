@@ -31,7 +31,7 @@
 // **********************
 
 // Constant to note if we are currently debugging. Should be FALSE in release version.
-int SUBRACE_DEBUG           = FALSE;
+int SUBRACE_DEBUG           = TRUE;
 
 // Constant to note if we're using the subrace hide or the subrace effects.
 int USE_SUBRACE_HIDE        = FALSE;
@@ -528,8 +528,8 @@ int SEI_NWNXParseTrait3( object oPC, string a_sTrait, string a_sArg1, string a_s
         else {
           int iOld = GetLocalInt(oSoul,SUBRACE_FIELD+"_SAVE_"+a_sArg1);
           if(iOld != iArg2) {
-            ModifySavingThrowBonus(oPC,iArg1,iArg2);
-            SetLocalInt(oSoul,SUBRACE_FIELD+"_SAVE_"+a_sArg1,iArg2 - iOld);
+            ModifySavingThrowBonus(oPC,iArg1,iArg2 - iOld);
+            SetLocalInt(oSoul,SUBRACE_FIELD+"_SAVE_"+a_sArg1,iArg2);
           }
           return 1;
         }
@@ -559,8 +559,14 @@ int SEI_NWNXParseTrait2( object oPC, string a_sTrait, string a_sArg1, string a_s
         DeleteLocalInt(oPC,"KU_SUBRACES_ABILITY" + a_sArg1);
         int iOld = GetLocalInt(oSoul,SUBRACE_FIELD+"_ABILITY_"+a_sArg1);
         if(iOld != iArg2) {
-          ModifyAbilityScore(oPC,iArg1,iArg2);
-          SetLocalInt(oSoul,SUBRACE_FIELD+"_ABILITY_"+a_sArg1,iArg2 - iOld);
+          if(SUBRACE_DEBUG) {
+            SendMessageToPC(oPC,a_sArg1+"Ability score is "+IntToString(GetAbilityScore(oPC, iArg1, TRUE)));
+            SendMessageToPC(oPC,a_sArg1+"Old bonus:"+IntToString(iOld)+" Newbonus:"+IntToString(iArg2)+" Mod:"+IntToString(iArg2 - iOld));
+          }
+          ModifyAbilityScore(oPC,iArg1,iArg2 - iOld);
+          SetLocalInt(oSoul,SUBRACE_FIELD+"_ABILITY_"+a_sArg1,iArg2);
+          if(SUBRACE_DEBUG)
+            SendMessageToPC(oPC,a_sArg1+"Ability score is "+IntToString(GetAbilityScore(oPC, iArg1, TRUE)));
         }
         return 1;
     }
