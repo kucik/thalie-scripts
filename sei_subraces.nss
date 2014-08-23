@@ -31,7 +31,7 @@
 // **********************
 
 // Constant to note if we are currently debugging. Should be FALSE in release version.
-int SUBRACE_DEBUG           = TRUE;
+int SUBRACE_DEBUG           = FALSE;
 
 // Constant to note if we're using the subrace hide or the subrace effects.
 int USE_SUBRACE_HIDE        = FALSE;

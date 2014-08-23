@@ -84,7 +84,7 @@ void main()
                 if (!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS))
                 {
                     //Apply impact and linked effects
-                    if(GetIsPC(oTarget))
+                    if(GetIsPC(oTarget)) {
                       ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
                     }
                     else {
