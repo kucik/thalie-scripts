@@ -190,6 +190,23 @@ object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpel
 
 void main()
 {
+    
+/*
+  Spellcast Hook Code
+  Added 2003-06-20 by Georg
+  If you want to make changes to all spells,
+  check x2_inc_spellhook.nss to find out more
+
+*/
+
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+
+// End of Spell Cast Hook
+
 
     object oTarget = GetSpellTargetObject();
     int iEsenceType = GetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);

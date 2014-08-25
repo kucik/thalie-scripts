@@ -10,8 +10,16 @@
 
 //:://////////////////////////////////////////////
 #include "X0_I0_SPELLS"
+#include "x2_inc_spellhook"
+
 void main()
 {
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+
     if (GetArcaneSpellFailure(OBJECT_SELF)> 20)
     {
         return;

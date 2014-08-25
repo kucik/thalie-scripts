@@ -10,6 +10,7 @@
 
 //:://////////////////////////////////////////////
 #include "sh_classes_const"
+#include "x2_inc_spellhook"
 void main()
 {
     if (!X2PreSpellCastCode())
