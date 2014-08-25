@@ -12,7 +12,7 @@
 //:: Created On: Jan 7, 2002
 //:://////////////////////////////////////////////
 #include "x2_inc_spellhook"
-#include "sh_classes_inc_e"
+//#include "sh_classes_inc_e"
 void main()
 {
 

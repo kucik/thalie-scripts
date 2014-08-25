@@ -9,7 +9,7 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "X0_I0_SPELLS"
+//#include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
 
 void main()
@@ -35,7 +35,7 @@ void main()
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
-        
+
         // Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {

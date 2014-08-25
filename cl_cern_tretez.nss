@@ -190,7 +190,7 @@ object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpel
 
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg
@@ -244,7 +244,7 @@ void main()
       /* Apply spell */
 
       /* Send event */
-      if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&  
+      if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
           (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) )
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, FALSE));
       else
@@ -271,7 +271,7 @@ void main()
 
           /* compose and apply dmg */
           effect eDmg = EffectDamage(nDmg, iDamgeType);
-          if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) && 
+          if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
               (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) ) {
             eDmg =  EffectHeal(nDmg);;
           }

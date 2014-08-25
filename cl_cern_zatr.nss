@@ -13,7 +13,7 @@
 #include "x2_inc_spellhook"
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg
@@ -51,7 +51,7 @@ void main()
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
-        
+
         // Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {

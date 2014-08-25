@@ -9,11 +9,14 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "sh_classes_inc"
+//#include "sh_classes_inc"
 #include "x2_inc_spellhook"
+#include "me_soul_inc"
+#include "sh_effects_const"
+
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg

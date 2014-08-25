@@ -10,12 +10,12 @@
 
 //:://////////////////////////////////////////////
 #include "x0_i0_spells"
-#include "sh_classes_inc"
+//#include "sh_classes_inc"
 #include "x2_inc_spellhook"
 
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg

@@ -7,12 +7,15 @@
 //:: Created By: Shaman88
 //:: Created On: 25.6.2011
 //:://////////////////////////////////////////////
-#include "x0_i0_spells"
-#include "sh_classes_inc"
+//#include "x0_i0_spells"
 #include "x2_inc_spellhook"
+#include "sh_effects_const"
+#include "x2_inc_spellhook"
+#include "nwnx_structs"
+//#include "me_soul_inc
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg

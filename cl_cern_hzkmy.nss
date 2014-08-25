@@ -48,7 +48,7 @@ void main()
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
-        
+
         // Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {

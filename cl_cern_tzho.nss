@@ -17,7 +17,7 @@
 
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg
@@ -63,7 +63,7 @@ void main()
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
             else
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), TRUE));
-            
+
             /* Apply spell */
             if (!MyResistSpell(OBJECT_SELF, oTarget))
             {

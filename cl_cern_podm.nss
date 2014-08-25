@@ -9,13 +9,13 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "X0_I0_SPELLS"
-#include "sh_spells_inc"
+//#include "X0_I0_SPELLS"
+//#include "sh_spells_inc"
 #include "x2_inc_spellhook"
 
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg

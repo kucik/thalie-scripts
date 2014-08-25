@@ -9,8 +9,8 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "x2_inc_spellhook"
-#include "sh_classes_const"
+
+//#include "sh_classes_const"
 #include "x2_inc_spellhook"
 void main()
 {

@@ -9,8 +9,10 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "sh_classes_inc"
+//#include "sh_classes_const"
+#include "sh_effects_const"
 #include "x2_inc_spellhook"
+#include "me_soul_inc"
 void main()
 {
     if (!X2PreSpellCastCode())

@@ -9,14 +9,15 @@
 //:: Created On:
 
 #include "X0_I0_SPELLS"
-#include "sh_classes_inc_e"
+//#include "sh_classes_inc_e"
 #include "sh_effects_const"
 #include "x2_inc_spellhook"
+#include "me_soul_inc"
 //:://////////////////////////////////////////////
 
 void main()
 {
-    
+
 /*
   Spellcast Hook Code
   Added 2003-06-20 by Georg
@@ -62,7 +63,7 @@ void main()
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
             else
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), TRUE));
-        
+
             /* Apply spell */
             if (!MyResistSpell(OBJECT_SELF, oTarget))
             {
