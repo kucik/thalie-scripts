@@ -9,9 +9,17 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "X0_I0_SPELLS"
+//#include "X0_I0_SPELLS"
+#include "x2_inc_spellhook"
+
 void main()
 {
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+
     if (GetArcaneSpellFailure(OBJECT_SELF)> 20)
     {
         return;
@@ -27,7 +35,7 @@ void main()
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
-        
+
         // Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {

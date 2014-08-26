@@ -9,7 +9,9 @@
 //:: Created On:
 
 //:://////////////////////////////////////////////
-#include "sh_classes_const"
+
+//#include "sh_classes_const"
+#include "x2_inc_spellhook"
 void main()
 {
     if (!X2PreSpellCastCode())
@@ -17,7 +19,7 @@ void main()
     // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
         return;
     }
-   
+
 
     object oTarget = OBJECT_SELF;
     if (GetArcaneSpellFailure(OBJECT_SELF)> 20)

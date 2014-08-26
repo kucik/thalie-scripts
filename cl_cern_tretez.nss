@@ -191,6 +191,23 @@ object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpel
 void main()
 {
 
+/*
+  Spellcast Hook Code
+  Added 2003-06-20 by Georg
+  If you want to make changes to all spells,
+  check x2_inc_spellhook.nss to find out more
+
+*/
+
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+
+// End of Spell Cast Hook
+
+
     object oTarget = GetSpellTargetObject();
     int iEsenceType = GetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);
     int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
@@ -227,7 +244,7 @@ void main()
       /* Apply spell */
 
       /* Send event */
-      if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&  
+      if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
           (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) )
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 869, FALSE));
       else
@@ -254,7 +271,7 @@ void main()
 
           /* compose and apply dmg */
           effect eDmg = EffectDamage(nDmg, iDamgeType);
-          if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) && 
+          if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
               (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) ) {
             eDmg =  EffectHeal(nDmg);;
           }

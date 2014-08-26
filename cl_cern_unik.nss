@@ -15,6 +15,12 @@
 
 void main()
 {
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+
     //Declare major variables
     object oTarget;
     effect eHaste = EffectHaste();
