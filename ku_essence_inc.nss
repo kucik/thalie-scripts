@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////
 
 #include "sh_effects_const" // Essence constants
+#include "nw_i0_spells"  // For MyResistSpell
 
 struct EssenceEffect {
   effect eff;
@@ -54,12 +55,12 @@ int GetEssenceDmgType(int iDmgType, int iEssence) {
 
 int GetEssenceDCMod(int iEssence) {
     switch(iEssence) {
-    case ESENCE_MAGIC: 
-    case ESENCE_SZIRAVA:     
+    case ESENCE_MAGIC:
+    case ESENCE_SZIRAVA:
     case ESENCE_STRASLIVA:   return 2;
-    case ESENCE_OSLEPUJICI:  
+    case ESENCE_OSLEPUJICI:
 //    case ESENCE_PEKELNA:     return -1; // no damage
-    case ESENCE_MRAZIVA:     
+    case ESENCE_MRAZIVA:
     case ESENCE_UHRANCIVA:
     case ESENCE_ZADRZUJICI:  return 4;
     case ESENCE_ZHOUBNA:
