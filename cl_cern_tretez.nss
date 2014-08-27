@@ -10,128 +10,12 @@
 //:://////////////////////////////////////////////
 
 
-struct EssenceEffect {
-  effect eff;
-  float  fduration;
-  int iSave;
-  int iSaveType;
-  int iValid;
-};
-
 //#include "x0_I0_SPELLS"
 #include "x2_inc_spellhook"
 //#include "sh_classes_inc_e"
-#include "sh_effects_const"
+//#include "sh_effects_const"
+#include "ku_essence_inc"
 #include "ku_libtime"
-
-int GetEssenceDmgType(int iDmgType, int iEssence) {
-
-  switch(iEssence) {
-    case ESENCE_MAGIC:       return DAMAGE_TYPE_MAGICAL; //Chybi popis
-    case ESENCE_SZIRAVA:     return -1; // no damage
-    case ESENCE_STRASLIVA:   return -1; //no damage
-    case ESENCE_OSLEPUJICI:  return -1; //no damage
-    case ESENCE_PEKELNA:     return -1; // no damage
-    case ESENCE_MRAZIVA:     return DAMAGE_TYPE_COLD;
-//    case ESENCE_UHRANCIVA:
-//    case ESENCE_ZADRZUJICI:
-//    case ESENCE_ZHOUBNA:
-    case ESENCE_LEPTAVA:     return DAMAGE_TYPE_ACID;
-    case ESENCE_SVAZUJICI:   return -1; // no damage
-    case ESENCE_TEMNA:       return DAMAGE_TYPE_NEGATIVE;
-  }
-
-  return iDmgType;
-}
-
-struct EssenceEffect GetEssenceAditionalEffect(int iEssence) {
-  struct EssenceEffect s_eff;
-  s_eff.iValid = TRUE;
-
-  switch(iEssence) {
-//    case ESENCE_MAGIC:
-    case ESENCE_SZIRAVA:
-      s_eff.eff = EffectSlow();
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL; // ??
-      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
-      return s_eff;
-
-    case ESENCE_STRASLIVA:
-      s_eff.eff = EffectFrightened();
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL;
-      s_eff.iSaveType = SAVING_THROW_TYPE_FEAR;
-      return s_eff;
-
-    case ESENCE_OSLEPUJICI:
-      s_eff.eff = EffectBlindness();
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL;
-      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
-      return s_eff;
-
-//    case ESENCE_PEKELNA:
-    case ESENCE_MRAZIVA:
-      s_eff.eff = EffectAbilityDecrease(ABILITY_DEXTERITY,4);
-      s_eff.fduration = TurnsToSeconds(10);
-      s_eff.iSave = SAVING_THROW_FORT;
-      s_eff.iSaveType = SAVING_THROW_TYPE_COLD;
-      return s_eff;
-
-    case ESENCE_UHRANCIVA:
-      s_eff.eff = EffectConfused();
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_FORT;
-      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
-      return s_eff;
-
-    case ESENCE_ZADRZUJICI:
-      s_eff.eff = EffectSlow();
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL;
-      s_eff.iSaveType = SAVING_THROW_TYPE_TRAP;
-      return s_eff;
-
-    case ESENCE_ZHOUBNA:
-      s_eff.eff = EffectParalyze(); //Stun or paralyze ???
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL;
-      s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
-      return s_eff;
-
-//    case ESENCE_LEPTAVA:
-    case ESENCE_SVAZUJICI:
-      s_eff.eff = EffectKnockdown();
-      s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL;
-      s_eff.iSaveType = SAVING_THROW_TYPE_TRAP;
-      return s_eff;
-    case ESENCE_TEMNA:
-      s_eff.eff = EffectNegativeLevel(6);
-      s_eff.fduration = 0.0;
-      s_eff.iSave = SAVING_THROW_FORT;
-      s_eff.iSaveType = SAVING_THROW_TYPE_EVIL;
-      return s_eff;
-  }
-
-  s_eff.iValid = FALSE;;
-  return s_eff;
-}
-
-int GetEssenceSpellResist(object oCaster, object oTarget, int iEssence) {
-  if(ESENCE_LEPTAVA)
-    return FALSE;
-
-  return MyResistSpell(oCaster, oTarget);
-}
-
-void EssenceProcessSpecs(object oTarget, int iEsence) {
-  if(iEsence == ESENCE_PEKELNA)
-    ExecuteScript("x0_s0_inferno",oTarget);
-
-  return;
-}
 
 object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpell, float fMaxJump = 5.0, float fMaxRange = 30.0) {
 
@@ -227,7 +111,8 @@ void main()
     float fDamage = IntToFloat(d6((iCasterLevel+1)/2));
     int nDmg;
     float fDelay = 0.0;
-    int iDC = 10 + 2 + GetAbilityModifier(ABILITY_CHARISMA);
+    int iDC = 10 + GetEssenceDCMod(iEsenceType) + GetAbilityModifier(ABILITY_CHARISMA);
+    int iDCTouchMod = 0;
 
 
     while(GetIsObjectValid(oTarget)) {
@@ -240,6 +125,11 @@ void main()
       if(iTouchAttackResult <= 0) {
         break;
       }
+
+      /* Critical hit */
+      iDCTouchMod = 0;
+      if(iTouchAttackResult == 2)
+        iDCTouchMod = 2;
 
       /* Apply spell */
 
@@ -270,7 +160,7 @@ void main()
         if(iDamgeType != -1) {
 
           /* compose and apply dmg */
-          effect eDmg = EffectDamage(nDmg, iDamgeType);
+          effect eDmg = EffectDamage(GetReflexAdjustedDamage(nDmg, oTarget, iDC + iDCTouchMod, s_eff.iSave), iDamgeType);
           if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
               (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) ) {
             eDmg =  EffectHeal(nDmg);;
@@ -280,7 +170,7 @@ void main()
 
         /* Additional spell effects */
         if(s_eff.iValid) {
-          if(!MySavingThrow(s_eff.iSave, oTarget, iDC, s_eff.iSaveType, oCaster, fDelay)) {
+          if(!MySavingThrow(s_eff.iSave, oTarget, iDC + iDCTouchMod, s_eff.iSaveType, oCaster, fDelay)) {
              int iDurType = DURATION_TYPE_TEMPORARY;
              if(s_eff.fduration <= 0.0)
                iDurType = DURATION_TYPE_INSTANT;
