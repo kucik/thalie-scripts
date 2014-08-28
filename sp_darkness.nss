@@ -43,6 +43,9 @@ void main()
     effect eAOE = EffectAreaOfEffect(AOE_PER_DARKNESS);
     location lTarget = GetSpellTargetLocation();
     int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_SHADOWDANCER,OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF);
+    if(GetSpellId() == 842) //SD darkness
+      nDuration = 5 + GetLevelByClass(CLASS_TYPE_SHADOWDANCER,OBJECT_SELF);
+
     int nMetaMagic = GetMetaMagicFeat();
     //Make sure duration does no equal 0
     if (nDuration < 1)
