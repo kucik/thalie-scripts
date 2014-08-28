@@ -53,7 +53,7 @@ void main()
     //Declare major variables
     int nLevel = GetLevelByClass(CLASS_TYPE_SHADOWDANCER);
     int nConceal, nDRAmount,nAC;
-    int nDuration = 5+nLevel/2;
+    int nDuration = 5+nLevel;
     nConceal = ((nLevel / 5) +4)*5;
     nAC = ((nLevel / 5) +2);
     if (nLevel == 30)
