@@ -63,7 +63,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "sh_kelvyvolavac_kahzet";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "sh_kelkormidelnik_kahzet";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -107,7 +107,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "sh_kahzvyvolavac1";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "sh_kahzkormidelnik1";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 1.1;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -151,7 +151,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ph_vyvolavac3";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ph_kormidelnik3";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -195,7 +195,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ph_otrokprod_hag";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ph_kormidelnik4";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 1.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -239,7 +239,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ph_vyvolavac3";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ph_kormidelnik5";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -283,7 +283,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ph_otrokprod_hag";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ph_kormidelnik6";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -327,7 +327,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ph_otrokprod_cha2";          // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ph_kormidelnik7";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -371,7 +371,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ph_otrokprod_che";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ph_kormidelnik8";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -415,7 +415,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lisprod_kar1";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_kormidelnik_kalw";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -459,7 +459,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lisprod_alw";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_kormidelnik_alwk";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -503,7 +503,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lisprod_kar2";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_kormidelnik_kake";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -547,7 +547,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lisprod_kel2";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_kormidelnik_keka";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -591,7 +591,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lisprod_kel1";              // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_kormidelnik_keal";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -635,7 +635,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lisprod_alw1";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_kormidelnik_alke";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -679,7 +679,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lurdo_pr_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_lurdo_pr_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -723,7 +723,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lurdo_pr_2a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_lurdo_pr_2b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -757,7 +757,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                     // odjezd v 23
     stShip.m_sName      = "Hag Grar - Kel-A-Hazr"; // Nazev trasy
     stShip.m_nCost      = 220;                           // Cena listku
-    stShip.m_nSpent     = 10;                            // cas, straveny na mori
+    stShip.m_nSpent     = 9;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_murdo_kh_1a";           // Tag prodavace listku
     stShip.m_sPort      = "ry_hag_to_kel_1";          // Tag bodu, odkud lod vyrazi
@@ -767,7 +767,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_murdo_kh_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_murdo_kh_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -801,7 +801,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );                       // odjezd v 23
     stShip.m_sName      = "Kel-A-Hazr - Hag Grar"; // Nazev trasy
     stShip.m_nCost      = 220;                           // Cena listku
-    stShip.m_nSpent     = 10;                            // cas, straveny na mori
+    stShip.m_nSpent     = 9;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_murdo_hg_1a";           // Tag prodavace listku
     stShip.m_sPort      = "ry_hag_to_kel_3";          // Tag bodu, odkud lod vyrazi
@@ -811,7 +811,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_murdo_hg_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_murdo_hg_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -845,7 +845,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );
     stShip.m_sName      = "Hag Grar - Vychodni pobrezi"; // Nazev trasy
     stShip.m_nCost      = 180;                           // Cena listku
-    stShip.m_nSpent     = 10;                            // cas, straveny na mori
+    stShip.m_nSpent     = 9;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lorna_vp_1a";           // Tag prodavace listku
     stShip.m_sPort      = "ry_hag_to_vych_1";          // Tag bodu, odkud lod vyrazi
@@ -855,7 +855,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lorna_vp_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_lorna_vp_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -889,7 +889,7 @@ void KU_DefineShips()
     KU_AddDepartHour( stShip, 24 );
     stShip.m_sName      = "Vychodni pobrezi - Hag Grar"; // Nazev trasy
     stShip.m_nCost      = 180;                           // Cena listku
-    stShip.m_nSpent     = 10;                            // cas, straveny na mori
+    stShip.m_nSpent     = 9;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
     stShip.m_sMerchant  = "ry_lorna_hg_1a";           // Tag prodavace listku
     stShip.m_sPort      = "ry_hag_to_vych_3";          // Tag bodu, odkud lod vyrazi
@@ -899,7 +899,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_lorna_hg_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_lorna_hg_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -943,7 +943,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_hamar_hg_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_hamar_hg_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -987,7 +987,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_hamar_zp_1a";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_hamar_zp_1b";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -1030,7 +1030,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_dar_gar_kap";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_dar_gar_kap_1";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
@@ -1073,7 +1073,7 @@ void KU_DefineShips()
     stShip.m_sShouter_p = "ry_hlu_kot_kap";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "ry_dar_gar_kap_2";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
-//    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
 // Konec lodni linky
