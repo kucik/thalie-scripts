@@ -24,7 +24,8 @@ void main()
     eLink = EffectLinkEffects(eLink, eDur);
 
     effect eVis = EffectVisualEffect(VFX_IMP_DAZED_S);
-    int nDuration = 5;
+    int nDuration = 2;
+    int iDC = 10 + GetHitDice(OBJECT_SELF) + dex;
     int nRacial = GetRacialType(oTarget);
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 475));
@@ -35,7 +36,7 @@ void main()
        if (!MyResistSpell(OBJECT_SELF, oTarget))
        {
             //Make Will Save to negate effect
-            if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget,15+lvlSD/2+dex , SAVING_THROW_TYPE_MIND_SPELLS))
+            if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget,iDC , SAVING_THROW_TYPE_MIND_SPELLS))
             {
                 //Apply VFX Impact and daze effect
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
