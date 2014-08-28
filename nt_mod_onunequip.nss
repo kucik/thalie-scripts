@@ -30,7 +30,7 @@ void main()
 
    // Shinobi - boure uderu
    if(GetLocalInt(oPC,AKTIVNI_SAMURAJ_BOURE_UDERU))
-     ExecuteScript(cl_sa_boure, oPC);  // stop this of weapon switched
+     ExecuteScript("cl_sa_boure", oPC);  // stop this of weapon switched
 }
 
 

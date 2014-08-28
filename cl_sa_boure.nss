@@ -49,7 +49,7 @@ void main()
      int iSize = GetWeaponSize(GetBaseItemType(oWeapon));
      if(iSize < 1 || iSize > 2)
        return;
- 
+
      // Offhand
      oWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, OBJECT_SELF);
      if(GetIsObjectValid(oWeapon)) {
@@ -57,7 +57,7 @@ void main()
        if(iSize < 1 || iSize > 2)
          return;
      }
-           
+
         SetBaseAttackBonus(GetBaseAttackBonus(OBJECT_SELF)+1);
         effect eLink = EffectAttackDecrease(2);
         eLink = SupernaturalEffect(eLink);
