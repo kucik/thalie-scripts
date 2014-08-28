@@ -383,8 +383,7 @@ void KU_SaveShip( struct tShips a_stShip )
     SetLocalString( oMem,KU_SHIPS_STRUCT_TAG + "_Shouter_p" + si,a_stShip.m_sShouter_p);
     SetLocalString( oMem,KU_SHIPS_STRUCT_TAG + "_Shouter_s" + si,a_stShip.m_sShouter_s);
 
-    if(SHIPS_DEBUG)
-      WriteTimestampedLogEntry("Define "+si+" with port "+a_stShip.m_sPort);
+    WriteTimestampedLogEntry("Made "+si+" with port "+a_stShip.m_sPort+" on object "+GetTag(OBJECT_SELF));
 //      SendMessageToPC(GetFirstPC(),"Define "+si+" with port "+a_stShip.m_sPort);
 
     /* Execute ship departure */
@@ -463,6 +462,7 @@ void ku_Ship_Departure(int iShip) {
 
   if(SHIPS_DEBUG)
       SendMessageToPC(GetFirstPC(),"Lod "+sShip+ " odjizdi z pristavu");
+  WriteTimestampedLogEntry("Ship "+sShip+" departure");
 
 //  string tShouter = GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Shouter_p" + sShip);
   if(tShouter == "")
