@@ -69,7 +69,8 @@ void main()
             GetEffectType(eLook) == EFFECT_TYPE_SLOW ||
             GetEffectType(eLook) == EFFECT_TYPE_MOVEMENT_SPEED_DECREASE)
         {
-            RemoveEffect(oTarget, eLook);
+            if(!GetEffectSpellId(eLook) == 2002) // Do not remove DD effect
+              RemoveEffect(oTarget, eLook);
         }
         eLook = GetNextEffect(oTarget);
     }
