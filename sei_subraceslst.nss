@@ -528,6 +528,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddFieldText( stSubrace, "bronzovy" );               // "bronzovy"
     //dodelat imunitu na paralyzu
     //dodelat imunitu na jedy
+    stSubrace = SEI_AddTrait( stSubrace, "feat_add 203" );              // VenomImmunity
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
@@ -625,6 +626,7 @@ void SEI_DefineSubraces()
 
     // Kobold
     stSubrace = SEI_CreateSubrace( SUBRACE_HALFLING_KOBOLD, RACIAL_TYPE_HALFLING, "Kobold" );
+    stSubrace = SEI_AddTrait( stSubrace, "feat_add 203" );              // VenomImmunity
     stSubrace = SEI_AddFieldText( stSubrace, "kobold" );                // "kobold"
     stSubrace = SEI_AddTrait( stSubrace, "ultravision" );               // Ultravision
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
