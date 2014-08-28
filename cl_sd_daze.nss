@@ -27,6 +27,19 @@ void main()
     int nDuration = 2;
     int iDC = 10 + GetHitDice(OBJECT_SELF) + dex;
     int nRacial = GetRacialType(oTarget);
+    if(GetHasFeat(1610, OBJECT_SELF)) { // EPIC_SHADOW_DAZE_I
+      nDuration = nDuration + 1;
+      iDC = iDC + 2;
+    }
+    if(GetHasFeat(1611, OBJECT_SELF)) { // EPIC_SHADOW_DAZE_II
+      nDuration = nDuration + 1;
+      iDC = iDC + 2;
+    }
+    if(GetHasFeat(1612, OBJECT_SELF)) { // EPIC_SHADOW_DAZE_III
+      nDuration = nDuration + 1;
+      iDC = iDC + 2;
+    }
+
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 475));
     //check meta magic for extend
