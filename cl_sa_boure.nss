@@ -14,7 +14,7 @@
 
 
 #include "sh_classes_inc"
-
+#include "ku_weapons"
 
 void main()
 {
@@ -38,9 +38,18 @@ void main()
         RestoreBaseAttackBonus();
         FloatingTextStringOnCreature("Boure uderu byla vypnuta.",OBJECT_SELF);
         DeleteLocalInt(oSaveItem,AKTIVNI_SAMURAJ_BOURE_UDERU);
+        DeleteLocalInt(OBJECT_SELF,AKTIVNI_SAMURAJ_BOURE_UDERU); // For faster check
    }
    else  //Pokud je vypnut
    {
+     // Check weapons size
+     object oMainWepon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, OBJECT_SELF);
+     if(GetIsObjectValid(oMainWepon))
+       return;
+     int iSize = GetWeaponSize(GetBaseItemType(oMainWepon));
+     if(iSize < 1 || iSize > 2)
+       return;
+            
         SetBaseAttackBonus(GetBaseAttackBonus(OBJECT_SELF)+1);
         effect eLink = EffectAttackDecrease(2);
         eLink = SupernaturalEffect(eLink);
@@ -48,6 +57,7 @@ void main()
         ApplyEffectToObject(DURATION_TYPE_PERMANENT,eLink,OBJECT_SELF);
         FloatingTextStringOnCreature("Boure uderu byla zapnuta.",OBJECT_SELF);
         SetLocalInt(oSaveItem,AKTIVNI_SAMURAJ_BOURE_UDERU,1);
+        SetLocalInt(OBJECT_SELF,AKTIVNI_SAMURAJ_BOURE_UDERU,1); // For faster check
    }
 
 
