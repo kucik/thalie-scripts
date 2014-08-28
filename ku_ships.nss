@@ -422,7 +422,7 @@ void ku_Ships_PrepareNextShipDeparture(int ship) {
    iInterval = iInterval + 20;  // zpozdit pro jistotu jeste o par vterin
  }
  SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_DepartTime" + sShip,ku_GetTimeStamp(iInterval));
- SetLocalInt(OBJECT_SELF,KU_SHIPS_STRUCT_TAG + "_IsDepart" + sShip,1);
+ SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + sShip,1);
  fInt = IntToFloat(iInterval);
  DelayCommand(fInt,ku_Ship_Departure(ship));
 
@@ -583,7 +583,8 @@ void ku_Ship_Arrival(int iShip) {
 
 void ku_ShipsTellDepartureTime(string si, object oPC)
 {
-  if(GetLocalInt(OBJECT_SELF,KU_SHIPS_STRUCT_TAG + "_IsDepart" + si) == 0 ) {
+  object oMem = GetShipMemory();
+  if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + si) == 0 ) {
     int iHour = GetTimeHour();
     int iShip = StringToInt(si);
     int x=0,i=0,j;
@@ -594,12 +595,12 @@ void ku_ShipsTellDepartureTime(string si, object oPC)
         SendMessageToPC(GetFirstPC(),"Kontrola hodiny:"+sHour+" pro lod "+si);
 
       i = 1;
-      j = GetLocalInt(OBJECT_SELF,KU_SHIPS_STRUCT_TAG + sHour + "H" + IntToString(i));
+      j = GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + sHour + "H" + IntToString(i));
       while( (j != 0) && (j != iShip) ) {
         if(SHIPS_DEBUG)
           SendMessageToPC(GetFirstPC(),"V hodine "+sHour+" jede "+IntToString(j));
         i++;
-        j = GetLocalInt(OBJECT_SELF,KU_SHIPS_STRUCT_TAG + sHour + "H" + IntToString(i));
+        j = GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + sHour + "H" + IntToString(i));
         if(SHIPS_DEBUG)
           SendMessageToPC(GetFirstPC(),"V hodine "+sHour+" jede "+IntToString(j));
 
@@ -616,7 +617,7 @@ void ku_ShipsTellDepartureTime(string si, object oPC)
     return;
   }
 
-  int odjezd = GetLocalInt(OBJECT_SELF,KU_SHIPS_STRUCT_TAG + "_DepartTime" + si);
+  int odjezd = GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_DepartTime" + si);
   string sMessage = ku_GetStringTimeBetween(odjezd,ku_GetTimeStamp(),0);
   SendMessageToPC(oPC,"Lod odjede za "+sMessage);
 
