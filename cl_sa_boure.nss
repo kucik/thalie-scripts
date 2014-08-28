@@ -43,13 +43,21 @@ void main()
    else  //Pokud je vypnut
    {
      // Check weapons size
-     object oMainWepon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, OBJECT_SELF);
-     if(GetIsObjectValid(oMainWepon))
+     object oWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, OBJECT_SELF);
+     if(!GetIsObjectValid(oWeapon))
        return;
-     int iSize = GetWeaponSize(GetBaseItemType(oMainWepon));
+     int iSize = GetWeaponSize(GetBaseItemType(oWeapon));
      if(iSize < 1 || iSize > 2)
        return;
-            
+ 
+     // Offhand
+     oWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, OBJECT_SELF);
+     if(GetIsObjectValid(oWeapon)) {
+       iSize = GetWeaponSize(GetBaseItemType(oWeapon));
+       if(iSize < 1 || iSize > 2)
+         return;
+     }
+           
         SetBaseAttackBonus(GetBaseAttackBonus(OBJECT_SELF)+1);
         effect eLink = EffectAttackDecrease(2);
         eLink = SupernaturalEffect(eLink);
