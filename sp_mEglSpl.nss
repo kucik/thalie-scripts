@@ -14,6 +14,7 @@
 
 #include "x2_inc_spellhook"
 #include "nw_i0_spells"
+#include "nwnx_structs"
 
 void main()
 {
@@ -59,7 +60,9 @@ void main()
         fDuration = fDuration * 2.0; //Duration is +100%
     }
     eStr = EffectAbilityIncrease(ABILITY_CHARISMA, nModify);
+    SetEffectSpellId(eStr,SPELL_EAGLE_SPLEDOR);
     eLink = EffectLinkEffects(eStr, eDur);
+    SetEffectSpellId(eLink,SPELL_EAGLE_SPLEDOR);
 
     //Get first target in spell area
     location lLoc = GetLocation(OBJECT_SELF);
@@ -72,7 +75,6 @@ void main()
             fDelay = GetRandomDelay();
             fNormalizedCasterDuration = fDuration * GetThalieCaster(OBJECT_SELF,oTarget,nCasterLvl) / nCasterLvl; // spell duration normalized by NT caster level of the target
             DelayCommand(fDelay,SignalEvent(oTarget, EventSpellCastAt(oTarget, SPELL_EAGLE_SPLEDOR, FALSE)));
-
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget)); // apply visual effect of the casted spell
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fNormalizedCasterDuration)); // apply spell effects
             nTargets--;
@@ -80,6 +82,7 @@ void main()
         //Get next target in spell area
         oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_MEDIUM, lLoc, FALSE);
     }
+    DelayCommand(0.1,SignalEvent(oTarget, EventSpellCastAt(oTarget, SPELL_EAGLE_SPLEDOR, FALSE)));
     DelayCommand(0.1, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF));
     DelayCommand(0.1, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, OBJECT_SELF, fDuration));
 }
