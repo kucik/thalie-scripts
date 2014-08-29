@@ -31,6 +31,7 @@ void OdebraniEfektu(object oPC)
 
     }
     DecreaseDefenderStats(oPC);
+    SetMovementRate(oPC, MOVEMENT_RATE_PC);
     SendMessageToPC(oPC,"Obrany postoj deaktivovan!");
 }
 
@@ -93,6 +94,7 @@ void main()
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
         IncreaseDefenderStats(oPC,bonus_str,bonus_con);
         IncrementRemainingFeatUses(OBJECT_SELF,FEAT_POSTOJ_TRPASLICI_OBRANCE1);
+        SetMovementRate(oPC, MOVEMENT_RATE_IMMOBILE);
         SendMessageToPC(oPC,"Obrany postoj aktivovan!");
 
 
