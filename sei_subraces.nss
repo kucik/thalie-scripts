@@ -477,14 +477,236 @@ int KU_GetSubraceAppearanceChange( object a_oCharacter )
 // **********************
 
 // Parse the trait string to get the effect it describes.
+// This function recognises traits with three arguments.
+//
+effect SEI_ParseTrait3( object a_oCharacter, string a_sTrait, string a_sArg1, string a_sArg2, string a_sArg3 )
+{
+
+    effect eResult;
+
+    if( a_sTrait == "save_inc" )
+    {
+        eResult = EffectSavingThrowIncrease( StringToInt(a_sArg1), StringToInt(a_sArg2), StringToInt(a_sArg3) );
+    }
+    else if( a_sTrait == "save_dec" )
+    {
+        eResult = EffectSavingThrowDecrease( StringToInt(a_sArg1), StringToInt(a_sArg2), StringToInt(a_sArg3) );
+    }
+    else if( a_sTrait == "vsa" )
+    {
+        effect eEffect = SEI_ParseTrait( a_oCharacter, a_sArg3 );
+        eResult = VersusAlignmentEffect( eEffect, StringToInt( a_sArg1 ) , StringToInt( a_sArg2 ) );
+    }
+    else if( a_sTrait == "dmg_res" )
+    {
+        eResult = EffectDamageResistance( StringToInt(a_sArg1), StringToInt(a_sArg2), StringToInt(a_sArg3) );
+    }
+    else
+    {
+        SEI_WriteSubraceLogEntry( "Unable to parse trait: '" +
+            a_sTrait + " " + a_sArg1 + " " + a_sArg2 + " " + a_sArg3 + "'" );
+    }
+
+    return eResult;
+
+} // End SEI_ParseTrait3
+
+
+// Parse the trait string to get the effect it describes.
 // This function recognises traits with two arguments.
 //
+effect SEI_ParseTrait2( object a_oCharacter, string a_sTrait, string a_sArg1, string a_sArg2 )
+{
 
+    effect eResult;
+
+    if( a_sTrait == "ability_inc" )
+    {
+        eResult = EffectAbilityIncrease( StringToInt(a_sArg1), StringToInt(a_sArg2) );
+        SetLocalInt(a_oCharacter,"KU_SUBRACES_ABILITY" + a_sArg1,StringToInt(a_sArg2));
+    }
+    else if( a_sTrait == "ability_dec" )
+    {
+        eResult = EffectAbilityDecrease( StringToInt(a_sArg1), StringToInt(a_sArg2) );
+        SetLocalInt(a_oCharacter,"KU_SUBRACES_ABILITY_" + a_sArg1,( 0 - StringToInt(a_sArg2)));
+    }
+    else if( a_sTrait == "skill_inc" )
+    {
+        eResult = EffectSkillIncrease( StringToInt(a_sArg1), StringToInt(a_sArg2) );
+    }
+    else if( a_sTrait == "skill_dec" )
+    {
+        eResult = EffectSkillDecrease( StringToInt(a_sArg1), StringToInt(a_sArg2) );
+    }
+    else if( a_sTrait == "damage_im_inc" )
+    {
+        eResult = EffectDamageImmunityIncrease( StringToInt(a_sArg1), StringToInt(a_sArg2) );
+    }
+    else if( a_sTrait == "damage_im_dec" )
+    {
+        eResult = EffectDamageImmunityDecrease( StringToInt(a_sArg1), StringToInt(a_sArg2) );
+    }
+    else if( a_sTrait == "vs" )
+    {
+        effect eEffect = SEI_ParseTrait(a_oCharacter, a_sArg2 );
+        eResult = VersusRacialTypeEffect( eEffect, StringToInt( a_sArg1 ) );
+    }
+    else
+    {
+
+        int nSplit = FindSubString( a_sArg2, " " );
+
+        if( nSplit >= 0 )
+        {
+
+            string sHead = GetStringLeft( a_sArg2, nSplit );
+            string sTail = GetStringRight( a_sArg2, GetStringLength(a_sArg2) - ( nSplit + 1 ) );
+
+            eResult = SEI_ParseTrait3( a_oCharacter, a_sTrait, a_sArg1, sHead, sTail );
+
+        }
+        else
+        {
+            SEI_WriteSubraceLogEntry( "Unable to parse trait: '" +
+                a_sTrait + " " + a_sArg1 + " " + a_sArg2 + "'" );
+        }
+
+    } // End if-elseif-else
+
+    return eResult;
+
+} // End SEI_ParseTrait2
 
 
 // Parse the trait string to get the effect it describes.
 // This function recognises traits with one argument.
 //
+effect SEI_ParseTrait1( object a_oCharacter, string a_sTrait, string a_sArg1 )
+{
+
+    effect eResult;
+
+    if( a_sTrait == "ac_inc" )
+    {
+        eResult = EffectACIncrease( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "ac_dec" )
+    {
+        eResult = EffectACDecrease( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "attack_inc" )
+    {
+        eResult = EffectAttackIncrease( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "attack_dec" )
+    {
+        eResult = EffectAttackDecrease( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "immune" )
+    {
+        eResult = EffectImmunity( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "speed_inc" )
+    {
+        eResult = EffectMovementSpeedIncrease( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "speed_dec" )
+    {
+        eResult = EffectMovementSpeedDecrease( StringToInt(a_sArg1) );
+    }
+    else if( a_sTrait == "ex" )
+    {
+        effect eEffect = SEI_ParseTrait( a_oCharacter, a_sArg1 );
+        eResult = ExtraordinaryEffect( eEffect );
+    }
+    else if( a_sTrait == "su" )
+    {
+        effect eEffect = SEI_ParseTrait( a_oCharacter, a_sArg1 );
+        eResult = SupernaturalEffect( eEffect );
+    }
+    else if( a_sTrait == "m" )
+    {
+        if( GetGender( a_oCharacter ) == GENDER_MALE )
+        {
+            eResult = SEI_ParseTrait( a_oCharacter, a_sArg1 );
+        }
+    }
+    else if( a_sTrait == "f" )
+    {
+        if( GetGender( a_oCharacter ) == GENDER_FEMALE )
+        {
+            eResult = SEI_ParseTrait( a_oCharacter, a_sArg1 );
+        }
+    }
+    else
+    {
+
+        int nSplit = FindSubString( a_sArg1, " " );
+
+        if( nSplit >= 0 )
+        {
+
+            string sHead = GetStringLeft( a_sArg1, nSplit );
+            string sTail = GetStringRight( a_sArg1, GetStringLength(a_sArg1) - ( nSplit + 1 ) );
+
+            eResult = SEI_ParseTrait2( a_oCharacter, a_sTrait, sHead, sTail );
+
+        }
+        else
+        {
+            SEI_WriteSubraceLogEntry( "Unable to parse trait: '" +
+                a_sTrait + " " + a_sArg1 + "'" );
+        }
+
+    } // End if-elseif-else
+
+    return eResult;
+
+} // End SEI_ParseTrait1
+
+
+// Parse the trait string to get the effect it describes.
+// This function recognises traits without arguments.
+//
+effect SEI_ParseTrait( object a_oCharacter, string a_sTrait )
+{
+
+    effect eResult;
+
+    if( a_sTrait == "darkvision" )
+    {
+        eResult = EffectVisualEffect( VFX_DUR_DARKVISION );
+    }
+// ADDED BY KUCIK
+    else if( a_sTrait == "ultravision" )
+    {
+        eResult = EffectUltravision();
+    }
+// END KUCIK
+    else
+    {
+
+        int nSplit = FindSubString( a_sTrait, " " );
+
+        if( nSplit >= 0 )
+        {
+
+            string sHead = GetStringLeft( a_sTrait, nSplit );
+            string sTail = GetStringRight( a_sTrait, GetStringLength(a_sTrait) - ( nSplit + 1 ) );
+
+            eResult = SEI_ParseTrait1( a_oCharacter, sHead, sTail );
+
+        }
+        else
+        {
+            SEI_WriteSubraceLogEntry( "Unable to parse trait: '" + a_sTrait + "'" );
+        }
+
+    } // End if-else
+
+    return eResult;
+
+} // End SEI_ParseTrait
 
 int KU_SUB_GiveFeat( object oPC, int iFeat ) {
   object oSoul=SEI_GetSoul(oPC);
@@ -597,7 +819,20 @@ int SEI_NWNXParseTrait1( object oPC, string a_sTrait, string a_sArg1 )
     object oSoul=SEI_GetSoul(oPC);
     int a_iArg1 = StringToInt(a_sArg1);
 
-
+    if( a_sTrait == "ac_dec" ) {
+      a_sTrait = "ac_inc";
+      a_sArg1 = "-"+a_sArg1;
+    }
+    if( a_sTrait == "ac_inc" )
+    {
+        int AC = StringToInt(a_sArg1);
+        int MyAC = GetLocalInt(oSoul,SUBRACE_FIELD+"_AC");
+        if(AC != MyAC) {
+          SetACNaturalBase(oPC,GetACNaturalBase(oPC)+ AC - MyAC);
+          SetLocalInt(oSoul,SUBRACE_FIELD+"_AC",AC);
+        }
+        return 1;
+    }
     if( a_sTrait == "feat_add" ) {
        KU_SUB_GiveFeat( oPC, StringToInt(a_sArg1));
        return 1;
@@ -606,7 +841,25 @@ int SEI_NWNXParseTrait1( object oPC, string a_sTrait, string a_sArg1 )
        KU_SUB_GiveFeat( oPC, 0 - StringToInt(a_sArg1));
        return 1;
     }
-
+    if( a_sTrait == "gender" ) {
+       if(a_iArg1 != GetGender(oPC))
+         SetGender(oPC,a_iArg1);
+       return 1;
+    }
+    else if( a_sTrait == "m" )
+    {
+        if( GetGender( oPC ) == GENDER_MALE )
+        {
+            return SEI_NWNXParseTrait( oPC, a_sArg1 );
+        }
+    }
+    else if( a_sTrait == "f" )
+    {
+        if( GetGender( oPC ) == GENDER_FEMALE )
+        {
+           return SEI_NWNXParseTrait( oPC, a_sArg1 );
+        }
+    }
     else
     {
 
@@ -629,6 +882,9 @@ int SEI_NWNXParseTrait1( object oPC, string a_sTrait, string a_sArg1 )
 } // End SEI_ParseTrait1
 
 
+// Parse the trait string and apply it using NWNeXalt.
+// This function recognises traits without arguments.
+//
 int SEI_NWNXParseTrait( object oPC, string a_sTrait )
 {
 
