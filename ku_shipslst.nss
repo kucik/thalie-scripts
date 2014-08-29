@@ -495,7 +495,7 @@ void KU_DefineShips()
     stShip.m_nCost      = 140;                          // Cena listku
     stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
-    stShip.m_sMerchant  = "ry_lisprod_kar2";          // Tag prodavace listku
+    stShip.m_sMerchant  = "di_kk_k_dm_abhal";          // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_kar_kel_c";         // Tag bodu, odkud lod vyrazi
     stShip.m_sSea       = "ry_lod_kar_kel_l";         // Tag bodu na mori
     stShip.m_sFinish    = "ry_lod_kar_kel_z";         // Tag cile cesty
@@ -539,7 +539,7 @@ void KU_DefineShips()
     stShip.m_nCost      = 140;                          // Cena listku
     stShip.m_nSpent     = 3;                            // cas, straveny na mori
     stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
-    stShip.m_sMerchant  = "ry_lisprod_kel2";           // Tag prodavace listku
+    stShip.m_sMerchant  = "di_kah_pristav_abhal";           // Tag prodavace listku
     stShip.m_sPort      = "ry_lod_kel_kar_c";          // Tag bodu, odkud lod vyrazi
     stShip.m_sSea       = "ry_lod_kel_kar_l";          // Tag bodu na mori
     stShip.m_sFinish    = "ry_lod_kel_kar_z";          // Tag cile cesty
