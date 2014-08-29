@@ -709,7 +709,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 9;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_cerny" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
+    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Modry puldrak
@@ -723,7 +723,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 10;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_modry" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
+    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Zeleny puldrak
@@ -737,7 +737,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 11;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_zeleny" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
+    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Cerveny puldrak
@@ -751,7 +751,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 12;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_cerveny" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
+    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Bily puldrak
@@ -765,7 +765,7 @@ void SEI_DefineSubraces()
     stSubrace.m_nTailType = 13;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_bily" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_DRAGON;
+    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Illithid
