@@ -86,6 +86,7 @@ int KU_GetShipByPort(string sPort)
    }
  i++;
  }
+ WriteTimestampedLogEntry("ERROR: Cannot get ship id by port "+sPort);
  return 0;
 }
 
