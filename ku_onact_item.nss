@@ -50,9 +50,9 @@ void main()
 
 //  SendMessageToPC(oPlayer,"Tag = "+GetTag(oActivated));
 
-  if(sActivated == "mk_zub_smrti") {
+/*  if(sActivated == "mk_zub_smrti") {
     kill_himself(oPlayer);
-  }
+  }*/
 
   // Lodni listek "ku_ship_ticket"
   if (GetStringLeft(sActivated,14) == "ku_ship_ticket" ) {
@@ -115,7 +115,7 @@ void main()
       AssignCommand(oPlayer,ActionStartConversation(OBJECT_SELF,"ku_dmwand2",TRUE,FALSE));
     }
 
-  }
+  }*/
   if (GetTag(oActivated) == "ku_uni_dlg"){
     object oPC = oPlayer;
     int iDlg = GetLocalInt(oActivated,"KU_DIALOG");
@@ -155,7 +155,7 @@ void main()
     SetLocalInt(oPC,KU_DLG+"_allow_1",1);
     AssignCommand(oPlayer,ActionStartConversation(OBJECT_SELF,"ku_uni_dlg",TRUE,FALSE));
     return;
-  } */
+  }
 
   // Baliky sipu, sipek, hvezdic seker a podobneho
   if(GetStringLeft(sActivated,7)=="ry_tou_") {
