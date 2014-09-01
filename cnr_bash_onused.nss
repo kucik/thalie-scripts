@@ -765,7 +765,9 @@ DelayCommand(6.0,GiveXPToCreature(oPC,GetLocalInt(GetModule(),"_UOACraft_XP")));
   if (iSuccess == 1)
    {
     iToolBreak++;
-    if (iToolBreak > 20)
+//zmena 1.9.2014
+//    if (iToolBreak > 20)
+  if (iToolBreak > 60)
      {
       DelayCommand(6.0,FloatingTextStringOnCreature("Zlomil se ti nastroj..",oPC,FALSE));
       DestroyObject(oTool,6.0);
@@ -1034,7 +1036,9 @@ sOldSkill+"%"));
   if (iSuccess == 1)
    {
     iToolBreak++;
-    if (iToolBreak > 20)
+    //zmena 1.9.2014
+//    if (iToolBreak > 20)
+  if (iToolBreak > 60)
      {
       DelayCommand(6.0,FloatingTextStringOnCreature("Sakra, zlomila se mi sekera..",oPC,FALSE));
       DestroyObject(oTool,6.0);
@@ -1076,8 +1080,14 @@ void ReplaceSelf(object oSelf, string sAppearance)
   lSelf=GetLocation(oSelf);
   oTemp = CreateObject(OBJECT_TYPE_PLACEABLE,sAppearance,lSelf,FALSE);
   DestroyObject(oSelf,1.0);
-  AssignCommand(oTemp,DelayCommand(1200.0,CreateNew(lSelf,sResSelf)));
-  DestroyObject(oTemp,1230.0);
+
+//zmena 1.9.2014
+
+//  AssignCommand(oTemp,DelayCommand(1200.0,CreateNew(lSelf,sResSelf)));
+//  DestroyObject(oTemp,1230.0);
+  AssignCommand(oTemp,DelayCommand(1000.0,CreateNew(lSelf,sResSelf)));
+  DestroyObject(oTemp,1030.0);
+
   return;
  }
 
