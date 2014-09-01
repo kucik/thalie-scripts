@@ -89,6 +89,7 @@ int __processCommands() {
 
     if(__processCommand(sCmd, sVal, sParam1)) {
       sSql = "DELETE FROM server_commands WHERE id='"+sID+"';";
+      SQLExecDirect(sSql);
       return TRUE; 
     }
     i++;
