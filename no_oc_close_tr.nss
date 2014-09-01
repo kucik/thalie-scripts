@@ -76,7 +76,7 @@ if ( (GetStringLeft(GetTag(no_Item),3) == "no_")&(GetLocalInt(no_Item,"no_OCAROV
         {no_pocet_cyklu = no_pocet_cyklu +10;
          FloatingTextStringOnCreature("Nemuzes pokracovat v praci jineho  remeslnika ! ",no_oPC,FALSE );
         }
-                if (no_pocet_cyklu < 10) {
+                if (no_pocet_cyklu < 9) {
                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
 
             no_zamkni(no_oPC);
@@ -89,6 +89,26 @@ if ( (GetStringLeft(GetTag(no_Item),3) == "no_")&(GetLocalInt(no_Item,"no_OCAROV
             no_provedeni_polotovaru = TRUE;
             break;                }///kdyz mame mene, nez 10cyklu
 
+                     //////////predelavka 1.9.2014/////////
+                if (no_pocet_cyklu == 9) {
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
+
+                SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+            no_zamkni(no_oPC);
+            SetLocalInt(OBJECT_SELF,"no_kamen",0);
+            SetLocalInt(OBJECT_SELF,"no_kamen2",0);
+            SetLocalString(OBJECT_SELF,"no_vyrobek","");
+            DelayCommand(no_oc_delay,no_xp_oc(no_oPC,OBJECT_SELF));
+              //jenom nastavime jednu promenou na zacatek jinak, at kdyz je prazdna
+
+            no_provedeni_polotovaru = TRUE;
+            break;                  }///kdyz mame mame presne 9 cyklu
+
+
+
+
+
         if   (no_pocet_cyklu >= 10) {
               SetLocalInt(no_Item,"no_pocet_cyklu",0);
 
@@ -98,9 +118,9 @@ if ( (GetStringLeft(GetTag(no_Item),3) == "no_")&(GetLocalInt(no_Item,"no_OCAROV
 
                                ////////////kdyz se prida neco do zarizeni/////////////////////////////////////////
                 ///doplnena perzistence 5.5.2014
-                if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
-                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
-                }
+                //if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
+               // Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
+              // }
 
                  ///disturb proti klikacum 5.5.2014////
                 SetLocalInt(OBJECT_SELF,"no_disturbklikacu",GetLocalInt(OBJECT_SELF,"no_disturbklikacu")+1);

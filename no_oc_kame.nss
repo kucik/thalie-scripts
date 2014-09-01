@@ -68,12 +68,13 @@ int no_procentaduse = FloatToInt ( (5+ no_challenge*5.5 + d10())/2 );
                                                }
     else  no_procentaduse = no_procentaduse + 100;
 
-if ((GetLocalInt(no_oPotvora,"AI_BOSS")!=1) || (GetLocalInt(no_oPotvora,"AI_BOSS")!=2))
+/////////////odstranime, nejka to blblo, stejnak to dalo xpy//////////////
+//if ((GetLocalInt(no_oPotvora,"AI_BOSS")!=1) || (GetLocalInt(no_oPotvora,"AI_BOSS")!=2))
      //nemame bosse
-     {
-     FloatingTextStringOnCreature("Tahle duse nepatri nacelnikovi. Je tedy moc slaba na zachyceni !",no_oPC,FALSE );
-        no_procentaduse = 0;
-        }
+//     {
+//     FloatingTextStringOnCreature("Tahle duse nepatri nacelnikovi. Je tedy moc slaba na zachyceni !",no_oPC,FALSE );
+//        no_procentaduse = 0;
+//        }
 
 int no_tezkost_kamene = 0;
 int no_preskoc_hody = FALSE;

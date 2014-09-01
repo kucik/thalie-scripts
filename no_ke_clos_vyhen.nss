@@ -90,7 +90,7 @@ while (GetIsObjectValid(no_Item)) {
          FloatingTextStringOnCreature("Nemuzes pokracovat v praci jineho  remeslnika ! ",no_oPC,FALSE );
         }
 
-                if (no_pocet_cyklu < 10) {
+                if (no_pocet_cyklu < 9) {
                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
             no_zamkni(no_oPC);
             DelayCommand(no_ke_delay,no_xp_ke(no_oPC,OBJECT_SELF));
@@ -100,13 +100,28 @@ while (GetIsObjectValid(no_Item)) {
             SetLocalInt(OBJECT_SELF,"no_jil_pocet",0);
             break;                  }///kdyz mame mene, nez 10cyklu
 
+                //////////predelavka 1.9.2014/////////
+                if (no_pocet_cyklu == 9) {
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
+
+            SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+            no_zamkni(no_oPC);
+            DelayCommand(no_ke_delay,no_xp_ke(no_oPC,OBJECT_SELF));
+            SetLocalInt(OBJECT_SELF,"no_slin",0);   //jenom nastavime jednu promenou na zacatek jinak, at kdyz je prazdna
+            SetLocalInt(OBJECT_SELF,"no_suro",0);   // suroviny jsou 1-pisek, 2-jil
+            SetLocalInt(OBJECT_SELF,"no_cist",55);   // cista - zda je jil, ci pisek vycistenej v peci.
+            SetLocalInt(OBJECT_SELF,"no_jil_pocet",0);
+            break;                  }///kdyz mame mame presne 9 cyklu
+
+
         if   (no_pocet_cyklu >= 10) {
 
                   ////////////kdyz se prida neco do zarizeni/////////////////////////////////////////
                 ///doplnena perzistence 5.5.2014
-                if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
-                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
-                }
+                //if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
+                //Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
+                //}
 
 
 

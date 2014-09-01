@@ -3,6 +3,9 @@
 #include "no_nastcraft_ini"
 #include "tc_xpsystem_inc"
 
+#include "ku_persist_inc"
+
+
 int no_pocet;
 string no_nazev;
 int no_DC;
@@ -60,6 +63,7 @@ void no_snizstack(object no_Item, int no_mazani)
 int no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
   if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
                            if (no_mazani == TRUE) DestroyObject(no_Item);
+
 
                     }
     else   {  if (no_mazani == TRUE) { //DestroyObject(no_Item);
@@ -332,6 +336,8 @@ no_Item = GetFirstItemInInventory(no_oPC);
  continue;     //znicim vsechny prepinace 001
  }
  DestroyObject(no_Item);
+
+
  no_Item = GetNextItemInInventory(no_oPC);
 }
 
@@ -343,6 +349,8 @@ no_Item = GetFirstItemInInventory(no_oPC);
  continue;     //znicim vsechny prepinace 003
  }
  DestroyObject(no_Item);
+
+
  no_Item = GetNextItemInInventory(no_oPC);
 }
 
@@ -522,7 +530,11 @@ if (no_hod <= no_chance ) {
         if (no_procenta >= 100.0) { //kdyz je vyrobek 100% tak samozrejmeje hotovej
                 AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0, 5.0));
 
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
         DestroyObject(no_Item); //znicim ho, protoze predam hotovej vyrobek
+
+
+
         switch(no_druh) {
         case 1:   {SetLocalInt(CreateItemOnObject("tc_osek_vrb",no_oPC,1),"tc_cena",FloatToInt(no_cena_nasa_vrb*no_dr_nasobitel2));
                    FloatingTextStringOnCreature("*** HOTOVO ***" ,no_oPC,FALSE );
@@ -642,6 +654,8 @@ if (no_hod <= no_chance ) {
         case 1:  {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -658,6 +672,8 @@ if (no_hod <= no_chance ) {
         case 2: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -674,6 +690,8 @@ if (no_hod <= no_chance ) {
         case 3: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -690,6 +708,8 @@ if (no_hod <= no_chance ) {
         case 4: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -706,6 +726,8 @@ if (no_hod <= no_chance ) {
         case 5: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -722,6 +744,8 @@ if (no_hod <= no_chance ) {
         case 6: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -738,6 +762,8 @@ if (no_hod <= no_chance ) {
         case 7: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -754,6 +780,8 @@ if (no_hod <= no_chance ) {
         case 8: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -771,6 +799,9 @@ if (no_hod <= no_chance ) {
         case 51: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
+
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -787,6 +818,7 @@ if (no_hod <= no_chance ) {
         case 52:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -803,6 +835,7 @@ if (no_hod <= no_chance ) {
         case 53: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -819,6 +852,7 @@ if (no_hod <= no_chance ) {
         case 54: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -835,6 +869,7 @@ if (no_hod <= no_chance ) {
         case 55: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -851,6 +886,7 @@ if (no_hod <= no_chance ) {
         case 56: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -867,6 +903,7 @@ if (no_hod <= no_chance ) {
         case 57: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -883,6 +920,7 @@ if (no_hod <= no_chance ) {
         case 58: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -900,6 +938,7 @@ if (no_hod <= no_chance ) {
         case 101: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -916,6 +955,7 @@ if (no_hod <= no_chance ) {
         case 102:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -932,6 +972,7 @@ if (no_hod <= no_chance ) {
         case 103: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -948,6 +989,7 @@ if (no_hod <= no_chance ) {
         case 104: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -964,6 +1006,7 @@ if (no_hod <= no_chance ) {
         case 105: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -980,6 +1023,7 @@ if (no_hod <= no_chance ) {
         case 106: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -996,6 +1040,7 @@ if (no_hod <= no_chance ) {
         case 107: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1012,6 +1057,7 @@ if (no_hod <= no_chance ) {
         case 108: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1029,6 +1075,7 @@ if (no_hod <= no_chance ) {
         case 151:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1045,6 +1092,7 @@ if (no_hod <= no_chance ) {
         case 152: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1061,6 +1109,7 @@ if (no_hod <= no_chance ) {
         case 153:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1077,6 +1126,7 @@ if (no_hod <= no_chance ) {
         case 154: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1093,6 +1143,7 @@ if (no_hod <= no_chance ) {
         case 155: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1109,6 +1160,7 @@ if (no_hod <= no_chance ) {
         case 156:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1125,6 +1177,7 @@ if (no_hod <= no_chance ) {
         case 157: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1141,6 +1194,7 @@ if (no_hod <= no_chance ) {
         case 158: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1152,6 +1206,7 @@ if (no_hod <= no_chance ) {
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
                          CopyItem(no_Item,no_oPC,TRUE);
                          DestroyObject(no_Item);
+
                          }
                  break; }
                  }//konec case zvetsovani %
@@ -1208,6 +1263,7 @@ else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime p
 
          if (no_procenta <= 0.0 ){
          DestroyObject(no_Item);
+
          FloatingTextStringOnCreature("Drevo se rozpadlo.",no_oPC,FALSE );
          ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
          DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
@@ -1233,6 +1289,7 @@ if (no_procenta > 0.0 ) {
         case 1:  {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1244,11 +1301,13 @@ if (no_procenta > 0.0 ) {
                  else  { FloatingTextStringOnCreature("Prerusil si osekavani" ,no_oPC,FALSE );
                          CopyItem(no_Item,no_oPC,TRUE);
                          DestroyObject(no_Item);
+
                          }
                  break; }
         case 2: {string no_tag_vyrobku = GetTag(no_Item);
                   int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1265,6 +1324,7 @@ if (no_procenta > 0.0 ) {
         case 3: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1281,6 +1341,7 @@ if (no_procenta > 0.0 ) {
         case 4: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1297,6 +1358,7 @@ if (no_procenta > 0.0 ) {
         case 5: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1313,6 +1375,7 @@ if (no_procenta > 0.0 ) {
         case 6: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1329,6 +1392,7 @@ if (no_procenta > 0.0 ) {
         case 7: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1345,6 +1409,7 @@ if (no_procenta > 0.0 ) {
         case 8: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1362,6 +1427,7 @@ if (no_procenta > 0.0 ) {
         case 51: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1378,6 +1444,7 @@ if (no_procenta > 0.0 ) {
         case 52:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1394,6 +1461,7 @@ if (no_procenta > 0.0 ) {
         case 53: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1410,6 +1478,7 @@ if (no_procenta > 0.0 ) {
         case 54: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1426,6 +1495,7 @@ if (no_procenta > 0.0 ) {
         case 55: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1442,6 +1512,7 @@ if (no_procenta > 0.0 ) {
         case 56: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1458,6 +1529,7 @@ if (no_procenta > 0.0 ) {
         case 57: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1474,6 +1546,7 @@ if (no_procenta > 0.0 ) {
         case 58: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1491,6 +1564,7 @@ if (no_procenta > 0.0 ) {
         case 101: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1507,6 +1581,7 @@ if (no_procenta > 0.0 ) {
         case 102:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1523,6 +1598,7 @@ if (no_procenta > 0.0 ) {
         case 103: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1539,6 +1615,7 @@ if (no_procenta > 0.0 ) {
         case 104: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1555,6 +1632,7 @@ if (no_procenta > 0.0 ) {
         case 105: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1571,6 +1649,7 @@ if (no_procenta > 0.0 ) {
         case 106: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1587,6 +1666,7 @@ if (no_procenta > 0.0 ) {
         case 107: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1603,6 +1683,7 @@ if (no_procenta > 0.0 ) {
         case 108: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1620,6 +1701,7 @@ if (no_procenta > 0.0 ) {
         case 151:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1636,6 +1718,7 @@ if (no_procenta > 0.0 ) {
         case 152: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1652,6 +1735,7 @@ if (no_procenta > 0.0 ) {
         case 153:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1668,6 +1752,7 @@ if (no_procenta > 0.0 ) {
         case 154: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1684,6 +1769,7 @@ if (no_procenta > 0.0 ) {
         case 155: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1700,6 +1786,7 @@ if (no_procenta > 0.0 ) {
         case 156:{string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -1716,6 +1803,7 @@ if (no_procenta > 0.0 ) {
         case 157: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1732,6 +1820,7 @@ if (no_procenta > 0.0 ) {
         case 158: {string no_tag_vyrobku = GetTag(no_Item);
                  int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
                  DestroyObject(no_Item);
+
                  no_Item = CreateItemOnObject("no_polot_dr",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
@@ -1743,6 +1832,7 @@ if (no_procenta > 0.0 ) {
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
                          CopyItem(no_Item,no_oPC,TRUE);
                          DestroyObject(no_Item);
+
                          }
                  break; }
                  }//konec case zvetsovani %

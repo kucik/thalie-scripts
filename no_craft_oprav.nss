@@ -7,18 +7,18 @@ void main()
 int CRAFT_PLACEABLE = FALSE;
 object no_oPC = GetItemActivator();
 
-if (GetTag(GetItemActivatedTarget())=="AlchemistsApparatus") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_keram") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_sleva") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="Loom") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_susak") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_spalek") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_platner") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_tr_koza") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="tc_alchemy_kotel") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_brusnykamen") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="no_kovadlina") CRAFT_PLACEABLE = TRUE;
-else if (GetTag(GetItemActivatedTarget())=="X2_PLC_STUBE") CRAFT_PLACEABLE = TRUE;
+if (GetResRef(GetItemActivatedTarget())=="AlchemistsApparatus") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_keram") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_sleva") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="Loom") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_susak") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_spalek") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_platner") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_tr_koza") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="tc_alchemy_kotel") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_brusnykamen") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="no_kovadlina") CRAFT_PLACEABLE = TRUE;
+else if (GetResRef(GetItemActivatedTarget())=="X2_PLC_STUBE") CRAFT_PLACEABLE = TRUE;
 
 if  ( GetIsObjectValid(GetItemActivatedTarget()) == FALSE )  {
 FloatingTextStringOnCreature(" Neplatny cil !" ,no_oPC,FALSE);

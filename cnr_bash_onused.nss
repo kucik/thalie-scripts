@@ -787,14 +787,14 @@ DelayCommand(6.0,GiveXPToCreature(oPC,GetLocalInt(GetModule(),"_UOACraft_XP")));
   DelayCommand(5.0,SetLocalInt(oPC,"iAmDigging",0));
 
 ////////////nomis odstraneni effektu invis a hide..///////////////////////
-effect no_effect=GetFirstEffect(oPC);
-while (GetIsEffectValid(no_effect))
-   {
-   if (GetEffectType(no_effect)==EFFECT_TYPE_INVISIBILITY) RemoveEffect(oPC,no_effect);
-   if (GetEffectType(no_effect)==EFFECT_TYPE_IMPROVEDINVISIBILITY) RemoveEffect(oPC,no_effect);
-   if (GetEffectType(no_effect)==EFFECT_TYPE_SANCTUARY) RemoveEffect(oPC,no_effect);
-   no_effect=GetNextEffect(oPC);
-   }
+//effect no_effect=GetFirstEffect(oPC);
+//while (GetIsEffectValid(no_effect))
+//   {
+//   if (GetEffectType(no_effect)==EFFECT_TYPE_INVISIBILITY) RemoveEffect(oPC,no_effect);
+//   if (GetEffectType(no_effect)==EFFECT_TYPE_IMPROVEDINVISIBILITY) RemoveEffect(oPC,no_effect);
+//   if (GetEffectType(no_effect)==EFFECT_TYPE_SANCTUARY) RemoveEffect(oPC,no_effect);
+//   no_effect=GetNextEffect(oPC);
+//   }
 //////////////////////////////////////////////////////////////
 
 

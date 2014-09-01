@@ -4,6 +4,8 @@
 #include "tc_xpsystem_inc"
 #include "ku_items_inc"
 #include "x3_inc_string"
+
+#include "ku_persist_inc"
 /////////////////////////////////////
 ///  dela vsemozne sici vyrobky s tagama:
 ///
@@ -2902,7 +2904,7 @@ if (NO_oc_DEBUG == TRUE) no_procenta = no_procenta +30.0;
                        FloatingTextStringOnCreature("*** HOTOVO ***" ,no_oPC,FALSE );
 
                         no_udelejocarovani(no_Item);
-
+                        DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 /// }////////////////// konec dodelavky zbrane ///////////////////////////////
 
 
@@ -2966,6 +2968,8 @@ else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime p
 
          if (no_procenta <= 0.0 ){
          DestroyObject(no_Item);
+         DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+
          FloatingTextStringOnCreature("Vyrobek se rozpadl",no_oPC,FALSE );
          ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
          DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));

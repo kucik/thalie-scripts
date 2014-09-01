@@ -98,7 +98,7 @@ if (GetResRef(no_Item) == "no_polot_sl") {
          FloatingTextStringOnCreature("Nemuzes pokracovat v praci jineho  remeslnika ! ",no_oPC,FALSE );
         }
 
-                if (no_pocet_cyklu < 10) {
+                if (no_pocet_cyklu < 9) {
                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
             no_zamkni(no_oPC);
             DelayCommand(no_sl_delay,no_xp_sl(no_oPC,OBJECT_SELF));
@@ -110,13 +110,29 @@ if (GetResRef(no_Item) == "no_polot_sl") {
             SetLocalInt(OBJECT_SELF,"no_nale_pocet",0);
             break;   }///kdyz mame mene, nez 10cyklu
 
+                //////////predelavka 1.9.2014/////////
+                if (no_pocet_cyklu == 9) {
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
+
+                SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+            no_zamkni(no_oPC);
+            DelayCommand(no_sl_delay,no_xp_sl(no_oPC,OBJECT_SELF));
+            SetLocalInt(OBJECT_SELF,"no_ruda",0);   //jenom nastavime jednu promenou na zacatek jinak, at kdyz je prazdna
+            SetLocalInt(OBJECT_SELF,"no_stru",56);   //tak to nehaze, ze no_ruda == no_stru + premaze minulou hodnotu
+            SetLocalInt(OBJECT_SELF,"no_legu",57);
+            SetLocalInt(OBJECT_SELF,"no_cist",58);
+            SetLocalInt(OBJECT_SELF,"no_nale",59);
+            SetLocalInt(OBJECT_SELF,"no_nale_pocet",0);
+            break;                  }///kdyz mame mame presne 9 cyklu
+
         if   (no_pocet_cyklu >= 10) {
 
                                ////////////kdyz se prida neco do zarizeni/////////////////////////////////////////
                 ///doplnena perzistence 5.5.2014
-                if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
-                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
-                }
+               // if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
+               // Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
+               // }
 
 
 

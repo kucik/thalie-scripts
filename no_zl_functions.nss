@@ -2,6 +2,9 @@
 #include "tc_xpsystem_inc"
 #include "no_nastcraft_ini"
 #include "ku_items_inc"
+#include "ku_persist_inc"
+
+
 /////////////////////////////////////
 ///  dela prsteny a maulety ve tvaru no_zl_XX_01_02_03_04 kde:
 //
@@ -2083,6 +2086,9 @@ void no_vytvorprocenta( object no_oPC, float no_procenta, object no_Item)
                                no_nazev_procenta = GetStringRight(no_nazev_procenta,3);}
 
 DestroyObject(no_Item);
+
+
+
 no_Item = CreateItemOnObject("no_polot_zl",OBJECT_SELF,1,no_tag_vyrobku);
                  SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
@@ -2309,6 +2315,8 @@ if (no_hod <= no_chance ) {
         AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0, 5.0));
         DestroyObject(no_Item); //znicim ho, protoze predam hotovej vyrobek
 
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+
 // if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kr") {
                        FloatingTextStringOnCreature("*** HOTOVO ***" ,no_oPC,FALSE );
                         if (no_druh < 13) { //nedodelana zbran                                 //  XX - no_druh_vyrobku/ 01 no_kovsperku /02 no_sutr_1 /  03 no_sutr_2 /04 no_sutr_procenta /
@@ -2385,6 +2393,7 @@ else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime p
 
          if (no_procenta <= 0.0 ){
          DestroyObject(no_Item);
+                         DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
          FloatingTextStringOnCreature("Vyrobek se rozpadl",no_oPC,FALSE );
          ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
          DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));

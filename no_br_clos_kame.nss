@@ -86,7 +86,7 @@ while (GetIsObjectValid(no_Item)) {
          FloatingTextStringOnCreature("Nemuzes pokracovat v praci jineho  remeslnika ! ",no_oPC,FALSE );
         }
 
-                if (no_pocet_cyklu < 10) {
+                if (no_pocet_cyklu < 9) {
                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                 no_zamkni(no_oPC);
                 DelayCommand(no_br_delay,no_xp_kamen(no_oPC,OBJECT_SELF));
@@ -96,13 +96,28 @@ while (GetIsObjectValid(no_Item)) {
                 break;           /// kdyz bude polotovar ve vyrobe, tak zabranime aby se udelal novej z kuze.
                 }///kdyz mame mene, nez 10cyklu
 
+                //////////predelavka 1.9.2014/////////
+                if (no_pocet_cyklu == 9) {
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
+
+            SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+            no_zamkni(no_oPC);
+            DelayCommand(no_br_delay,no_xp_kamen(no_oPC,OBJECT_SELF));
+                SetLocalInt(OBJECT_SELF,"no_nuget",0);   //jenom nastavime jednu promenou na zacatek jinak, at kdyz je prazdna
+                SetLocalInt(OBJECT_SELF,"no_brousene",56);   //tak to nehaze, ze no_brousene=no_lestene
+                SetLocalInt(OBJECT_SELF,"no_lestidlo",57);
+            break;                  }///kdyz mame mame presne 9 cyklu
+
+
+
         if   (no_pocet_cyklu >= 10) {
 
                   ////////////kdyz se prida neco do zarizeni/////////////////////////////////////////
                 ///doplnena perzistence 5.5.2014
-                if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
-                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
-                }
+                //if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
+                //Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
+                //}
 
 
                         SetLocalInt(OBJECT_SELF,"no_nuget",0);   //jenom nastavime jednu promenou na zacatek jinak, at kdyz je prazdna

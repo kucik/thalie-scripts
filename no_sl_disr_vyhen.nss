@@ -26,7 +26,8 @@ object no_vzataItem = GetInventoryDisturbItem();
 
 
 ///doplnena perzistence 5.5.2014
-Persist_DeleteItemFromDB(GetInventoryDisturbItem());
+
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 
 
 /////////////////////////////1-NASTAVIT CISTIT/////////////////////////////////

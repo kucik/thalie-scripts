@@ -92,7 +92,7 @@ if (GetResRef(no_Item) == "no_polot_ko") {
          FloatingTextStringOnCreature("Nemuzes pokracovat v praci jineho  remeslnika ! ",no_oPC,FALSE );
         }
 
-                if (no_pocet_cyklu < 10) {
+                if (no_pocet_cyklu < 9) {
                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
             no_zamkni(no_oPC);
             DelayCommand(no_ko_delay,no_xp_kuze(no_oPC,OBJECT_SELF));
@@ -101,13 +101,28 @@ if (GetResRef(no_Item) == "no_polot_ko") {
             SetLocalInt(OBJECT_SELF,"no_suseni",56);
             break;  }///kdyz mame mene, nez 10cyklu
 
+                            //////////predelavka 1.9.2014/////////
+                if (no_pocet_cyklu == 9) {
+                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
+
+            SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+            no_zamkni(no_oPC);
+            DelayCommand(no_ko_delay,no_xp_kuze(no_oPC,OBJECT_SELF));
+            SetLocalInt(OBJECT_SELF,"no_kuze",0);
+            SetLocalInt(OBJECT_SELF,"no_louh",57);
+            SetLocalInt(OBJECT_SELF,"no_suseni",56);
+            break;                  }///kdyz mame mame presne 9 cyklu
+
+
+
         if   (no_pocet_cyklu >= 10) {
 
                                 ////////////kdyz se prida neco do zarizeni/////////////////////////////////////////
                 ///doplnena perzistence 5.5.2014
-                if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
-                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
-                }
+               // if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
+               // Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
+               // }
 
 
               SetLocalInt(no_Item,"no_pocet_cyklu",0);
