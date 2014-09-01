@@ -1866,8 +1866,37 @@ object oSoul = SEI_GetSoul(a_oCharacter);
         if(SUBRACE_DEBUG)
             SendMessageToPC(a_oCharacter,GetName(OBJECT_SELF)+"Parsing: "+sTraitString);
         SEI_NWNXParseTrait( a_oCharacter, sTraitString);
-        if(SUBRACE_DEBUG)
-            SendMessageToPC(a_oCharacter,"-> NWNX");
+        if(!SEI_NWNXParseTrait( a_oCharacter, sTraitString)) {
+
+              if( bFirstValidInited )
+              {
+
+                // Add the effect to the chain of effects we already have.
+                eSubraceEffect =  EffectLinkEffects( eSubraceEffect,
+                    SEI_ParseTrait( a_oCharacter, sTraitString ) );
+
+              }
+              else
+              {
+
+                // This may be the first trait, so just parse the trait string.
+                eSubraceEffect = SEI_ParseTrait( a_oCharacter, sTraitString );
+
+                // If this is the first valid effect then note that so.
+                if( GetEffectType( eSubraceEffect ) != EFFECT_TYPE_INVALIDEFFECT )
+                {
+                    bFirstValidInited = TRUE;
+                }
+
+              } // End if-else first valid effect
+
+              if(SUBRACE_DEBUG)
+                SendMessageToPC(a_oCharacter,"-> Effect");
+            } //End if no nwnx trait
+            else {
+              if(SUBRACE_DEBUG)
+                SendMessageToPC(a_oCharacter,"-> NWNX");
+            }
     } // End for
     // Pokud ma postava kridylka
     if((a_stSubrace.m_nWingLevel != 0) && (a_stSubrace.m_nWingLevel <= GetHitDice(a_oCharacter) ))
