@@ -142,9 +142,14 @@ void main()
             nSubID = GetEventSubType();  //ACTION_MODE_*
             //WriteTimestampedLogEntry(GetName(oPC)+" toggled mode  #"+IntToString(nSubID));
             //FloatingTextStringOnCreature(GetName(oPC)+" toggled mode  #"+IntToString(nSubID), oPC, FALSE);
+            if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED && nSubID == 1) { //Unhide penalty
+                effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 50 ));
+                effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 50 ));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 10.0f);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 10.0f);
+            }
 
-
-            if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC)>=1)
+            if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC)>=1 && nSubID == 1) //Hide
             {
                 if (GetStealthMode(oPC)==STEALTH_MODE_DISABLED)
                 {
@@ -159,7 +164,7 @@ void main()
 
 
             /*Sermir Propracovana obrana*/
-            if (GetHasFeat(FEAT_SERMIR_PROPRACOVANA_OBRANA,oPC)==TRUE)
+            if (GetHasFeat(FEAT_SERMIR_PROPRACOVANA_OBRANA,oPC)==TRUE && nSubID == ACTION_MODE_PARRY)
             {
 
                 if (GetActionMode(oPC, ACTION_MODE_PARRY)== FALSE)

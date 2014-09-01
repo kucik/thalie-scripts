@@ -74,7 +74,7 @@ void main()
       /* If spell makes damage */
       if(iDamgeType != -1) {
           /* compose and apply dmg */
-          effect eDmg = EffectDamage(GetReflexAdjustedDamage(iDamage, oTarget, iDC, s_eff.iSave), iDamgeType);
+          effect eDmg = EffectDamage(iDamage, iDamgeType);
           if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
               (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) ) {
             eDmg =  EffectHeal(iDamage);

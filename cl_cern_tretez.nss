@@ -160,7 +160,7 @@ void main()
         if(iDamgeType != -1) {
 
           /* compose and apply dmg */
-          effect eDmg = EffectDamage(GetReflexAdjustedDamage(nDmg, oTarget, iDC + iDCTouchMod, s_eff.iSave), iDamgeType);
+          effect eDmg = EffectDamage(nDmg, iDamgeType);
           if( (iDamgeType == DAMAGE_TYPE_NEGATIVE) &&
               (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) ) {
             eDmg =  EffectHeal(nDmg);;
