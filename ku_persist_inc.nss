@@ -90,6 +90,9 @@ int Persist_DeleteItemByIDFromDB(int id);
 // Delete item from db (using Persist_DeleteItemByIDFromDB(int id))
 int Persist_DeleteItemFromDB(object oItem);
 
+// Delete all items in container.
+// Warning! Due the delete of multiple records take care when using this function!!!
+int DeleteAllInContainer(object oCont);
 
 string Persist_GetLocalVariables(object oItem);
 
@@ -522,6 +525,18 @@ int Persist_DisturbedItem() {
 
 //SetLocalObject(oCont,"KU_PERSISTANT_DB_OBJ_"+IntToString(i),oItem);
 //SetLocalInt(oCont,"KU_PERSISTANT_DB_ID_"+IntToString(i),id);
+}
+
+int DeleteAllInContainer(object oCont) {
+  if(!GetIsObjectValid(oCont))
+    return -1;
+
+  string sContID = Persist_InitContainer(oCont);
+
+  string sSql = "DELETE FROM pw_persist_items WHERE container = "+sContID+";";
+  SQLExecDirect(sSql);
+
+  return 0;
 }
 
 /***********************
