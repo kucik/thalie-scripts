@@ -1,17 +1,17 @@
 #include "me_soul_inc"
 #include "aps_include"
-#include "persistence"
+//#include "persistence"
 //#include "zep_inc_phenos"
-#include "ja_inc_stamina"
-#include "me_pcneeds_inc"
+//#include "ja_inc_stamina"
+//#include "me_pcneeds_inc"
 #include "ja_inc_frakce"
 //#include "ku_libbase"
 #include "ku_exp_time"
 // kuly alchymii
 #include "tc_constants"
-#include "sh_classes_inc"
+//#include "sh_classes_inc"
 #include "sh_deity_inc"
-#include "ku_dlg_inc"
+//#include "ku_dlg_inc"
 #include "sh_lang_start"
 #include "mys_mount_lib"
 #include "mys_hen_lib"
@@ -100,7 +100,7 @@ void FixMovementSpeed(object oPC) {
   int iAppearance = GetAppearanceType(oPC);
   if(GetIsDM(oPC))
     return;
-  
+
   switch(iAppearance) {
     case 984: //Kobold
     case 985: //Half ogre
@@ -264,7 +264,7 @@ void main()
     {
         // Send welcome messages to DM player
         DelayCommand(30.0, SendDMWelcomeMessages(oPC));
-        
+
         return;
     }
 //~safety*/
@@ -374,7 +374,7 @@ void main()
  Subraces_InitSubrace( oPC ); //Inicializace subrasy
  //KU_CalcAndGiveSkillPoints(oPC); //Nastav postave spravne volne skillpointy
 
- // PC Skin 
+ // PC Skin
  object oPCSkin = GetPCSkin(oPC);
  SetLocalObject(oSoulStone,"PCSKIN",oPCSkin);
 
@@ -494,7 +494,7 @@ void main()
   {
     SetLocalInt(oSoulStone,"sh_AllowKurtizana",1);
   }
-  
+
   // Send welcome messages to player
   DelayCommand(30.0, SendPCWelcomeMessages(oPC));
 
@@ -505,7 +505,7 @@ void main()
   DelayCommand(10.0,FixMovementSpeed(oPC));
 
   SetLocalInt(oPC, "PLAYED",TRUE);
-  
+
   // Dismount mounted PC
   if (GetLocalInt(oSoulStone, "MOUNTED"))
   {
@@ -522,9 +522,9 @@ void DismountAfterActions(object oPC, object oSoul)
     object oHenchman = GetLocalObject(OBJECT_SELF, "MOUNT_OBJECT");
     object oKey = GetKeyByName(oPC, GetLocalString(oSoul, "MOUNT_CREATURE_NAME"));
     DeleteLocalObject(OBJECT_SELF, "MOUNT_OBJECT");
-    
+
     // Restore key uses
-    SetLocalInt(oKey, "HENCHMAN_USES", 1);    
+    SetLocalInt(oKey, "HENCHMAN_USES", 1);
 }
 
 
