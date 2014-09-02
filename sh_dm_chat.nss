@@ -4,7 +4,7 @@
 #include "ku_libchat"
 #include "mys_music"
 #include "mys_dmlisten_lib"
-    
+
     /*
     int    TALKVOLUME_TALK          = 0;
     int    TALKVOLUME_WHISPER       = 1;
@@ -38,8 +38,8 @@
     int    LANGUAGE_UNDERCOMMON     = 19;
     int    LANGUAGE_PLANT           = 20;
     int    LANGUAGE_ANIMAL          = 21;
-    */    
-    
+    */
+
     object oSpeaker = GetPCChatSpeaker();
     string sName = GetName(oSpeaker, FALSE);
     object oCarmour = GetItemInSlot(INVENTORY_SLOT_CARMOUR,oSpeaker);
@@ -65,27 +65,27 @@ void ChatXpSystem();
 // Returns name of speaker.
 string AssociateSpeak(object oAssociate, string sRight);
 object GetAssociateSpeaker(int iPlayerType, string sVarName);
-    
+
 void main()
 {
     int bXP;
     int iPlayerType = GetPlayerType(oSpeaker);
     string sSpeakerName = GetName(oSpeaker);
     string sLeft3 = GetStringLeft(sSpoke, 3);
-    
+
     // Allow shout only for DMs
     if (iGetVolume == TALKVOLUME_SHOUT)
     {
         if (!iDM && !iDMp)
             SetPCChatVolume(TALKVOLUME_TALK);
     }
-    
+
     if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
     {
         // DM commands
         if ((iDM || iDMp) && sLeft3 == "/dm")
             DmSpeakFunction();
-        
+
         else if (sLeft3 == "/pc")
         {
             MusicInstrumentChoice();
@@ -97,7 +97,7 @@ void main()
             AssignCommand(oSpeaker, ActionStartConversation(oSpeaker, "myd_emote", TRUE, FALSE));
             bXP = TRUE;
         }
-            
+
         // Talking as associate/master
         else if (sLeft3 == "/f ")
         {
@@ -114,21 +114,21 @@ void main()
             sSpeakerName = AssociateSpeak(GetAssociateSpeaker(iPlayerType, "HENCHMAN"), GetStringRight(sSpoke, iLength - 3));
             bXP = TRUE;
         }
-        
+
         else if (sSpoke == "/mount" || sSpoke == "/mount2" || sSpoke == "/dismount")
         {
             ExecuteScript("mys_mount_chat", oSpeaker);
         }
-        
+
         else if (GetIsObjectValid(oTargetSpeak))
             oSpeaker = oTargetSpeak;
-                    
+
         else if (sLeft3 == "/oo")
         {
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
-        
+
         else
         {
             PCEmoteFunction();
@@ -137,13 +137,13 @@ void main()
         }
         SetPCChatVolume(TALKVOLUME_TELL);
         SetPCChatMessage("");
-        
+
         if (bXP)
              ChatXpSystem();
-             
+
         return;
     }
-    
+
     if (GetIsObjectValid(oTargetSpeak))
     {
         TargetSpeak(oTargetSpeak);
@@ -172,14 +172,14 @@ void ChatXpSystem()
             break;
         }
     }
-    
+
     // Prodluz pridelovani xp
     if (!match)
         SetLocalInt(oSpeaker,"ku_LastActionStamp",ku_GetTimeStamp(0,5)); // +5 minutes
-    
+
     int CacheIndex = GetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX");
     CacheIndex = (CacheIndex + 1) % KU_CHAT_CACHE_SIZE;
-    
+
     SetLocalString(oSpeaker,KU_CHAT_CACHE+IntToString(CacheIndex),sSpoke);
     SetLocalInt(oSpeaker,"KU_CHAT_CACHE_INDEX",CacheIndex);
     SetLocalInt(oSpeaker,"ku_LastActionType",KU_ACTIONS_SPEAK);

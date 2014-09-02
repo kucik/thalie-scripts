@@ -2496,17 +2496,17 @@ void KU_DM_FactionsAct(int act) {
           KU_DM_PortalsSetTokens(iState);
           break;
         // +8
-        case 1: 
+        case 1:
           SetLocalInt(oPC,KU_DLG+"state",iState + 8);
-          break; 
+          break;
         // -8
-        case 10:  
+        case 10:
           iState = iState -8;
           if(iState < 0)
             iState == 0;
           SetLocalInt(oPC,KU_DLG+"state",iState);
           break;
-        // Set faction 
+        // Set faction
         default: {
           int iFaction = iState + act;
           string sFaction = GetFactionByID(iFaction);
@@ -2560,7 +2560,7 @@ void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID) {
 
 void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVisibility, string sText = "") {
   string sSay = GetName(oTarget)+" hazi d("+IntToString(iDice)+")"+sText+" : "+IntToString(iThrow);
-  
+
   SendMessageToPC(oPC,"sSay");
   // Tel to others
   if(iVisibility > 1) {
@@ -2575,8 +2575,8 @@ void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVi
           if(fDistance > 0.0 &&
              fDistance < 20.1)
             SendMessageToPC(oPC,"sSay");
-        }   
-      }         
+        }
+      }
       oTell = GetNextPC();
     }
   }
@@ -2617,8 +2617,8 @@ int KU_DicesDoThrow(object oPC,object oTarget) {
     KU_DicesSayThrow(oPC, oTarget, iThrow, iDice, iVisibility, "");
     return iThrow;
   }
-  
-  string sAdd = "";  
+
+  string sAdd = "";
   int iAdd = 0;
   switch(iType1) {
     case 1:
@@ -2644,12 +2644,12 @@ void KU_DicesAct(int act) {
   int iState = GetLocalInt(oPC,KU_DLG+"state");
   location lTarget = GetLocalLocation(oPC,KU_WAND_TARGET_LOC);
   object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
-  object oSoul = GetSoulStone(oPC); 
+  object oSoul = GetSoulStone(oPC);
 
   // Only DM can do throw on others
   if(!GetIsDM(oPC))
     oTarget = oPC;
-  
+
   // Back - same for all states
   if(act == 10) {
     iState = iState /10;
@@ -2665,12 +2665,12 @@ void KU_DicesAct(int act) {
         case 0:
           KU_DM_PortalsSetTokens(iState);
           break;
-        // Moving in dialog 
+        // Moving in dialog
         case 1:
         case 2:
           SetLocalInt(oPC,KU_DLG+"state",act);
           break;
-        // Do throw 
+        // Do throw
         case 9:
           KU_DicesDoThrow(oPC, oTarget);
           break;
@@ -2684,7 +2684,7 @@ void KU_DicesAct(int act) {
         case 0:
           KU_DM_PortalsSetTokens(iState);
           break;
-        // Moving in dialog 
+        // Moving in dialog
         case 1:
         case 2:
         case 3:
@@ -2700,7 +2700,7 @@ void KU_DicesAct(int act) {
         case 0:
           KU_DM_PortalsSetTokens(iState);
           break;
-        // Moving in dialog 
+        // Moving in dialog
         case 1:
         case 2:
         case 3:
@@ -2751,13 +2751,15 @@ void KU_DicesAct(int act) {
         case 0:
           KU_DM_PortalsSetTokens(iState);
           break;
-        // Moving in dialog 
-        case 9:
+        // Moving in dialog
+        case 9: {
           int iDlgShift = GetLocalInt(oPC, KU_DLG+"shift");
           iDlgShift = iDlgShift + 8;
           if(iDlgShift > 27)
             iDlgShift = 0;
-          SetLocalInt(oPC, KU_DLG+"shift", iDlgShift); 
+          SetLocalInt(oPC, KU_DLG+"shift", iDlgShift);
+          break;
+        }
         default:
           SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1);
           SetLocalInt(oPC,KU_DLG+"state",24);
@@ -2879,7 +2881,7 @@ void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID) {
         ku_dlg_SetConv(4,1);
         SetCustomToken(6304,"Will" );
         ku_dlg_SetConv(10,1);
-        SetCustomToken(6310,"Zpet"); 
+        SetCustomToken(6310,"Zpet");
         break;
     // Skill
     case 23:
