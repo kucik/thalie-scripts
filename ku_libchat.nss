@@ -173,6 +173,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc meditace <1-3> - Zmeni animaci pri meditaci/modleni.");
       SendMessageToPC(oPC,"/pc batoh <0-11> - Zobrazi/skryje model batohu/mece atd na zadech postavy.");
       SendMessageToPC(oPC,"/pc hod <kostky> - Provede hod kostkami (pøíklad: '/pc hod k10', '/pc hod 3k6'");
+      SendMessageToPC(oPC,"/pc kostky - Otevre dialog s pokrocilymi hody");
       SendMessageToPC(oPC,"/pc strip - Svlekani casti odevu.");
       SendMessageToPC(oPC,"/pc help ");
       SendMessageToPC(oPC,"/pc ? - vypise tento vypis");
@@ -385,6 +386,15 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
     case 24:
       AssignCommand(oPC, ActionStartConversation(oPC, "myd_strip", TRUE, FALSE));
       break;
+    case 25: {
+                string KU_DLG = "KU_UNI_DIALOG";
+                SetLocalInt(oPC,KU_DLG+"dialog",9);
+                SetCustomToken(6300,"Hody kostkou");
+                SetLocalInt(oPC,KU_DLG+"_allow_0",1);
+                AssignCommand( oPC, ClearAllActions() );
+                AssignCommand( oPC, ActionStartConversation( oPC, "ku_uni_dlg", TRUE ) );
+      }
+      break;
   }
 }
 
@@ -429,6 +439,7 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(22,"barvavlasu");
    ku_DefineChatCommand(23,"barvakuze");
    ku_DefineChatCommand(24,"strip");
+   ku_DefineChatCommand(25,"kostky");
 }
 
 void ku_SlowMe(int speed) {

@@ -38,7 +38,8 @@ void KU_DM_PortalsAct(int act);
 void KU_DM_PortalsSetTokens(int iState, object oPC = OBJECT_INVALID);
 void KU_DM_FactionsAct(int act);
 void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID);
-
+void KU_DicesAct(int act);
+void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID);
 
 /* Function definitions */
 
@@ -54,6 +55,7 @@ void ku_dlg_act(int act) {
     case 6: KU_DM_CRStatsWand_Wand(act); break;
     case 7: KU_DM_PortalsAct(act); break;
     case 8: KU_DM_FactionsAct(act); break;
+    case 9: KU_DicesAct(act); break;
   }
   return;
 }
@@ -95,6 +97,9 @@ void ku_dlg_init(int act, object oPC = OBJECT_INVALID) {
         break;
     case 8:
         KU_DM_FactionsSetTokens(0,oPC);
+        break;
+    case 9:
+        KU_DicesSetTokens(0,oPC);
         break;
 
   }
@@ -2548,3 +2553,369 @@ void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID) {
 
 
 }
+
+/****************************************
+ ****** PC/DM kostky ****************
+ *************************************/
+
+void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVisibility, string sText = "") {
+  string sSay = GetName(oTarget)+" hazi d("+IntToString(iDice)+")"+sText+" : "+IntToString(iThrow);
+  
+  SendMessageToPC(oPC,"sSay");
+  // Tel to others
+  if(iVisibility > 1) {
+    object oTell = GetFirstPC();
+    while(GetIsObjectValid(oTell)) {
+      if( oPC != oTell) {
+        if(iVisibility == 2 &&
+           GetIsDM(oTell))
+          SendMessageToPC(oPC,"sSay");
+        if(iVisibility == 3) {
+          float fDistance = GetDistanceBetween(oPC, oTell);
+          if(fDistance > 0.0 &&
+             fDistance < 20.1)
+            SendMessageToPC(oPC,"sSay");
+        }   
+      }         
+      oTell = GetNextPC();
+    }
+  }
+
+}
+
+string __abilityToString(int Ability) {
+  switch(Ability) {
+    case 0: return "Silu";
+    case 1: return "Obratnost";
+    case 2: return "Odolnost";
+    case 3: return "Intelingenci";
+    case 4: return "Moudrost";
+    case 5: return "Charisma";
+  }
+  return "";
+}
+
+string __saveToString(int iSave) {
+   switch(iSave) {
+     case 0: return "Obecnou zachranu";
+     case 2: return "Fortitude";
+     case 3: return "Reflex";
+     case 4: return "Will";
+   }
+   return "";
+}
+
+int KU_DicesDoThrow(object oPC,object oTarget) {
+  object oSoul = GetSoulStone(oPC);
+  int iVisibility = GetLocalInt(oSoul,"KU_DICES_VISIBILITY");
+  int iType1 = GetLocalInt(oPC,"KU_DICES_TYPE1");
+  int iType2 = GetLocalInt(oPC,"KU_DICES_TYPE2");
+  int iDice = GetLocalInt(oPC, "KU_DICES_DICE");
+
+  int iThrow = Random(iDice) + 1;
+  if(iType1 == 4) {
+    KU_DicesSayThrow(oPC, oTarget, iThrow, iDice, iVisibility, "");
+    return iThrow;
+  }
+  
+  string sAdd = "";  
+  int iAdd = 0;
+  switch(iType1) {
+    case 1:
+      iAdd = GetAbilityModifier(iType2, oTarget);
+      sAdd = __abilityToString(iType2);
+      break;
+    case 2:
+      iAdd = GetSavingThrowBonus(oTarget, iType2);
+      sAdd = __saveToString(iType2);
+    case 3:
+      iAdd =  GetSkillRank(iType2, oTarget);
+      sAdd = Get2DAString("skills","Label",iType2);
+      break;
+  }
+  KU_DicesSayThrow(oPC, oTarget, iThrow + iAdd, iDice, iVisibility, "na "+sAdd);
+  return iThrow;
+
+}
+
+
+void KU_DicesAct(int act) {
+  object oPC = GetPCSpeaker();
+  int iState = GetLocalInt(oPC,KU_DLG+"state");
+  location lTarget = GetLocalLocation(oPC,KU_WAND_TARGET_LOC);
+  object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
+  object oSoul = GetSoulStone(oPC); 
+
+  // Only DM can do throw on others
+  if(!GetIsDM(oPC))
+    oTarget = oPC;
+  
+  // Back - same for all states
+  if(act == 10) {
+    iState = iState /10;
+    SetLocalInt(oPC,KU_DLG+"state",iState);
+    return;
+  }
+
+  switch(iState) {
+    // Spusteni hulky
+    case 0: {
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        // Moving in dialog 
+        case 1:
+        case 2:
+          SetLocalInt(oPC,KU_DLG+"state",act);
+          break;
+        // Do throw 
+        case 9:
+          KU_DicesDoThrow(oPC, oTarget);
+          break;
+      }
+    break;
+    }
+    // Set visibility
+    case 1:
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        // Moving in dialog 
+        case 1:
+        case 2:
+        case 3:
+          SetLocalInt(oSoul,"KU_DICES_VISIBILITY",act);
+          SetLocalInt(oPC,KU_DLG+"state",0);
+          break;
+      }
+      break;
+    // Set throw type
+    case 2:
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        // Moving in dialog 
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+          SetLocalInt(oPC,"KU_DICES_TYPE1",act - 1);
+          SetLocalInt(oPC,KU_DLG+"state",20 + act);
+          break;
+      }
+      break;
+    // Ability throw
+    case 21:
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+          SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1);
+          SetLocalInt(oPC,KU_DLG+"state",24);
+          break;
+      }
+      break;
+    // Save throw
+    case 22:
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+          SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1);
+          SetLocalInt(oPC,KU_DLG+"state",24);
+          break;
+      }
+      break;
+    // Skill throw
+    case 23:
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        // Moving in dialog 
+        case 9:
+          int iDlgShift = GetLocalInt(oPC, KU_DLG+"shift");
+          iDlgShift = iDlgShift + 8;
+          if(iDlgShift > 27)
+            iDlgShift = 0;
+          SetLocalInt(oPC, KU_DLG+"shift", iDlgShift); 
+        default:
+          SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1);
+          SetLocalInt(oPC,KU_DLG+"state",24);
+          break;
+      }
+      break;
+    // Choose Dice and throw
+    case 24:
+      int iDice = 2;
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        case 1: iDice = 2; break;
+        case 2: iDice = 4; break;
+        case 3: iDice = 6; break;
+        case 4: iDice = 10; break;
+        case 5: iDice = 12; break;
+        case 6: iDice = 20; break;
+        case 7: iDice = 100; break;
+      }
+      break;
+      if(act > 0) {
+        SetLocalInt(oPC,"KU_DICES_DICE",iDice);
+        SetLocalInt(oPC,KU_DLG+"state",0);
+        KU_DicesDoThrow(oPC, oTarget);
+      }
+  }
+}
+
+void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID) {
+  int i;
+  if(oPC == OBJECT_INVALID) {
+    oPC = GetPCSpeaker();
+  }
+  object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
+  string sTargetName = "Nic";
+  if(GetIsObjectValid(oTarget)) {
+    sTargetName = GetName(oTarget)+" v lokaci "+GetName(GetArea(oTarget));
+  }
+  int bIsDM = GetIsDM(oPC);
+  int iDlgShift = GetLocalInt(oPC, KU_DLG+"shift");
+  int shift = iState;
+  switch(iState) {
+    // Init hulky
+    case 0:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Hracske kostky:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"Viditelnost hodu");
+        ku_dlg_SetConv(2,1);
+        SetCustomToken(6302,"Typ hodu");
+        ku_dlg_SetConv(9,1);
+        SetCustomToken(6309,"Opakovat hod");
+        break;
+    //Viditelnost hodu
+    case 1:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Kdo uvidi hod:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"Jen ja");
+        ku_dlg_SetConv(2,1);
+        SetCustomToken(6302,"Ja a DM");
+        ku_dlg_SetConv(3,1);
+        SetCustomToken(6303,"Vsichni okolo" );
+        ku_dlg_SetConv(10,1);
+        SetCustomToken(6310,"Zpet");
+        break;
+    //Typ hody hodu
+    case 2:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Na co chces hazet:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"Vlastnost (Ability)");
+        ku_dlg_SetConv(2,1);
+        SetCustomToken(6302,"Zachrana (Save)");
+        ku_dlg_SetConv(3,1);
+        SetCustomToken(6303,"Skill" );
+        ku_dlg_SetConv(4,1);
+        SetCustomToken(6304,"Jen tak" );
+        ku_dlg_SetConv(10,1);
+        SetCustomToken(6310,"Zpet");
+        break;
+    // Ability throw
+    case 21:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Hazet na vlastnost:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"Sila");
+        ku_dlg_SetConv(2,1);
+        SetCustomToken(6302,"Obratnost");
+        ku_dlg_SetConv(3,1);
+        SetCustomToken(6303,"Odolnost" );
+        ku_dlg_SetConv(4,1);
+        SetCustomToken(6304,"Inteligence" );
+        ku_dlg_SetConv(5,1);
+        SetCustomToken(6305,"Moudrost" );
+        ku_dlg_SetConv(6,1);
+        SetCustomToken(6306,"Charisma" );
+        ku_dlg_SetConv(10,1);
+        SetCustomToken(6310,"Zpet");
+        break;
+    // Save throw
+    case 22:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Hazet na Zachranu:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"Obecný");
+        ku_dlg_SetConv(2,1);
+        SetCustomToken(6302,"Fortitude");
+        ku_dlg_SetConv(3,1);
+        SetCustomToken(6303,"Reflex" );
+        ku_dlg_SetConv(4,1);
+        SetCustomToken(6304,"Will" );
+        ku_dlg_SetConv(10,1);
+        SetCustomToken(6310,"Zpet"); 
+        break;
+    // Skill
+    case 23:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Hazet na skill");
+        for(i=0;i < 8; i++) {
+          ku_dlg_SetConv(i+1,1);
+          SetCustomToken(6300 + i + 1,Get2DAString("skills","Label",i + iDlgShift));
+        }
+        ku_dlg_SetConv(9,1);
+        SetCustomToken(6309,"Dalsi skill");
+        ku_dlg_SetConv(10,1);
+        SetCustomToken(6310,"Zpet");
+        break;
+    // Choose dice
+    case 24:
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"Kostka:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"d2");
+        ku_dlg_SetConv(2,1);
+        SetCustomToken(6302,"d4");
+        ku_dlg_SetConv(3,1);
+        SetCustomToken(6303,"d6");
+        ku_dlg_SetConv(4,1);
+        SetCustomToken(6304,"d10");
+        ku_dlg_SetConv(5,1);
+        SetCustomToken(6305,"d12");
+        ku_dlg_SetConv(6,1);
+        SetCustomToken(6306,"d20");
+        ku_dlg_SetConv(7,1);
+        SetCustomToken(6307,"d100");
+        break;
+  } // switch act  end
+
+}
+
