@@ -34,5 +34,9 @@ else if( text == "skvrny" ) resref = "sy_kresba20";
 
     //cierny pentagram
     CreateObject(OBJECT_TYPE_PLACEABLE,resref,GetLocation(GetPCSpeaker()),FALSE,"");
-    DestroyObject(GetItemActivated(),0.0f);
+    object oItem = GetItemActivated();
+    if( GetItemStackSize(oItem) == 1)
+      DestroyObject(GetItemActivated(),0.0f);
+    else 
+       SetItemStackSize(oItem, GetItemStackSize(oItem) - 1);
 }
