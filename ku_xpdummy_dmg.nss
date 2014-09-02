@@ -19,8 +19,8 @@ void main()
         }
     else
         {
-        SendMessageToPC(oPC,"You have exceeded Level "+IntToString(nMaxLevel));
-        SendMessageToPC(oPC,"Or you have gained "+IntToString(nXPMax)+" amount of xp");
+        SendMessageToPC(oPC,"Jsi prilis vysoky level: "+IntToString(nMaxLevel));
+        SendMessageToPC(oPC,"Nebo jsi jiz ziskal "+IntToString(nXPMax)+" xp.");
         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectHeal(nDam),OBJECT_SELF);
         }
 }
