@@ -20,6 +20,54 @@ else if (GetResRef(GetItemActivatedTarget())=="no_brusnykamen") CRAFT_PLACEABLE 
 else if (GetResRef(GetItemActivatedTarget())=="no_kovadlina") CRAFT_PLACEABLE = TRUE;
 else if (GetResRef(GetItemActivatedTarget())=="X2_PLC_STUBE") CRAFT_PLACEABLE = TRUE;
 
+
+else if (GetTag(GetItemActivatedTarget())=="No_kara_zl_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_zl_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_br_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_br_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_dr_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_dr_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_ke_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_ke_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_ko_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_ko_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_oc_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_oc_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_pl_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_pl_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_sl_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_sl_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_zb_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_zb_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_si_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_si_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_tr_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kara_tr_02") CRAFT_PLACEABLE = TRUE;
+
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_zl_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_zl_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_br_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_br_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_dr_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_dr_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_ke_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_ke_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_ko_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_ko_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_oc_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_oc_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_pl_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_pl_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_sl_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_sl_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_zb_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_zb_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_si_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_si_02") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_tr_01") CRAFT_PLACEABLE = TRUE;
+else if (GetTag(GetItemActivatedTarget())=="No_kazh_tr_02") CRAFT_PLACEABLE = TRUE;
+
+
 if  ( GetIsObjectValid(GetItemActivatedTarget()) == FALSE )  {
 FloatingTextStringOnCreature(" Neplatny cil !" ,no_oPC,FALSE);
             }
