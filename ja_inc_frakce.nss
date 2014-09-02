@@ -253,3 +253,9 @@ string GetNPCFaction(object oNPC) {
   return sFac;
 
 }
+
+string GetFactionByID(int iID) {
+  object oMem = GetFactionMemory();
+  
+  return GetLocalString(oMem,"fac_"+IntToString(iFacId)+"_name");
+}
