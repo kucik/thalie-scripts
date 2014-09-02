@@ -3,7 +3,7 @@
 void main()
 {
 
-  string text = GetCurrentNodeText();
+  string text = GetSelectedNodeText();
   string resref = "";
 
 //Pentagramy
@@ -33,10 +33,13 @@ else if( text == "skvrny" ) resref = "sy_kresba20";
 
 
     //cierny pentagram
-    CreateObject(OBJECT_TYPE_PLACEABLE,resref,GetLocation(GetPCSpeaker()),FALSE,"");
+    object oPlc = CreateObject(OBJECT_TYPE_PLACEABLE,resref,GetLocation(GetPCSpeaker()),FALSE,"");
+    SetUseableFlag(oPlc, FALSE);
+//    SendMessageToPC(GetPCSpeaker(),"Creating "+resref+" said '"+text+"'");
+    return;
     object oItem = GetItemActivated();
     if( GetItemStackSize(oItem) == 1)
       DestroyObject(GetItemActivated(),0.0f);
-    else 
+    else
        SetItemStackSize(oItem, GetItemStackSize(oItem) - 1);
 }
