@@ -36,6 +36,8 @@ void KU_DM_CRStatsWand_Wand(int iState);
 void KU_DM_CRStatsWand_SetTokens(int iState, object oPC = OBJECT_INVALID);
 void KU_DM_PortalsAct(int act);
 void KU_DM_PortalsSetTokens(int iState, object oPC = OBJECT_INVALID);
+void KU_DM_FactionsAct(int act);
+void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID);
 
 
 /* Function definitions */
@@ -51,6 +53,7 @@ void ku_dlg_act(int act) {
     case 5: KU_DM_Effects_Wand(act); break;
     case 6: KU_DM_CRStatsWand_Wand(act); break;
     case 7: KU_DM_PortalsAct(act); break;
+    case 8: KU_DM_FactionsAct(act); break;
   }
   return;
 }
@@ -89,6 +92,9 @@ void ku_dlg_init(int act, object oPC = OBJECT_INVALID) {
         break;
     case 7:
         KU_DM_PortalsSetTokens(0,oPC);
+        break;
+    case 8:
+        KU_DM_FactionsSetTokens(0,oPC);
         break;
 
   }
@@ -2465,4 +2471,80 @@ void KU_DM_PortalsSetTokens(int iState, object oPC = OBJECT_INVALID) {
 }
 
 
+/***********************************
+***** FRAKCE ***********************
+***********************************/
 
+
+void KU_DM_FactionsAct(int act) {
+  object oPC = GetPCSpeaker();
+  int iState = GetLocalInt(oPC,KU_DLG+"state");
+  location lTarget = GetLocalLocation(oPC,KU_WAND_TARGET_LOC);
+  object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
+
+/*  switch(iState) {
+    // Spusteni hulky
+    case 0: {*/
+      switch(act) {
+        // Nic nezmacknuto
+        case 0:
+          KU_DM_PortalsSetTokens(iState);
+          break;
+        // +8
+        case 1: 
+          SetLocalInt(oPC,KU_DLG+"state",iState + 8);
+          break; 
+        // -8
+        case 10:  
+          iState = iState -8;
+          if(iState < 0)
+            iState == 0;
+          SetLocalInt(oPC,KU_DLG+"state",iState);
+          break;
+        // Set faction 
+        default: {
+          int iFaction = iState + act;
+          string sFaction = GetFactionByID(iFaction);
+
+          SetNPCFaction(oTarget, sFaction);
+          SendMessageToPC(oPC,GetName(oTarget)+" - Nastavena frakce:"+sFaction);
+        }
+        break;
+      }
+/*    break;
+    }
+  }*/
+}
+
+
+void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID) {
+  int i;
+  if(oPC == OBJECT_INVALID) {
+    oPC = GetPCSpeaker();
+  }
+  object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
+  string sTargetName = "Nic";
+  if(GetIsObjectValid(oTarget)) {
+    sTargetName = GetName(oTarget)+" v lokaci "+GetName(GetArea(oTarget));
+  }
+
+  int shift = iState;
+/*  switch(iState) {
+    // Init hulky
+    case 0:*/
+        ku_dlg_SetAll(0);
+        ku_dlg_SetConv(0,1);
+        SetCustomToken(6300,"DM hulka zamirena na: "+sTargetName+"; Aktuální frakce: "+GetNPCFaction(oTarget)+" Nastav:");
+        ku_dlg_SetConv(1,1);
+        SetCustomToken(6301,"Předchozí");
+        for(i = 1; i < 8; i++) {
+          ku_dlg_SetConv(shift + i + 1,1);
+          SetCustomToken(6300 + shift + i + 1,"#"+IntToString(shift + i)+" "+GetFactionByID(shift + i));
+        }
+        ku_dlg_SetConv(10,1);
+        SetCustomToken(6310,"Další");
+/*        break;
+  } // switch act  end*/
+
+
+}
