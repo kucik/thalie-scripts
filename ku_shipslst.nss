@@ -1078,6 +1078,45 @@ void KU_DefineShips()
 
 // Konec lodni linky
 
+//  Lodni linka 25 -  Kel-A-Hazr -> Paseracke kotviste
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Kel-A-Hazr -> Paseracke kotviste"; // Nazev trasy
+    stShip.m_nCost      = 300;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kelprod_lov";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_lod_kel_lov_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_lod_kel_lov_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_lod_lov_kel_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_kapkellov";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_kellov_tam";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+// Konec lodni linky
+
+//  Lodni linka 26 -  Paseracke kotviste -> Kel-A-Hazr 
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Paseracke kotviste -> Kel-A-Hazr"; // Nazev trasy
+    stShip.m_nCost      = 300;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_lovprod_kel";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_lod_lov_kel_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_lod_lov_kel_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_lod_kel_lov_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_kaplovkel";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_lovkel_tam";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+// Konec lodni linky
+
+
 ///////////////////////////////////////////////////
 // Konec definice lodnich linek
 ///////////////////////////////////////////////////
