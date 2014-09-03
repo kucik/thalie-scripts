@@ -31,6 +31,8 @@ void CallEnemyCreatures(object oPC);
 
 void main()
 {
+
+
   string sSelf=GetTag(OBJECT_SELF);
 
   // rozdil zda jde o drevarinu
@@ -871,7 +873,7 @@ int no_nahoda = d100();
 
 if (no_hlusina == 1) {
     sAppearance="temp_placeable";
-    sResource = "no_hlusina";
+    sResource = "no_vetve";
     sSuccessString = "Podarilo se ti osekat jen par vetvi";
     }//dostaneme jen hlusinu
 
