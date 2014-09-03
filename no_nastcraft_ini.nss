@@ -1,5 +1,5 @@
 
-const string no_verzecraftu =  "13.08.14";  // bude u kazdeho vyrobku napsane, at vime, jak je to starej vyrobek
+const string no_verzecraftu =  "04.09.14";  // bude u kazdeho vyrobku napsane, at vime, jak je to starej vyrobek
                                             //  obzvlaste po tech updatech tobude bourlive :D
 
 const int TC_zlatnik = 30; // cislo drevariny
@@ -214,18 +214,31 @@ const int  no_cena_kozk_lege =  10000;
 
 
 //cena prisady  platner
-const int no_cena_prisada1 = 80;
-const int no_cena_prisada2 = 160;
-const int no_cena_prisada3 = 400;  //bronz  - vermajl
-const int no_cena_prisada4 = 2400;  //zelezo
-const int no_cena_prisada5= 4000;   //zlato
-const int no_cena_prisada6 = 9600;
-const int no_cena_prisada7 = 12000;
-const int no_cena_prisada8 = 24000;
-const int no_cena_prisada9 = 32000;
-const int no_cena_prisada10 = 40000;
+//const int no_cena_prisada1 = 80;
+//const int no_cena_prisada2 = 160;
+//const int no_cena_prisada3 = 400;  //bronz  - vermajl
+//const int no_cena_prisada4 = 2400;  //zelezo
+//const int no_cena_prisada5= 4000;   //zlato
+//const int no_cena_prisada6 = 9600;
+//const int no_cena_prisada7 = 12000;
+//const int no_cena_prisada8 = 24000;
+//const int no_cena_prisada9 = 32000;
+//const int no_cena_prisada10 = 40000;
+//const int no_cena_prisada11 = 104000;
+//const int no_cena_prisada12= 160000;
+const int no_cena_prisada1 = 100;
+const int no_cena_prisada2 = 500;
+const int no_cena_prisada3 = 1000; //bronz
+const int no_cena_prisada4 = 2400; //zelezo
+const int no_cena_prisada5= 4000; //zlato
+const int no_cena_prisada6 = 8000;
+const int no_cena_prisada7 = 16000;
+const int no_cena_prisada8 = 30000;
+const int no_cena_prisada9 = 45000;
+const int no_cena_prisada10 = 60000;
 const int no_cena_prisada11 = 104000;
 const int no_cena_prisada12= 160000;
+
 
 //cena prisady  kovar
 const int no_cena_zb_prisada1 = 80;

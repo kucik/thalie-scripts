@@ -209,8 +209,8 @@ SendMessageToPC(no_oPC,"sutry ve vyrobku: no_sutr_1: " + IntToString(GetLocalInt
 SendMessageToPC(no_oPC,"no_kovsperku : " + IntToString(GetLocalInt(OBJECT_SELF,"no_kovsperku")));
 SendMessageToPC(no_oPC,"prisady : " + IntToString(GetLocalInt(OBJECT_SELF,"no_prisada")));
 SendMessageToPC(no_oPC,"nasavena procenta na zarizeni: " + IntToString(GetLocalInt(OBJECT_SELF,"no_hl_proc")));
-SendMessageToPC(no_oPC,"sutr v zarizeni 1: " + IntToString(GetLocalInt(OBJECT_SELF,"no_pouzitysutr1")));
-SendMessageToPC(no_oPC,"sutr v zarizeni 2: " + IntToString(GetLocalInt(OBJECT_SELF,"no_pouzitysutr2")));
+SendMessageToPC(no_oPC,"sutr v zarizeni 1 pred pridanim kamenu: " + IntToString(GetLocalInt(OBJECT_SELF,"no_pouzitysutr1")));
+SendMessageToPC(no_oPC,"sutr v zarizeni 2 pred pridanim kamenu: " + IntToString(GetLocalInt(OBJECT_SELF,"no_pouzitysutr2")));
 SendMessageToPC(no_oPC,"nastaveny 1 sutr: " + IntToString(GetLocalInt(OBJECT_SELF,"no_hl_mat")));
 SendMessageToPC(no_oPC,"nastaveny 2 sutr: " + IntToString(GetLocalInt(OBJECT_SELF,"no_ve_mat")));
 
@@ -221,7 +221,8 @@ SendMessageToPC(no_oPC,"nastaveny 2 sutr: " + IntToString(GetLocalInt(OBJECT_SEL
 
 if ((GetLocalInt(OBJECT_SELF,"no_sutr_1") == 0) &  (GetLocalInt(OBJECT_SELF,"no_pouzitysutr1") > 0)&  (GetLocalInt(OBJECT_SELF,"no_pouzitysutr2") > 0))  {   // pokud by nebylo s prisadama delam mecu jak cip..
 no_xp_pridej_kameny(no_oPC,OBJECT_SELF); }
-if  ((GetLocalInt(OBJECT_SELF,"no_sutr_1") == 0) & (GetLocalInt(OBJECT_SELF,"no_sutr_2") == 0) ) {
+//if  ((GetLocalInt(OBJECT_SELF,"no_sutr_1") == 0) & (GetLocalInt(OBJECT_SELF,"no_sutr_2") == 0) ) {
+  if  ((GetLocalInt(OBJECT_SELF,"no_pouzitysutr1") == 0) & (GetLocalInt(OBJECT_SELF,"no_pouzitysutr2") == 0) ) {
 SendMessageToPC(no_oPC,"bude potreba pridat spravne kameny dle nastaveni");
 }
 if (GetLocalInt(OBJECT_SELF,"no_sutr_1") > 0) {   // pokud by nebylo s prisadama delam mecu jak cip..

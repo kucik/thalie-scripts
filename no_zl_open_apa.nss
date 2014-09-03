@@ -59,7 +59,7 @@ if  (GetLocalInt(OBJECT_SELF,"no_prvni_otevreni")==0)   {
 /////zjistime zda ted otvira stejne pc jako minule, jestli ne, nastavime menu na zacatek
 no_oPC = GetLastOpenedBy();
 if  (GetLocalObject(OBJECT_SELF,"no_lastopened") == no_oPC  ) {
-no_oPC = GetLastOpenedBy();
+//no_oPC = GetLastOpenedBy();
 SetLocalInt(OBJECT_SELF,"no_MULTIKLIK",GetLocalInt(OBJECT_SELF,"no_MULTIKLIK")+1);}
 else {      // neni to stejne, takze menu na start
 SetLocalObject(OBJECT_SELF,"no_lastopened",no_oPC);

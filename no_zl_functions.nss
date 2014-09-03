@@ -1385,16 +1385,20 @@ no_udelej_vzhled(no_Item);
 
 
 /////////zacatek zavadeni funkci//////////////////////////////////////////////
-void no_snizstack(object no_Item, int no_mazani)
+void no_snizstack(object oItem, int no_mazani)
 {
-int no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
-  if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
-                           if (no_mazani == TRUE) DestroyObject(no_Item);
+int no_stacksize = GetItemStackSize(oItem);      //zjisti kolik je toho ve stacku
 
+if ((no_zl_debug == TRUE)& (no_mazani == TRUE)) { SendMessageToPC(no_oPC,"DELETE:jmeno predmetu: "+ GetName(oItem)+ " stack size:"+IntToString(no_stacksize) );
+}
+
+
+  if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
+                           if (no_mazani == TRUE) DestroyObject(oItem);
                     }
-    else   {  if (no_mazani == TRUE) { //DestroyObject(no_Item);
+  else   {  if (no_mazani == TRUE) { //DestroyObject(no_Item);
               //FloatingTextStringOnCreature(" Tolikati prisad nebylo zapotrebi ",no_oPC,FALSE );
-              SetItemStackSize(no_Item,no_stacksize-1);
+              SetItemStackSize(oItem,no_stacksize-1);
               } }
 }
 
@@ -1462,14 +1466,16 @@ while(GetIsObjectValid(no_Item))  {
                 if  ( (GetItemStackSize(no_Item)>1) & (GetLocalInt(no_pec,"no_ve_mat")==1)& (GetLocalInt(no_pec,"no_hl_mat")==GetLocalInt(no_pec,"no_ve_mat")) )
                     {SetLocalInt(no_pec,"no_pouzitysutr2",1);
                     no_snizstack(no_Item,no_mazani);   }
-                no_snizstack(no_Item,no_mazani);
-                }
+                no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",1);
-                no_snizstack(no_Item,no_mazani);}
-                              //znicime prisadu
-    } //konecn efrit
-
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==1) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                    }
+                            //znicime prisadu
+    } //konec
 
        if(GetResRef(no_Item) == "cnrgemfine007")           //do promene no_osekane ulozime nazev prisady
     { if  (GetLocalInt(no_pec,"no_pouzitysutr1")==0) {
@@ -1481,7 +1487,11 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",2);
-                no_snizstack(no_Item,no_mazani);  }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==2) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                             //znicime prisadu
     } //konec med
 
@@ -1495,7 +1505,11 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",3);
-                no_snizstack(no_Item,no_mazani);  }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==3) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                    }
                             //znicime prisadu
     } //konec bronz
 
@@ -1509,7 +1523,11 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",4);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==4) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                              //znicime prisadu
     } //konec zelezo
 
@@ -1523,7 +1541,12 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",5);
-                no_snizstack(no_Item,no_mazani);  }
+                no_snizstack(no_Item,no_mazani);
+
+                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==5) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                             //znicime prisadu
     } //konec
 
@@ -1537,7 +1560,11 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",6);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==6) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                              //znicime prisadu
     } //konec
        if(GetResRef(no_Item) == "cnrgemfine015")           //do promene no_osekane ulozime nazev prisady
@@ -1550,7 +1577,12 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",7);
-                no_snizstack(no_Item,no_mazani);}
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==7) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+
+                }
                               //znicime prisadu
     } //konec
        if(GetResRef(no_Item) == "cnrgemfine011")           //do promene no_osekane ulozime nazev prisady
@@ -1563,7 +1595,12 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",8);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==8) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                              //znicime prisadu
     } //konec
        if(GetResRef(no_Item) == "cnrgemfine013")           //do promene no_osekane ulozime nazev prisady
@@ -1576,7 +1613,12 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",9);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==9) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                              //znicime prisadu
     } //konec
        if(GetResRef(no_Item) == "cnrgemfine010")           //do promene no_osekane ulozime nazev prisady
@@ -1589,7 +1631,11 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",10);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==10) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                              //znicime prisadu
     } //konec
        if(GetResRef(no_Item) == "cnrgemfine008")           //do promene no_osekane ulozime nazev prisady
@@ -1602,7 +1648,11 @@ while(GetIsObjectValid(no_Item))  {
                 no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",11);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==11) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
                              //znicime prisadu
     } //konec
        if(GetResRef(no_Item) == "cnrgemfine009")           //do promene no_osekane ulozime nazev prisady
@@ -1614,7 +1664,11 @@ while(GetIsObjectValid(no_Item))  {
                no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",12);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                      ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==12) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
 
                         //znicime prisadu
     } //konec
@@ -1628,7 +1682,11 @@ while(GetIsObjectValid(no_Item))  {
                no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",13);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==13) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
 
                         //znicime prisadu
     } //konec
@@ -1642,7 +1700,11 @@ while(GetIsObjectValid(no_Item))  {
                no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",14);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==14) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
 
                         //znicime prisadu
     } //konec
@@ -1656,7 +1718,11 @@ while(GetIsObjectValid(no_Item))  {
                no_snizstack(no_Item,no_mazani);}
       else if (GetLocalInt(no_pec,"no_pouzitysutr1")!=0) {
                 SetLocalInt(no_pec,"no_pouzitysutr2",15);
-                no_snizstack(no_Item,no_mazani); }
+                no_snizstack(no_Item,no_mazani);
+                                     ///zmena nomis 3.9.2014
+                if  (GetLocalInt(no_pec,"no_ve_mat")==15) {no_snizstack(no_Item,no_mazani); }
+                    //konec zmeny 3.9.2014
+                }
 
                         //znicime prisadu
     } //konec
@@ -2624,8 +2690,8 @@ if ((GetLocalInt(no_pec,"no_prisada")==GetLocalInt(no_pec,"no_kovsperku"))&( ( (
 
             SendMessageToPC(no_oPC, " polotvar vyrabime s tvarem : polotovar: no_zl_" + GetLocalString(no_pec,"no_druh_vyrobku")+ "_" + GetLocalString(no_pec,"no_kovsperku")+ "_" + GetLocalString(no_pec,"no_hl_mat")+"_" + GetLocalString(no_pec,"no_ve_mat")+ "_"+GetLocalString(no_pec,"no_hl_proc"));
             SendMessageToPC(no_oPC,"nasavena procenta na zarizeni: " + (GetLocalString(OBJECT_SELF,"no_hl_proc")));
-            SendMessageToPC(no_oPC,"sutr v zarizeni 1: " + (GetLocalString(OBJECT_SELF,"no_pouzitysutr1")));
-            SendMessageToPC(no_oPC,"sutr v zarizeni 2: " + (GetLocalString(OBJECT_SELF,"no_pouzitysutr2")));
+            SendMessageToPC(no_oPC,"sutr v zarizeni 1 pred smazanim: " + (GetLocalString(OBJECT_SELF,"no_pouzitysutr1")));
+            SendMessageToPC(no_oPC,"sutr v zarizeni 2 pred smazanim: " + (GetLocalString(OBJECT_SELF,"no_pouzitysutr2")));
 
                      }
 
