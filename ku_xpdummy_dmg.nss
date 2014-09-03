@@ -12,7 +12,9 @@ void main()
     object oPC = GetLastDamager();
     if(GetIsPC(oPC) && GetHitDice(oPC) <= nMaxLevel && GetLocalInt(OBJECT_SELF,GetName(oPC)) < nXPMax+1)
         {
-        GiveXPToCreature(oPC,nDam*nXP);
+//        SendMessageToPC(oPC,"dmg "+IntToString(nDam)+" * xp"+IntToString(nXP));
+//        GiveXPToCreature(oPC,nDam*nXP);
+        GiveXPToCreature(oPC,Random(nXP)+1);
         SetLocalInt(OBJECT_SELF,GetName(oPC),GetLocalInt(OBJECT_SELF,GetName(oPC)) + nDam*nXP);
         // Heal the dummy so it don't get destroyed
         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectHeal(nDam),OBJECT_SELF);
