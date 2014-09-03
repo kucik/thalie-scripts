@@ -65,6 +65,7 @@ void ku_dlg_init(int act, object oPC = OBJECT_INVALID) {
     oPC = GetPCSpeaker();
   SetLocalInt(oPC,KU_DLG+"state",0);
   int iDialog = act; //GetLocalInt(oPC,KU_DLG+"dialog");
+
   switch(iDialog) {
 //    case 1: KU_subrace_setting(act); break;
     case 2:
@@ -129,6 +130,11 @@ void ku_dlg_SetConv(int conv, int state) {
 
 //  SendMessageToPC(oPC,"Set On "+GetName(oPC)+" State "+IntToString(conv)+"="+IntToString(GetLocalInt(oPC,KU_DLG+"_allow_"+IntToString(conv))));
 
+}
+
+void __dlgSetToken(int i, string s) {
+  ku_dlg_SetConv(i,1);
+  SetCustomToken(6300+i,s);
 }
 
 /* custom dialog functions */
@@ -2493,7 +2499,7 @@ void KU_DM_FactionsAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DM_FactionsSetTokens(iState);
           break;
         // +8
         case 1:
@@ -2561,20 +2567,23 @@ void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID) {
 void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVisibility, string sText = "") {
   string sSay = GetName(oTarget)+" hazi d("+IntToString(iDice)+")"+sText+" : "+IntToString(iThrow);
 
-  SendMessageToPC(oPC,"sSay");
+  SendMessageToPC(oPC,sSay);
   // Tel to others
-  if(iVisibility > 1) {
+
+  if(iVisibility == 2) {
+    SendMessageToAllDMs(sSay);
+    return;
+  }
+
+  if(iVisibility == 3) {
     object oTell = GetFirstPC();
     while(GetIsObjectValid(oTell)) {
       if( oPC != oTell) {
-        if(iVisibility == 2 &&
-           GetIsDM(oTell))
-          SendMessageToPC(oPC,"sSay");
         if(iVisibility == 3) {
           float fDistance = GetDistanceBetween(oPC, oTell);
           if(fDistance > 0.0 &&
              fDistance < 20.1)
-            SendMessageToPC(oPC,"sSay");
+            SendMessageToPC(oPC,sSay);
         }
       }
       oTell = GetNextPC();
@@ -2663,7 +2672,7 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         // Moving in dialog
         case 1:
@@ -2682,7 +2691,7 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         // Moving in dialog
         case 1:
@@ -2698,14 +2707,14 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         // Moving in dialog
         case 1:
         case 2:
         case 3:
         case 4:
-          SetLocalInt(oPC,"KU_DICES_TYPE1",act - 1);
+          SetLocalInt(oPC,"KU_DICES_TYPE1",act);
           SetLocalInt(oPC,KU_DLG+"state",20 + act);
           break;
       }
@@ -2715,7 +2724,7 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         case 1:
         case 2:
@@ -2733,7 +2742,7 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         case 1:
         case 2:
@@ -2749,7 +2758,7 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         // Moving in dialog
         case 9: {
@@ -2761,7 +2770,7 @@ void KU_DicesAct(int act) {
           break;
         }
         default:
-          SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1);
+          SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1 + GetLocalInt(oPC, KU_DLG+"shift"));
           SetLocalInt(oPC,KU_DLG+"state",24);
           break;
       }
@@ -2772,7 +2781,7 @@ void KU_DicesAct(int act) {
       switch(act) {
         // Nic nezmacknuto
         case 0:
-          KU_DM_PortalsSetTokens(iState);
+          KU_DicesSetTokens(iState);
           break;
         case 1: iDice = 2; break;
         case 2: iDice = 4; break;
@@ -2782,12 +2791,12 @@ void KU_DicesAct(int act) {
         case 6: iDice = 20; break;
         case 7: iDice = 100; break;
       }
-      break;
       if(act > 0) {
         SetLocalInt(oPC,"KU_DICES_DICE",iDice);
         SetLocalInt(oPC,KU_DLG+"state",0);
         KU_DicesDoThrow(oPC, oTarget);
       }
+      break;
   }
 }
 

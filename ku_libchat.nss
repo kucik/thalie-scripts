@@ -388,11 +388,13 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       break;
     case 25: {
                 string KU_DLG = "KU_UNI_DIALOG";
-                SetLocalInt(oPC,KU_DLG+"dialog",9);
+/*                SetLocalInt(oPC,KU_DLG+"dialog",9);
                 SetCustomToken(6300,"Hody kostkou");
                 SetLocalInt(oPC,KU_DLG+"_allow_0",1);
                 AssignCommand( oPC, ClearAllActions() );
-                AssignCommand( oPC, ActionStartConversation( oPC, "ku_uni_dlg", TRUE ) );
+                AssignCommand( oPC, ActionStartConversation( oPC, "ku_uni_dlg", TRUE ) );*/
+      SetLocalInt(oPC,KU_DLG+"dialog",9);
+      ExecuteScript("ku_dlg_start",oPC);
       }
       break;
   }
