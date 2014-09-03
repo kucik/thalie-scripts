@@ -70,6 +70,7 @@ void __loadLocations() {
   oArea = GetFirstArea();
   while(GetIsObjectValid(oArea)) {
     __setMarkLocationLoaded(GetTag(oArea));
+    WriteTimestampedLogEntry("AREAS: Area "+GetTag(oArea)+" ("+GetResRef(oArea)+") marked as loaded.");
     oArea = GetNextArea();
   }
 
@@ -78,8 +79,10 @@ void __loadLocations() {
   SQLExecDirect(sSql);
   while (SQLFetch() == SQL_SUCCESS) {
     string sResRef = SQLGetData(1);
+    WriteTimestampedLogEntry("AREAS: Load Area:"+sResRef);
     LoadArea(sResRef);
     __setMarkLocationLoaded(sResRef);
+    WriteTimestampedLogEntry("AREAS: Area "+GetTag(oArea)+" ("+GetResRef(oArea)+") marked as loaded.");
   }
 
 }
