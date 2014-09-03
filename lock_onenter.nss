@@ -128,34 +128,10 @@ void spawn(object oPC){
             }
           }
 
-          // pasti na bednach
-/*          if(GetTag(oObject)=="LOCK_CHEST") {
-             distance = GetLocalFloat(oObject,"DISTANCE");
-             locked = GetLocalInt(oObject,"LOCKED");
-             MaxDC = GetLocalInt(oObject,"LOCK_DC");
-             Trapped = GetLocalInt(oObject,"TRAPPED");
-
-             GetFirstObjectInShape(SHAPE_SPELLCYLINDER,distance,GetLocation(oObject),FALSE,OBJECT_TYPE_PLACEABLE);
-             while(GetIsObjectValid(oDoors)) {
-              if(FindSubString(GetResRef(oDoors),"chest") == -1)
-                continue;
-
-              if(locked > Random(100)) {
-                SetLocked(oDoors,TRUE);
-                SetLockKeyRequired(oDoors,FALSE);
-                SetLockUnlockDC(oDoors,MaxDC - Random(Random(MaxDC)));
-              }
-              if(Trapped > Random(100)) {
-                ku_SetRandomTrap(oDoors,TrapDC);
-              }
-              GetNextObjectInShape(SHAPE_SPELLCYLINDER,distance,GetLocation(oObject),FALSE,OBJECT_TYPE_PLACEABLE);
-            }
-          }
-          */
           i++;
           oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, i);
         }
-
+        // ~ Zamykani dveri
 
         oTarget = GetFirstObjectInArea(OBJECT_SELF);
         nNth = 1;

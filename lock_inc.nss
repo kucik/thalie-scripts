@@ -155,7 +155,19 @@ int lock_init_boss_loot(object oArea);
 void lock_SpawnBossLoot(object oArea);
 void lock_ClearBossLoot(object oArea);
 
+//**///////////////////////////////////////////////////////////////////////////
+//**
+//** Pseudostatic place placeables and loot
+//**
+//**///////////////////////////////////////////////////////////////////////////
+int lock_init_SPLC(object oArea);
+void lock_processSplcSpawn(object oSpawner);
 
+// If spawner
+void LOCK_ProcessSpawnIF(object oSpawn);
+
+// Spawner list
+void LOCK_ProcessSpawnLIST(object oSpawn);
 
 int ku_ChooseTrap(int power, int type) {
 
@@ -447,9 +459,39 @@ void LOCK_SpawnObject(object oPC, location lLoc, string sTAG, string sNewTag="")
 
 int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay) {
   string sType = GetLocalString(oSpawn,"SPAWN_TYPE");
+  location lLoc = GetLocation(oSpawn);
 
   if(sType == "TRAP") {
     DelayCommand(fSpawnDelay, ku_SpawnTrap(oSpawn));
+    return TRUE;
+  }
+  if(sType == "GROUP") {
+    LOCK_SpawnGroup(oSpawn);
+    return TRUE;
+  }
+  if(sType == "PLC") {
+    string sResref  = GetLocalString(oSpawn, "RESREF");
+    string NEWTAG   = GetLocalString(oSpawn, "NEWTAG");
+    DelayCommand(fSpawnDelay, LOCK_SpawnPlaceable(lLoc, sResref, NEWTAG));
+    return TRUE;
+  }
+  if(sType == "NPC") {
+    string sResref  = GetLocalString(oSpawn, "RESREF");
+    string NEWTAG   = GetLocalString(oSpawn, "NEWTAG");
+    DelayCommand(fSpawnDelay, LOCK_SpawnCreature(lLoc, sResref, NEWTAG)); 
+    return TRUE;
+  }
+  if(sType == "SLOOT" ||
+    sType == "SPLC" ) {
+    lock_processSplcSpawn(oSpawn);
+    return TRUE;
+  }
+  if(sType == "IF") {
+    LOCK_ProcessSpawnIF(oSpawn);
+    return TRUE;
+  }
+  if(sType == "LIST" ) {
+    LOCK_ProcessSpawnLIST(oSpawn);
     return TRUE;
   }
 
@@ -962,6 +1004,7 @@ void lock_init_location() {
   // Placeabels
   DelayCommand(1.5,Persist_LoadAddedPlaceables(OBJECT_SELF,OBJECT_TYPE_PLACEABLE));
 
+  lock_init_SPLC(OBJECT_SELF);
   lock_init_bosses(OBJECT_SELF);
 
   SetLocalInt(OBJECT_SELF,"ku_location_initialized",TRUE);
@@ -1016,6 +1059,19 @@ int lock_init_bosses(object oArea) {
   lock_init_boss_loot(oArea);
 
   return cnt;
+}
+
+void __bossCheckersRegister(object oBoss) {
+  string sTag = GetTag(oBoss);
+  int i = 1;
+  object oChecker = GetNearestObjectByTag(sTag, oBoss, i);
+  while(GetIsObjectValid(oChecker)) {
+    // Give me boss reference
+    SetLocalObject(oChecker,"__LOCK_BOSS",oBoss);
+    ExecuteScript(GetLocalString(oChecker, "CHECK_SCRIPT"), oChecker);
+    i++;
+    oChecker = GetNearestObjectByTag(sTag, oBoss, i);
+  }
 }
 
 int lock_SpawnBosses(object oArea) {
@@ -1279,3 +1335,159 @@ void lock_ClearBossLoot(object oArea) {
   return;
 
 }
+
+
+/***
+ * Static PLC SPAWN
+ */
+int lock_init_SPLC(object oArea) {
+
+  object oFirst = GetFirstObjectInArea(oArea);
+  object oNPC = oFirst;
+  int i = 1;
+  int cnt = 0;
+
+  /* Temporary unused */
+//  return 0;
+
+  if(GetLocalInt(oArea, "JA_MESTO"))
+    return 0;
+  if(!GetLocalInt(oArea, "TREASURE_VALUE"))
+    return 0;
+
+  string sEventScript,si;
+
+  /* Find some object we will not destroy */
+  while(GetIsObjectValid(oFirst)) {
+    if(GetTag(oFirst) != "loot_despawn" )
+      break;
+    oFirst = GetNextObjectInArea(oArea);
+  }
+
+  /* Go through all objects to despawn */
+  oNPC = GetNearestObjectByTag("loot_despawn", oFirst, i);
+  while(GetIsObjectValid(oNPC)) {
+    if( GetObjectType(oNPC) == OBJECT_TYPE_PLACEABLE) {
+      string sSpawner = GetLocalString(oNPC, "DESPAWN_WP");
+      object oSpawner = GetNearestObjectByTag(GetLocalString(oNPC, "DESPAWN_WP"), oNPC);
+      if(GetIsObjectValid(oSpawner)) {
+        int iCnt = GetLocalInt(oSpawner, "__SPLC_COUNT");
+        string si = IntToString(iCnt);
+        /* Save loot reference to area */
+        int iUsable =  GetUseableFlag(oNPC);
+        SetLocalInt(oSpawner,"__SPLC_USABLE_"+si, iUsable);
+        SetLocalString(oSpawner,"__SPLC_RESREF_"+si,GetResRef(oNPC));
+        SetLocalInt(oSpawner,"__SPLC_APP_"+si,GetAppearanceType(oNPC));
+        SetLocalString(oSpawner,"__SPLC_NAME_"+si,GetName(oNPC));
+        SetLocalLocation(oSpawner,"__SPLC_LOC_"+si,GetLocation(oNPC));
+        if(iUsable) {
+          sEventScript = GetScript(oNPC,PLACEABLE_SCRIPT_OPEN);
+          SetLocalString(oSpawner,"__SPLC_EVENT_ONOPEN_"+si,sEventScript);
+          SetLocalInt(oSpawner,"__SPLC_LOCKED_"+si,GetLocked(oNPC)*GetLockUnlockDC(oNPC));
+        }
+        DestroyObject(oNPC,2.0);
+        
+        SetLocalInt(oSpawner, "__SPLC_COUNT", iCnt + 1);
+      }
+      else {
+        WriteTimestampedLogEntry("ERROR: Missong spawner "+GetLocalString(oNPC, "DESPAWN_WP")+" for PLC "+GetName(oNPC));
+
+      }
+    }
+    oNPC = GetNearestObject(OBJECT_TYPE_PLACEABLE, oFirst, i);
+    i++;
+  }
+  SetLocalInt(oArea,"BOSS_LOOT_COUNT",cnt);
+
+  return cnt;
+}
+
+void lock_processSplcSpawn(object oSpawner) {
+  int i = 0;
+  int iCnt = GetLocalInt(oSpawner, "__SPLC_COUNT");
+
+  while(i < iCnt) {
+    string si = IntToString(i);
+    object oNew = CreateObject(OBJECT_TYPE_PLACEABLE, GetLocalString(oSpawner,"__SPLC_RESREF_"+si), GetLocalLocation(oSpawner,"__SPLC_LOC_"+si), FALSE );
+    SetPlaceableAppearance(oNew, GetLocalInt(oSpawner,"__SPLC_APP_"+si));
+    /** Maybe we should copy placeable here to refresh it for PCs TODO*/
+    int iUsable = GetLocalInt(oSpawner,"__SPLC_USABLE_"+si);
+    SetUseableFlag(oNew, iUsable);
+    SetName(oNew, GetLocalString(oSpawner,"__SPLC_NAME_"+si));
+    if(iUsable) {
+      SetScript(oNew, PLACEABLE_SCRIPT_OPEN, GetLocalString(oSpawner,"__SPLC_EVENT_ONOPEN_"+si));
+      /* Locking */
+      int iLockDC = GetLocalInt(oSpawner,"__SPLC_LOCKED_"+si);
+      if(iLockDC) {
+        SetLocked(oNew,TRUE);
+        SetLockKeyRequired(oNew,FALSE);
+        SetLockUnlockDC(oNew,iLockDC);
+      }
+    }
+    // If we don't mark it, it won't be destroyed on the cleaning.
+    SetLocalInt(oNew, "LOCK_DESPAWN", 1);
+  }
+}
+
+/////////////////////
+// IF chain spawn
+//
+
+void __processSpawnByTag(object oSpawner, string sTag) {
+  if(GetStringLength(sTag) == 0)
+    return;
+  if(sTag == "NONE")
+    return;
+  
+  int i = 1;
+  object oSpawn =  GetNearestObjectByTag(sTag, oSpawner, i);
+  while(GetIsObjectValid(oSpawn)) {
+    LOCK_ProcessSpawn(oSpawn, 0.2);
+    i++;
+    oSpawn = GetNearestObjectByTag(sTag, oSpawner, i);
+  }
+}
+
+void LOCK_ProcessSpawnIF(object oSpawn) {
+  int i = 1;
+  string si = "1";
+  int iProb = 0;
+
+  // Count probability
+  while(i <= 20) {
+    si = IntToString(i);
+    if(GetStringLength(GetLocalString(oSpawn, "SP_WP"+si)) == 0)
+      break;
+    iProb = iProb + GetLocalInt(oSpawn, "SP_PROB"+si);
+  }
+
+  // Get random from prob
+  int iRand = Random(iProb);
+
+  // find randomized WP
+   while(i <= 20) {
+    si = IntToString(i);
+    iProb = iProb - GetLocalInt(oSpawn, "SP_PROB"+si);
+    if(iProb < 0) {
+      __processSpawnByTag(oSpawn, GetLocalString(oSpawn, "SP_WP"+si));
+      return;
+    }    
+  }
+  
+}
+
+void LOCK_ProcessSpawnLIST(object oSpawn) {
+  int i = 1;
+  string si = "1";
+
+  while( i<=20 ) {
+    si = IntToString(i);
+    string sSpawn = GetLocalString(oSpawn, "SP_WP"+si);
+    if(GetStringLength(sSpawn) == 0)
+      break;
+    __processSpawnByTag(oSpawn, sSpawn);
+    i++;
+  }
+}
+
+
