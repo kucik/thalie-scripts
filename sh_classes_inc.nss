@@ -184,6 +184,7 @@ Shodi Kensaiovi Itemy pokud si oblece zbroj, stit nebo helmu
 
 void ApplyKensaiLimitation(object oPC,object oItem)
 {
+    return;
     int sundani =FALSE;
     if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC) > 0)
     {
