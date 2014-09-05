@@ -542,6 +542,11 @@ void ApplyBonusSaves(object oPC, object oPCSkin)
          {
                iDeath +=1;
          }
+         if (GetHasFeat(FEAT_KENSAI_BONUS,oPC) == TRUE) {
+           // From 15. level +2 bonus every 5th. level.
+           // Feat is granted on 15. level so <0 is not needed.
+           iReflex += (((GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) - 10) / 5) *2);
+         }
        // pridani bonusu
         if (iReflex > 0)
         {
@@ -656,13 +661,13 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
 
     }
     //bonusy kensaie
-    if (GetHasFeat(FEAT_KENSAI_BONUS,oPC) == TRUE)
+    if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) > 3)
     {
         int lvl = GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC);
-        int iBonusAC = (lvl -3) / 4 +1;
+//        int iBonusAC = (lvl -3) / 4 +1;
         int iBonusAB = lvl / 3;
         iAB += iBonusAB;
-        iACshield += iBonusAC;
+//        iACshield += iBonusAC;
         iDMG += iBonusAB;
     }
     //shinobi bonus do dodge AC
