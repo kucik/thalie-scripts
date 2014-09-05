@@ -3554,6 +3554,111 @@ case 107: sItem="ry_ca_zachran_3"; break;
 }
 //~jaara
 
+void nt_CreateSpecificTreasure(int iType, int nTreasureType, object oLastOpener, object oCreateOn, int nLvl)
+{
+  if(iType & LOOT_TYPE_DISP > 0) {}
+  if(iType & LOOT_TYPE_AMMO > 0)
+    CreateAmmo(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_GOLD > 0)
+    CreateGold(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_ITEM > 0) { }
+  if(iType & LOOT_TYPE_BOOK > 0)
+    CreateBook(oCreateOn);
+  if(iType & LOOT_TYPE_ANIMAL > 0)
+    CreateAnimalPart(oCreateOn);
+  if(iType & LOOT_TYPE_JUNK > 0)
+    CreateJunk(oCreateOn);
+  if(iType & LOOT_TYPE_GEM > 0)
+    CreateGem(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_JEWEL > 0)
+    CreateJewel(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_SCROLL_A > 0)
+    CreateArcaneScroll(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_SCROLL_D > 0)
+    CreateDivineScroll(oCreateOn, oLastOpener, nTreasureType, nLvl); 
+  if(iType & LOOT_TYPE_KIT > 0)
+    CreateKit(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_POTION > 0)
+    CreatePotion(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_WEAPON > 0)
+    CreateTable2Item(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_WEAPON_RANGED > 0)
+    CreateTable2Item(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_WEAPON_MELEE > 0)
+    CreateTable2Item(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  if(iType & LOOT_TYPE_ARMOR > 0)
+    CreateTable2Item(oCreateOn, oLastOpener, nTreasureType, nLvl);
+    
+  if(iType & LOOT_TYPE_CLOTHING > 0) { }
+    CreateTable2Item(oCreateOn, oLastOpener, nTreasureType, nLvl);
+  
+}
+
+void nt_GenerateSpecificTreasure(int iType, int nTreasureType, object oLastOpener, object oCreateOn) {
+    SetNextSpawn();
+
+    // Postih na skryvani a zruseni kouzel pri otevreni bedny
+    effect eEff = GetFirstEffect(oLastOpener);
+    while(GetIsEffectValid(eEff)) {
+      int iEffType = GetEffectType(eEff);
+      switch(iEffType) {
+        case EFFECT_TYPE_INVISIBILITY:
+        case EFFECT_TYPE_IMPROVEDINVISIBILITY:
+        case EFFECT_TYPE_SANCTUARY:
+        case 81:
+          RemoveEffect(oLastOpener,eEff);
+          break;
+        default: break;
+      }
+      eEff = GetNextEffect(oLastOpener);
+    }
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,EffectSkillDecrease(SKILL_HIDE,30),oLastOpener,15.0);
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,EffectSkillDecrease(SKILL_MOVE_SILENTLY,30),oLastOpener,15.0);
+
+    //dbSpeak("*********************NEW TREASURE*************************");
+
+    // * abort treasure if no one opened the container
+    if (GetIsObjectValid(oLastOpener) == FALSE)
+    {
+        //dbSpeak("Aborted.  No valid Last Opener");
+        return;
+    }
+
+    // * if no valid create on object, then create on oLastOpener
+    if (oCreateOn == OBJECT_INVALID)
+    {
+        oCreateOn = oLastOpener;
+    }
+
+    int nLvl = 0;
+
+    if( oLastOpener != OBJECT_SELF){
+        object oArea = GetArea(oCreateOn);
+        nLvl = GetLocalInt(oArea, "TREASURE_VALUE");
+        if(!nLvl) nLvl = 1;
+    }
+    else{
+        nLvl = FloatToInt( GetChallengeRating(OBJECT_SELF)/2.0f );
+    }
+
+   // Pokud v okoli neni nikdo, kdo nema plny loot limit, negeneruj nic - by Kucik
+   if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
+     if(!KU_LootFunctions_CheckLimitInGroup())
+       return;
+   }
+
+   int iCount = 1;
+   if(nTreasureType == TREASURE_MEDIUM )
+     iCount = d2();
+   if(nTreasureType ==  TREASURE_HIGH)
+     iCount = d3();
+
+   int i;
+   for(i = 0; i < iCount; i++) {
+     nt_CreateSpecificTreasure(iType, nTreasureType, oLastOpener, oCreateOn, nLvl);
+   }
+
+}
 
 //::///////////////////////////////////////////////
 //:: GenerateTreasure
