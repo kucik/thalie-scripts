@@ -264,7 +264,7 @@ const int no_cena_kuze_lest5 = 80008;
 const int no_cena_kuze_lest6 = 160008;
 
 
-//ceny moridel
+//ceny moridel do luku
 const int no_cena_moridla1 =80;
 const int no_cena_moridla2 =2000;
 const int no_cena_moridla3 =3600;
