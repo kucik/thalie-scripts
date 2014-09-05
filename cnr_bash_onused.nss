@@ -203,7 +203,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
     no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetTin";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetTin";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy cinu";
                 }
                 else   { sResource = "cnrNuggetCopp";
@@ -215,7 +215,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
         no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetAdam";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetAdam";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy adamantinu";
                 }
                 else   { sResource = "cnrNuggetTita";
@@ -228,7 +228,7 @@ if (no_hlusina == 1) {
    {
    sAppearance="temp_placeable";
         no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetGold";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetGold";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy zlata";
                 }
                 else   { sResource = "cnrNuggetPlat";
@@ -241,7 +241,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
              no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetMith";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetMith";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy mithrilu";
                 }
                 else   { sResource = "cnrNuggetAdam";
@@ -255,7 +255,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
              no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetPlat";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetPlat";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy platiny";
                 }
                 else   { sResource = "cnrNuggetMith";
@@ -268,7 +268,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
                  no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetSilv";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetSilv";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy stribra";
                 }
                 else   { sResource = "cnrNuggetStin";
@@ -281,7 +281,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
                      no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetTita";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetTita";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy titanu";
                 }
                 else   { sResource = "cnrNuggetSilv";
@@ -294,7 +294,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
                          no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetIron";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetIron";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy zeleza";
                 }
                 else   { sResource = "cnrNuggetGold";
@@ -307,7 +307,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
                          no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetCopp";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetCopp";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy medi";
                 }
                 else   { sResource = "cnrNuggetIron";
@@ -318,7 +318,7 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
                          no_nahoda = d100();
-                if (no_nahoda > (iMiningSkill/200) ){ sResource = "cnrNuggetVerm";
+                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetVerm";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus rudy Vermajlu";
                 }
                 else   { sResource = "cnrNuggetIron";
