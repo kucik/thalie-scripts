@@ -90,9 +90,25 @@ void main()
         if (sSelf == "cnrRockAdam") iMaxDig=2+d6(1);
         if (sSelf == "cnrRockTita") iMaxDig=1+d6(1);
         if (sSelf == "cnrRockSilv") iMaxDig=1+d4(1);
-        if (sSelf == "cnrRockStin") iMaxDig=0+d4(1);
-        if (sSelf == "cnrRockMete") iMaxDig=0;
+        if (sSelf == "cnrRockStin") iMaxDig=1+d4(1);
+        if (sSelf == "cnrRockMete") iMaxDig=1;
 
+
+        if (sSelf == "cnrGemDeposit001")  iMaxDig=6+d10(2);  //nefrit
+        if (sSelf == "cnrGemDeposit002") iMaxDig=6+d10(2); //malachit
+        if (sSelf == "cnrGemDeposit007") iMaxDig=6+d10(2);  //ohn achat
+        if (sSelf == "cnrGemDeposit014") iMaxDig=6+d10(1);  //aventurin
+        if (sSelf == "cnrGemDeposit004") iMaxDig=6+d10(1);  //fenelop
+        if (sSelf == "cnrGemDeposit003") iMaxDig=6+d10(1);  //ametyst
+        if (sSelf == "cnrGemDeposit015") iMaxDig=3+d10(1);  //zivec
+        if (sSelf == "cnrGemDeposit011") iMaxDig=3+d10(1);  //granat
+        if (sSelf == "cnrGemDeposit013") iMaxDig=2+d8(1); //alexandrit
+        if (sSelf == "cnrGemDeposit010") iMaxDig=2+d8(1);  //topaz
+        if (sSelf == "cnrGemDeposit008") iMaxDig=1+d6(1);  //safir   -podtemno
+        if (sSelf == "cnrGemDeposit009") iMaxDig=1+d6(1);  // ohn opal-podtemno
+        if (sSelf == "cnrGemDeposit005") iMaxDig=1+d4(1); // diamant -podtemno
+        if (sSelf == "cnrGemDeposit006") iMaxDig=1+d4(1);  // rubin-podtemno
+        if (sSelf == "cnrGemDeposit012") iMaxDig=1; //smaragd -podtemno
 
     SetLocalInt(oSelf,"iMaxDig",iMaxDig);
    }
