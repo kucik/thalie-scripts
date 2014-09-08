@@ -13,7 +13,7 @@
 #include "ku_libbase"
 #include "ku_loot_inc"
 #include "ku_ships"
-#include "ku_dlg_inc"
+//#include "ku_dlg_inc"
 #include "sh_sipy_inc"
 
 void FRAKCE_ZabitiHracePoAktivaciItemu(object oPC,string sInt);
@@ -122,38 +122,11 @@ void main()
 //    SendMessageToPC(oPlayer,"Na "+GetName(oActivated)+" je KU_DIALOG "+IntToString(iDlg));
     if(iDlg < 1) {
       string sResref = GetResRef(oActivated);
-      if(sResref == "ku_uni_dlg_001")
-        iDlg = 1;
-      else if(sResref == "ku_wand_uni_dlg")
-        iDlg = 2;
-      else if(sResref == "ku_wand_uni_d001")
-        iDlg = 3;
-      else if(sResref == "ku_wand_uni_d002")
-        iDlg = 4;
-      else if(sResref == "ku_uni_dlg_5")
-        iDlg = 5;
-      else if(sResref == "ku_uni_dlg_006")
-        iDlg = 6;
-      else if(sResref == "ku_uni_dlg_007")
-        iDlg = 7;
-      else
-        iDlg = 1;
+      iDlg = StringToInt(GetStringLeft(sResref,3)); //ku_uni_dlgXXX
     }
-
-//    SendMessageToPC(oPlayer,"Spoustim dialog "+IntToString(iDlg));
-    SetLocalInt(oPlayer,KU_DLG+"dialog",iDlg);
-    SetLocalInt(oPlayer,KU_DLG+"state",0);
-    SetLocalObject(oPlayer,KU_WAND_TARGET,oTarget);
-    SetLocalLocation(oPlayer,KU_WAND_TARGET_LOC,GetItemActivatedTargetLocation());
-
-    SetCustomToken(6300,"Uni Dialog");
-    ku_dlg_init(iDlg,oPlayer);
-
-    SetLocalInt(oPC,KU_DLG+"dialog",iDlg);
-    SetLocalInt(oPC,KU_DLG+"state",0);
-    SetLocalInt(oPC,KU_DLG+"_allow_0",1);
-    SetLocalInt(oPC,KU_DLG+"_allow_1",1);
-    AssignCommand(oPlayer,ActionStartConversation(OBJECT_SELF,"ku_uni_dlg",TRUE,FALSE));
+    string KU_DLG = "KU_UNI_DIALOG";
+    SetLocalInt(oPC,KU_DLG+"dialog",9);
+    ExecuteScript("ku_dlg_start",oPC);
     return;
   }
 
