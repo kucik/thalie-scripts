@@ -14,11 +14,12 @@
 
 #include "x2_inc_spellhook"
 #include "ja_inc_stamina"
+#include "subraces"
 
 // return TRUE if the effect created by a supernatural force and can't be dispelled by spells
 int GetIsSupernaturalCurse(effect eEff);
 
-// return TRUE if spell effect should not be removed by Greater Restoration 
+// return TRUE if spell effect should not be removed by Greater Restoration
 int GetIsExcludedSpell(effect eEff);
 
 void main()
@@ -59,14 +60,15 @@ void main()
         {
             //Remove effect if it is negative.
             if(!GetIsSupernaturalCurse(eBad) && !GetIsExcludedSpell(eBad))
+              if(!Subraces_GetIsSubraceEffect(eBad))
                 RemoveEffect(oTarget, eBad);
         }
         eBad = GetNextEffect(oTarget);
     }
-    
+
     // Apply eventual fatigue effects (fatigue/stamina system)
-    FatigueCheck(oTarget, FALSE); 
-    
+//    FatigueCheck(oTarget, FALSE);
+
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_LESSER_RESTORATION, FALSE));
 
@@ -84,7 +86,7 @@ int GetIsSupernaturalCurse(effect eEff)
 int GetIsExcludedSpell(effect eEff)
 {
     int iSpellId = GetEffectSpellId(eEff);
-    
+
     if (iSpellId == 78  // Haste
      || iSpellId == 113 // Mass haste
     )
