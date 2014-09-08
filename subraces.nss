@@ -426,12 +426,23 @@ void Subraces_ModuleHeartBeatPC(object oPC)
 
 int Subraces_GetIsSubraceEffect(effect eBad) {
 
+	    if(GetEffectSubType(eBad) != SUBTYPE_SUPERNATURAL)
+	      return FALSE;
+
+	    string sCreator = GetTag(GetEffectCreator(eBad));
+	    if(sCreator == KU_SUBRACES_PERM_TAG)
+	      return TRUE;
+	    if(sCreator == KU_SUBRACES_AREA_TAG)
+	      return TRUE;
+
+	    return FALSE;
+/*
     int iSpellId = GetEffectSpellId(eBad);
     if(iSpellId >= 10999 && iSpellId <= 12000) {
       return TRUE;
     }
 
-    return FALSE;
+    return FALSE;*/
 }
 
 int Subrace_DMOnlyAllowed(object oPC, int iLoud=TRUE) {
