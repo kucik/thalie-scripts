@@ -39,7 +39,7 @@ void main()
     }
     object oSaveItem = GetSoulStone(OBJECT_SELF);
     int iBonus = 1;
-    if (GetHasFeat(FEAT_CERNOKNEZNIK_INVOKACE2_DOZVUK_BOLESTI))
+    if (GetHasFeat(1456)) //FEAT_CERNOKNEZNIK_INVOKACE2_DOZVUK_BOLESTI
     {
        iBonus = 3;
     }

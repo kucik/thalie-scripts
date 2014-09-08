@@ -36,7 +36,7 @@ void main()
     //Declare major variables including Area of Effect Object
     effect eAOE = EffectAreaOfEffect(AOE_PER_DARKNESS);
     location lTarget = GetSpellTargetLocation();
-    int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK);;
+    int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(44); //CLASS_TYPE_CERNOKNEZNIK
     int nMetaMagic = GetMetaMagicFeat();
     //Make sure duration does no equal 0
     if (nDuration < 1)

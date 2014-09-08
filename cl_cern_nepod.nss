@@ -37,7 +37,7 @@ void main()
         return;
     }
     //Declare major variables
-    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF); //CLASS_TYPE_CERNOKNEZNIK
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eHP = EffectTemporaryHitpoints(iCasterLevel);
     effect eLink = EffectLinkEffects(eHP, eDur);

@@ -37,7 +37,7 @@ void main()
     }
     //Declare major variables
     int iDuration = 25;
-    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF) ;//CLASS_TYPE_CERNOKNEZNIK
     int iLimit = iCasterLevel * 10;
     effect eStone = EffectDamageReduction(10, DAMAGE_POWER_PLUS_SIX, iLimit);
     effect eVis = EffectVisualEffect(VFX_DUR_PROT_PREMONITION);

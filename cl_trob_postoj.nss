@@ -78,13 +78,9 @@ void __activateStand(object oPC) {
         effect ef2 = EffectACIncrease(bonus_dodge);
         effect ef3 = EffectMovementSpeedDecrease(99);
         effect eLink = EffectLinkEffects(ef1,ef2);
-        effect eHP;
         eLink = EffectLinkEffects(eLink,ef3);
-        if(iHPbonus > 0) {
-          eHP = EffectTemporaryHitpoints(iHPbonus);
-          SetEffectSpellId(eHP,EFFECT_TRPASLICI_OBRANCE_POSTOJ);
-          ApplyEffectToObject(DURATION_TYPE_PERMANENT, eHP,oPC);
-        }
+        if(iHPbonus > 0)
+          eLink = EffectLinkEffects(eLink,EffectTemporaryHitpoints(iHPbonus));
         eLink = ExtraordinaryEffect(eLink);
         SetEffectSpellId(eLink,EFFECT_TRPASLICI_OBRANCE_POSTOJ);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);

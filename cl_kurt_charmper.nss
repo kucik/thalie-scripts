@@ -48,34 +48,19 @@ void main()
     {
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_CHARM_PERSON, FALSE));
+        //Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {
-            //Verify that the Racial Type is humanoid
-            if  ((nRacial == RACIAL_TYPE_DWARF) ||
-                (nRacial == RACIAL_TYPE_ELF) ||
-                (nRacial == RACIAL_TYPE_GNOME) ||
-                (nRacial == RACIAL_TYPE_HUMANOID_GOBLINOID) ||
-                (nRacial == RACIAL_TYPE_HALFLING) ||
-                (nRacial == RACIAL_TYPE_HUMAN) ||
-                (nRacial == RACIAL_TYPE_HALFELF) ||
-                (nRacial == RACIAL_TYPE_HALFORC) ||
-                (nRacial == RACIAL_TYPE_HUMANOID_MONSTROUS) ||
-                (nRacial == RACIAL_TYPE_HUMANOID_ORC) ||
-                (nRacial == RACIAL_TYPE_HUMANOID_REPTILIAN))
-            {
+
                 //Make a Will Save check
                 if (!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS))
                 {
                     //Apply impact and linked effects
-                    if(GetIsPC(oTarget)) {
-                      ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
-                    }
-                    else {
-                      ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
-                    }
+                    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+                    AdjustFactionReputation(oTarget,OBJECT_SELF,50);
                 }
-             }
+
          }
      }
 }

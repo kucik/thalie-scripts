@@ -22,9 +22,10 @@
 
 #include "nwnx_funcs"
 #include "nwnx_structs"
-#include "sh_classes_inc_e"
+//#include "sh_classes_inc_e"
 #include "sei_subraceslst"
-#include "sh_classes_const"
+//#include "sh_classes_const"
+#include "me_soul_inc"
 
 // **************************************************************
 // ** Constants
@@ -895,167 +896,162 @@ int SEI_NWNXParseTrait( object oPC, string a_sTrait )
     }
     if( a_sTrait == "dlouhy_mec" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_DLOUHY_MEC );
+        KU_SUB_GiveFeat( oPC, 1378 ); //FEAT_POUZITI_ZBRANE_DLOUHY_MEC
         return 1;
     }
     if( a_sTrait == "dlouhy_luk" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_DLOUHY_LUK );
+        KU_SUB_GiveFeat( oPC, 1377 );  //FEAT_POUZITI_ZBRANE_DLOUHY_LUK
         return 1;
     }
     if( a_sTrait == "scimitar" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_SCIMITAR );
+        KU_SUB_GiveFeat( oPC, 1413 );  //FEAT_POUZITI_ZBRANE_SCIMITAR
         return 1;
     }
     if( a_sTrait == "falchion" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_FALCHION );
+        KU_SUB_GiveFeat( oPC, 1381 );  //FEAT_POUZITI_ZBRANE_FALCHION
         return 1;
     }
     if( a_sTrait == "zbrane_vychodni" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_WEAPONS_VYCHODNI_ZBRANE );
+        KU_SUB_GiveFeat( oPC, 1534 ); //FEAT_WEAPONS_VYCHODNI_ZBRANE
         return 1;
     }
     if( a_sTrait == "genasi_kuzel_mrazu" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_GENASI_VODNI_KUZEL );
+        KU_SUB_GiveFeat( oPC, 1519 );  //FEAT_SUBRACE_GENASI_VODNI_KUZEL
         return 1;
     }
     if( a_sTrait == "genasi_zavan_vetru" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_GENASI_VZDUCH_ZAVAN_VETRU );
+        KU_SUB_GiveFeat( oPC, 1520 ); //FEAT_SUBRACE_GENASI_VZDUCH_ZAVAN_VETRU
         return 1;
     }
     if( a_sTrait == "genasi_kamenna_kuze" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_GENASI_ZEMNI_KAMENKA );
+        KU_SUB_GiveFeat( oPC, 1521 );  //FEAT_SUBRACE_GENASI_ZEMNI_KAMENKA
         return 1;
     }
     if( a_sTrait == "genasi_fireball" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_GENASI_OHEN_FIREWALL );
+        KU_SUB_GiveFeat( oPC, 1522 );  //FEAT_SUBRACE_GENASI_OHEN_FIREWALL
         return 1;
     }
     if( a_sTrait == "drow_temnota" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_DROW_TEMNOTA );
+        KU_SUB_GiveFeat( oPC, 1523 );  //FEAT_SUBRACE_DROW_TEMNOTA
         return 1;
     }
     if( a_sTrait == "bic" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_BIC );
+        KU_SUB_GiveFeat( oPC, 1375 );  //FEAT_POUZITI_ZBRANE_BIC
         return 1;
     }
     if( a_sTrait == "lehka_kuse" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_LEHKA_KUSE );
+        KU_SUB_GiveFeat( oPC, 1397 );  //FEAT_POUZITI_ZBRANE_LEHKA_KUSE
         return 1;
     }
     if( a_sTrait == "tezka_kuse" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_TEZKA_KUSE );
+        KU_SUB_GiveFeat( oPC, 1417 );  //FEAT_POUZITI_ZBRANE_TEZKA_KUSE
         return 1;
     }
     if( a_sTrait == "trpaslici_sekera" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_TRPASLICI_SEKERA );
+        KU_SUB_GiveFeat( oPC, 1421 );  //FEAT_POUZITI_ZBRANE_TRPASLICI_SEKERA
         return 1;
     }
     if( a_sTrait == "trpaslik_stitovy" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_TRP_STITOVY_ORK );
+        KU_SUB_GiveFeat( oPC, 1524 );  //FEAT_SUBRACE_TRP_STITOVY_ORK
         return 1;
     }
     if( a_sTrait == "trpaslik_horsky" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_TRP_HORSKY_OBR );
+        KU_SUB_GiveFeat( oPC, 1525 );  //FEAT_SUBRACE_TRP_HORSKY_OBR
         return 1;
     }
     if( a_sTrait == "trpaslik_zlaty" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_TRP_ZLATY_ELEMENTAL );
+        KU_SUB_GiveFeat( oPC, 1526 );  //FEAT_SUBRACE_TRP_ZLATY_ELEMENTAL
         return 1;
     }
     if( a_sTrait == "trpaslik_duergar" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_TRP_DUERGAR_ODCHYLKA );
+        KU_SUB_GiveFeat( oPC, 1527 );  //FEAT_SUBRACE_TRP_DUERGAR_ODCHYLKA
         return 1;
     }
     if( a_sTrait == "dvojity_palcat" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_STRASLIVY_PALCAT );
+        KU_SUB_GiveFeat( oPC, 1416 );  //FEAT_POUZITI_ZBRANE_STRASLIVY_PALCAT
         return 1;
     }
     if( a_sTrait == "dvojity_mec" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_OBOUSTRANNY_MEC );
+        KU_SUB_GiveFeat( oPC, 1405 );  //FEAT_POUZITI_ZBRANE_OBOUSTRANNY_MEC
         return 1;
     }
     if( a_sTrait == "dvojita_sekera" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_OBOUSTRANNA_SEKERA );
+        KU_SUB_GiveFeat( oPC, 1404 );  //FEAT_POUZITI_ZBRANE_OBOUSTRANNA_SEKERA
         return 1;
     }
     if( a_sTrait == "ork_zurivost" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_ORK_ZURIVOST );
+        KU_SUB_GiveFeat( oPC, 1528 );  //FEAT_SUBRACE_ORK_ZURIVOST
         return 1;
     }
     if( a_sTrait == "kukri" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_POUZITI_ZBRANE_KUKRI );
+        KU_SUB_GiveFeat( oPC, 1395 );  //FEAT_POUZITI_ZBRANE_KUKRI
         return 1;
     }
     if( a_sTrait == "finty" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_WEAPON_FINESSE );
+        KU_SUB_GiveFeat( oPC, FEAT_WEAPON_FINESSE );  //FEAT_WEAPON_FINESSE
         return 1;
     }
     if( a_sTrait == "puldrak_dech_cerny" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_PULDRAK_DECH_CERNY );
+        KU_SUB_GiveFeat( oPC, 1529 );  //FEAT_SUBRACE_PULDRAK_DECH_CERNY
         return 1;
     }
     if( a_sTrait == "puldrak_dech_modry" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_PULDRAK_DECH_MODRY );
+        KU_SUB_GiveFeat( oPC, 1530 );  //FEAT_SUBRACE_PULDRAK_DECH_MODRY
         return 1;
     }
     if( a_sTrait == "puldrak_dech_zeleny" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_PULDRAK_DECH_ZELENY );
+        KU_SUB_GiveFeat( oPC, 1531 );  //FEAT_SUBRACE_PULDRAK_DECH_ZELENY
         return 1;
     }
     if( a_sTrait == "puldrak_dech_cerveny" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_PULDRAK_DECH_CERVENY );
+        KU_SUB_GiveFeat( oPC, 1532 );  //FEAT_SUBRACE_PULDRAK_DECH_CERVENY
         return 1;
     }
     if( a_sTrait == "puldrak_dech_bily" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_PULDRAK_DECH_BILY );
+        KU_SUB_GiveFeat( oPC, 1533 );  //FEAT_SUBRACE_PULDRAK_DECH_BILY
         return 1;
     }
     if( a_sTrait == "zamereni_ocarovani" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SPELL_FOCUS_ENCHANTMENT );
+        KU_SUB_GiveFeat( oPC, FEAT_SPELL_FOCUS_ENCHANTMENT );  //FEAT_SPELL_FOCUS_ENCHANTMENT
         return 1;
     }
     if( a_sTrait == "illithid_zachrane_hody" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_HARDINESS_VERSUS_SPELLS );
-        return 1;
-    }
-    if( a_sTrait == "puldrak_dech_bily" )
-    {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_PULDRAK_DECH_BILY );
+        KU_SUB_GiveFeat( oPC, FEAT_HARDINESS_VERSUS_SPELLS );  //FEAT_HARDINESS_VERSUS_SPELLS
         return 1;
     }
     if( a_sTrait == "kridla_let" )
     {
-        KU_SUB_GiveFeat( oPC, FEAT_SUBRACE_LET );
+        KU_SUB_GiveFeat( oPC, 1535 );  //FEAT_SUBRACE_LET
         return 1;
     }
     else

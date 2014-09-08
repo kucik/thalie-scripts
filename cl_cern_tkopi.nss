@@ -39,7 +39,7 @@ void main()
     object oTarget = GetSpellTargetObject();
     object oCaster = OBJECT_SELF;
     int iDur,iTouchAttackResult;
-    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,oCaster) ;
+    int iCasterLevel = GetLevelByClass(44,oCaster) ;   //CLASS_TYPE_CERNOKNEZNIK
     int iEsenceType = GetLocalInt(oCaster,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);
     int iDamgeType = GetEssenceDmgType(DAMAGE_TYPE_MAGICAL, iEsenceType);
     struct EssenceEffect s_eff = GetEssenceAditionalEffect(iEsenceType);
@@ -68,7 +68,7 @@ void main()
     /* Prepare and apply #1 visual */
     effect eRay = EffectBeam(VFX_BEAM_BLACK , oCaster, BODY_NODE_HAND);
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eRay, oTarget, 1.7);
-    
+
     /* If spell is not resisted */
     if(!GetEssenceSpellResist(oCaster, oTarget, iEsenceType)) {
       /* If spell makes damage */

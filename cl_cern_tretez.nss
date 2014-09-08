@@ -94,7 +94,7 @@ void main()
 
     object oTarget = GetSpellTargetObject();
     int iEsenceType = GetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);
-    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF) ; //CLASS_TYPE_CERNOKNEZNIK
     int iMaxTargets = ((iCasterLevel + 1) / 5);
     int iDamgeType = GetEssenceDmgType(DAMAGE_TYPE_MAGICAL, iEsenceType);
     struct EssenceEffect s_eff = GetEssenceAditionalEffect(iEsenceType);

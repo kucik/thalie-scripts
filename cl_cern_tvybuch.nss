@@ -39,7 +39,7 @@ void main()
     int iDCShape = 1;
     object oTarget = GetSpellTargetObject();
     int iDamage,iDC,iDur,iTouchAttackResult;
-    int iCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF) ;//CLASS_TYPE_CERNOKNEZNIK
     object oSaveItem = GetSoulStone(OBJECT_SELF);
     int iEsenceType = GetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_TYP_ESENCE);
     effect eEf,eEf1,eEf2,eRay,eVis,eDur;

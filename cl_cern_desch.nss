@@ -31,7 +31,7 @@ void main()
     effect eMovement = EffectMovementSpeedDecrease(30);
     effect eLink = EffectLinkEffects(ef,eMovement);
     int iDC = 10 + 4 + GetAbilityModifier(ABILITY_CHARISMA);
-    int nCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int nCasterLevel = GetLevelByClass(44,OBJECT_SELF); //CLASS_TYPE_CERNOKNEZNIK
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));

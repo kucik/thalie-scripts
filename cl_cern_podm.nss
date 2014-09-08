@@ -42,7 +42,7 @@ void main()
     //Link effects
     effect eLink = EffectLinkEffects(eMind, eCharm);
     eLink = EffectLinkEffects(eLink, eDur);
-    int nCasterLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF) ;
+    int nCasterLevel = GetLevelByClass(44,OBJECT_SELF); //CLASS_TYPE_CERNOKNEZNIK
     int nDuration = 3 + nCasterLevel/2;
 
     if(!GetIsReactionTypeFriendly(oTarget))

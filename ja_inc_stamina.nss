@@ -1,4 +1,4 @@
-#include "sh_classes_const"
+//#include "sh_classes_const"
 //const float STAMINA_MAX = 5000.0;
 const float STAMINA_MIN = 1.0;
 
@@ -24,7 +24,7 @@ float getStamina(object oPC){
 
 void woundStamina(object oPC, float f){
     //KURTIZANA JE IMUNNI NA UNAVU
-    if (GetHasFeat(FEAT_KURTIZANA_CELE_NOCI_OKA_NEZAMHOURI,oPC) == TRUE)
+    if (GetHasFeat(1599,oPC) == TRUE) //FEAT_KURTIZANA_CELE_NOCI_OKA_NEZAMHOURI
     {
         return;
     }
@@ -100,7 +100,7 @@ void FatigueCheck(object oPC, int bStatusMessages = TRUE)
 {
     if (!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC) || GetIsPossessedFamiliar(oPC))
         return;
-    
+
     int iStatus = getStatusInt(oPC);
 
     if(iStatus < 4 && bStatusMessages)
@@ -121,7 +121,7 @@ void FatigueCheck(object oPC, int bStatusMessages = TRUE)
 
         ApplyEffectToObject( DURATION_TYPE_PERMANENT, eSlow, oPC );
     }
-    
+
     if((iStatus < 1) && (!GetLocalInt(oPC,"ku_sleeping")))
     {
         AssignCommand(oPC, ActionRest(TRUE));
