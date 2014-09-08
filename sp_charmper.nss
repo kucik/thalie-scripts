@@ -91,7 +91,6 @@ void main()
                       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
                     }
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-                    AdjustFactionReputation(oTarget,OBJECT_SELF,50);
                 }
              }
          }

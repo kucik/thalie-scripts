@@ -46,7 +46,8 @@ void main()
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_NORMAL_20);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
 
-    effect eLink = EffectLinkEffects(eMind, eDur);
+    effect eLink = EffectLinkEffects(eMind, eCharm);
+    eLink = EffectLinkEffects(eLink, eDur);
 
     effect eVis = EffectVisualEffect(VFX_IMP_CHARM);
     int nMetaMagic = GetMetaMagicFeat();
@@ -100,7 +101,7 @@ void main()
                             //Apply the linked effects and the VFX impact
                             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration)));
                             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
-                            DelayCommand(fDelay, AdjustFactionReputation(oTarget,OBJECT_SELF,50));
+//                            DelayCommand(fDelay, AdjustFactionReputation(oTarget,OBJECT_SELF,50));
                         }
                     }
                     //Add the creatures HD to the count of affected creatures
