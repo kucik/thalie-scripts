@@ -21,9 +21,11 @@ void ku_klevety_init() {
   object oFriend = GetLocalObject(oNPC,"KLEV_FRIEND");
   if(!GetIsObjectValid(oFriend)) {
     string sFriend = GetLocalString(oNPC,"KLEV_FRIEND_TAG");
-    oFriend = GetNearestObjectByTag(sFriend,oNPC);
-    SetLocalObject(oNPC,"KLEV_FRIEND",oFriend);
-    SetLocalObject(oFriend,"KLEV_FRIEND",oNPC);
+    if(GetStringLength(sFriend) > 0) {
+      oFriend = GetNearestObjectByTag(sFriend,oNPC);
+      SetLocalObject(oNPC,"KLEV_FRIEND",oFriend);
+      SetLocalObject(oFriend,"KLEV_FRIEND",oNPC);
+    }
   }
 
   /* Get texts from DB */
