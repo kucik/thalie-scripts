@@ -122,10 +122,10 @@ void main()
 //    SendMessageToPC(oPlayer,"Na "+GetName(oActivated)+" je KU_DIALOG "+IntToString(iDlg));
     if(iDlg < 1) {
       string sResref = GetResRef(oActivated);
-      iDlg = StringToInt(GetStringLeft(sResref,3)); //ku_uni_dlgXXX
+      iDlg = StringToInt(GetStringRight(sResref,3)); //ku_uni_dlgXXX
     }
     string KU_DLG = "KU_UNI_DIALOG";
-    SetLocalInt(oPC,KU_DLG+"dialog",9);
+    SetLocalInt(oPC,KU_DLG+"dialog",iDlg);
     ExecuteScript("ku_dlg_start",oPC);
     return;
   }
