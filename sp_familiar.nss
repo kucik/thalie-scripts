@@ -92,7 +92,7 @@ void main()
     // for /f chat command
     SetLocalObject(OBJECT_SELF, "FAMILIAR", GetAssociate(ASSOCIATE_TYPE_FAMILIAR));
 
-    DelayCommand(3.0,ApplyFamiliarBonuses(OBJECT_SELF));
+//    DelayCommand(3.0,ApplyFamiliarBonuses(OBJECT_SELF));
 
     //zistim potrebne udaje , OBJECT_SELF je ten co volal script cize HRAC
     object oBeast     = GetAssociate(ASSOCIATE_TYPE_FAMILIAR, OBJECT_SELF);
