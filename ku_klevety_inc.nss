@@ -1,5 +1,6 @@
 #include "aps_include"
 #include "strings_inc"
+#include "ku_libtime"
 
 const int RELOAD_KLEVETY = 6000;
 
@@ -83,6 +84,8 @@ void ku_klevety_shout() {
    else {
    SpeakString(sText);
    }
+
+ SetLocalInt(OBJECT_SELF,"__KLEV_LAST", ku_GetTimeStamp());
 }
 
 void ku_klevety_dialog(object NPC, string text) {
@@ -100,4 +103,21 @@ void ku_klevety_dialog(object NPC, string text) {
   }
 }
 
+int klevetyChechShout() {
+  int irand = GetLocalInt(OBJECT_SELF,"KLEV_RAND");
+  int iMinTime = GetLocalInt(OBJECT_SELF,"KLEV_MIN_TIME") * 60; // In minutes
+  int iMaxTime = GetLocalInt(OBJECT_SELF,"KLEV_MAX_TIME") * 60; // In minutes
+  int iLast = GetLocalInt(OBJECT_SELF,"__KLEV_LAST");
+  int iTS = ku_GetTimeStamp();
+ 
+  if(iLast + iMinTime > iTS ) 
+    return FALSE;
 
+  if(iMaxTime > 0 && iLast + iMaxTime < iTS)
+    return TRUE;
+  
+  if(Random(irand) == 0) 
+    return TRUE;
+
+ return FALSE;
+}
