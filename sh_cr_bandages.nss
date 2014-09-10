@@ -1,4 +1,5 @@
 #include "sh_classes_inc_e"
+#include "ku_libtime"
 
 int GetHealModificator(object oTarget)
 {
@@ -14,7 +15,7 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
     int iSkillHealMin = 0;
     int iPCSkillHeal = GetSkillRank(SKILL_HEAL,oActivator);
     int iHealMod = 0;
- 
+
     /* Is it bandage? */
     if(GetStringLeft(sTag, 10) != "sh_it_band")
       return;
@@ -29,7 +30,7 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
     /* Choose bandage */
     int iBandage = StringToInt(GetStringRight(sTag , 1));
     switch(iBandage) {
-      case 1: 
+      case 1:
         iRegenBand = 1;
         break;
       case 2:
@@ -53,9 +54,9 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         iSkillHealMin = 22;
         break;
       default:
-        return; 
+        return;
     }
-    
+
     if (iPCSkillHeal >= iSkillHealMin) {
             iHealMod = GetHealModificator(oTarget);
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
