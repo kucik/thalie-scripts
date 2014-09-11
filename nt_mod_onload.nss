@@ -69,8 +69,8 @@ void __loadLocations() {
   /* Mark locations in module */
   oArea = GetFirstArea();
   while(GetIsObjectValid(oArea)) {
-    __setMarkLocationLoaded(GetTag(oArea));
-    WriteTimestampedLogEntry("AREAS: Area "+GetTag(oArea)+" ("+GetResRef(oArea)+") marked as loaded.");
+    __setMarkLocationLoaded(GetResRef(oArea));
+    WriteTimestampedLogEntry("AREAS: Area "+GetResRef(oArea)+" ("+GetTag(oArea)+") marked as loaded.");
     oArea = GetNextArea();
   }
 
@@ -80,9 +80,9 @@ void __loadLocations() {
   while (SQLFetch() == SQL_SUCCESS) {
     string sResRef = SQLGetData(1);
     WriteTimestampedLogEntry("AREAS: Load Area:"+sResRef);
-    LoadArea(sResRef);
+    oArea = LoadArea(sResRef);
     __setMarkLocationLoaded(sResRef);
-    WriteTimestampedLogEntry("AREAS: Area "+GetTag(oArea)+" ("+GetResRef(oArea)+") marked as loaded.");
+    WriteTimestampedLogEntry("AREAS: Area "+GetResRef(oArea)+" ("+GetTag(oArea)+") marked as loaded.");
   }
 
 }
