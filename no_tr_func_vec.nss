@@ -1700,7 +1700,7 @@ void no_mlkus(object no_pec )
                break; }
           case 2:   {
                //orech + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_02",no_oPC,1,"no_tr_mk_02_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_02",no_oPC,1,"no_tr_mk_02_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -1750,7 +1750,7 @@ void no_mlkus(object no_pec )
                break; }
           case 3:   {
                //dub + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_03",no_oPC,1,"no_tr_mk_03_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_03",no_oPC,1,"no_tr_mk_03_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -1800,7 +1800,7 @@ void no_mlkus(object no_pec )
                break; }
           case 4:   {
                //mahagon + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_04",no_oPC,1,"no_tr_mk_04_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_04",no_oPC,1,"no_tr_mk_04_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -1850,7 +1850,7 @@ void no_mlkus(object no_pec )
                break; }
           case 5:   {
                //tis + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_05",no_oPC,1,"no_tr_mk_05_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_05",no_oPC,1,"no_tr_mk_05_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -1900,7 +1900,7 @@ void no_mlkus(object no_pec )
                break; }
           case 6:   {
                //jasen + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_06",no_oPC,1,"no_tr_mk_06_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_06",no_oPC,1,"no_tr_mk_06_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -1950,7 +1950,7 @@ void no_mlkus(object no_pec )
                break; }
           case 7:   {
                //zelezny dub+ + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_07",no_oPC,1,"no_tr_mk_07_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_07",no_oPC,1,"no_tr_mk_07_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackBonus(1),no_Item);
                                  break;  }
@@ -2000,7 +2000,7 @@ void no_mlkus(object no_pec )
                break; }
           case 8:   {
                //prastary dub + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_08",no_oPC,1,"no_tr_mk_08_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_mk_08",no_oPC,1,"no_tr_mk_08_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackBonus(1),no_Item);
                                  break;  }
@@ -2107,7 +2107,7 @@ void no_vlkus(object no_pec )
                break; }
           case 2:   {
                //orech + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_02",no_oPC,1,"no_tr_vk_02_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_02",no_oPC,1,"no_tr_vk_02_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -2157,7 +2157,7 @@ void no_vlkus(object no_pec )
                break; }
           case 3:   {
                //dub + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_03",no_oPC,1,"no_tr_vk_03_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_03",no_oPC,1,"no_tr_vk_03_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -2207,7 +2207,7 @@ void no_vlkus(object no_pec )
                break; }
           case 4:   {
                //mahagon + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_04",no_oPC,1,"no_tr_vk_04_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_04",no_oPC,1,"no_tr_vk_04_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -2257,7 +2257,7 @@ void no_vlkus(object no_pec )
                break; }
           case 5:   {
                //tis + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_05",no_oPC,1,"no_tr_vk_05_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_05",no_oPC,1,"no_tr_vk_05_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -2307,7 +2307,7 @@ void no_vlkus(object no_pec )
                break; }
           case 6:   {
                //jasen + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_06",no_oPC,1,"no_tr_vk_06_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_06",no_oPC,1,"no_tr_vk_06_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackPenalty(1),no_Item);
                                  break;  }
@@ -2357,7 +2357,7 @@ void no_vlkus(object no_pec )
                break; }
           case 7:   {
                //zelezny dub+ + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_07",no_oPC,1,"no_tr_vk_07_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_07",no_oPC,1,"no_tr_vk_07_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackBonus(1),no_Item);
                                  break;  }
@@ -2407,7 +2407,7 @@ void no_vlkus(object no_pec )
                break; }
           case 8:   {
                //prastary dub + no_kov_luku
-               no_Item=CreateItemOnObject("no_tr_dl_08",no_oPC,1,"no_tr_vk_08_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
+               no_Item=CreateItemOnObject("no_tr_vk_08",no_oPC,1,"no_tr_vk_08_" + GetLocalString(OBJECT_SELF,"no_kov_luku"));
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
                     case 1:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyAttackBonus(1),no_Item);
                                  break;  }
