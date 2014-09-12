@@ -41,6 +41,7 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_CHARM);
     effect eMind = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_NEGATIVE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
+    int nDuration = 2 + GetLevelByClass(48)/3;  //CLASS_TYPE_KURTIZANA
 
     //Link persistant effects
     effect eLink = EffectLinkEffects(eDur, eMind);
@@ -51,6 +52,7 @@ void main()
         //Make SR Check
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {
+          int nRacial = GetRacialType(oTarget);
           //Verify that the Racial Type is humanoid
           if ((nRacial == RACIAL_TYPE_DWARF) ||
               (nRacial == RACIAL_TYPE_ELF) ||
