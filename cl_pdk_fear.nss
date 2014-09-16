@@ -11,6 +11,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -77,7 +78,7 @@ void main()
             if(!MyResistSpell(OBJECT_SELF, oTarget, fDelay))
             {
                 //Make a will save
-                if(!MySavingThrow(SAVING_THROW_WILL, oTarget,iDC, SAVING_THROW_TYPE_FEAR, OBJECT_SELF, fDelay))
+                if(!GetIsBoss(oTarget) && !MySavingThrow(SAVING_THROW_WILL, oTarget,iDC, SAVING_THROW_TYPE_FEAR, OBJECT_SELF, fDelay))
                 {
                     //Apply the linked effects and the VFX impact
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fDuration));

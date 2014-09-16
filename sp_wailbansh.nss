@@ -18,6 +18,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -78,7 +79,11 @@ void main()
                         //Apply the delay VFX impact and death effect
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                         effect eDeath = EffectDeath();
-                        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget)); // no delay
+                        //Boss exception
+                        if(GetIsBoss(oTarget))
+                           DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                        else
+                          DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget)); // no delay
                     }
                 }
             }

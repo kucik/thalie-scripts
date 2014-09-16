@@ -20,6 +20,7 @@
 #include "x0_i0_spells"
 #include "x2_inc_toollib"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void DoUndeadToDeath(object oCreature)
 {
@@ -33,7 +34,11 @@ void DoUndeadToDeath(object oCreature)
        {
             effect eDeath = EffectDamage(GetCurrentHitPoints(oCreature),DAMAGE_TYPE_DIVINE,DAMAGE_POWER_ENERGY);
             effect eVis = EffectVisualEffect(VFX_IMP_DEATH);
-            DelayCommand(fDelay+0.5f,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDeath,oCreature));
+            //Boss exception
+            if(GetIsBoss(oCreature))
+               DelayCommand(fDelay+0.5f,ApplyBossInstantKillDamage(oCreature, GetCasterLevel(OBJECT_SELF)));
+            else
+               DelayCommand(fDelay+0.5f,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDeath,oCreature));
             DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oCreature));
        }
        else

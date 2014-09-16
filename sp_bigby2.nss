@@ -16,6 +16,7 @@
 
 #include "x0_i0_spells"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -47,6 +48,7 @@ void main()
     {
          fDurationSec = fDurationSec * 2;
     }
+    ReduceSpellDurationForBoss(oTarget, fDurationSec, GetCasterLevel(OBJECT_SELF));
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         // Apply the impact effect

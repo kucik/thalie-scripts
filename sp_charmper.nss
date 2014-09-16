@@ -15,6 +15,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -88,7 +89,12 @@ void main()
                       ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
                     }
                     else {
-                      ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
+                      if(GetIsBoss(oTarget)) {
+                        nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
+                        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+                      }
+                      else 
+                        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
                     }
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                 }

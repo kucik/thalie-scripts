@@ -24,6 +24,7 @@
 #include "X0_I0_SPELLS"
 
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -70,8 +71,13 @@ void main()
                 {
                       if(!MyResistSpell(OBJECT_SELF, oTarget))
                       {
+                        // Boss exception
+                        if(GetIsBoss(oTarget))
+                          ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF));
+                        else {
                           //Apply the death effect and the VFX impact
                           ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(), oTarget);
+                        }
                           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                       }
                 }

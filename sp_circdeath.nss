@@ -19,6 +19,7 @@
 #include "X0_I0_SPELLS"
 
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -78,6 +79,9 @@ void main()
                 //Make a Fort Save versus death effects
                 if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DEATH, OBJECT_SELF, fDelay))
                 {
+                  if(GetIsBoss(oTarget))
+                    DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                  else 
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                 }
 

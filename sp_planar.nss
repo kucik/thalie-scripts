@@ -14,6 +14,7 @@
 #include "NW_I0_SPELLS"
 
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -73,6 +74,7 @@ void main()
                 //Make a Will save
                 if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+2))
                 {
+                    nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                     //Apply the linked effect
                     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration/2));
                 }

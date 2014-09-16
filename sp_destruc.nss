@@ -14,6 +14,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -52,6 +53,9 @@ void main()
             //Make a saving throw check
             if(!/*Fort Save*/ MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
             {
+              if(GetIsBoss(oTarget)) 
+                 ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF));
+              else
                 //Apply the VFX impact and effects
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget);
             }

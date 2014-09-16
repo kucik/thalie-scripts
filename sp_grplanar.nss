@@ -13,6 +13,7 @@
 //:://////////////////////////////////////////////
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -71,6 +72,7 @@ void main()
                 if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+5))
                 {
                     //Apply the hold effect
+                    nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration/2));
                 }
             }

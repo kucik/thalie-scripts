@@ -100,6 +100,9 @@ void main()
                     {
                         eKnockdown = EffectCutsceneImmobilize();
                     }
+                    // Boss cannot be paralyzed, only stunned.
+                    if(GetLocalInt(oTarget,"AI_BOSS"))
+                        eKnockdown = EffectSlow();
 
                     effect eHand = EffectVisualEffect(VFX_DUR_BIGBYS_CRUSHING_HAND);
                     effect eLink = EffectLinkEffects(eKnockdown, eHand);

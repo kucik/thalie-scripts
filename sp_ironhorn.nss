@@ -67,6 +67,8 @@ void main()
         // * spell should not affect the caster
         if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF) && (oTarget != oCaster))
         {
+          // Do not knockdown bosses
+          if(!GetLocalInt(oTarget,"AI_BOSS")) {
             //Fire cast spell at event for the specified target
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 436));
             //Get the distance between the explosion and the target to calculate delay
@@ -86,6 +88,7 @@ void main()
                 else
                     FloatingTextStrRefOnCreature(2750, OBJECT_SELF, FALSE);
              }
+          }
         }
        //Select the next target within the spell shape.
        oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);

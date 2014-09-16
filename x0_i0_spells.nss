@@ -1101,7 +1101,11 @@ void DoPetrification(int nPower, object oSource, object oTarget, int nSpellID, i
                 }
                 else
                 {
-                    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
+                    //Boss exception
+                    if(GetIsBoss(oTarget))
+                      ApplyBossInstantKillDamage(oTarget, GetCasterLevel(oSource));
+                    else
+                      ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
 
                     //----------------------------------------------------------
                     // GZ: Fix for henchmen statues haunting you when changing

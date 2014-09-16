@@ -16,6 +16,7 @@
 #include "NW_I0_SPELLS"
 #include "x0_i0_spells"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -26,6 +27,7 @@ void main()
     effect eHold = EffectParalyze();
     effect eDur = EffectVisualEffect(476 );
     eHold = EffectLinkEffects(eDur, eHold);
+    effect eSlow = EffectLinkEffects(eDur, EffectSlow());
     effect eFind;
     object oTarget;
     object oCreator;
@@ -60,7 +62,11 @@ void main()
                     {
                        nRounds = MaximizeOrEmpower(6, 1, nMetaMagic);
                        fDelay = GetRandomDelay(0.75, 1.75);
-                       DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eHold, oTarget, RoundsToSeconds(nRounds)));
+                       // Boss exception 
+                       if(GetIsBoss(oTarget))
+                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSlow, oTarget, RoundsToSeconds(nRounds)));
+                       else
+                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eHold, oTarget, RoundsToSeconds(nRounds)));
                     }
                 }
             }

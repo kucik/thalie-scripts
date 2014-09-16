@@ -18,6 +18,7 @@
 #include "NW_I0_SPELLS"
 #include "x0_i0_spells"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -36,6 +37,7 @@ void main()
     }
     int nMetaMagic = GetMetaMagicFeat();
     effect eLink = EffectLinkEffects(eDur,eHold);
+    effect eSlow = EffectLinkEffects(eDur, EffectSlow());
     //Get the first object in the persistant area
     oTarget = GetEnteringObject();
     if(spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
@@ -50,8 +52,12 @@ void main()
                 {
                    nRounds = MaximizeOrEmpower(6, 1, nMetaMagic);
                    fDelay = GetRandomDelay(0.45, 1.85);
-                   //Apply the VFX impact and linked effects
-                   DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nRounds)));
+                   // Boss exception 
+                   if(GetIsBoss(oTarget))
+                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSlow, oTarget, RoundsToSeconds(nRounds)));
+                   else 
+                     //Apply the VFX impact and linked effects
+                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nRounds)));
                 }
         }
     }

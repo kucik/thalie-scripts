@@ -25,6 +25,7 @@
 #include "subraces"
 #include "ja_lib"
 #include "ja_inc_frakce"
+#include "ku_boss_inc"
 float nSize =  RADIUS_SIZE_COLOSSAL;
 
 void main()
@@ -86,6 +87,10 @@ void main()
 
                         //Apply epicenter explosion on caster
                         ApplyEffectToObject(DURATION_TYPE_INSTANT, eExplode, oTarget);
+                      //Boss exception
+                      if(GetIsBoss(oTarget))
+                        DelayCommand(0.5,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                      else
                         // Apply instant-death effect
                         DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDead, oTarget));
                         bDoNotDoDamage = TRUE;    // target is destroyed, do not any other damage to it

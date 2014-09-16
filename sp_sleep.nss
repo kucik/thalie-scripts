@@ -16,6 +16,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -131,7 +132,7 @@ void main()
                 if(!MySavingThrow(SAVING_THROW_WILL, oLowest, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS))
                 {
                     //ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oLowest);
-                    if (GetIsImmune(oLowest, IMMUNITY_TYPE_SLEEP) == FALSE)
+                    if (!GetIsBoss(oTarget) && GetIsImmune(oLowest, IMMUNITY_TYPE_SLEEP) == FALSE)
                     {
                         effect eLink2 = EffectLinkEffects(eLink, eVis);
                         nScaledDuration = GetScaledDuration(nDuration, oLowest);

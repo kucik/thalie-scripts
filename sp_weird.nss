@@ -17,6 +17,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -109,7 +110,11 @@ void main()
                                     effect eDeath = EffectDeath();
                                     // Need to make this supernatural, so that it ignores death immunity.
                                     eDeath = SupernaturalEffect( eDeath );
-                                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
+                                    //Boss exception
+                                    if(GetIsBoss(oTarget))
+                                      DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, nCasterLvl));
+                                    else
+                                      DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                                 }
                             } // Will save
                         }

@@ -15,6 +15,7 @@
 //:://////////////////////////////////////////////
 
 #include "X0_I0_SPELLS"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -53,7 +54,7 @@ void main()
         //if(!MyResistSpell(GetAreaOfEffectCreator(), oTarget, fDelay))
         {
             //Determine spell effect based on the targets HD
-            if (nHD <= 3)
+            if (nHD <= 3 && !GetIsBoss(oTarget))
             {
                 if(!GetIsImmune(oTarget, IMMUNITY_TYPE_DEATH))
                 {
@@ -61,7 +62,7 @@ void main()
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                 }
             }
-            else if (nHD >= 4 && nHD <= 6)
+            else if (nHD >= 4 && nHD <= 6 && !GetIsBoss(oTarget))
             {
                 //Make a save or die
                 if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_DEATH, OBJECT_SELF, fDelay))

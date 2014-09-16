@@ -12,6 +12,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -38,6 +39,7 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
+    nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
     effect eBlind =  EffectBlindness();
     effect eDeaf = EffectDeaf();
     effect eVis = EffectVisualEffect(VFX_IMP_BLIND_DEAF_M);

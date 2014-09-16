@@ -16,6 +16,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -73,7 +74,7 @@ void main()
                         nDuration = nDuration * 2;
                     }
                     //omezeni na HD - Shaman88
-                    if (GetHitDice(oTarget) > nCasterLevel)
+                    if (GetHitDice(oTarget) > nCasterLevel || GetIsBoss(oTarget))
                     {
                        SendMessageToPC(OBJECT_SELF,"Nelze ovládnout. NPC má vyšší úroveò než je vaše úroveò sesílatele.");
                        return;

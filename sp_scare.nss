@@ -14,6 +14,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -66,7 +67,7 @@ void main()
            if(!MyResistSpell(OBJECT_SELF, oTarget))
            {
                 //Make Will save versus fear
-                if(!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FEAR))
+                if(!GetIsBoss(oTarget) && !/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FEAR))
                 {
                    //Do metamagic checks
                    if (nMetaMagic == METAMAGIC_EXTEND)

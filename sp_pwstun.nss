@@ -22,6 +22,7 @@ bugfix by Kovi 2002.07.28
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -101,6 +102,8 @@ void main()
         {
             if (nDuration>0)
             {
+                // Boss duration reduced
+                nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                 //Apply linked effect and the VFX impact
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));

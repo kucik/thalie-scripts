@@ -55,7 +55,8 @@ void RunHandImpact(object oTarget, object oCaster)
        ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget);
        ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
 
-       if (!MySavingThrow(SAVING_THROW_FORT, oTarget, nDC))
+       // Do not stun bosses
+       if (!GetLocalInt(oTarget,"AI_BOSS") && !MySavingThrow(SAVING_THROW_FORT, oTarget, nDC))
        {
            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectStunned(), oTarget, RoundsToSeconds(1));
        }

@@ -10,6 +10,8 @@
 
 //:://////////////////////////////////////////////
 #include "X0_I0_SPELLS"
+#include "ku_boss_inc"
+
 void main()
 {
     int lvlSD = GetLevelByClass(CLASS_TYPE_SHADOWDANCER);
@@ -51,6 +53,7 @@ void main()
             //Make Will Save to negate effect
             if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget,iDC , SAVING_THROW_TYPE_MIND_SPELLS))
             {
+                nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                 //Apply VFX Impact and daze effect
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);

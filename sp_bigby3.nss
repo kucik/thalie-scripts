@@ -84,6 +84,8 @@ void main()
                     {
                         eKnockdown = EffectCutsceneImmobilize();
                     }
+                    if(GetLocalInt(oTarget,"AI_BOSS"))
+                      eKnockdown = EffectSlow();
 
                     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
                     effect eHand = EffectVisualEffect(VFX_DUR_BIGBYS_GRASPING_HAND);

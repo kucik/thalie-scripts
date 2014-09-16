@@ -15,6 +15,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -93,6 +94,8 @@ void main()
                 }
                 else
                 {
+                  // Boss exception
+                  if(!GetIsBoss(oTarget))
                     //Apply daze effect
                     DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(d6())));
                 }

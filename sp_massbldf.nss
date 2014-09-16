@@ -14,6 +14,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -69,8 +70,10 @@ void main()
                 //Make Fort save
                 if (!/*Fort Save*/ MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
                 {
+                    // Boss duration reduced
+                    int nDur = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                     //Apply the linked effects and the VFX impact
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDur));
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                 }
             }

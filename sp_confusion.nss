@@ -14,6 +14,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -75,6 +76,7 @@ void main()
                 {
                    //Apply linked effect and VFX Impact
                    nDuration = GetScaledDuration(GetCasterLevel(OBJECT_SELF), oTarget);
+                   nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, GetCasterLevel(OBJECT_SELF));
                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration)));
                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                 }

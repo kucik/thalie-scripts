@@ -19,6 +19,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -101,7 +102,7 @@ void main()
                 }
 
                 //Check that a reflex save was made.
-                if(MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DIVINE, OBJECT_SELF, 1.0) == 0)
+                if(!GetIsBoss(oTarget) && MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DIVINE, OBJECT_SELF, 1.0) == 0)
                 {
                     DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nBlindLength)));
                 }

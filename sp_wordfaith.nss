@@ -18,6 +18,7 @@
 //:: Georg: It's nerf time! oh yes. The spell now matches it's description.
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -81,7 +82,11 @@ void main()
                     if (GetRacialType(oTarget) == RACIAL_TYPE_OUTSIDER || GetRacialType(oTarget) == RACIAL_TYPE_ELEMENTAL)
                     {
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eUnsummon, oTarget));
-                        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
+                        //Boss exception
+                        if(GetIsBoss(oTarget))
+                          DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, nCasterLevel));
+                        else
+                          DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                     }
 
                     ///----------------------------------------------------------

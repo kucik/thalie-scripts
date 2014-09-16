@@ -16,6 +16,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -65,7 +66,7 @@ void main()
            if (!MyResistSpell(OBJECT_SELF, oTarget))
            {
                 //Make a Will save
-                if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_NONE, OBJECT_SELF, 1.0))
+                if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_NONE, OBJECT_SELF, 1.0) && !GetIsBoss(oTarget))
                 {
                     //Apply VFX impact and Link effect
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);

@@ -15,6 +15,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 int MySavingThrow2(int nSavingThrow, object oTarget, int nDC, int nSaveType=SAVING_THROW_TYPE_NONE, object oSaveVersus = OBJECT_SELF, float fDelay = 0.0);
 
@@ -92,11 +93,15 @@ void main()
                     }
                     else
                     {
+                       if(GetIsBoss(oTarget))
+                         ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF));
+                       else {
                          //Apply the death effect and VFX impact
                          // Immunity to death magic, should not make you immune to Phantasmal Killer.
                          // So we need to make the effect supernatural.
                          ApplyEffectToObject(DURATION_TYPE_INSTANT, SupernaturalEffect(EffectDeath()), oTarget);
                          //ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+                       }
                     }
                 }
             }

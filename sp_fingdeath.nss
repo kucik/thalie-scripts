@@ -18,6 +18,7 @@
 
 #include "x0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -46,7 +47,7 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     int nDamage;
     int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
+    if (GetHasFeat(1476 )) //FEAT_DRUID_SPECIALIZACE_MOROVY
     {
 
         iDruidSpec= 2;
@@ -68,6 +69,10 @@ void main()
                  //Make Forttude save
                  if (!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DEATH))
                  {
+                    // Bos exception
+                    if(GetIsBoss(oTarget))
+                      ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF));
+                    else
                     //Apply the death effect and VFX impact
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(), oTarget);
                     //ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);

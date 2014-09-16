@@ -28,6 +28,7 @@ void DebugBinaryValues(int nValue);
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -184,7 +185,7 @@ int ApplyPrismaticEffect(int nEffect, object oTarget, int nMetaMagic)
     effect eLink;
     int nVis;
     float fDelay = 0.5 + GetDistanceBetween(OBJECT_SELF, oTarget)/20;
-    float fEffectSecDuration = RoundsToSeconds(10); // Length of effects: 10 rounds 
+    float fEffectSecDuration = RoundsToSeconds(ReduceShortSpellDurationForBoss_int(oTarget, 10, 10)); // Length of effects: 10 rounds 
     if (GetMetaMagicFeat() == METAMAGIC_EXTEND )
     {
         fEffectSecDuration = 2*fEffectSecDuration;

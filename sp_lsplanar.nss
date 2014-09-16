@@ -14,6 +14,7 @@
 //:: VFX Pass By: Preston W, On: June 20, 2001
 
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -74,6 +75,8 @@ void main()
                 //Make a will save
                 if(!WillSave(oTarget, GetSpellSaveDC()))
                 {
+                    // Boss reduction
+                    nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                     //Apply the linked effect
                     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
                 }

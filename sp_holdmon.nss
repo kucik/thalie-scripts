@@ -15,6 +15,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -61,7 +62,7 @@ void main()
        if (!MyResistSpell(OBJECT_SELF, oTarget))
        {
             //Make Will save
-            if (!/*Will Save*/ MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
+            if (!GetIsBoss(oTarget) && !MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
             {
                 //Check for metamagic extend
                 if (nMeta == METAMAGIC_EXTEND)

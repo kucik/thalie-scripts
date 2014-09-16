@@ -15,6 +15,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -75,6 +76,7 @@ void main()
                 if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay))
                 {
                       nDuration = 3 + d4();
+                      nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, 0);
                       //Enter Metamagic conditions
                       if (nMetaMagic == METAMAGIC_MAXIMIZE)
                       {
