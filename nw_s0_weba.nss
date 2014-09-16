@@ -28,7 +28,6 @@ void main()
     effect eVis = EffectVisualEffect(VFX_DUR_WEB);
     effect eLink = EffectLinkEffects(eWeb, eVis);
     object oTarget = GetEnteringObject();
-    effect eSlow = EffectLinkEffects(EffectSlow(), EffectVisualEffect(VFX_DUR_WEB));
 
     // * the lower the number the faster you go
     int nSlow = 65 - (GetAbilityScore(oTarget, ABILITY_STRENGTH)*2);
@@ -56,9 +55,7 @@ void main()
                 if(!MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()))
                 {
                   // boss exception
-                  if(GetIsBoss(oTarget))
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSlow, oTarget, RoundsToSeconds(2));
-                  else
+                  if(!GetIsBoss(oTarget))
                     //Entangle effect and Web VFX impact
                     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(1));
                 }

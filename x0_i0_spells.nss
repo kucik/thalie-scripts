@@ -33,6 +33,7 @@
 #include "x0_i0_henchman"
 #include "sh_spells_inc"
 #include "sh_classes_const"
+#include "ku_boss_inc"
 //#include "sh_classes_inc"
 //#include "sh_invbook_const"
 
