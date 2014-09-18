@@ -14,8 +14,9 @@ void main()
         {
 //        SendMessageToPC(oPC,"dmg "+IntToString(nDam)+" * xp"+IntToString(nXP));
 //        GiveXPToCreature(oPC,nDam*nXP);
-        GiveXPToCreature(oPC,Random(nXP)+1);
-        SetLocalInt(OBJECT_SELF,GetName(oPC),GetLocalInt(OBJECT_SELF,GetName(oPC)) + nXP+1);
+        nXP = Random(nXP) + 1;
+        GiveXPToCreature(oPC,nXP);
+        SetLocalInt(OBJECT_SELF,GetName(oPC),GetLocalInt(OBJECT_SELF,GetName(oPC)) + nXP);
         // Heal the dummy so it don't get destroyed
         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectHeal(nDam),OBJECT_SELF);
         }
