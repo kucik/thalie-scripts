@@ -220,7 +220,8 @@ void ku_ShipsDeparture()
          SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + si,0);
 
          string tShouter = GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Shouter_s" + si);
-         AssignCommand(GetObjectByTag(tShouter),SpeakString("Vypada to, ze jsme tam za chvili."));
+         if(GetStringLength(tShouter) > 0)
+           AssignCommand(GetObjectByTag(tShouter),SpeakString("Vypada to, ze jsme tam za chvili."));
 
          object oShip = GetObjectByTag(GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Sea" + si));
          SetLocalInt(oShip,"ShipLineNumber",i);

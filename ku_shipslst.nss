@@ -1117,6 +1117,294 @@ void KU_DefineShips()
 // Konec lodni linky
 
 
+//  Lodni linka 27 Karatha -> Dornovo Utociste
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Karatha -> Dornovo utociste"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kar_dorn_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kar_dorn_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kar_dorn_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kar_dorn_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_karvzducholod";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_karvzduch_vzducholod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime= 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+//  Lodni linka 28 -  Paseracke kotviste -> Kel-A-Hazr 
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Dornovo utociste -> Karatha"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_dorn_kar_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_dorn_kar_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_dorn_kar_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_dorn_kar_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_dornvzducholod";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_dornvzduch_lod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+//  Lodni linka 29 Karatha -> Doubkov
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Karatha -> Doubkov"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kar_prod_lod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kar_doub_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kar_doub_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kar_doub_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_karatadoubkov";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_karatadoub_lod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 30 Doubkov -> Karatha
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Doubkov -> Karatha"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_doub_prodl";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_doub_kar_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_doub_kar_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_doub_kar_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_doubkovlod";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_doubkar_lod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+//  Lodni linka 31 Kel-A-Hazr -> Korinkov
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Kel-A-Hazr -> Korinkov"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kah_prodl";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kah_kor_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kah_kor_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kah_kor_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_kahkorpl";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_kahpl_lod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+//  Lodni linka 32 Korinkov -> Kel-A-Hazr
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Korinkov -> Kel-A-Hazr"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kor_prodl";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kor_kah_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kor_kah_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kor_kah_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_korinkovlod";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_korinkov_plavlod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 33 Karatha -> Pevnost Ostroh
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Karatha -> Pevnost Ostroh"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kar_ostprod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kar_ost_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kar_ost_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kar_ost_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_karosttam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_karost_povoz";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 34 Pevnost Ostroh -> Karatha
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Pevnost Ostroh -> Karatha"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_ost_prodkar";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_ost_kar_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_ost_kar_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_ost_kar_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_ostkartam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_ostkat_povoz";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 35 Karatha -> Pevnost Petronika
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Karatha -> Pevnost Petronika"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_petr_prodkar";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kar_petr_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kar_petr_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kar_petr_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_karpetrtam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_karpetr_povoz";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 36 Pevnost Petronika -> Karatha
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Pevnost Petronika -> Karatha"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kar_prodost";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_petr_kar_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_petr_kar_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_petr_kar_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_petrkartam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_petrkar_povoz";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 37 Karatha -> Isil
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Karatha -> Isil"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kar_prodisil";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kar_is_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kar_is_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kar_is_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_karisiltam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_karisil_povoz";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 38 Isil -> Karatha
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Isil -> Karatha"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_isil_prodkar";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_is_kar_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_is_kar_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_is_kar_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_isilkartam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_isilkar_povoz";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+
+//  Lodni linka 39 Kahzet -> Daf Jamova hlubina
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Kahzet -> Daf Jamova hlubina"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kahdaf_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kah_daf_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kah_daf_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kah_daf_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_kahdaftam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+
+//  Lodni linka 40 Daf Jamova hlubina -> Kahzet
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Daf Jamova hlubina -> Kahzet"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_dafkah_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_daf_kah_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_daf_kah_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_daf_kah_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_dafkahtam";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+
+//  Lodni linka 41 Kahzet -> Houbove tunely
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Kahzet -> Houbove tunely"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kahht_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kah_ht_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kah_ht_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kah_ht_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_kahhttam";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+
+//  Lodni linka 42 Houbove tunely -> Kahzet
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Houbove tunely -> Kahzet"; // Nazev trasy
+    stShip.m_nCost      = 100;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_htkah_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_ht_kah_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_ht_kah_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_ht_kah_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ke_htkahtam";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
 ///////////////////////////////////////////////////
 // Konec definice lodnich linek
 ///////////////////////////////////////////////////
