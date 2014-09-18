@@ -1,4 +1,5 @@
 #include "nwnx_funcsext"
+#include "ja_inc_frakce"
 
 /*
 Vypracoval Shaman88
@@ -212,8 +213,12 @@ Zjisti jestli je NPC strazny
 */
 int IsGuard(object oNPC)
 {
-
-return FALSE;
+  // Check defender faction
+  string sFaction = GetNPCFaction(oNPC);
+  if(GetStringRight(sFaction,2) == "_D")
+    return TRUE;
+  else 
+    return FALSE;
 }
 
 /*
@@ -221,8 +226,8 @@ Nastavi co npc strazny udela kdyz uvidi okradeni
 */
 void SetGuardActions(object guard,object rogue, object pick_pocket_target)
 {
-
-
+  AssignCommand(guard,ActionSpeakString("Hej ty! Zanech sveho pocinani! Jsi zatcen!."));
+  AdjustReputation(rogue, guard, -50);
 }
 
 
