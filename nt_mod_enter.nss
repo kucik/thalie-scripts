@@ -180,6 +180,23 @@ void DislikeFactions(object oPC) {
 
 }
 
+void GiveStartpackage(object oPC) {
+  object oItem;
+  int i;
+  GiveGoldToCreature(oPC, 5000);
+  //kresadlo
+  CreateItemOnObject("sy_kresadlo00", oPC, 1);
+  // Lektary
+  for(i = 0; i<10; i++) {
+    CreateItemOnObject("sh_it_elx10_heal", oPC, 10);
+  }
+  // Lekarny
+  CreateItemOnObject("sh_it_band1", oPC, 10);
+  oItem = CreateItemOnObject("sy_cutora_full", oPC, 1);
+  SetLocalInt(oItem,"VodaType",1);
+  
+}
+
 void main()
 {
     object oPC = GetEnteringObject();
@@ -357,9 +374,10 @@ void main()
           }
         }
         TakeGoldFromCreature(GetGold(oPC), oPC, TRUE);
-        GiveGoldToCreature(oPC, 3000);
+        //GiveGoldToCreature(oPC, 3000);
         SetPersistentInt(oPC, "HP", GetCurrentHitPoints(oPC));
         RepairObcanThalie(oPC);
+        GiveStartpackage(oPC);
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
 
  }
