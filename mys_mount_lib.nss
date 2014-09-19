@@ -4,6 +4,7 @@
 // TODO:
 // Pridat rovnou info o klici (store object), kvuli restore uses, abych nemusle jen kvuli tomu porad includovat knihovnu henchmanu
 
+#include "me_soul_inc"
 
 // Mount creature tag
 const string MOUNT_TAG = "mount";
@@ -38,6 +39,7 @@ void Dismount(object oRider, object oSoul, int bSummonMount = TRUE);
 void RemoveMountedEffects(object oRider);
 void ApplyMountedSpeed(object oRider, int iSpeed);
 void ApplyMountedSkillBonus(object oRider, int iSkill, int iValue);
+int GetIsMounted(object oPC);
 
 // Returns appearance.2da index based on rider's race.
 // To be applied on rider object.
@@ -317,4 +319,12 @@ int GetMountedRaceAppearance(object oRider)
 int GetMountedNullAppearance(object oRider)
 {
     return 562 + GetRacialType(oRider);
+}
+
+int GetIsMounted(object oPC) {
+  object oSoul = GetSoulStone(oPC);
+  if(!GetIsObjectValid(oSoul))
+    return FALSE;
+
+  return GetLocalInt(oSoul, "MOUNTED");
 }
