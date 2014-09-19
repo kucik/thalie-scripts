@@ -424,7 +424,7 @@ void ku_Ships_PrepareNextShipDeparture(int ship) {
  }
  SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_DepartTime" + sShip,ku_GetTimeStamp(iInterval));
  SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + sShip,1);
- fInt = IntToFloat(iInterval);
+ fInt = IntToFloat(iInterval + Random(60)); //Randomize ships departure.
  DelayCommand(fInt,ku_Ship_Departure(ship));
 
  if(SHIPS_DEBUG)
