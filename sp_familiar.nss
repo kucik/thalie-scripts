@@ -11,6 +11,7 @@
 //:: Created On: Sept 27, 2001
 //:://////////////////////////////////////////////
 #include "me_soul_inc"
+#include "mys_assoc_lib"
 
 void ApplyFamiliarBonuses(object oPC)
 {
@@ -100,6 +101,27 @@ void main()
     int    nHP        = GetLocalInt(oSoulStone, "hp_fam");
     if(nHP >= GetCurrentHitPoints(oBeast))
       nHP = GetCurrentHitPoints(oBeast) - 2;
+
+    // Set custom properties
+    int iAssociateType = ASSOCIATE_TYPE_FAMILIAR;
+    object oAssociate = GetAssociate(iAssociateType, OBJECT_SELF);
+    object oSoul = GetSoulStone(OBJECT_SELF);
+    int iAppearance = GetAssociateAppearanceType(oSoul, oAssociate, iAssociateType);
+    int iSoundset = GetAssociateSoundset(oSoul, oAssociate, iAssociateType);
+    string sPortrait = GetAssociatePortraitResRef(oSoul, oAssociate, iAssociateType);
+    string sName = GetAssociateName(oSoul, oAssociate, iAssociateType);
+
+    if (sName != "")
+        SetName(oAssociate, sName);
+
+    if (iAppearance)
+        SetCreatureAppearanceType(oAssociate, iAppearance);
+
+    if (sPortrait != "")
+        SetPortraitResRef(oAssociate, sPortrait);
+
+    if (iSoundset)
+        SetSoundset(oAssociate, iSoundset);
 
     //aplikujem dmg na animal companiona
     //je tu jeden future bug, ak zmenim animal companiona pocas lvl mal by sa HP
