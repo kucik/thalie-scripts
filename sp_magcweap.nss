@@ -4,7 +4,8 @@
 //:: Copyright (c) 2001 Bioware Corp.
 //:://////////////////////////////////////////////
 /*
-  Grants a +1 enhancement bonus.
+  Grants a +1 enhancement bonus to all weapons  equipped 
+  by a target of the spell. Lasts 1 turn per level. 
 */
 //:://////////////////////////////////////////////
 //:: Created By: Andrew Nobbs
@@ -13,6 +14,7 @@
 //:: Updated by Andrew Nobbs May 08, 2003
 //:: 2003-07-07: Stacking Spell Pass, Georg Zoeller
 //:: 2003-07-17: Complete Rewrite to make use of Item Property System
+//:: Updated by P.A., Sep 21, 2014
 
 
 #include "x2_inc_spellhook"
@@ -21,10 +23,18 @@
 #include "sh_deity_inc"
 
 
+/*
 void  AddAttackEffectToWeapon(object oMyWeapon, float fDuration)
 {
    IPSafeAddItemProperty(oMyWeapon,ItemPropertyAttackBonus(1), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING ,TRUE,TRUE);
    return;
+}
+*/
+
+void AddGreaterEnhancementEffectToWeapon(object oMyWeapon, float fDuration)
+{
+  IPSafeAddItemProperty(oMyWeapon,ItemPropertyEnhancementBonus(1), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+  return;
 }
 
 void main()
@@ -71,11 +81,12 @@ void main()
     if(GetIsObjectValid(oMyWeapon) )
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
+        //if (nDuration>0) // nDuration is always higher than 0, IF deleted
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
-            AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
+            // AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
+            AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
 
     }
@@ -85,11 +96,12 @@ void main()
     if(GetIsObjectValid(oMyWeapon) )
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
+        //if (nDuration>0) // nDuration is always higher than 0, IF deleted
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
-            AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
+            AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
 
     }
@@ -99,11 +111,12 @@ void main()
     if(GetIsObjectValid(oMyWeapon) && GetBaseItemType(oMyWeapon) == BASE_ITEM_GLOVES )
     {
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
+        //if (nDuration>0) // nDuration is always higher than 0, IF deleted
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
-            AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
+            AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
 
     }
