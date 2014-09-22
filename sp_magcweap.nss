@@ -67,6 +67,30 @@ void main()
     object oTarget = GetSpellTargetObject();
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
     // object oMyWeapon   =  IPGetTargetedOrEquippedMeleeWeapon();
+    
+    
+    if (nDuration < 1) // if GetCasterLevel function encountered an error, return value is zero - deal with it now
+      /* Test for error value of the function GetCasterLevel()
+        If error in the function GetCasterLevel, then return value is zero, therefore
+        nDuration is set to zero. 
+        
+        If so, then
+        a) set nDuration to 1, to protect script from launching destructor of enhancement
+          property earlier than the constructor of the enhancement.      
+        b) send debug message to caster if it is PC
+        c) send debug message to target if it is PC
+      */
+    {
+      nDuration = 1;
+      if (GetIsPC( OBJECT_SELF ) )
+      {
+        SendMessageToPC(OBJECT_SELF, "DEBUG: spell magic_weapon, caster: caster level not identified"); // DEBUG msg
+      }
+      if (GetIsPC( oTarget ) )
+      {
+        SendMessageToPC(oTarget, "DEBUG: spell magic_weapon, target: caster level not identified"); // DEBUG msg
+      }    
+    } // end of if (nDuration < 1)
 
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
@@ -88,7 +112,6 @@ void main()
             // AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
             AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
-
     }
 
 
@@ -103,7 +126,6 @@ void main()
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
             AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
-
     }
 
 
@@ -118,7 +140,6 @@ void main()
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
             AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
-
     }
 
 
