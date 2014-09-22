@@ -194,6 +194,8 @@ void GiveStartpackage(object oPC) {
   CreateItemOnObject("sh_it_band1", oPC, 10);
   oItem = CreateItemOnObject("sy_cutora_full", oPC, 1);
   SetLocalInt(oItem,"VodaType",1);
+  //Jídlo
+  CreateItemOnObject("ke_oblhousk", oPC, 10);
   
 }
 
