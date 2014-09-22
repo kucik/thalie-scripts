@@ -9,8 +9,8 @@
 void ApplyPenalty(object oDead)
 {
     int nXP = GetXP(oDead);
-    int nPenalty = nXP * 5 / 100;
-    int nHD = GetHitDice(oDead);
+    int nPenalty = nXP * 4 / 100;
+/*    int nHD = GetHitDice(oDead);
     // * You can not lose a level with this respawning under 4th level
     int nMin;
     if(nHD < 4)
@@ -21,8 +21,13 @@ void ApplyPenalty(object oDead)
     int nNewXP = nXP - nPenalty;
     if (nNewXP < nMin)
        nNewXP = nMin;
+    
 
-    nPenalty = nXP - nNewXP;
+    nPenalty = nXP - nNewXP;*/
+    // Limit 40 000 through respawn 4% of 20. level
+    if(nPenalty > 40000)
+       nPenalty == 40000;
+
     object oSoul = GetSoulStone(oDead);
     int xpk = GetLocalInt(oSoul,"ku_XPLost");
     SetLocalInt(oSoul,"ku_XPLost",xpk + nPenalty);
