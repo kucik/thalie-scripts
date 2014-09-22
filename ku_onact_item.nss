@@ -126,8 +126,8 @@ void main()
     }
     string KU_DLG = "KU_UNI_DIALOG";
     SetLocalInt(oPC,KU_DLG+"dialog",iDlg);
-    SetLocalObject(oPlayer,"KU_WAND_TARGET",oTarget);
-    SetLocalLocation(oPlayer,"KU_WAND_TARGET_LOC",GetItemActivatedTargetLocation());
+    SetLocalObject(oPC,"KU_WAND_TARGET",oTarget);
+    SetLocalLocation(oPC,"KU_WAND_TARGET_LOC",GetItemActivatedTargetLocation());
     ExecuteScript("ku_dlg_start",oPC);
     return;
   }
