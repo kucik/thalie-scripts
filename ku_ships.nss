@@ -34,6 +34,7 @@ struct tShips
     string m_sShouter_s;
     float m_fStartTime;
     int m_iInterval;
+    int m_iType;
 };
 
 // Odbav odjezd jedne lodi.
@@ -131,7 +132,10 @@ void KU_ShipsTicketSoldID(int iShip, object oPC)
        SetName(oTick,GetName(oTick)+" "+GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Name" + si));
        //SetLocalInt(oShip,GetPCPlayerName(oPC) + GetName(oPC),1);
        TakeGoldFromCreature(iCost,oPC);
-       AssignCommand(OBJECT_SELF,SpeakString("Klidnou plavbu. Kapitan vas bude ocekavat na palube."));
+       if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_Type" + si) == 2)
+         AssignCommand(OBJECT_SELF,SpeakString("Uzijte si cestu."));
+       else 
+         AssignCommand(OBJECT_SELF,SpeakString("Klidnou plavbu. Kapitan vas bude ocekavat na palube."));
      }
 }
 
@@ -252,7 +256,10 @@ void ku_ShipsDeparture()
          if(tShouter == "")
            tShouter = GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Merchant" + si);
 
-         AssignCommand(GetObjectByTag(tShouter),SpeakString("Vsichni na palubu! Lod odplouva!"));
+         if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_Type" + si) == 2)
+           AssignCommand(GetObjectByTag(tShouter),SpeakString("Vsichni nastupovat! Odjizdime!"));
+         else 
+           AssignCommand(GetObjectByTag(tShouter),SpeakString("Vsichni na palubu! Lod odplouva!"));
          SetLocalInt(oShip,"ShipLineNumber",i);
 
          DelayCommand(10.0f,ExecuteScript("ku_ship_depart",oShip));
@@ -308,6 +315,7 @@ struct tShips KU_CreateShip(  )
     stShip.m_sShouter_s             = "";
     stShip.m_fStartTime             = 0.0;
     stShip.m_iInterval              = 0;
+    stShip.m_iType                  = 0;
 
     // Increase the number of added ships.
     SetLocalInt( oMem, KU_SHIPS_COUNT, nShipsCount );
@@ -373,6 +381,7 @@ void KU_SaveShip( struct tShips a_stShip )
     SetLocalInt( oMem,KU_SHIPS_STRUCT_TAG + "_Spent" + si,a_stShip.m_nSpent);
     SetLocalInt( oMem,KU_SHIPS_STRUCT_TAG + "_MaxDelay" + si,a_stShip.m_nMaxDelay);
     SetLocalInt( oMem,KU_SHIPS_STRUCT_TAG + "_Iterval" + si,a_stShip.m_iInterval);
+    SetLocalInt( oMem,KU_SHIPS_STRUCT_TAG + "_Type" + si,a_stShip.m_iType);
 
     SetLocalFloat( oMem,KU_SHIPS_STRUCT_TAG + "_StartTime" + si,a_stShip.m_fStartTime);
 
@@ -405,7 +414,7 @@ void ku_Ships_PrepareNextShipDeparture(int ship) {
    iInterval = iInterval * 60; //Min to sec
  }
  // Najdi nejblizsi hodinu odjezdu
- else {
+/* else {
    int iHour = GetTimeHour() + 1;
    string sTag = KU_SHIPS_STRUCT_TAG + "_"+IntToString(ship)+"_H_";
    fShipStartTime=0.0;
@@ -421,14 +430,15 @@ void ku_Ships_PrepareNextShipDeparture(int ship) {
 
    iInterval = FloatToInt((fShipStartTime - fHour) * 10 * 60 );
    iInterval = iInterval + 20;  // zpozdit pro jistotu jeste o par vterin
- }
+ }*/
+
+ iInterval = iInterval + Random(60); //Randomize ships departure.
  SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_DepartTime" + sShip,ku_GetTimeStamp(iInterval));
  SetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + sShip,1);
- fInt = IntToFloat(iInterval + Random(60)); //Randomize ships departure.
- DelayCommand(fInt,ku_Ship_Departure(ship));
+ DelayCommand(IntToFloat(iInterval),ku_Ship_Departure(ship));
 
  if(SHIPS_DEBUG)
-      SendMessageToPC(GetFirstPC(),"Lod "+IntToString(ship)+ " pripravena na odjezd za "+FloatToString(fInt)+" vterin.");
+      SendMessageToPC(GetFirstPC(),"Lod "+IntToString(ship)+ " pripravena na odjezd za "+IntToString(iInterval)+" vterin.");
 }
 
 void ku_Ship_Departure(int iShip) {
@@ -459,6 +469,7 @@ void ku_Ship_Departure(int iShip) {
     lShip_p = GetLocalLocation(oMem,KU_SHIPS_STRUCT_TAG + "_Port_loc" + sShip);
     oShouter = GetLocalObject(oMem,KU_SHIPS_STRUCT_TAG + "_Shouter" + sShip);
   }
+  int iType = GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_Type" + sShip);
 
   string sTicket = "ku_ship_ticket"+sShip;
 
@@ -469,7 +480,10 @@ void ku_Ship_Departure(int iShip) {
 //  string tShouter = GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Shouter_p" + sShip);
   if(tShouter == "")
     tShouter = GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Merchant" + sShip);
-  AssignCommand(oShouter,SpeakString("Vsichni na palubu! Lod odplouva!"));
+  if(iType == 2)
+    AssignCommand(oShouter,SpeakString("Vsichni nastupovat! Odjizdime!"));
+  else 
+    AssignCommand(oShouter,SpeakString("Vsichni na palubu! Lod odplouva!"));
 
 //  object oPassanger = GetNearestObject(OBJECT_TYPE_CREATURE,OBJECT_SELF,i);
   object oPassanger = GetFirstObjectInShape(SHAPE_SPHERE,
@@ -586,7 +600,7 @@ void ku_Ship_Arrival(int iShip) {
 void ku_ShipsTellDepartureTime(string si, object oPC)
 {
   object oMem = GetShipMemory();
-  if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + si) == 0 ) {
+/*  if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_IsDepart" + si) == 0 ) {
     int iHour = GetTimeHour();
     int iShip = StringToInt(si);
     int x=0,i=0,j;
@@ -617,11 +631,14 @@ void ku_ShipsTellDepartureTime(string si, object oPC)
       SendMessageToPC(oPC,"Takova lod nejede");
 
     return;
-  }
+  }*/
 
   int odjezd = GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_DepartTime" + si);
   string sMessage = ku_GetStringTimeBetween(odjezd,ku_GetTimeStamp(),0);
-  SendMessageToPC(oPC,"Lod odjede za "+sMessage);
+  if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_Type" + si) == 2)
+    SendMessageToPC(oPC,"Dostavník odjede za "+sMessage);
+  else 
+    SendMessageToPC(oPC,"Lod odjede za "+sMessage);
 
 }
 

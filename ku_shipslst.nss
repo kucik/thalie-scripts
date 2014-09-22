@@ -1236,6 +1236,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ke_karost_povoz";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 
@@ -1254,6 +1255,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ke_ostkat_povoz";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 
@@ -1272,6 +1274,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ke_karpetr_povoz";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 
@@ -1290,6 +1293,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ke_petrkar_povoz";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 
@@ -1308,6 +1312,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ke_karisil_povoz";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 
@@ -1326,6 +1331,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ke_isilkar_povoz";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 
