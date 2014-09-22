@@ -164,14 +164,15 @@ void SetupSpawn()
     3 or under intelligence will just run away. 4 or more will know where allies
     are, and if there are none, will not run.
 ************************* [Fleeing] *******************************************/
-    //SetSpawnInCondition(AI_FLAG_FLEEING_FEARLESS, AI_TARGETING_FLEE_MASTER);
+  if(ai_boss)
+    SetSpawnInCondition(AI_FLAG_FLEEING_FEARLESS, AI_TARGETING_FLEE_MASTER);
         // Forces them to not flee. This may be set with AI_SetMaybeFearless at the end.
     //SetSpawnInCondition(AI_FLAG_FLEEING_NEVER_FIGHT_IMPOSSIBLE_ODDS, AI_TARGETING_FLEE_MASTER);
         // This will make the creature never fight against impossible odds (8HD+ different)
     //SetSpawnInCondition(AI_FLAG_FLEEING_TURN_OFF_GROUP_MORALE, AI_TARGETING_FLEE_MASTER);
         // This turns OFF any sort of group morale bonuses.
 
-    //SetAIInteger(AMOUNT_OF_HD_DIFFERENCE_TO_CHECK, -2);
+    SetAIInteger(AMOUNT_OF_HD_DIFFERENCE_TO_CHECK, -2);
         // If enemy is within this amount of HD, we do not check morale.
     //SetAIInteger(BASE_MORALE_SAVE, 20);
         // Base DC of the will save. It is set to 20 + HD difference - Morale - Group morale mod.
