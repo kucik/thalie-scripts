@@ -394,6 +394,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
                 AssignCommand( oPC, ClearAllActions() );
                 AssignCommand( oPC, ActionStartConversation( oPC, "ku_uni_dlg", TRUE ) );*/
       SetLocalInt(oPC,KU_DLG+"dialog",9);
+      SetLocalObject(oPlayer,"KU_WAND_TARGET",oPC);
       ExecuteScript("ku_dlg_start",oPC);
       }
       break;
