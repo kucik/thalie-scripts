@@ -80,6 +80,11 @@ void ku_GiveXPDebt(object oPC, int iXP) {
         return;
 
   int iXPDebt = ku_GetXpDebt(oPC);
+  int iPCXP = GetXP(oPC);
+  
+  // Reduce debt if current debt is more than 15% XP
+  if( (iXP / 0.15) >  IntToFloat(GetXP(oPC)) )
+    iXP = iXP /2;
 
   // in case of bug
   if(iXPDebt < 0)
