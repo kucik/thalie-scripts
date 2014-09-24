@@ -110,7 +110,7 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
             // AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
-            AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
     }
 
@@ -124,7 +124,7 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
-            AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
     }
 
@@ -138,7 +138,7 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // tvar pred 2014_09_21, +1 AB
-            AddGreaterEnhancementEffect(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
         }
     }
 

@@ -10,8 +10,8 @@ void ApplyPenalty(object oDead)
 {
     int nXP = GetXP(oDead);
     int nPenalty = nXP * 4 / 100;
-/*    int nHD = GetHitDice(oDead);
-    // * You can not lose a level with this respawning under 4th level
+    int nHD = GetHitDice(oDead);
+/*    // * You can not lose a level with this respawning under 4th level
     int nMin;
     if(nHD < 4)
         nMin = ((nHD * (nHD - 1)) / 2) * 1000;
