@@ -29,8 +29,16 @@ void ku_klevety_init() {
     }
   }
 
+  int iCnt = 0;
+  /* Check if NPC is initialized in DB */
+  string sSQL = "SELECT count(*) FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"'; ";
+  SQLExecDirect(sSQL);
+  if(SQLFetch() == SQL_SUCCESS) {
+    iCnt = StringToInt(SQLGetData(1));
+  }
+
   /* Get texts from DB */
-  string sSQL = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"'; ";
+/*  string sSQL = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"'; ";
   SQLExecDirect(sSQL);
   string sText;
   int i=0;
@@ -42,10 +50,10 @@ void ku_klevety_init() {
     SetLocalString(oNPC,"KU_KLEVETY_"+IntToString(i),sText);
     i++;
   }
-  SetLocalInt(oNPC,"KU_KLEVETY_CNT",i);
+  SetLocalInt(oNPC,"KU_KLEVETY_CNT",i);*/
 
   /* If no text, initialize me in DB */
-  if(i == 0) {
+  if(iCnt == 0) {
     string sValues = "'"+sAreaTag+"',"+
                      "'"+sAreaName+"',"+
                      "'"+sNPCtag+"',"+
@@ -58,18 +66,31 @@ void ku_klevety_init() {
 
   /* Check from DB every RELOAD_KLEVETY + rand seconds */
   SetLocalInt(OBJECT_SELF,"KU_NPC_KLEV_INITIALIZED",1);
-  float timeout = IntToFloat(RELOAD_KLEVETY + Random(500));
-  DelayCommand(timeout,DeleteLocalInt(oNPC,"KU_NPC_KLEV_INITIALIZED"));
+//  float timeout = IntToFloat(RELOAD_KLEVETY + Random(500));
+//  DelayCommand(timeout,DeleteLocalInt(oNPC,"KU_NPC_KLEV_INITIALIZED"));
 
   return;
 }
 
 void ku_klevety_shout() {
- object oNPC = OBJECT_SELF;
- int max =  GetLocalInt(oNPC,"KU_KLEVETY_CNT");
- object oFriend = GetLocalObject(oNPC,"KLEV_FRIEND");
- int i = Random(max);
- string sText = GetLocalString(oNPC,"KU_KLEVETY_"+IntToString(i));
+  object oNPC = OBJECT_SELF;
+  object oFriend = GetLocalObject(oNPC,"KLEV_FRIEND");
+  string sText;
+  string sNPCtag = GetTag(oNPC);
+  object oArea = GetArea(oNPC);
+  string sAreaTag = GetTag(oArea);
+  object oMod = GetModule();
+
+
+  // Fetch random text 
+  string sSql = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"' ORDER BY RAND() LIMIT 0,1;";
+  SQLExecDirect(sSql);
+  if (SQLFetch() != SQL_SUCCESS) {
+    WriteTimestampedLogEntry("KLEVETY: Error on loading records for: lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"';");
+    return;
+  }
+  sText = SQLGetData(1);
+  sText = StrEncodeToCZ(oMod,sText);
 
  if(FindSubString(sText,"|",0) > 0) {
    if(GetIsObjectValid(oFriend)) {
