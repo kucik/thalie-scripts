@@ -447,19 +447,6 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "zbrane_vychodni" );
     SEI_SaveSubrace( stSubrace );
 
-    // Drow
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_DROW, RACIAL_TYPE_ELF, "Drow" );
-    stSubrace = SEI_AddFieldText( stSubrace, "drow" );                  // "drow"
-    stSubrace.m_nAlignmentMask = 700;                                    // evil
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
-    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
-    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
-    stSubrace = SEI_AddTrait( stSubrace, "drow_temnota" );
-    stSubrace = SEI_AddTrait( stSubrace, "bic" );
-    stSubrace = SEI_AddTrait( stSubrace, "scimitar" );
-    stSubrace = SEI_AddTrait( stSubrace, "lehka_kuse" );
-    SEI_SaveSubrace( stSubrace );
-
 
     // Drow obsidianovy
     stSubrace = SEI_CreateSubrace( SUBRACE_ELF_OBSIDIAN_DROW, RACIAL_TYPE_ELF, "Drow obsidianovy" );
@@ -476,6 +463,20 @@ void SEI_DefineSubraces()
     stSubrace.m_nECLClass = 1;                                          // Postih na expy = 2
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     SEI_SaveSubrace( stSubrace );
+
+    // Drow
+    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_DROW, RACIAL_TYPE_ELF, "Drow" );
+    stSubrace = SEI_AddFieldText( stSubrace, "drow" );                  // "drow"
+    stSubrace.m_nAlignmentMask = 700;                                    // evil
+    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
+    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
+    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
+    stSubrace = SEI_AddTrait( stSubrace, "drow_temnota" );
+    stSubrace = SEI_AddTrait( stSubrace, "bic" );
+    stSubrace = SEI_AddTrait( stSubrace, "scimitar" );
+    stSubrace = SEI_AddTrait( stSubrace, "lehka_kuse" );
+    SEI_SaveSubrace( stSubrace );
+
 
 //////////////////////////-- TRPASLICI --//////////////////////////
 
@@ -512,16 +513,6 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "trpaslik_zlaty" );
     SEI_SaveSubrace( stSubrace );
 
-    // Duergar
-    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_DUERGAR, RACIAL_TYPE_DWARF, "Duergar" );
-    stSubrace = SEI_AddFieldText( stSubrace, "duergar" );               // "duergar"
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
-    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
-    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
-    stSubrace.m_nAlignmentMask = 700;                                    // evil
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_duergar" );
-    SEI_SaveSubrace( stSubrace );
 
     // Bronzovy duergar
     stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_DUERGAR_BRONZED, RACIAL_TYPE_DWARF, "Bronzovy Duergar" );
@@ -538,6 +529,18 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
     stSubrace = SEI_AddTrait( stSubrace, "trpaslik_duergar" );
     SEI_SaveSubrace( stSubrace );
+
+    // Duergar
+    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_DUERGAR, RACIAL_TYPE_DWARF, "Duergar" );
+    stSubrace = SEI_AddFieldText( stSubrace, "duergar" );               // "duergar"
+    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
+    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
+    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
+    stSubrace.m_nAlignmentMask = 700;                                    // evil
+    stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
+    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_duergar" );
+    SEI_SaveSubrace( stSubrace );
+
 
 //////////////////////////-- ORKOVE --//////////////////////////
 
