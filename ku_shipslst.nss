@@ -1346,8 +1346,8 @@ void KU_DefineShips()
     stShip.m_sPort      = "ke_kah_daf_lod_z";          // Tag bodu, odkud lod vyrazi
     stShip.m_sSea       = "ke_kah_daf_lod_l";          // Tag bodu na mori
     stShip.m_sFinish    = "ke_kah_daf_lod_c";          // Tag cile cesty
-    stShip.m_sCabin     = "";                           // Tag kajuty
-    stShip.m_sShouter_p = "ke_kahdaftam";           // Tag vyvolavace v pristavu
+    stShip.m_sCabin     = "ke_kahdaftam";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
     stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
@@ -1366,8 +1366,8 @@ void KU_DefineShips()
     stShip.m_sSea       = "ke_daf_kah_lod_l";          // Tag bodu na mori
     stShip.m_sFinish    = "ke_daf_kah_lod_c";          // Tag cile cesty
     stShip.m_sCabin     = "";                           // Tag kajuty
-    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
-    stShip.m_sShouter_s = "ke_dafkahtam";            // Tag vyvolavace na mori
+    stShip.m_sShouter_p = "ke_dafkahtam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
@@ -1385,8 +1385,8 @@ void KU_DefineShips()
     stShip.m_sSea       = "ke_kah_ht_lod_l";          // Tag bodu na mori
     stShip.m_sFinish    = "ke_kah_ht_lod_c";          // Tag cile cesty
     stShip.m_sCabin     = "";                           // Tag kajuty
-    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
-    stShip.m_sShouter_s = "ke_kahhttam";            // Tag vyvolavace na mori
+    stShip.m_sShouter_p = "ke_kahhttam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
@@ -1404,8 +1404,43 @@ void KU_DefineShips()
     stShip.m_sSea       = "ke_ht_kah_lod_l";          // Tag bodu na mori
     stShip.m_sFinish    = "ke_ht_kah_lod_c";          // Tag cile cesty
     stShip.m_sCabin     = "";                           // Tag kajuty
-    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
-    stShip.m_sShouter_s = "ke_htkahtam";            // Tag vyvolavace na mori
+    stShip.m_sShouter_p = "ke_htkahtam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 43 Kel-A-Hazr -> Murgond
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Kel-A-Hazr -> Murgond"; // Nazev trasy
+    stShip.m_nCost      = 120;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kahmur_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_kah_mur_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kah_mur_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kah_mur_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_kahmurtam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+//  Lodni linka 44 Murgond -> Kel-A-Hazr
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Murgond -> Kel-A-Hazr"; // Nazev trasy
+    stShip.m_nCost      = 120;                           // Cena listku
+    stShip.m_nSpent     = 4;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_murkah_prod";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_mur_kah_lod_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_mur_kah_lod_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_mur_kah_lod_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ke_murkahtam";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
