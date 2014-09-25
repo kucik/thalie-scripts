@@ -16,8 +16,76 @@
 effect SetSummonEffect(int nSpellID);
 
 #include "x2_inc_spellhook"
-#include "sh_classes_const"
+//#include "sh_classes_const"
 #include "nwnx_funcs"
+#include "me_soul_inc"
+
+int __getSummonLevel(int SpellID){
+    int sSumon = 0;
+
+    switch (SpellID){
+     case SPELL_SUMMON_CREATURE_I :  sSumon = 1; break;
+     case SPELL_SUMMON_CREATURE_II:  sSumon = 2; break;
+     case SPELL_SUMMON_CREATURE_III: sSumon = 3; break;
+     case SPELL_SUMMON_CREATURE_IV: sSumon = 4; break;
+     case SPELL_SUMMON_CREATURE_V: sSumon = 5; break;
+     case SPELL_SUMMON_CREATURE_VI: sSumon = 6; break;
+     case SPELL_SUMMON_CREATURE_VII: sSumon = 7; break;
+     case SPELL_SUMMON_CREATURE_VIII: sSumon = 8; break;
+     case SPELL_SUMMON_CREATURE_IX: sSumon = 9; break;
+    }
+    return sSumon;
+}
+
+int __getSummonEffect(int SpellID) {
+ switch (SpellID){
+     case SPELL_SUMMON_CREATURE_I : 
+     case SPELL_SUMMON_CREATURE_II:
+     case SPELL_SUMMON_CREATURE_III: return VFX_FNF_SUMMON_MONSTER_1;
+     case SPELL_SUMMON_CREATURE_IV: 
+     case SPELL_SUMMON_CREATURE_V:   return VFX_FNF_SUMMON_MONSTER_2;
+     case SPELL_SUMMON_CREATURE_VI: 
+     case SPELL_SUMMON_CREATURE_VII: 
+     case SPELL_SUMMON_CREATURE_VIII: 
+     case SPELL_SUMMON_CREATURE_IX:  return VFX_FNF_SUMMON_MONSTER_3;
+ }
+
+  // fallback value
+ return VFX_FNF_SUMMON_MONSTER_1;
+}
+
+string __chooseSummon(int iLevel) {
+  object oCaster = OBJECT_SELF;
+  string sSummon = "";
+  if(GetIsPC(oCaster)) {
+    object oSoul = GetSoulStone(oCaster);
+    sSummon = GetLocalString(oSoul,"KU_SUMMON_"+IntToString(iLevel));
+  }
+   
+  if(sSummon != "") 
+    return sSummon;  
+
+
+  // If summon is not set or it's not PC
+  int iRow;
+  //Clerics summon planars
+  if(GetLevelByClass(CLASS_TYPE_CLERIC) > 0) {
+    // little bit hardcoded 2da lines
+    switch(GetAlignmentGoodEvil(oCaster)) {
+      case ALIGNMENT_GOOD:    iRow = 45; // + iLevel - 1;
+      case ALIGNMENT_NEUTRAL: iRow = 54; // + iLevel - 1;
+      case ALIGNMENT_EVIL:    iRow = 63; // + iLevel - 1;
+      default: iRow = 0; //fallback
+    }
+  }
+  else {
+    iRow = (Random(4) * 9);
+  }
+ 
+  sSummon = Get2DAString("summon","BASERESREF",iRow);
+  sSummon = sSummon+"0"+IntToString(iLevel);
+  return sSummon;
+}
 
 void main()
 {
@@ -47,7 +115,7 @@ void main()
     {
         nDuration = 2;
     }
-    effect eSummon = SetSummonEffect(nSpellID);
+    int iSummoningLevel = __getSummonLevel(nSpellID);
 
     //Make metamagic check for extend
     int nMetaMagic = GetMetaMagicFeat();
@@ -57,211 +125,18 @@ void main()
     }
     //Apply the VFX impact and summon effect
 
+    string sSummon = __chooseSummon(iSummoningLevel);
+    int nFNF_Effect = __getSummonEffect(nSpellID);
+    effect eSummon = EffectSummonCreature(sSummon, nFNF_Effect);
+
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), HoursToSeconds(nDuration));
+
+    // Boost summon
     object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
-    if (GetHasFeat(FEAT_GENERAL_POSILENE_VYVOLAVANI))
+    if (GetHasFeat(1478 )) //FEAT_GENERAL_POSILENE_VYVOLAVANI
     {
         SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+4);
         SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+4);
     }
-}
-
-
-effect SetSummonEffect(int nSpellID)
-{
-    int nFNF_Effect;
-    int nRoll = d3();
-    string sSummon;
-    if(GetHasFeat(FEAT_ANIMAL_DOMAIN_POWER)) //WITH THE ANIMAL DOMAIN
-    {
-        if(nSpellID == SPELL_SUMMON_CREATURE_I)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
-            sSummon = "NW_S_BOARDIRE";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_II)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
-            sSummon = "NW_S_WOLFDIRE";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_III)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
-            sSummon = "NW_S_SPIDDIRE";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_IV)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
-            sSummon = "NW_S_beardire";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_V)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
-            sSummon = "NW_S_diretiger";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_VI)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRHUGE";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERHUGE";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREHUGE";
-                break;
-            }
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_VII)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRGREAT";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERGREAT";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREGREAT";
-                break;
-            }
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_VIII)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRELDER";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERELDER";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREELDER";
-                break;
-            }
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_IX)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRELDER";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERELDER";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREELDER";
-                break;
-            }
-        }
-    }
-    else  //WITOUT THE ANIMAL DOMAIN
-    {
-        if(nSpellID == SPELL_SUMMON_CREATURE_I)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
-            sSummon = "NW_S_badgerdire";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_II)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
-            sSummon = "NW_S_BOARDIRE";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_III)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
-            sSummon = "NW_S_WOLFDIRE";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_IV)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
-            sSummon = "NW_S_SPIDDIRE";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_V)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
-            sSummon = "NW_S_beardire";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_VI)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
-            sSummon = "NW_S_diretiger";
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_VII)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRHUGE";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERHUGE";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREHUGE";
-                break;
-            }
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_VIII)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRGREAT";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERGREAT";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREGREAT";
-                break;
-            }
-        }
-        else if(nSpellID == SPELL_SUMMON_CREATURE_IX)
-        {
-            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
-            switch (nRoll)
-            {
-                case 1:
-                    sSummon = "NW_S_AIRELDER";
-                break;
-
-                case 2:
-                    sSummon = "NW_S_WATERELDER";
-                break;
-
-                case 3:
-                    sSummon = "NW_S_FIREELDER";
-                break;
-            }
-        }
-    }
-    //effect eVis = EffectVisualEffect(nFNF_Effect);
-    //ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetSpellTargetLocation());
-    effect eSummonedMonster = EffectSummonCreature(sSummon, nFNF_Effect);
-    return eSummonedMonster;
 }
 

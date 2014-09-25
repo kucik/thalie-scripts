@@ -40,6 +40,8 @@ void KU_DM_FactionsAct(int act);
 void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID);
 void KU_DicesAct(int act);
 void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID);
+void KU_SummonsAct(int act);
+void KU_SummonsSetTokens(int iState, object oPC = OBJECT_INVALID);
 
 /* Function definitions */
 
@@ -56,6 +58,7 @@ void ku_dlg_act(int act) {
     case 7: KU_DM_PortalsAct(act); break;
     case 8: KU_DM_FactionsAct(act); break;
     case 9: KU_DicesAct(act); break;
+    case 10: KU_SummonsAct(act); break;
   }
   return;
 }
@@ -102,7 +105,9 @@ void ku_dlg_init(int act, object oPC = OBJECT_INVALID) {
     case 9:
         KU_DicesSetTokens(0,oPC);
         break;
-
+    case 10:
+        KU_SummonsSetTokens(0, oPC);
+        break;
   }
   return;
 }
@@ -2930,3 +2935,123 @@ void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID) {
 
 }
 
+
+//**//////////////////////////////////////////////////
+//** Summons book
+//**/////////////////////////////////////////////////
+
+string __getSummoningClass(object oPC) {
+
+  if(GetLevelByClass(CLASS_TYPE_WIZARD, oPC) > 0)
+    return "CLS_WIZ";
+
+  if(GetLevelByClass(CLASS_TYPE_CLERIC, oPC) > 0)
+    return "CLS_CLER";
+
+  if(GetLevelByClass(CLASS_TYPE_DRUID, oPC) > 0)
+    return "CLS_DRUID";
+
+  if(GetLevelByClass(CLASS_TYPE_BARD, oPC) > 0)
+    return "CLS_BARD";
+
+  return "";
+}
+
+void KU_SummonsSetTokens(int iState, object oPC = OBJECT_INVALID) {
+  int i;
+  if(oPC == OBJECT_INVALID) {
+    oPC = GetPCSpeaker();
+  }
+  object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
+  string sTargetName = "Nic";
+  if(GetIsObjectValid(oTarget)) {
+    sTargetName = GetName(oTarget)+" v lokaci "+GetName(GetArea(oTarget));
+  }
+
+  string sClass = __getSummoningClass(oPC);
+  int nAlignment;
+  switch(GetAlignmentGoodEvil(oPC)) {
+    case ALIGNMENT_EVIL: nAlignment = 16; break;
+    case ALIGNMENT_GOOD: nAlignment = 8; break;
+    case ALIGNMENT_NEUTRAL: nAlignment = 1; break;
+  }
+    
+
+  int bIsDM = GetIsDM(oPC);
+  int iDlgShift = GetLocalInt(oPC, KU_DLG+"shift");
+  int shift = iState;
+  switch(iState) {
+    // Init hulky
+    case 0:
+        ku_dlg_SetAll(0);
+        __dlgSetToken(0,"Kniha povolavani. Zvol kruh.");
+        __dlgSetToken(1," I.");
+        __dlgSetToken(2," II.");
+        __dlgSetToken(3," III.");
+        __dlgSetToken(4," IV.");
+        __dlgSetToken(5," V.");
+        __dlgSetToken(6," VI.");
+        __dlgSetToken(7," VII.");
+        __dlgSetToken(8," VIII.");
+        __dlgSetToken(9," IX.");
+        break;
+    // All summon levels  
+    default:
+      ku_dlg_SetAll(0);
+      __dlgSetToken(0,"Kniha povolavani. "+IntToString(iState)+". kruh.");
+      
+      int sum = 0;
+      int iSummonAlignment;
+      int iRow;
+      for(sum = 0; sum <= 8; sum++) { // We have 8 types of summons
+        iRow = sum * 9 + iState; //9 levels of summons
+        iSummonAlignment = StringToInt(Get2DAString("summon","ALIGNMENT",iRow));
+        // Check summoner alignment 
+        if((iSummonAlignment & nAlignment) == 0)
+          continue;
+
+        // Check aviability for class
+        if(Get2DAString("summon",sClass,iRow) == "0")
+          continue;
+
+        __dlgSetToken(sum+1,Get2DAString("summon","NAME",iRow));
+      }
+      __dlgSetToken(10," Zpet.");
+   }
+
+}
+
+void KU_SummonsAct(int act) {
+  object oPC = GetPCSpeaker();
+  int iState = GetLocalInt(oPC,KU_DLG+"state");
+  object oSoul = GetSoulStone(oPC);
+
+  // Back - same for all states
+  if(act == 10) {
+    iState = 0;
+    SetLocalInt(oPC,KU_DLG+"state",iState);
+    return;
+  }
+
+  // Do nothing
+  if(act == 0) {
+    KU_DicesSetTokens(iState);
+    return;
+  }
+
+  switch(iState) {
+    // Spusteni hulky
+    case 0: {
+      SetLocalInt(oPC,KU_DLG+"state",act);
+    }
+    // Set summon
+    default: {
+      int iRow = (iState-1) * 9 + act -1 ; //9 levels of summons
+      SetLocalString(oSoul,"KU_SUMMON_"+IntToString(iState),Get2DAString("summon","BASERESREF",iRow) + "0" + IntToString(iState));
+      SendMessageToPC(oPC, "Vybran "+Get2DAString("summon","NAME",iRow)+" pro "+IntToString(iState)+". kruh.");
+    }
+  }
+
+  iState = GetLocalInt(oPC,KU_DLG+"state");
+  KU_DicesSetTokens(iState);
+}
