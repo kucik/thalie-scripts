@@ -60,12 +60,37 @@ void main()
     // End of Spell Cast Hook
 
 
-    //Declare major variables
+    //Declare major variables 
     object oTarget = GetSpellTargetObject();
     effect eVis = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel);
+    
+    // if GetCasterLevel function encountered an error, return value is zero - deal with it now
+    if (iCasterLevel < 1) 
+      /* Test for error value of the function GetCasterLevel()
+      If error in the function GetCasterLevel, then return value is zero, therefore
+      iCasterLevel is set to zero.
+      If so, then
+      a) set iCasterLevel to 1, to protect script from launching destructor of enhancement
+        property earlier than the constructor of the enhancement.
+      b) send debug message to caster if it is PC
+      c) send debug message to target if it is PC
+      */
+    {
+      iCasterLevel = 1;
+      if (GetIsPC( OBJECT_SELF ) )
+      {
+        SendMessageToPC(OBJECT_SELF, "DEBUG: spell greater_magic_weapon, caster: caster level not identified"); // DEBUG msg
+      }
+      if (GetIsPC( oTarget ) )
+      {
+        SendMessageToPC(oTarget, "DEBUG: spell greater_magic_weapon, target: caster level not identified"); // DEBUG msg
+      }
+    } // end of if (iCasterLevel < 1)
+ 
+    //Finish declaration of major variables
     int iBonus = iCasterLevel /4;
     int nDuration =  iCasterLevel ;
     int nMetaMagic = GetMetaMagicFeat();
