@@ -116,7 +116,7 @@ void main()
     }
 
   }*/
-  if (GetTag(oActivated) == "ku_uni_dlg"){
+  if (GetTag(oActivated) == "ku_uni_dlg" || GetLocalInt(oActivated,"KU_DIALOG")){
     object oPC = oPlayer;
     int iDlg = GetLocalInt(oActivated,"KU_DIALOG");
 //    SendMessageToPC(oPlayer,"Na "+GetName(oActivated)+" je KU_DIALOG "+IntToString(iDlg));
