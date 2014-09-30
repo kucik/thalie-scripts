@@ -24,6 +24,7 @@
 //:://////////////////////////////////////////////
 #include "NW_I0_SPELLS"
 #include "x2_i0_spells"
+#include "ku_boss_inc"
 
 void main()
 {
@@ -38,7 +39,7 @@ void main()
     int nHD = GetHitDice(GetAreaOfEffectCreator());
 
     int nRoll = d10(1); //sorry but d20() was just too unbalancing for the game, if you are a rules layer, just put the d20 here...
-    int nDC = nRoll + GetSkillRank(SKILL_INTIMIDATE,oBarb);
+    int nDC = 10 + GetSkillRank(SKILL_INTIMIDATE,oBarb) / 3;
     int nDuration = d3();
     if(GetIsEnemy(oTarget, oBarb))
     {
@@ -53,10 +54,11 @@ void main()
             {
 
                 // Hit dice below barb.... run like hell!
-                if (GetHitDice(oTarget)< GetHitDice(oBarb))
+                if (GetHitDice(oTarget)< GetHitDice(oBarb) && !GetIsBoss(oTarget))
                 {
                     //Apply the VFX impact and effects
-                    effect eFear = EffectParalyze();
+//                    effect eFear = EffectParalyze();
+                    effect eFear = EffectFrightened();
                     eLink = EffectLinkEffects(eFear, eDur);
                     eLink = EffectLinkEffects(eLink, eDur2);
                     eLink = ExtraordinaryEffect(eLink);
