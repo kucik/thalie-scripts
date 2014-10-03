@@ -138,5 +138,6 @@ void main()
         SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+4);
         SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+4);
     }
+    SetName(oSummon,"Povolany");
 }
 
