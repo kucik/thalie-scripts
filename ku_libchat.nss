@@ -180,6 +180,9 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/h <text> - vypise text jako by mluvil tvuj kun.");
       SendMessageToPC(oPC,"/c <text> - vypise text jako by mluvil tvuj animal companion.");
       SendMessageToPC(oPC,"/f <text> - vypise text jako by mluvil tvuj familiar.");
+      SendMessageToPC(oPC,"**************************************");
+      SendMessageToPC(oPC," DM ONLY :");
+      SendMessageToPC(oPC,"/pc item <resref itemu> - Vytvori item do invu.");
       break;
     }
     case 8: {
@@ -398,6 +401,12 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       ExecuteScript("ku_dlg_start",oPC);
       }
       break;
+     // DM only item creation
+     case 26:
+      if(GetIsDM(oPC)) {
+        CreateItemOnObject(param, oPC);
+      }
+      break;
   }
 }
 
@@ -443,6 +452,7 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(23,"barvakuze");
    ku_DefineChatCommand(24,"strip");
    ku_DefineChatCommand(25,"kostky");
+   ku_DefineChatCommand(26,"item");
 }
 
 void ku_SlowMe(int speed) {
