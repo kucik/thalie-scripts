@@ -39,14 +39,14 @@ int __getSummonLevel(int SpellID){
 
 int __getSummonEffect(int SpellID) {
  switch (SpellID){
-     case SPELL_SUMMON_CREATURE_I : 
+     case SPELL_SUMMON_CREATURE_I :
      case SPELL_SUMMON_CREATURE_II:
      case SPELL_SUMMON_CREATURE_III: return VFX_FNF_SUMMON_MONSTER_1;
-     case SPELL_SUMMON_CREATURE_IV: 
+     case SPELL_SUMMON_CREATURE_IV:
      case SPELL_SUMMON_CREATURE_V:   return VFX_FNF_SUMMON_MONSTER_2;
-     case SPELL_SUMMON_CREATURE_VI: 
-     case SPELL_SUMMON_CREATURE_VII: 
-     case SPELL_SUMMON_CREATURE_VIII: 
+     case SPELL_SUMMON_CREATURE_VI:
+     case SPELL_SUMMON_CREATURE_VII:
+     case SPELL_SUMMON_CREATURE_VIII:
      case SPELL_SUMMON_CREATURE_IX:  return VFX_FNF_SUMMON_MONSTER_3;
  }
 
@@ -61,9 +61,9 @@ string __chooseSummon(int iLevel) {
     object oSoul = GetSoulStone(oCaster);
     sSummon = GetLocalString(oSoul,"KU_SUMMON_"+IntToString(iLevel));
   }
-   
-  if(sSummon != "") 
-    return sSummon;  
+
+  if(sSummon != "")
+    return sSummon;
 
 
   // If summon is not set or it's not PC
@@ -81,10 +81,23 @@ string __chooseSummon(int iLevel) {
   else {
     iRow = (Random(4) * 9);
   }
- 
+
   sSummon = Get2DAString("summon","BASERESREF",iRow);
   sSummon = sSummon+"0"+IntToString(iLevel);
   return sSummon;
+}
+
+void __boostSummon() {
+    // Boost summon
+    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
+    SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
+    if (GetHasFeat(1478 )) //FEAT_GENERAL_POSILENE_VYVOLAVANI
+    {
+        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+4);
+        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+4);
+    }
+    SetName(oSummon,"Povolany");
+
 }
 
 void main()
@@ -131,13 +144,6 @@ void main()
 
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), HoursToSeconds(nDuration));
 
-    // Boost summon
-    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
-    if (GetHasFeat(1478 )) //FEAT_GENERAL_POSILENE_VYVOLAVANI
-    {
-        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+4);
-        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+4);
-    }
-    SetName(oSummon,"Povolany");
+    DelayCommand(0.2,__boostSummon());
 }
 
