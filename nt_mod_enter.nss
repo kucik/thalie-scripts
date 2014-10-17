@@ -16,6 +16,65 @@
 #include "mys_mount_lib"
 #include "mys_hen_lib"
 
+
+int __checkFeatAbiliesReq(object oPC, int iFeat) {
+  int iReq;
+
+  // STR
+  iReq = StringToInt(Get2DAString("feat","MINSTR",iFeat));
+  if(iReq > 0 && GetAbilityScore(oPC,  ABILITY_STRENGTH, TRUE) < iReq) {
+    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for STR="+IntToString(GetAbilityScore(oPC,  ABILITY_STRENGTH, TRUE)));
+    return FALSE;
+  }
+  // DEX
+  iReq = StringToInt(Get2DAString("feat","MINDEX",iFeat));
+  if(iReq > 0 && GetAbilityScore(oPC,   ABILITY_DEXTERITY , TRUE) < iReq) {
+    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for DEX="+IntToString(GetAbilityScore(oPC,   ABILITY_DEXTERITY , TRUE)));
+    return FALSE;
+  }
+  // INT
+  iReq = StringToInt(Get2DAString("feat","MININT",iFeat));
+  if(iReq > 0 && GetAbilityScore(oPC,  ABILITY_INTELLIGENCE, TRUE) < iReq) {
+    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for INT="+IntToString(GetAbilityScore(oPC,ABILITY_INTELLIGENCE, TRUE)));
+    return FALSE;
+  }
+  // WIS
+  iReq = StringToInt(Get2DAString("feat","MINWIS",iFeat));
+  if(iReq > 0 && GetAbilityScore(oPC,ABILITY_WISDOM , TRUE) < iReq) {
+    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for WIS="+IntToString(GetAbilityScore(oPC, ABILITY_WISDOM , TRUE)));
+    return FALSE;
+  }
+  // CON
+  iReq = StringToInt(Get2DAString("feat","MINCON",iFeat));
+  if(iReq > 0 && GetAbilityScore(oPC, ABILITY_CONSTITUTION , TRUE) < iReq) {
+    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for CON="+IntToString(GetAbilityScore(oPC,   ABILITY_CONSTITUTION , TRUE)));
+    return FALSE;
+  }
+  // CHA
+  iReq = StringToInt(Get2DAString("feat","MINCHA",iFeat));
+  if(iReq > 0 && GetAbilityScore(oPC, ABILITY_CHARISMA , TRUE) < iReq) {
+    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for CHA="+IntToString(GetAbilityScore(oPC, ABILITY_CHARISMA , TRUE)));
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+void __checkInvalidFeats(object oPC) {
+  int iFeats = GetTotalKnownFeatsByLevel(oPC, 1);
+
+  while( iFeats > 0) {
+    iFeats--;
+    /* If feat did not meet requirements */
+    int iFeat = GetKnownFeatByLevel(oPC, 1, iFeats);
+    if(!__checkFeatAbiliesReq(oPC, iFeat)) {
+      //RemoveKnownFeat(oPC, iFeat);
+      WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat));
+    }
+  }
+
+}
+
 void DismountAfterActions(object oPC, object oSoul);
 
 // Compose text info about Thalie-datum
@@ -531,6 +590,7 @@ void main()
   DeleteLocalInt(oPC,"ku_sleeping");
   DeleteLocalInt(oPC,"KU_DEATH_NOLOG");
   DelayCommand(10.0,FixMovementSpeed(oPC));
+  DelayCommand(30.0,__checkInvalidFeats(oPC));
 
   SetLocalInt(oPC, "PLAYED",TRUE);
 
