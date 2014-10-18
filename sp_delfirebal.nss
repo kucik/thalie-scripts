@@ -38,7 +38,7 @@ void main()
 
 
     //Declare major variables including Area of Effect Object
-    effect eAOE = EffectAreaOfEffect(AOE_PER_DELAY_BLAST_FIREBALL,"sp_delfirebala","****","****");
+    effect eAOE = EffectAreaOfEffect(AOE_PER_DELAY_BLAST_FIREBALL,"sp_delfirea","****","****");
     location lTarget = GetSpellTargetLocation();
     int nDuration = GetCasterLevel(OBJECT_SELF) / 2;
     //Make sure the duration is at least one round
