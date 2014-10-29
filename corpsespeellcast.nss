@@ -28,7 +28,7 @@ void ApplyPenalty(object oDead, float nPerc)
 
     // Maximum 1% of 20. level
     if(nPenalty > 10000)
-      nPenalty == 10000;
+      nPenalty = 10000;
 
 
     object oSoul = GetSoulStone(oDead);
