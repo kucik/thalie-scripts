@@ -405,8 +405,9 @@ void main()
  // Craft tools
  if(!GetHasFeat(1400, oPC)) // FEAT_POUZITI_ZBRANE_LEHKY_KRUMPAC_neprirazeno
    AddKnownFeat(oPC, 1400, 1);
- if(!GetHasFeat(1419, oPC)) // FEAT_POUZITI_ZBRANE_TEZKY_KRUMPAC_neprirazeno
-   AddKnownFeat(oPC, 1419, 1);
+ if(GetHasFeat(1419, oPC)) // FEAT_POUZITI_ZBRANE_TEZKY_KRUMPAC_neprirazeno
+   RemoveKnownFeat(oPC, 1419);
+   //AddKnownFeat(oPC, 1419, 1);
  if(!GetHasFeat(1410, oPC)) // FEAT_POUZITI_ZBRANE_RUCNI_SEKERA_neprirazeno
    AddKnownFeat(oPC, 1410, 1);
  //~Craft tools
