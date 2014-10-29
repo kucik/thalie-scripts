@@ -16,12 +16,18 @@
 // zarizeni do int no_kov_1  no_kov_2 no_kov_procenta no_druh_vyrobku no_druh_nasada
 ///
 /////////////////////////////////
+    /*  Hlaseny bug uzamykani crafticiho zarizeni 
+    Provizorni zaplata: zakomentovani kodu ktery uzamyka zarizeni ve funkci no_pohybklikacu(object no_oPC, object no_pec)
+    Date: 2014_10_29
+    Author: Pavad
+    */
+
 
 int no_pocet;
 string no_nazev;
 int no_DC;
 int no_bonus_vylepseni;
-int jy_kritik; //sèítavá kritický bonus k dmg, aby vïaka nemu na konci vyhodnotil, aký presne prida ako vlastnos predmetu
+int jy_kritik; //sÃ¨Ã­tavÃ¡ kritickÃ½ bonus k dmg, aby vÃ¯aka nemu na konci vyhodnotil, akÃ½ presne pridaÂ ako vlastnosÂ predmetu
 int no_max_bonus; //urci, do jake kategorie zbran patri - 1 jednoruc , 2 jednoruc velka, 3 obouruc
 int no_magicky_bonus;
 int no_secny_bonus;
@@ -870,7 +876,7 @@ void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta )
 switch   (no_kov_co_pridavam){
 
         case 1:  {  switch (no_kov_pridame_procenta) {
-             //cín
+             //cÃ­n
                         case 2: {
                                     break;  }
                         case 4: { no_bonus_vylepseni = no_bonus_vylepseni -7;
@@ -895,7 +901,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break;     }//konec cinu
         case 2:  {  switch (no_kov_pridame_procenta) {
-             //meï
+             //meÃ¯
                         case 2: {
                                     break;  }
                         case 4: {
@@ -944,7 +950,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break;     }//konec bronzu
         case 4:  {  switch (no_kov_pridame_procenta) {
-             //železo
+             //Å¾elezo
                         case 2: {   break;  }
                         case 4: {   break;  }
                         case 6: {   break;  }
@@ -1108,7 +1114,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break;     }//konec adamantinu
         case 9:  {  switch (no_kov_pridame_procenta) {
-             //titán
+             //titÃ¡n
                         case 2: {   jy_kritik = jy_kritik +1;
                                     break;  }
                         case 4: {   jy_kritik = jy_kritik +2;
@@ -1156,7 +1162,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                 break;    }//konec stribra
         case 11:  {  switch (no_kov_pridame_procenta) {
-             //tieòová oce¾
+             //tieÃ²ovÃ¡ oceÂ¾
                         case 2: {
                                     break;  }
                         case 4: {
@@ -1195,7 +1201,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                 break;    }//konec stinove oceli
         case 12:  {  switch (no_kov_pridame_procenta) {
-             //meteorická oce¾
+             //meteorickÃ¡ oceÂ¾
                         case 2: {   //no_bonus_vylepseni = no_bonus_vylepseni +1;
                                     break;  }
                         case 4: {   no_bonus_vylepseni = no_bonus_vylepseni +1;
@@ -1472,7 +1478,7 @@ case 8: {   if ( no_bonus_vylepseni >5 ){
 } //konec switche nasady
 
 
-//úprava by Jachyra: nikdy sa neurobí vylepšenie vyššie ako povo¾uje samotný no_kov_1
+//Ãºprava by Jachyra: nikdy sa neurobÃ­ vylepÅ¡enie vyÅ¡Å¡ie ako povoÂ¾uje samotnÃ½ no_kov_1
 switch ( GetLocalInt(OBJECT_SELF,"no_kov_1")) {
 case 1: {   if ( no_bonus_vylepseni >0 ){
               no_bonus_vylepseni = 0;
@@ -1514,10 +1520,10 @@ case 12: {   if ( no_bonus_vylepseni >5 ){
               no_bonus_vylepseni = 5;
               FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi primarni kov",no_oPC,FALSE );   }
             break;}
-} //koniec úprava by Jachyra
+} //koniec Ãºprava by Jachyra
 
 
-//úprava by Jachyra: pri pridávaní vlastností napoèítalo kritik a teraz ho vyhodnotí a pod¾a toho pridá
+//Ãºprava by Jachyra: pri pridÃ¡vanÃ­ vlastnostÃ­ napoÃ¨Ã­talo kritik a teraz ho vyhodnotÃ­ a podÂ¾a toho pridÃ¡
 if ( jy_kritik ==1) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_1),no_Item);
 if ( jy_kritik ==2) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_2),no_Item);
 if ( jy_kritik ==3) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_3),no_Item);
@@ -1530,7 +1536,7 @@ if ( jy_kritik ==9) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveC
 if ( jy_kritik ==10) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_2d8),no_Item);
 if ( jy_kritik ==11) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_2d10),no_Item);
 if ( jy_kritik >11) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_2d12),no_Item);
-//koniec úprava by Jachyra
+//koniec Ãºprava by Jachyra
 
 
 
@@ -3290,6 +3296,11 @@ while (GetIsItemPropertyValid(ipLoop))
 void no_pohybklikacu(object no_oPC, object no_pec)
 // vytvori polotovar
 {    //tohel se spousti, jen kdyz existuje kov, takze jen overujeme formu.
+    /*  Hlaseny bug uzamykani crafticiho zarizeni 
+    Provizorni zaplata: zakomentovani kodu ktery uzamyka zarizeni
+    Date: 2014_10_29
+    Author: Pavad
+    */
     SetCommandable(TRUE,no_oPC);
 
     float vzdalenost = GetDistanceBetweenLocations(GetLocation(no_oPC),GetLocation(no_pec));
@@ -3298,10 +3309,9 @@ void no_pohybklikacu(object no_oPC, object no_pec)
      ActionDoCommand(SetLocked(OBJECT_SELF, FALSE));
 
     AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 3.0));
-     DelayCommand(60.0,ActionDoCommand(SetLocked(OBJECT_SELF, TRUE)) );
+    // DelayCommand(60.0,ActionDoCommand(SetLocked(OBJECT_SELF, TRUE)) ); // zakomentovana cast kodu, 2014_10_29
     FloatingTextStringOnCreature("Nejak se to zamklo, asi sem nemel bugovat",no_oPC,FALSE );
     }
-
 } // konec no_pohybklikacu
 
 
