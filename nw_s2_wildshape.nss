@@ -118,6 +118,7 @@ void main()
     object oBeltOld = GetItemInSlot(INVENTORY_SLOT_BELT,OBJECT_SELF);
     object oHelmetOld = GetItemInSlot(INVENTORY_SLOT_HEAD,OBJECT_SELF);
     object oShield    = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,OBJECT_SELF);
+    object oGloves    = GetItemInSlot(INVENTORY_SLOT_ARMS,OBJECT_SELF);
     if (GetIsObjectValid(oShield))
     {
         if (GetBaseItemType(oShield) !=BASE_ITEM_LARGESHIELD &&
@@ -147,6 +148,7 @@ void main()
     {
         IPWildShapeCopyItemProperties(oShield,oArmorNew);
         IPWildShapeCopyItemProperties(oHelmetOld,oArmorNew);
+        IPWildShapeCopyItemProperties(oGloves,oArmorNew);
         IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
     }
     if (bItems)
