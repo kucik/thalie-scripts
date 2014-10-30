@@ -433,7 +433,7 @@ void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
       if(Random(100) < 15)
         ku_LockLoot(oObject, iTrapPower);
     } else if( (FindSubString(sResref,"chest")>-1) && (Random(100) < (70 * iTrapsProb /100)) ) {
-      iTrapPower++;
+//      iTrapPower++;
       CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
       if(Random(100) < 50)
         SetTrapOneShot(oObject,FALSE);
