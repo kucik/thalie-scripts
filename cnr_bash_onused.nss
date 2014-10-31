@@ -685,7 +685,7 @@ int no_provedeni = 0;
                 if (no_nahoda > (iMiningSkill/20) ){ sResource = "tc_nug_stin";
                 sSuccessString = "Podarilo se ti vytkutat pekny kus stinove oceli";
                 }
-                else   { sResource = "tc_nug_mete";
+                else   { sResource = "tc_nug_meteor";
                 sSuccessString = "No tohle, kde se tam vzal kus meteoritu !";
                 }
    }
@@ -697,7 +697,7 @@ int no_provedeni = 0;
    if (sSelf == "cnrRockMete") //skala
    {
     sAppearance="temp_placeable";
-    sResource = "tc_nug_mete";
+    sResource = "tc_nug_meteor";
     sSuccessString = "Podarilo se ti vytkutat pekny kus meteoriticke oceli";
    }
 
