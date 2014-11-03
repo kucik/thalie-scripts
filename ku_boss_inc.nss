@@ -24,7 +24,9 @@ void ApplyBossInstantKillDamage(object oTarget, int nCasterLevel) {
   if(!GetLocalInt(oTarget,"AI_BOSS"))
     return;
 
-  if(GetIsImmune(oTarget, IMMUNITY_TYPE_DEATH))
+  // Well... this might make a problem if someone try to kill undead by some weird spell
+  // but it should not happen. :)
+  if(GetIsImmune(oTarget, IMMUNITY_TYPE_DEATH) && (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD))
     return;
 
   effect eDam1 = EffectDamage(nCasterLevel * 10, DAMAGE_TYPE_MAGICAL);
