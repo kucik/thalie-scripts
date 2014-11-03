@@ -398,7 +398,8 @@ void PWFXP_GiveXP(object oPC, int nXP)
   nXP = ku_ReduceXPGainForDeath(oPC, nXP);
   nXP = ku_SaveXPPerKill(oPC, nXP);
 
-  if(GetXP(oPC) > PWFXP_XP_LIMIT) return;
+  if(GetXP(oPC) > NT_PC_MAX_XP) return;
+
   if(PWFXP_USE_SETXP)
     SetXP(oPC, GetXP(oPC) + nXP);
   else

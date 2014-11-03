@@ -144,8 +144,11 @@ int ku_GetPartyXPBonus(int iPCCounter = 0)
 
 void ku_GiveXPPerTime(object oPC)
 {
+
+  int xp_limit = FALSE;
   // if(GetXP(oPC) > 525000) return; //15. level
-  if(GetXP(oPC) > 2175000) return; //30 level
+  if(GetXP(oPC) > NT_PC_MAX_XP)
+    xp_limit = TRUE;; //30 level
  
  object oArea = GetArea(oPC);
  int StopXP = GetLocalInt(oPC,"ku_StopXP");
@@ -209,10 +212,11 @@ void ku_GiveXPPerTime(object oPC)
   if(XP > 0) {//zaporny XP by se asi nelibil
     XP = ku_ReduceXPGainForDeath(oPC, XP, TRUE);
 
-    
-    //SendMessageToPC(oPC, "Mìl bych dostat: "+IntToString(XP)+" xp");
-    SetXP(oPC,GetXP(oPC) + XP);
-    SetLocalInt(oSoul,"ku_XPbyXPPT",XPbyXPPT + XP);
+    if(!xp_limit) {
+      //SendMessageToPC(oPC, "Mìl bych dostat: "+IntToString(XP)+" xp");
+      SetXP(oPC,GetXP(oPC) + XP);
+      SetLocalInt(oSoul,"ku_XPbyXPPT",XPbyXPPT + XP);
+    }
   }
  }
 }
