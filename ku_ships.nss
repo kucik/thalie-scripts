@@ -132,10 +132,7 @@ void KU_ShipsTicketSoldID(int iShip, object oPC)
        SetName(oTick,GetName(oTick)+" "+GetLocalString(oMem,KU_SHIPS_STRUCT_TAG + "_Name" + si));
        //SetLocalInt(oShip,GetPCPlayerName(oPC) + GetName(oPC),1);
        TakeGoldFromCreature(iCost,oPC);
-       if(GetLocalInt(oMem,KU_SHIPS_STRUCT_TAG + "_Type" + si) == 2)
-         AssignCommand(OBJECT_SELF,SpeakString("Uzijte si cestu."));
-       else 
-         AssignCommand(OBJECT_SELF,SpeakString("Klidnou plavbu. Kapitan vas bude ocekavat na palube."));
+       AssignCommand(OBJECT_SELF,SpeakString("Zde je vas listek, preji stastnou cestu."));
      }
 }
 
