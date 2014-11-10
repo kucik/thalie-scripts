@@ -54,7 +54,7 @@ void main()
     }
     if (nMeta == METAMAGIC_EMPOWER)
     {
-        iRegen *= 5;
+        iRegen *= 2;
     }
     effect eRegen = EffectRegenerate(iRegen, 6.0);
     effect eLink = EffectLinkEffects(eRegen, eDur);
