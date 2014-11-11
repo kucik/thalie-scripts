@@ -70,7 +70,7 @@ void ku_dlg_init(int act, object oPC = OBJECT_INVALID) {
   int iDialog = act; //GetLocalInt(oPC,KU_DLG+"dialog");
 
   switch(iDialog) {
-//    case 1: KU_subrace_setting(act); break;
+    case 1: KU_subrace_set_tokens(oPC); break;
     case 2:
         KU_DM_Wand_SetTokens(0,oPC);
         SetLocalInt(oPC,KU_DLG+"_allow_0",1);
