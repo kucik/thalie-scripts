@@ -5,7 +5,8 @@
 //:://////////////////////////////////////////////
 /*
    Enhances the casters Natural AC by an amount
-   dependant on the caster's level.
+   dependant on the caster's level, duration
+   turns per caster level.
 */
 //:://////////////////////////////////////////////
 //:: Created By: Preston Watamaniuk
@@ -43,7 +44,7 @@ void main()
     nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel);
     int nBonus;
     int nMetaMagic = GetMetaMagicFeat();
-    float fDuration = HoursToSeconds(nCasterLevel);
+    float fDuration = TurnsToSeconds(nCasterLevel);
     effect eVis = EffectVisualEffect(VFX_DUR_PROT_BARKSKIN);
     effect eHead = EffectVisualEffect(VFX_IMP_HEAD_NATURE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
@@ -53,7 +54,7 @@ void main()
     //Enter Metamagic conditions
     if (nMetaMagic == METAMAGIC_EXTEND) //Duration is +100%
     {
-        fDuration = HoursToSeconds(nCasterLevel * 2);
+        fDuration = fDuration * 2.0; //Duration is +100%
     }
 
     //Determine AC Bonus based Level.
