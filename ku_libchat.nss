@@ -167,7 +167,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc desc- - Odebere posledni odstavec do popisu postavy.");
       SendMessageToPC(oPC,"/pc barvat1 <0-175> - Zmeni barvu tetovani1.");
       SendMessageToPC(oPC,"/pc barvat2 <0-175> - Zmeni barvu tetovani2.");
-      SendMessageToPC(oPC,"/pc barvatvlasu <0-175> - Zmeni barvu vlasu (pouze v lokaci dotvarejici postavu).");
+      SendMessageToPC(oPC,"/pc barvavlasu <0-175> - Zmeni barvu vlasu (pouze v lokaci dotvarejici postavu).");
       SendMessageToPC(oPC,"/pc barvakuze <0-175> - Zmeni barvu kuze (pouze v lokaci dotvarejici postavu).");
       SendMessageToPC(oPC,"/pc autodislike - Zapne/vypne automaticke nastavovani odporu po prihlaseni.");
       SendMessageToPC(oPC,"/pc meditace <1-3> - Zmeni animaci pri meditaci/modleni.");
