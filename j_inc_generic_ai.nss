@@ -12550,7 +12550,8 @@ int AI_AttemptDragonCombat()
     // OR wing buffet! Yeehaw!
     // - This is done on a breath by breath basis, with GetAppearance checking!
     // - Basically, these are as powerful (if not more so) then level 9 spells
-    if(AI_DragonBreathOrWing(GlobalMeleeTarget)) return TRUE;
+    if(!GetLocalInt(OBJECT_SELF, "JA_AI_NOSPECIAL"))
+      if(AI_DragonBreathOrWing(GlobalMeleeTarget)) return TRUE;
 
     // Chance each round to use best spells possible.
     // We, always,  love level 9 spells! just great, especially if the dragon has them!
