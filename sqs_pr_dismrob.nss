@@ -1,5 +1,7 @@
 #include "sqs_inc"
 #include "ku_exp_inc"
+#include "x0_i0_spawncond"
+#include "nw_i0_generic"
 
 void main()
 {

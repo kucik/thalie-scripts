@@ -77,7 +77,7 @@ int ku_ReduceXPGainForDeath(object oPC, int iXP, int bTimeXP = FALSE) {
 
 }
 
-void ku_GiveXP(object oPC, int XP)
+void ku_GiveXP(object oPC, int XP) {
 
   int xp_limit = FALSE;
   // if(GetXP(oPC) > 525000) return; //15. level
