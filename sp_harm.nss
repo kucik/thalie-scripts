@@ -87,7 +87,7 @@ void main()
             if (!MyResistSpell(OBJECT_SELF, oTarget))
             {
 
-                if (MySavingThrow(SAVING_THROW_WILL,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_NEGATIVE, OBJECT_SELF, 1.0))
+                if (!MySavingThrow(SAVING_THROW_WILL,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_NEGATIVE, OBJECT_SELF, 1.0))
                 {
                    nDamage = iValue;
                 }
