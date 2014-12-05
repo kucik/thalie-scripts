@@ -28,7 +28,6 @@ void main()
   check x2_inc_spellhook.nss to find out more
 
 */
-    SendMessageToPC(OBJECT_SELF, "test" );
     if (!X2PreSpellCastCode())
     {
     // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
