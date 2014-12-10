@@ -41,7 +41,7 @@ void main()
     int iDuration = iLvl;
     int iDC =  15 + iLvl/2 + iCHA;
     //--------------
-    float fDuration = IntToFloat(iDuration);
+    float fDuration = RoundsToSeconds(iDuration);
     int nMetaMagic = GetMetaMagicFeat();// Determine the meta magic used on last spell cast
 
     effect eVis = EffectVisualEffect(VFX_IMP_FEAR_S);// Get VFX
