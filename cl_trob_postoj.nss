@@ -31,7 +31,7 @@ void OdebraniEfektu(object oPC)
 
     }
     DecreaseDefenderStats(oPC);
-    SetMovementRate(oPC, MOVEMENT_RATE_NORMAL);
+//    SetMovementRate(oPC, MOVEMENT_RATE_NORMAL);
 //    SetMovementRate(oPC, MOVEMENT_RATE_NORMAL);
     SendMessageToPC(oPC,"Obrany postoj deaktivovan!");
 }
