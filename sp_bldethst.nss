@@ -60,7 +60,7 @@ void main()
         nDuration = nDuration * 2; //Duration is +100%
     }
     float fDuration = TurnsToSeconds(nDuration);
-    itemproperty ip1 = ItemPropertyAttackBonus(nPower);
+    itemproperty ip1 = ItemPropertyEnhancementBonus(nPower);
     itemproperty ip2 = ItemPropertyVampiricRegeneration(nPower);
     object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,OBJECT_SELF);
     if(GetIsObjectValid(oMyWeapon) )
