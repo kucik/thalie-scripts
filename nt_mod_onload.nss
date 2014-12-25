@@ -81,7 +81,7 @@ void __loadLocations() {
     string sResRef = SQLGetData(1);
     WriteTimestampedLogEntry("AREAS: Load Area:"+sResRef);
     oArea = LoadArea(sResRef);
-    __setMarkLocationLoaded(sResRef);
+    DelayCommand(10.0,__setMarkLocationLoaded(sResRef));
     WriteTimestampedLogEntry("AREAS: Area "+GetResRef(oArea)+" ("+GetTag(oArea)+") marked as loaded.");
   }
 
