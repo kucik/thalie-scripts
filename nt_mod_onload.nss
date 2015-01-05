@@ -121,6 +121,9 @@ ku_ChatCommandsInit();
 //Incinializace artefaktu
 ExecuteScript("ig_art_inicmod", OBJECT_SELF);
 
+   // Disable nwn craft
+   SetLocalInt(OBJECT_SELF,  "X2_L_DO_NOT_ALLOW_MODIFY_ARMOR", TRUE);
+
 /*   if (GetGameDifficulty() ==  GAME_DIFFICULTY_CORE_RULES || GetGameDifficulty() ==  GAME_DIFFICULTY_DIFFICULT)
    {*/
         // * Setting the switch below will enable a seperate Use Magic Device Skillcheck for
