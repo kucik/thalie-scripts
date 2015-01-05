@@ -24,6 +24,7 @@ const string KU_WAND_TARGET_LOC = "KU_WAND_TARGET_LOC";
 
 /* Subraces */
 void KU_subrace_setting(int act);
+void KU_subrace_set_tokens(object oPC);
 void KU_DM_Wand(int act);
 void KU_DM_Wand_SetTokens(int iState, object oPC = OBJECT_INVALID);
 void KU_DM_Persistent_Wand(int iState);
@@ -2975,7 +2976,7 @@ void KU_SummonsSetTokens(int iState, object oPC = OBJECT_INVALID) {
     case ALIGNMENT_GOOD: nAlignment = 8; break;
     case ALIGNMENT_NEUTRAL: nAlignment = 1; break;
   }
-    
+
 
   int bIsDM = GetIsDM(oPC);
   int iDlgShift = GetLocalInt(oPC, KU_DLG+"shift");
@@ -2995,18 +2996,18 @@ void KU_SummonsSetTokens(int iState, object oPC = OBJECT_INVALID) {
         __dlgSetToken(8," VIII.");
         __dlgSetToken(9," IX.");
         break;
-    // All summon levels  
+    // All summon levels
     default:
       ku_dlg_SetAll(0);
       __dlgSetToken(0,"Kniha povolavani. "+IntToString(iState)+". kruh.");
-      
+
       int sum = 0;
       int iSummonAlignment;
       int iRow;
       for(sum = 0; sum <= 8; sum++) { // We have 8 types of summons
         iRow = sum * 9 + iState; //9 levels of summons
         iSummonAlignment = StringToInt(Get2DAString("summon","ALIGNMENT",iRow));
-        // Check summoner alignment 
+        // Check summoner alignment
         if((iSummonAlignment & nAlignment) == 0)
           continue;
 
