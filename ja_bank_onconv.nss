@@ -22,7 +22,7 @@ void SecondPhase(object oPC, int iComm, int iAmount){
             sResult = "Na vas ucet bylo ulozeno "+IntToString(iAmount)+" zlatych. Dekujeme za vasi duveru.";
     }
 
-    ActionSpeakString(sResult);
+    ActionSpeakString(sResult, TALKVOLUME_WHISPER);
 }
 
 
