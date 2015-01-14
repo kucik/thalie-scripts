@@ -145,8 +145,8 @@ void main()
             if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED && nSubID == 1) { //Unhide penalty
                 effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 50 ));
                 effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 50 ));
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 10.0f);
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 10.0f);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 6.0f);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 6.0f);
             }
 
             if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC)>=1 && nSubID == 1) //Hide
