@@ -48,6 +48,7 @@ void initIgredientsProperties()
 
 // GENEROVANY KOD - NEPREPISOVAT (mozna uprava v exelu)
 /* vlastnosti alchymistickych ingredienci start*/
+/*
 SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "cnraloeleaf", "ai1025027045008004021");
 SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "cnrthistleleaf", "ai1024072074016004021002");
 SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "tc_bylina009", "ai1025032044055071008004");
@@ -123,12 +124,13 @@ SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "cnrhawthornfwr", "ai1029103094
 SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "tc_houba011", "ai1029103104106089090091096004");
 SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "tc_houba012", "ai1029104088087094097004006");
 SetLocalString(oModule, ALCH_INREDIENCE_PREFIX + "cnrangelicaleaf", "ai1025027032018019002");
-
+*/
 
 
 /* vlastnosti alchymistickych ingredienci END*/
 
 /* alchymisticke vlastnosti START*/
+/*
 SetLocalInt(oModule, ALCH_PROPERTY_STR_PREFIX + "001", 0);
 SetLocalString(oModule, ALCH_PROPERTY_NAME_PREFIX + "001", "bu");
 SetLocalInt(oModule, ALCH_PROPERTY_STR_PREFIX + "002", 0);
@@ -352,11 +354,12 @@ SetLocalInt(oModule, ALCH_PROPERTY_STR_PREFIX + "112", 25);
 SetLocalString(oModule, ALCH_PROPERTY_NAME_PREFIX + "112", "szl");
 SetLocalInt(oModule, ALCH_PROPERTY_STR_PREFIX + "113", 80);
 SetLocalString(oModule, ALCH_PROPERTY_NAME_PREFIX + "113", "pøed");
-
+*/
 
 /* alchymisticke vlastnosti END*/
 
 /* TROFEJE START - generovano exelem */
+/*
 SetLocalString(oModule, "thTrofejMisc_ry_sn_zmije", "ry_hadi_kuze");
 SetLocalString(oModule, "thTrofejMisc_zep_medforest001", "ry_hadi_kuze");
 SetLocalString(oModule, "thTrofejMisc_obrihad", "ry_hadi_kuze");
@@ -962,7 +965,7 @@ SetLocalString(oModule, "thTrofejMisc_tagry_bodak", "ry_zub_bodak");
 SetLocalInt(oModule,    "thTrofejDiff_tagry_bodak", 350);
 SetLocalString(oModule, "thTrofejMisc_tagZEP_BARGHEST", "ry_m_barg_kuz");
 SetLocalInt(oModule,    "thTrofejDiff_tagZEP_BARGHEST", 200);
-
+*/
 
 
 /* TROFEJE END */

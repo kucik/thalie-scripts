@@ -348,7 +348,7 @@ object oModule = GetModule();
 
 /* TODO rewrite - save this on different object. not module */
 
-/* TROFEJE START - generovano exelem */
+/* TROFEJE START - generovano exelem */ /*
 SetLocalString(oModule, "thTrofejMisc_ry_sn_zmije", "ry_hadi_kuze");
 SetLocalString(oModule, "thTrofejMisc_zep_medforest001", "ry_hadi_kuze");
 SetLocalString(oModule, "thTrofejMisc_obrihad", "ry_hadi_kuze");
@@ -954,5 +954,5 @@ SetLocalString(oModule, "thTrofejMisc_tagry_bodak", "ry_zub_bodak");
 SetLocalInt(oModule,    "thTrofejDiff_tagry_bodak", 350);
 SetLocalString(oModule, "thTrofejMisc_tagZEP_BARGHEST", "ry_m_barg_kuz");
 SetLocalInt(oModule,    "thTrofejDiff_tagZEP_BARGHEST", 200);
-
+*/
 }

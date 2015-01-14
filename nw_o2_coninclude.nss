@@ -4060,6 +4060,34 @@ void GenerateUniqueTreasure(object oLastOpener, object oCreateOn=OBJECT_INVALID)
 {
  GenerateTreasure(TREASURE_HIGH, oLastOpener, oCreateOn);
 }
+
+struct skincorpse
+{
+  int id;
+  string sTag;
+  string sPelt;
+  string sMeat;
+  int iDiff;
+};
+
+struct skincorpse ku_getPelt(string sResRef) {
+  struct skincorpse corpse;
+
+  string sSql = "SELECT id, param1, param2, param3 FROM static_quests WHERE quest = 'stahovani' AND name = '"+sResRef+"';";
+  SQLExecDirect(sSql);
+  if (SQLFetch() == SQL_SUCCESS) {
+    corpse.id = StringToInt(SQLGetData(1));
+    corpse.sPelt = SQLGetData(2);
+    corpse.iDiff = StringToInt(SQLGetData(3));
+    corpse.sMeat = SQLGetData(4);
+  }
+  else {
+    corpse.iDiff = -1;
+  }
+
+  return corpse;
+}
+
 //::///////////////////////////////////////////////
 //:: GenerateNPCTreasure
 //:: Copyright (c) 2001 Bioware Corp.
@@ -4085,16 +4113,27 @@ void GenerateNPCTreasure()
     SetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE",1);
 
     //by melvik, zjednoduseni :)
-    object oModule = GetModule();
+//    object oModule = GetModule();
+    struct skincorpse corpse;
+    corpse = ku_getPelt(sResSelf);
+    if(corpse.iDiff < 0)
+      corpse = ku_getPelt("tag" + sTagSelf);
 
-    string resRefItem = GetLocalString(oModule, "thTrofejMisc_" + sResSelf);
+    if(corpse.iDiff > 0) {
+        SetLocalString(oTreasureGetter,"sPelt", corpse.sPelt);
+        SetLocalString(oTreasureGetter,"sMeat", corpse.sMeat);
+        SetLocalInt(oTreasureGetter,"iPenalty", corpse.iDiff);
+    }
+    
+
+/*    string resRefItem = GetLocalString(oModule, "thTrofejMisc_" + sResSelf);
     if(resRefItem == "") resRefItem = GetLocalString(oModule, "thTrofejMisc_" + "tag" + sTagSelf);
     if(resRefItem != "")
     {
         SetLocalString(oTreasureGetter,"sPelt", resRefItem );
         SetLocalString(oTreasureGetter,"sMeat", GetLocalString(oModule, "thTrofejMeat_" + sResSelf));
         SetLocalInt(oTreasureGetter,"iPenalty", GetLocalInt(oModule, "thTrofejDiff_" + sResSelf));
-    }
+    }*/
 
 
     // ZVIRATKA BEGIN
