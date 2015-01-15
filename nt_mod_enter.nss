@@ -75,6 +75,19 @@ void __checkInvalidFeats(object oPC) {
 
 }
 
+void __checkSkillPointsProgress(object oPC) {
+ int  iSkill = 0;
+ for (iSkill=0;iSkill<=27;iSkill++)
+ {
+    if (GetSkillIncreaseByLevel(oPC,1,iSkill)>0)
+    {
+         SetLocalInt(oPC,"JE_POSTAVA_ZABUGOVANA",1); //zrusi postave prijem zkusenosti
+         break;
+    }
+ }
+}
+
+
 void DismountAfterActions(object oPC, object oSoul);
 
 // Compose text info about Thalie-datum
@@ -357,14 +370,19 @@ void main()
         return;
 
    }
- int iSkillSum = 0;
- int iSkill = 0;
- for (iSkill=0;iSkill<=27;iSkill++) iSkillSum +=GetSkillRank(iSkill,oPC,TRUE);
- if (iSkillSum >0 && GetHitDice(oPC)==1)
- {
-    BootPC(oPC);
-    WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", dal body do skillu.");
-    return;
+ 
+ if(GetHitDice(oPC)==1) {
+   int iSkillSum = 0;
+   int iSkill = 0;
+   for (iSkill=0;iSkill<=27;iSkill++) 
+     iSkillSum +=GetSkillRank(iSkill,oPC,TRUE);
+
+   if (iSkillSum >0 )
+   {
+      BootPC(oPC);
+      WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", dal body do skillu.");
+      return;
+   }
  }
 
  // Check duplicit character
@@ -378,15 +396,7 @@ void main()
 
  //------- PODVODY
  // kontrola na to zda postava na prvnim lvlu dala body do skillu
- iSkill = 0;
- for (iSkill=0;iSkill<=27;iSkill++)
- {
-    if (GetSkillIncreaseByLevel(oPC,1,iSkill)>0)
-    {
-         SetLocalInt(oPC,"JE_POSTAVA_ZABUGOVANA",1); //zrusi postave prijem zkusenosti
-         break;
-    }
- }
+ DelayCommand(15.0, __checkSkillPointsProgress(oPC));
 
  if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC) > 0)
  {
