@@ -3,6 +3,9 @@
 #include "aps_include"
 #include "ja_lib"
 int checktime(int iState) ;
+
+void __dumpModuleVariables();
+
 void finish(){
     object oPC;
     location lLoc;
@@ -90,6 +93,7 @@ void restart(int iState = 0) {
        break;
      case 3: // 5 min
        warning3();
+       __dumpModuleVariables();
        break;
      case 4: // 2 min
        kick_players();
@@ -103,4 +107,24 @@ void restart(int iState = 0) {
 
    /* Loop */
    DelayCommand(30.0f,restart(iState));
+}
+
+
+void __dumpModuleVariables() {
+  object oItem = GetModule();
+
+  WriteTimestampedLogEntry("************ Dump Module variables ************"); 
+  int cnt = GetLocalVariableCount(oItem);
+  int i;
+  struct LocalVariable lv;
+  string str;
+  
+  WriteTimestampedLogEntry("************ Total "+IntToString(cnt)+" variables************");
+  for(i=0;i<cnt;i++) {
+    lv = GetLocalVariableByPosition(oItem,i);
+    WriteTimestampedLogEntry("* "+lv.name+" ("+IntToString(lv.type)+")");
+  }
+
+  WriteTimestampedLogEntry("************ Dump Module variables end *********"); 
+
 }
