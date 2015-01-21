@@ -920,7 +920,7 @@ if (no_hlusina == 1) {
                 if (no_nahoda > (iWoodCutSkill/20) ) { sResource = "cnrBranchHic";
                 sSuccessString = "Podarilo se ti useknout pekny kus klady";
                 }
-                else   { sResource = "tc_drev_vrb";
+                else   { sResource = "cnrBranchOak";
                 sSuccessString = "No tohle, kdo by to byl cekal !";
                 }
    }
@@ -932,7 +932,7 @@ if (no_hlusina == 1) {
                 if (no_nahoda > (iWoodCutSkill/20) ) { sResource = "tc_drev_vrb";
                 sSuccessString = "Podarilo se ti useknout pekny kus klady";
                 }
-                else   { sResource = "tc_drev_tis";
+                else   { sResource = "cnrBranchHic";
                 sSuccessString = "No tohle, kdo by to byl cekal !";
                 }
    }
