@@ -212,15 +212,15 @@ no_nahoda = d100();
 if (no_hlusina == 1) {
     sAppearance="temp_placeable";
     sResource = "no_hlusina";
-    sSuccessString = "Podarilo se ti vytkutat jen hlusinu";
+    sSuccessString = "Podarilo se ti vykutat jen hlusinu";
     }//dostaneme jen hlusinu
 
   if ((sSelf == "cnrRockTin")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
     no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetTin";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy cinu";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetTin";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy cinu";
                 }
                 else   { sResource = "cnrNuggetCopp";
                 sSuccessString = "No tohle, vytezil jsi nuget medi!";
@@ -231,100 +231,100 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
         no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetAdam";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy adamantinu";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetAdam";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy adamantinu";
                 }
                 else   { sResource = "cnrNuggetTita";
                 sSuccessString = "No tohle, vytezil jsi nuget titanu!";
                 }
     //sResource = "cnrNuggetAdam";
-    //sSuccessString = "Podarilo se ti vytkutat pekny kus rudy adamantinu";
+    //sSuccessString = "Podarilo se ti vykutat pekny kus rudy adamantinu";
    }
   if ((sSelf == "cnrRockGold")&(no_hlusina<1)) //skala
    {
    sAppearance="temp_placeable";
         no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetGold";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy zlata";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetGold";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy zlata";
                 }
                 else   { sResource = "cnrNuggetPlat";
                 sSuccessString = "No tohle, vytezil jsi nuget platiny!";
                 }
     //sResource = "cnrNuggetGold";
-    //sSuccessString = "Podarilo se ti vytkutat pekny kus rudy zlata";
+    //sSuccessString = "Podarilo se ti vykutat pekny kus rudy zlata";
    }
   if ((sSelf == "cnrRockMith")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
              no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetMith";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy mithrilu";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetMith";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy mithrilu";
                 }
                 else   { sResource = "cnrNuggetAdam";
                 sSuccessString = "No tohle, vytezil jsi nuget adamantinu!";
                 }
 
    // sResource = "cnrNuggetMith";
-  // sSuccessString = "Podarilo se ti vytkutat pekny kus rudy mithrilu";
+  // sSuccessString = "Podarilo se ti vykutat pekny kus rudy mithrilu";
    }
   if ((sSelf == "cnrRockPlat")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
              no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetPlat";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy platiny";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetPlat";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy platiny";
                 }
                 else   { sResource = "cnrNuggetMith";
                 sSuccessString = "No tohle, vytezil jsi nuget mithrilu!";
                 }
 //    sResource = "cnrNuggetPlat";
-//    sSuccessString = "Podarilo se ti vytkutat pekny kus rudy platiny";
+//    sSuccessString = "Podarilo se ti vykutat pekny kus rudy platiny";
    }
   if ((sSelf == "cnrRockSilv")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
                  no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetSilv";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy stribra";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetSilv";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy stribra";
                 }
-                else   { sResource = "cnrNuggetStin";
+                else   { sResource = "tc_nug_stin";
                 sSuccessString = "No tohle, vytezil jsi nuget stinove oceli!";
                 }
     //sResource = "cnrNuggetSilv";
-   // sSuccessString = "Podarilo se ti vytkutat pekny kus rudy stribra";
+   // sSuccessString = "Podarilo se ti vykutat pekny kus rudy stribra";
    }
   if ((sSelf == "cnrRockTita")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
                      no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetTita";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy titanu";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetTita";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy titanu";
                 }
                 else   { sResource = "cnrNuggetSilv";
                 sSuccessString = "No tohle, vytezil jsi nuget stribra!";
                 }
    // sResource = "cnrNuggetTita";
-   // sSuccessString = "Podarilo se ti vytkutat pekny kus rudy titanu";
+   // sSuccessString = "Podarilo se ti vykutat pekny kus rudy titanu";
    }
   if ((sSelf == "cnrRockIron")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
                          no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetIron";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy zeleza";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetIron";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy zeleza";
                 }
                 else   { sResource = "cnrNuggetGold";
                 sSuccessString = "No tohle, vytezil jsi nuget zlata!";
                 }
     //sResource = "cnrNuggetIron";
-    //sSuccessString = "Podarilo se ti vytkutat pekny kus rudy zeleza";
+    //sSuccessString = "Podarilo se ti vykutat pekny kus rudy zeleza";
    }
   if ((sSelf == "cnrRockCopp")&(no_hlusina<1)) //skala
    {
     sAppearance="temp_placeable";
                          no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetCopp";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy medi";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetCopp";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy medi";
                 }
                 else   { sResource = "cnrNuggetIron";
                 sSuccessString = "No tohle, vytezil jsi nuget zeleza!";
@@ -334,8 +334,8 @@ if (no_hlusina == 1) {
    {
     sAppearance="temp_placeable";
                          no_nahoda = d100();
-                if (no_nahoda < (iMiningSkill/200) ){ sResource = "cnrNuggetVerm";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus rudy Vermajlu";
+                if (no_nahoda > ((iMiningSkill/100)-5) ){ sResource = "cnrNuggetVerm";
+                sSuccessString = "Podarilo se ti vykutat pekny kus rudy Vermajlu";
                 }
                 else   { sResource = "cnrNuggetIron";
                 sSuccessString = "No tohle, vytezil jsi nuget zeleza!";
@@ -345,14 +345,14 @@ if (no_hlusina == 1) {
 
 
 //    sResource = "cnrNuggetCopp";
-//    sSuccessString = "Podarilo se ti vytkutat pekny kus rudy medi";
+//    sSuccessString = "Podarilo se ti vykutat pekny kus rudy medi";
    }
 
 //  if (GetStringLeft(sSelf,13) == "cnrGemDeposit") //skala
 //   {
 //    sAppearance="temp_placeable";
 //    sResource = "cnrGemMineral" + GetStringRight(sSelf,3);
-//    sSuccessString = "Podarilo se ti vytkutat pekny kus nerostu";
+//    sSuccessString = "Podarilo se ti vykutat pekny kus nerostu";
 //   }
 
 ///taak a ted vyresit gemdepozity:
@@ -370,7 +370,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral014";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral001";
@@ -390,7 +390,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral004";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral002";
@@ -411,7 +411,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral003";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral007";
@@ -432,7 +432,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral015";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral014";
@@ -453,7 +453,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral011";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral004";
@@ -474,7 +474,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral013";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral003";
@@ -495,7 +495,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral010";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral015";
@@ -517,7 +517,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral008";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral011";
@@ -537,7 +537,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral009";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral013";
@@ -557,7 +557,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral005";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral010";
@@ -577,7 +577,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral006";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral008";
@@ -597,7 +597,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
 //                if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral012";
-//                sSuccessString = "No teda to je kosusek!";
+//                sSuccessString = "No teda to je kousek!";
 //                no_provedeni= 1;
 //                }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral009";
@@ -617,7 +617,7 @@ int no_provedeni = 0;
                 no_provedeni= 1;
                 }
                 if ((no_nahoda < (iMiningSkill/200) )& (no_provedeni == 0)){ sResource = "cnrGemMineral012";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral005";
@@ -638,7 +638,7 @@ int no_provedeni = 0;
 //                no_provedeni= 1;
 //                }
                 if ((no_nahoda < (iMiningSkill/100) )& (no_provedeni == 0)){ sResource = "cnrGemMineral012";
-                sSuccessString = "No teda to je kosusek!";
+                sSuccessString = "No teda to je kousek!";
                 no_provedeni= 1;
                 }
                 if (no_provedeni ==0)   { sResource = "cnrGemMineral006";
@@ -656,7 +656,7 @@ int no_provedeni = 0;
                // no_provedeni= 1;
                 //}
             //    if ((no_nahoda > (iMiningSkill/20) )& (no_provedeni == 0)){ sResource = "cnrGemMineral006";
-            //    sSuccessString = "No teda to je kosusek!";
+            //    sSuccessString = "No teda to je kousek!";
             //    no_provedeni= 1;
             //    }
             //    if (no_provedeni ==0)   { sResource = "cnrGemMineral012";
@@ -675,7 +675,7 @@ int no_provedeni = 0;
    {
     sAppearance="temp_placeable";
     sResource = "cnrLumpOfCoal";
-    sSuccessString = "Podarilo se ti vytkutat pekny kus uhli";
+    sSuccessString = "Podarilo se ti vykutat pekny kus uhli";
    }
 
   if ((sSelf == "cnrRockStin")&(no_hlusina<1)) //skala
@@ -683,7 +683,7 @@ int no_provedeni = 0;
     sAppearance="temp_placeable";
         no_nahoda = d100();
                 if (no_nahoda > (iMiningSkill/20) ){ sResource = "tc_nug_stin";
-                sSuccessString = "Podarilo se ti vytkutat pekny kus stinove oceli";
+                sSuccessString = "Podarilo se ti vykutat pekny kus stinove oceli";
                 }
                 else   { sResource = "tc_nug_meteor";
                 sSuccessString = "No tohle, kde se tam vzal kus meteoritu !";
@@ -698,7 +698,7 @@ int no_provedeni = 0;
    {
     sAppearance="temp_placeable";
     sResource = "tc_nug_meteor";
-    sSuccessString = "Podarilo se ti vytkutat pekny kus meteoriticke oceli";
+    sSuccessString = "Podarilo se ti vykutat pekny kus meteoriticke oceli";
    }
 
 
@@ -764,10 +764,10 @@ DelayCommand(6.0,GiveXPToCreature(oPC,GetLocalInt(GetModule(),"_UOACraft_XP")));
      switch (d8(1))
       {
        case 1:{sFailString="Tvuj pokrok jde pomalu...";break;}
-       case 2:{sFailString="Radsi bych se na to mel vykaslat...";break;}
+       case 2:{sFailString="Radsi bych se na to mel(a) vykaslat...";break;}
        case 3:{sFailString="Paze zacinaji byt unaveny...";break;}
        case 4:{sFailString="Asi to nikdy nenajdu..";break;}
-       case 5:{sFailString="Mel jsem radsi zustat doma";break;}
+       case 5:{sFailString="Mel(a) jsem radsi zustat doma";break;}
        default:{break;}
       }
      DelayCommand(5.0,FloatingTextStringOnCreature(sFailString,oPC,FALSE));
@@ -861,7 +861,7 @@ DelayCommand(6.0,GiveXPToCreature(oPC,GetLocalInt(GetModule(),"_UOACraft_XP")));
     if (iWoodCutSkill>iDigChance)iDigChance=iWoodCutSkill;
    }
 
-   sFailString = "Chvilku jsi sek(a), ale napodarilo se Ti zadny pouzitelny kus dreva.";
+   sFailString = "Chvilku jsi sekal(a), ale nepodarilo se Ti odseknout zadny pouzitelny kus dreva.";
    sSuccessString = "Odsekl(a) jsi poradny kus dreva";
    // zvuky kopani
    AssignCommand(OBJECT_SELF,DelayCommand(2.5,PlaySound("it_materialhard")));
@@ -1034,11 +1034,11 @@ sOldSkill+"%"));
     {
      switch (d8(1))
       {
-       case 1:{sFailString="Ten strom tu musel sta tisice let...";break;}
+       case 1:{sFailString="Ten strom tu musel stat tisice let...";break;}
        case 2:{sFailString="Tak na tom si asi zlomim sekeru...";break;}
-       case 3:{sFailString="radsi bych si mel dat pivo, nez to dosekam...";break;}
+       case 3:{sFailString="Radsi bych si mel(a) dat pivo, nez to dosekam...";break;}
        case 4:{sFailString="Tak to je nejvetsi strom co sem videl..";break;}
-       case 5:{sFailString="Mel bych toho nechat, nez na me tu nachytaji druidi !";break;}
+       case 5:{sFailString="Mel(a) bych toho nechat, nez na me tu nachytaji druidi !";break;}
        default:{break;}
       }
      DelayCommand(5.0,FloatingTextStringOnCreature(sFailString,oPC,FALSE));
