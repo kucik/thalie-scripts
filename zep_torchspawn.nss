@@ -95,8 +95,8 @@
 void main()
 {
     // Run only once
-    SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "");
-    return;
+//    SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "");
+//    return;
     
     int nLightCycle = GetLocalInt(OBJECT_SELF, "CEP_L_LIGHTCYCLE");
     int nInitialized = GetLocalInt(OBJECT_SELF, "CEP_L_LIGHTINITIALIZED");
@@ -139,6 +139,7 @@ void main()
           DeleteLocalInt(OBJECT_SELF, "CEP_L_LIGHTCYCLE");
           effect eLight = EffectVisualEffect(nLight);
           ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLight, OBJECT_SELF);
+          SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "noscript");
           return;
         }
 
@@ -155,6 +156,7 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLight, oNew);
         }
         DestroyObject(OBJECT_SELF, 0.0);
+        SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "noscript");
         return;
     }else{
 
@@ -164,6 +166,7 @@ void main()
             effect eLight = EffectVisualEffect(nLight);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLight, OBJECT_SELF);
         }
+        SetScript(OBJECT_SELF, PLACEABLE_SCRIPT_HEARTBEAT, "noscript");
     }
 }
 
