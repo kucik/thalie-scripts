@@ -18,7 +18,7 @@
 void main()
 {
     // Run only once
-    SetScript(OBJECT_SELF, DOOR_SCRIPT_HEARTBEAT, "");
+    SetScript(OBJECT_SELF, DOOR_SCRIPT_HEARTBEAT, "noscript");
     
     int nIsOpen = GetIsOpen(OBJECT_SELF);
     if(nIsOpen == 1)return; //if door is open, quit
