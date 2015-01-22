@@ -280,6 +280,10 @@ void main()
   if(iMaxDig <= 0)
     return;
 
+  //Check if PC has tool
+  if(!__checkTool(oPC, iResource))
+    return;
+
   // Check if already digging
   if (GetLocalInt(oPC,"iAmDigging")!= 0) return;
   if (GetLocalInt(oSelf,"iAmSetToDie")==0)
