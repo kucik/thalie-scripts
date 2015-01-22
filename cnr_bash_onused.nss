@@ -19,6 +19,7 @@ v cnr_gemdep_ou a
 #include "ku_libtime"
 
 // Metal and coal
+const int CNR_RESOURCE_MIN_METAL = 1; //category marker
 const int CNR_RESOURCE_COAL = 1;
 const int CNR_RESOURCE_TIN  = 2;
 const int CNR_RESOURCE_COPPER = 3;
@@ -32,8 +33,10 @@ const int CNR_RESOURCE_TITAN = 10;
 const int CNR_RESOURCE_SILVER = 11;
 const int CNR_RESOURCE_STINOVKA = 12;
 const int CNR_RESOURCE_METEORIT = 13;
+const int CNR_RESOURCE_MAX_METAL = 13; //category marker
 
 // Minerals
+const int CNR_RESOURCE_MIN_MINERAL = 21; //category marker
 const int CNR_RESOURCE_NEFRIT = 21;
 const int CNR_RESOURCE_MALACHIT = 22;
 const int CNR_RESOURCE_ACHAT = 23;
@@ -49,8 +52,10 @@ const int CNR_RESOURCE_OPAL = 32;
 const int CNR_RESOURCE_DIAMANT = 33;
 const int CNR_RESOURCE_RUBIN = 34;
 const int CNR_RESOURCE_SMARAGD = 35;
+const int CNR_RESOURCE_MAX_MINERAL = 35; //category marker
 
 // Wood 
+const int CNR_RESOURCE_MIN_WOOD = 41; //category marker
 const int CNR_RESOURCE_OAK = 41;
 const int CNR_RESOURCE_MAHAGON = 42;
 const int CNR_RESOURCE_HICKORY = 43;
@@ -245,22 +250,22 @@ int __checkTool(object oPC, int iResource) {
   string sTooltag = GetTag(oTool);
 
   // Mining tools
-  if(iResource <= CNR_RESOURCE_SMARAGD && sTooltag == "ZEP_HEAVYPICK")
+  if(iResource <= CNR_RESOURCE_MAX_MINERAL && sTooltag == "ZEP_HEAVYPICK")
     return TRUE; 
-  if(iResource <= CNR_RESOURCE_SMARAGD && sTooltag == "ZEP_LIGHTPICK")
+  if(iResource <= CNR_RESOURCE_MAX_MINERAL && sTooltag == "ZEP_LIGHTPICK")
     return TRUE;
   // Woodcut tools
-  if(iResource >= CNR_RESOURCE_OAK && sTooltag == "cnrWoodCutterAxe")
+  if(iResource >= CNR_RESOURCE_MIN_WOOD && sTooltag == "cnrWoodCutterAxe")
     return TRUE;
 
   // Dont have a tool
-  if(iResource <= CNR_RESOURCE_SMARAGD) {
+  if(iResource <= CNR_RESOURCE_MAX_MINERAL) {
     SendMessageToPC(oPC,"K tezbe potrebujes krumpac.");
     return FALSE;
   }
 
   // Dont have a tool
-  if(iResource >= CNR_RESOURCE_OAK) {
+  if(iResource >= CNR_RESOURCE_MIN_WOOD) {
     SendMessageToPC(oPC,"K tezbe potrebujes sekeru.");
     return FALSE;
   }
@@ -291,7 +296,7 @@ void main()
   DelayCommand(5.0,DeleteLocalInt(oPC,"iAmDigging"));
 
   // Metal or mineral 
-  if(iResource < CNR_RESOURCE_OAK) {
+  if(iResource <= CNR_RESOURCE_MAX_MINERAL) {
     iSkill = CnrGetPersistentInt(oPC,"iMiningSkill");
     RemoveEffects(oPC);
     CallEnemyCreatures(oPC);
@@ -315,7 +320,7 @@ void main()
    }
 
    // Play digging sound
-   if (iResource >= CNR_RESOURCE_OAK) {
+   if (iResource >= CNR_RESOURCE_MIN_WOOD) {
      // Woodcut sounds 
      AssignCommand(OBJECT_SELF,DelayCommand(2.5,PlaySound("it_materialhard")));
      AssignCommand(OBJECT_SELF,DelayCommand(5.0,PlaySound("it_materialhard")));
