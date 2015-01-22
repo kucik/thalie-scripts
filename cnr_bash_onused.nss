@@ -198,7 +198,7 @@ string __getResourceItem(int iResource) {
     case CNR_RESOURCE_ADAMANTIN: return "cnrNuggetAdam";
     case CNR_RESOURCE_TITAN: return "cnrNuggetTita";
     case CNR_RESOURCE_SILVER: return "cnrNuggetSilv";
-    case CNR_RESOURCE_STINOVKA: return "cnrNuggetStin";
+    case CNR_RESOURCE_STINOVKA: return "tc_nug_stin";
     case CNR_RESOURCE_METEORIT: return "tc_nug_meteor";
     // Mineral
     case CNR_RESOURCE_NEFRIT: return "cnrGemMineral001";
