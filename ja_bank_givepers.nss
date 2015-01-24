@@ -6,9 +6,9 @@ void main()
         TakeGoldFromCreature( 50000, oPC, TRUE );
         CreateItemOnObject( "ja_pers_bank", oPC );
 
-        SpeakString( "Tady mate klic od Vaseho trezoru. Hezky den.", TALKVOLUME_TALK );
+        SpeakString( "Tady mate klic od Vaseho trezoru. Hezky den.", TALKVOLUME_WHISPER );
     }
     else{
-        SpeakString( "Bohuzel nemate dost zlata.", TALKVOLUME_TALK );
+        SpeakString( "Bohuzel nemate dost zlata.", TALKVOLUME_WHISPER );
     }
 }
