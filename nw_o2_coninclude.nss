@@ -4119,7 +4119,7 @@ void GenerateNPCTreasure()
     if(corpse.iDiff < 0)
       corpse = ku_getPelt("tag" + sTagSelf);
 
-    if(corpse.iDiff > 0) {
+    if(corpse.iDiff >= 0) {
         SetLocalString(oTreasureGetter,"sPelt", corpse.sPelt);
         SetLocalString(oTreasureGetter,"sMeat", corpse.sMeat);
         SetLocalInt(oTreasureGetter,"iPenalty", corpse.iDiff);
