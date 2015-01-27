@@ -16,6 +16,7 @@ v cnr_gemdep_ou a
 */
 #include "cnr_persist_inc"
 #include "nw_i0_generic"
+#include "nwnx_funcs"
 #include "ku_libtime"
 
 // Metal and coal
@@ -68,7 +69,7 @@ const int CNR_RESOURCE_PRADUB = 48;
 void CheckAction(object oPC, object oSelf);
 void CreateAnObject(string sResource, object oPC);
 void ReplaceSelf(object oSelf, string sAppearance);
-void CreateNew(location lSelf, string sResSelf);
+void CreateNew(location lSelf, string sResSelf, int iAppearance);
 void CreatePlaceable(string sObject, location lPlace, float fDuration);
 
 void RemoveEffects(object oPC);
@@ -514,18 +515,19 @@ void ReplaceSelf(object oSelf, string sAppearance)
   string sResSelf;
   sResSelf=GetResRef(oSelf);
   lSelf=GetLocation(oSelf);
-  oTemp = CreateObject(OBJECT_TYPE_PLACEABLE,sAppearance,lSelf,FALSE);
+  int iAppearance = GetAppearanceType(oSelf);
+
   DestroyObject(oSelf,1.0);
 
-  AssignCommand(oTemp,DelayCommand(1000.0,CreateNew(lSelf,sResSelf)));
-  DestroyObject(oTemp,1030.0);
+  DelayCommand(1000.0,CreateNew(lSelf,sResSelf, iAppearance));
 
   return;
  }
 
-void CreateNew(location lSelf, string sResSelf)
+void CreateNew(location lSelf, string sResSelf, int iAppearance)
  {
-  CreateObject(OBJECT_TYPE_PLACEABLE,sResSelf,lSelf,FALSE);
+  object oNew = CreateObject(OBJECT_TYPE_PLACEABLE,sResSelf,lSelf,FALSE);
+  SetPlaceableAppearance(oNew, iAppearance);
   return;
  }
 
