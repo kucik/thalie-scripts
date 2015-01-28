@@ -226,9 +226,6 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
    __resetResmanLocStatus();
    DelayCommand(5.0, __loadLocations()); /* Timing before factions */
 
-   /* Trofeje */
-   ku_InitTrofeje();
-
    /* Frakce */
    DelayCommand(10.0,InitFactions());
 

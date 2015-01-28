@@ -85,7 +85,7 @@ void main()
       SetLocalInt(oTemp, "AI_BOSS", ai_boss);
 
 
-    destroyAllOn(OBJECT_SELF);
+    //destroyAllOn(OBJECT_SELF);
     SetName(oTemp, GetName(OBJECT_SELF));
     DelayCommand(240.0,SetIsDestroyable(TRUE,FALSE,FALSE));
     DelayCommand(241.0,DestroyObject(OBJECT_SELF));
