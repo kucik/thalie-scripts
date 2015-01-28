@@ -50,58 +50,50 @@ void no_xp_kozk_ini(object no_oPC, object no_pec, int no_kov);
 /////////zacatek zavadeni funkci//////////////////////////////////////////////
 void no_snizstack(object no_Item, int no_mazani)
 {
-int no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
+  int no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
   if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
-                           if (no_mazani == TRUE) DestroyObject(no_Item);
-
-
-
-                    }
-    else   {  if (no_mazani == TRUE) { //DestroyObject(no_Item);
+    if (no_mazani == TRUE) 
+      DestroyObject(no_Item);
+  }
+  else {
+    if (no_mazani == TRUE) { //DestroyObject(no_Item);
               //FloatingTextStringOnCreature(" Tolikati prisad nebylo zapotrebi ",no_oPC,FALSE );
-              SetItemStackSize(no_Item,no_stacksize-1);
-              } }
+      SetItemStackSize(no_Item,no_stacksize-1);
+    } 
+  }
 }
 
+string __getSkinByQuality(int no_druh) {
+  switch(no_druh) {
+    case 1: return "no_suse_obyc";
+    case 2: return "no_suse_leps";
+    case 3: return "no_suse_kval";
+    case 4: return "no_suse_mist";
+    case 5: return "no_suse_velm";
+    case 6: return "no_suse_lege";
+  }
+  return "";
+}
 
+int __getCostByQuality(int no_druh, float nasobitel) {
+  switch(no_druh) {
+    case 1: return FloatToInt(10   * nasobitel);
+    case 2: return FloatToInt(80   * nasobitel);
+    case 3: return FloatToInt(250  * nasobitel);
+    case 4: return FloatToInt(500  * nasobitel);
+    case 5: return FloatToInt(1500 * nasobitel);
+    case 6: return FloatToInt(2500 * nasobitel);
+  }
+  return 0;
+}
 
 /////////////kdyz bylo v peci malo veci, tak je pekne vrati dovnitr do pece !!!!
 void no_vratveci(int no_druh, int no_pocet, int no_slinovana)
 
 {
-switch (no_druh){
-   case 1: { while (no_pocet>0)
-                {
-                SetLocalInt(CreateItemOnObject("no_suse_obyc",OBJECT_SELF,1,"no_suse"),"tc_cena",FloatToInt(10*no_ko_nasobitel2));   break;
-                no_pocet=no_pocet-1;
-                                }    break;
-                                }///konec case
-   case 2: {  while (no_pocet>0)
-                   {
-                SetLocalInt(CreateItemOnObject("no_suse_leps",OBJECT_SELF,1,"no_suse"),"tc_cena",FloatToInt(80*no_ko_nasobitel2));   break;
-                  no_pocet=no_pocet-1;
-                                }    break;
-                                }///konec case
-    case 3:  {  while (no_pocet>0)  {
-                SetLocalInt(CreateItemOnObject("no_suse_kval",OBJECT_SELF,1,"no_suse"),"tc_cena",FloatToInt(250*no_ko_nasobitel2));   break;
-                                }    break;
-                                }///konec case
-    case 4: {  while (no_pocet>0)
-                   { SetLocalInt(CreateItemOnObject("no_suse_mist",OBJECT_SELF,1,"no_suse"),"tc_cena",FloatToInt(500*no_ko_nasobitel2));   break;
-
-                                }    break;
-                                }///konec case
-        case 5:  {  while (no_pocet>0)
-                   {  SetLocalInt(CreateItemOnObject("no_suse_velm",OBJECT_SELF,1,"no_suse"),"tc_cena",FloatToInt(1500*no_ko_nasobitel2));   break;
-
-                                }    break;
-                                }///konec case
-        case 6:  {  while (no_pocet>0)
-                   {   SetLocalInt(CreateItemOnObject("no_suse_lege",OBJECT_SELF,1,"no_suse"),"tc_cena",FloatToInt(2500*no_ko_nasobitel2));   break;
-
-                                }    break;
-                                }///konec case
-   }//konec switche
+   while (no_pocet>0) {
+     SetLocalInt(CreateItemOnObject(__getSkinByQuality(no_druh),OBJECT_SELF,1,"no_suse"),"tc_cena",__getCostByQuality(no_druh, no_ko_nasobitel2));
+   }
 
 }  //konec vraceni veci////////////////////////////////////
 
@@ -137,313 +129,29 @@ switch (no_slinovana)  {
 
 }  //konec vraceni veci////////////////////////////////////
 
+int __getMaterialQuality(string sResref, string sType) {
+  int iQual = 0;
+  string sSql = "SELECT quality FROM craft_material WHERE resref = '"+sResref+"' AND type = '"+sType+"';";
+  SQLExecDirect(sSql);
+  if (SQLFetch() == SQL_SUCCESS) {
+    iQual = StringToInt(SQLGetData(1));
+  }
+
+  return iQual;
+}
 
 void no_kuze(object no_Item, object no_pec, int no_mazani)
 {      // do no_kuze ulozi cislo, kterym oznaci kvalitu budouci kuze.
-no_Item = GetFirstItemInInventory(no_pec);
-while(GetIsObjectValid(no_Item))  {
- ////////////////////////////obycejna +0////////////////////////////////////
-//if(GetResRef(no_Item) == "cnrBellBomb")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-//    { SetLocalInt(no_pec,"no_kuze",1);
-//    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-//    break;      }
-if(GetResRef(no_Item) == "kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                      //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "it_cmat_elmw001")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-//if(GetResRef(no_Item) == "me_ohnbro")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-//    { SetLocalInt(no_pec,"no_kuze",1);
-//    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-//    break;      }
-if(GetResRef(no_Item) == "cnrskinblkbear")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskindeer")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinbadger")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskincragcat")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinrat")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinbat")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinpanther")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinboar")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinox")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_kuz_fertox")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinwolf")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_br_krovky")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",1);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-//if(GetResRef(no_Item) == "ry_br_krovky_2")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-//    { SetLocalInt(no_pec,"no_kuze",1);
-//    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-//    break;      }
-
-////////////////////////LEPSI +1//////////////////////////////////////
-if(GetResRef(no_Item) == "ry_ros_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_hak_krunyr")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "kuzeowlbeara")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                        //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_sedtr_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "me_kuze_tygr")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_zral_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinwhitestag")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinbrnbear")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinjaguar")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskingrizbear")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinleopard")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinmalar")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskincougar")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_litvlk_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_kr_rohac")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",2);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-
-
-///////////////////////////KVALITNI +2  //////////////////////////////////////////////////////////
-if(GetResRef(no_Item) == "it_cmat_elmw003")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinworg")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskindb")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_rudst_krun")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_snt_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_sup_wefr")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinlion")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinwinwolf")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "kuzekrenshara001")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_snl_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_skalm_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskintiger")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "cnrskinpolarbear")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_hak_krunyr_bs")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_sup_kortix")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",3);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-
-///////////////////////MISTROVSKA +3 ///////////////////////////////////////////////////////////
-if(GetResRef(no_Item) == "ry_kuz_yetti")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-   no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_sting_kr")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_netdl_kridlo")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                        //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "kuzealansijskeho")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_prvl_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_cerst_krun")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_bargh_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-//if(GetResRef(no_Item) == "kh_krovohnivkral")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-//    { SetLocalInt(no_pec,"no_kuze",4);
-//    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-//    break;      }
-if(GetResRef(no_Item) == "ry_rudstsam_krun")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_pr_div_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",4);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-
-
-///////////////////////VELMISTROVSKA +4/////////////////////////////////////////
-if(GetResRef(no_Item) == "ry_krok_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_gor_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                         //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "kuzesamiceala001")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_tygrodl_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-//if(GetResRef(no_Item) == "ry_ohnwyrm_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-//    { SetLocalInt(no_pec,"no_kuze",5);
-//    no_snizstack(no_Item,no_mazani);                        //znicime kuzi.
-//    break;      }
-if(GetResRef(no_Item) == "ry_cerstsam_krun")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_klps_krunyr")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_pr_medv_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-if(GetResRef(no_Item) == "ry_pr_tygr_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",5);
-    no_snizstack(no_Item,no_mazani);                           //znicime kuzi.
-    break;      }
-
-
-//////////////////////////////LEGENDARNI +5 ///////////////////////////////////
-if(GetResRef(no_Item) == "ry_stzur_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",6);
-    no_snizstack(no_Item,no_mazani);                          //znicime kuzi.
-    break;      }
-    if(GetResRef(no_Item) == "ry_ohnwyrm_kuze")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",6);
-    no_snizstack(no_Item,no_mazani);                        //znicime kuzi.
-    break;      }
-
-    if(GetResRef(no_Item) == "ry_bel_krunyr")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",6);
-    no_snizstack(no_Item,no_mazani);                        //znicime kuzi.
-    break;      }
-
-    if(GetResRef(no_Item) == "kh_supmutanta2")           //do promene no_kuze ulozime cislo, ktere ukaze kvalitu kuze.
-    { SetLocalInt(no_pec,"no_kuze",6);
-    no_snizstack(no_Item,no_mazani);                       //znicime kuzi.
-    break;      }
-    if(GetResRef(no_Item) == "ry_klps_krunyr")
-        { SetLocalInt(no_pec,"no_kuze",6);
-    no_snizstack(no_Item,no_mazani);                       //znicime kuzi.
-    break;      }
-
-  no_Item = GetNextItemInInventory(no_pec);
+  object oItem = GetFirstItemInInventory(no_pec);
+  int iQual = 0;
+  while(GetIsObjectValid(oItem))  {
+    iQual = __getMaterialQuality(GetResRef(oItem), "pelt");
+    if(iQual > 0) {
+      SetLocalInt(no_pec,"no_kuze",iQual);
+      no_snizstack(oItem, no_mazani);
+      return;
+    }
+    oItem = GetNextItemInInventory(no_pec);
   }  //tak uz mame nugety
 }
 
