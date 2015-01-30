@@ -137,6 +137,9 @@ int __getResourceID(string sTag) {
 
 int __getDigAmmount(int iResource) {
 
+  // All resources same
+  return d4(2);
+
   switch(iResource) {
     // Coal
     case CNR_RESOURCE_COAL: return 6+d10(2);
@@ -454,7 +457,7 @@ void main()
      iMaxDig--;
      SetLocalInt(oSelf,"iMaxDig",iMaxDig);
      // Last one
-     if (iMaxDig==1)
+     if (iMaxDig<=1)
       {
        SetLocalInt(oSelf,"iAmSetToDie",99);
        SetLocalInt(oPC,"iAmDigging",0);
@@ -508,21 +511,19 @@ void CreateAnObject(string sResource, object oPC)
   return;
  }
 
-void ReplaceSelf(object oSelf, string sAppearance)
- {
+void ReplaceSelf(object oSelf, string sAppearance) {
   object oTemp;
   location lSelf;
   string sResSelf;
   sResSelf=GetResRef(oSelf);
   lSelf=GetLocation(oSelf);
   int iAppearance = GetAppearanceType(oSelf);
-
+  oTemp = CreateObject(OBJECT_TYPE_PLACEABLE,sAppearance,lSelf,FALSE);
   DestroyObject(oSelf,1.0);
-
-  DelayCommand(1000.0,CreateNew(lSelf,sResSelf, iAppearance));
-
+  AssignCommand(oTemp,DelayCommand(1200.0,CreateNew(lSelf, sResSelf, iAppearance)));
+  DestroyObject(oTemp,1230.0);
   return;
- }
+}
 
 void CreateNew(location lSelf, string sResSelf, int iAppearance)
  {
