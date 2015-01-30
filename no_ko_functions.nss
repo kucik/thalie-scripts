@@ -432,7 +432,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
     float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
     SendMessageToPC(no_oPC,"===================================");
     if (no_chance >= 100) {
-      FloatingTextStringOnCreature("Zpracovani je pro tebe trivialni",no_oPC,FALSE );
+      FloatingTextStringOnCreature("Zpracování je pro tebe triviální",no_oPC,FALSE );
       TC_setXPbyDifficulty(no_oPC,TC_KUZE,no_chance,TC_dej_vlastnost(TC_KUZE,no_oPC));
     }
 
@@ -531,15 +531,15 @@ void no_xp_kuze(object no_oPC, object no_pec)
       DestroyObject(no_Item);
       DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 
-      FloatingTextStringOnCreature("Kuze se spalila je na prach.",no_oPC,FALSE );
+      FloatingTextStringOnCreature("Kůže se spálila - je na prach.",no_oPC,FALSE );
       ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
       DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
     }
     else  if ((no_chance > 0)&(no_procenta>0.0)) 
-      FloatingTextStringOnCreature("Kuze se ti trosku pripalila ",no_oPC,FALSE );
+      FloatingTextStringOnCreature("Kůže se ti trošku připálila ",no_oPC,FALSE );
 
     if (no_chance == 0) { 
-      FloatingTextStringOnCreature(" Se zpracovani by si mel radeji pockat ",no_oPC,FALSE );
+      FloatingTextStringOnCreature(" Se zpracováním by jsi měl raději počkat.",no_oPC,FALSE );
       DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
     }
 
