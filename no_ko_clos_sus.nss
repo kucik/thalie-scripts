@@ -48,19 +48,19 @@ no_Item = GetFirstItemInInventory(OBJECT_SELF);
 no_menu = GetLocalInt(OBJECT_SELF,"no_menu");
 switch(no_menu) {
 case 1:  {
-            no_kuze(no_Item,OBJECT_SELF, FALSE);
+            no_kuze(OBJECT_SELF, FALSE);
             break;
           }
 case 2:  {
             no_suseni(no_Item,OBJECT_SELF,FALSE);
             no_Item = GetFirstItemInInventory(OBJECT_SELF);
-            no_louh(no_Item,OBJECT_SELF,FALSE);
+            no_louh(OBJECT_SELF,FALSE);
             break;
           }
 case 3:  {
             no_suseni(no_Item,OBJECT_SELF,FALSE);
             no_Item = GetFirstItemInInventory(OBJECT_SELF);
-            no_louh(no_Item,OBJECT_SELF,FALSE);
+            no_louh(OBJECT_SELF,FALSE);
             break;
           }
 
@@ -171,7 +171,7 @@ case 1:  {
         FloatingTextStringOnCreature(" Snazis se ususit vycinenou kuzi ",no_oPC,FALSE );
         no_switch = GetLocalInt(OBJECT_SELF,"no_kuze");
         no_zamkni(no_oPC);
-                    no_kuze(no_Item,OBJECT_SELF, TRUE);
+                    no_kuze(OBJECT_SELF, TRUE);
         DelayCommand(no_ko_delay,no_xp_kuze_ini(no_oPC,OBJECT_SELF,no_switch));
         }
          break;  } //konec case 1
@@ -182,7 +182,7 @@ case 2:  {
         no_zamkni(no_oPC);
                     no_suseni(no_Item,OBJECT_SELF,TRUE);
             no_Item = GetFirstItemInInventory(OBJECT_SELF);
-            no_louh(no_Item,OBJECT_SELF,TRUE);
+            no_louh(OBJECT_SELF,TRUE);
         DelayCommand(no_ko_delay,no_xp_louh_ini(no_oPC,OBJECT_SELF,no_switch));
         }
 
@@ -200,7 +200,7 @@ case 3:  {   /// delani kozek/////////////////////////////////////
         no_zamkni(no_oPC);
             no_suseni(no_Item,OBJECT_SELF,TRUE);
             no_Item = GetFirstItemInInventory(OBJECT_SELF);
-            no_louh(no_Item,OBJECT_SELF,TRUE);
+            no_louh(OBJECT_SELF,TRUE);
             // odecte pouzite veci ze zarizeni
         DelayCommand(no_ko_delay,no_xp_kozk_ini(no_oPC,OBJECT_SELF,no_switch));
         }
