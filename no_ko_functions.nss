@@ -163,6 +163,27 @@ int __getMakeDC(int no_suse) {
   return 0;
 }
 
+string __getNameByQual(int iQual) {
+  switch(iQual) {
+    case 1: return "Obyčejná";
+    case 2: return "Lepší";
+    case 3: return "Kvalitní";
+    case 4: return "Mistrovská";
+    case 5: return "Velmistrovská";
+    case 6: return "Legendární";
+  }
+  return "Neznámá";
+}
+
+string __getNameByType(int iType) {
+  switch(iType) {
+    case 0: return "sušená kůže";
+    case 1: return "louhovaná kůže";
+    case 2: return "louhovaná kožka";
+  }
+  return " neznámá věc";
+}
+
 int __getLouhQual(string sTag) {
   int i;
  
@@ -199,6 +220,23 @@ int __getProgressByDifficulty(int no_obtiznost_vyrobku) {
     return Random(20)  + (130 - no_obtiznost_vyrobku) / 2;
   // < 10
   return Random(20) + 100;
+}
+
+int __getDestroyingByDifficulty(int no_obtiznost_vyrobku) {
+  // result is returned value / 10
+
+  if (no_obtiznost_vyrobku>=180)
+    return (210 - no_obtiznost_vyrobku) / 10; 
+  if (no_obtiznost_vyrobku>=170)
+    return Random(6);
+  if (no_obtiznost_vyrobku>=160)
+    return Random(8);
+  if (no_obtiznost_vyrobku>=130)
+    return Random(20) + (180 - no_obtiznost_vyrobku) / 10;
+  if(no_obtiznost_vyrobku>=10)
+    return Random(20) - FloatToInt(no_obtiznost_vyrobku * 0.7) + 93; // !!! To check
+  // < 10
+  return Random(20) + 150;
 }
 
 
@@ -444,758 +482,103 @@ void no_xp_kuze(object no_oPC, object no_pec)
       }
 
     }//konec kdzy uz mam nad 100%
-
-        if (no_procenta < 100.0) {  //kdyz neni 100% tak samozrejmeje neni hotovej
-
-        if ( GetLocalInt(no_Item,"no_pocet_cyklu") == 9 ) {TC_saveCraftXPpersistent(no_oPC,TC_KUZE);}
-
-        string no_nazev_procenta = FloatToString(no_procenta);
-
-        if (no_procenta >= 10.0) {no_nazev_procenta = GetStringLeft(FloatToString(no_procenta),10);
-                                  no_nazev_procenta = GetStringRight(no_nazev_procenta,4);}
-        if (no_procenta <10.0) {no_nazev_procenta = GetStringLeft(FloatToString(no_procenta),10);
-                               no_nazev_procenta = GetStringRight(no_nazev_procenta,3);}
-
-
-        switch(no_suse) {
-        case 1: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Obycejna susena kuze *" + no_nazev_procenta + "%*" );
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 2: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"lepsi susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 3: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Kvalitni susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 4: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mistrovska susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 5: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Velmistrovska susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 6: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Legendarni susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-////////////////nad50= louhovane kuze////////////////////////////////
-        case 51: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Obycejna louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 52: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"lepsi louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 53: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"kvalitni louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 54: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mistrovska louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 55: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Velmistrovska louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 56: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta+ "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"legendarni louhovana kuze *" +no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-
-////////////////nad100= louhovane kozky////////////////////////////////
-        case 101: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Obycejna louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 102:{string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"lepsi louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 103:{string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Kvalitni louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 104: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mistrovska louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 105:{string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"velmistrovska louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 106: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Legendrani louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-                 }//konec case zvetsovani %
-
-          }// kdyz neni 100%
-
-        SendMessageToPC(no_oPC,"===================================");
-
-       } /// konec, kdyz sme byli uspesni
-
-else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime polotovar////////////////
+    else {  //kdyz neni 100% tak samozrejmeje neni hotovej
+      if ( GetLocalInt(no_Item,"no_pocet_cyklu") == 9 ) {
+        TC_saveCraftXPpersistent(no_oPC,TC_KUZE);
+      }
+
+      string no_nazev_procenta;
+      { 
+        int iPerc = FloatToInt(no_procenta * 10.0);
+        no_nazev_procenta = IntToString(iPerc/10)+"."+IntToString(iPerc%10);
+      }
+
+      // Make progress on item
+      string no_tag_vyrobku = GetTag(no_Item);
+      int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
+      DestroyObject(no_Item);
+      no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
+
+      SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
+      SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+      SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
+
+      FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
+      SetName(no_Item,__getNameByQual(no_suse % 50)+" "+__getNameByType(no_suse / 50)+" *" + no_nazev_procenta + "%*" );
+
+      if (GetCurrentAction(no_oPC) == 65535 ) { 
+        ExecuteScript("no_ko_clos_sus",OBJECT_SELF);
+      }
+      else {
+        FloatingTextStringOnCreature("Přerušil jsi práci" ,no_oPC,FALSE );
+        CopyItem(no_Item,no_oPC,TRUE);
+        DestroyObject(no_Item);
+      }
+
+    }// kdyz neni 100%
+
+    SendMessageToPC(no_oPC,"===================================");
+
+  } /// konec, kdyz sme byli uspesni
+
+  else {     ///////// bo se to nepovedlo, tak znicime polotovar////////////////
     float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
-            if (no_obtiznost_vyrobku >=190) {
-            no_procenta = no_procenta - 0.2 ;}
-            else if ((no_obtiznost_vyrobku <190)&(no_obtiznost_vyrobku>=180)) {
-            no_procenta = no_procenta - 0.3 ;}
-            else if ((no_obtiznost_vyrobku <180)&(no_obtiznost_vyrobku>=170)) {
-            no_procenta = no_procenta - Random(6)/10.0 ;}
-            else if ((no_obtiznost_vyrobku <170)&(no_obtiznost_vyrobku>=160)) {
-            no_procenta = no_procenta - Random(8)/10.0 ;} //0.1-0.6%
-            else if ((no_obtiznost_vyrobku <160)&(no_obtiznost_vyrobku>=150)) {
-            no_procenta = no_procenta - Random(20)/10.0 -0.3;}
-            else if ((no_obtiznost_vyrobku <150)&(no_obtiznost_vyrobku>=140)) {
-            no_procenta = no_procenta - Random(20)/10.0 -0.4;}
-            else if ((no_obtiznost_vyrobku<140)&(no_obtiznost_vyrobku>=130)) {
-            no_procenta = no_procenta - Random(20)/10.0 -0.5;}
-            else if ((no_obtiznost_vyrobku <130)&(no_obtiznost_vyrobku>=120)) {
-            no_procenta = no_procenta - Random(20)/10.0 -0.9;}
-            else if ((no_obtiznost_vyrobku <120)&(no_obtiznost_vyrobku>=110)) {
-            no_procenta = no_procenta - Random(20)/10.0 -1.5;}
-            else if ((no_obtiznost_vyrobku <110)&(no_obtiznost_vyrobku>=100)) {
-            no_procenta = no_procenta - Random(20)/10.0 -2.0;}
-            else if ((no_obtiznost_vyrobku <100)&(no_obtiznost_vyrobku>=90)) {
-            no_procenta = no_procenta - Random(20)/10.0 -3.1;}
-           else if ((no_obtiznost_vyrobku <90)&(no_obtiznost_vyrobku>=80)) {
-            no_procenta = no_procenta - Random(20)/10.0 -3.5;}
-           else if ((no_obtiznost_vyrobku <80)&(no_obtiznost_vyrobku>=70)) {
-            no_procenta = no_procenta - Random(20)/10.0 -4.5;}
-            else if ((no_obtiznost_vyrobku <70)&(no_obtiznost_vyrobku>=60)) {
-            no_procenta = no_procenta - Random(20)/10.0 -4.8;}
-            else if ((no_obtiznost_vyrobku <60)&(no_obtiznost_vyrobku>=50)) {
-            no_procenta = no_procenta - Random(20)/10.0- 6.0;}
-            else if ((no_obtiznost_vyrobku <50)&(no_obtiznost_vyrobku>=40)) {
-            no_procenta = no_procenta - Random(20)/10.0 -6.6;}
-            else if ((no_obtiznost_vyrobku <40)&(no_obtiznost_vyrobku>=30)) {
-            no_procenta = no_procenta- Random(20)/10.0 -7.5;}
-            else if ((no_obtiznost_vyrobku <30)&(no_obtiznost_vyrobku>=20)) {
-            no_procenta = no_procenta - Random(20)/10.0 - 7.8;}
-            else if ((no_obtiznost_vyrobku <20)&(no_obtiznost_vyrobku>=10)) {
-            no_procenta = no_procenta- Random(20)/10.0 -9.0;}
-            else if (no_obtiznost_vyrobku <10) {
-            no_procenta = no_procenta - Random(20)/10.0 -15.0;}
-
-
-         if (no_procenta <= 0.0 ){
-         DestroyObject(no_Item);
-         DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
-
-         FloatingTextStringOnCreature("Kuze se spalila je na prach.",no_oPC,FALSE );
-         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
-         DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
-                               }
-        else  if ((no_chance > 0)&(no_procenta>0.0)) FloatingTextStringOnCreature("Kuze se ti trosku pripalila ",no_oPC,FALSE );
-
-        if (no_chance == 0){ FloatingTextStringOnCreature(" Se zpracovani by si mel radeji pockat ",no_oPC,FALSE );
-                      DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
-                          }     //konec ifu
-
-
-if (no_procenta > 0.0 ) {
-
-        string no_nazev_procenta = FloatToString(no_procenta);
-        if (no_procenta >= 10.0) {no_nazev_procenta = GetStringLeft(FloatToString(no_procenta),10);
-                                  no_nazev_procenta = GetStringRight(no_nazev_procenta,4);}
-        if (no_procenta <10.0) {no_nazev_procenta = GetStringLeft(FloatToString(no_procenta),10);
-                               no_nazev_procenta = GetStringRight(no_nazev_procenta,3);}
-
-
-        switch(no_suse) {
-               case 1: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Obycejna susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 2: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"lepsi susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 3: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Kvalitni susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 4: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta+ "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mistrovska susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 5: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Velmistrovska susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 6: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Legendarni susena kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si suseni" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-////////////////nad50= louhovane kuze////////////////////////////////
-        case 51: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Obycejna louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 52: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"lepsi louhovana kuze *" + no_nazev_procenta+ "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 53: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"kvalitni louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 54: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mistrovska louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 55: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Velmistrovska louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 56: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"legendarni louhovana kuze *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-
-////////////////nad100= louhovane kozky////////////////////////////////
-        case 101: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Obycejna louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 102:{string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"lepsi louhovana kozka *" +no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 103:{string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Kvalitni louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 104: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mistrovska louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 105:{string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"velmistrovska louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-        case 106: {string no_tag_vyrobku = GetTag(no_Item);
-                 int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-                 DestroyObject(no_Item);
-
-                 no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
-                 SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-                 SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-                 SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
-                 FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Legendrani louhovana kozka *" + no_nazev_procenta + "%*" );
-
-                 if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_ko_clos_sus",OBJECT_SELF); }
-                 else  { FloatingTextStringOnCreature("Prerusil si louhovani" ,no_oPC,FALSE );
-                         CopyItem(no_Item,no_oPC,TRUE);
-                         DestroyObject(no_Item);
-                         }
-                 break; }
-
-                 }//konec case zvetsovani %
-          }// kdyz neni 100%
-
-         }//konec else
-
-         }// konec kdyz jsme davali polotovar..
+    no_procenta = no_procenta - __getDestroyingByDifficulty(no_obtiznost_vyrobku);
+
+    if (no_procenta <= 0.0 ){
+      DestroyObject(no_Item);
+      DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+
+      FloatingTextStringOnCreature("Kuze se spalila je na prach.",no_oPC,FALSE );
+      ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
+      DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
+    }
+    else  if ((no_chance > 0)&(no_procenta>0.0)) 
+      FloatingTextStringOnCreature("Kuze se ti trosku pripalila ",no_oPC,FALSE );
+
+    if (no_chance == 0) { 
+      FloatingTextStringOnCreature(" Se zpracovani by si mel radeji pockat ",no_oPC,FALSE );
+      DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
+    }
+
+
+    if (no_procenta > 0.0 ) {
+
+      string no_nazev_procenta;
+      {
+        int iPerc = FloatToInt(no_procenta * 10.0);
+        no_nazev_procenta = IntToString(iPerc/10)+"."+IntToString(iPerc%10);
+      }
+
+      // precess change 
+      string no_tag_vyrobku = GetTag(no_Item);
+      int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
+      DestroyObject(no_Item);
+
+      no_Item = CreateItemOnObject("no_polot_ko",OBJECT_SELF,1,no_tag_vyrobku);
+      SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
+      SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+      SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
+      FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
+      SetName(no_Item,__getNameByQual(no_suse % 50)+" "+__getNameByType(no_suse / 50)+" *" + no_nazev_procenta + "%*" );
+
+      if (GetCurrentAction(no_oPC) == 65535 ) { 
+        ExecuteScript("no_ko_clos_sus",OBJECT_SELF); 
+      }
+      else  { 
+        FloatingTextStringOnCreature("Přerušil jsi práci" ,no_oPC,FALSE );
+        CopyItem(no_Item,no_oPC,TRUE);
+        DestroyObject(no_Item);
+      }
+
+
+    }
+
+   } //konec nepovedeny
+
+  }// konec kdyz jsme davali polotovar..
 
 }    ////knec no_xp_kuze
 
@@ -1204,26 +587,8 @@ void no_xp_kuze_ini(object no_oPC, object no_pec, int no_druh)
 // vtvori polotovar s nastavenm promenma tak, aby z nej mohlo jit pouze pres slose udelat hotovej vyrobek.
 {
         ///////////////udelame polotovar////////////////////
-        switch(no_druh) {
-        case 1:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_1"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 2:  {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_2"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 3:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_3"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 4:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_4"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 5:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_5"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 6:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_6"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);       //no_pec je tam , at se objevi v peci a muze se rovnou zvetsit %
-                   break; }
-                } //konec vnitrniho  switche
+        object oNew = CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_"+IntToString(no_druh));
+        SetLocalFloat(oNew, "no_suse_proc",15.0);
 
 } // konec no_xp_brous
 
@@ -1234,26 +599,8 @@ void no_xp_louh_ini(object no_oPC, object no_pec, int no_druh)
 // vtvori polotovar s nastavenm promenma tak, aby z nej mohlo jit pouze pres close udelat hotovej vyrobek.
 {
         ///////////////udelame polotovar////////////////////
-        switch(no_druh) {
-        case 1:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_51"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 2:  {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_52"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 3:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_53"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 4:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_54"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 5:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_55"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 6:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_56"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);       //no_pec je tam , at se objevi v peci a muze se rovnou zvetsit %
-                   break; }
-                } //konec vnitrniho  switche
+        object oNew = CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_"+IntToString(50 + no_druh));
+        SetLocalFloat(oNew, "no_suse_proc",15.0);
 
 } // konec no_xp_brous
 
@@ -1261,37 +608,10 @@ void no_xp_kozk_ini(object no_oPC, object no_pec, int no_druh)
 // vtvori polotovar s nastavenm promenma tak, aby z nej mohlo jit pouze pres close udelat hotovej vyrobek.
 {
         ///////////////udelame polotovar////////////////////
-        switch(no_druh) {
-        case 1:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_101"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 2:  {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_102"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 3:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_103"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 4:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_104"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 5:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_105"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);
-                   break; }
-        case 6:   {SetLocalFloat(CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_106"),"no_suse_proc",15.0);
-                   no_xp_kuze(no_oPC,no_pec);       //no_pec je tam , at se objevi v peci a muze se rovnou zvetsit %
-                   break; }
-                } //konec vnitrniho  switche
+        object oNew = CreateItemOnObject("no_polot_ko",no_pec,1,"no_suse_"+IntToString(100 + no_druh));
+        SetLocalFloat(oNew, "no_suse_proc",15.0);
 
 } // konec no_xp_brous
-
-
-
-
-
-
-
-
-
 
 
 
