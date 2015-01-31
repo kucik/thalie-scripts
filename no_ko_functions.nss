@@ -52,14 +52,14 @@ void no_snizstack(object oItem, int no_mazani)
 {
   int no_stacksize = GetItemStackSize(oItem);      //zjisti kolik je toho ve stacku
   if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
-    if (no_mazani == TRUE) 
+    if (no_mazani == TRUE)
       DestroyObject(oItem);
   }
   else {
     if (no_mazani == TRUE) { //DestroyObject(oItem);
               //FloatingTextStringOnCreature(" Tolikati prisad nebylo zapotrebi ",no_oPC,FALSE );
       SetItemStackSize(oItem,no_stacksize-1);
-    } 
+    }
   }
 }
 
@@ -186,7 +186,7 @@ string __getNameByType(int iType) {
 
 int __getLouhQual(string sTag) {
   int i;
- 
+
   for(i = 1; i <= 6; i++) {
     if(sTag == __getLouhResRef(i))
       return i;
@@ -226,7 +226,7 @@ int __getDestroyingByDifficulty(int no_obtiznost_vyrobku) {
   // result is returned value / 10
 
   if (no_obtiznost_vyrobku>=180)
-    return (210 - no_obtiznost_vyrobku) / 10; 
+    return (210 - no_obtiznost_vyrobku) / 10;
   if (no_obtiznost_vyrobku>=170)
     return Random(6);
   if (no_obtiznost_vyrobku>=160)
@@ -421,7 +421,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
 
   // pravdepodobnost uspechu =
   int no_chance = 100 - (no_DC*2) ;
-  if (no_chance < 0) 
+  if (no_chance < 0)
     no_chance = 0;
   //SendMessageToPC(no_oPC," Sance uspechu :" + IntToString(no_chance));
   //samotny hod
@@ -436,7 +436,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
       TC_setXPbyDifficulty(no_oPC,TC_KUZE,no_chance,TC_dej_vlastnost(TC_KUZE,no_oPC));
     }
 
-    if ((no_chance > 0)&(no_chance<100)) { 
+    if ((no_chance > 0)&(no_chance<100)) {
       TC_setXPbyDifficulty(no_oPC,TC_KUZE,no_chance,TC_dej_vlastnost(TC_KUZE,no_oPC));    }
 
         //////////povedlo se takze se zlepsi % zhotoveni na polotovaru////////////
@@ -470,7 +470,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
           fcena = __getCenaKozk(no_suse % 50) * no_ko_nasobitel;
           break;
         // 100+ kozky
-        case 1:
+        case 2:
           sResref = __getKozkByQuality(no_suse % 50);
           fcena = __getCenaKozk(no_suse % 50) * no_ko_nasobitel;
           break;
@@ -488,7 +488,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
       }
 
       string no_nazev_procenta;
-      { 
+      {
         int iPerc = FloatToInt(no_procenta * 10.0);
         no_nazev_procenta = IntToString(iPerc/10)+"."+IntToString(iPerc%10);
       }
@@ -506,7 +506,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
       FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
       SetName(no_Item,__getNameByQual(no_suse % 50)+" "+__getNameByType(no_suse / 50)+" *" + no_nazev_procenta + "%*" );
 
-      if (GetCurrentAction(no_oPC) == 65535 ) { 
+      if (GetCurrentAction(no_oPC) == 65535 ) {
         ExecuteScript("no_ko_clos_sus",OBJECT_SELF);
       }
       else {
@@ -535,10 +535,10 @@ void no_xp_kuze(object no_oPC, object no_pec)
       ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
       DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
     }
-    else  if ((no_chance > 0)&(no_procenta>0.0)) 
+    else  if ((no_chance > 0)&(no_procenta>0.0))
       FloatingTextStringOnCreature("Kůže se ti trošku připálila ",no_oPC,FALSE );
 
-    if (no_chance == 0) { 
+    if (no_chance == 0) {
       FloatingTextStringOnCreature(" Se zpracováním by jsi měl raději počkat.",no_oPC,FALSE );
       DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
     }
@@ -552,7 +552,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
         no_nazev_procenta = IntToString(iPerc/10)+"."+IntToString(iPerc%10);
       }
 
-      // precess change 
+      // precess change
       string no_tag_vyrobku = GetTag(no_Item);
       int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
       DestroyObject(no_Item);
@@ -564,10 +564,10 @@ void no_xp_kuze(object no_oPC, object no_pec)
       FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
       SetName(no_Item,__getNameByQual(no_suse % 50)+" "+__getNameByType(no_suse / 50)+" *" + no_nazev_procenta + "%*" );
 
-      if (GetCurrentAction(no_oPC) == 65535 ) { 
-        ExecuteScript("no_ko_clos_sus",OBJECT_SELF); 
+      if (GetCurrentAction(no_oPC) == 65535 ) {
+        ExecuteScript("no_ko_clos_sus",OBJECT_SELF);
       }
-      else  { 
+      else  {
         FloatingTextStringOnCreature("Přerušil jsi práci" ,no_oPC,FALSE );
         CopyItem(no_Item,no_oPC,TRUE);
         DestroyObject(no_Item);
