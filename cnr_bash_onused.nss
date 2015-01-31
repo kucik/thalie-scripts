@@ -69,7 +69,7 @@ const int CNR_RESOURCE_PRADUB = 48;
 void CheckAction(object oPC, object oSelf);
 void CreateAnObject(string sResource, object oPC);
 void ReplaceSelf(object oSelf, string sAppearance);
-void CreateNew(location lSelf, string sResSelf, int iAppearance);
+void CreateNew(location lSelf, string sResSelf, int iAppearance, string sTag);
 void CreatePlaceable(string sObject, location lPlace, float fDuration);
 
 void RemoveEffects(object oPC);
@@ -515,19 +515,20 @@ void ReplaceSelf(object oSelf, string sAppearance) {
   object oTemp;
   location lSelf;
   string sResSelf;
-  sResSelf=GetResRef(oSelf);
-  lSelf=GetLocation(oSelf);
+  sResSelf = GetResRef(oSelf);
+  sTag = GetTag(oSelf);
+  lSelf = GetLocation(oSelf);
   int iAppearance = GetAppearanceType(oSelf);
   oTemp = CreateObject(OBJECT_TYPE_PLACEABLE,sAppearance,lSelf,FALSE);
   DestroyObject(oSelf,1.0);
-  AssignCommand(oTemp,DelayCommand(1200.0,CreateNew(lSelf, sResSelf, iAppearance)));
+  AssignCommand(oTemp,DelayCommand(1200.0,CreateNew(lSelf, sResSelf, iAppearance, sTag)));
   DestroyObject(oTemp,1230.0);
   return;
 }
 
-void CreateNew(location lSelf, string sResSelf, int iAppearance)
+void CreateNew(location lSelf, string sResSelf, int iAppearance, string sTag)
  {
-  object oNew = CreateObject(OBJECT_TYPE_PLACEABLE,sResSelf,lSelf,FALSE);
+  object oNew = CreateObject(OBJECT_TYPE_PLACEABLE,sResSelf,lSelf,FALSE, sTag);
   SetPlaceableAppearance(oNew, iAppearance);
   return;
  }
