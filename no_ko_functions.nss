@@ -525,7 +525,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
     float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
-    no_procenta = no_procenta - __getDestroyingByDifficulty(no_obtiznost_vyrobku);
+    no_procenta = no_procenta - __getDestroyingByDifficulty(no_obtiznost_vyrobku)/10.0;
 
     if (no_procenta <= 0.0 ){
       DestroyObject(no_Item);
