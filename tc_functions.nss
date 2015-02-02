@@ -19,6 +19,13 @@ void TC_AlchRemoveConflictEffects(object oTarget, int alcheff);
 
 void TC_AlchRemoveConflictProperties(object oTarget, int alcheff);
 
+/////////////////
+// Decrement stack size of passed item.
+// Destroy item if stack would be 0
+//
+// Do nothing when no_mazani == FALSE
+void TC_SnizStack(object oItem, int no_mazani);
+
 /* end declaration */
 
 
@@ -347,5 +354,20 @@ void TC_AlchRemoveConflictProperties(object oTarget, int alcheff) {
       }
     }
     ipProp = GetNextItemProperty(oTarget);
+  }
+}
+
+void TC_SnizStack(object oItem, int no_mazani)
+{
+  if(!no_mazani)
+    return;
+
+  int no_stacksize = GetItemStackSize(oItem);      //zjisti kolik je toho ve stacku
+  if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
+    DestroyObject(oItem);
+  }
+  else {
+      //FloatingTextStringOnCreature(" Tolikati prisad nebylo zapotrebi ",no_oPC,FALSE );
+      SetItemStackSize(oItem,no_stacksize-1);
   }
 }

@@ -4,13 +4,11 @@
 #include "tc_xpsystem_inc"
 
 #include "ku_persist_inc"
+#include "tc_functions"
 
 int no_pocet;
 string no_nazev;
 int no_DC;
-
-void no_snizstack(object oItem, int no_mazani);
-////snizi pocet ve stacku. Kdyz je posledni, tak ho znici
 
 void no_vratveci(int druh, int pocet, int no_slinovana);
 ////vrati veci, kdyz je nekdo zapomnel v peci.
@@ -48,20 +46,6 @@ void no_xp_kozk_ini(object no_oPC, object no_pec, int no_kov);
 // vyresi moznost uspechu a preda pripadny povedenou kozku do no_pec
 
 /////////zacatek zavadeni funkci//////////////////////////////////////////////
-void no_snizstack(object oItem, int no_mazani)
-{
-  int no_stacksize = GetItemStackSize(oItem);      //zjisti kolik je toho ve stacku
-  if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
-    if (no_mazani == TRUE)
-      DestroyObject(oItem);
-  }
-  else {
-    if (no_mazani == TRUE) { //DestroyObject(oItem);
-              //FloatingTextStringOnCreature(" Tolikati prisad nebylo zapotrebi ",no_oPC,FALSE );
-      SetItemStackSize(oItem,no_stacksize-1);
-    }
-  }
-}
 
 string __getSuseByQuality(int no_druh) {
   switch(no_druh) {
@@ -287,7 +271,7 @@ void no_kuze(object no_pec, int no_mazani)
       // Set pelt quality on device
       SetLocalInt(no_pec,"no_kuze",iQual);
       // Destroy pelt
-      no_snizstack(oItem, no_mazani);
+      TC_SnizStack(oItem, no_mazani);
       return;
     }
     oItem = GetNextItemInInventory(no_pec);
@@ -307,7 +291,7 @@ void no_suseni(object no_Item, object no_pec, int no_mazani)
       if(iQual > 0) {
         // do promene no_suseni ulozime nazev susene kuze
         SetLocalInt(no_pec,"no_suseni",iQual);
-        no_snizstack(no_Item,no_mazani);                   // znicime susenou kuzi
+        TC_SnizStack(no_Item,no_mazani);                   // znicime susenou kuzi
         break;
       }
     }
@@ -333,7 +317,7 @@ void no_louh(object no_pec, int no_mazani) {
       if(iQual > 0) {
         //do promene no_louh ulozime hodnotu louhu
         SetLocalInt(no_pec,"no_louh",iQual);
-        no_snizstack(oItem,no_mazani);                          //znicime prisadu
+        TC_SnizStack(oItem,no_mazani);                          //znicime prisadu
       }
     }
     oItem = GetNextItemInInventory(no_pec);
@@ -456,12 +440,14 @@ void no_xp_kuze(object no_oPC, object no_pec)
 
 
       string sResref = "";
+      string sTag = "";
       float fcena = 0.0;
       // Switch suse/kuze/kozk - 0/1/2
       switch(no_suse / 50) {
         //suse
         case 0:
           sResref = __getSuseByQuality(no_suse % 50);
+          sTag = "no_suse";
           fcena = __getCenaKozk(no_suse % 50) * no_ko_nasobitel2;
           break;
         // 50+ kuze
@@ -476,7 +462,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
           break;
       }
       if(GetStringLength(sResref) > 0) {
-        object oNew = CreateItemOnObject(sResref, no_oPC, 1, "no_suse");
+        object oNew = CreateItemOnObject(sResref, no_oPC, 1, sTag);
         SetLocalInt(oNew,"tc_cena",FloatToInt(fcena));
         FloatingTextStringOnCreature("*** HOTOVO ***" ,no_oPC,FALSE );
       }
