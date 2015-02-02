@@ -516,7 +516,7 @@ void ReplaceSelf(object oSelf, string sAppearance) {
   location lSelf;
   string sResSelf;
   sResSelf = GetResRef(oSelf);
-  sTag = GetTag(oSelf);
+  string sTag = GetTag(oSelf);
   lSelf = GetLocation(oSelf);
   int iAppearance = GetAppearanceType(oSelf);
   oTemp = CreateObject(OBJECT_TYPE_PLACEABLE,sAppearance,lSelf,FALSE);
