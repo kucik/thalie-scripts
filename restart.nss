@@ -93,7 +93,7 @@ void restart(int iState = 0) {
        break;
      case 3: // 5 min
        warning3();
-       __dumpModuleVariables();
+       //__dumpModuleVariables();
        break;
      case 4: // 2 min
        kick_players();
