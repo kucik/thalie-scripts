@@ -49,25 +49,12 @@ int ku_si_AddItemProperty_SkillBonus(object oItem, int iSkill, int iPower) {
   /* Reduced skills */
   switch(iSkill) {
     case SKILL_HIDE:
-             iPower = iPower/2;
-      break;          //by nomis
     case SKILL_MOVE_SILENTLY:
-         iPower = iPower/2;
-      break;        //by nomis
     case SKILL_SET_TRAP:
-    iPower = iPower/2;
-      break;        //by nomis
     case SKILL_DISABLE_TRAP:
-    iPower = iPower/2;
-      break;        //by nomis
     case SKILL_PICK_POCKET:
-    iPower = iPower/2;
-      break;        //by nomis
     case SKILL_OPEN_LOCK:
-    iPower = iPower/2;
-      break;        //by nomis
     case SKILL_ANIMAL_EMPATHY:
-
     case SKILL_USE_MAGIC_DEVICE:
       iPower = iPower/2;
       break;
@@ -86,9 +73,18 @@ int ku_si_AddItemProperty_SkillBonus(object oItem, int iSkill, int iPower) {
       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLimitUseByClass(IP_CONST_CLASS_ROGUE),oItem);
     }
     //add for armors also some AC to net get it only for best power.///
-    if(( GetBaseItemType(oItem) == BASE_ITEM_ARMOR)&((iPower/3) >0)) {
+/*    if(( GetBaseItemType(oItem) == BASE_ITEM_ARMOR)&((iPower/3) >0)) {
+      int iChest = GetItemAppearance(oItem,ITEM_APPR_TYPE_ARMOR_MODEL, ITEM_APPR_ARMOR_MODEL_TORSO);
+      // check if its clothes or armor
+      string sAC = Get2DAString("parts_chest","ACBONUS",iChest);
+      if(sAC == "") {
+        sAC = "0.00";
+      }
+      int iAC = StringToInt(sAC);
+    
+      
       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(iPower/3),oItem);
-  }
+  }*/
 
     return TRUE;
   }
@@ -264,7 +260,7 @@ int ku_si_AddItemProperty_AttackBonus(object oItem, int iPower) {
 
 int ku_si_AddItemProperty_AbilityBonus(object oItem, int iPower, int iAbility) {
 
- iPower =  (iPower / 2)-2;  //-2 done by nomis 3.9.2014
+ iPower =  (iPower / 2);
  if(iPower > 0) {
    itemproperty ip = ItemPropertyAbilityBonus(iAbility,iPower);
    AddItemProperty(DURATION_TYPE_PERMANENT,ip,oItem);
@@ -327,21 +323,15 @@ int no_si_AddItemProperty_BonusSpell(object oItem, int iPower,int nClass) {
         iPower = (iPower / 2);
         break;
    case IP_CONST_CLASS_DRUID:
-         iPower = (iPower / 2)+1;
-         break;
    case IP_CONST_CLASS_CLERIC:
-        iPower = (iPower / 2)+1;
-     break;
    case IP_CONST_CLASS_WIZARD:
-        iPower = (iPower / 2)+1;
-     break;
    case IP_CONST_CLASS_SORCERER:
         iPower = (iPower / 2)+1;
      break;
 
    default:     iPower = (iPower/2)-2; //default = paladin, ranger
      break;
-}
+ }
 
  if(iPower > 0) {
 
@@ -736,8 +726,15 @@ int ku_si_AddPropertiesStone_14(object oItem, int iPower) {
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_STRENGTH);
     case BASE_ITEM_BRACER:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_STRENGTH);
-    case BASE_ITEM_BOOTS:
-      return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_CONSTITUTION);
+    case BASE_ITEM_BOOTS:{
+      int iConstPower = iPower;
+      int ret;
+      if(iConstPower > 6)
+        iConstPower = 6;
+      ret = ku_si_AddItemProperty_AbilityBonus(oItem,iConstPower,ABILITY_CONSTITUTION);
+      ret = ret + ku_si_AddItemProperty_AC(oItem, iPower - 4);
+      return ret;
+    }
     case BASE_ITEM_BELT:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_CONSTITUTION);
      //     default:
