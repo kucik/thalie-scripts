@@ -73,7 +73,7 @@ int ku_si_AddItemProperty_SkillBonus(object oItem, int iSkill, int iPower) {
       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLimitUseByClass(IP_CONST_CLASS_ROGUE),oItem);
     }
     //add for armors also some AC to net get it only for best power.///
-/*    if(( GetBaseItemType(oItem) == BASE_ITEM_ARMOR)&((iPower/3) >0)) {
+    if(( GetBaseItemType(oItem) == BASE_ITEM_ARMOR)&((iPower/3) >0)) {
       int iChest = GetItemAppearance(oItem,ITEM_APPR_TYPE_ARMOR_MODEL, ITEM_APPR_ARMOR_MODEL_TORSO);
       // check if its clothes or armor
       string sAC = Get2DAString("parts_chest","ACBONUS",iChest);
@@ -82,9 +82,9 @@ int ku_si_AddItemProperty_SkillBonus(object oItem, int iSkill, int iPower) {
       }
       int iAC = StringToInt(sAC);
     
-      
-      AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(iPower/3),oItem);
-  }*/
+      if(iAC >= 1)
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(iPower/3),oItem);
+  }
 
     return TRUE;
   }
