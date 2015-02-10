@@ -409,8 +409,6 @@ void main()
   // Metal or mineral
   if(iResource <= CNR_RESOURCE_MAX_MINERAL) {
     iSkill = CnrGetPersistentInt(oPC,"iMiningSkill");
-    RemoveEffects(oPC);
-    CallEnemyCreatures(oPC);
     bMiningSkillType = TRUE;
   }
   // Wood
@@ -418,6 +416,9 @@ void main()
     iSkill = CnrGetPersistentInt(oPC,"iWoodCutSkill");
     bMiningSkillType = FALSE;
   }
+
+  RemoveEffects(oPC);
+  CallEnemyCreatures(oPC);
 
   int iDigChance = iSkill;
   // Weird skill override if skill is too low
