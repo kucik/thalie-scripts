@@ -51,9 +51,18 @@ int  TC_getLevel(object oPC, int iCraftID)
     int i;
     int neededXPForLVL = 0;
 
-    for (i = 1; i < 21; i++)
+    if  (GetIsDM(oPC)== TRUE) 
+      return 20;
+
+    int iLevel = 0.5 + sqrt(0.25 + (nXP / 500.0));
+    if(iLevel > 20)
+      return 20;
+   
+    return iLevel - 1;
+
+/*    for (i = 1; i < 21; i++)
     {
-        neededXPForLVL = i*(i-1)*1000; // potrebne xp na i lvl
+        neededXPForLVL = i*(i-1)*500; // potrebne xp na i lvl
         if(nXP < neededXPForLVL) return (i-1);
     }
 
@@ -64,9 +73,7 @@ if (nXP>189999) {
 //////////////////////////////////////////////////////////////////////
 else
    return 0;
-
-if  (GetIsDM(oPC)== TRUE) return 20;
-
+*/
 }
 
 
