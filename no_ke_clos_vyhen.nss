@@ -74,9 +74,6 @@ case 3:   { no_slin(no_Item,OBJECT_SELF,FALSE);
 ///////////  V teto chvili jsme zjistili co je v peci. takze se jen vytvari pravdepodobnosti dane veci a pripadne vyrobky
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-int TC_ke_VLASTNOST  = GetAbilityScore(GetLastDisturbed(), ABILITY_DEXTERITY,TRUE);
-/////////je to v .ini ale nemohlo to v ini najit last distrurbed..
-
 
 /////////////polotovar//////////////////////////////////////////////////////
 no_Item = GetFirstItemInInventory(OBJECT_SELF);

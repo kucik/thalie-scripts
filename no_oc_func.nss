@@ -151,7 +151,8 @@ SetLocalInt(no_Item,"tc_cena",FloatToInt (1.01*GetLocalInt(no_Item,"tc_cena") +1
 void no_vynikajicikus(object no_Item)
 {
 int no_random = d100();
-if (no_random < (TC_oc_VLASTNOST/4+1) ) {
+//if (no_random < (TC_oc_VLASTNOST/4+1) ) {
+if (no_random < (1) ) {
 ////5% sance, ze se prida neco vynikajiciho !!
 if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
 FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);

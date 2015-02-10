@@ -54,7 +54,7 @@ int  TC_getLevel(object oPC, int iCraftID)
     if  (GetIsDM(oPC)== TRUE) 
       return 20;
 
-    int iLevel = 0.5 + sqrt(0.25 + (nXP / 500.0));
+    int iLevel = FloatToInt(0.5 + sqrt(0.25 + (nXP / 500.0)));
     if(iLevel > 20)
       return 20;
    
@@ -136,17 +136,30 @@ int TC_getXPbyDifficulty(object oPC, int iCraftID, int iChanceOfSucces, int iCra
 //NOMIS UPDATE (6cervenec) - moc lidi drbalo, ze je tam spatna progrese na vlastnosti. no hlavne de grasse no :D
 //  int iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility)-6)))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));
 
-// NOMIS update- zmirneni minulych veci na : nad 13 vlatnost bez omezeni, a u zakladnich remesel jako pri staru
+// NOMIS update- zmirneni minulych veci na : nad 13 vlatnost bez omezeni, a u zakladnich remesel jako pri star
 
-int iXPReward = FloatToInt((1.0 + (0.1*(IntToFloat(iCraftAbility))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));
 
-        if (( iCraftID == 30)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
-        if (( iCraftID == 31)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
-        if (( iCraftID == 32)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
-        if (( iCraftID == 33)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
-        if (( iCraftID == 2)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
-        if (( iCraftID == 35)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
-        if (( iCraftID == 1)&(iCraftAbility<14)) { iXPReward = FloatToInt((1.0 + (0.12*(IntToFloat(iCraftAbility-6))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));}
+// reward = (( 1.0 + (0.1 * ( ( ability )))) * ( (100 - chance)/100) * ( (LXP) / (ANOP))) 
+//int iXPReward = FloatToInt((1.0 + (0.1*(IntToFloat(iCraftAbility))))*(IntToFloat(100 - iChanceOfSucces)/100.0) * (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));
+  int iXPReward = FloatToInt( (1.0 + (0.1 * iCraftAbility)) * 
+                  ((100.0 - iChanceOfSucces)/100.0) * 
+                  (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));
+
+  if(iCraftAbility<14) {
+    switch(iCraftID) {
+      case TC_zlatnik:
+      case TC_siti:
+      case TC_truhlar:
+      case TC_kovar:
+      case TC_platner:
+      case TC_ocarovavac:
+      case TC_ALCHEMY:
+        iXPReward = FloatToInt( (1.0 + (0.12 * (iCraftAbility-6))) * 
+                                ((100.0 - iChanceOfSucces)/100.0) * 
+                                (IntToFloat(iXPbyThisLVL)/IntToFloat(iAverageNumberOfProducts)));
+        break;
+    }
+  }
 
 //    SendMessageToPC(oPC ,"Puvodne by si mel: " + IntToString(no_iXPReward) + " XP" );
 //    SendMessageToPC(oPC ,"Ted si ziskal: " + IntToString(iXPReward) + " XP" );
@@ -178,7 +191,7 @@ int TC_setXPbyDifficulty(object oPC, int iCraftID, int iChanceOfSucces, int iCra
     if ((iNewXP<2)&(iCraftAbility>12)) iNewXP = 2;
     if ((iNewXP<3)&(iCraftAbility>17)) iNewXP = 3;
 
-    if (iCraftID == 1)
+    if (iCraftID == TC_ALCHEMY)
     {
         if ((iNewXP<15)&(iCraftAbility<=10)) iNewXP = 15;
         if ((iNewXP<20)&(iCraftAbility>10)) iNewXP = 20;

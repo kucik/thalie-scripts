@@ -67,9 +67,6 @@ case 2:  {
 ///////////  V teto chvili jsme zjistili co je v peci. takze se jen vytvari pravdepodobnosti dane veci a pripadne vyrobky
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-int TC_br_VLASTNOST  = GetAbilityScore(GetLastDisturbed(), ABILITY_CHARISMA,TRUE);
-/////////je to v .ini ale nemohlo to v ini najit last distrurbed..
-
 
 
 

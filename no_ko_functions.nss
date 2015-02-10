@@ -191,6 +191,9 @@ int __getSuseQual(string sTag) {
 int __getProgressByDifficulty(int no_obtiznost_vyrobku) {
 
   // result is returned value / 10
+  
+  if(no_obtiznost_vyrobku > 190)
+    no_obtiznost_vyrobku = 190;
 
   if (no_obtiznost_vyrobku >= 180 )
     return (200 - no_obtiznost_vyrobku) / 10;
@@ -208,6 +211,9 @@ int __getProgressByDifficulty(int no_obtiznost_vyrobku) {
 
 int __getDestroyingByDifficulty(int no_obtiznost_vyrobku) {
   // result is returned value / 10
+
+  if(no_obtiznost_vyrobku > 190)
+    no_obtiznost_vyrobku = 190;
 
   if (no_obtiznost_vyrobku>=180)
     return (210 - no_obtiznost_vyrobku) / 10;
@@ -421,7 +427,8 @@ void no_xp_kuze(object no_oPC, object no_pec)
     }
 
     if ((no_chance > 0)&(no_chance<100)) {
-      TC_setXPbyDifficulty(no_oPC,TC_KUZE,no_chance,TC_dej_vlastnost(TC_KUZE,no_oPC));    }
+      TC_setXPbyDifficulty(no_oPC,TC_KUZE,no_chance,TC_dej_vlastnost(TC_KUZE,no_oPC));
+    }
 
         //////////povedlo se takze se zlepsi % zhotoveni na polotovaru////////////
         ///////////nacteme procenta z minula kdyz je polotovar novej, mel by mit int=0 /////////////////

@@ -1,8 +1,9 @@
+#include "tc_constants"
 
 const string no_verzecraftu =  "04.09.14";  // bude u kazdeho vyrobku napsane, at vime, jak je to starej vyrobek
                                             //  obzvlaste po tech updatech tobude bourlive :D
 
-const int TC_zlatnik = 30; // cislo drevariny
+/*const int TC_zlatnik = 30; // cislo drevariny
 int TC_ZL_VLASTNOST;//  = GetAbilityScore(GetLastDisturbed(), ABILITY_CHARISMA,TRUE);
 const int TC_SUTRY = 23; // cislo brusicstvi
 int TC_br_VLASTNOST;//  = GetAbilityScore(GetLastDisturbed(), ABILITY_CHARISMA,TRUE);
@@ -24,6 +25,7 @@ const int TC_siti = 31; // cislo siti
 int TC_si_VLASTNOST;//  = GetAbilityScore(GetLastDisturbed(), ABILITY_WISDOM,TRUE);
 const int TC_truhlar = 32; // cislo truhlare
 int TC_tr_VLASTNOST;//  = GetAbilityScore(GetLastDisturbed(), ABILITY_DEXTERITY,TRUE);
+*/
 
 int TC_dej_vlastnost(int nCraft, object oPC);
 

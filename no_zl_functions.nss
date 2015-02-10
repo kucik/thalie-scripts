@@ -2178,7 +2178,6 @@ void no_xp_zl (object no_oPC, object no_pec)
 int no_druh=0;
 int no_DC=1000;// radsi velke, kdyby nahodou se neprepsalo
 int no_level = TC_getLevel(no_oPC,TC_zlatnik);  // TC kovar = 33
-//int TC_VLASTNOST  = TC_ZL_VLASTNOST; //nahravam z no_nastavcrfat_ini
 if ( no_zl_debug == TRUE )  no_level=no_level+10;
 if  (GetIsDM(no_oPC)== TRUE) no_level=no_level+20;
 

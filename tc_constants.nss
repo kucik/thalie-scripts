@@ -8,6 +8,17 @@ const int TC_CRAFTS_COUNT = 2;
 // identifikatory odvetvi craftu
 const int TC_ALCHEMY = 1;
 const int TC_ARMORCRAFT = 2;
+const int TC_zlatnik = 30; // cislo drevariny
+const int TC_SUTRY = 23; // cislo brusicstvi
+const int TC_DREVO = 21; // cislo drevariny
+const int TC_KERAM = 22; // cislo meho craftu
+const int TC_KUZE = 24; // cislo kozeluzstvi
+const int TC_ocarovavac = 35; // cislo ocarovani
+const int TC_platner = 2; // cislo platneriny
+const int TC_MELTING = 20; //slevac
+const int TC_kovar = 33; // cislo kovariny
+const int TC_siti = 31; // cislo siti
+const int TC_truhlar = 32; // cislo truhlare
 
 // pro promene na postave s ulozenymi xp za craft
 const string TC_XP_PREFIX = "tcXPSystem";

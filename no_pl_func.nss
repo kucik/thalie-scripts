@@ -2575,7 +2575,6 @@ void no_xp_pl (object no_oPC, object no_pec)
 int no_druh=0;
 int no_DC=1000;// radsi velke, kdyby nahodou se neprepsalo
 int no_level = TC_getLevel(no_oPC,TC_platner);  // TC kovar = 33
-int TC_pl_VLASTNOST  = GetAbilityScore(no_oPC, ABILITY_CONSTITUTION,TRUE);
 
 if ( NO_pl_DEBUG == TRUE )  no_level=no_level+10;
 if  (GetIsDM(no_oPC)== TRUE) no_level=no_level+20;
