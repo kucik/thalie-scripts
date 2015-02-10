@@ -16,7 +16,7 @@
 #include "me_ncr_on_aquinc"
 void main()
 {
-     object oItem = GetModuleItemAcquired();
+/*     object oItem = GetModuleItemAcquired();
      ExecuteScript("ku_m_onacquired",OBJECT_SELF);
 
      // ncraft - start (me_ncr_on_aquinc)
@@ -26,7 +26,7 @@ void main()
 
      doWithAquiredItem(oItem,oPC,oLast,oMod);
      // ncraft - end
-
+*/
      // * Generic Item Script Execution Code
      // * If MODULE_SWITCH_EXECUTE_TAGBASED_SCRIPTS is set to TRUE on the module,
      // * it will execute a script that has the same name as the item's tag
