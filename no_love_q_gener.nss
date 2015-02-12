@@ -36,6 +36,7 @@ void main()
     SetLocalInt(OBJECT_SELF,"lovec_q_qid",quest.id);
     SetLocalString(OBJECT_SELF,"lovec_q_qname",quest.sName);
     SetLocalString(OBJECT_SELF,"lovec_q_qtag",quest.sTag);
+    SetLocalString(OBJECT_SELF,"lovec_q_qtrofnanem",quest.sTrofejName);
     SetLocalInt(OBJECT_SELF,"lovec_q_lastquest",ku_GetTimeStamp(0,720)); // zachova si quest celej restart
   }
 

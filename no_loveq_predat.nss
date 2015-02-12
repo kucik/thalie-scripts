@@ -26,6 +26,7 @@ void main()
 
   string sName = GetLocalString(OBJECT_SELF,"lovec_q_qname");
   string sTag = GetLocalString(OBJECT_SELF,"lovec_q_qtag");
+  string sTrofName = GetLocalString(OBJECT_SELF,"lovec_q_qtrofnanem");
 
   if(GetStringLength(sTag) == 0) {
     SpeakString("Neni vypsana zadna odmena ");
@@ -50,7 +51,7 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");*/
   }
 //takze projede vsechno a skonci bud pokud najde vec co je nastavena na postave, nebo pokud prohleda vsechno
   if (!GetIsObjectValid(oItem)) {
-    SpeakString( " Zadne takove veci co bych potreboval u sebe nemas " );
+    SpeakString( " Je mi lito, ale toto neni "+sTrofName+".");
     return;
   }
 
