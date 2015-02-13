@@ -659,12 +659,11 @@ int ku_si_AddPropertiesStone_12(object oItem, int iPower) {
 
   switch(iBaseItem) {
     case BASE_ITEM_ARMOR:
-
+        return ku_si_AddItemProperty_SR(oItem,iPower);
     case BASE_ITEM_CLOAK:
-
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_CHARISMA);
     case BASE_ITEM_BOOTS:
-            return ku_si_AddItemProperty_ElementReduction(oItem,iPower/2,IP_CONST_DAMAGETYPE_SONIC);
+      return ku_si_AddItemProperty_ElementReduction(oItem,iPower/2,IP_CONST_DAMAGETYPE_SONIC);
     case BASE_ITEM_HELMET:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_WISDOM);
     case BASE_ITEM_BELT:
@@ -689,15 +688,14 @@ int ku_si_AddPropertiesStone_13(object oItem, int iPower) {
 
   switch(iBaseItem) {
     case BASE_ITEM_ARMOR:
-    return ku_si_AddItemProperty_SR(oItem,iPower);
+      return ku_si_AddItemProperty_SaveUni(oItem,iPower + 2);
     case BASE_ITEM_CLOAK:
-        return ku_si_AddItemProperty_SaveUni(oItem,iPower);
+      return ku_si_AddItemProperty_SaveUni(oItem,iPower);
     case BASE_ITEM_BOOTS:
       return ku_si_AddItemProperty_Save(oItem,iPower,IP_CONST_SAVEBASETYPE_REFLEX);
     case BASE_ITEM_HELMET:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_INTELLIGENCE);
     case BASE_ITEM_BELT:
-
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_STRENGTH);
     case BASE_ITEM_GLOVES:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_DEXTERITY);
