@@ -45,18 +45,14 @@ void main()
     SetLocalInt(OBJECT_SELF,"no_poptavka",no_nahoda);
     switch(no_nahoda) {
   // brousene
-case id_brou_nefr :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_nefr); break;
-case id_brou_ohni :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_ohni); break;
+case id_brou_nefr : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_nefr); break;
+case id_brou_ohni : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_ohni); break;
 case id_brou_amet : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_amet); break;
 case id_brou_fene : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_fene); break;
-case id_brou_diam : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_diam); break;
-case id_brou_rubi : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_rubi); break;
 case id_brou_mala : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_mala); break;
 case id_brou_safi : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_safi); break;
-case id_brou_opal : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_opal); break;
 case id_brou_topa : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_topa); break;
 case id_brou_gran : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_gran); break;
-case id_brou_smar : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_smar); break;
 case id_brou_alex : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_alex); break;
 case id_brou_aven : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_aven); break;
 case id_brou_zive : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_zive); break;
@@ -65,14 +61,10 @@ case id_fine_nefr : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_nefr);
 case id_fine_ohni : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_ohni); break;
 case id_fine_amet : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_amet); break;
 case id_fine_fene : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_fene); break;
-case id_fine_diam : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_diam); break;
-case id_fine_rubi : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_rubi); break;
-case id_fine_mala: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_mala); break;
+case id_fine_mala : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_mala); break;
 case id_fine_safi : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_safi); break;
-case id_fine_opal : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_opal); break;
 case id_fine_topa : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_topa); break;
 case id_fine_gran : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_gran); break;
-case id_fine_smar : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_smar); break;
 case id_fine_alex : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_alex); break;
 case id_fine_aven : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_aven); break;
 case id_fine_zive : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_zive); break;

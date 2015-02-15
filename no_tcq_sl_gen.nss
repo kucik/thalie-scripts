@@ -47,7 +47,7 @@ void main()
   //vycistene veci
 case id_no_cist_tin: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_tin); break;
 case id_no_cist_copp: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_copp); break;
-case id_no_cist_bron: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_bron); break;
+case id_no_cist_verm: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_verm); break;
 case id_no_cist_iron: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_iron); break;
 case id_no_cist_gold: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_gold); break;
 case id_no_cist_plat: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_plat); break;
@@ -55,12 +55,10 @@ case id_no_cist_mith: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_m
 case id_no_cist_adam: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_adam); break;
 case id_no_cist_tita: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_tita); break;
 case id_no_cist_silv: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_silv); break;
-case id_no_cist_stin: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_stin); break;
-case id_no_cist_mete: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_mete); break;
 //pruty
 case id_no_prut_tin: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_tin); break;
 case id_no_prut_copp: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_copp); break;
-case id_no_prut_bron: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_bron); break;
+case id_no_prut_verm: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_verm); break;
 case id_no_prut_iron: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_iron); break;
 case id_no_prut_gold: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_gold); break;
 case id_no_prut_plat: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_plat); break;
@@ -68,8 +66,6 @@ case id_no_prut_mith: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_m
 case id_no_prut_adam: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_adam); break;
 case id_no_prut_tita: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_tita); break;
 case id_no_prut_silv: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_silv); break;
-case id_no_prut_stin: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_stin); break;
-case id_no_prut_mete: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_mete); break;
     }
 
 

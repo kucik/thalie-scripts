@@ -18,7 +18,7 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 switch(zbozi) {
 case id_no_cist_tin:  no_nazev = "kusu vycisteneho cinu"; break;
 case id_no_cist_copp: no_nazev = "kusu vycistene medi"; break;
-case id_no_cist_bron: no_nazev = "kusu vycisteneho bronzu"; break;
+case id_no_cist_verm: no_nazev = "kusu vycisteneho vermajlu"; break;
 case id_no_cist_iron: no_nazev = "kusu vycisteneho zeleza"; break;
 case id_no_cist_gold: no_nazev = "kusu vycisteneho zlata"; break;
 case id_no_cist_plat: no_nazev = "kusu vycistene platiny"; break;
@@ -26,12 +26,10 @@ case id_no_cist_mith: no_nazev = "kusu vycisteneho mithrilu"; break;
 case id_no_cist_adam: no_nazev = "kusu vycisteneho adamantinu"; break;
 case id_no_cist_tita: no_nazev = "kusu vycisteneho titanu"; break;
 case id_no_cist_silv: no_nazev = "kusu vycisteneho stribra"; break;
-case id_no_cist_stin: no_nazev = "kusu vycistene stinove oceli"; break;
-case id_no_cist_mete: no_nazev = "kusu vycistene meteoriticke oceli"; break;
 //pruty
 case id_no_prut_tin: no_nazev = " prutu cinu"; break;
 case id_no_prut_copp: no_nazev = " prutu medi"; break;
-case id_no_prut_bron: no_nazev = " prutu bronzi"; break;
+case id_no_prut_verm: no_nazev = " prutu vermajlu"; break;
 case id_no_prut_iron: no_nazev = " prutu zeleza"; break;
 case id_no_prut_gold: no_nazev = " prutu zlata"; break;
 case id_no_prut_plat: no_nazev = " prutu platiny"; break;
@@ -39,8 +37,6 @@ case id_no_prut_mith: no_nazev = " prutu mithrilu"; break;
 case id_no_prut_adam: no_nazev = " prutu adamntinu"; break;
 case id_no_prut_tita: no_nazev = " prutu titanu"; break;
 case id_no_prut_silv: no_nazev = " prutu stribra"; break;
-case id_no_prut_stin: no_nazev = " prutu stinove oceli"; break;
-case id_no_prut_mete: no_nazev = " prutu meteoriticke oceli"; break;
 }
 
 /*

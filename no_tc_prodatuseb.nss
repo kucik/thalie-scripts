@@ -14,6 +14,8 @@ string no_vykup2 = GetLocalString(OBJECT_SELF,"THINGS_TO_BUY_2");
 string no_vykup3 = GetLocalString(OBJECT_SELF,"THINGS_TO_BUY_3");
 string no_vykup4 = GetLocalString(OBJECT_SELF,"THINGS_TO_BUY_4");
 string no_vykup5 = GetLocalString(OBJECT_SELF,"THINGS_TO_BUY_5");
+string no_vykup6 = GetLocalString(OBJECT_SELF,"THINGS_TO_BUY_6");
+string no_vykup7 = GetLocalString(OBJECT_SELF,"THINGS_TO_BUY_7");
 
 while (GetIsObjectValid(no_Item))
         {

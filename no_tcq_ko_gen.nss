@@ -43,20 +43,24 @@ void main()
 
     SetLocalInt(OBJECT_SELF,"no_poptavka",no_nahoda);
     switch(no_nahoda) {
-  //vycistene veci
+  //susene kuze
 case id_no_suse_obyc: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_suse_obyc); break;
 case id_no_suse_leps : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_suse_leps); break;
 case id_no_suse_kval : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_suse_kval); break;
 case id_no_suse_mist : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_suse_mist); break;
 case id_no_suse_velm : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_suse_velm); break;
-case id_no_suse_lege : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_suse_lege); break;
-
+    //louhovane kuze
 case id_no_kuze_obyc : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kuze_obyc); break;
 case id_no_kuze_leps : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kuze_leps); break;
 case id_no_kuze_kval : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kuze_kval); break;
 case id_no_kuze_mist : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kuze_mist); break;
 case id_no_kuze_velm : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kuze_velm); break;
-case id_no_kuze_lege : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kuze_lege); break;
+     //louhovane kozky
+case id_no_kozk_obyc : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kozk_obyc); break;
+case id_no_kozk_leps : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kozk_leps); break;
+case id_no_kozk_kval : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kozk_kval); break;
+case id_no_kozk_mist : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kozk_mist); break;
+case id_no_kozk_velm : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_kozk_velm); break;
     }
 
 

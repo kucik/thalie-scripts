@@ -50,8 +50,6 @@ case id_tc_osek_dub :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_du
 case id_tc_osek_mah :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_mah ); break;
 case id_tc_osek_tis :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_tis ); break;
 case id_tc_osek_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_jil ); break;
-case id_tc_osek_zel :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_zel); break;
-case id_tc_osek_pra :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_pra ); break;
   // desky
 case id_tc_desk_vrb :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_vrb ); break;
 case id_tc_desk_ore :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_ore ); break;
@@ -59,8 +57,6 @@ case id_tc_desk_dub :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_du
 case id_tc_desk_mah :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_mah ); break;
 case id_tc_desk_tis :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_tis ); break;
 case id_tc_desk_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_jil ); break;
-case id_tc_desk_zel :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_zel ); break;
-case id_tc_desk_pra :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_pra ); break;
 //late
 case id_tc_lat_vrb :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_vrb ); break;
 case id_tc_lat_ore :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_ore); break;
@@ -68,9 +64,6 @@ case id_tc_lat_dub :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_dub 
 case id_tc_lat_mah :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_mah ); break;
 case id_tc_lat_tis :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_tis ); break;
 case id_tc_lat_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_jil ); break;
-case id_tc_lat_zel :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_zel ); break;
-case id_tc_lat_pra :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_lat_pra ); break;
-
 //nasady
 case id_tc_nasa_vrb :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_vrb ); break;
 case id_tc_nasa_ore :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_ore ); break;
@@ -78,8 +71,6 @@ case id_tc_nasa_dub :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_du
 case id_tc_nasa_mah :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_mah ); break;
 case id_tc_nasa_tis :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_tis ); break;
 case id_tc_nasa_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_jil ); break;
-case id_tc_nasa_zel :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_zel ); break;
-case id_tc_nasa_pra :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_pra ); break;
     }
 
 

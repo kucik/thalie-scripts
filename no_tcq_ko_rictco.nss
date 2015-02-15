@@ -22,14 +22,18 @@ case id_no_suse_leps :no_nazev = " lepsich susenych kuzi"; break;
 case id_no_suse_kval :no_nazev = " kvalitnich susenych kuzi"; break;
 case id_no_suse_mist:no_nazev = " mistrovskych susenych kuzi"; break;
 case id_no_suse_velm :no_nazev = " velmistrovskych susenych kuzi"; break;
-case id_no_suse_lege :no_nazev = " legendarnich susenych kuzi"; break;
 
 case id_no_kuze_obyc :no_nazev = " obycejnych kuzi"; break;
 case id_no_kuze_leps :no_nazev = " lepsich kuzi"; break;
 case id_no_kuze_kval :no_nazev = " kvalitnich kuzi"; break;
 case id_no_kuze_mist :no_nazev = " mistrovskych kuzi"; break;
 case id_no_kuze_velm :no_nazev = " velmistrovskych kuzi"; break;
-case id_no_kuze_lege :no_nazev = " legendarnich kuzi"; break;
+
+case id_no_kozk_obyc :no_nazev = " obycejnych kozek"; break;
+case id_no_kozk_leps :no_nazev = " lepsich kozek"; break;
+case id_no_kozk_kval :no_nazev = " kvalitnich kozek"; break;
+case id_no_kozk_mist :no_nazev = " mistrovskych kozek"; break;
+case id_no_kozk_velm :no_nazev = " velmistrovskych kozek"; break;
 }
 
 /*
