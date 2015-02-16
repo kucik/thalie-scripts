@@ -32,9 +32,9 @@ object no_vzataItem = GetInventoryDisturbItem();
 
 /////////////////////////////1-NASTAVIT CISTIT/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_cistit" ) {
-no_znicit(OBJECT_SELF); //znicime vsechny prepinace
-no_znicit(no_oPC);
-no_reopen(no_oPC);
+TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
+TC_DestroyButtons(no_oPC);
+TC_Reopen(no_oPC);
 SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"); //pridame tlacitko zpet
 if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") < ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Do pece bude potreba pridat vice uhli",no_oPC,FALSE );
@@ -44,9 +44,9 @@ SetLocalInt(OBJECT_SELF,"no_menu",1);
 
 /////////////////////////////2-NASTAVIT LEGOVAT/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_legovat" ) {
-no_znicit(OBJECT_SELF); //znicime vsechny prepinace
-no_znicit(no_oPC);
-no_reopen(no_oPC);
+TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
+TC_DestroyButtons(no_oPC);
+TC_Reopen(no_oPC);
 SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"); //pridame tlacitko zpet
 if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") < ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Do pece bude potreba pridat vice uhli",no_oPC,FALSE );
@@ -57,9 +57,9 @@ SetLocalInt(OBJECT_SELF,"no_menu",2);
 
 /////////////////////////////3-NASTAVIT SLEVAT/////////////////////////////////
 //if (GetTag(no_vzataItem) == "no_slevat" ) {
-//no_znicit(OBJECT_SELF); //znicime vsechny prepinace
-//no_znicit(no_oPC);
-//no_reopen(no_oPC);
+//TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
+//TC_DestroyButtons(no_oPC);
+//TC_Reopen(no_oPC);
 //SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"); //pridame tlacitko zpet
 //if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") < ku_GetTimeStamp() )
 //FloatingTextStringOnCreature("Do pece bude potreba pridat vice uhli",no_oPC,FALSE );
@@ -71,9 +71,9 @@ SetLocalInt(OBJECT_SELF,"no_menu",2);
 
 /////////////////////////////4-NASTAVIT ZPET  /////////////////////////////////
 if (GetTag(no_vzataItem) == "no_zpet" ) {
-no_znicit(OBJECT_SELF); //znicime vsechny prepinace
-no_znicit(no_oPC);
-no_reopen(no_oPC);
+TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
+TC_DestroyButtons(no_oPC);
+TC_Reopen(no_oPC);
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_cistit"),"Cistit kov");    //pridame tlacitka
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_legovat"),"Legovat kov");
 //SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_slevat"),"Slevat slitiny");

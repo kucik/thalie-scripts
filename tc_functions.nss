@@ -26,6 +26,15 @@ void TC_AlchRemoveConflictProperties(object oTarget, int alcheff);
 // Do nothing when no_mazani == FALSE
 void TC_SnizStack(object oItem, int no_mazani);
 
+////////////////
+// Reopen craft device
+void TC_Reopen(object no_oPC);
+
+///////////////
+// Destroy buttons in PC inventory
+void TC_DestroyButtons(object no_oPC);
+
+
 /* end declaration */
 
 
@@ -357,6 +366,11 @@ void TC_AlchRemoveConflictProperties(object oTarget, int alcheff) {
   }
 }
 
+//////////////////////////////////////////////////////
+/// Craft common functions
+
+//////////////////////////////////////////////////////
+
 void TC_SnizStack(object oItem, int no_mazani)
 {
   if(!no_mazani)
@@ -370,4 +384,70 @@ void TC_SnizStack(object oItem, int no_mazani)
       //FloatingTextStringOnCreature(" Tolikati prisad nebylo zapotrebi ",no_oPC,FALSE );
       SetItemStackSize(oItem,no_stacksize-1);
   }
+}
+
+void TC_Reopen(object no_oPC) {
+  AssignCommand(no_oPC,DoPlaceableObjectAction(OBJECT_SELF,PLACEABLE_ACTION_USE));
+  //   AssignCommand(oPC,DelayCommand(1.0,DoPlaceableObjectAction(GetNearestObjectByTag(GetTag(oSelf),oPC,1),PLACEABLE_ACTION_USE)));
+}
+
+
+////////Znici tlacitka z inventare ///////////////////////
+void TC_DestroyButtons(object no_oPC)
+{
+  no_Item = GetFirstItemInInventory(no_oPC);
+
+  while (GetIsObjectValid(no_Item)) {
+
+    if( (GetResRef(no_Item) != "prepinac001") &&
+        (GetResRef(no_Item) != "prepinac003") ){
+      no_Item = GetNextItemInInventory(no_oPC);
+      continue;     //znicim vsechny prepinace 001
+    }
+    DestroyObject(no_Item);
+
+    no_Item = GetNextItemInInventory(no_oPC);
+  }
+
+}
+
+int TC_getProgressByDifficulty(int no_obtiznost_vyrobku) {
+
+  // result is returned value / 10
+
+  if(no_obtiznost_vyrobku > 190)
+    no_obtiznost_vyrobku = 190;
+
+  if (no_obtiznost_vyrobku >= 180 )
+    return (200 - no_obtiznost_vyrobku) / 10;
+  if (no_obtiznost_vyrobku >= 170)
+    return Random(4);
+  if (no_obtiznost_vyrobku >= 160)
+    return Random(6);
+  if (no_obtiznost_vyrobku >= 130)
+    return Random(20)  + (160 - no_obtiznost_vyrobku) / 10;
+  if (no_obtiznost_vyrobku >= 10)
+    return Random(20)  + (130 - no_obtiznost_vyrobku) / 2;
+  // < 10
+  return Random(20) + 100;
+}
+
+int TC_getDestroyingByDifficulty(int no_obtiznost_vyrobku) {
+  // result is returned value / 10
+
+  if(no_obtiznost_vyrobku > 190)
+    no_obtiznost_vyrobku = 190;
+
+  if (no_obtiznost_vyrobku>=180)
+    return (210 - no_obtiznost_vyrobku) / 10;
+  if (no_obtiznost_vyrobku>=170)
+    return Random(6);
+  if (no_obtiznost_vyrobku>=160)
+    return Random(8);
+  if (no_obtiznost_vyrobku>=130)
+    return Random(20) + (180 - no_obtiznost_vyrobku) / 10;
+  if(no_obtiznost_vyrobku>=10)
+    return Random(20) - FloatToInt(no_obtiznost_vyrobku * 0.7) + 93; // !!! To check
+  // < 10
+  return Random(20) + 150;
 }

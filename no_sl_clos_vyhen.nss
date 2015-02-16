@@ -29,7 +29,6 @@ while (GetIsEffectValid(no_effect))
 
 SetLocalInt(OBJECT_SELF,"no_MULTIKLIK",0);
 //no_oPC=GetLastClosedBy();
-no_znicit(OBJECT_SELF); //znicime vsechny prepinace at tam pak pri otevreni nejsou 2x
 
 
 if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") > ku_GetTimeStamp() )  { //zacne jen kdyz je pec tepla
@@ -58,18 +57,14 @@ no_menu = GetLocalInt(OBJECT_SELF,"no_menu");
 switch(no_menu) {
 case 1:  {  ///3.srpna - uz neni potreba struskotvornych prisad
             /// no_struska(no_Item,OBJECT_SELF);
-            no_nuget(no_Item,OBJECT_SELF, FALSE);   //nugety maji samy svoje resrefy a tagy, musi to byt zvlast
+            no_nuget(OBJECT_SELF, FALSE);   //nugety maji samy svoje resrefy a tagy, musi to byt zvlast
             break;
           }
 case 2:  {
-            no_legura(no_Item,OBJECT_SELF,FALSE);
-            no_cistykov(no_Item,OBJECT_SELF,FALSE);
+            no_legura(OBJECT_SELF,FALSE);
+            no_cistykov(OBJECT_SELF,FALSE);
             break;
           }
-case 3:   {
-           no_slitina(no_Item,OBJECT_SELF,FALSE);
-           break;
-           }
 
             } /// konec switche
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +75,6 @@ case 3:   {
 
 
 
-int TC_sl_VLASTNOST  = GetAbilityScore(GetLastDisturbed(), ABILITY_CONSTITUTION,TRUE);
-/////////je to v .ini ale nemohlo to v ini najit last distrurbed..
 
 
 
@@ -183,7 +176,7 @@ case 1:  {
         FloatingTextStringOnCreature(" V peci se tavi ruda a necistoty vyplouvaji na povrch",no_oPC,FALSE );
         no_switch = GetLocalInt(OBJECT_SELF,"no_ruda");
         no_zamkni(no_oPC); //zamkne a prehraje animacku..
-        no_nuget(no_Item,OBJECT_SELF, TRUE);
+        no_nuget(OBJECT_SELF, TRUE);
         DelayCommand(no_sl_delay,no_xp_cisteni(no_oPC,OBJECT_SELF,no_switch));
         break;
         }  //konec kdyz mame struskotvorne prisady a kov
@@ -198,119 +191,16 @@ case 2:  {
          no_zamkni(no_oPC); //zamkne a prehraje animacku..
 
          no_switch = GetLocalInt(OBJECT_SELF,"no_legu");
-         // FloatingTextStringOnCreature(" no_switch = " + IntToString(no_switch) ,no_oPC,FALSE );
-         switch(no_switch) {
-         case 1:  {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_tin ) {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,1));         }
-                         else { FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               // no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               // DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu"))); }
-                         }
-                         break;   }
-         case 2:   {
-                        if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_copp ) {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,2)); }
-                        else  {FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));       }
-                         }
-                         break;     }
-         case 3:   {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_bron )  {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,3));}
-                        else  {FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));     }
+         if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_tin ) {
+           no_legura(OBJECT_SELF,TRUE);
+           no_cistykov(OBJECT_SELF,TRUE);
+           DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,no_switch));
+         }
+         else { 
+           FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
+         }
 
-                         }
-                         break;     }
-         case 4:   {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_iron ) {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,4));  }
-                         else  {FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));   }
-                         }
-                         break;     }
-         case 5:   { if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_gold )   {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,5));}
-                       else {FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                              //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                              //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));     }
-                         }
-                         break;     }
-         case 6:   {if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_plat )   {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,6));  }
-                         else  {FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));     }
-                         }
-                         break;     }
-         case 7:   {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_mith ) {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,7)); }
-                        else { FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                             //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                             // DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));      }
-                        }
-                        break;     }
-         case 8:   {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_adam )   {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,8)); }
-                        else { FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               // no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               // DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));    }
-                        }
-                        break;     }
-         case 9:   {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_tita )   {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,9));}
-                         else { FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                               // no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                               // DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu"))); }
-                         }
-                         break;     }
-         case 10:  {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_silv )  {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,10));}
-                         else  {FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                        //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                         //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));   }
-                         }
-                         break;     }
-         case 11:  {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_stin )  {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                        DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,11));      }
-                         else { FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                        //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                        //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));             }
-                         }
-                         break;     }
-          case 12:  {  if  (GetLocalInt(OBJECT_SELF,"no_nale_pocet") >= no_pocetnaprut_mete )  {
-                          no_legura(no_Item,OBJECT_SELF,TRUE);
-                          no_cistykov(no_Item,OBJECT_SELF,TRUE);
-                         DelayCommand(no_sl_delay,no_xp_pruty(no_oPC,OBJECT_SELF,12));   }
-                         else  { FloatingTextStringOnCreature(" V peci je malo nalegovaneho kovu pro vytvoreni prutu",no_oPC,FALSE );
-                         //no_vratveci(GetLocalInt(OBJECT_SELF,"no_cist"),GetLocalInt(OBJECT_SELF,"no_nale_pocet"),GetLocalInt(OBJECT_SELF,"no_cist"));
-                         //DelayCommand(1.0,no_vratslin(GetLocalInt(OBJECT_SELF,"no_legu")));  }
-                         }
-                         break;     }
-           break;     } //konec vnitrniho switche
+
         }  //konec kdyz mame legury a cisty kov
 
 
@@ -318,21 +208,6 @@ case 2:  {
               FloatingTextStringOnCreature("Do pece je nutno umistit vycisteny kov a patricne legury",no_oPC,FALSE );
                     }
           break;}
-case 3:   {
-            if ( GetLocalInt(OBJECT_SELF,"no_cist") > 100   )  {
-            // jedna se o slitinu
-            FloatingTextStringOnCreature(" V peci se zacinaji mysit kovy ",no_oPC,FALSE );
-            no_slitina(no_Item,OBJECT_SELF,TRUE);
-            no_zamkni(no_oPC); //zamkne a prehraje animacku..
-            no_switch = GetLocalInt(OBJECT_SELF,"no_cist");
-            switch(no_switch) {
-            case 101:   { DelayCommand(no_sl_delay,no_xp_slevani(no_oPC,OBJECT_SELF,101)); break;  }
-                } //konec vnitrniho switche
-           } //konec if na zacatku
-
-           if (( GetLocalInt(OBJECT_SELF,"no_cist") < 100 )&( GetLocalInt(OBJECT_SELF,"no_cist") != 58))  {
-           FloatingTextStringOnCreature("Z danych ingredienci se neda vytvorit slitina",no_oPC,FALSE );    }
-           break; }  //konec case 3
 }   /// konec switche
 
 
