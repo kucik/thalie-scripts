@@ -469,7 +469,8 @@ const int no_obt_slev_bron = 18;
 
 
 // pocet legovanych kovu na vyrobu jednoho prutu
-const int no_pocetnaprut_tin = 1;
+const int no_pocetnaprut = 1;
+/*const int no_pocetnaprut_tin = 1;
 const int no_pocetnaprut_copp = 1;
 const int no_pocetnaprut_bron = 1;
 const int no_pocetnaprut_iron = 1;
@@ -482,4 +483,4 @@ const int no_pocetnaprut_silv = 1;
 //const int no_pocetnaprut_coba = 1;
 const int no_pocetnaprut_stin = 1;
 const int no_pocetnaprut_mete = 1;
-
+*/

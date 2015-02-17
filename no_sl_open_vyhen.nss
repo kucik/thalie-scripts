@@ -1,5 +1,6 @@
-#include "ku_libtime"
-#include "ku_persist_inc"
+//#include "ku_libtime"
+//#include "ku_persist_inc"
+#include "tc_functions"
 
 object no_oPC;
 int no_menu;
@@ -20,7 +21,8 @@ no_oPC=GetLastDisturbed();
 //doplnena perzistence 5.5.2014
 if  (GetLocalInt(OBJECT_SELF,"no_prvni_otevreni")==0)   {
       SetLocalInt(OBJECT_SELF,"no_prvni_otevreni",1);
-      Persist_OnContainerOpen(OBJECT_SELF, no_oPC);             }
+//      Persist_OnContainerOpen(OBJECT_SELF, no_oPC);             
+}
 ///////////////////////////////
 
 
@@ -44,30 +46,29 @@ FloatingTextStringOnCreature(" Pec uhasina, chtelo by to vice uhli ",no_oPC,FALS
 
 else  FloatingTextStringOnCreature(" V peci jeste hori stare uhli ",no_oPC,FALSE );
 
-SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_cistit"),"Cistit kov");
-SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_legovat"),"Legovat kov");
-//SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_slevat"),"Slevat slitiny");
+  TC_MakeButton("no_cistit","Cistit kov");
+  TC_MakeButton("no_legovat","Legovat kov");
 } else
   if(no_menu == 1)
   {
   if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") > ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Teplota v peci je nastavena na cisteni nugetu",no_oPC,FALSE );
 else    FloatingTextStringOnCreature("Pec uhasina, chtelo by to vice uhli",no_oPC,FALSE );
-SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet");
+  TC_MakeButton("no_zpet","Zpet",3);
 }  else
   if(no_menu == 2)
   {
     if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") > ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Teplota v peci je nastavena na legovani kovu",no_oPC,FALSE );
 else    FloatingTextStringOnCreature("Pec uhasina, chtelo by to vice uhli",no_oPC,FALSE );
-SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet");
+  TC_MakeButton("no_zpet","Zpet",3);
 } else
   if(no_menu == 3)
   {
       if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") > ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Teplota v peci je nastavena na slevani slitin",no_oPC,FALSE );
 else    FloatingTextStringOnCreature("Pec uhasina, chtelo by to vice uhli",no_oPC,FALSE );
-SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet");
+  TC_MakeButton("no_zpet","Zpet",3);
 };
 
 

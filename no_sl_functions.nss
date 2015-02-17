@@ -18,7 +18,7 @@ void no_cistykov(object no_pec, int no_mazani);
 // no_nale_pocet  : pocet rudy
 void no_nuget(object no_pec, int no_mazani);
 // nastavi promenou no_ruda na objectu no_pec na hodnotu nugetu kovu
-void no_pridatuhli(object no_Item, object no_pec);
+void no_pridatuhli(object no_pec);
 //pridame uhli a zdelsime tak cas horeni pece
 void no_zamkni(object no_oPC);
 // zamkne a pak odemkne + prehrava animacku
@@ -278,19 +278,19 @@ int __getSlitLegByTag(string sTag) {
 }
 
 void no_legura(object no_pec, int no_mazani) {      //legury
-  object no_Item = GetFirstItemInInventory(no_pec);
+  object oItem = GetFirstItemInInventory(no_pec);
 
-  while(GetIsObjectValid(no_Item))  {
-    string sTag = GetTag(no_Item);
+  while(GetIsObjectValid(oItem))  {
+    string sTag = GetTag(oItem);
     if (GetStringLeft(sTag,7) == "no_legu" ) {
       int iLegura = __getLegurByTag(sTag);
       if(iLegura > 0) {
         SetLocalInt(no_pec,"no_legu",iLegura); 
-        TC_SnizStack(no_Item,no_mazani);
+        TC_SnizStack(oItem,no_mazani);
       }
 
     }//kdyz legura
-  no_Item = GetNextItemInInventory(OBJECT_SELF);
+  oItem = GetNextItemInInventory(OBJECT_SELF);
   }  //tak uz mame legury
 }
 
@@ -298,16 +298,16 @@ void no_legura(object no_pec, int no_mazani) {      //legury
 
 
 void no_nuget(object no_pec, int no_mazani) {
-  object no_Item = GetFirstItemInInventory(no_pec);
+  object oItem = GetFirstItemInInventory(no_pec);
 
-  while(GetIsObjectValid(no_Item))  {
-    int iNuget = __getNugetByTag(GetTag(no_Item));
+  while(GetIsObjectValid(oItem))  {
+    int iNuget = __getNugetByTag(GetTag(oItem));
     if(iNuget > 0) {
       SetLocalInt(no_pec,"no_ruda",iNuget);
-      TC_SnizStack(no_Item,no_mazani);
+      TC_SnizStack(oItem,no_mazani);
     }
 
-    no_Item = GetNextItemInInventory(no_pec);
+    oItem = GetNextItemInInventory(no_pec);
   }
 }
 
@@ -319,18 +319,18 @@ void no_cistykov(object no_pec, int no_mazani) {
 ////////////////////////////////////////////
 
 
-  object no_Item = GetFirstItemInInventory(no_pec);
+  object oItem = GetFirstItemInInventory(no_pec);
   int no_pocet = 0;
 
-  while (GetIsObjectValid(no_Item)) {
+  while (GetIsObjectValid(oItem)) {
 
-    if(GetTag(no_Item) != "no_cist") {   //kdyz neni nalegovany kov, tak pokracujeme ve vybirani
+    if(GetTag(oItem) != "no_cist") {   //kdyz neni nalegovany kov, tak pokracujeme ve vybirani
 
-      no_Item = GetNextItemInInventory(no_pec);
+      oItem = GetNextItemInInventory(no_pec);
       continue;
     }
     
-    int iCist = __getCistByResRef(GetResRef(no_Item));
+    int iCist = __getCistByResRef(GetResRef(oItem));
     if(iCist > 0) {
       if ( no_pocet >= 1) {
         if (GetLocalInt(no_pec,"no_cist") == iCist)
@@ -338,13 +338,13 @@ void no_cistykov(object no_pec, int no_mazani) {
         else { 
           no_pocet = 1; //kdyz je no_pocet=0 zvysi se na jedna
           SetLocalInt(no_pec,"no_cist",iCist);
-          TC_SnizStack(no_Item,no_mazani);
+          TC_SnizStack(oItem,no_mazani);
           break;
         }
       }
     }
-    //    TC_SnizStack(no_Item,no_mazani);
-    no_Item = GetNextItemInInventory(no_pec);
+    //    TC_SnizStack(oItem,no_mazani);
+    oItem = GetNextItemInInventory(no_pec);
   }
 
   SetLocalInt(no_pec,"no_nale_pocet",no_pocet);
@@ -387,17 +387,17 @@ float CnrNormalizeFacing(float fFacing)
 
 
 ////////////////pridavame uhli /////////////////////////////////////////////////////////////////
-void no_pridatuhli(object no_Item, object no_pec) {
+void no_pridatuhli(object no_pec) {
   no_oPC=GetLastDisturbed();
-  no_Item = GetFirstItemInInventory(OBJECT_SELF);    //zjistime, zda je ve vyhni uhli
-  while(GetIsObjectValid(no_Item))  {
-    if(GetTag(no_Item) == "cnrLumpOfCoal")
+  object oItem = GetFirstItemInInventory(OBJECT_SELF);    //zjistime, zda je ve vyhni uhli
+  while(GetIsObjectValid(oItem))  {
+    if(GetTag(oItem) == "cnrLumpOfCoal")
       break;
-    no_Item = GetNextItemInInventory(OBJECT_SELF);
+    oItem = GetNextItemInInventory(OBJECT_SELF);
   }
 
 
-  if (GetIsObjectValid(no_Item)) {  //kdyz mame uhli
+  if (GetIsObjectValid(oItem)) {  //kdyz mame uhli
 
 //////////////////////////////////////////////
 
@@ -470,7 +470,7 @@ void no_pridatuhli(object no_Item, object no_pec) {
     SetLocalInt(OBJECT_SELF,"no_sl_horipec",ku_GetTimeStamp(0,15));      // bude horet 5minut
 
 
-    DestroyObject(no_Item);   //znicime uhli
+    DestroyObject(oItem);   //znicime uhli
   }    //konec  kdyz mame uhli
 }
 
@@ -491,11 +491,11 @@ PlaySound("al_cv_firesmldr1");
 void no_xp_sl (object no_oPC, object no_pec) {
 
   int no_druh=0;
-  no_Item = GetFirstItemInInventory(no_pec);
-  while (GetIsObjectValid(no_Item)) {
+  object oItem = GetFirstItemInInventory(no_pec);
+  while (GetIsObjectValid(oItem)) {
 
-    if (GetResRef(no_Item) == "no_polot_sl") {
-      string sTag = GetTag(no_Item);
+    if (GetResRef(oItem) == "no_polot_sl") {
+      string sTag = GetTag(oItem);
       int iSlit = __getSlitByTag(sTag);
       if(iSlit > 0) {
         no_druh = iSlit; 
@@ -509,13 +509,13 @@ void no_xp_sl (object no_oPC, object no_pec) {
       }
       
       //nad 100  slitiny
-      /*if(GetTag(no_Item) == "no_sl_s_bron")  {  
+      /*if(GetTag(oItem) == "no_sl_s_bron")  {  
         no_druh=101; 
         break;
       }*/
 
     }//pokud resref = no_polot_ko      - pro zrychleni ifu...
-    no_Item = GetNextItemInInventory(no_pec);
+    oItem = GetNextItemInInventory(no_pec);
   }    /// dokud valid
 
 //////tak mame predmet, co sme chteli. ted pravdepodobnost, ze se neco povede:
@@ -523,8 +523,8 @@ void no_xp_sl (object no_oPC, object no_pec) {
     return; 
 
   // First try
-  if  (GetLocalFloat(no_Item,"no_suse_proc")==0.0) 
-    SetLocalFloat(no_Item,"no_suse_proc",10.0);
+  if  (GetLocalFloat(oItem,"no_suse_proc")==0.0) 
+    SetLocalFloat(oItem,"no_suse_proc",10.0);
 
 
   int no_level = TC_getLevel(no_oPC,TC_MELTING);
@@ -542,7 +542,7 @@ void no_xp_sl (object no_oPC, object no_pec) {
 
   if (no_hod <= no_chance ) {
 
-    float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
+    float no_procenta = GetLocalFloat(oItem,"no_suse_proc");
     SendMessageToPC(no_oPC,"===================================");
     if (no_chance >= 100) {
       FloatingTextStringOnCreature("Zpracovani je pro tebe trivialni",no_oPC,FALSE );
@@ -566,7 +566,7 @@ void no_xp_sl (object no_oPC, object no_pec) {
 
       AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0, 5.0));
 
-      DestroyObject(no_Item); //znicim ho, protoze predam hotovej vyrobek
+      DestroyObject(oItem); //znicim ho, protoze predam hotovej vyrobek
       DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
       string sResref = "";
       string sTag = "";
@@ -598,7 +598,7 @@ void no_xp_sl (object no_oPC, object no_pec) {
     }//konec kdzy uz mam nad 100%
     else  {  //kdyz neni 100% tak samozrejmeje neni hotovej
 
-      if ( GetLocalInt(no_Item,"no_pocet_cyklu") == 9 ) {
+      if ( GetLocalInt(oItem,"no_pocet_cyklu") == 9 ) {
         TC_saveCraftXPpersistent(no_oPC,TC_MELTING);
       }
 
@@ -608,23 +608,23 @@ void no_xp_sl (object no_oPC, object no_pec) {
         no_nazev_procenta = IntToString(iPerc/10)+"."+IntToString(iPerc%10);
       }
 
-      string no_tag_vyrobku = GetTag(no_Item);
-      int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-      DestroyObject(no_Item);
+      string no_tag_vyrobku = GetTag(oItem);
+      int no_pocet_cyklu = GetLocalInt(oItem,"no_pocet_cyklu");
+      DestroyObject(oItem);
 
-      no_Item = CreateItemOnObject("no_polot_sl",OBJECT_SELF,1,no_tag_vyrobku);
-      SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-      SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
-      SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
+      oItem = CreateItemOnObject("no_polot_sl",OBJECT_SELF,1,no_tag_vyrobku);
+      SetLocalFloat(oItem,"no_suse_proc",no_procenta);
+      SetLocalInt(oItem,"no_pocet_cyklu",no_pocet_cyklu);
+      SetLocalString(oItem,"no_crafter",GetName(no_oPC));
       FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-      SetName(no_Item,__getMaterialType(no_druh / 50)+" "+__getMaterialName(no_druh % 50)+" *" + no_nazev_procenta + "%*" );
+      SetName(oItem,__getMaterialType(no_druh / 50)+" "+__getMaterialName(no_druh % 50)+" *" + no_nazev_procenta + "%*" );
 
       if (GetCurrentAction(no_oPC) == 65535 ) { 
         ExecuteScript("no_sl_clos_vyhen",OBJECT_SELF); }
       else  { 
         FloatingTextStringOnCreature("Prerusil jsi praci" ,no_oPC,FALSE );
-        CopyItem(no_Item,no_oPC,TRUE);
-        DestroyObject(no_Item);
+        CopyItem(oItem,no_oPC,TRUE);
+        DestroyObject(oItem);
       }
 
       
@@ -635,13 +635,13 @@ void no_xp_sl (object no_oPC, object no_pec) {
 
   } /// konec, kdyz sme byli uspesni
   else {     ///////// bo se to nepovedlo, tak znicime polotovar////////////////
-    float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
+    float no_procenta = GetLocalFloat(oItem,"no_suse_proc");
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
     no_procenta = no_procenta - TC_getDestroyingByDifficulty(no_obtiznost_vyrobku) / 10.0;
 
     if (no_procenta <= 0.0 ) {
-      DestroyObject(no_Item);
+      DestroyObject(oItem);
 
       DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
       FloatingTextStringOnCreature("Kov se ti vylil do uhli.",no_oPC,FALSE );
@@ -665,23 +665,23 @@ void no_xp_sl (object no_oPC, object no_pec) {
       }
 
       // process change
-      string no_tag_vyrobku = GetTag(no_Item);
-      int no_pocet_cyklu = GetLocalInt(no_Item,"no_pocet_cyklu");
-      DestroyObject(no_Item);
+      string no_tag_vyrobku = GetTag(oItem);
+      int no_pocet_cyklu = GetLocalInt(oItem,"no_pocet_cyklu");
+      DestroyObject(oItem);
 
-      no_Item = CreateItemOnObject("no_polot_sl",OBJECT_SELF,1,no_tag_vyrobku);
-      SetLocalFloat(no_Item,"no_suse_proc",no_procenta);
-      SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
+      oItem = CreateItemOnObject("no_polot_sl",OBJECT_SELF,1,no_tag_vyrobku);
+      SetLocalFloat(oItem,"no_suse_proc",no_procenta);
+      SetLocalInt(oItem,"no_pocet_cyklu",no_pocet_cyklu);
       FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-      SetName(no_Item,__getMaterialType(no_druh / 50)+" "+__getMaterialName(no_druh % 50)+" *" + no_nazev_procenta + "%*" );
+      SetName(oItem,__getMaterialType(no_druh / 50)+" "+__getMaterialName(no_druh % 50)+" *" + no_nazev_procenta + "%*" );
 
       if (GetCurrentAction(no_oPC) == 65535 ) { 
         ExecuteScript("no_sl_clos_vyhen",OBJECT_SELF); 
       }
       else  { 
         FloatingTextStringOnCreature("Prerusil jsi praci" ,no_oPC,FALSE );
-        CopyItem(no_Item,no_oPC,TRUE);
-        DestroyObject(no_Item);
+        CopyItem(oItem,no_oPC,TRUE);
+        DestroyObject(oItem);
       }
 
     }// kdyz neni 100%
@@ -706,21 +706,6 @@ void no_xp_cisteni(object no_oPC, object no_pec, int no_kov)
  //obtiznost kovu -5*lvlu
 } // konec no_xp_cisteni
 
-
-
-void no_xp_slevani(object no_oPC, object no_pec, int no_kov)
-// vyresi moznost uspechu a preda pripadny povedeny kov do pece
-{
-int no_level = TC_getLevel(no_oPC,TC_MELTING);
-switch(no_kov) {
-
-        case 101:   {CreateItemOnObject("no_polot_sl",no_pec,1,"no_sl_s_bron");
-                   no_xp_sl(no_oPC,no_pec);
-                   break; }
-                } //konec vnitrniho  switche
-} // konec no_xp_slevani
-
-//   float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
 
 void no_xp_pruty(object no_oPC, object no_pec, int no_kov)
 // vyresi moznost uspechu a preda pripadny povedeny kov do pece

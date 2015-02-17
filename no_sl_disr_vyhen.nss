@@ -35,7 +35,7 @@ if (GetTag(no_vzataItem) == "no_cistit" ) {
 TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
 TC_DestroyButtons(no_oPC);
 TC_Reopen(no_oPC);
-SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"); //pridame tlacitko zpet
+TC_MakeButton("no_zpet","Zpet",3); //pridame tlacitko zpet
 if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") < ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Do pece bude potreba pridat vice uhli",no_oPC,FALSE );
 else FloatingTextStringOnCreature("Teplota v peci je nastavena na cisteni nugetu",no_oPC,FALSE );
@@ -47,7 +47,7 @@ if (GetTag(no_vzataItem) == "no_legovat" ) {
 TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
 TC_DestroyButtons(no_oPC);
 TC_Reopen(no_oPC);
-SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"); //pridame tlacitko zpet
+TC_MakeButton("no_zpet","Zpet",3); //pridame tlacitko zpet
 if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") < ku_GetTimeStamp() )
 FloatingTextStringOnCreature("Do pece bude potreba pridat vice uhli",no_oPC,FALSE );
 else FloatingTextStringOnCreature("Teplota v peci je nastavena na legovani kovu",no_oPC,FALSE );
@@ -74,9 +74,8 @@ if (GetTag(no_vzataItem) == "no_zpet" ) {
 TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace
 TC_DestroyButtons(no_oPC);
 TC_Reopen(no_oPC);
-SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_cistit"),"Cistit kov");    //pridame tlacitka
-SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_legovat"),"Legovat kov");
-//SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_slevat"),"Slevat slitiny");
+TC_MakeButton("no_cistit","Cistit kov");
+TC_MakeButton("no_legovat","Legovat kov");
 SetLocalInt(OBJECT_SELF,"no_menu",0);
 } ///////////////////////////KONEC NASTAVIT ZPET  /////////////////////////
 } //kdyz se z pece neco odstrani
@@ -87,7 +86,7 @@ if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
 object no_pridanaItem = GetInventoryDisturbItem();
 
 //////////Kdyz se pridalo uhli////////////////////////////////////
-if(GetTag(no_pridanaItem) == "cnrLumpOfCoal") no_pridatuhli(no_pridanaItem,OBJECT_SELF);
+if(GetTag(no_pridanaItem) == "cnrLumpOfCoal") no_pridatuhli(OBJECT_SELF);
 //////////Konec uhli////////////////////////////////////////
 
 

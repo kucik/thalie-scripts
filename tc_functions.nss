@@ -395,7 +395,7 @@ void TC_Reopen(object no_oPC) {
 ////////Znici tlacitka z inventare ///////////////////////
 void TC_DestroyButtons(object no_oPC)
 {
-  no_Item = GetFirstItemInInventory(no_oPC);
+  object no_Item = GetFirstItemInInventory(no_oPC);
 
   while (GetIsObjectValid(no_Item)) {
 
@@ -409,6 +409,10 @@ void TC_DestroyButtons(object no_oPC)
     no_Item = GetNextItemInInventory(no_oPC);
   }
 
+}
+
+void TC_MakeButton(string sTag, string sName, int iButton = 1, object oContainer = OBJECT_SELF) {
+  SetName(CreateItemOnObject("prepinac00"+IntToString(iButton),oContainer,1,sTag),sName);
 }
 
 int TC_getProgressByDifficulty(int no_obtiznost_vyrobku) {
