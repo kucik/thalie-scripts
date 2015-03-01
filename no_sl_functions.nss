@@ -375,8 +375,6 @@ void BurnUpTheCoal(object oFire, object oPlume1, object oPlume2)
   }
 }
 
-void tc_armplayanimation(object oPC, int iCraftType);
-
 
 float CnrNormalizeFacing(float fFacing)
 {
