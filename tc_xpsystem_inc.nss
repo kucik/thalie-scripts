@@ -51,6 +51,10 @@ int  TC_getLevel(object oPC, int iCraftID)
     int i;
     int neededXPForLVL = 0;
 
+    // To get rid off division by zero
+    if(nXP <= 0)
+      nXP=1;
+
     if  (GetIsDM(oPC)== TRUE) 
       return 20;
 
