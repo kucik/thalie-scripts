@@ -612,6 +612,9 @@ void main()
     AssignCommand(oPC, DelayCommand(1.0f, DismountAfterActions(oPC, oSoulStone)));
   }
 
+  // Save character filename
+  SetPersistentString(oPC, "FILENAME", GetPCFileName(oPC));
+
   //ku_EtherealClientEnter(oPC);
   SkinCleanup(oPC);
 }
