@@ -1,6 +1,45 @@
 // iniciace. Musi obsahovat pocet surovin, ktere se vykupuji, jestli neco chybi.. srry :D
 
-const int pocet_surovin = 53;
+
+#include "ku_libtime"
+#include "aps_include"
+
+struct pelt_q
+{
+    int id;
+    string sQuality;
+    string sResRef;
+    string sName;
+};
+
+
+struct pelt_q tcq_GetRandomPelt() {
+  struct pelt_q quest;
+  object oNPC = OBJECT_SELF;
+
+  string sSql = "SELECT id, resref quality from craft_material WHERE type = 'pelt' AND quality <= '4' ORDER BY RAND() LIMIT 0,1;";
+  SQLExecDirect(sSql);
+  if (SQLFetch() == SQL_SUCCESS) {
+    quest.id = StringToInt(SQLGetData(1));
+    quest.sResRef = SQLGetData(2);
+    quest.sQuality = SQLGetData(3);
+
+    // To get name
+    if(GetStringLength(quest.sResRef) > 0 ) {
+      object oNew = CreateItemOnObject(quest.sResRef, oNPC, 1);
+      quest.sName = GetName(oNew);
+      DestroyObject(oNew);
+    }
+  }
+  else {
+    SpeakString("Chyba! Není mozne vybrat quest!");
+    quest.id = -1;
+  }
+
+  return quest;
+}
+
+/*const int pocet_surovin = 53;
 
 const int id_Supinybuleta = 1;
 const int id_Kuzebilehojelena = 2;
@@ -110,4 +149,4 @@ const string resref_Perisovy = "cnrfeatherowl";
 const string resref_Perizesokola = "cnrfeatherfalcon";
 const string resref_Ptaciperi = "ry_peri";
 const string resref_Supinybuleta = "supinybuleta";
-
+*/
