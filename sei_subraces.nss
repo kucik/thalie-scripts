@@ -2066,7 +2066,7 @@ void me_SubraceModuleHeartbeat(object oPC)
     object oMod = GetModule();
     object oAreaEffect = GetLocalObject(oMod,KU_SUBRACES_AREA_FIELD);
 
-    int iPrevDayNight = GetLocalInt(oMod, KU_SUBR_DAYNIGHT);
+    int iPrevDayNight = GetLocalInt(oPC, KU_SUBR_DAYNIGHT);
     int bIsLight = ( GetIsDay() || GetIsDawn() );
 
     // changed day/night
@@ -2082,6 +2082,7 @@ void me_SubraceModuleHeartbeat(object oPC)
           AssignCommand( oAreaEffect, SEI_ApplyAreaSettings( oPC, a_oArea, 0 ) );
         }
     }
+    SetLocalInt(oPC, KU_SUBR_DAYNIGHT, bIsLight);
 }
 
 // **************************************************************
