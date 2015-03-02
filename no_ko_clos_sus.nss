@@ -104,7 +104,7 @@ if (GetResRef(no_Item) == "no_polot_ko") {
                             //////////predelavka 1.9.2014/////////
                 if (no_pocet_cyklu == 9) {
                 DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
-                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
+//                Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF)); //ulozim tam novou vec.
 
             SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
             no_zamkni(no_oPC);

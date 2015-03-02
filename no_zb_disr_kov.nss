@@ -1206,7 +1206,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_
 ///doplnena perzistence 5.5.2014
 if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
 
-Persist_SaveItemToDB(GetInventoryDisturbItem(), Persist_InitContainer(OBJECT_SELF));
+//Persist_SaveItemToDB(GetInventoryDisturbItem(), Persist_InitContainer(OBJECT_SELF));
 
 }
 
