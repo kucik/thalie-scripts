@@ -1,30 +1,30 @@
 // iniciace. Musi obsahovat pocet surovin, ktere se vykupuji, jestli neco chybi.. srry :D
 
-const int pocet_surovin = 30;
+const int pocet_surovin = 22;
 
 const int id_brou_nefr = 1;
 const int id_brou_ohni = 2;
 const int id_brou_amet = 3;
 const int id_brou_fene = 4;
-const int id_brou_mala = 7;
-const int id_brou_safi = 8;
-const int id_brou_topa = 10;
-const int id_brou_gran = 11;
-const int id_brou_alex = 13;
-const int id_brou_aven = 14;
-const int id_brou_zive = 15;
+const int id_brou_mala = 5;
+const int id_brou_safi = 6;
+const int id_brou_topa = 7;
+const int id_brou_gran = 8;
+const int id_brou_alex = 9;
+const int id_brou_aven = 10;
+const int id_brou_zive = 11;
 //vynikajici
-const int id_fine_nefr = 16;
-const int id_fine_ohni = 17;
-const int id_fine_amet = 18;
-const int id_fine_fene = 19;
-const int id_fine_mala = 22;
-const int id_fine_safi = 23;
-const int id_fine_topa = 25;
-const int id_fine_gran = 26;
-const int id_fine_alex = 28;
-const int id_fine_aven = 29;
-const int id_fine_zive = 30;
+const int id_fine_nefr = 12;
+const int id_fine_ohni = 13;
+const int id_fine_amet = 14;
+const int id_fine_fene = 15;
+const int id_fine_mala = 16;
+const int id_fine_safi = 17;
+const int id_fine_topa = 18;
+const int id_fine_gran = 19;
+const int id_fine_alex = 20;
+const int id_fine_aven = 21;
+const int id_fine_zive = 22;
 
   // brousene
 const string resref_brou_nefr = "cnrgemcut001";

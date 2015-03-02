@@ -1,6 +1,6 @@
 // iniciace. Musi obsahovat pocet surovin, ktere se vykupuji, jestli neco chybi.. srry :D
 
-const int pocet_surovin = 32;
+const int pocet_surovin = 24;
 
   //osekane drevo
 const int id_tc_osek_vrb = 1 ;
@@ -10,26 +10,26 @@ const int id_tc_osek_mah = 4 ;
 const int id_tc_osek_tis = 5 ;
 const int id_tc_osek_jil = 6 ;
   // desky
-const int id_tc_desk_vrb = 9 ;
-const int id_tc_desk_ore = 10;
-const int id_tc_desk_dub = 11 ;
-const int id_tc_desk_mah = 12 ;
-const int id_tc_desk_tis = 13 ;
-const int id_tc_desk_jil = 14 ;
+const int id_tc_desk_vrb = 7 ;
+const int id_tc_desk_ore = 8;
+const int id_tc_desk_dub = 9 ;
+const int id_tc_desk_mah = 10 ;
+const int id_tc_desk_tis = 11 ;
+const int id_tc_desk_jil = 12 ;
 //late
-const int id_tc_lat_vrb = 17 ;
-const int id_tc_lat_ore = 18;
-const int id_tc_lat_dub = 19 ;
-const int id_tc_lat_mah = 20 ;
-const int id_tc_lat_tis = 21 ;
-const int id_tc_lat_jil = 22 ;
+const int id_tc_lat_vrb = 13 ;
+const int id_tc_lat_ore = 14;
+const int id_tc_lat_dub = 15 ;
+const int id_tc_lat_mah = 16 ;
+const int id_tc_lat_tis = 17 ;
+const int id_tc_lat_jil = 18 ;
 //nasady
-const int id_tc_nasa_vrb = 25 ;
-const int id_tc_nasa_ore = 26;
-const int id_tc_nasa_dub = 27 ;
-const int id_tc_nasa_mah = 28 ;
-const int id_tc_nasa_tis = 29 ;
-const int id_tc_nasa_jil = 30 ;
+const int id_tc_nasa_vrb = 19 ;
+const int id_tc_nasa_ore = 20;
+const int id_tc_nasa_dub = 21 ;
+const int id_tc_nasa_mah = 22 ;
+const int id_tc_nasa_tis = 23 ;
+const int id_tc_nasa_jil = 24 ;
   //osekane drevo
 const string resref_tc_osek_vrb = "tc_osek_vrb" ;
 const string resref_tc_osek_ore = "tc_osek_ore";
