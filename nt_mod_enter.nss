@@ -16,6 +16,19 @@
 #include "mys_mount_lib"
 #include "mys_hen_lib"
 
+int __checkPolymorf(object oPC) {
+
+    effect ePoly = GetFirstEffect(oPC);
+
+    //WriteTimestampedLogEntry("BEFORE polymorph check");
+    while(GetIsEffectValid(ePoly)){
+        if(GetEffectType(ePoly) == EFFECT_TYPE_POLYMORPH){
+          return TRUE;
+        }
+        ePoly = GetNextEffect(oPC);
+    }
+    return FALSE;
+}
 
 int __checkFeatAbiliesReq(object oPC, int iFeat) {
   int iReq;
@@ -614,6 +627,8 @@ void main()
 
   // Save character filename
   SetPersistentString(oPC, "FILENAME", GetPCFileName(oPC));
+  if(__checkPolymorf(oPC) == FALSE )
+    SetPersistentString(oPC, "PORTRAIT", GetPortrait(oPC));
 
   //ku_EtherealClientEnter(oPC);
   SkinCleanup(oPC);
