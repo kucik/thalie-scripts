@@ -255,7 +255,7 @@ string sh_GetBaseMunitionItemTag(string sTyp, string sParam1)
   if (sParam1 == "dmgbpi")
   {
         if (sTyp == "bow")return "jy_sip_bodne";
-        if (sTyp == "cro")return "jy_sip_bodne";
+        if (sTyp == "cro")return "jy_sipka_bodne";
   }
   return "";
 }
