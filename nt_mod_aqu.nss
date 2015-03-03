@@ -34,6 +34,7 @@ void main()
      // * GetUserDefinedItemEventNumber(). See x2_it_example.nss
      if (GetModuleSwitchValue(MODULE_SWITCH_ENABLE_TAGBASED_SCRIPTS) == TRUE)
      {
+        object oItem = GetModuleItemAcquired();
         SetUserDefinedItemEventNumber(X2_ITEM_EVENT_ACQUIRE);
         int nRet =   ExecuteScriptAndReturnInt(GetUserDefinedItemEventScriptName(oItem),OBJECT_SELF);
         if (nRet == X2_EXECUTE_SCRIPT_END)
