@@ -172,6 +172,8 @@ void LOCK_ProcessSpawnLIST(object oSpawn);
 int ku_ChooseTrap(int power, int type) {
 
   int nTrap = 0;
+  if(power > 5)
+    power = 5;
 
   switch(power) {
 
@@ -269,6 +271,12 @@ int ku_ChooseTrap(int power, int type) {
   return nTrap;
 }
 
+void __trapRandomRecoverable(object oTrap) {
+  if(Random(100) > 60) {
+     SetTrapRecoverable(oTrap, FALSE);
+  }
+}
+
 void ku_SetTrapDC(object oObject, int iTrapPower)
 {
     if(iTrapPower < 0) 
@@ -281,6 +289,7 @@ void ku_SetRandomTrap(object oObject, int iTrapPower)
 {
   CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
   ku_SetTrapDC(oObject,iTrapPower);
+  __trapRandomRecoverable(oObject);
 }
 
 void ku_SpawnTrap(object oSpawner) {
@@ -336,6 +345,7 @@ void ku_SpawnTrap(object oSpawner) {
         SetTrapDisarmDC(oTrap,iDC);
   }
   SetTrapOneShot(oTrap, iOneShot);
+  __trapRandomRecoverable(oTrap);
 
   SetLocalInt(oTrap, "LOCK_DESPAWN",1);
 
@@ -444,6 +454,7 @@ void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
     }
     SetTrapDetectDC(oObject,5 + 4*iTrapPower + d4());
     SetTrapDisarmDC(oObject,19 + 5*iTrapPower + Random(5));
+    __trapRandomRecoverable(oObject);
 
 }
 
@@ -1272,7 +1283,7 @@ void lock_SpawnBossLoot(object oArea) {
   if(iTREASURE_VALUE == 0) {
     iTREASURE_VALUE = GetLocalInt(oArea,"loot");
   }
-  int iTrapPower = iTREASURE_VALUE / 5 +2;
+  int iTrapPower = (iTREASURE_VALUE+2) / 5 +1;
 
   while(i<=iCnt) {
     si = IntToString(i);
@@ -1298,6 +1309,7 @@ void lock_SpawnBossLoot(object oArea) {
         SetTrapOneShot(oChest,FALSE);
       SetTrapDetectDC(oChest,5 + 4*iTrapPower + d4());
       SetTrapDisarmDC(oChest,19 + 5*iTrapPower + Random(5));
+      __trapRandomRecoverable(oChest);
     }
     /* Locking */
     iLockDC = GetLocalInt(oArea,"BOSS_LOOT_LOCKED_"+si);
