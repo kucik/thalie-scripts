@@ -393,20 +393,20 @@ void TC_Reopen(object no_oPC) {
 
 
 ////////Znici tlacitka z inventare ///////////////////////
-void TC_DestroyButtons(object no_oPC)
+void TC_DestroyButtons(object oPlc)
 {
-  object no_Item = GetFirstItemInInventory(no_oPC);
+  object no_Item = GetFirstItemInInventory(oPlc);
 
   while (GetIsObjectValid(no_Item)) {
 
     if( (GetResRef(no_Item) != "prepinac001") &&
         (GetResRef(no_Item) != "prepinac003") ){
-      no_Item = GetNextItemInInventory(no_oPC);
+      no_Item = GetNextItemInInventory(oPlc);
       continue;     //znicim vsechny prepinace 001
     }
-    DestroyObject(no_Item);
+    DestroyObject(no_Item,0.1);
 
-    no_Item = GetNextItemInInventory(no_oPC);
+    no_Item = GetNextItemInInventory(oPlc);
   }
 
 }

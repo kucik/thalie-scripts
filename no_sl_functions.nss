@@ -287,6 +287,7 @@ void no_legura(object no_pec, int no_mazani) {      //legury
       if(iLegura > 0) {
         SetLocalInt(no_pec,"no_legu",iLegura); 
         TC_SnizStack(oItem,no_mazani);
+        break;
       }
 
     }//kdyz legura
@@ -305,6 +306,7 @@ void no_nuget(object no_pec, int no_mazani) {
     if(iNuget > 0) {
       SetLocalInt(no_pec,"no_ruda",iNuget);
       TC_SnizStack(oItem,no_mazani);
+      break;
     }
 
     oItem = GetNextItemInInventory(no_pec);

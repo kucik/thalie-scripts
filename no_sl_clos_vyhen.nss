@@ -31,6 +31,7 @@ void main()
 
   SetLocalInt(OBJECT_SELF,"no_MULTIKLIK",0);
 //no_oPC=GetLastClosedBy();
+TC_DestroyButtons(OBJECT_SELF); //znicime vsechny prepinace at tam pak pri otevreni nejsou 2x
 
 
   if (GetLocalInt(OBJECT_SELF,"no_sl_horipec") > ku_GetTimeStamp() )  { //zacne jen kdyz je pec tepla
