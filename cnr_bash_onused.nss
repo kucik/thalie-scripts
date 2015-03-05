@@ -522,8 +522,8 @@ void ReplaceSelf(object oSelf, string sAppearance) {
   int iAppearance = GetAppearanceType(oSelf);
   oTemp = CreateObject(OBJECT_TYPE_PLACEABLE,sAppearance,lSelf,FALSE);
   DestroyObject(oSelf,1.0);
-  AssignCommand(oTemp,DelayCommand(1200.0,CreateNew(lSelf, sResSelf, iAppearance, sTag)));
-  DestroyObject(oTemp,1230.0);
+  AssignCommand(oTemp,DelayCommand(5400.0,CreateNew(lSelf, sResSelf, iAppearance, sTag)));
+  DestroyObject(oTemp,5430.0);
   return;
 }
 
