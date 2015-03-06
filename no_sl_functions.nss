@@ -337,12 +337,12 @@ void no_cistykov(object no_pec, int no_mazani) {
       if ( no_pocet >= 1) {
         if (GetLocalInt(no_pec,"no_cist") == iCist)
           no_pocet++; //kdyz sou stejne pricte 1
-        else { 
-          no_pocet = 1; //kdyz je no_pocet=0 zvysi se na jedna
-          SetLocalInt(no_pec,"no_cist",iCist);
-          TC_SnizStack(oItem,no_mazani);
-          break;
-        }
+      }
+      else { 
+        no_pocet = 1; //kdyz je no_pocet=0 zvysi se na jedna
+        SetLocalInt(no_pec,"no_cist",iCist);
+        TC_SnizStack(oItem,no_mazani);
+        break;
       }
     }
     //    TC_SnizStack(oItem,no_mazani);
