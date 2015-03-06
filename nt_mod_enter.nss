@@ -16,6 +16,8 @@
 #include "mys_mount_lib"
 #include "mys_hen_lib"
 
+void __tellBugged(object oPC, string sMessage);
+
 int __checkPolymorf(object oPC) {
 
     effect ePoly = GetFirstEffect(oPC);
@@ -71,6 +73,27 @@ int __checkFeatAbiliesReq(object oPC, int iFeat) {
   }
 
   return TRUE;
+}
+
+void __tellBugged(object oPC, string sMessage) {
+
+  if(!GetIsObjectValid(oPC))
+    return;
+
+  FloatingTextStringOnCreature(sMessage, oPC, FALSE);
+  SendMessageToPC(oPC, sMessage);
+  DelayCommand(10.0, __tellBugged(oPC, sMessage));
+
+}
+
+void __buggedPC(object oPC, string sMessage) {
+
+  SetLocalInt(oPC,"JE_POSTAVA_ZABUGOVANA",TRUE);
+  WriteTimestampedLogEntry("Bad character: Player "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+": "+sMessage);
+
+  __tellBugged(oPC, sMessage);
+  AssignCommand(oPC, SetCommandable(FALSE));
+  
 }
 
 void __checkInvalidFeats(object oPC) {
@@ -378,10 +401,8 @@ void main()
  /* Jestli je dobrodruh*/
  if (GetClassByPosition(1,oPC)!=CLASS_TYPE_ROGUE)
    {
-        BootPC(oPC);
-        WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", NENI DOBRODRUH.");
-        return;
-
+        //WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", NENI DOBRODRUH.");
+     __buggedPC(oPC, "Chyba! Postava nebyla zalozena s povolanim DOBRODRUH!");
    }
  
  if(GetHitDice(oPC)==1) {
@@ -392,9 +413,8 @@ void main()
 
    if (iSkillSum >0 )
    {
-      BootPC(oPC);
-      WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", dal body do skillu.");
-      return;
+//      WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", dal body do skillu.");
+     __buggedPC(oPC, "Chyba! Pri zakladani postavy jsi dal body do skillu! Zaloz postavu znovu!");
    }
  }
 
@@ -626,7 +646,8 @@ void main()
   }
 
   // Save character filename
-  SetPersistentString(oPC, "FILENAME", GetPCFileName(oPC));
+  if(GetStringLength(GetPersistentString(oPC,"FILENAME")) <= 0)
+    SetPersistentString(oPC, "FILENAME", GetPCFileName(oPC));
   if(__checkPolymorf(oPC) == FALSE )
     SetPersistentString(oPC, "PORTRAIT", GetPortrait(oPC));
 
