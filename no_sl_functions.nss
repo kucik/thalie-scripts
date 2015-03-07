@@ -85,7 +85,7 @@ string __getCistResRef(int iCist) {
     case 4 : return "no_cist_iron";
     case 5 : return "no_cist_gold";
     case 6 : return "no_cist_plat";
-    case 4 : return "no_cist_mith";
+    case 7 : return "no_cist_mith";
     case 8 : return "no_cist_adam";
     case 9 : return "no_cist_tita";
     case 10: return "no_cist_silv";
