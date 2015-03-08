@@ -62,7 +62,7 @@ int  TC_getLevel(object oPC, int iCraftID)
     if(iLevel > 20)
       return 20;
    
-    return iLevel - 1;
+    return iLevel;
 
 /*    for (i = 1; i < 21; i++)
     {
