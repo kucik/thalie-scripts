@@ -1,6 +1,6 @@
 // iniciace. Musi obsahovat pocet surovin, ktere se vykupuji, jestli neco chybi.. srry :D
 
-const int pocet_surovin = 12;
+const int pocet_surovin = 15;
 
 
 
