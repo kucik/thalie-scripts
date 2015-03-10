@@ -93,7 +93,7 @@ while (GetIsEffectValid(no_effect))
          DelayCommand(3.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_ELECTRIC_EXPLOSION),GetItemActivatedTarget()));
 
 
-         AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 4.0));
+         AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_LOOK_FAR, 1.0, 4.0));
          AssignCommand(no_oPC, SetCommandable(FALSE));
          DelayCommand(1.0,AssignCommand(no_oPC, SetCommandable(TRUE)));
          ActionLockObject(GetItemActivatedTarget());
