@@ -6,6 +6,12 @@
 void main()
 {
   object oPC = GetPCSpeaker();
+  int iCnt = Persist_ShopGetNumberofMyItems(oPC);
+  if(iCnt > 19) {
+    SpeakString("Uz tady od tebe mam "+IntToString(iCnt)+" veci a vic uz nevezmu.");
+    return;
+  }
+
   int iIndex = GetLocalInt(oPC,"KU_CHAT_CACHE_INDEX");
   string sPrice = GetLocalString(oPC,KU_CHAT_CACHE+IntToString(iIndex));
   int iPrice = StringToInt(sPrice);

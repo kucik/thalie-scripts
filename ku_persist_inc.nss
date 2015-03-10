@@ -1120,6 +1120,26 @@ int Persist_ShopPutItemToShop(object oItem, object oCrafter) {
   return iID;
 }
 
+int Persist_ShopGetNumberofMyItems(object oCrafter) {
+
+//  object oChest = Persist_ShopGetChest(OBJECT_SELF);
+  object oShop  = Persist_ShopGetShop(OBJECT_SELF);
+
+  string sPlayer = SQLEncodeSpecialChars(GetPCPlayerName(oCrafter));
+//  string sTag = SQLEncodeSpecialChars(GetName(oCrafter));
+
+  int iCnt = 0;
+  object oItem = GetFirstItemInInventory(oShop);
+  while(GetIsObjectValid(oItem)) {
+    if(GetLocalString(oItem, "KU_PERS_SHOP_SELLER_P") == sPlayer)
+      iCnt++;
+    oItem = GetNextItemInInventory(oShop);
+  }
+
+  return iCnt;
+}
+
+
 object Persist_ShopGetShop(object oObj) {
 
   object oShop = GetLocalObject(oObj,"KU_PERS_SHOP");
