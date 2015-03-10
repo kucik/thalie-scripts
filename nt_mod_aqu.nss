@@ -16,9 +16,9 @@
 #include "me_ncr_on_aquinc"
 void main()
 {
-/*     object oItem = GetModuleItemAcquired();
+     object oItem = GetModuleItemAcquired();
      ExecuteScript("ku_m_onacquired",OBJECT_SELF);
-
+/*
      // ncraft - start (me_ncr_on_aquinc)
      object oMod=GetModule();
      object oPC = GetModuleItemAcquiredBy(); //GetItemPossessor(oItem);
