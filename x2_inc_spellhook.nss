@@ -346,6 +346,9 @@ int KU_RingToLevel(int SpellLevel, int iClass)
 {
  float fEqLevel = 0.0;
 
+ if(SpellLevel == 0){
+    SpellLevel = 1;
+ }
 
  if( (iClass==CLASS_TYPE_RANGER)  ||
      (iClass==CLASS_TYPE_PALADIN) ) {
