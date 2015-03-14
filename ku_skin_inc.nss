@@ -67,6 +67,9 @@ void __skinCelanup(object oPC) {
     if(GetTag(oItem) == "th_pcskin" && oItem != oSkin) {
       DestroyObject(oItem, 0.2);
     }
+    // Non Th skins
+    if(GetTag(oItem) == "x3_it_pchide")
+      DestroyObject(oItem, 0.2);
     oItem = GetNextItemInInventory(oPC);
   }
 
