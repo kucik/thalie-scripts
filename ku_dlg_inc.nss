@@ -85,7 +85,7 @@ void ku_dlg_init(int act, object oPC = OBJECT_INVALID) {
      case 4:
         KU_DM_NPC_Handling_Wand_SetTokens(0,oPC);
         SetLocalInt(oPC,KU_DLG+"_allow_0",1);
-        SetCustomToken(6300,"DM hulka uprav NPC.");
+//        SetCustomToken(6300,"DM hulka uprav NPC.");
         break;
      case 5:
         KU_DM_Effects_Wand_SetTokens(0,oPC);
@@ -1133,7 +1133,7 @@ void KU_DM_NPC_Handling_Wand_SetTokens(int iState, object oPC = OBJECT_INVALID) 
     case 0:
         ku_dlg_SetAll(0);
         ku_dlg_SetConv(0,1);
-        SetCustomToken(6300,"DM hulka uprav NPC zamirena na: "+sTargetName);
+        SetCustomToken(6300,"DM hulka uprav NPC zamirena na: "+sTargetName+"("+GetTag(oTarget)+")("+GetResRef(oTarget)+")");
         ku_dlg_SetConv(1,1);
         SetCustomToken(6301,"Zkopirovat NPC");
         ku_dlg_SetConv(2,1);
