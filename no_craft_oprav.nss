@@ -88,10 +88,8 @@ while (GetIsEffectValid(no_effect))
    }
 
          FloatingTextStringOnCreature(" Safra je to znicene ! ",no_oPC,TRUE );
-         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_FIREBALL),GetItemActivatedTarget());
-         DelayCommand(2.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_SMOKE_PUFF),GetItemActivatedTarget()));
-         DelayCommand(3.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_ELECTRIC_EXPLOSION),GetItemActivatedTarget()));
-
+         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_SMOKE_PUFF),GetItemActivatedTarget());
+       
 
          AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_LOOK_FAR, 1.0, 4.0));
          AssignCommand(no_oPC, SetCommandable(FALSE));
