@@ -77,7 +77,7 @@ void main()
                   if (i == SPELL_RAISE_DEAD){
                       ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(GetCurrentHitPoints(oPC)-1),oPC);
                       ApplyPenalty(oPC,1.0);
-                      woundStamina(oPC, getMaxStamina(oPC));
+                      woundStamina(oPC, getMaxStamina(oPC),TRUE);
                   }
                   else {
                       ApplyPenalty(oPC,1.0);

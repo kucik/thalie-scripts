@@ -22,16 +22,22 @@ float getStamina(object oPC){
     return GetLocalFloat(oPC, "JA_STAMINA");
 }
 
-void woundStamina(object oPC, float f){
+void woundStamina(object oPC, float f, int ignoreConst = FALSE){
     //KURTIZANA JE IMUNNI NA UNAVU
     if (GetHasFeat(1599,oPC) == TRUE) //FEAT_KURTIZANA_CELE_NOCI_OKA_NEZAMHOURI
     {
         return;
     }
     float fStamina = GetLocalFloat(oPC, "JA_STAMINA");
+    int iConst = GetAbilityScore(oPC,ABILITY_CONSTITUTION, TRUE);
+    float fMod = (10 / (iConst + 5 ) - iConst * 0.002 + 0.25);
 
-    fStamina -= f*( 1 - (GetAbilityScore(oPC,ABILITY_CONSTITUTION, TRUE) - 10) * 0.06 );
+    if(ignoreConst)
+      fMod = 1.0;
+
+//    fStamina -= f*( 1 - (GetAbilityScore(oPC,ABILITY_CONSTITUTION, TRUE) - 10) * 0.06 );
     //fStamina -= f*pow(1.2,IntToFloat(-GetAbilityModifier(ABILITY_CONSTITUTION, oPC)));
+    fStamina -= f * fMod;
 
     if(fStamina < STAMINA_MIN)
      fStamina = STAMINA_MIN;
