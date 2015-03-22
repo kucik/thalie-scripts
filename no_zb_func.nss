@@ -16,12 +16,6 @@
 // zarizeni do int no_kov_1  no_kov_2 no_kov_procenta no_druh_vyrobku no_druh_nasada
 ///
 /////////////////////////////////
-    /*  Hlaseny bug uzamykani crafticiho zarizeni 
-    Provizorni zaplata: zakomentovani kodu ktery uzamyka zarizeni ve funkci no_pohybklikacu(object no_oPC, object no_pec)
-    Date: 2014_10_29
-    Author: Pavad
-    */
-
 
 int no_pocet;
 string no_nazev;
@@ -876,7 +870,7 @@ void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta )
 switch   (no_kov_co_pridavam){
 
         case 1:  {  switch (no_kov_pridame_procenta) {
-             //cín
+             //cin
                         case 2: {
                                     break;  }
                         case 4: { no_bonus_vylepseni = no_bonus_vylepseni -7;
@@ -901,7 +895,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break;     }//konec cinu
         case 2:  {  switch (no_kov_pridame_procenta) {
-             //meï
+             //med
                         case 2: {
                                     break;  }
                         case 4: {
@@ -926,7 +920,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break;     }//konec medi
         case 3:  {  switch (no_kov_pridame_procenta) {
-             //brondz
+             //vermajl
                         case 2: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,2),no_Item);
                                     break;  }
                         case 4: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,2),no_Item);
@@ -948,9 +942,9 @@ switch   (no_kov_co_pridavam){
                         case 20: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,10),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
-               break;     }//konec bronzu
+               break;     }//konec vermajl
         case 4:  {  switch (no_kov_pridame_procenta) {
-             //železo
+             //zelezo
                         case 2: {   break;  }
                         case 4: {   break;  }
                         case 6: {   break;  }
@@ -1114,7 +1108,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break;     }//konec adamantinu
         case 9:  {  switch (no_kov_pridame_procenta) {
-             //titán
+             //titan
                         case 2: {   jy_kritik = jy_kritik +1;
                                     break;  }
                         case 4: {   jy_kritik = jy_kritik +2;
@@ -1138,7 +1132,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                break; }//konec titanu
         case 10:  {  switch (no_kov_pridame_procenta) {
-             //striebro
+             //stribro
                         case 2: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,1),no_Item);
                                    break;  }
                         case 4: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,2),no_Item);
@@ -1162,7 +1156,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                 break;    }//konec stribra
         case 11:  {  switch (no_kov_pridame_procenta) {
-             //tieòová oce¾
+             //stinova ocel
                         case 2: {
                                     break;  }
                         case 4: {
@@ -1201,7 +1195,7 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                 break;    }//konec stinove oceli
         case 12:  {  switch (no_kov_pridame_procenta) {
-             //meteorická oce¾
+             //meteoricka ocel
                         case 2: {   //no_bonus_vylepseni = no_bonus_vylepseni +1;
                                     break;  }
                         case 4: {   no_bonus_vylepseni = no_bonus_vylepseni +1;
@@ -3290,31 +3284,4 @@ while (GetIsItemPropertyValid(ipLoop))
 }//kdyz je predmet validni
 
 }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////
-void no_pohybklikacu(object no_oPC, object no_pec)
-// vytvori polotovar
-{    //tohel se spousti, jen kdyz existuje kov, takze jen overujeme formu.
-    /*  Hlaseny bug uzamykani crafticiho zarizeni 
-    Provizorni zaplata: zakomentovani kodu ktery uzamyka zarizeni
-    Date: 2014_10_29
-    Author: Pavad
-    */
-    SetCommandable(TRUE,no_oPC);
-
-    float vzdalenost = GetDistanceBetweenLocations(GetLocation(no_oPC),GetLocation(no_pec));
-    if (vzdalenost >= (GetLocalFloat(no_oPC,"no_pohybklikacu") -5.0) )
-    {//tzn. ze ten svinak nejak zablokoval pohyb... hajzl tak mu to zamknem :D
-     ActionDoCommand(SetLocked(OBJECT_SELF, FALSE));
-
-    AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 3.0));
-    // DelayCommand(60.0,ActionDoCommand(SetLocked(OBJECT_SELF, TRUE)) ); // zakomentovana cast kodu, 2014_10_29
-    FloatingTextStringOnCreature("Nejak se to zamklo, asi sem nemel bugovat",no_oPC,FALSE );
-    }
-} // konec no_pohybklikacu
-
-
-
-
 

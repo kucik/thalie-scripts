@@ -122,47 +122,6 @@ if ( (GetStringLeft(GetTag(no_Item),3) == "no_")&(GetLocalInt(no_Item,"no_OCAROV
                // Persist_SaveItemToDB(no_Item, Persist_InitContainer(OBJECT_SELF));
               // }
 
-                 ///disturb proti klikacum 5.5.2014////
-                SetLocalInt(OBJECT_SELF,"no_disturbklikacu",GetLocalInt(OBJECT_SELF,"no_disturbklikacu")+1);
-                 if ( (GetLocalInt(OBJECT_SELF,"no_disturbklikacu")) >(10+d20(4)) )
-                 {
-                 object no_object = GetFirstObjectInArea(GetArea(OBJECT_SELF));
-                 object no_spravnyobect = no_object;
-                 while (GetIsObjectValid(no_object)) {
-                            if ( (d20()) < 2)  {
-                            no_spravnyobect = no_object;
-                            break;
-                                                }
-                            no_object = GetNextObjectInArea(OBJECT_SELF);
-                            }
-
-                 //AssignCommand(no_oPC,ActionMoveToObject(no_spravnyobect,FALSE,20.0));
-                 AssignCommand(no_oPC,ActionForceMoveToObject(no_spravnyobect,FALSE,10.0, 10.0));
-                 switch ( d4(1) )  {
-                            case 1: { AssignCommand(no_oPC,SpeakString("Neco mi tady upadlo..",TALKVOLUME_WHISPER));
-                            break;    }
-                            case 2: { AssignCommand(no_oPC,SpeakString("Neutekla duse nekam sem ?..",TALKVOLUME_WHISPER));
-                            break;    }
-                            case 3: { AssignCommand(no_oPC,SpeakString("Jaj, upadl mi kamen..",TALKVOLUME_WHISPER));
-                            break;    }
-                            case 4: { AssignCommand(no_oPC,SpeakString("Nezapadl mi tady nejaky kamen ?..",TALKVOLUME_WHISPER));
-                            break;    }
-                            }//konec switche
-
-
-                    DelayCommand(0.2,SetCommandable(FALSE,no_oPC));
-                 float no_comandable_length;
-                 no_comandable_length = d4()+2.0;
-
-                 SetLocalFloat(no_oPC,"no_pohybklikacu",GetDistanceBetweenLocations(GetLocation(no_oPC),GetLocation(no_spravnyobect)));
-
-                 // tohle  cekne, zda se PC pohnulo, a jestli ne, prijde trest...
-                 DelayCommand(no_comandable_length,no_pohybklikacu(no_oPC,no_spravnyobect));
-
-                 SetLocalInt(OBJECT_SELF,"no_disturbklikacu",0);
-                 }
-                 //////////////konec proti klikacum/////////////////////
-
 
               AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED, 1.0, 5.0));
               no_pocet_cyklu = d6();/// jen at nedavame zbytecne dalsi promennou..

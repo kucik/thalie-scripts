@@ -2316,23 +2316,6 @@ switch (GetLocalInt(OBJECT_SELF,"no_menu")) {
 
 } // konec vyrob polotovar
 
-//////////////////////////////////////////////////////////////////////////////////////////
-void no_pohybklikacu(object no_oPC, object no_pec)
-// vytvori polotovar
-{    //tohel se spousti, jen kdyz existuje kov, takze jen overujeme formu.
-    SetCommandable(TRUE,no_oPC);
-
-    float vzdalenost = GetDistanceBetweenLocations(GetLocation(no_oPC),GetLocation(no_pec));
-    if (vzdalenost >= (GetLocalFloat(no_oPC,"no_pohybklikacu") -5.0) )
-    {//tzn. ze ten svinak nejak zablokoval pohyb... hajzl tak mu to zamknem :D
-     ActionDoCommand(SetLocked(OBJECT_SELF, FALSE));
-
-    AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 3.0));
-     DelayCommand(60.0,ActionDoCommand(SetLocked(OBJECT_SELF, TRUE)) );
-    FloatingTextStringOnCreature("Nejak se to zamklo, asi sem nemel bugovat",no_oPC,FALSE );
-    }
-
-} // konec no_pohybklikacu
 
 
 
