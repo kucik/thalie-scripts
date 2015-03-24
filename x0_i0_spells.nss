@@ -587,6 +587,13 @@ void spellsInflictTouchAttack(int nDamage, int nMaxExtraDamage, int nMaximized, 
     int nTouch = TouchAttackMelee(oTarget);
 
     int nExtraDamage = GetCasterLevel(OBJECT_SELF); // * figure out the bonus damage
+
+    // Heretic
+    int iHereticLevel = GetLevelByClass(31, OBJECT_SELF); // Heretic
+    if(iHereticLevel > 0 && (iHereticLevel + 10) > nExtraDamage) {
+      nExtraDamage = iHereticLevel + 10;
+    }
+
     if (nExtraDamage > nMaxExtraDamage)
     {
         nExtraDamage = nMaxExtraDamage;

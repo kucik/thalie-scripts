@@ -49,6 +49,13 @@ void main()
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,iCasterLevel,FALSE);
     int iValue = 10*(iCasterLevel);
+
+    // Heretic
+    int iHereticLevel = GetLevelByClass(31, OBJECT_SELF); // Heretic
+    if(iHereticLevel > 0 && (iHereticLevel + 10) > iCasterLevel) {
+      iValue = 10*(10+iHereticLevel);
+    }
+
     if (iValue >= 250)
     {
         iValue = 250;
@@ -57,7 +64,7 @@ void main()
     {
        iValue =  iValue+ (iValue/2);
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
+    if (GetHasFeat(1476)) //FEAT_DRUID_SPECIALIZACE_MOROVY
     {
         iValue =  iValue+ (iValue/5);
     }
