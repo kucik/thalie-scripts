@@ -37,6 +37,10 @@ void main()
     nCasterLvl = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLvl);
     int nModify = 4;
     float fDuration = TurnsToSeconds(nCasterLvl);
+    int iHereticLevel = GetLevelByClass(31, OBJECT_SELF); // Heretic
+    float fHereticDuration = -1.0; 
+    if(iHereticLevel > 0)
+      fHereticDuration = TurnsToSeconds(10 + iHereticLevel);
     int nMetaMagic = GetMetaMagicFeat();
     //Signal the spell cast at event
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_BULLS_STRENGTH, FALSE));
@@ -45,6 +49,9 @@ void main()
     {
     nModify = 6;
     }
+    if(fHereticDuration > fDuration)
+      fDuration = fHereticDuration;
+
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
         fDuration = fDuration * 2.0;    //Duration is +100%
