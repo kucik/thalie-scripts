@@ -361,7 +361,6 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_visu
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_visual_delete"),"Odstranit pridany grafickyefekt"));
 //konec barvicek
 
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vzhled_puvo"),"Puvodni vzhled"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vzhled_zapa"),"Zapamatovat vzhled"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"));
 SetLocalInt(OBJECT_SELF,"no_menu",120);
