@@ -81,8 +81,8 @@ int ku_si_AddItemProperty_SkillBonus(object oItem, int iSkill, int iPower) {
         sAC = "0.00";
       }
       int iAC = StringToInt(sAC);
-    
-      
+
+
       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(iPower/3),oItem);
   }*/
 
@@ -114,7 +114,13 @@ int IP_CONST_DAMAGERESIST_50                    = 10;
 */
 int ku_si_AddItemProperty_ElementReduction(object oItem, int iPower, int iElement) {
 
+  // -1 on boots
+  if( GetBaseItemType(oItem) == BASE_ITEM_BOOTS) {
+    iPower--;
+  }
+
   iPower = (iPower/2) - 1; //max 20 (=4)
+//  SpeakString("DEBUG: Aplying Elem reduction elem. "+IntToString(iElement)+ " power "+IntToString(iPower));
 
   //  + 5 resistance on cloths
   if( GetBaseItemType(oItem) == BASE_ITEM_ARMOR) {
@@ -512,6 +518,7 @@ int ku_si_AddPropertiesStone_6(object oItem, int iPower) {
 int ku_si_AddPropertiesStone_7(object oItem, int iPower) {
 
   int iBaseItem = GetBaseItemType(oItem);
+//  SpeakString("DEBUG: Aplying property zivec. "+IntToString(iPower));
 
   switch(iBaseItem) {
     case BASE_ITEM_ARMOR:
@@ -631,13 +638,13 @@ int ku_si_AddPropertiesStone_11(object oItem, int iPower) {
 
   switch(iBaseItem) {
     case BASE_ITEM_ARMOR:
-            return ku_si_AddItemProperty_ElementReduction(oItem,iPower/2,IP_CONST_DAMAGETYPE_SONIC);
+            return ku_si_AddItemProperty_ElementReduction(oItem,iPower - 2,IP_CONST_DAMAGETYPE_SONIC);
     case BASE_ITEM_BELT:
 
       return ku_si_AddItemProperty_SaveSpecific(oItem,iPower,IP_CONST_SAVEVS_DEATH);
     case BASE_ITEM_CLOAK:
 
-            return ku_si_AddItemProperty_ElementReduction(oItem,iPower/2,IP_CONST_DAMAGETYPE_SONIC);
+            return ku_si_AddItemProperty_ElementReduction(oItem,iPower - 2,IP_CONST_DAMAGETYPE_SONIC);
     case BASE_ITEM_HELMET:
           return  no_si_AddItemProperty_BonusSpell(oItem,iPower,IP_CONST_CLASS_SORCERER);
     case BASE_ITEM_GLOVES:
@@ -656,6 +663,7 @@ int ku_si_AddPropertiesStone_11(object oItem, int iPower) {
 int ku_si_AddPropertiesStone_12(object oItem, int iPower) {
 
   int iBaseItem = GetBaseItemType(oItem);
+//  SpeakString("DEBUG: Aplying property opal. "+IntToString(iPower));
 
   switch(iBaseItem) {
     case BASE_ITEM_ARMOR:
@@ -663,7 +671,7 @@ int ku_si_AddPropertiesStone_12(object oItem, int iPower) {
     case BASE_ITEM_CLOAK:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_CHARISMA);
     case BASE_ITEM_BOOTS:
-      return ku_si_AddItemProperty_ElementReduction(oItem,iPower/2,IP_CONST_DAMAGETYPE_SONIC);
+      return ku_si_AddItemProperty_ElementReduction(oItem,iPower - 2,IP_CONST_DAMAGETYPE_SONIC);
     case BASE_ITEM_HELMET:
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_WISDOM);
     case BASE_ITEM_BELT:
@@ -769,11 +777,17 @@ int ku_si_AddPropertiesStone_15(object oItem, int iPower) {
 
 int tc_si_AddPropertyForStone(object oItem, int iStone, int iPower, int bAllowOverPOwer = FALSE) {
 
-  if(iStone <= 0)
-    return FALSE;
+//  SpeakString("DEBUG: Apply stone "+IntToString(iStone)+" power "+IntToString(iPower));
 
-  if(iPower <=0)
+  if(iStone <= 0) {
+    SpeakString("Chyba! Kamen je "+IntToString(iStone));
     return FALSE;
+  }
+
+  if(iPower <=0) {
+    SpeakString("Chyba! Sila kamenu je "+IntToString(iPower));
+    return FALSE;
+  }
 
   if( (bAllowOverPOwer == FALSE) && (iPower > 10) ) {
     iPower = 10;
