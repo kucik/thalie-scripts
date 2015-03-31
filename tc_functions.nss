@@ -425,9 +425,9 @@ int TC_getProgressByDifficulty(int no_obtiznost_vyrobku) {
   if (no_obtiznost_vyrobku >= 180 )
     return (200 - no_obtiznost_vyrobku) / 10;
   if (no_obtiznost_vyrobku >= 170)
-    return Random(4);
+    return Random(3) +1;
   if (no_obtiznost_vyrobku >= 160)
-    return Random(6);
+    return Random(5) +1;
   if (no_obtiznost_vyrobku >= 130)
     return Random(20)  + (160 - no_obtiznost_vyrobku) / 10;
   if (no_obtiznost_vyrobku >= 10)

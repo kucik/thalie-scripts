@@ -435,7 +435,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
            //SendMessageToPC(no_oPC," no_obtiznost_vyrobku:" + IntToString(no_obtiznost_vyrobku) );
-    no_procenta = no_procenta + (__getProgressByDifficulty(no_obtiznost_vyrobku) / 10.0);
+    no_procenta = no_procenta + (TC_getProgressByDifficulty(no_obtiznost_vyrobku) / 10.0);
 
 
     if  (GetIsDM(no_oPC)== TRUE) no_procenta = no_procenta + 50.0;
@@ -518,7 +518,7 @@ void no_xp_kuze(object no_oPC, object no_pec)
     float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
-    no_procenta = no_procenta - __getDestroyingByDifficulty(no_obtiznost_vyrobku)/10.0;
+    no_procenta = no_procenta - TC_getDestroyingByDifficulty(no_obtiznost_vyrobku)/10.0;
 
     if (no_procenta <= 0.0 ){
       DestroyObject(no_Item);
