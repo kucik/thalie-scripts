@@ -6,6 +6,7 @@
 #include "no_nastcraft_ini"
 #include "ku_items_inc"
 #include "ku_persist_inc"
+#include "tc_functions"
 
 /////////////////////////////////////
 ///  dela vsemozne truhlarske vyrobky s tagama:
@@ -3983,7 +3984,7 @@ if (no_hod <= no_chance ) {
 
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
-            if (no_obtiznost_vyrobku >=190) {
+/*            if (no_obtiznost_vyrobku >=190) {
             no_procenta = no_procenta + 0.1 ;}
             else if ((no_obtiznost_vyrobku <190)&(no_obtiznost_vyrobku>=180)) {
             no_procenta = no_procenta + 0.2 ;}
@@ -4022,7 +4023,9 @@ if (no_hod <= no_chance ) {
             else if ((no_obtiznost_vyrobku <20)&(no_obtiznost_vyrobku>=10)) {
             no_procenta = no_procenta+ Random(20)/10.0 +6.0;}
             else if (no_obtiznost_vyrobku <10) {
-            no_procenta = no_procenta + Random(20)/10.0 +10.0;}
+            no_procenta = no_procenta + Random(20)/10.0 +10.0;}*/
+
+            no_procenta = no_procenta + (TC_getProgressByDifficulty(no_obtiznost_vyrobku) / 10.0);
 
                           if  (GetIsDM(no_oPC)== TRUE) no_procenta = no_procenta + 50.0;
                           if (no_tr_debug == TRUE   )  no_procenta = no_procenta + 50.0;
