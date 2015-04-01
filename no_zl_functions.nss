@@ -731,7 +731,7 @@ switch   (no_sutr_co_pridavam){
                         case 22: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGERESIST_25),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
-               break;     }//konec medi
+               break;     }//konec malachit
         case 3:  {  switch (no_sutr_pridame_procenta) {
                        case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_LOW,IP_CONST_LIGHTCOLOR_RED),no_Item);
@@ -766,7 +766,7 @@ switch   (no_sutr_co_pridavam){
                         case 22: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_25),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
-               break;     }//konec bronzu
+               break;     }//konec ohnivy achat
         case 4:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_LOW,IP_CONST_LIGHTCOLOR_GREEN),no_Item);
@@ -801,7 +801,7 @@ switch   (no_sutr_co_pridavam){
                         case 22: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_25),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
-                break;    }//konec zeleza
+                break;    }//konec aventurin
         case 5:  {  switch (no_sutr_pridame_procenta) {
                        case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_PURPLE),no_Item);
@@ -837,7 +837,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-               break;     }//konec zlata
+               break;     }//konec fenelop
         case 6:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_BLUE),no_Item);
@@ -873,7 +873,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-               break;     }//konec platiny
+               break;     }//konec ametyst
         case 7:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_RED),no_Item);
@@ -908,7 +908,7 @@ switch   (no_sutr_co_pridavam){
                         case 22: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_FORTITUDE,6),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
-               break;     }//konec mithril
+               break;     }//konec zivec
         case 8:  {  switch (no_sutr_pridame_procenta) {
                          case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_GREEN),no_Item);
@@ -943,7 +943,7 @@ switch   (no_sutr_co_pridavam){
                         case 22: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_UNIVERSAL,3),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
-               break;     }//konec adamantinu
+               break;     }//konec granat
         case 9:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_WHITE),no_Item);
@@ -979,7 +979,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-               break; }//konec titanu
+               break; }//konec alexandrit
         case 10:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_PURPLE),no_Item);
@@ -1015,7 +1015,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-                break;    }//konec stribra
+                break;    }//konec topaz
         case 11:  {  switch (no_sutr_pridame_procenta) {
                          case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_GREEN),no_Item);
@@ -1051,7 +1051,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-                break;    }//konec stinove oceli
+                break;    }//konec safir
         case 12:  {  switch (no_sutr_pridame_procenta) {
                       case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyLight(IP_CONST_LIGHTBRIGHTNESS_BRIGHT,IP_CONST_LIGHTCOLOR_RED),no_Item);
@@ -1087,7 +1087,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-                break;    }//konec meteoriticke oceli
+                break;    }//konec ohnivy opal
 
         case 13:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
@@ -1124,7 +1124,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-                break;    }//konec meteoriticke oceli
+                break;    }//konec diamant
 
         case 14:  {  switch (no_sutr_pridame_procenta) {
                         case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
@@ -1161,7 +1161,7 @@ switch   (no_sutr_co_pridavam){
                                     break;  }
 
                         } //konec vnitrniho switche
-                break;    }//konec meteoriticke oceli
+                break;    }//konec rubín
 
         case 15:  {  switch (no_sutr_pridame_procenta) {
                          case 2: {   if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
@@ -1171,64 +1171,74 @@ switch   (no_sutr_co_pridavam){
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_POISON,1),no_Item);
                                           }
                                     break;  }
-                        case 4: { if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")<2 ) {
-                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_POISON,1),no_Item);
-                                          }
-                                          if ( GetLocalInt(OBJECT_SELF,"no_kovsperku")>1 ) {
-                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_POISON,1),no_Item);
-                                          }
-                                    break;  }
+                        case 4: { if ( GetLocalInt(OBJECT_SELF,"no_druhvyrobku")=="pr" ){
+                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(1),no_Item);
+                                           }
+                                    if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(1),no_Item);
+                                         }
+                                     break;  }
                         case 6: { if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
-                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
+                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(1),no_Item);
                                            }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
                                         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(1),no_Item);
                                          }
                                    break;  }
                         case 8: { if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
-                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
+                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                            }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
-                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(1),no_Item);
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(2),no_Item);
                                          }
                                     break;  }
                         case 10: { if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
-                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
+                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                            }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
                                         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(2),no_Item);
                                          }
                                    break;  }
                         case 12: { if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
-                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
+                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                            }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
-                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(2),no_Item);
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(3),no_Item);
                                          }
                                    break;  }
                         case 14: {  if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
-                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
+                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                            }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
                                         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(3),no_Item);
                                          }
                                     break;  }
-                        case 16: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(3),no_Item);
+                        case 16: {  if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
+                                             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
+                                           }
+                                    if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(4),no_Item);
+                                         }
                                     break;  }
                         case 18: { if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
-                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(5),no_Item);
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
                                          }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
                                         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(4),no_Item);
                                          }
                                     break;  }
-                        case 20: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(4),no_Item);
+                        case 20: { if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(5),no_Item);
+                                         }
+                                    if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(5),no_Item);
+                                         }
                                     break;  }
                         case 22: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyRegeneration(5),no_Item);
                                     break;  }
 
                         } //konec vnitrniho switche
-                break;    }//konec meteoriticke oceli
+                break;    }//konec smaragd
 
 
 }// switch no_kov_pridame_procenta
