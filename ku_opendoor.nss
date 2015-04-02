@@ -1,12 +1,23 @@
-//#include "aps_include"
-/*
- * PLC_DOORS int 1
- * DOORS_TAG string ph_kar_mobr
- * DOORS_COUNT int pocet dveri
+/**
+ * Script pro ovládání dveří pomocí placeablu. Např. pomocí páky.
+ * Možnosti použití od nejjednodušších.
+ * 1) Prosté dveře. Nastavit script do onused na páku. Po použítí otevře nejbližší dveře.
+ * 2) Pro otevření jiných než nejbližších dveří naplňte na páku proměnnou DOORS_TAG s tagem dveří.
+ * 3) Pokud má otevírat více dveří najednou, nastav na páku DOORS_COUNT (int) počet dveří
+ * 4) Pokud neotevírá normální dveře, ale placeablové, nastav PLC_DOORS int 1.
+ * 5) Aby skrz plc dveře nešlo procházet, když jsou zavřené, je dobré spawnout v nich při zavření placeable. Do DOORWAY_BREAK napiš resref plc ke spawnutí. Osvědčilo se x0_fallentimber (kláda).
+ * 6) PLC dveře jde nastavit tak, aby se zavřené chovaly jako otevřené a naopak. Např. jde vzít plc mříže, posunout je o 2.5m nahoru a tim pádem se místo dolu budou zasouvat nahoru. Aby se kláda spawnovala když jsou mříže nahoře, použij DOORS_REVERSE int 1. Aby se kláda nespawnovala ve vzduchu, je třeba jí vejškově posunout na správné místo pomocí DOORWAY_BREAK_OFFSET_Z
+ * 7) Je možné vyrobit dveře, které k otevření potřebují zároveň stlačených víc pák. V tom případě na dveře (! ne na páku) nastav LEVER_COUNT int počet pák nutných k otevření dveří.
+ *
+ * Nastavovací proměnné:
+ *
+ * PLC_DOORS int 1 - Nastavit pokud jsou to placeablové dveře.
+ * DOORS_TAG string <tag dveří k otevření>
+ * DOORS_COUNT int <pocet dveri>
 
- * DOORWAY_BREAK string x0_fallentimber
- * DOORS_REVERSE int  1
- * DOORWAY_BREAK_OFFSET_Z float -2.5
+ * DOORWAY_BREAK string <placeable, kterým se zablokují dveře> např.: x0_fallentimber
+ * DOORS_REVERSE int 1 - Nastavit pokud mají dveře převrácenou animaci. Např. mříže, které mají vypadat zavřené když jsou otevřené a naopak.
+ * DOORWAY_BREAK_OFFSET_Z float -2.5 - Svislé posunutí placeablu pro zablokování dveří.
 */
 
 
@@ -46,6 +57,18 @@ object MakeDoorBrake(string sWayBreak, object oDoors,int iOpen, int iReverse = 0
 
 }
 
+void LeverReturn(object oDoors, object oLever) {
+  if(oDoors == oLever)
+    return;
+
+  AssignCommand(oLever,PlayAnimation(ANIMATION_PLACEABLE_DEACTIVATE));
+  int iPushed = GetLocalInt(oDoors,"KU_LEVER_PUSHED") - 1;
+  if(iPushed < 0)
+    iPushed = 0;
+  SetLocalInt(oDoors,"KU_LEVER_PUSHED",iPushed);
+
+}
+
 void DoCopyVars(object oDoors, object oLever) {
 
    if(GetStringLength(GetLocalString(oDoors,"DOORWAY_BREAK")) == 0) {
@@ -55,6 +78,55 @@ void DoCopyVars(object oDoors, object oLever) {
      SetLocalFloat( oDoors,"DOORWAY_BREAK_OFFSET_Z",GetLocalFloat(oLever,"DOORWAY_BREAK_OFFSET_Z"));
    }
 
+}
+
+int __LevePushNeedCheck(object oDoors) {
+  int iNeeded = GetLocalInt(oDoors,"LEVER_COUNT");
+  if(iNeeded == 0)
+    return TRUE;
+  int iPushed = GetLocalInt(oDoors,"KU_LEVER_PUSHED") + 1;
+  SetLocalInt(oDoors,"KU_LEVER_PUSHED",iPushed);
+  if(iPushed == iNeeded)
+    return TRUE;
+
+  return FALSE;
+}
+
+void __openCloseDoorPlc(object oDoors, string sWayBreak, int iReverse, int iCopyVars) {
+  int nIsOpen = GetIsOpen(oDoors);
+  if(!__LevePushNeedCheck(oDoors) && nIsOpen == iReverse)
+    return;
+
+  if (nIsOpen == 0) {
+    AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_OPEN));
+    MakeDoorBrake(sWayBreak,oDoors,0,iReverse);
+    if(iCopyVars)
+      DoCopyVars(oDoors,OBJECT_SELF);
+    if(!iReverse) {
+      ExecuteScript("ja_door_onopen",oDoors);
+    }
+  }
+  else {
+    AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_CLOSE));
+    MakeDoorBrake(sWayBreak,oDoors,1,iReverse);
+    if(iCopyVars)
+      DoCopyVars(oDoors,OBJECT_SELF);
+    if(iReverse) {
+      ExecuteScript("ja_door_onopen",oDoors);
+    }
+  }
+}
+
+
+void __openCloseDoor(object oDoors) {
+  int nIsOpen = GetIsOpen(oDoors);
+
+  if (nIsOpen == 0 && __LevePushNeedCheck(oDoors)) {
+    AssignCommand(oDoors,ActionCloseDoor(oDoors));
+  }
+  else {
+    AssignCommand(oDoors,ActionOpenDoor(oDoors));
+  }
 }
 
 void main()
@@ -68,6 +140,18 @@ void main()
   //DOORS_TAG, string, tag dvari
   int iCount = GetLocalInt(OBJECT_SELF,"DOORS_COUNT");
   int iReverse = GetLocalInt(OBJECT_SELF,"DOORS_REVERSE");
+  float LeverTimeout = GetLocalFloat(OBJECT_SELF,"TIMEOUT");
+
+  // Make it pure boolean for binary compare
+  if(iReverse)
+   iReverse = TRUE;
+  else 
+   iReverse = FALSE;
+
+  if(LeverTimeout < 0.1)
+    LeverTimeout = 2.0;
+
+  object oLever = OBJECT_SELF;
 
   if(GetLocalInt(OBJECT_SELF,"PLC_DOORS")) {
     iType = 1;
@@ -82,72 +166,29 @@ void main()
     for(i=1;i<=iCount;i++) {
       object oDoors = GetNearestObjectByTag(sTag,OBJECT_SELF,i);
 //SpeakString("mam dvere:"+GetName(oDoors));
-      int nIsOpen = GetIsOpen(oDoors);
       if(iType == 0) {
-        if (nIsOpen == 0)
-        {
-            AssignCommand(oDoors,ActionCloseDoor(oDoors));
-        }
-        else
-        {
-            AssignCommand(oDoors,ActionOpenDoor(oDoors));
-        }
+        __openCloseDoor(oDoors);
+        DelayCommand(LeverTimeout,LeverReturn(oDoors,oLever));
       }
       else {
-        if (nIsOpen == 0)
-        {
-            AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_OPEN));
-            MakeDoorBrake(sWayBreak,oDoors,0,iReverse);
-            DoCopyVars(oDoors,OBJECT_SELF);
-            if(!iReverse) {
-              ExecuteScript("ja_door_onopen",oDoors);
-            }
-        }
-        else
-        {
-            AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_CLOSE));
-            MakeDoorBrake(sWayBreak,oDoors,1,iReverse);
-            DoCopyVars(oDoors,OBJECT_SELF);
-            if(iReverse) {
-              ExecuteScript("ja_door_onopen",oDoors);
-            }
-        }
+        __openCloseDoorPlc(oDoors, sWayBreak, iReverse, TRUE);
+        DelayCommand(LeverTimeout,LeverReturn(oDoors,oLever));
       }
     }
   }
   else if(iType == 1) {
     object oDoors = OBJECT_SELF;
-       int nIsOpen = GetIsOpen(oDoors);
-//       SendMessageToPC(GetFirstPC(),"working with PLC doors. Is Open?"+IntToString(nIsOpen));
-       if (nIsOpen == 0)
-        {
-//            SendMessageToPC(GetFirstPC(),"Opening doors");
-            AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_OPEN));
-            MakeDoorBrake(sWayBreak,oDoors,0,iReverse);
-//            DoCopyVars(oDoors,OBJECT_SELF);
-            if(!iReverse) {
-              ExecuteScript("ja_door_onopen",oDoors);
-            }
-        }
-        else
-        {
-//            SendMessageToPC(GetFirstPC(),"Closing doors");
-            AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_CLOSE));
-            MakeDoorBrake(sWayBreak,oDoors,1,iReverse);
-//            DoCopyVars(oDoors,OBJECT_SELF);
-            if(iReverse) {
-              ExecuteScript("ja_door_onopen",oDoors);
-            }
-        }
+    __openCloseDoorPlc(oDoors, sWayBreak, iReverse, FALSE);
     return;
   }
   else {
     object oDoor = GetNearestObject(OBJECT_TYPE_DOOR);
 //SpeakString("Trying to open door "+GetName(oDoor));
-    AssignCommand(oDoor,ActionOpenDoor(oDoor));
+    __openCloseDoor(oDoor);
+    DelayCommand(LeverTimeout,LeverReturn(oDoor,oLever));
   }
 
   PlayAnimation(ANIMATION_PLACEABLE_ACTIVATE);
 
-  DelayCommand(2.0,PlayAnimation(ANIMATION_PLACEABLE_DEACTIVATE));
+//  DelayCommand(2.0,PlayAnimation(ANIMATION_PLACEABLE_DEACTIVATE));
 }
