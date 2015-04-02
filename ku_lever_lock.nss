@@ -1,3 +1,11 @@
+/**
+* Script pro zamčenou páku, nebo jiný placeable. Plc volá různý script podle toh, zda je či není odemčený.
+*
+* Proměnné:
+*  LOCKED string - Script který se provede pokud hráč zatáhne za zamčenou páku. Obvykle žádný script nenastavovat.
+*  UNLOCKED string - Script, který se má provést pokud hráč zatáhne za odemčenou páku.
+*/
+
 void main() {
 
   object oLever = OBJECT_SELF;
