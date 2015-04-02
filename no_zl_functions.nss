@@ -1171,7 +1171,7 @@ switch   (no_sutr_co_pridavam){
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_POISON,1),no_Item);
                                           }
                                     break;  }
-                        case 4: { if ( GetLocalInt(OBJECT_SELF,"no_druhvyrobku")=="pr" ){
+                        case 4:{ if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="pr"){
                                      AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(1),no_Item);
                                            }
                                     if  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")=="am"){
