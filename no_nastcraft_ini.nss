@@ -127,21 +127,19 @@ const int no_nastav_maximalni_pocet_vyrobku = 10;
 ////////////////////////////////////////////////
 ////////CENY NAKLADU////////////////////////////
 ////////////////////////////////////////////////
-const int no_cena_kov_zl1 =  10;
-const int no_cena_kov_zl2 =  1000;
-const int no_cena_kov_zl3 =  2000;
-const int no_cena_kov_zl4 =  4000;
-const int no_cena_kov_zl5 =  8000;
-const int no_cena_kov_zl6 =  21600;
-const int no_cena_kov_zl7 =  28000;
-const int no_cena_kov_zl8 =  64000;
-const int no_cena_kov_zl9 =  80000;
-const int no_cena_kov_zl10 = 120000;
-const int no_cena_kov_zl11 = 160000;
-const int no_cena_kov_zl12 = 200000;
+const int no_cena_kov_zl1 =  88;
+const int no_cena_kov_zl2 =  808;
+const int no_cena_kov_zl3 =  1608;
+const int no_cena_kov_zl4 =  3208;
+const int no_cena_kov_zl5 =  6408;
+const int no_cena_kov_zl6 =  17288;
+const int no_cena_kov_zl7 =  22408;
+const int no_cena_kov_zl8 =  51208;
+const int no_cena_kov_zl9 =  64008;
+const int no_cena_kov_zl10 = 96008;
+const int no_cena_kov_zl11 = 128008;
+const int no_cena_kov_zl12 = 160008;
 ///////KONEC ZLATNIK//////////////////////
-
-
 
 
 // ceny za lestidla kamenu //////////////////
@@ -160,9 +158,6 @@ const int  no_cena_kame_9 = 7000;
 const int  no_cena_kame_5  = 8000;
 const int  no_cena_kame_6  = 9000;
 const int  no_cena_kame_12 = 10000;
-
-
-
 // konec ceny za lestidla kamenu //////////////////
 
 //cena za legovani kovu ////////////
@@ -192,19 +187,19 @@ const int no_cena_velk = 101;
 const int no_cena_zahn = 81;
 // konec cena za formy//
 
-         //ceny  nasad
-const int  no_cena_nasa_vrb =   100;
-const int  no_cena_nasa_ore =  300;
-const int  no_cena_nasa_dub =  700;
-const int  no_cena_nasa_mah =  1500;
-const int  no_cena_nasa_tis =  2500;
-const int  no_cena_nasa_jil =  4000;
-const int  no_cena_nasa_zel =  7000;
-const int  no_cena_nasa_pra =  10000;
+         //ceny mořidla na násady
+const int  no_cena_nasa_vrb =   16;
+const int  no_cena_nasa_ore =  128;
+const int  no_cena_nasa_dub =  400;
+const int  no_cena_nasa_mah =  960;
+const int  no_cena_nasa_tis =  2000;
+const int  no_cena_nasa_jil =  3200;
+const int  no_cena_nasa_zel =  5600;
+const int  no_cena_nasa_pra =  8000;
 
 
 
-       //cena
+       //cena louhu
 const int  no_cena_kozk_obyc =  100;
 const int  no_cena_kozk_leps =  500;
 const int  no_cena_kozk_kval =  2000;
@@ -214,29 +209,16 @@ const int  no_cena_kozk_lege =  10000;
 
 
 
-
 //cena prisady  platner
-//const int no_cena_prisada1 = 80;
-//const int no_cena_prisada2 = 160;
-//const int no_cena_prisada3 = 400;  //bronz  - vermajl
-//const int no_cena_prisada4 = 2400;  //zelezo
-//const int no_cena_prisada5= 4000;   //zlato
-//const int no_cena_prisada6 = 9600;
-//const int no_cena_prisada7 = 12000;
-//const int no_cena_prisada8 = 24000;
-//const int no_cena_prisada9 = 32000;
-//const int no_cena_prisada10 = 40000;
-//const int no_cena_prisada11 = 104000;
-//const int no_cena_prisada12= 160000;
 const int no_cena_prisada1 = 100;
 const int no_cena_prisada2 = 500;
-const int no_cena_prisada3 = 1000; //bronz
+const int no_cena_prisada3 = 1000; //vermajl
 const int no_cena_prisada4 = 2400; //zelezo
 const int no_cena_prisada5= 4000; //zlato
-const int no_cena_prisada6 = 8000;
-const int no_cena_prisada7 = 16000;
-const int no_cena_prisada8 = 30000;
-const int no_cena_prisada9 = 45000;
+const int no_cena_prisada6 = 9600;
+const int no_cena_prisada7 = 12000;
+const int no_cena_prisada8 = 24000;
+const int no_cena_prisada9 = 32000;
 const int no_cena_prisada10 = 60000;
 const int no_cena_prisada11 = 104000;
 const int no_cena_prisada12= 160000;
@@ -245,7 +227,7 @@ const int no_cena_prisada12= 160000;
 //cena prisady  kovar
 const int no_cena_zb_prisada1 = 80;
 const int no_cena_zb_prisada2 = 160;
-const int no_cena_zb_prisada3 = 400;  //bronz
+const int no_cena_zb_prisada3 = 400;  //vermajl
 const int no_cena_zb_prisada4 = 2400;  //zelezo
 const int no_cena_zb_prisada5= 4000;   //zlato
 const int no_cena_zb_prisada6 = 9600;
@@ -266,7 +248,7 @@ const int no_cena_kuze_lest5 = 80008;
 const int no_cena_kuze_lest6 = 160008;
 
 
-//ceny moridel do luku
+//ceny tetiv pro luky nebo kuse
 const int no_cena_moridla1 =80;
 const int no_cena_moridla2 =2000;
 const int no_cena_moridla3 =3600;
@@ -275,7 +257,7 @@ const int no_cena_moridla5 =21600;
 const int no_cena_moridla6 =44000;
 const int no_cena_moridla7 =96000;
 const int no_cena_moridla8 =160000;
-  //na stity
+  //na stity nyty
 const int no_cena_nytu1 =88;
 const int no_cena_nytu2 =168;
 const int no_cena_nytu3 =408;
