@@ -142,7 +142,7 @@ int __getDigAmmount(int iResource) {
 
   switch(iResource) {
     // Coal
-    case CNR_RESOURCE_COAL: return 6+d10(2);
+    case CNR_RESOURCE_COAL: return 10+d10(2);
     // Metal
     case CNR_RESOURCE_TIN:
     case CNR_RESOURCE_COPPER:
