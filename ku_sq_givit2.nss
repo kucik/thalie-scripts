@@ -22,5 +22,5 @@ void __giveItem(string sItem) {
 
 void main() {
   string sItem = GetLocalString(OBJECT_SELF,"SQ_GIVEITEM2");
-
+  __giveItem(sItem);
 }
