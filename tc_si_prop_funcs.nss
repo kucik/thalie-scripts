@@ -159,11 +159,6 @@ int ku_si_AddItemProperty_AC(object oItem, int iPower) {
   }
   AddItemProperty(DURATION_TYPE_PERMANENT,ip,oItem);
   return TRUE;
-
-  if( GetBaseItemType(oItem) == BASE_ITEM_ARMOR) {
-    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_DISCIPLINE,iPower/2),oItem);
-  }
-
 }
 
 
@@ -722,7 +717,8 @@ int ku_si_AddPropertiesStone_14(object oItem, int iPower) {
 
   switch(iBaseItem) {
     case BASE_ITEM_ARMOR:
-      return ku_si_AddItemProperty_AC(oItem,iPower);
+      return ku_si_AddItemProperty_AC(oItem,iPower) + 
+             ku_si_AddItemProperty_SkillBonus(oItem, SKILL_DISCIPLINE, iPower / 2) ;
     case BASE_ITEM_HELMET:
       return ku_si_AddItemProperty_SaveSpecific(oItem,iPower,IP_CONST_SAVEVS_MINDAFFECTING);
     case BASE_ITEM_CLOAK:
