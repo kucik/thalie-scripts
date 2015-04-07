@@ -2912,12 +2912,12 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 2:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,1),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 3:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
-                    case 4:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_20_PERCENT),no_Item);
+                    case 4:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_5),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
@@ -2926,7 +2926,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                   break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(1),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_30_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
 
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
@@ -2958,7 +2958,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 2:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,2),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 3:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
@@ -2968,10 +2968,10 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,3),no_Item);
                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_10),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_16),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(1),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
@@ -2979,7 +2979,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_5_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_5_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
@@ -2993,7 +2993,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_2),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_5),no_Item);
 
                                  break;  }
                }//konec vnitrniho switche
@@ -3009,28 +3009,28 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 2:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,3),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_20_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
                                  break;  }
                     case 3:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 4:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(1),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,3),no_Item);
                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_10),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_18),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_50_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_60_PERCENT),no_Item);
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_10_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_10_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
@@ -3044,7 +3044,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_3),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_5),no_Item);
 
                                  break;  }
                }//konec vnitrniho switche
@@ -3059,30 +3059,30 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 2:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,3),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_20_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
                                  break;  }
                     case 3:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 4:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_20_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,1),no_Item);
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,2),no_Item);
                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_15),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
-                    case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_19),no_Item);
+                    case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_20),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_50_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_60_PERCENT),no_Item);
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,1),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_15_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
@@ -3093,11 +3093,11 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_2),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_5),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_4),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_5),no_Item);
 
                                  break;  }
                }//konec vnitrniho switche
@@ -3112,14 +3112,14 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 2:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,2),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,1),no_Item);
                                  break;  }
                     case 3:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 4:  {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_20_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,1),no_Item);
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,2),no_Item);
@@ -3131,12 +3131,12 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_60_PERCENT),no_Item);
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_20_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_15_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,5),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
@@ -3147,7 +3147,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_3),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_5),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
@@ -3165,21 +3165,21 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 2:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,2),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,1),no_Item);
                                  break;  }
                     case 3:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  break;  }
                     case 4:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,2),no_Item);
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,1),no_Item);
                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_20),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
-                    case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_21),no_Item);
+                    case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_22),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
@@ -3189,7 +3189,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,2),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_20_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_15_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,5),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
@@ -3199,11 +3199,11 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_4),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_6),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
                                   break;  }
                }//konec vnitrniho switche
                no_udelejjmeno(no_Item);
@@ -3223,7 +3223,7 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 4:  {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_15_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,2),no_Item);
                                  break;  }
                     case 5:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFIERTYPE_SHIELD,1),no_Item);
@@ -3234,11 +3234,11 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_30_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(5),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,2),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_30_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_30_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,6),no_Item);
                                 break;  }
@@ -3246,11 +3246,11 @@ void no_stit(object no_pec, int no_druh_stitu)
                                 break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_5),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_7),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                }//konec vnitrniho switche
                no_udelejjmeno(no_Item);
@@ -3273,16 +3273,16 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,3),no_Item);
                                  break;  }
-                    case 5:  {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_20),no_Item);
+                    case 5:  {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_25),no_Item);
                                 break;  }
-                    case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_23),no_Item);
+                    case 6:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_24),no_Item);
                                  break;  }
                     case 7:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
-                                AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_30_PERCENT),no_Item);
+                                AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
                                  break;  }
                     case 8:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(5),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAbility(IP_CONST_ABILITY_DEX,3),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_35_PERCENT),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_30_LBS),no_Item);
                                  break;  }
                     case 9:  {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,6),no_Item);
                                  break;  }
@@ -3290,11 +3290,11 @@ void no_stit(object no_pec, int no_druh_stitu)
                                  break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_6),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(5),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,10),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_8),no_Item);
+                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                }//konec vnitrniho switche
                no_udelejjmeno(no_Item);
