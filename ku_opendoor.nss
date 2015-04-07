@@ -80,7 +80,7 @@ void DoCopyVars(object oDoors, object oLever) {
 
 }
 
-int __LevePushNeedCheck(object oDoors) {
+int __LeverPushNeedCheck(object oDoors) {
   int iNeeded = GetLocalInt(oDoors,"LEVER_COUNT");
   if(iNeeded == 0)
     return TRUE;
@@ -94,10 +94,10 @@ int __LevePushNeedCheck(object oDoors) {
 
 void __openCloseDoorPlc(object oDoors, string sWayBreak, int iReverse, int iCopyVars) {
   int nIsOpen = GetIsOpen(oDoors);
-  if(!__LevePushNeedCheck(oDoors) && nIsOpen == iReverse)
+  if(!__LeverPushNeedCheck(oDoors) && nIsOpen == iReverse)
     return;
 
-  if (nIsOpen == 0) {
+  if (!nIsOpen) {
     AssignCommand(oDoors,PlayAnimation(ANIMATION_PLACEABLE_OPEN));
     MakeDoorBrake(sWayBreak,oDoors,0,iReverse);
     if(iCopyVars)
@@ -121,18 +121,25 @@ void __openCloseDoorPlc(object oDoors, string sWayBreak, int iReverse, int iCopy
 void __openCloseDoor(object oDoors) {
   int nIsOpen = GetIsOpen(oDoors);
 
-  if (nIsOpen == 0 && __LevePushNeedCheck(oDoors)) {
-    AssignCommand(oDoors,ActionCloseDoor(oDoors));
-  }
-  else {
+  if (!nIsOpen && __LeverPushNeedCheck(oDoors)) {
     AssignCommand(oDoors,ActionOpenDoor(oDoors));
   }
+  else {
+    AssignCommand(oDoors,ActionCloseDoor(oDoors));
+  }
+}
+
+object __getNearestDoors(string sTag, int i) {
+  if(GetStringLength(sTag) > 0)
+    return GetNearestObjectByTag(sTag,OBJECT_SELF,i);
+  else
+    return GetNearestObject(OBJECT_TYPE_DOOR, OBJECT_SELF, i);
 }
 
 void main()
 {
   int iType = 0; //Doors
-  string sTag = "";
+  string sTag = GetLocalString(OBJECT_SELF,"DOORS_TAG");
   int i;
   //ovladacmu prvku nastavit tyto promenne:
   //DOORS_COUNT, int, pocet dveri
@@ -145,7 +152,7 @@ void main()
   // Make it pure boolean for binary compare
   if(iReverse)
    iReverse = TRUE;
-  else 
+  else
    iReverse = FALSE;
 
   if(LeverTimeout < 0.1)
@@ -155,37 +162,32 @@ void main()
 
   if(GetLocalInt(OBJECT_SELF,"PLC_DOORS")) {
     iType = 1;
-    sTag = GetLocalString(OBJECT_SELF,"DOORS_TAG");
   }
   if(iCount < 1) {
     iCount = 1;
   }
   string sWayBreak = GetLocalString(OBJECT_SELF,"DOORWAY_BREAK");
 
-  if(GetStringLength(sTag) > 0) {
-    for(i=1;i<=iCount;i++) {
-      object oDoors = GetNearestObjectByTag(sTag,OBJECT_SELF,i);
-//SpeakString("mam dvere:"+GetName(oDoors));
-      if(iType == 0) {
-        __openCloseDoor(oDoors);
-        DelayCommand(LeverTimeout,LeverReturn(oDoors,oLever));
-      }
-      else {
-        __openCloseDoorPlc(oDoors, sWayBreak, iReverse, TRUE);
-        DelayCommand(LeverTimeout,LeverReturn(oDoors,oLever));
-      }
-    }
-  }
-  else if(iType == 1) {
+  // PLC doors itself
+  if(iType == 1 && GetStringLength(sTag) == 0) {
     object oDoors = OBJECT_SELF;
     __openCloseDoorPlc(oDoors, sWayBreak, iReverse, FALSE);
     return;
   }
-  else {
-    object oDoor = GetNearestObject(OBJECT_TYPE_DOOR);
-//SpeakString("Trying to open door "+GetName(oDoor));
-    __openCloseDoor(oDoor);
-    DelayCommand(LeverTimeout,LeverReturn(oDoor,oLever));
+
+
+  for(i=1;i<=iCount;i++) {
+//      WriteTimestampedLogEntry("Open #"+IntToString(i)+" doors "+sTag);
+    object oDoors = __getNearestDoors(sTag,i);
+//SpeakString("mam dvere:"+GetName(oDoors));
+    if(iType == 0) {
+      __openCloseDoor(oDoors);
+      DelayCommand(LeverTimeout,LeverReturn(oDoors,oLever));
+    }
+    else {
+      __openCloseDoorPlc(oDoors, sWayBreak, iReverse, TRUE);
+      DelayCommand(LeverTimeout,LeverReturn(oDoors,oLever));
+    }
   }
 
   PlayAnimation(ANIMATION_PLACEABLE_ACTIVATE);
