@@ -17,6 +17,7 @@
 #include "sh_classes_const"
 #include "nwnx_funcs"
 #include "sh_deity_inc"
+#include "subraces"
 
 void main()
 {
@@ -59,6 +60,7 @@ void main()
 
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_FREEDOM_OF_MOVEMENT, FALSE));
+    int bSubraceSlowed = FALSE;
 
     //Search for and remove the above negative effects
     effect eLook = GetFirstEffect(oTarget);
@@ -69,8 +71,15 @@ void main()
             GetEffectType(eLook) == EFFECT_TYPE_SLOW ||
             GetEffectType(eLook) == EFFECT_TYPE_MOVEMENT_SPEED_DECREASE)
         {
-            if(!GetEffectSpellId(eLook) == 2002) // Do not remove DD effect
+            if(Subraces_GetIsSubraceEffect(eLook)) {
+              bSubraceSlowed = TRUE;
+              eLook = GetNextEffect(oTarget);
+              continue;
+            }
+
+            if( GetEffectSpellId(eLook) != 2002  ) // Do not remove DD effect
               RemoveEffect(oTarget, eLook);
+
         }
         eLook = GetNextEffect(oTarget);
     }
