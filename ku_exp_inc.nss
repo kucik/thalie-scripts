@@ -23,7 +23,7 @@ int ku_SaveXPPerKill(object oPC, int xp);
 // Get player XP debt 
 int ku_GetXpDebt(object oPC);
 
-const int NT_PC_MAX_XP = 2175000; //30. level
+const int NT_PC_MAX_XP = 2975000; //35. level
 
 /////////////////////////////////////////////////////////////////
 // Function definitions
