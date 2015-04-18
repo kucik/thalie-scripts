@@ -14,9 +14,9 @@
 //:: VFX Pass By: Preston W, On: June 21, 2001
 
 #include "x2_inc_spellhook"
-#include "sh_classes_const"
-#include "nwnx_funcs"
-#include "sh_deity_inc"
+//#include "sh_classes_const"
+//#include "nwnx_funcs"
+//#include "sh_deity_inc"
 #include "subraces"
 
 void main()
@@ -88,7 +88,8 @@ void main()
     {
         nDuration *= 2;
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_PAVOUCI || GetClericDomain(OBJECT_SELF,2)==DOMENA_PAVOUCI)
+    if (GetClericDomain(OBJECT_SELF,1) == 24 || //DOMENA_PAVOUCI
+        GetClericDomain(OBJECT_SELF,2) == 24) //DOMENA_PAVOUCI
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
