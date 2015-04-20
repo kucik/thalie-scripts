@@ -1,6 +1,6 @@
 #include "ku_libtime"
 #include "cnr_persist_inc"
-void CreateAnObject(string sResource, object oPC, int iSkill);
+void CreateAnObject(string sResource, object oPC, int iSkill, string sAnimalName = "");
 void CreatePlaceable(string sObject, location lPlace, float fDuration);
 
 int GetPeltCostByCR(float fCR) {
@@ -17,6 +17,7 @@ void main()
   int bMaso = 1;
  int bHasKnife = FALSE;
   object oTool = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC);
+  string sAnimalName = GetName(OBJECT_SELF);
   if (GetIsObjectValid(oTool))
   {
     if (GetTag(oTool) == "cnrSkinningKnife")
@@ -136,7 +137,7 @@ void main()
         if (Random(1000)<=(iSkinChance - 400))  sMeatTag = "ry_maso_3";
 
         if(GetStringLength(sMeatTag) > 1)
-          AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMeatTag,oPC,iSkinChance)));
+          AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMeatTag,oPC,iSkinChance,sAnimalName)));
         fPause = fPause+0.3;
        }
      }
@@ -195,7 +196,7 @@ void main()
   DestroyObject(OBJECT_SELF,6.0);
 }
 
-void CreateAnObject(string sResource, object oPC, int iSkill)
+void CreateAnObject(string sResource, object oPC, int iSkill, string sAnimalName = "")
  {
   object oItem = CreateItemOnObject(sResource,oPC,1);
   if(!GetIsObjectValid(oItem))
@@ -221,6 +222,9 @@ void CreateAnObject(string sResource, object oPC, int iSkill)
   }
 
   SetLocalInt(oItem,"TROFEJ", iAct);
+  if(GetStringLength(sAnimalName) > 0)
+    SetLocalString(oItem,"ANIMAL_NAME",sAnimalName);
+
   return;
  }
 

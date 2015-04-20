@@ -39,12 +39,18 @@ void main()
         int iCena = 5 + GetLocalInt(oItem, "TROFEJ"); //navyseni cenny masa o 5zl - urceni nove
         string sName = GetName(oItem) + " *opecene*";
         int iStack = GetItemStackSize(oItem);
+        string sAnimal = GetLocalString(oItem,"ANIMAL_NAME");
         if(iStack > 1)
           SetItemStackSize(oItem,iStack - 1);
         else
           DestroyObject(oItem);
-        oItem = CreateItemOnObject("sy_maso_pecene",oPlayer,1,"");
-        SetName(oItem,sName);
+
+        int iNutrition = 15 + Random(10);
+        oItem = CreateItemOnObject("sy_maso_pecene",oPlayer,1,"food00"+IntToString(iNutrition)+"00");
+        if(GetStringLength(sAnimal) > 0) {
+          sName = GetName(oItem)+" - "+sAnimal;
+          SetName(oItem,sName);
+        }
         SetLocalInt(oItem, "HOSTINSKY", iCena); //navyseni cenny masa o 5zl - nastaveni vykupu u hostinskeho
         AssignCommand(oPlayer,SpeakString("*Opeka nad ohnem*",TALKVOLUME_TALK));
         AssignCommand(oPlayer, ActionPlayAnimation (ANIMATION_FIREFORGET_STEAL, 1.0, 3.0));
