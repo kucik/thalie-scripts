@@ -169,6 +169,9 @@ void LOCK_ProcessSpawnIF(object oSpawn);
 // Spawner list
 void LOCK_ProcessSpawnLIST(object oSpawn);
 
+// Area switch spawner
+void LOCK_ProcessSpawnAreaSWITCH(object oSpawn);
+
 int ku_ChooseTrap(int power, int type) {
 
   int nTrap = 0;
@@ -503,6 +506,10 @@ int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay) {
   }
   if(sType == "LIST" ) {
     LOCK_ProcessSpawnLIST(oSpawn);
+    return TRUE;
+  }
+  if(sType == "ASWITCH" ) {
+    LOCK_ProcessSpawnAreaSWITCH(oSpawn);
     return TRUE;
   }
 
@@ -1502,4 +1509,11 @@ void LOCK_ProcessSpawnLIST(object oSpawn) {
   }
 }
 
+void LOCK_ProcessSpawnAreaSWITCH(object oSpawn) {
+  object oArea = GetArea(oSpawn);
+  string sSwitch = GetLocalString(oArea, GetTag(oSpawn));
 
+  if(GetStringLength(sSwitch) > 0) {
+    __processSpawnByTag(oSpawn, sSwitch);
+  }
+}
