@@ -29,6 +29,12 @@ void ApplyPenalty(object oDead)
        nPenalty = 40000;
 
     object oSoul = GetSoulStone(oDead);
+    /* CTF Mode penalta */
+    if(GetLocalInt(oSoul,"CTF_DEATH")) {
+      nPenalty = nPenalty / 10;
+    }
+    DeleteLocalInt(oSoul,"CTF_DEATH");
+
     int xpk = GetLocalInt(oSoul,"ku_XPLost");
     SetLocalInt(oSoul,"ku_XPLost",xpk + nPenalty);
 

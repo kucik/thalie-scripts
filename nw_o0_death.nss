@@ -233,9 +233,17 @@ void main()
     DelayCommand(1.0f, AssignCommand(oPC, JumpToObject(wpDeath)));
 
     //edit Sylm : na zaver ulozim do duse bytosti premennu isDead = 1
-    object oSoulItem = sy_has_soulitem(oPC);
+    object oSoulItem = GetSoulStone(oPC);
     SetLocalInt(oSoulItem, "isDead", 1);
     //end Sylm
+
+    /* CTF mode */
+    if(GetLocalInt(oArea,"CTF_AREA")) {
+      SetLocalInt(oSoulItem,"CTF_DEATH",TRUE);
+    }
+    else {
+      DeleteLocalInt(oSoulItem, "CTF_DEATH");
+    }
 
 }
 

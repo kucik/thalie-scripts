@@ -18,11 +18,11 @@ void Raise(object oPlayer)
  }
  Subraces_RespawnSubrace( oPlayer );
 
- DelayCommand( 1.0,UnequipItemsAfterDelevel(oPlayer));
+/* DelayCommand( 1.0,UnequipItemsAfterDelevel(oPlayer));
  DelayCommand(10.0,UnequipItemsAfterDelevel(oPlayer));
  DelayCommand(30.0,UnequipItemsAfterDelevel(oPlayer));
  DelayCommand(60.0,UnequipItemsAfterDelevel(oPlayer));
- DelayCommand(90.0,UnequipItemsAfterDelevel(oPlayer));
+ DelayCommand(90.0,UnequipItemsAfterDelevel(oPlayer));*/
 }
 
 int GetItemRequiedLevel(object oItem) {
