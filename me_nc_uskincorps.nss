@@ -1,6 +1,11 @@
 #include "ku_libtime"
 #include "cnr_persist_inc"
-void CreateAnObject(string sResource, object oPC, int iSkill, string sAnimalName = "");
+
+const int __TROF_PELT = 1;
+const int __TROF_MEAT = 2;
+const int __TROF_MISC = 3;
+
+void CreateAnObject(string sResource, object oPC, int iSkill, int iType = 1, string sAnimalName = "");
 void CreatePlaceable(string sObject, location lPlace, float fDuration);
 
 int GetPeltCostByCR(float fCR) {
@@ -125,7 +130,7 @@ void main()
   for (iPeltQty; iPeltQty > 0; iPeltQty--)
    {
 
-    AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sPeltTag,oPC,iSkinChance)));
+    AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sPeltTag,oPC,iSkinChance,__TROF_PELT)));
     fPause = fPause+0.3;
    }
   if (bMaso == 1)
@@ -137,11 +142,11 @@ void main()
         if (Random(1000)<=(iSkinChance - 400))  sMeatTag = "ry_maso_3";
 
         if(GetStringLength(sMeatTag) > 1)
-          AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMeatTag,oPC,iSkinChance,sAnimalName)));
+          AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMeatTag,oPC,iSkinChance,__TROF_MEAT, sAnimalName)));
         fPause = fPause+0.3;
        }
      }
-  if (sMisc != "") AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMisc,oPC,iSkinChance)));
+  if (sMisc != "") AssignCommand(oPC,DelayCommand(4.0+fPause,CreateAnObject(sMisc,oPC,iSkinChance,__TROF_MISC)));
 
 
   AssignCommand(oPC,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0,6.0));
@@ -196,7 +201,7 @@ void main()
   DestroyObject(OBJECT_SELF,6.0);
 }
 
-void CreateAnObject(string sResource, object oPC, int iSkill, string sAnimalName = "")
+void CreateAnObject(string sResource, object oPC, int iSkill, int iType = 1, string sAnimalName = "")
  {
   object oItem = CreateItemOnObject(sResource,oPC,1);
   if(!GetIsObjectValid(oItem))
@@ -221,7 +226,11 @@ void CreateAnObject(string sResource, object oPC, int iSkill, string sAnimalName
     iAct = FloatToInt(IntToFloat(iAct) * fKoeficient);
   }
 
-  SetLocalInt(oItem,"TROFEJ", iAct);
+  if(iType == __TROF_PELT)
+    SetLocalInt(oItem,"TROFEJ", iAct);
+  if(iType == __TROF_MEAT && !GetLocalInt(oItem,"HOSTINSKY"))
+    SetLocalInt(oItem,"HOSTINSKY", iAct/5);
+
   if(GetStringLength(sAnimalName) > 0)
     SetLocalString(oItem,"ANIMAL_NAME",sAnimalName);
 

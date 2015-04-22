@@ -4067,19 +4067,21 @@ struct skincorpse
   string sTag;
   string sPelt;
   string sMeat;
+  string sMisc;
   int iDiff;
 };
 
 struct skincorpse ku_getPelt(string sResRef) {
   struct skincorpse corpse;
 
-  string sSql = "SELECT id, param1, param2, param3 FROM static_quests WHERE quest = 'stahovani' AND name = '"+sResRef+"';";
+  string sSql = "SELECT id, param1, param2, param3, param4 FROM static_quests WHERE quest = 'stahovani' AND name = '"+sResRef+"';";
   SQLExecDirect(sSql);
   if (SQLFetch() == SQL_SUCCESS) {
     corpse.id = StringToInt(SQLGetData(1));
     corpse.sPelt = SQLGetData(2);
     corpse.iDiff = StringToInt(SQLGetData(3));
     corpse.sMeat = SQLGetData(4);
+    corpse.sMisc = SQLGetData(5);
   }
   else {
     corpse.iDiff = -1;
@@ -4122,6 +4124,7 @@ void GenerateNPCTreasure()
     if(corpse.iDiff >= 0) {
         SetLocalString(oTreasureGetter,"sPelt", corpse.sPelt);
         SetLocalString(oTreasureGetter,"sMeat", corpse.sMeat);
+        SetLocalString(oTreasureGetter,"sMisc", corpse.sMisc);
         SetLocalInt(oTreasureGetter,"iPenalty", corpse.iDiff);
     }
     
