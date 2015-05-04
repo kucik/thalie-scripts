@@ -312,6 +312,43 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
 
 }
 
+int __FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA(object oPC) {
+  int iBonus = 1;
+  int iCreatureSize = GetCreatureSize(oPC);
+
+  if (GetHasFeat(FEAT_GENERAL_LEPSI_OBRANA_SE_DVEMA_ZBRANEMA,oPC) == TRUE)
+    iBonus = 3;
+  if (GetHasFeat(FEAT_EPICGENERAL_EPICKA_OBRANA_DVEMA_ZBRANEMA,oPC) == TRUE)
+    iBonus = 5;
+
+  object oMainWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
+  // Check main weapon validity
+  if(!GetIsObjectValid(oMainWeapon))
+    return 0;
+
+  // Check if it is weapon
+  int iMainWeaponType = GetBaseItemType(oMainWeapon);
+  if(Get2DAString("baseitems","StorePanel",iMainWeaponType) != "1")
+    return 0;
+
+  // Two handed weapons
+  int iWeaponSize = StringToInt(Get2DAString("baseitems","WeaponSize",iMainWeaponType));
+  if(iCreatureSize + 1 == iWeaponSize) {
+    return iBonus;
+  }
+
+  // Two weapons - check offhand.
+  object oOffWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC);
+  if(!GetIsObjectValid(oOffWeapon))
+    return 0;
+
+  // Check if it is weapon
+  if(Get2DAString("baseitems","StorePanel",GetBaseItemType(oOffWeapon)) == "1")
+    return iBonus;
+
+  return 0;
+}
+
 /*
 Prida bonusy do AC - natural base - pres nwnx
 */
@@ -389,60 +426,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
 
     if (GetHasFeat(FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA,oPC) == TRUE)
     {
-       iWeaponBonus = 1;
-       if (GetHasFeat(FEAT_GENERAL_LEPSI_OBRANA_SE_DVEMA_ZBRANEMA,oPC) == TRUE) iWeaponBonus = 3;
-       if (GetHasFeat(FEAT_EPICGENERAL_EPICKA_OBRANA_DVEMA_ZBRANEMA,oPC) == TRUE) iWeaponBonus = 5;
-       if (GetRacialType(oPC)==RACIAL_TYPE_HALFLING || GetRacialType(oPC)==RACIAL_TYPE_GNOME)
-       {
-           iItemTypeLeftOff = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC));
-           if (
-           (iItemTypeLeftOff == BASE_ITEM_DAGGER) ||
-           (iItemTypeLeftOff == BASE_ITEM_HANDAXE) ||
-           (iItemTypeLeftOff == BASE_ITEM_KAMA) ||
-           (iItemTypeLeftOff == BASE_ITEM_KUKRI) ||
-           (iItemTypeLeftOff == BASE_ITEM_LIGHTHAMMER) ||
-           (iItemTypeLeftOff == BASE_ITEM_LIGHTMACE) ||
-           (iItemTypeLeftOff == BASE_ITEM_LONGSWORD) ||
-           (iItemTypeLeftOff == BASE_ITEM_SHORTSWORD) ||
-           (iItemTypeLeftOff == BASE_ITEM_SICKLE)
-           )
-           {
-            iBonus +=iWeaponBonus;
-           }
-
-       }
-       else //normalni velikost rasy
-       {
-           iItemTypeRightMain = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC));
-           iItemTypeLeftOff = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC));
-           if (
-           (iItemTypeLeftOff == BASE_ITEM_BASTARDSWORD) ||
-           (iItemTypeLeftOff == BASE_ITEM_BATTLEAXE) ||
-           (iItemTypeLeftOff == BASE_ITEM_CLUB) ||
-           (iItemTypeLeftOff == BASE_ITEM_DAGGER) ||
-           (iItemTypeLeftOff == BASE_ITEM_DWARVENWARAXE) ||
-           (iItemTypeLeftOff == BASE_ITEM_HANDAXE) ||
-           (iItemTypeLeftOff == BASE_ITEM_KAMA) ||
-           (iItemTypeLeftOff == BASE_ITEM_KATANA) ||
-           (iItemTypeLeftOff == BASE_ITEM_KUKRI) ||
-           (iItemTypeLeftOff == BASE_ITEM_LIGHTFLAIL) ||
-           (iItemTypeLeftOff == BASE_ITEM_LIGHTHAMMER) ||
-           (iItemTypeLeftOff == BASE_ITEM_LIGHTMACE) ||
-           (iItemTypeLeftOff == BASE_ITEM_LONGSWORD) ||
-           (iItemTypeLeftOff == BASE_ITEM_MORNINGSTAR) ||
-           (iItemTypeLeftOff == BASE_ITEM_RAPIER) ||
-           (iItemTypeLeftOff == BASE_ITEM_SCIMITAR) ||
-           (iItemTypeLeftOff == BASE_ITEM_SHORTSWORD) ||
-           (iItemTypeLeftOff == BASE_ITEM_SICKLE) ||
-           (iItemTypeLeftOff == BASE_ITEM_WARHAMMER) ||
-           (iItemTypeRightMain == BASE_ITEM_DIREMACE) ||
-           (iItemTypeRightMain == BASE_ITEM_DOUBLEAXE) ||
-           (iItemTypeRightMain == BASE_ITEM_TWOBLADEDSWORD)
-           )
-           {
-            iBonus +=iWeaponBonus;
-           }
-        }
+       iBonus += __FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA(oPC);
     }
     iItemTypeLeftOff = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC));
     if ((GetHasFeat(FEAT_KURTIZANA_POBLOUZNENI,oPC) == TRUE) && (iItemTypeLeftOff == 314) )  //FASHION ACC...
