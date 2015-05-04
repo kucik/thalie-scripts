@@ -331,6 +331,10 @@ int __FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA(object oPC) {
   if(Get2DAString("baseitems","StorePanel",iMainWeaponType) != "1")
     return 0;
 
+  // Check for ranged weapons
+  if(StringToInt(Get2DAString("baseitems","RangedWeapon",iMainWeaponType)) > 0)
+    return 0;
+
   // Two handed weapons
   int iWeaponSize = StringToInt(Get2DAString("baseitems","WeaponSize",iMainWeaponType));
   if(iCreatureSize + 1 == iWeaponSize) {
@@ -342,8 +346,13 @@ int __FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA(object oPC) {
   if(!GetIsObjectValid(oOffWeapon))
     return 0;
 
+  int iOffWeapon = GetBaseItemType(oOffWeapon);
+  // Check for ranged weapons
+  if(StringToInt(Get2DAString("baseitems","RangedWeapon",iOffWeapon)) > 0)
+    return 0;
+
   // Check if it is weapon
-  if(Get2DAString("baseitems","StorePanel",GetBaseItemType(oOffWeapon)) == "1")
+  if(Get2DAString("baseitems","StorePanel",iOffWeapon) == "1")
     return iBonus;
 
   return 0;
