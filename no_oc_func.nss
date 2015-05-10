@@ -33,7 +33,6 @@ void no_cenavyrobku(object no_Item);
 //void no_nazevsutru(int kamen1,int kamen2);
 //udela na OBJECT_SELF no_nazevsutru  string s nazvem
 
-
 void no_vynikajicikus(object no_Item);
 // prida nahodne neco dobreho, kdyz bude vynikajici vyrobek !
 
@@ -45,7 +44,6 @@ void no_udelej_vzhled(object no_Item);
 
 void no_udelejocarovani(object no_Item);
 //udela vyrobek + mu udeli vlastnosti podle pouzitych prisad
-
 
 void no_snizstack(object no_Item, int no_mazani);
 ////snizi pocet ve stacku. Kdyz je posledni, tak ho znici
@@ -162,11 +160,13 @@ no_random = d10() + TC_getLevel(no_oPC,TC_ocarovavac);
 
 switch (no_random)  {
 case 1: {
-                                itemproperty no_ip = ItemPropertyLight (IP_CONST_LIGHTBRIGHTNESS_BRIGHT, IP_CONST_LIGHTCOLOR_BLUE);
-                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_HOLY),no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Svitivec'");
-                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 80);
+         itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_COLD,1+d2());
+        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+        no_ip = ItemPropertyReducedSavingThrowVsX(IP_CONST_SAVEVS_FIRE,1);
+        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_COLD),no_Item);
+        SetName(no_Item,GetName(no_Item) + "  'Mrazivec'");
+        SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 
 
@@ -205,18 +205,20 @@ case 6: {
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                     break;}
 case 7: {
-            itemproperty no_ip =ItemPropertySkillBonus(SKILL_LISTEN,1+d2());
-                    AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                    SetName(no_Item,GetName(no_Item) + "  'Lepsi sluch'");
-                    SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
+            itemproperty no_ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_2);
+        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_COLD),no_Item);
+        SetName(no_Item,GetName(no_Item) + "  'Mrazilka'");
+        SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
+                  break;}    
 case 8: {
-            itemproperty no_ip =ItemPropertySkillBonus(SKILL_RIDE,1+d2());
-                    AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                    SetName(no_Item,GetName(no_Item) + "  'Jezdec'");
-                    SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
+            itemproperty no_ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_2);
+        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_ACID),no_Item);
+        SetName(no_Item,GetName(no_Item) + "  'Kyseláč'");
+        SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
                    break;}
-case  9: { itemproperty no_ip =ItemPropertySkillBonus(SKILL_LORE,1+d2());
+case  9: { itemproperty no_ip =ItemPropertySkillBonus(SKILL_LORE,3+d2());
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Vedator'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
@@ -285,34 +287,31 @@ case 19:  {
 case 20:  {
                 itemproperty no_ip =ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_SHAPECHANGER,IP_CONST_DAMAGETYPE_NEGATIVE,IP_CONST_DAMAGEBONUS_2);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'vlokodav'");
+                  SetName(no_Item,GetName(no_Item) + "  'Vlokodav'");
                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-
 case 21:  {
                 itemproperty no_ip =ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_NEGATIVE,IP_CONST_DAMAGEBONUS_2);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'cizinco-zabijak'");
+                  SetName(no_Item,GetName(no_Item) + "  'Cizinco-zabijak'");
                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-
 case 22:  {
                 itemproperty no_ip =ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,IP_CONST_DAMAGETYPE_POSITIVE,IP_CONST_DAMAGEBONUS_2);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'zhouba mrtvaku'");
+                  SetName(no_Item,GetName(no_Item) + "  'Zhouba nemrtvaku'");
                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-
 case 23:  {
                 itemproperty no_ip =ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_HUMAN,IP_CONST_DAMAGETYPE_POSITIVE,IP_CONST_DAMAGEBONUS_2);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'cloveko zhouba'");
+                  SetName(no_Item,GetName(no_Item) + "  'Zhouba lidí'");
                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 case 24:  {
                 itemproperty no_ip =ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_GIANT,IP_CONST_DAMAGETYPE_POSITIVE,IP_CONST_DAMAGEBONUS_2);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'obrozhouba'");
+                  SetName(no_Item,GetName(no_Item) + "  'Obrozhouba'");
                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 
@@ -322,23 +321,18 @@ case 25:  {
                     SetName(no_Item,GetName(no_Item) + "  'Dobrej sluch'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-
-
 case 26:  {
             itemproperty no_ip =ItemPropertySkillBonus(SKILL_SEARCH,3+d2());
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Hledacek'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-
-
 case 27:  {
             itemproperty no_ip =ItemPropertySkillBonus(SKILL_SPOT,3+d2());
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Pozorovatel'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-
 case 28:  {
             itemproperty no_ip =ItemPropertySkillBonus(SKILL_SPELLCRAFT,3+d2());
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
@@ -346,10 +340,11 @@ case 28:  {
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 case 29:  {
-            itemproperty no_ip =ItemPropertySkillBonus(SKILL_LORE,3+d2());
-                    AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                    SetName(no_Item,GetName(no_Item) + "  'Vedator'");
-                    SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
+            itemproperty no_ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_2);
+        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_FIRE),no_Item);
+        SetName(no_Item,GetName(no_Item) + "  'Hořící'");
+        SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
                    break;}
 
 case 30:  {
@@ -371,16 +366,16 @@ void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta,in
 {
 
 //
-//V knihovn� x3_inc_string je funkce
+//V knihovnì x3_inc_string je funkce
 //string StringToRGBString(string sString, string sRGB);
-//pro p�ebarven� textu. Parametr sRGB jsou 3 ��slice RGB 0-7, nap�:
+//pro pøebarvení textu. Parametr sRGB jsou 3 èíslice RGB 0-7, napø:
 //red == "700"
 //green == "070"
 //blue == "007"
 //white == "777"
 //black == "000"
-//Ale m� tam 512 kombinac�, tak�e vcelku velk� paleta barev.
-//J� to pou��v�m vcelku po��d, ty standardn� barvy jsou fakt vyblit� a v logu jdou �patn� vid�t.
+//Ale má tam 512 kombinací, take vcelku velká paleta barev.
+//Já to pouívám vcelku poøád, ty standardní barvy jsou fakt vyblité a v logu jdou patnì vidìt.
 
 // string LIME = StringToRGBString(LIME,"117");
  string GREEN = StringToRGBString(GREEN,"070");
@@ -412,7 +407,7 @@ switch   (no_kov_co_pridavam){
         case 1:  {  switch (no_kov_pridame_procenta) {
                         case 20: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     break;  }
-                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_1),no_Item);
+                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
                         case 60: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
@@ -433,11 +428,12 @@ switch   (no_kov_co_pridavam){
 
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec cinu
+               break;     }
+               //elektrika
         case 2:  {  switch (no_kov_pridame_procenta) {
                         case 20: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     break;  }
-                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_1),no_Item);
+                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
                         case 60: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
@@ -457,11 +453,12 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         if (barva == TRUE) SetName(no_Item,BLUE + GetName(no_Item));
                         } //konec vnitrniho switche
-               break;     }//konec medi
+               break;     }
+               // oheň
         case 3:  {  switch (no_kov_pridame_procenta) {
                         case 20: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     break;  }
-                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1),no_Item);
+                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
                         case 60: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
@@ -481,11 +478,12 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,DARKRED + GetName(no_Item));
-               break;     }//konec bronzu
+               break;     }
+               //chlad
         case 4:  {  switch (no_kov_pridame_procenta) {
                         case 20: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     break;  }
-                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_1),no_Item);
+                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
                         case 60: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
@@ -505,31 +503,33 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PALEBLUE + GetName(no_Item));
-                break;    }//konec zeleza
+                break;    }
+                //zvuk
         case 5:  {  switch (no_kov_pridame_procenta) {
                         case 20: { FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
                         case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     break;  }
-                        case 60: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1),no_Item);
+                        case 60: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
                         case 80: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_2),no_Item);
                                     break;  }
-                        case 100: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_2),no_Item);
+                        case 100: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d4),no_Item);
                                     break;  }
-                        case 120: {AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d4),no_Item);
+                        case 120: {AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_3),no_Item);
                                     break;  }
-                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d4),no_Item);
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d6),no_Item);
                                     break;  }
-                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d6),no_Item);
+                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d8),no_Item);
                                     break;  }
-                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d8),no_Item);
+                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d10),no_Item);
                                     break;  }
-                        case 200: {AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d10),no_Item);
+                        case 200: {AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d12),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,LIME + GetName(no_Item));
-               break;     }//konec zlata
+               break;     }
+               //ostrost
         case 6:  {  switch (no_kov_pridame_procenta) {
                         case 20: { FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
@@ -553,7 +553,8 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,VIOLET + GetName(no_Item));
-               break;     }//konec platiny
+               break;     }
+               //zmrazení 3 kola
         case 7:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                    break;  }
@@ -577,7 +578,8 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,SANDY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //hluchota
         case 8:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                    break;  }
@@ -591,17 +593,18 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         case 120: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,SANDY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //omámení
          case 9:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                    break;  }
@@ -615,17 +618,18 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         case 120: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_DAZE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,SANDY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //ticho
         case 10:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                    break;  }
@@ -639,17 +643,18 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         case 120: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SILENCE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,SANDY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //vystrašení
         case 11:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                    break;  }
@@ -663,17 +668,18 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         case 120: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 160: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
-                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
+                        case 200: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_FEAR,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS),no_Item);
                                     break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,SANDY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti nemrtvým
         case 12:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                      //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,2),no_Item);
@@ -707,7 +713,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti obrům
         case 13:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_GIANT,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                      //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_GIANT,2),no_Item);
@@ -741,7 +748,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti drakům
         case 14:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_DRAGON,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_DRAGON,2),no_Item);
@@ -775,7 +783,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti orkům
         case 15:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_HUMANOID_ORC,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                    //  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_HUMANOID_ORC,2),no_Item);
@@ -809,7 +818,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti ještěřenům
         case 16:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                    //  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN,2),no_Item);
@@ -843,7 +853,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti zvěři
         case 17:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_ANIMAL,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                    //  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_ANIMAL,2),no_Item);
@@ -877,7 +888,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti havěť
         case 18:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_VERMIN,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                    //  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_VERMIN,2),no_Item);
@@ -911,7 +923,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti skřetoid
         case 19:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                  //    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID,2),no_Item);
@@ -945,7 +958,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti odchylka
         case 20:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_ABERRATION,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                   //   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_ABERRATION,2),no_Item);
@@ -979,7 +993,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //bonus proti měnavec
         case 21:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_SHAPECHANGER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                  //    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyEnhancementBonusVsRace(IP_CONST_RACIALTYPE_SHAPECHANGER,2),no_Item);
@@ -1013,7 +1028,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PURPLE + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava nemrtvý
         case 22:  {  switch (no_kov_pridame_procenta) {  //IP_CONST_RACIALTYPE_UNDEAD
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1023,21 +1039,22 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 80: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 100: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
                                       break;  }
-                        case 160: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
                                        break;  }
-                        case 180: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
                                       break;  }
-                        case 200:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
+                        case 200:{     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_24,IP_CONST_RACIALTYPE_UNDEAD),no_Item);
                                      break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava obři
         case 23:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1049,19 +1066,20 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_GIANT),no_Item);
                                         break;  }
-                        case 140: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_GIANT),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_GIANT),no_Item);
                                         break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_GIANT),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_GIANT),no_Item);
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_GIANT),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava draci
         case 24:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1073,19 +1091,20 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_DRAGON),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_DRAGON),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_DRAGON),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_DRAGON),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_DRAGON),no_Item);
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_DRAGON),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava ork
         case 25:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1097,19 +1116,20 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_HUMANOID_ORC),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_HUMANOID_ORC),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_HUMANOID_ORC),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_HUMANOID_ORC),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_HUMANOID_ORC),no_Item);
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_HUMANOID_ORC),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava ještěřan
         case 26:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1119,21 +1139,22 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 80: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 100: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_24,IP_CONST_RACIALTYPE_HUMANOID_REPTILIAN),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //konec mithril
         case 27:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1143,21 +1164,21 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 80: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 100: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_24,IP_CONST_RACIALTYPE_ANIMAL),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }//poprava havět
         case 28:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1167,21 +1188,22 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 80: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 100: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_VERMIN),no_Item);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_VERMIN),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_VERMIN),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_VERMIN),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_VERMIN),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_VERMIN),no_Item);
+                        case 200:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_24,IP_CONST_RACIALTYPE_VERMIN),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava skřetoid
         case 29:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1193,19 +1215,20 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID),no_Item);
                                       break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 160: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 180: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID),no_Item);
                                       break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID),no_Item);
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_HUMANOID_GOBLINOID),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava odchylka
         case 30:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1215,21 +1238,22 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 80: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 100: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
-                                      break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
-                                       break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
-                                      break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
+                        case 140: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
+                                        break;  }
+                        case 160: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
+                                        break;  }
+                        case 180: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
+                                        break;  }
+                        case 200:{     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_24,IP_CONST_RACIALTYPE_ABERRATION),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //poprava měňavec
         case 31:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1239,22 +1263,22 @@ switch   (no_kov_co_pridavam){
                                         break;  }
                         case 80: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
-                        case 100: {    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 100: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
                                         break;  }
-                        case 120:{    FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 120:{     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_16,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
                                         break;  }
-                        case 140: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
-                                      break;  }
-                        case 160: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
+                        case 140: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_18,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
+                                        break;  }
+                        case 160: {     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
                                        break;  }
-                        case 180: {  FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
-                                      break;  }
-                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_14,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
+                        case 180: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_22,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
+                                       break;  }
+                        case 200:{   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitProps(IP_CONST_ONHIT_SLAYRACE,IP_CONST_ONHIT_SAVEDC_24,IP_CONST_RACIALTYPE_SHAPECHANGER),no_Item);
                                       break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREY + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //proti zlý
         case 32:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
@@ -1287,7 +1311,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,LIME+ GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //proti dobrý
         case 33:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
@@ -1320,7 +1345,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,DARKRED+ GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //proti zákonný
         case 34:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
@@ -1350,7 +1376,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,VIOLET + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //proti zmatený
         case 35:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
@@ -1380,8 +1407,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,VIOLET + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //upíří obnovení
         case 36:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                     break;  }
@@ -1405,7 +1432,8 @@ switch   (no_kov_co_pridavam){
                                      break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,DARKRED + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //ohnivá koule
         case 37:  {  switch (no_kov_pridame_procenta) {
                         case 20: {  FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
                                     break;  }
@@ -1444,8 +1472,8 @@ switch   (no_kov_co_pridavam){
                                      break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,DARKRED + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //zraňující
         case 38:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1469,8 +1497,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,PINK + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //rozptyl kouzel
         case 39:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1494,8 +1522,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,VIOLET + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //otrava síla
         case 40:  {  switch (no_kov_pridame_procenta) {
                            case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1519,7 +1547,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava inteligence
         case 41:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1543,8 +1572,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //otrava moudrost
         case 42:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1568,8 +1597,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                 } //konec vnitrniho switche
                  if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec mithril
-
+               break;     }
+               //otrava charisma
         case 43:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1593,7 +1622,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava obratnost
         case 44:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1617,7 +1647,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava odolnost
         case 45:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1641,9 +1672,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,GREEN + GetName(no_Item));
-               break;     }//konec mithril
-
-
+               break;     }
+               //vysátí
         case 46:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1667,9 +1697,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,PALEBLUE + GetName(no_Item));
-               break;     }//konec mithril
-
-
+               break;     }
+               //otrava
         case 47:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1693,7 +1722,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,LIGHTPINK + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava
         case 48:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1717,7 +1747,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,LIGHTPINK + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava
         case 49:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1741,7 +1772,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,LIGHTPINK + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava
         case 50:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1765,7 +1797,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,LIGHTPINK + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava
         case 51:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1789,7 +1822,8 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,LIGHTPINK + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //otrava
         case 52:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   FloatingTextStringOnCreature("Tato vlastnost se nestihla projevit, asi bude nutne pouzit vice % ",no_oPC,FALSE);
                                         break;  }
@@ -1813,25 +1847,26 @@ switch   (no_kov_co_pridavam){
                                    break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,LIGHTPINK + GetName(no_Item));
-               break;     }//konec mithril
+               break;     }
+               //snížení hmotnosti
         case 53:  {  switch (no_kov_pridame_procenta) {
                         case 20: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_80_PERCENT),no_Item);
                                    //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT);
                                         break;  }
                         case 40: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_60_PERCENT),no_Item);
-                       // ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT);
+                                    // ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT);
                                        break;  }
                         case 60: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
-                        //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT);
+                                    //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT);
                                        break;  }
                         case 80: {       //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_60_PERCENT);
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT),no_Item);
                                        break;  }
                         case 100: {     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
-                        //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_80_PERCENT);
+                                     //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_80_PERCENT);
                                        break;  }
                         case 120:{AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
-                        //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_80_PERCENT);
+                                      //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_80_PERCENT);
                                        break;  }
                         case 140: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
                         //ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_80_PERCENT);
@@ -1848,17 +1883,12 @@ switch   (no_kov_co_pridavam){
                                        break;  }
                         } //konec vnitrniho switche
                          if (barva == TRUE) SetName(no_Item,PINK + GetName(no_Item));
-               break;     }//konec mithril
-
-
-
+               break;     }
 
 
 }// switch no_kov_pridame_procenta
 
-
 } //konec pridavani vlastnosti
-
 
 void no_udelej_vzhled(object no_Item)
 {
