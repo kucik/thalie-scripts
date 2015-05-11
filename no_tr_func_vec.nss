@@ -651,36 +651,35 @@ case 1: {
                   SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
                   break;}
 case 2: {
-                  //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,d6()),no_Item);
-                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_HEAL,2),no_Item);
-
-                                    SetName(no_Item,GetName(no_Item) + "  'Lecitel'");
-                  SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
+                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_ELECTRICAL,d2());
+                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+                  SetName(no_Item,GetName(no_Item) + "  'Uzemnovac'");
+                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                   break;}
 case 3: {
                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_HEAL,2),no_Item);
-                                    SetName(no_Item,GetName(no_Item) + "  'Smrtak'");
+                                    SetName(no_Item,GetName(no_Item) + "  'Lecitel'");
                   SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
                   break;}
 case 4: {
-                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_HEAL,2),no_Item);
-                                    SetName(no_Item,GetName(no_Item) + "  'Antijed'");
-                  SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
+                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,2),no_Item);
+                                    SetName(no_Item,GetName(no_Item) + "  'Pevnestuj'");
+                  SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 200);
                   break;}
 case 5: {
-                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,d2() ),no_Item);
-                                    SetName(no_Item,GetName(no_Item) + "  'Pozitivum'");
-                  SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
+                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_ACID,d2());
+                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+                  SetName(no_Item,GetName(no_Item) + "  'Kyselostit'");
                   break;}
 case 6: {
                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_DRAGON,3+d4() ),no_Item);
-                                   SetName(no_Item,GetName(no_Item) + "  'Hromosvod'");
+                                   SetName(no_Item,GetName(no_Item) + "  'Drakobij'");
                   SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
                   break;}
 case 7: {
-                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_HEAL,2),no_Item);
-                                    SetName(no_Item,GetName(no_Item) + "  'Tvrda hlava'");
-                  SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
+                   itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_COLD,d2());
+                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
+                  SetName(no_Item,GetName(no_Item) + "  'Chladak'");
                   break;}
 case 8: {
                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_LORE,2),no_Item);
