@@ -78,7 +78,9 @@ void main()
                 }
                 bDoNotDoDamage = FALSE; // initialization
                 // * if a vampire then destroy it
-                if (GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_MALE || GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_FEMALE)
+                if (GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_MALE || 
+                    GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_FEMALE ||
+                    GetSubRace(oTarget) == "Vampire")
                 {   // target is vampire, try to destroy it by instant-death if failed reflex save
                     if (!ReflexSave(oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_SPELL))
                     {
