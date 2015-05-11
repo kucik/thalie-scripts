@@ -70,7 +70,7 @@ void main()
                 {
                     //Apply VFX impact and Link effect
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-                    DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration)));
+                    DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
                     //Increment HD affected count
                 }
             }
