@@ -144,36 +144,27 @@ SetLocalInt(no_Item,"tc_cena",FloatToInt (1.01*GetLocalInt(no_Item,"tc_cena") +1
 }
 
 
-
-
 void no_vynikajicikus(object no_Item)
 {
-int no_random = d100();
-//if (no_random < (TC_oc_VLASTNOST/4+1) ) {
-if (no_random < (1) ) {
-////5% sance, ze se prida neco vynikajiciho !!
+int no_random = d100() - TC_getLevel(no_oPC,TC_ocarovavac);
+if (no_random < (TC_dej_vlastnost(TC_ocarovavac,no_oPC)/4+1) ) {
+////sance vroby vyjimecneho kusu stoupa s lvlem craftera
 if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
-//no_random = d20();
+FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-no_random = d10() + TC_getLevel(no_oPC,TC_ocarovavac);
+no_random = Random(30)+1;
 
 switch (no_random)  {
 case 1: {
          itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_COLD,1+d2());
-        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-        no_ip = ItemPropertyReducedSavingThrowVsX(IP_CONST_SAVEVS_FIRE,1);
         AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_COLD),no_Item);
         SetName(no_Item,GetName(no_Item) + "  'Mrazivec'");
         SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 
-
 case 2: {
         itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_FIRE,1+d2());
-        AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-        no_ip = ItemPropertyReducedSavingThrowVsX(IP_CONST_SAVEVS_COLD,1);
         AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_FIRE),no_Item);
         SetName(no_Item,GetName(no_Item) + "  'Ohnivak'");
@@ -210,12 +201,12 @@ case 7: {
         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_COLD),no_Item);
         SetName(no_Item,GetName(no_Item) + "  'Mrazilka'");
         SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
-                  break;}    
+                  break;}
 case 8: {
             itemproperty no_ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_2);
         AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyVisualEffect(ITEM_VISUAL_ACID),no_Item);
-        SetName(no_Item,GetName(no_Item) + "  'Kyseláč'");
+        SetName(no_Item,GetName(no_Item) + "  'Kyselac�'");
         SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
                    break;}
 case  9: { itemproperty no_ip =ItemPropertySkillBonus(SKILL_LORE,3+d2());
@@ -305,7 +296,7 @@ case 22:  {
 case 23:  {
                 itemproperty no_ip =ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_HUMAN,IP_CONST_DAMAGETYPE_POSITIVE,IP_CONST_DAMAGEBONUS_2);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Zhouba lidí'");
+                  SetName(no_Item,GetName(no_Item) + "  'Zhouba lidi'");
                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 case 24:  {

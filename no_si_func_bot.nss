@@ -433,19 +433,15 @@ if (no_si_debug == TRUE) {SendMessageToPC (no_oPC,"nastavena cena :" + IntToStri
 
 }   //konec no_udelejcenu
 
-
-
 void no_vynikajicikus(object no_Item)
 {
-int no_random = d100();
-if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
-
+int no_random = d100() - TC_getLevel(no_oPC,TC_siti);
 if (no_random < (TC_dej_vlastnost(TC_siti,no_oPC)/4+1) ) {
-////5% sance, ze se prida neco vynikajiciho !!
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
+////sance vroby vyjimecneho kusu stoupa s lvlem craftera
+if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
+FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-
-no_random = d10() + TC_getLevel(no_oPC,TC_platner);
+no_random = Random(30)+1;
 
 switch (no_random)  {
 case 1: {
@@ -939,7 +935,7 @@ if (no_si_debug == TRUE) SendMessageToPC(no_oPC,"no_pouzitysutr == 0" );
                     //konec zmeny 3.9.2014
                 }
                              //znicime prisadu
-    } //konecn efrit
+    } //konecn nefrit
 
 
        if(GetResRef(no_Item) == "cnrgemfine007")           //do promene no_osekane ulozime nazev prisady
@@ -958,7 +954,7 @@ if (no_si_debug == TRUE) SendMessageToPC(no_oPC,"no_pouzitysutr == 0" );
                     //konec zmeny 3.9.2014
                 }
                              //znicime prisadu
-    } //konec med
+    } //konec malachit
 
        if(GetResRef(no_Item) == "cnrgemfine002")           //do promene no_osekane ulozime nazev prisady
     { if  (GetLocalInt(no_pec,"no_pouzitysutr1")==0) {
@@ -976,7 +972,7 @@ if (no_si_debug == TRUE) SendMessageToPC(no_oPC,"no_pouzitysutr == 0" );
                     //konec zmeny 3.9.2014
                 }
                              //znicime prisadu
-    } //konec bronz
+    } //konec ohnivy achat
 
        if(GetResRef(no_Item) == "cnrgemfine014")           //do promene no_osekane ulozime nazev prisady
     { if  (GetLocalInt(no_pec,"no_pouzitysutr1")==0) {
@@ -994,7 +990,7 @@ if (no_si_debug == TRUE) SendMessageToPC(no_oPC,"no_pouzitysutr == 0" );
                     //konec zmeny 3.9.2014
                 }
                              //znicime prisadu
-    } //konec zelezo
+    } //konec aventurin
 
        if(GetResRef(no_Item) == "cnrgemfine004")           //do promene no_osekane ulozime nazev prisady
     { if  (GetLocalInt(no_pec,"no_pouzitysutr1")==0) {
@@ -1268,7 +1264,7 @@ while(GetIsObjectValid(no_Item))  {
 
 void no_pouzitakuze(object no_Item,object no_pec, int no_mazani)
 // napise pekne na pec cislo nasady.
-{      // do no_tetiva ulozi cislo pouziteho prachu.
+{
 no_Item = GetFirstItemInInventory(no_pec);
 while(GetIsObjectValid(no_Item))  {
 

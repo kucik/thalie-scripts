@@ -627,17 +627,13 @@ if (NO_zb_DEBUG == TRUE) {SendMessageToPC (no_oPC,"nastavena cena :" + IntToStri
 
 void no_vynikajicikus(object no_Item)
 {
-int no_random = d100();
-
-if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
-
+int no_random = d100() - TC_getLevel(no_oPC,TC_kovar);
 if (no_random < (TC_dej_vlastnost(TC_kovar,no_oPC)/4+1) ) {
-////5% sance, ze se prida neco vynikajiciho !!
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
-//no_random = d20();
+////sance vroby vyjimecneho kusu stoupa s lvlem craftera
+if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
+FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-
-no_random = d10() + TC_getLevel(no_oPC,TC_kovar);
+no_random = Random(30)+1;
 
 switch (no_random)  {
 case 1: {

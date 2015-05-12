@@ -473,19 +473,16 @@ SetLocalInt(no_Item,"tc_cena",FloatToInt(no_koeficient* no_pl_nasobitel*(1.01*no
 
 }   //konec no_udelejcenu
 
-
-
 void no_vynikajicikus(object no_Item)
 {
-int no_random = d100();
-
-if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
-
+int no_random = d100() - TC_getLevel(no_oPC,TC_platner);
 if (no_random < (TC_dej_vlastnost(TC_platner,no_oPC)/4+1) ) {
-////5% sance, ze se prida neco vynikajiciho !!
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
+////sance vroby vyjimecneho kusu stoupa s lvlem craftera
+if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
+FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-no_random = d10() + TC_getLevel(no_oPC,TC_platner);
+no_random = Random(30)+1;
+
 
 switch (no_random)  {
 case 1: {

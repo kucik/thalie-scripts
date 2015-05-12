@@ -60,11 +60,19 @@ int no_level = TC_getLevel(no_oPC,TC_ocarovavac);  // TC kovar = 33
 
 ///na nove thalii to udelame spojene ze dvou polovin.
 //1. polovina budou challenge rating
-int no_challenge = GetLocalInt(no_oPotvora,"CR");
+int no_challenge = 0;
+if (GetLocalInt(no_oPotvora,"CR")>0)
+{
+no_challenge = GetLocalInt(no_oPotvora,"CR");
+}
+else
+{
+no_challenge = FloatToInt(GetChallengeRating(no_oPotvora));
+}
 int no_procentaduse = FloatToInt ( (5+ no_challenge*5.5 + d10())/2 );
 //2. polovina budou HP vetsi, nez 5000
-    if ( (GetMaxHitPoints(no_oPotvora)/50) < 100 ) {
-    no_procentaduse = no_procentaduse + GetMaxHitPoints(no_oPotvora)/50;
+    if ( (GetMaxHitPoints(no_oPotvora)/30) < 100 ) {
+    no_procentaduse = no_procentaduse + GetMaxHitPoints(no_oPotvora)/30;
                                                }
     else  no_procentaduse = no_procentaduse + 100;
 

@@ -449,20 +449,13 @@ if (no_zl_debug == TRUE) {SendMessageToPC (no_oPC,"nastavena cena :" + IntToStri
 
 void no_vynikajicikus(object no_Item)
 {
-int no_random = d100();
-
-if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
-
-// vyjimecny kus, sance na nej je primo umerna velikosti valstnosti tvurce !!
+int no_random = d100() - TC_getLevel(no_oPC,TC_zlatnik);
 if (no_random < (TC_dej_vlastnost(TC_zlatnik,no_oPC)/4+1) ) {
-////tzn s charismou 20 bez boostu 5% sance, ze se prida neco vynikajiciho !!
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
+////sance vroby vyjimecneho kusu stoupa s lvlem craftera
+if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
+FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-///dodelano 9_7_2014: vyjimecne kusy zavisle na lvlu craftera.
-
-//int no_level = TC_getLevel(no_oPC,TC_zlatnik);  // TC kovar = 33
-
-no_random = d10() + TC_getLevel(no_oPC,TC_zlatnik);
+no_random = Random(30)+1;
 
 switch (no_random)  {
 case 1: {

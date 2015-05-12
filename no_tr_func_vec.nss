@@ -152,7 +152,7 @@ case 5:
 sDrevo = "z Tisu";
 break;
 case 6:
-sDrevo = "z Jasanu";
+sDrevo = "z Jilmu";
 break;
 case 7:
 sDrevo = "z Zelezneho Dubu";
@@ -612,28 +612,15 @@ if (no_tr_debug == TRUE) SendMessageToPC(no_oPC,"vysledna cena = " + FloatToStri
 
 }   //konec no_udelejcenu
 
-
-
 void no_vynikajicikus(object no_Item)
 {
-
-
-int no_random = d100();
-
-if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
+int no_random = d100() - TC_getLevel(no_oPC,TC_truhlar);
 if (no_random < (TC_dej_vlastnost(TC_truhlar,no_oPC)/4+1) ) {
-////5% sance, ze se prida neco vynikajiciho !!
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
+////sance vroby vyjimecneho kusu stoupa s lvlem craftera
+if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
+FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-
-
-FloatingTextStringOnCreature("podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
-
-///dodelano 9_7_2014: vyjimecne kusy zavisle na lvlu craftera.
-
-//int no_level = TC_getLevel(no_oPC,TC_zlatnik);  // TC kovar = 33
-
-no_random = d4() + TC_getLevel(no_oPC,TC_zlatnik);
+no_random = Random(24)+1;
 
 //if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku") != "si") &  (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") != "sp") )
 //{
@@ -647,7 +634,7 @@ switch (no_random)  {
 case 1: {
                   //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_DRAGON,3+d4() ),no_Item);
                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_APPRAISE,2),no_Item);
-                                    SetName(no_Item,GetName(no_Item) + "  'Obchodnik'");
+                    SetName(no_Item,GetName(no_Item) + "  'Obchodnik'");
                   SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 100);
                   break;}
 case 2: {
@@ -753,7 +740,7 @@ case 21: {
                   break;}
 case 22: {
                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_WILL,1),no_Item);
-                                    SetName(no_Item,GetName(no_Item) + "  'Sila!'");
+                                    SetName(no_Item,GetName(no_Item) + "  'Sila'");
                   SetLocalFloat(no_Item,"tc_cena",GetLocalFloat(no_Item,"tc_cena")+ 150);
                   break;}
 case 23: {
