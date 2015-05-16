@@ -34,6 +34,7 @@ void main()
 //22 - vyroba kosa         tag: no_vyr_ks
 //23 - vyroba trident      tag: no_vyr_tr
 //24 - vyroba hole         tag: no_vyr_hu
+//24 - vyroba jednorucniho kopi         tag: no_vyr_ss
 /////////////////////////
 //31 - vyroba bice         tag: no_vyr_bc
 //32 - vyroba kamy         tag: no_vyr_km
@@ -259,6 +260,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac002",OBJECT_SELF,1,"no_vzhl
      case 23: {FloatingTextStringOnCreature(" Vyroba trojzubce ",no_oPC,FALSE );    break;  }
      //24 - vyroba hole         tag: no_vyr_hu
      case 24: {FloatingTextStringOnCreature(" Vyroba hole",no_oPC,FALSE );    break;  }
+     case 25: {FloatingTextStringOnCreature(" Vyroba jednorucniho kopi",no_oPC,FALSE );    break;  }
          }//konec switche
  }
  else

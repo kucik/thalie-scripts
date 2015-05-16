@@ -40,6 +40,7 @@ object no_oPC;
 //22 - vyroba kosa         tag: no_vyr_ks
 //23 - vyroba trident      tag: no_vyr_tr
 //24 - vyroba hole         tag: no_vyr_hu
+//25 - vyroba jednorucniho kopi  tag: no_vyr_ss
 /////////////////////////
 //31 - vyroba bice         tag: no_vyr_bc
 //32 - vyroba kamy         tag: no_vyr_km
@@ -164,6 +165,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_tr"),"Vyroba tridentu"));
 //24 - vyroba hole         tag: no_vyr_hu
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_hu"),"Vyroba hole"));
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_ss"),"Vyroba jednorucniho kopi"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"));
 SetLocalInt(OBJECT_SELF,"no_menu",2);
 } //////////////////////////////////////////////
@@ -627,6 +629,16 @@ FloatingTextStringOnCreature("Vyroba hole",no_oPC,FALSE );
 SetLocalInt(OBJECT_SELF,"no_menu",24);
 }
 ///////////////////////////////////////////////////////////
+//// vyroba jednorucniho kopi
+if (GetTag(no_vzataItem) == "no_vyr_ss" ) {
+no_znicit(OBJECT_SELF); //znicime vsechny prepinace
+no_znicit(no_oPC);
+no_reopen(no_oPC);
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_men_drevc"),"Zpet")); //pridame tlacitko zpet
+FloatingTextStringOnCreature("Vyroba jednorucniho kopi",no_oPC,FALSE );
+SetLocalInt(OBJECT_SELF,"no_menu",25);
+}
+//////////////////////////////////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_bc" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
