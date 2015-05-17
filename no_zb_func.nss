@@ -236,11 +236,11 @@ case 12: { no_jmeno = no_jmeno +"Meteoritick";
 }// kdyz mame stejny kov, nebo druhy kov, tak je to stejnej nazev.
 
 
-if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "dl") no_jmeno =no_jmeno + "y dlouhy mec";
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "dy") no_jmeno =no_jmeno + "a dyka";
+if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "dl") no_jmeno = no_jmeno + "y dlouhy mec";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "dy") no_jmeno = no_jmeno + "a dyka";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kr") no_jmeno = no_jmeno +"y kratky mec";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ba") no_jmeno = no_jmeno +"y bastard";
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "vm") no_jmeno =no_jmeno +"y velky mec";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "vm") no_jmeno = no_jmeno +"y velky mec";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ka") no_jmeno = no_jmeno +"a katana";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ra") no_jmeno = no_jmeno +"y rapir";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "sc") no_jmeno = no_jmeno +"y scimitar";
@@ -259,12 +259,12 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "os") no_jmeno = no_jm
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "rs") no_jmeno = no_jmeno +"a rucni sekera";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ts") no_jmeno = no_jmeno +"a trpaslici sekera";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "bs") no_jmeno = no_jmeno +"a bitevni sekera";
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lc") no_jmeno =no_jmeno + "y lehky cep";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lc") no_jmeno = no_jmeno + "y lehky cep";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "tc") no_jmeno = no_jmeno +"y tezky cep";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lk") no_jmeno = no_jmeno +"e lehke kladivo";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "vk") no_jmeno = no_jmeno +"e valecne kladivo";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kj") no_jmeno = no_jmeno +"y kyj";
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "pa") no_jmeno =no_jmeno + "y palcat";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "pa") no_jmeno = no_jmeno + "y palcat";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "re") no_jmeno = no_jmeno +"y remdih";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ma") no_jmeno = no_jmeno +"e obri kladivo";
 // 25.12.2009
@@ -280,7 +280,8 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y1") no_jmeno = no_jm
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y2") no_jmeno = no_jmeno +"y rtutovy dlouhy mec";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y3") no_jmeno = no_jmeno +"y mauguv oboustrany mec";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ss") no_jmeno = no_jmeno +"e jednorucni kopi";
-
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp") no_jmeno = no_jmeno +"y krumpac";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp") no_jmeno = no_jmeno +"y lehky krumpac";
 
 switch (GetLocalInt(OBJECT_SELF,"no_druh_nasada")){
 case 0: {  no_jmeno = no_jmeno + " bez nasady ";
@@ -352,7 +353,8 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y1") no_jmeno = "tent
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y2") no_jmeno = "tento rtutovy dlouhy mec";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y3") no_jmeno = "tento muguv dvojity mec";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ss") no_jmeno = "toto jednorucni kopi";
-
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp") no_jmeno = "tento krumpac";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp") no_jmeno = "tento lehky krumpac";
 
 
 //kuciks work :
@@ -537,8 +539,10 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y3") {no_koeficient =
                                                                 no_cena_kuze=no_cena_kuze + no_cena_velk;}
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ss") {no_koeficient = 1.007;
                                                                 no_cena_kuze=no_cena_kuze + no_cena_stre;}
-
-
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp") {no_koeficient = 1.005;
+                                                                no_cena_kuze=no_cena_kuze + no_cena_stre;}
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp") {no_koeficient = 1.004;
+                                                                no_cena_kuze=no_cena_kuze + no_cena_stre;}
 if ( GetLocalInt(OBJECT_SELF,"no_druh_nasada") !=0  ) {
 
 switch (GetLocalInt(OBJECT_SELF,"no_druh_nasada")){
@@ -1303,7 +1307,8 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y1")  no_max_bonus = 
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y2")  no_max_bonus = 2;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y3")   no_max_bonus = 3;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ss")   no_max_bonus = 1;
-
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp")   no_max_bonus = 3;
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp")   no_max_bonus = 1;
 
 if ( no_max_bonus ==1 ) {
 switch (d4()){
@@ -2248,8 +2253,9 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "x8") no_DC = 27;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y1") no_DC = 28;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y2") no_DC = 29;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "y3") no_DC = 30;
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ss") no_DC = 30;
-
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ss") no_DC = 28;
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp") no_DC = 24;
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp") no_DC = 22;
 int no_menu_max_procent = 10;
 
 //100- prirad 200%         tag:no_men_20    // 17lvl
@@ -3052,7 +3058,7 @@ switch (GetLocalInt(OBJECT_SELF,"no_menu")) {
                     no_forma(no_Item,OBJECT_SELF,TRUE); }
                     else  FloatingTextStringOnCreature("Chtelo by to jeste velkou formu",no_oPC,FALSE );
                     break;}
-        case 77:   {if  (GetLocalInt(no_pec,"no_forma") == 4 ) {
+        case 18:   {if  (GetLocalInt(no_pec,"no_forma") == 4 ) {
                     CreateItemOnObject("no_polot_zb",no_pec,1,"no_zb_y1_" + no_tag + "_" + no_tag3 + "_" + no_tag2 + "_0");
                     no_zamkni(no_oPC);
                     DelayCommand(no_zb_delay,no_xp_zb(no_oPC,no_pec));
@@ -3063,7 +3069,7 @@ switch (GetLocalInt(OBJECT_SELF,"no_menu")) {
                     no_forma(no_Item,OBJECT_SELF,TRUE); }
                     else  FloatingTextStringOnCreature("Chtelo by to jeste velkou formu",no_oPC,FALSE );
                     break;}
-        case 78:   {if  (GetLocalInt(no_pec,"no_forma") == 4 ) {
+        case 19:   {if  (GetLocalInt(no_pec,"no_forma") == 4 ) {
                     CreateItemOnObject("no_polot_zb",no_pec,1,"no_zb_y2_" + no_tag + "_" + no_tag3 + "_" + no_tag2 + "_0");
                     no_zamkni(no_oPC);
                     DelayCommand(no_zb_delay,no_xp_zb(no_oPC,no_pec));
@@ -3095,6 +3101,28 @@ switch (GetLocalInt(OBJECT_SELF,"no_menu")) {
                     no_pouzitykov(no_Item,OBJECT_SELF,TRUE);
                     no_forma(no_Item,OBJECT_SELF,TRUE); }
                     else  FloatingTextStringOnCreature("Chtelo by to jeste stredni formu",no_oPC,FALSE );
+                    break;}
+        case 77:   {if  (GetLocalInt(no_pec,"no_forma") == 4 ) {
+                    CreateItemOnObject("no_polot_zb",no_pec,1,"no_zb_hp_" + no_tag + "_" + no_tag3 + "_" + no_tag2 + "_0");
+                    no_zamkni(no_oPC);
+                    DelayCommand(no_zb_delay,no_xp_zb(no_oPC,no_pec));
+                    // dulezite nulovat, jinak se smazou blbe
+                    SetLocalInt(OBJECT_SELF,"no_pouzitykov1",0);
+                    SetLocalInt(OBJECT_SELF,"no_pouzitykov2",0);
+                    no_pouzitykov(no_Item,OBJECT_SELF,TRUE);
+                    no_forma(no_Item,OBJECT_SELF,TRUE); }
+                    else  FloatingTextStringOnCreature("Chtelo by to jeste velkou formu",no_oPC,FALSE );
+                    break;}
+         case 78:   {if  (GetLocalInt(no_pec,"no_forma") == 1 ) {
+                    CreateItemOnObject("no_polot_zb",no_pec,1,"no_zb_lp_" + no_tag + "_" + no_tag3 + "_" + no_tag2 + "_0");
+                    no_zamkni(no_oPC);
+                    DelayCommand(no_zb_delay,no_xp_zb(no_oPC,no_pec));
+                    // dulezite nulovat, jinak se smazou blbe
+                    SetLocalInt(OBJECT_SELF,"no_pouzitykov1",0);
+                    SetLocalInt(OBJECT_SELF,"no_pouzitykov2",0);
+                    no_pouzitykov(no_Item,OBJECT_SELF,TRUE);
+                    no_forma(no_Item,OBJECT_SELF,TRUE); }
+                    else  FloatingTextStringOnCreature("Chtelo by to jeste malou formu",no_oPC,FALSE );
                     break;}
 
 

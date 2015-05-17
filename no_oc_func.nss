@@ -2128,6 +2128,12 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ss" ) { if (no_menu_m
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ru" ) { if (no_menu_max_procent >14) {no_menu_max_procent =14;
              FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
             }
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "hp" ) { if (no_menu_max_procent >18) {no_menu_max_procent =18;
+             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
+            }
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "lp" ) { if (no_menu_max_procent >14) {no_menu_max_procent =14;
+             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
+            }
             }// pokud mame na zbrani vybrany element
 
 ///kamen je vetsi, nez maximum co umim, takze zkrouhnu kamen na maximum
