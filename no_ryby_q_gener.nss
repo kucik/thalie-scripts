@@ -42,7 +42,7 @@ no_oPC = GetPCSpeaker();
                 return;
                                     }
 
-    no_nahoda = 1 + Random(pocet_surovin); // pocet je v no_koze_q_inc
+    no_nahoda = 1 + Random(pocet_surovin); // pocet je v no_ryby_q_inc
 
     SetLocalInt(OBJECT_SELF,"no_poptavka",no_nahoda);
     switch(no_nahoda) {
@@ -50,14 +50,15 @@ no_oPC = GetPCSpeaker();
 case id_kapr: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_kapr); break;
 case id_kaprik: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_kaprik); break;
 case id_masokraba: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_masokraba); break;
-case id_masoobrkraba: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_kaprik); break;
+case id_modrinka: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_modrinka); break;
 case id_okoun : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_okoun); break;
 case id_pstruh : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_pstruh); break;
 case id_rak : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_rak); break;
 case id_treska : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_treska); break;
 case id_uhor: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_uhor); break;
 case id_zralok : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_zralok); break;
-
+case id_cejn : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_cejn); break;
+case id_lin : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_lin); break;
 
 
 

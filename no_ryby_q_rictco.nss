@@ -20,13 +20,15 @@ switch(zbozi) {
 case id_kapr: no_nazev = " peknych kapru "; break;
 case id_kaprik: no_nazev = " kapriku potocnich "; break;
 case id_masokraba: no_nazev = " kousku masa z kraba "; break;
-case id_masoobrkraba: no_nazev = " kousku z masa obriho kraba"; break;
+case id_modrinka: no_nazev = " modrinek morskych"; break;
 case id_okoun : no_nazev = " okounu "; break;
 case id_pstruh : no_nazev = " pstruhu "; break;
 case id_rak : no_nazev = " raku "; break;
 case id_treska : no_nazev = " tresek "; break;
 case id_uhor: no_nazev =  " uhoru "; break;
 case id_zralok : no_nazev = " zraloku "; break;
+case id_cejn : no_nazev = " cenjnu "; break;
+case id_lin : no_nazev = " linu "; break;
 }
 
 /*
