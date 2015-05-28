@@ -24,6 +24,8 @@ if (no_nazev == "no_malina") { no_nazev = "malin";   }
   if (no_pocet <= 0 ) 
     SpeakString(" Momentalne nic neshanim. ");   // kdyz nic nechce
 
-  else 
+  else {
     SpeakString(" Zrovna potrebuji dodavku materialu. Chybi mi tu "+no_nazev+". Kdyz mi tedy prineses "+sPocet+" kusu, tak ti za ne zaplatim o pulku vice, nez kterykoliv jiny obchodnik. " );
+    SendMessageToPC(GetPCSpeaker(), "Debug: Poptavana kuze:"+GetLocalString(OBJECT_SELF,"no_nazevveci"));
+  }
 }
