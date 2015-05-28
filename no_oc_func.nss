@@ -1424,42 +1424,27 @@ switch   (no_kov_co_pridavam){
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,DARKRED + GetName(no_Item));
                break;     }
-               //ohnivá koule
+               //cizinci
         case 37:  {  switch (no_kov_pridame_procenta) {
-                        case 20: {  FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 20: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1),no_Item);
                                     break;  }
-                        case 40: {  FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 40: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_2),no_Item);
                                      break;  }
-                        case 60: {  //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,1),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 60: {    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1d4),no_Item);
+                                    break;  }
+                        case 80: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_3),no_Item);
                                      break;  }
-                        case 80: {  // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,2),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 100: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1d6),no_Item);
                                      break;  }
-                        case 100: { // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,2),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
-                                     break;  }
-                        case 120:{  // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,3),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 120:{  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_2d4),no_Item);
+                                    break;  }
+                        case 140: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_2d6),no_Item);
                                       break;  }
-                        case 140: { //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,3),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_10_PERCENT),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
-                                      break;  }
-                        case 160: { // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,4),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 160:  {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_2d8),no_Item);
+                                    break;  }
+                        case 180: { AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_2d10),no_Item);
                                      break;  }
-                        case 180: { //  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,4),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_25_PERCENT),no_Item);
-                                    FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
-                                     break;  }
-                        case 200:{  //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_FIREBALL,5),no_Item);
-                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEVULNERABILITY_50_PERCENT),no_Item);
-                                     FloatingTextStringOnCreature("Tato vlastnost neni momentlane funkcni % ",no_oPC,FALSE);
+                        case 200:{  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonusVsRace(IP_CONST_RACIALTYPE_OUTSIDER,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_2d12),no_Item);
                                      break;  }
                         } //konec vnitrniho switche
                         if (barva == TRUE) SetName(no_Item,DARKRED + GetName(no_Item));
@@ -2404,7 +2389,7 @@ case 33: {no_menu_nazev_kovu = "bezbozny";   break;}
 case 34: {no_menu_nazev_kovu = "chaoticky";   break;}
 case 35: {no_menu_nazev_kovu = "zakonny";   break;}
 case 36: {no_menu_nazev_kovu = "upiri";   break;}
-case 37: {no_menu_nazev_kovu = "vybusny";   break;}
+case 37: {no_menu_nazev_kovu = "vlastenec";   break;}
 case 38: {no_menu_nazev_kovu = "zranujici";   break;}
 case 39: {no_menu_nazev_kovu = "rusici";   break;}
 case 40: {no_menu_nazev_kovu = "jed orku";   break;}
@@ -2462,7 +2447,7 @@ case 33: {no_menu_nazev_kovu2 = "bezbozny";   break;}
 case 34: {no_menu_nazev_kovu2 = "chaoticky";   break;}
 case 35: {no_menu_nazev_kovu2 = "zakonny";   break;}
 case 36: {no_menu_nazev_kovu2 = "upiri";   break;}
-case 37: {no_menu_nazev_kovu2 = "vybusny";   break;}
+case 37: {no_menu_nazev_kovu2 = "vlastenec";   break;}
 case 38: {no_menu_nazev_kovu2 = "zranujici";   break;}
 case 39: {no_menu_nazev_kovu2 = "rusici";   break;}
 case 40: {no_menu_nazev_kovu2 = "jed orku";   break;}

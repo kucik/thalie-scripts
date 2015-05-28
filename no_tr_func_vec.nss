@@ -2499,7 +2499,7 @@ void no_sipy(object no_pec )
                                  break;  }
                     case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_3");
                                  break;  }
-                    case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d4");
+                    case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d6");
                                  break;  }
                }//konec vnitrniho switche
                SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);
@@ -2515,38 +2515,6 @@ void no_sipy(object no_pec )
                                  break;  }
                     case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_2");
                                  break;  }
-                    case 4:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgbpi_1d6");
-                                 break;  }
-                    case 5:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_acid_1d6");
-                                 break;  }
-                    case 6:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_cold_1d6");
-                                 break;  }
-                    case 7:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_elec_1d6");
-                                 break;  }
-                    case 8:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_fire_1d6");
-                                 break;  }
-                    case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_stun_18");
-                                 break;  }
-                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_divund_1d10");
-                                 break;  }
-                    case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d4");
-                                 break;  }
-                    case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d6");
-                                 break;  }
-               }//konec vnitrniho switche
-               SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);
-               no_cenavyrobku(no_Item);
-               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
-               break; }
-          case 7:   {
-               //zelezny dub + no_kov_luku
-               switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
-                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgp_1");
-                                 break;  }
-                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_1");
-                                 break;  }
-                    case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_3");
-                                 break;  }
                     case 4:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgbpi_1d8");
                                  break;  }
                     case 5:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_acid_1d8");
@@ -2559,7 +2527,7 @@ void no_sipy(object no_pec )
                                  break;  }
                     case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_stun_20");
                                  break;  }
-                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_divund_1d12");
+                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_divund_1d10");
                                  break;  }
                     case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d6");
                                  break;  }
@@ -2570,12 +2538,12 @@ void no_sipy(object no_pec )
                no_cenavyrobku(no_Item);
                AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
                break; }
-          case 8:   {
-               //prastary dub + no_kov_luku
+          case 7:   {
+               //zelezny dub + no_kov_luku
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
-                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_def_0");
+                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgp_1");
                                  break;  }
-                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_2");
+                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_3");
                                  break;  }
                     case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_4");
                                  break;  }
@@ -2591,11 +2559,43 @@ void no_sipy(object no_pec )
                                  break;  }
                     case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_stun_22");
                                  break;  }
-                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_divund_2d8");
+                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_divund_1d12");
                                  break;  }
                     case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d8");
                                  break;  }
                     case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d10");
+                                 break;  }
+               }//konec vnitrniho switche
+               SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);
+               no_cenavyrobku(no_Item);
+               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
+               break; }
+          case 8:   {
+               //prastary dub + no_kov_luku
+               switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
+                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_def_2");
+                                 break;  }
+                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_4");
+                                 break;  }
+                    case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgb_6");
+                                 break;  }
+                    case 4:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_dmgbpi_1d12");
+                                 break;  }
+                    case 5:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_acid_1d12");
+                                 break;  }
+                    case 6:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_cold_1d12");
+                                 break;  }
+                    case 7:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_elec_1d12");
+                                 break;  }
+                    case 8:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_fire_1d12");
+                                 break;  }
+                    case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_stun_24");
+                                 break;  }
+                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_divund_2d8");
+                                 break;  }
+                    case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d10");
+                                 break;  }
+                    case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipy",no_oPC,1,"toulec_bow_magic_1d12");
                                  break;  }
                }//konec vnitrniho switche
                SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);
@@ -2752,38 +2752,6 @@ void no_sipky(object no_pec )
                                  break;  }
                     case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_1");
                                  break;  }
-                    case 4:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgbpi_1d4");
-                                 break;  }
-                    case 5:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_acid_1d4");
-                                 break;  }
-                    case 6:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_cold_1d4");
-                                 break;  }
-                    case 7:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_elec_1d4");
-                                 break;  }
-                    case 8:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_fire_1d4");
-                                 break;  }
-                    case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_stun_16");
-                                 break;  }
-                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_divund_1d8");
-                                 break;  }
-                    case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_3");
-                                 break;  }
-                    case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d4");
-                                 break;  }
-               }//konec vnitrniho switche
-               SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);
-               no_cenavyrobku(no_Item);
-               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
-               break; }
-          case 6:   {
-               //jilm + no_kov_luku
-               switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
-                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgp_2");
-                                 break;  }
-                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_def_0");
-                                 break;  }
-                    case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_2");
-                                 break;  }
                     case 4:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgbpi_1d6");
                                  break;  }
                     case 5:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_acid_1d6");
@@ -2798,7 +2766,7 @@ void no_sipky(object no_pec )
                                  break;  }
                     case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_divund_1d10");
                                  break;  }
-                    case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d4");
+                    case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_3");
                                  break;  }
                     case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d6");
                                  break;  }
@@ -2807,12 +2775,12 @@ void no_sipky(object no_pec )
                no_cenavyrobku(no_Item);
                AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
                break; }
-          case 7:   {
-               //zelezny dub + no_kov_luku
+          case 6:   {
+               //jilm + no_kov_luku
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
-                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgp_1");
+                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgp_2");
                                  break;  }
-                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_1");
+                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_def_0");
                                  break;  }
                     case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_3");
                                  break;  }
@@ -2839,12 +2807,12 @@ void no_sipky(object no_pec )
                no_cenavyrobku(no_Item);
                AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
                break; }
-          case 8:   {
-               //prastary dub + no_kov_luku
+          case 7:   {
+               //zelezny dub + no_kov_luku
                switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
-                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_def_0");
+                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgp_1");
                                  break;  }
-                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_2");
+                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_3");
                                  break;  }
                     case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_4");
                                  break;  }
@@ -2860,11 +2828,43 @@ void no_sipky(object no_pec )
                                  break;  }
                     case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_stun_22");
                                  break;  }
-                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_divund_2d8");
+                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_divund_1d12");
                                  break;  }
                     case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d8");
                                  break;  }
                     case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d10");
+                                 break;  }
+               }//konec vnitrniho switche
+               SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);
+               no_cenavyrobku(no_Item);
+               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyCastSpell(IP_CONST_CASTSPELL_UNIQUE_POWER_SELF_ONLY,IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE),no_Item);
+               break; }
+          case 8:   {
+               //prastary dub + no_kov_luku
+               switch (GetLocalInt(OBJECT_SELF,"no_kov_luku")) {
+                    case 1:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_def_2");
+                                 break;  }
+                    case 2:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_4");
+                                 break;  }
+                    case 3:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgb_6");
+                                 break;  }
+                    case 4:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_dmgbpi_1d12");
+                                 break;  }
+                    case 5:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_acid_1d12");
+                                 break;  }
+                    case 6:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_cold_1d12");
+                                 break;  }
+                    case 7:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_elec_1d12");
+                                 break;  }
+                    case 8:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_fire_1d12");
+                                 break;  }
+                    case 9:  {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_stun_26");
+                                 break;  }
+                    case 10: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_divund_2d8");
+                                 break;  }
+                    case 11: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d10");
+                                 break;  }
+                    case 12: {   no_Item=CreateItemOnObject("shjy_zaklad_sipk",no_oPC,1,"toulec_cro_magic_1d12");
                                  break;  }
                }//konec vnitrniho switche
                SetToulecName(no_Item, sZkratkaTyp, iDrevo, iKov);

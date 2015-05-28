@@ -196,7 +196,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_cha"),"chaoticky")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zak"),"zakonny")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_upi"),"upiri")); //pridame tlacitko zpet
-//DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_vyb"),"vybusny")); //pridame tlacitko zpet
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_vyb"),"vlastenec")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zra"),"zranujici")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_rus"),"rusici")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_jst"),"jed orku")); //pridame tlacitko zpet
@@ -262,7 +262,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_cha"),"chaoticky")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zak"),"zakonny")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_upi"),"upiri")); //pridame tlacitko zpet
-//DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_vyb"),"vybusny")); //pridame tlacitko zpet
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_vyb"),"vlastenec")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zra"),"zranujici")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_rus"),"rusici")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_jst"),"jed orku")); //pridame tlacitko zpet
@@ -834,16 +834,16 @@ if ( GetLocalInt(OBJECT_SELF,"no_menu") == 86 ) //hlavni material
     no_reknimat(no_oPC);  } // rekni, co je nastaveno
 }// kdyz meteo ocel
 if (GetTag(no_vzataItem) == "no_men_vyb" ) {
-//no_znicit(no_oPC);
-//no_reopen(no_oPC);
-//DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_vyb"),"vybusny")); //pridame tlacitko zpet
+no_znicit(no_oPC);
+no_reopen(no_oPC);
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_vyb"),"vlastenec")); //pridame tlacitko zpet
 
-//if ( GetLocalInt(OBJECT_SELF,"no_menu") == 85 ) //hlavni material
-//    { SetLocalInt(OBJECT_SELF,"no_hl_mat",37);
-//    no_reknimat(no_oPC);  } // rekni, co je nastaveno
-//if ( GetLocalInt(OBJECT_SELF,"no_menu") == 86 ) //hlavni material
-//    { SetLocalInt(OBJECT_SELF,"no_ve_mat",37);
-//    no_reknimat(no_oPC);  } // rekni, co je nastaveno
+if ( GetLocalInt(OBJECT_SELF,"no_menu") == 85 ) //hlavni material
+   { SetLocalInt(OBJECT_SELF,"no_hl_mat",37);
+   no_reknimat(no_oPC);  } // rekni, co je nastaveno
+if ( GetLocalInt(OBJECT_SELF,"no_menu") == 86 ) //hlavni material
+    { SetLocalInt(OBJECT_SELF,"no_ve_mat",37);
+   no_reknimat(no_oPC);  } // rekni, co je nastaveno
 }// kdyz meteo ocel
 if (GetTag(no_vzataItem) == "no_men_zra" ) {
 no_znicit(no_oPC);
