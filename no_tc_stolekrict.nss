@@ -23,7 +23,7 @@ while (GetIsObjectValid(no_Item))
           string no_resref = GetStringLeft(GetResRef(no_Item),6);
 
       //takze je to vec co zhanime bo je z craftu
-       if ((no_resref==no_vykup1) || (no_resref==no_vykup2)|| (no_resref==no_vykup3)|| (no_resref==no_vykup4) || (no_resref==no_vykup5)   )
+       if ((no_resref==no_vykup1) || (no_resref==no_vykup2)|| (no_resref==no_vykup3)|| (no_resref==no_vykup4) || (no_resref==no_vykup5) || (no_resref==no_vykup6) || (no_resref==no_vykup7)     )
        {
             int probehnuti = FALSE;
        if ((GetItemStackSize(no_Item)*GetLocalInt(no_Item,"tc_cena"))> 0 ){
