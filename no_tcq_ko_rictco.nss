@@ -17,11 +17,11 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 
 switch(zbozi) {
 
-case id_no_suse_obyc:no_nazev = " obycejnych susenych kuzi"; break;
+/*case id_no_suse_obyc:no_nazev = " obycejnych susenych kuzi"; break;
 case id_no_suse_leps :no_nazev = " lepsich susenych kuzi"; break;
 case id_no_suse_kval :no_nazev = " kvalitnich susenych kuzi"; break;
 case id_no_suse_mist:no_nazev = " mistrovskych susenych kuzi"; break;
-case id_no_suse_velm :no_nazev = " velmistrovskych susenych kuzi"; break;
+case id_no_suse_velm :no_nazev = " velmistrovskych susenych kuzi"; break;*/
 
 case id_no_kuze_obyc :no_nazev = " obycejnych kuzi"; break;
 case id_no_kuze_leps :no_nazev = " lepsich kuzi"; break;

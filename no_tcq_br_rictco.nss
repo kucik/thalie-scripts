@@ -23,12 +23,12 @@ case id_brou_ohni :no_nazev = " brousenych ohnivych achatu"; break;
 case id_brou_amet : no_nazev = " brousenych ametystu"; break;
 case id_brou_fene : no_nazev = "brousenych fenelopu"; break;
 case id_brou_mala : no_nazev = "brousenych malachitu"; break;
-case id_brou_safi : no_nazev = "brousenych safiru"; break;
-case id_brou_topa : no_nazev = "brousenych topazu"; break;
-case id_brou_gran : no_nazev = "brousenych granatu"; break;
-case id_brou_alex : no_nazev = "brousenych alexandritu"; break;
+//case id_brou_safi : no_nazev = "brousenych safiru"; break;
+//case id_brou_topa : no_nazev = "brousenych topazu"; break;
+//case id_brou_gran : no_nazev = "brousenych granatu"; break;
+//case id_brou_alex : no_nazev = "brousenych alexandritu"; break;
 case id_brou_aven : no_nazev = "brousenych aventrurinu"; break;
-case id_brou_zive : no_nazev = "brousenych zivcu"; break;
+//case id_brou_zive : no_nazev = "brousenych zivcu"; break;
 //vynikajici
 case id_fine_nefr : no_nazev = "vynikajicich nefritu"; break;
 case id_fine_ohni : no_nazev = "vynikajicich ohnivych achatu"; break;

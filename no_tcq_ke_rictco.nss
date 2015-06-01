@@ -17,8 +17,8 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 
 switch(zbozi) {
 
-case id_no_cist_jil: no_nazev = "kbeliku vycisteneho jilu"; break;
-case id_no_cist_pise: no_nazev = "kbeliku vycisteneho pisku"; break;
+/*case id_no_cist_jil: no_nazev = "kbeliku vycisteneho jilu"; break;
+case id_no_cist_pise: no_nazev = "kbeliku vycisteneho pisku"; break; */
 //vyrobky
 case id_mala_forma: no_nazev = " malych forem "; break;
 case id_sklenena_lahev: no_nazev = "sklenenych lahvi"; break;

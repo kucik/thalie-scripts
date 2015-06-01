@@ -34,8 +34,8 @@ void main()
                 return;
 
                 if(Random(100) > 75) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,40));
-                                            //40 minut v pripade ze zadny quest neni
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,20));
+                                            //20 minut v pripade ze zadny quest neni
                 return;
                                     }
 
@@ -44,12 +44,12 @@ void main()
     SetLocalInt(OBJECT_SELF,"no_poptavka",no_nahoda);
     switch(no_nahoda) {
   //osekane drevo
-case id_tc_osek_vrb :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_vrb); break;
+/*case id_tc_osek_vrb :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_vrb); break;
 case id_tc_osek_ore :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_ore); break;
 case id_tc_osek_dub :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_dub ); break;
 case id_tc_osek_mah :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_mah ); break;
 case id_tc_osek_tis :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_tis ); break;
-case id_tc_osek_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_jil ); break;
+case id_tc_osek_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_osek_jil ); break;*/
   // desky
 case id_tc_desk_vrb :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_vrb ); break;
 case id_tc_desk_ore :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_desk_ore ); break;
@@ -75,9 +75,8 @@ case id_tc_nasa_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_ji
 
 
 
-
-    no_nahoda = Random(no_nastav_maximalni_pocet_vyrobku)+1; //vygeneruje kolik toho chce
-    SetLocalInt(OBJECT_SELF,"no_pocetveci",no_nahoda);
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,720)); // zachova si quest celej restart
-   }                                                                    //=12 hod REAL
+    no_nahoda =5 + Random(10); //vygeneruje kolik toho chce
+    SetLocalInt(OBJECT_SELF,"no_pocetveci",5+Random(10));
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,240)); //
+   }                                                                    //=4 hod REAL
 }

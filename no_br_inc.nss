@@ -11,7 +11,7 @@ const float no_delay = 5.0;
 
 ///nasobitel 1 je nasobtel ceny hotveho vyrobku, nasobitel 2 je nasobitel polotovaru bez penezniho vstupu
 const float no_nasobitel = 1.2;    // 1.0 je cena lestidla, takze zisk je 20%
-const float no_nasobitel2 = 0.01;   //to jest jen obrouseneho kamene
+const float no_nasobitel2 = 0.5;   //to jest jen obrouseneho kamene
 
 ///// Obtiznosti brouseni kamenu
 ///razeno dle resrefu 1-15  (cnrgemcut001)

@@ -35,12 +35,12 @@ void main()
                 return;
 
                 if(Random(100) > 75) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,40));
-                                            //40 minut v pripade ze zadny quest neni
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,20));
+                                            //20 minut v pripade ze zadny quest neni
                 return;
                                     }
 
-    no_nahoda = 1 + Random(pocet_surovin); // pocet je v no_koze_q_inc
+    no_nahoda = 1 + Random(pocet_surovin); // pocet je v no_tcq_br_inc
 
     SetLocalInt(OBJECT_SELF,"no_poptavka",no_nahoda);
     switch(no_nahoda) {
@@ -50,12 +50,7 @@ case id_brou_ohni : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_ohni);
 case id_brou_amet : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_amet); break;
 case id_brou_fene : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_fene); break;
 case id_brou_mala : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_mala); break;
-case id_brou_safi : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_safi); break;
-case id_brou_topa : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_topa); break;
-case id_brou_gran : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_gran); break;
-case id_brou_alex : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_alex); break;
 case id_brou_aven : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_aven); break;
-case id_brou_zive : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_zive); break;
 //vynikajici
 case id_fine_nefr : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_nefr); break;
 case id_fine_ohni : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_ohni); break;
@@ -73,8 +68,9 @@ case id_fine_zive : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_zive);
 
 
 
-    no_nahoda = Random(no_nastav_maximalni_pocet_vyrobku)+1; //vygeneruje kolik toho chce
-    SetLocalInt(OBJECT_SELF,"no_pocetveci",no_nahoda);
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,720)); // zachova si quest celej restart
-   }                                                                    //=12 hod REAL
+    no_nahoda = 5 + Random(10); //vygeneruje kolik toho chce
+    SetLocalInt(OBJECT_SELF,"no_pocetveci",5+Random(10));
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,240)); // zachova 4 hodiny real
+
+}
 }

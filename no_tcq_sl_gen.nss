@@ -34,7 +34,7 @@ void main()
                 return;
 
                 if(Random(100) > 75) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,40));
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,20));
                                             //40 minut v pripade ze zadny quest neni
                 return;
                                     }
@@ -50,11 +50,11 @@ case id_no_cist_copp: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_c
 case id_no_cist_verm: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_verm); break;
 case id_no_cist_iron: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_iron); break;
 case id_no_cist_gold: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_gold); break;
-case id_no_cist_plat: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_plat); break;
+/*case id_no_cist_plat: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_plat); break;
 case id_no_cist_mith: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_mith); break;
 case id_no_cist_adam: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_adam); break;
 case id_no_cist_tita: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_tita); break;
-case id_no_cist_silv: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_silv); break;
+case id_no_cist_silv: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_cist_silv); break; */
 //pruty
 case id_no_prut_tin: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_tin); break;
 case id_no_prut_copp: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_copp); break;
@@ -71,8 +71,8 @@ case id_no_prut_silv: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_no_prut_s
 
 
 
-    no_nahoda = Random(no_nastav_maximalni_pocet_vyrobku)+1; //vygeneruje kolik toho chce
-    SetLocalInt(OBJECT_SELF,"no_pocetveci",no_nahoda);
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,720)); // zachova si quest celej restart
-   }                                                                    //=12 hod REAL
+    no_nahoda = 5+Random(10); //vygeneruje kolik toho chce
+    SetLocalInt(OBJECT_SELF,"no_pocetveci",5+Random(10));
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,240)); //
+   }                                                                    //=4 hod REAL
 }
