@@ -1,6 +1,12 @@
 #include "sh_classes_inc_e"
 #include "ku_libtime"
 
+void __reportEndOfHealing(object oTarget, object oCaster) {
+  SendMessageToPC(oTarget,"Ucinek obvazu prave skoncil");
+  if(oTarget != oCaster)
+    SendMessageToPC(oCaster, "Ucinek obvazu na "+GetName(oTarget)+" prave skoncil.");
+}
+
 int GetHealModificator(object oTarget)
 {
     return GetCurrentHitPoints(oTarget) <= 0 ? (GetCurrentHitPoints(oTarget) * -1) + 1 : 0;
@@ -24,6 +30,8 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
     int iStamp = ku_GetTimeStamp();
     if(GetLocalInt(oTarget, "KU_BANDAGE_TS") > ku_GetTimeStamp()) {
       SendMessageToPC(oTarget,"Nemuzes pouzivat vice lekaren zaroven.");
+      if(oTarget != oActivator)
+        SendMessageToPC(oActivator, GetName(oTarget)+" je jiz lecen.");
       return;
     }
 
@@ -62,6 +70,7 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
             eRegen = EffectRegenerate(iRegenBand,RoundsToSeconds(1));
             eRegen = SupernaturalEffect(eRegen);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eRegen,oTarget,RoundsToSeconds(10));
+            DelayCommand(RoundsToSeconds(10), __reportEndOfHealing(oTarget, oActivator));
             eHeal = EffectHeal(iPCSkillHeal-iSkillHealMin+iHealMod);
             ApplyEffectToObject(DURATION_TYPE_INSTANT,eHeal,oTarget);
             SetLocalInt(oTarget, "KU_BANDAGE_TS",ku_GetTimeStamp(FloatToInt(RoundsToSeconds(10))));
