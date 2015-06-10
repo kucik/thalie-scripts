@@ -1,3 +1,7 @@
+//skript pro odkooupeni veci
+
+object no_Item;
+object no_oPC;
 string no_nazev;
 int no_pocet;
 int no_stacksize;
@@ -11,6 +15,8 @@ int price = 0;
 no_nazev = GetLocalString(OBJECT_SELF,"no_nazevveci");//nahrani promene do skriptu
 no_pocet = GetLocalInt(OBJECT_SELF,"no_pocetveci");
 int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
+
+
 
 
 int cnt=0;
@@ -54,13 +60,11 @@ price == 0;
 
 
 
-    //cena o 4x vyssi
-  float price2 = price * 4;
+    //cena o pulku vyssi
+  float price2 = price * 1.5;
   no_nazev = IntToString( FloatToInt(price2));
 
   SpeakString( "Tady mas za tech  " + IntToString(cnt) + " ryb " + no_nazev + " zlatek");
 
-   GiveGoldToCreature(no_oPC, StringToInt(no_nazev)); //vykoupi 4 draze, nez normalne
-
-
-
+   GiveGoldToCreature(no_oPC, StringToInt(no_nazev)); //vykoupi 1,5 draze, nez normalne
+}
