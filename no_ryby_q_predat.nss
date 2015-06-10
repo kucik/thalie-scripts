@@ -1,14 +1,11 @@
-//skript pro odkooupeni veci
-
-object no_Item;
-object no_oPC;
 string no_nazev;
 int no_pocet;
 int no_stacksize;
-
 void main()
 {
 no_oPC = GetPCSpeaker();
+int momentalni_price = 0;
+int price = 0;
 
 
 no_nazev = GetLocalString(OBJECT_SELF,"no_nazevveci");//nahrani promene do skriptu
@@ -16,73 +13,54 @@ no_pocet = GetLocalInt(OBJECT_SELF,"no_pocetveci");
 int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 
 
-no_Item = GetFirstItemInInventory(no_oPC);  //pro kazde zavolani skriptu zacne od zacatku
-                                            // DULEZITE!!! jinak se provede skript jednou a pamatuje si hodnotu itemu
-                                            // nafurt i kdyz item nenajde..
-
-while(GetIsObjectValid(no_Item))  {
-  if(GetResRef(no_Item) == no_nazev)
-    break;
-  no_Item = GetNextItemInInventory(no_oPC);
-  }
-//takze projede vsechno a skonci bud pokud najde vec co je nastavena na postave, nebo pokud prohleda vsechno
-if (!GetIsObjectValid(no_Item)) {
-  SpeakString( " Zadne takove veci co bych potreboval u sebe nemas " );
-  return;
-}
-
-
-
-
 int cnt=0;
-if (GetIsObjectValid(no_Item)) {
+price == 0;
 
-               while (no_pocet > 0 )  {
-                  no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
-                    if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
-                            no_pocet = no_pocet-1;          // to snizujes dvakrat po sobe
-                            SetLocalInt(OBJECT_SELF,"no_pocetveci",no_pocet);
-                            //GiveGoldToCreature(no_oPC, 30);        //tady je pocet zlata kolik se da za posledni
-                            DestroyObject(no_Item);
-                            cnt++;
-                            break;
-                    }
-                    else {
-                      SetItemStackSize(no_Item,no_stacksize-1);      //snizi stack o 1
-                    }
-                no_pocet = no_pocet-1;                                   //snizi se promena na obchodnikovy
-                SetLocalInt(OBJECT_SELF,"no_pocetveci",no_pocet);
 
-           }
-           }      //konec vyhazovani do kose
+  no_Item = GetFirstItemInInventory(no_oPC);
+  while (GetIsObjectValid(no_Item)) {
+    if (no_pocet <= 0)
+      break;
 
-           int price = GetLocalInt(no_Item,"HOSTINSKY");
-           if(price == 0)
-             price = 5;
-           while (no_pocet > 0 )  {
-                  no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
-                    if (no_stacksize == 1)  {                     // kdyz je posledni znici objekt
-                            no_pocet = no_pocet-1;          // to snizujes dvakrat po sobe
-                            SetLocalInt(OBJECT_SELF,"no_pocetveci",no_pocet);
-                            //GiveGoldToCreature(no_oPC, 30);        //tady je pocet zlata kolik se da za posledni
-                            DestroyObject(no_Item);
-                            cnt++;
-                            break;
-                    }
-                    else {
-                      SetItemStackSize(no_Item,no_stacksize-1);      //snizi stack o 1
-                    }
+    if(GetResRef(no_Item) != no_nazev) {
+      no_Item = GetNextItemInInventory(no_oPC);
+      continue;
+    }
 
-                cnt++;
-                no_pocet = no_pocet-1;                                   //snizi se promena na obchodnikovy
-                SetLocalInt(OBJECT_SELF,"no_pocetveci",no_pocet);
-                if (no_pocet==0) break;
+    int iStack = GetItemStackSize(no_Item);
+    cnt = cnt + iStack;
 
-           }
+    no_pocet = no_pocet - iStack;
 
-    GiveGoldToCreature(no_oPC, cnt*price*10); //vykoupi desetkrat draz, nez normalne
-    }  // cela procedura na vykup
+    momentalni_price = GetLocalInt(no_Item,"HOSTINSKY");
 
+    if (momentalni_price == 0)
+      momentalni_price = 50;  //nastavi vykupni cenu
+
+    price = price + (momentalni_price * iStack);
+
+    DestroyObject(no_Item,0.3);
+    no_Item = GetNextItemInInventory(no_oPC);
+  }
+
+  if (price == 0) {
+    SpeakString( " Zadne takove veci co bych potreboval u sebe nemas " );
+    return;
+  }
+
+  if(no_pocet < 0)
+    no_pocet == 0;
+  SetLocalInt(OBJECT_SELF,"no_pocetveci",no_pocet);
+
+
+
+    //cena o 4x vyssi
+  float price2 = price * 4;
+  no_nazev = IntToString( FloatToInt(price2));
+
+  SpeakString( "Tady mas za tech  " + IntToString(cnt) + " ryb " + no_nazev + " zlatek");
+
+   GiveGoldToCreature(no_oPC, StringToInt(no_nazev)); //vykoupi 4 draze, nez normalne
 
 
 
