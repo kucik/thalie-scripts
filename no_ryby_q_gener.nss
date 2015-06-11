@@ -37,8 +37,8 @@ no_oPC = GetPCSpeaker();
                 return;
 
                 if(Random(100) > 85) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,100));
-                                             //100 minut v pripade ze zadny quest neni
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,10));
+                                             //10 minut v pripade ze zadny quest neni
                 return;
                                     }
 
@@ -70,6 +70,6 @@ case id_lin : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_lin); break;
     SendMessageToPC(no_oPC, "//debug info: bylo vygenerovano : " + no_nazev);
     no_nahoda = 2 + Random(5); //vygeneruje kolik toho chce
     SetLocalInt(OBJECT_SELF,"no_pocetveci",no_nahoda);                   // zapamatuje si tenhle quest :
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,300)); //  300 minut
-   }                                                                    //  =4hod REAL
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,60)); //  60 minut
+   }                                                                    //  =1hod REAL
 }
