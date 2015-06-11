@@ -1084,7 +1084,7 @@ if (no_hod <= no_chance ) {
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Vrbova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Vrbova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1101,7 +1101,7 @@ if (no_hod <= no_chance ) {
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Orechova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Orechova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1118,7 +1118,7 @@ if (no_hod <= no_chance ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta+ "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Dubova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Dubova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1135,7 +1135,7 @@ if (no_hod <= no_chance ) {
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mahagonova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Mahagonova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1152,7 +1152,7 @@ if (no_hod <= no_chance ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Tisova nasada*" +no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Tisova rukojet*" +no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1169,7 +1169,7 @@ if (no_hod <= no_chance ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Jilmova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Jilmova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1186,7 +1186,7 @@ if (no_hod <= no_chance ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Nasada ze zelezneho dubu*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Rukojet ze zelezneho dubu*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1203,7 +1203,7 @@ if (no_hod <= no_chance ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Nasada z prastareho dubu*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Rukojet z prastareho dubu*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1710,7 +1710,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Vrbova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Vrbova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1727,7 +1727,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Orechova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Orechova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1744,7 +1744,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Dubova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Dubova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1761,7 +1761,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Mahagonova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Mahagonova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1778,7 +1778,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Tisova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Tisova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1795,7 +1795,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Jilmova nasada*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Jilmova rukojet*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1812,7 +1812,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Nasada ze zelezneho dubu*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Rukojet ze zelezneho dubu*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );
@@ -1829,7 +1829,7 @@ if (no_procenta > 0.0 ) {
                  SetLocalString(no_Item,"no_crafter",GetName(no_oPC));
                  SetLocalInt(no_Item,"no_pocet_cyklu",no_pocet_cyklu);
                  FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FALSE );
-                 SetName(no_Item,"Nasada z prastareho dubu*" + no_nazev_procenta + "%*" );
+                 SetName(no_Item,"Rukojet z prastareho dubu*" + no_nazev_procenta + "%*" );
 
                  if (GetCurrentAction(no_oPC) == 65535 ) { ExecuteScript("no_dr_clos_spale",OBJECT_SELF); }
                  else  { FloatingTextStringOnCreature("Prerusil si sekani" ,no_oPC,FALSE );

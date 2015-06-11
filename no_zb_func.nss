@@ -284,23 +284,23 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp") no_jmeno = no_jm
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp") no_jmeno = no_jmeno +"y lehky krumpac";
 
 switch (GetLocalInt(OBJECT_SELF,"no_druh_nasada")){
-case 0: {  no_jmeno = no_jmeno + " bez nasady ";
+case 0: {  no_jmeno = no_jmeno + " bez rukojeti ";
         break;}
-case 1: {no_jmeno =no_jmeno +" s vrbovou nasadou"   ;
+case 1: {no_jmeno =no_jmeno +" s vrbovou rukojeti"   ;
          break; }
-case 2: {no_jmeno =no_jmeno +" s orechovou nasadou"  ;
+case 2: {no_jmeno =no_jmeno +" s orechovou rukojeti"  ;
          break; }
-case 3: {no_jmeno =no_jmeno +" s dubovou nasadou"  ;
+case 3: {no_jmeno =no_jmeno +" s dubovou rukojeti"  ;
          break; }
-case 4: {no_jmeno =no_jmeno +" s mahagonovou nasadou" ;
+case 4: {no_jmeno =no_jmeno +" s mahagonovou rukojeti" ;
          break; }
-case 5: {no_jmeno =no_jmeno +" s tisovou nasadou"  ;
+case 5: {no_jmeno =no_jmeno +" s tisovou rukojeti"  ;
          break; }
-case 6: {no_jmeno =no_jmeno +" s jilmovou nasadou"  ;
+case 6: {no_jmeno =no_jmeno +" s jilmovou rukojeti"  ;
          break; }
-case 7: {no_jmeno =no_jmeno +" s nasadou ze zelezneho dubu"  ;
+case 7: {no_jmeno =no_jmeno +" s rukojeti ze zelezneho dubu"  ;
          break; }
-case 8: {no_jmeno =no_jmeno +" s nasadou z prastareho dubu"  ;
+case 8: {no_jmeno =no_jmeno +" s rukojeti z prastareho dubu"  ;
          break; }
 }//konec switche kovu
 
@@ -1387,69 +1387,69 @@ no_udelej_vlastnosti(GetLocalInt(no_pec,"no_kov_2"),no_menu_max_procent - GetLoc
 switch ( GetLocalInt(OBJECT_SELF,"no_druh_nasada")) {
 case 1: {   if ( no_bonus_vylepseni >0 ){
               no_bonus_vylepseni = 0;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu" ,no_oPC,FALSE);   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet" ,no_oPC,FALSE);   }
             break;}
 case 2: {   if ( no_bonus_vylepseni >1 ){
               no_bonus_vylepseni = 1;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni <0 )&(no_max_bonus ==3 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );
             }
             break;}
 case 3: {   if ( no_bonus_vylepseni >2 ){
               no_bonus_vylepseni = 2;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni <1 )&(no_max_bonus >1 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
 case 4: {   if ( no_bonus_vylepseni >3 ){
               no_bonus_vylepseni = 3;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu" ,no_oPC,FALSE);   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet" ,no_oPC,FALSE);   }
             if (( no_bonus_vylepseni <2 )&(no_max_bonus >0 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
 case 5: {   if ( no_bonus_vylepseni >3 ){
               no_bonus_vylepseni = 3;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu" ,no_oPC,FALSE);   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet" ,no_oPC,FALSE);   }
             if (( no_bonus_vylepseni <2 )&(no_max_bonus >0 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
 case 6: {   if ( no_bonus_vylepseni >3 ){
               no_bonus_vylepseni = 3;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni <1 )&(no_max_bonus >2 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_2),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni ==2 )&(no_max_bonus >1 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
 case 7: {   if ( no_bonus_vylepseni >4 ){
               no_bonus_vylepseni = 4;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni <2 )&(no_max_bonus >2 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_2),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni ==3 )&(no_max_bonus >1 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
 case 8: {   if ( no_bonus_vylepseni >5 ){
               no_bonus_vylepseni = 5;
-              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi nasadu",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi rukojet",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni <3 )&(no_max_bonus >2 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_3),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni==3 )&(no_max_bonus >1 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_2),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             if (( no_bonus_vylepseni ==4 )&(no_max_bonus >1 )){
               AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_BLUDGEONING,IP_CONST_DAMAGEBONUS_1),no_Item);
-              FloatingTextStringOnCreature(" Hm, takhle kvalitni nasada nebyla az tak zbytecna",no_oPC,FALSE );   }
+              FloatingTextStringOnCreature(" Hm, takhle kvalitni rukojet nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
 } //konec switche nasady
 
@@ -2534,8 +2534,8 @@ if (NO_zb_DEBUG == TRUE) SendMessageToPC(no_oPC, "potrebujem prisadu vedlejsiho 
 
 ////////////////////////////////////////////////////////////
 
-if (GetLocalInt(no_pec,"no_nasada") ==0)  FloatingTextStringOnCreature("Bude potreba nasada !",no_oPC,FALSE);
-if (GetLocalInt(no_pec,"no_prisada") ==0) FloatingTextStringOnCreature("Bude potreba kovarska prisada !",no_oPC,FALSE);
+if (GetLocalInt(no_pec,"no_nasada") ==0)  FloatingTextStringOnCreature("Bude potreba rukojet!",no_oPC,FALSE);
+if (GetLocalInt(no_pec,"no_prisada") ==0) FloatingTextStringOnCreature("Bude potreba kovarska prisada!",no_oPC,FALSE);
 if ((GetLocalInt(no_pec,"no_prisada")!=no_prisadovy_material)& (GetLocalInt(no_pec,"no_prisada") !=0)) FloatingTextStringOnCreature("Potrebujes kovarskou prisadu kovu, ktereho je tam vice !",no_oPC,FALSE);
 
 //tak, kdyz mame vsechno spravne, tak udelame :

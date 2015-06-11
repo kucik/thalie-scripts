@@ -39,7 +39,7 @@ if(no_menu == 0)   // zacatek menu
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_sekani"),"Sekani dreva ");
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_deska"),"Vyroba desek");
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_lat"),"Vyroba lati");
-SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_nasada"),"Vyroba nasady");
+SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_nasada"),"Vyroba rukojeti");
 } else
   if(no_menu == 1)
   {
@@ -58,7 +58,7 @@ SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet");
 } else
   if(no_menu == 4)
   {
-FloatingTextStringOnCreature(" Vyroba nasady ",no_oPC,FALSE );
+FloatingTextStringOnCreature(" Vyroba rukojeti ",no_oPC,FALSE );
 SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet");
 };
 

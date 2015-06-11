@@ -16,12 +16,12 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 
 
 switch(zbozi) {
-/*case id_tc_osek_vrb : no_nazev = " kusu osekane vrby"; break;
+case id_tc_osek_vrb : no_nazev = " kusu osekane vrby"; break;
 case id_tc_osek_ore : no_nazev = " kusu osekane orechu"; break;
 case id_tc_osek_dub : no_nazev = " kusu osekaneho dubu"; break;
 case id_tc_osek_mah : no_nazev = " kusu osekaneho mahagonu"; break;
 case id_tc_osek_tis : no_nazev = " kusu osekane tisu"; break;
-case id_tc_osek_jil : no_nazev = " kusu osekane jilmu"; break;*/
+case id_tc_osek_jil : no_nazev = " kusu osekane jilmu"; break;
   // desky
 case id_tc_desk_vrb : no_nazev = " vrbovych desek"; break;
 case id_tc_desk_ore : no_nazev = " orechovych desek"; break;
@@ -37,12 +37,12 @@ case id_tc_lat_mah : no_nazev = " mahagonovych lati"; break;
 case id_tc_lat_tis : no_nazev = " tisovych lati"; break;
 case id_tc_lat_jil : no_nazev = " jilmovych lati"; break;
 //nasady
-case id_tc_nasa_vrb : no_nazev = " vrbovych nasad"; break;
-case id_tc_nasa_ore : no_nazev = " orechovych nasad"; break;
-case id_tc_nasa_dub : no_nazev = " dubovych nasad"; break;
-case id_tc_nasa_mah : no_nazev = " mahagonovych nasad"; break;
-case id_tc_nasa_tis : no_nazev = " tisovych nasad"; break;
-case id_tc_nasa_jil : no_nazev = " jilmovych nasad"; break;
+case id_tc_nasa_vrb : no_nazev = " vrbovych rukojeti"; break;
+case id_tc_nasa_ore : no_nazev = " orechovych rukojeti"; break;
+case id_tc_nasa_dub : no_nazev = " dubovych rukojeti"; break;
+case id_tc_nasa_mah : no_nazev = " mahagonovych rukojeti"; break;
+case id_tc_nasa_tis : no_nazev = " tisovych rukojeti"; break;
+case id_tc_nasa_jil : no_nazev = " jilmovych rukojeti"; break;
 }
 
 /*

@@ -58,7 +58,7 @@ no_znicit(no_oPC);
 no_reopen(no_oPC);
 
 
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_krouz"),"Krouzkova zbroj"));
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_krouz"),"Krouzkova kosile"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_hrudn"),"Destickova zbroj"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_desti"),"Pancir"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_pulpl"),"Polovicni platova zbroj"));
@@ -74,7 +74,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac002",OBJECT_SELF,1,"no_vzhl
  else
    if(no_menu == 1)
    {
- FloatingTextStringOnCreature("Krouzkova zbroj",no_oPC,FALSE );
+ FloatingTextStringOnCreature("Krouzkova kosile",no_oPC,FALSE );
  }
  else
    if(no_menu == 2)

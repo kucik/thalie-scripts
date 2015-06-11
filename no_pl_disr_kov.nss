@@ -59,7 +59,7 @@ if (GetTag(no_vzataItem) == "no_vyr_krouz" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
-FloatingTextStringOnCreature("Vyroba krouzkove zbroje",no_oPC,FALSE );
+FloatingTextStringOnCreature("Vyroba krouzkove kosile",no_oPC,FALSE );
     no_reknimat(no_oPC);
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"));
 DelayCommand(0.1,SetLocalInt(OBJECT_SELF,"no_menu",1));
@@ -247,7 +247,7 @@ if (GetTag(no_vzataItem) == "no_zpet" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_krouz"),"Krouzkova zbroj"));
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_krouz"),"Krouzkova kosile"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_hrudn"),"Destickova zbroj"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_desti"),"Pancir"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_pulpl"),"Pulovicni platova zbroj"));
@@ -277,7 +277,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_pla"),"platina")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zla"),"zlato")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zel"),"zelezo")); //pridame tlacitko zpet
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_bro"),"bronz")); //pridame tlacitko zpet
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_bro"),"vermajl")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_med"),"med")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_cin"),"cin")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_men_mater"),"Zpet")); //pridame tlacitko zpet
@@ -301,7 +301,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_pla"),"platina")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zla"),"zlato")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_zel"),"zelezo")); //pridame tlacitko zpet
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_bro"),"bronz")); //pridame tlacitko zpet
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_bro"),"vermajl")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_med"),"med")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_cin"),"cin")); //pridame tlacitko zpet
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_men_mater"),"Zpet")); //pridame tlacitko zpet
@@ -431,7 +431,7 @@ if ( GetLocalInt(OBJECT_SELF,"no_menu") == 86 ) //hlavni material
 if (GetTag(no_vzataItem) == "no_men_bro" ) {
 no_znicit(no_oPC);
 no_reopen(no_oPC);
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_bro"),"bronz")); //pridame tlacitko zpet
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_bro"),"vermajl")); //pridame tlacitko zpet
 
 if ( GetLocalInt(OBJECT_SELF,"no_menu") == 85 ) //hlavni material
     { SetLocalInt(OBJECT_SELF,"no_hl_mat",3);

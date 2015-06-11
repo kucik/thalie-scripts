@@ -67,7 +67,7 @@ no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
 SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"); //pridame tlacitko zpet
-FloatingTextStringOnCreature(" Vyroba nasady ",no_oPC,FALSE );
+FloatingTextStringOnCreature(" Vyroba rukojeti ",no_oPC,FALSE );
 SetLocalInt(OBJECT_SELF,"no_menu",4);
 } ///////////////////////////KONEC NASTAVIT NASADA///////////////////
 
@@ -81,7 +81,7 @@ no_reopen(no_oPC);
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_sekani"),"Sekani dreva ");
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_deska"),"Vyroba desek");
 SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_lat"),"Vyroba lati");
-SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_nasada"),"Vyroba nasady");
+SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_nasada"),"Vyroba rukojeti");
 SetLocalInt(OBJECT_SELF,"no_menu",0);
 } ///////////////////////////KONEC NASTAVIT ZPET  /////////////////////////
 } //kdyz se z pece neco odstrani
