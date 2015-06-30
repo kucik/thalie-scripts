@@ -278,27 +278,27 @@ string CheckAlcohol( object oPC)
     if(fRating < 0.0) SetLocalFloat(oPC,VARNAME_ALCOHOL,0.0);
     if ( (fRating > (MAX_ALCOHOL * 0.2)) &&  (fRating <= (MAX_ALCOHOL * 0.4)) )
         {
-            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol1( oPC);
+//            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol1( oPC);
             return  "<cX  >Mas velmi dobrou naladu.</c>";
         }
     else if ( (fRating > (MAX_ALCOHOL * 0.4)) &&  (fRating <= (MAX_ALCOHOL * 0.55)) )
         {
-            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol2( oPC);
+//            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol2( oPC);
             return  "<cX  >Alkohol se projevuje.</c>";
         }
     else if ( (fRating > (MAX_ALCOHOL * 0.55)) &&  (fRating <= (MAX_ALCOHOL * 0.7)) )
         {
-            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol2( oPC);
+//            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol2( oPC);
             return  "<cX  >Nadvlada nad telem je ta tam.</c>";
         }
     else if( (fRating >= (MAX_ALCOHOL * 0.7)) &&  (fRating <= (MAX_ALCOHOL * 0.9)) )
         {
-            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol3( oPC);
+//            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol3( oPC);
             return  "<cX  >Jsi jak sliva.</c>";
         }
     else if( (fRating >= (MAX_ALCOHOL * 0.9)) &&  (fRating <= (MAX_ALCOHOL * 1.1)) )
         {
-            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol3( oPC);
+//            if (Random(1000) < FloatToInt( GetLocalFloat(oPC, VARNAME_ALCOHOL))) effAlcohol3( oPC);
             return  "<cX  >Ses na mol.</c>";
         }
     return  "";
