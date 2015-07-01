@@ -3044,6 +3044,7 @@ void KU_SummonsAct(int act) {
     // Spusteni hulky
     case 0: {
       SetLocalInt(oPC,KU_DLG+"state",act);
+      break;
     }
     // Set summon
     default: {
