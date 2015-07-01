@@ -3036,7 +3036,7 @@ void KU_SummonsAct(int act) {
 
   // Do nothing
   if(act == 0) {
-    KU_DicesSetTokens(iState);
+    KU_SummonsSetTokens(iState);
     return;
   }
 
@@ -3055,5 +3055,5 @@ void KU_SummonsAct(int act) {
   }
 
   iState = GetLocalInt(oPC,KU_DLG+"state");
-  KU_DicesSetTokens(iState);
+  KU_SummonsSetTokens(iState);
 }
