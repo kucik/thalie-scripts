@@ -3005,7 +3005,7 @@ void KU_SummonsSetTokens(int iState, object oPC = OBJECT_INVALID) {
       int iSummonAlignment;
       int iRow;
       for(sum = 0; sum <= 8; sum++) { // We have 8 types of summons
-        iRow = sum * 9 + iState; //9 levels of summons
+        iRow = sum * 9 + iState - 1; //9 levels of summons
         iSummonAlignment = StringToInt(Get2DAString("summon","ALIGNMENT",iRow));
         // Check summoner alignment
         if((iSummonAlignment & nAlignment) == 0)
@@ -3048,7 +3048,8 @@ void KU_SummonsAct(int act) {
     }
     // Set summon
     default: {
-      int iRow = (iState-1) * 9 + act -1 ; //9 levels of summons
+//      int iRow = (iState-1) * 9 + act -1 ; //9 levels of summons
+      int iRow = (act-1) * 9 + iState - 1; //9 levels of summons
       SetLocalString(oSoul,"KU_SUMMON_"+IntToString(iState),Get2DAString("summon","BASERESREF",iRow) + "0" + IntToString(iState));
       SendMessageToPC(oPC, "Vybran "+Get2DAString("summon","NAME",iRow)+" pro "+IntToString(iState)+". kruh.");
     }
