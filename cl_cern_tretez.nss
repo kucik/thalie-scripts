@@ -22,6 +22,13 @@ object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpel
     int i = 1;
     int iTime = ku_GetTimeStamp();
     string sMark = "HITBYCHAINSPELL"+IntToString(iSpell);
+
+    /* Mark oTarget as hit */
+    if(GetIsObjectValid(oTarget)) {
+      SetLocalInt(oTarget,sMark,iTime);
+      DelayCommand(1.0, DeleteLocalInt(oTarget,sMark));
+    }
+
     object oNextTarget = GetNearestObject(OBJECT_TYPE_CREATURE, oTarget, i);
     while(GetIsObjectValid(oNextTarget)) {
       /* Limited jump size */
@@ -62,11 +69,6 @@ object __chainNextJump(object oCaster, object oTarget, object oSource, int iSpel
         break;
       }
     }
-
-   if(GetIsObjectValid(oNextTarget)) {
-     SetLocalInt(oNextTarget,sMark,iTime);
-     DelayCommand(1.0, DeleteLocalInt(oNextTarget,sMark));
-   }
 
    return oNextTarget;
 
