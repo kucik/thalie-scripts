@@ -314,41 +314,9 @@ void AddZbranThalie(object oPC,object oItem)
 
         //zhozeni stitu
         int iType =GetBaseItemType(oItem);
-        if (
-        (iType == BASE_ITEM_BASTARDSWORD) || (iType == BASE_ITEM_BATTLEAXE) || (iType == BASE_ITEM_DAGGER)
-        || (iType == BASE_ITEM_DART)|| (iType == BASE_ITEM_DIREMACE)|| (iType == BASE_ITEM_DOUBLEAXE)
-        || (iType == BASE_ITEM_DWARVENWARAXE)|| (iType == BASE_ITEM_GREATAXE)|| (iType == BASE_ITEM_GREATSWORD)
-        || (iType == BASE_ITEM_HALBERD)|| (iType == BASE_ITEM_HANDAXE)|| (iType == BASE_ITEM_HEAVYCROSSBOW)
-        || (iType == BASE_ITEM_HEAVYFLAIL)|| (iType == BASE_ITEM_KAMA)|| (iType == BASE_ITEM_KATANA)
-        || (iType == BASE_ITEM_KUKRI)|| (iType == BASE_ITEM_LIGHTCROSSBOW)|| (iType == BASE_ITEM_LIGHTFLAIL)
-        || (iType == BASE_ITEM_LIGHTHAMMER)|| (iType == BASE_ITEM_LIGHTMACE)|| (iType == BASE_ITEM_LONGBOW)
-        || (iType == BASE_ITEM_LONGSWORD)|| (iType == BASE_ITEM_MAGICSTAFF)|| (iType == BASE_ITEM_MORNINGSTAR)
-        || (iType == BASE_ITEM_QUARTERSTAFF)|| (iType == BASE_ITEM_RAPIER)|| (iType == BASE_ITEM_SCIMITAR)
-        || (iType == BASE_ITEM_SCYTHE)|| (iType == BASE_ITEM_SHORTBOW)|| (iType == BASE_ITEM_SHORTSPEAR)
-        || (iType == BASE_ITEM_SHORTSWORD)|| (iType == BASE_ITEM_SHURIKEN)|| (iType == BASE_ITEM_SICKLE)
-        || (iType == BASE_ITEM_SLING)|| (iType == BASE_ITEM_THROWINGAXE)|| (iType == BASE_ITEM_TRIDENT)
-        || (iType == BASE_ITEM_TWOBLADEDSWORD) || (iType == BASE_ITEM_WARHAMMER) || (iType == BASE_ITEM_WHIP)
-        || (iType == 202)// Social_Beermug
-        || (iType ==203)// Short Spear
-          || (iType ==300)// Trident 1h
-          || (iType ==301)// Heavypick
-          || (iType ==302)// Lightpick
-          || (iType ==303)// Sai (vidlicka)
-          || (iType ==304)// Nunchaku
-          || (iType ==305)// Falchion
-          || (iType ==308)// Sap (Pytlik)
-          || (iType ==309)// Daggerassassin
-          || (iType ==310)// Katar
-          || (iType ==317)// Heavy mace
-          || (iType ==318)// Maul
-          || (iType ==319)// Mercurial_longsword
-          || (iType ==320)// Mercurial_greatsword
-          || (iType ==321)// Scimitar double
-          || (iType ==322)// Goad (halapartma)
-          || (iType ==323)// Windfirewheel
-          || (iType ==324)// MauDoubleSword
-        )
-        {
+        int iWeaponType = StringToInt(Get2DAString("baseitems","WeaponType",iType));
+        if(iWeaponType > 0) {
+
             itemproperty ipLoop = GetFirstItemProperty(oItem);
             while (GetIsItemPropertyValid(ipLoop))
             {
