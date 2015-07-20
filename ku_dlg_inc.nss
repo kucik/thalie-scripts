@@ -2589,7 +2589,7 @@ void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVi
           float fDistance = GetDistanceBetween(oPC, oTell);
           if(fDistance > 0.0 &&
              fDistance < 20.1)
-            SendMessageToPC(oPC,sSay);
+            SendMessageToPC(oTell,sSay);
         }
       }
       oTell = GetNextPC();
