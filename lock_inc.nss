@@ -1001,7 +1001,7 @@ void lock_init_location() {
     ja_loc_type = GetLocalInt(oLoc,"JA_LOC_TYPE");
     string sValues = "'"+sResRef+"',"+
                      "'"+sTag+"',"+
-                     "'"+GetName(oLoc)+"',"+
+                     "'"+SQLEncodeSpecialChars(GetName(oLoc))+"',"+
                      "'0',"+
                      "'"+IntToString(ja_loc_type)+"'";
     sSQL = "INSERT INTO location_property (resref,tag,name,alive,JA_LOC_TYPE) VALUES ("+sValues+");";
