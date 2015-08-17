@@ -1,7 +1,7 @@
 int sh_GetMunitionPackByType(string sTyp)
 {
-     if (sTyp == "bow")return 99;
-     if (sTyp == "cro")return 99;
+     if (sTyp == "bow")return 250;
+     if (sTyp == "cro")return 250;
      return 1;
 }
 
@@ -377,7 +377,7 @@ void sh_GetMunitionFromTag(object oToulec,object oPC,object oTarget)
             SetLocalInt(oToulec,"sh_contain",iObsah);
             if(iObsah <= 0)
             {
-                 AssignCommand(oPC,DestroyObject(oToulec,3.0));
+                 DestroyObject(oToulec,3.0);
             }
 
 

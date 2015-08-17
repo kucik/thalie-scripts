@@ -330,7 +330,7 @@ void ku_GetMunitionFromPack(object oPC, string sPack,int iBaseItem,int count) {
   int i;
 
   int iSlot = 4;
-  int iPack = 99;
+  int iPack = 250;
   string sTemplate = "ry_vrh_"+GetSubString(sPack,7,GetStringLength(sPack)-7);
   switch(iBaseItem) {
     case 20: iSlot = 11;
@@ -342,7 +342,7 @@ void ku_GetMunitionFromPack(object oPC, string sPack,int iBaseItem,int count) {
     case 27: iSlot = 12;
              sTemplate = "ry_mun_"+GetSubString(sPack,7,GetStringLength(sPack)-7);
              break;
-    default: iPack = 50;
+    default: iPack = 99;
              break;
   }
 
@@ -399,6 +399,9 @@ void ku_GetMunitionFromPack(object oPC, string sPack,int iBaseItem,int count) {
     SetLocalString(oSoul,"ku_ammo_pack_"+sBase,"");
 
   SetName(oToulec,GetLocalString(oToulec,"name")+" - zbyva "+IntToString(iObsah)+" munice");
+  if(iObsah <= 0) {
+    DestroyObject(oToulec,3.0);
+  }
 
 }
 
