@@ -62,7 +62,7 @@ void main()
   SetLocalLocation(oPC,"lIWasHere",GetLocation(oPC));
   AssignCommand(oPC,DelayCommand(13.0,CancelFishing(oPC,GetLocation(OBJECT_SELF))));
   AssignCommand(oPC,DelayCommand(1.0,ActionPlayAnimation(ANIMATION_FIREFORGET_SALUTE,1.0,1.0)));
-  AssignCommand(oPC,DelayCommand(4.0,ActionPlayAnimation(ANIMATION_LOOPING_TALK_PLEADING,1.0,6.0)));
+  AssignCommand(oPC,DelayCommand(4.0,ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED,1.0,6.0)));
   AssignCommand(oPC,DelayCommand(10.0,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0,2.0)));
   switch (Random(3))
    {
