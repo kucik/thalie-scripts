@@ -2,8 +2,8 @@
 #include "sh_effects_const"
 int UseElixir(object oPC, object oTarget, object oSoul, int iElixirStr)
 {
-    int iCon = GetAbilityScore(oTarget,ABILITY_CONSTITUTION,TRUE);
-    int iMaxPoints = iCon*30+GetHitDice(oTarget)*5;
+    int iCon = GetAbilityScore(oTarget,ABILITY_CONSTITUTION,FALSE);
+    int iMaxPoints = iCon*30+GetHitDice(oTarget)*15;
     int iFreePoints = GetLocalInt(oSoul,"SH_ELIXIR_POINTS");
     if (!iFreePoints)
     {
