@@ -3,7 +3,7 @@
 int UseElixir(object oPC, object oTarget, object oSoul, int iElixirStr)
 {
     int iCon = GetAbilityScore(oTarget,ABILITY_CONSTITUTION,FALSE);
-    int iMaxPoints = iCon*30+GetHitDice(oTarget)*15;
+    int iMaxPoints = iCon*30+GetHitDice(oTarget)*10;
     int iFreePoints = GetLocalInt(oSoul,"SH_ELIXIR_POINTS");
     if (!iFreePoints)
     {
@@ -32,7 +32,7 @@ int UseElixir(object oPC, object oTarget, object oSoul, int iElixirStr)
         }
         else if (iPercent>= 0.1)
         {
-            SendMessageToPC(oPC, GetName(oTarget)+": bude blejt.");
+            SendMessageToPC(oPC, GetName(oTarget)+": bude zvracet.");
         }
         return TRUE;
 
@@ -47,8 +47,8 @@ int UseElixir(object oPC, object oTarget, object oSoul, int iElixirStr)
 
 void sh_OnRestResetElixirPoints(object oPC, object oSoul)
 {
-    int iCon = GetAbilityScore(oPC,ABILITY_CONSTITUTION,TRUE);
-    int iFreePoints = iCon*30+GetHitDice(oPC)*5;
+    int iCon = GetAbilityScore(oPC,ABILITY_CONSTITUTION,FALSE);
+    int iFreePoints = iCon*30+GetHitDice(oPC)*10;
     SetLocalInt(oSoul,"SH_ELIXIR_POINTS",iFreePoints);
     SendMessageToPC(oPC,"Muzes opet pit elixiry.");
 }

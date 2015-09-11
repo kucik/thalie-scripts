@@ -6,7 +6,7 @@
 #include "ja_inc_meditace"
 #include "sh_cr_potions"
 #include "sh_classes_inc"
-#include "cl_kurt_plav_inc"
+//#include "cl_kurt_plav_inc"
 
 string getRestString(int type){
     switch(type){
@@ -21,13 +21,13 @@ string getRestString(int type){
 void InventoryActions(object oPC)
 {
     object oItem = GetFirstItemInInventory(oPC);
-    
+
     while (GetIsObjectValid(oItem))
     {
         // Reset henchman key uses.
         if (GetTag(oItem) == "myi_hen_key")
             SetLocalInt(oItem, "HENCHMAN_USES", 1);
-        
+
         oItem = GetNextItemInInventory(oPC);
     }
 }
@@ -42,8 +42,8 @@ void finish(object oPC){
         int lastHP = GetCurrentHitPoints(oPC);
         ForceRest(oPC);
         OnLvlupClassSystem(oPC);
-        OnRestClassSystem(oPC);        
-        PanoveRadiPlavovlaskyBarvaVlasu(oPC);
+        OnRestClassSystem(oPC);
+   //     PanoveRadiPlavovlaskyBarvaVlasu(oPC);
         int damage = GetCurrentHitPoints(oPC) - lastHP;
         if(lastHP > 0 && damage > 0){
             effect e = EffectDamage( damage, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_PLUS_TWENTY);
@@ -76,7 +76,7 @@ void main()
 
     object oPC = OBJECT_SELF;
     object oSoul = GetSoulStone(oPC);
-    
+
     // No meditation if mounted
     if (GetLocalInt(oSoul, "MOUNTED"))
     {

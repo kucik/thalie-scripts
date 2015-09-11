@@ -14,7 +14,7 @@
 #include "sh_classes_inc"
 #include "X0_I0_SPELLS"
 #include "ku_libtime"
-#include "cl_kurt_plav_inc"
+//#include "cl_kurt_plav_inc"
 
 void  AssassinUderDoTepny(object oTarget, effect eDamage,int iAct)
 {
