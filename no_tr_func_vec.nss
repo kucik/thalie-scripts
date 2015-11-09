@@ -3231,12 +3231,10 @@ void no_stit(object no_pec, int no_druh_stitu)
                     case 10: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,5),no_Item);
                                 break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(3),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,6),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
+                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                }//konec vnitrniho switche
                no_udelejjmeno(no_Item);
@@ -3275,11 +3273,9 @@ void no_stit(object no_pec, int no_druh_stitu)
                     case 10: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,5),no_Item);
                                  break;  }
                     case 11: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(4),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,8),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                     case 12: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(5),no_Item);
-                                 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_PARRY,10),no_Item);
                                  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
                                  break;  }
                }//konec vnitrniho switche
