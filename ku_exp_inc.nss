@@ -3,7 +3,7 @@
 
 #include "aps_include"
 #include "me_soul_inc"
- 
+
 // Library for handling PC Experience Points (XP).
 
 
@@ -20,10 +20,10 @@ void ku_GiveXPDebt(object oPC, int iXP);
 
 int ku_SaveXPPerKill(object oPC, int xp);
 
-// Get player XP debt 
+// Get player XP debt
 int ku_GetXpDebt(object oPC);
 
-const int NT_PC_MAX_XP = 2975000; //35. level
+const int NT_PC_MAX_XP = 3900000; //40. level
 
 /////////////////////////////////////////////////////////////////
 // Function definitions
@@ -38,7 +38,7 @@ int ku_GetXpDebt(object oPC) {
         return 0;
 
   int iXPDebt = GetPersistentInt(oPC,"XP_DEBT");
-  
+
 
   if(iXPDebt == 0) {
     object oSoul = GetSoulStone(oPC);
