@@ -240,8 +240,8 @@ int PWFXP_GetLevel(object oPC)
 // see PWFXP_LEVEL_MODIFIER constant description
 float PWFXP_GetLevelModifier(int nLevel)
 {
-  float fA = 0.5; // Exponencial koeficient
-  float fB = 0.95; // Semi linear koeficient. Should be from 0.8 to 1.0
+  float fA = 0.56; // Exponencial koeficient
+  float fB = 0.96; // Semi linear koeficient. Should be from 0.8 to 1.0
   float fLevel = IntToFloat(nLevel);
   return 3.0 * (1/(pow(fLevel, fA))) * (40 - pow(fLevel, fB)) / 40.0;
 
