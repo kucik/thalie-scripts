@@ -1097,7 +1097,7 @@ void KU_DefineShips()
 
 // Konec lodni linky
 
-//  Lodni linka 26 -  Paseracke kotviste -> Kel-A-Hazr 
+//  Lodni linka 26 -  Paseracke kotviste -> Kel-A-Hazr
     stShip = KU_CreateShip();
     stShip.m_sName      = "Paseracke kotviste -> Kel-A-Hazr"; // Nazev trasy
     stShip.m_nCost      = 300;                           // Cena listku
@@ -1134,7 +1134,7 @@ void KU_DefineShips()
     stShip.m_iInterval  = 20;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
-//  Lodni linka 28 -  Paseracke kotviste -> Kel-A-Hazr 
+//  Lodni linka 28 -  Paseracke kotviste -> Kel-A-Hazr
     stShip = KU_CreateShip();
     stShip.m_sName      = "Dornovo utociste -> Karatha"; // Nazev trasy
     stShip.m_nCost      = 100;                           // Cena listku
@@ -1445,9 +1445,42 @@ void KU_DefineShips()
     stShip.m_iInterval  = 10;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
+//  Lodni linka 45 Alwariel -> Korinkov
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Alwariel -> Korinkov"; // Nazev trasy
+    stShip.m_nCost      = 80;                           // Cena listku
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kap_alw_korinkov";        // Tag prodavace listku
+    stShip.m_sPort      = "ke_lod_alw_kor_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_alw_kor_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_alw_kor_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+
+//  Lodni linka 46 Korinkov -> Alwariel
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Korinkov -> Alwariel"; // Nazev trasy
+    stShip.m_nCost      = 80;                           // Cena listku
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ke_kap_korinkov_alw";           // Tag prodavace listku
+    stShip.m_sPort      = "ke_lod_kor_alw_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ke_kor_alw_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ke_kor_alw_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
 
 ///////////////////////////////////////////////////
 // Konec definice lodnich linek
 ///////////////////////////////////////////////////
 }
-
