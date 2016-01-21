@@ -48,6 +48,17 @@ void main()
 {
     // Tag of the object on which the switch will be found
 //    string sTag2 = "";
+
+    /* Do not make check if area is empty */
+    object oArea = GetLocalObject(OBJECT_SELF,"ku_my_area");
+    if(!GetIsObjectValid(oArea)) {
+      oArea = GetArea(OBJECT_SELF);
+      SetLocalObject(OBJECT_SELF, "ku_my_area",oArea);
+    }
+    if(!GetLocalInt(GetArea(oArea),"ku_notempty"))
+      return;
+
+
     int needsTrigger = GetLocalInt(OBJECT_SELF, SBSD_TRIGGER_VAR);
     int isLocked = GetLocalInt(OBJECT_SELF, SBSD_LOCKED_VAR);
     int rehideTimer = GetLocalInt(OBJECT_SELF, SBSD_REHIDE_TIMER_VAR);
