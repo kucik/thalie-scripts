@@ -16,12 +16,13 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 
 
 switch(zbozi) {
-case id_tc_osek_vrb : no_nazev = " kusu osekane vrby"; break;
+// TODO temporary removed bcs of constant conflict
+/*case id_tc_osek_vrb : no_nazev = " kusu osekane vrby"; break;
 case id_tc_osek_ore : no_nazev = " kusu osekane orechu"; break;
 case id_tc_osek_dub : no_nazev = " kusu osekaneho dubu"; break;
 case id_tc_osek_mah : no_nazev = " kusu osekaneho mahagonu"; break;
 case id_tc_osek_tis : no_nazev = " kusu osekane tisu"; break;
-case id_tc_osek_jil : no_nazev = " kusu osekane jilmu"; break;
+case id_tc_osek_jil : no_nazev = " kusu osekane jilmu"; break;*/
   // desky
 case id_tc_desk_vrb : no_nazev = " vrbovych desek"; break;
 case id_tc_desk_ore : no_nazev = " orechovych desek"; break;

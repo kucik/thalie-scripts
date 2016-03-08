@@ -281,9 +281,9 @@ object ku_LootCreateBossUniqueItem(object oBoss, string sBoxTag) {
       break;
     case BASE_ITEM_AMULET:
       /* Block natural AC bonus */
-      if(Stone1 == 8)
+      if(iStone1 == 8)
         iStone1 = 15;
-      if(Stone2 == 8)
+      if(iStone2 == 8)
         iStone2 = 15;
     case BASE_ITEM_RING:
       /* Apply jewelery properties */
