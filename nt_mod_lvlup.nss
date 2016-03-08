@@ -99,6 +99,17 @@ void main()
         return;
     }
 
+    // Because of rage ability bonus
+    if(GetLocalInt(oSoulStone,"rage") > 0) { // AKTIVNI_RAGE
+      SendMessageToPC(oPC, "Nemuzes provadet lvlup s aktivni zurivosti!");
+      sy_relevel(oPC, nLevel);
+      return;
+    }
+    if (GetLocalInt(oSoulStone,"postoj") != 0) { //AKTIVNI_POSTOJ_OBRANCE
+      SendMessageToPC(oPC, "Nemuzes provadet lvlup s aktivnim postojem obrance!");
+      sy_relevel(oPC, nLevel);
+      return;
+    }
 
     int nLvl2       = GetLevelByPosition(2, oPC);
     int nLvl3       = GetLevelByPosition(3, oPC);
