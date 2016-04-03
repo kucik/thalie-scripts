@@ -40,8 +40,8 @@ if (GetIsObjectValid(no_Item)) {
 
 
            int price = GetLocalInt(no_Item,"HOSTINSKY");
-           if(price == 0)
-             price = 15;
+           //if(price == 0)
+            // price = 15;
                 no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve stacku
 
                 if (no_pocet>no_stacksize)   no_pocet=no_stacksize;

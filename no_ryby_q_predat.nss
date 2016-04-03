@@ -40,8 +40,8 @@ price == 0;
 
     momentalni_price = GetLocalInt(no_Item,"HOSTINSKY");
 
-    if (momentalni_price == 0)
-      momentalni_price = 50;  //nastavi vykupni cenu
+    //if (momentalni_price == 0)
+    //  momentalni_price = 50;  //nastavi vykupni cenu
 
     price = price + (momentalni_price * iStack);
 
