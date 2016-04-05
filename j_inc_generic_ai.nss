@@ -1319,7 +1319,9 @@ int AI_EquipAndAttack()
     }
 
     // - Flying
-    if(GlobalRangeToMeleeTarget > f8 &&
+    // Do not fly ih HP is < 10%. Corpse could disappear.
+    if(((GetCurrentHitPoints(OBJECT_SELF)*100) / GetMaxHitPoints(OBJECT_SELF) >= 10) &&
+       GlobalRangeToMeleeTarget > f8 &&
        GetSpawnInCondition(AI_FLAG_COMBAT_FLYING, AI_COMBAT_MASTER))
     {
         SetAIObject(AI_FLYING_TARGET, GlobalMeleeTarget);
