@@ -60,7 +60,7 @@ void main()
     if(nSpell == 401)
     {
         nPoly = POLYMORPH_TYPE_BROWN_BEAR;
-        if (nDuration >= 12)
+        if (nDuration >= 11)
         {
             nPoly = POLYMORPH_TYPE_DIRE_BROWN_BEAR;
         }
@@ -68,7 +68,7 @@ void main()
     else if (nSpell == 402)
     {
         nPoly = POLYMORPH_TYPE_PANTHER;
-        if (nDuration >= 12)
+        if (nDuration >= 11)
         {
             nPoly = POLYMORPH_TYPE_DIRE_PANTHER;
         }
@@ -77,7 +77,7 @@ void main()
     {
         nPoly = POLYMORPH_TYPE_WOLF;
 
-        if (nDuration >= 12)
+        if (nDuration >= 11)
         {
             nPoly = POLYMORPH_TYPE_DIRE_WOLF;
         }
@@ -85,7 +85,7 @@ void main()
     else if (nSpell == 404)
     {
         nPoly = POLYMORPH_TYPE_BOAR;
-        if (nDuration >= 12)
+        if (nDuration >= 11)
         {
             nPoly = POLYMORPH_TYPE_DIRE_BOAR;
         }
@@ -93,7 +93,7 @@ void main()
     else if (nSpell == 405)
     {
         nPoly = POLYMORPH_TYPE_BADGER;
-        if (nDuration >= 12)
+        if (nDuration >= 11)
         {
             nPoly = POLYMORPH_TYPE_DIRE_BADGER;
         }
