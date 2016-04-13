@@ -1148,6 +1148,7 @@ int lock_SpawnBosses(object oArea) {
       lock_CopyVars(oBoss,oNPC);
       lock_AppearBoss(oBoss);
       SetLocalObject(oArea,"ACTUAL_BOSS",oBoss);
+      DelayCommand(0.5, __bossCheckersRegister(oBoss));
       cnt--;
     }
 
