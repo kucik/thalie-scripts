@@ -1294,7 +1294,7 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "vk")    no_max_bonus 
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kj")                 no_max_bonus = 1;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "pa")              no_max_bonus = 1;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "re")             no_max_bonus = 2;
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "re")        no_max_bonus = 3;
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ma")        no_max_bonus = 3;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hu")                   no_max_bonus = 2;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "x2")                 no_max_bonus = 1;
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "x3")    no_max_bonus = 3;
@@ -1311,29 +1311,23 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hp")   no_max_bonus =
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "lp")   no_max_bonus = 1;
 
 if ( no_max_bonus ==1 ) {
-switch (d4()){
-case 1: FloatingTextStringOnCreature("Co to je *prohlizi si zbran* s tim ze se da bojovat ? " ,no_oPC,FALSE);
-case 2: FloatingTextStringOnCreature("Heh, to je nejake male, to je snad nejake orezavatko ? " ,no_oPC,FALSE);
-case 3: FloatingTextStringOnCreature("Juj, co to je? to je louskacek na orechy ? " ,no_oPC,FALSE);
-case 4: FloatingTextStringOnCreature("No tohle? to se sikovne vejde do kapsy ! " ,no_oPC,FALSE);
+switch (d2()){
+case 1: FloatingTextStringOnCreature("Juj, co to je? to je louskacek na orechy ? " ,no_oPC,FALSE);
+case 2: FloatingTextStringOnCreature("No tohle? to se sikovne vejde do kapsy ! " ,no_oPC,FALSE);
 }
 }
 
  if ( no_max_bonus ==2 ) {
-switch (d4()){
-case 1: FloatingTextStringOnCreature(" Peknej vobourucak .... teda aspon pro pulciky !" ,no_oPC,FALSE);
-case 2: FloatingTextStringOnCreature("No, na dve ruky lehka, na jednu tak akorat !" ,no_oPC,FALSE);
-case 3: FloatingTextStringOnCreature("Hm, ani kratky, ani dlouhy, proste tak akorat ! " ,no_oPC,FALSE);
-case 4: FloatingTextStringOnCreature("No ke stitu se to bude celkem hodit. " ,no_oPC,FALSE);
+switch (d2()){
+case 1: FloatingTextStringOnCreature("No, na dve ruky lehka, na jednu tak akorat !" ,no_oPC,FALSE);
+case 2: FloatingTextStringOnCreature("No ke stitu se to bude celkem hodit. " ,no_oPC,FALSE);
 }
 }
 
 if ( no_max_bonus ==3 ) {
-switch (d4()){
-case 1: FloatingTextStringOnCreature("To je aspon zbran, ktera se da poradne uchopit ! " ,no_oPC,FALSE);
-case 2: FloatingTextStringOnCreature("no tak na tohel aby pulcikum narostli dalsi dve ruce ! " ,no_oPC,FALSE);
-case 3: FloatingTextStringOnCreature("heh, tak tohle uzvednout, to bude chtit poradneho silaka !" ,no_oPC,FALSE);
-case 4: FloatingTextStringOnCreature("No to je aspon poradnej kus zbrane. To bude drtit hlava nehlava ! " ,no_oPC,FALSE);
+switch (d2()){
+case 1: FloatingTextStringOnCreature("no tak na tohel aby pulcikum narostli dalsi dve ruce ! " ,no_oPC,FALSE);
+case 2: FloatingTextStringOnCreature("No to je aspon poradnej kus zbrane. To bude drtit hlava nehlava ! " ,no_oPC,FALSE);
 }
 }
 
@@ -2459,7 +2453,7 @@ else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime p
          ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
          DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
                                }
-        else  if ((no_chance > 0)&(no_procenta>0.0)) {FloatingTextStringOnCreature("Na vykovku se objevili okuje",no_oPC,FALSE ); }
+        else  if ((no_chance > 0)&(no_procenta>0.0)) {FloatingTextStringOnCreature("Na vykovku se objevily okuje",no_oPC,FALSE ); }
 
         if (no_chance == 0){ FloatingTextStringOnCreature(" Se zpracovani by si mel radeji pockat ",no_oPC,FALSE );
                       DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
