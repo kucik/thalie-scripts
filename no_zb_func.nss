@@ -339,7 +339,7 @@ else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "vk") no_jmeno = "toto
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kj") no_jmeno = "tento Kyj";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "pa") no_jmeno ="tento Palcat";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "re") no_jmeno = "tento Remdih";
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "re") no_jmeno = "toto Obri kladivo";
+else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "ma") no_jmeno = "toto Obri kladivo";
 //25.12.2009
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "hu") no_jmeno = "tuto hul";
 else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "x2") no_jmeno = "tento sai";

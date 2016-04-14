@@ -455,3 +455,111 @@ int TC_getDestroyingByDifficulty(int no_obtiznost_vyrobku) {
   // < 10
   return Random(20) + 150;
 }
+
+string TC_getBaseItemShortcut(int iBase) {
+
+  switch(iBase) {
+    case BASE_ITEM_LONGSWORD: return "dl";
+    case BASE_ITEM_DAGGER: return "dy";
+    case BASE_ITEM_SHORTSWORD: return "kr";
+    case BASE_ITEM_BASTARDSWORD: return "ba";
+    case BASE_ITEM_GREATSWORD: return "vm";
+    case BASE_ITEM_KATANA: return "ka";
+    case BASE_ITEM_RAPIER: return "ra";
+    case BASE_ITEM_SCIMITAR: return "sc";
+    case BASE_ITEM_HALBERD: return "ha";
+    case BASE_ITEM_SHORTSPEAR: return "ko";
+    case BASE_ITEM_SCYTHE: return "ks";
+    case BASE_ITEM_TRIDENT: return "tr";
+    case BASE_ITEM_WHIP: return "bc";
+    case BASE_ITEM_KAMA: return "km";
+    case BASE_ITEM_KUKRI: return "ku";
+    case BASE_ITEM_SICKLE: return "sr";
+    case BASE_ITEM_DOUBLEAXE: return "ds";
+    case BASE_ITEM_TWOBLADEDSWORD: return "dm";
+    case BASE_ITEM_DIREMACE: return "dp";
+    case BASE_ITEM_GREATAXE: return "os";
+    case BASE_ITEM_HANDAXE: return "rs";
+    case BASE_ITEM_DWARVENWARAXE: return "ts";
+    case BASE_ITEM_BATTLEAXE: return "bs";
+    case BASE_ITEM_LIGHTFLAIL: return "lc";
+    case BASE_ITEM_HEAVYFLAIL: return "tc";
+    case BASE_ITEM_LIGHTHAMMER: return "lk";
+    case BASE_ITEM_WARHAMMER: return "vk";
+    case BASE_ITEM_CLUB: return "kj";
+    case BASE_ITEM_LIGHTMACE: return "pa";
+    case BASE_ITEM_MORNINGSTAR: return "re";
+    case 318: return "ma"; // was "re" //Maul
+    case BASE_ITEM_QUARTERSTAFF: return "hu";
+    case 303: return "x2"; // Sai
+    case 305: return "x3"; // falchion
+    case 310: return "x4"; // Katar
+    case 304: return "x5"; // Nunchaku
+    case 308: return "x6"; // Sap
+    case 321: return "x7"; // Double scimitar
+    case 317: return "x8"; // Heavy mace
+    case 320: return "y1"; // Mercuruial gretsword
+    case 319: return "y2"; // Mercurial longsword
+    case 324: return "y3"; // Maugdoublesword
+    case 203: return "ss"; // One handed spear
+    case 301: return "hp"; // heavy pick
+    case 302: return "lp"; // Light pick
+    case 300: return "ot"; // Onehanded trident
+    case BASE_ITEM_GLOVES: return "ru";
+  }
+
+  return "";
+}
+
+int TC_getBaseItemByShortcut(string str) {
+  if(str == "dl") return BASE_ITEM_LONGSWORD;
+  if(str == "dy") return BASE_ITEM_DAGGER;
+  if(str == "kr") return BASE_ITEM_SHORTSWORD;
+  if(str == "ba") return BASE_ITEM_BASTARDSWORD;
+  if(str == "vm") return BASE_ITEM_GREATSWORD;
+  if(str == "ka") return BASE_ITEM_KATANA;
+  if(str == "ra") return BASE_ITEM_RAPIER;
+  if(str == "sc") return BASE_ITEM_SCIMITAR;
+  if(str == "ha") return BASE_ITEM_HALBERD;
+  if(str == "ko") return BASE_ITEM_SHORTSPEAR;
+  if(str == "ks") return BASE_ITEM_SCYTHE;
+  if(str == "tr") return BASE_ITEM_TRIDENT;
+  if(str == "bc") return BASE_ITEM_WHIP;
+  if(str == "km") return BASE_ITEM_KAMA;
+  if(str == "ku") return BASE_ITEM_KUKRI;
+  if(str == "sr") return BASE_ITEM_SICKLE;
+  if(str == "ds") return BASE_ITEM_DOUBLEAXE;
+  if(str == "dm") return BASE_ITEM_TWOBLADEDSWORD;
+  if(str == "dp") return BASE_ITEM_DIREMACE;
+  if(str == "os") return BASE_ITEM_GREATAXE;
+  if(str == "rs") return BASE_ITEM_HANDAXE;
+  if(str == "ts") return BASE_ITEM_DWARVENWARAXE;
+  if(str == "bs") return BASE_ITEM_BATTLEAXE;
+  if(str == "lc") return BASE_ITEM_LIGHTFLAIL;
+  if(str == "tc") return BASE_ITEM_HEAVYFLAIL;
+  if(str == "lk") return BASE_ITEM_LIGHTHAMMER;
+  if(str == "vk") return BASE_ITEM_WARHAMMER;
+  if(str == "kj") return BASE_ITEM_CLUB;
+  if(str == "pa") return BASE_ITEM_LIGHTMACE;
+  if(str == "re") return BASE_ITEM_MORNINGSTAR;
+  if(str == "ma") return 318;
+  if(str == "hu") return BASE_ITEM_QUARTERSTAFF;
+  if(str == "x2") return 303;
+  if(str == "x3") return 305;
+  if(str == "x4") return 310;
+  if(str == "x5") return 304;
+  if(str == "x6") return 308;
+  if(str == "x7") return 321;
+  if(str == "x8") return 317;
+  if(str == "y1") return 320;
+  if(str == "y2") return 319;
+  if(str == "y3") return 324;
+  if(str == "ss") return 203;
+  if(str == "hp") return 301;
+  if(str == "lp") return 302;
+  if(str == "ot") return 300;
+  if(str == "ru") return BASE_ITEM_GLOVES;
+
+return -1;
+
+}

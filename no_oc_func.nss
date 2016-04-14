@@ -1,6 +1,7 @@
 #include "ku_libtime"
 //#include "no_oc_inc"
 #include "no_nastcraft_ini"
+#include "tc_functions"
 #include "tc_xpsystem_inc"
 #include "ku_items_inc"
 #include "x3_inc_string"
@@ -93,7 +94,92 @@ void no_zjistiobsah(string no_tagveci)
 {
 }////////konec no_zjisti_obsah
 
+int __ocGetPercentsFromLevel(int no_level) {
+  int no_menu_max_procent = ((no_level + 1) / 3) * 2 + 8;
 
+  if(no_menu_max_procent > 20)
+    no_menu_max_procent = 20;
+  if(no_menu_max_procent < 10)
+    no_menu_max_procent = 10;
+  return no_menu_max_procent;
+
+/*  if(no_level >= 17)
+    return 20;
+  if(no_level >= 14)
+    return 18;
+  if(no_level >= 11)
+    return 16;
+  if(no_level >= 8)
+    return 14;
+  if(no_level >= 5)
+    return 12;
+*/
+  return 10;
+}
+
+int __ocGetMaxEnchantment(string sType) {
+  int iType = TC_getBaseItemByShortcut(sType);
+  if(iType < 0)
+    return -1;
+
+  switch(iType) {
+    case BASE_ITEM_GREATSWORD:
+    case BASE_ITEM_HALBERD:
+    case BASE_ITEM_TRIDENT:
+    case BASE_ITEM_GREATAXE:
+    case 318: // Maul
+    case 320: // Mercuruial gretsword
+      return 20;
+    case BASE_ITEM_BASTARDSWORD:
+    case BASE_ITEM_KATANA:
+    case BASE_ITEM_SHORTSPEAR:
+    case BASE_ITEM_SCYTHE:
+    case BASE_ITEM_DWARVENWARAXE:
+    case BASE_ITEM_HEAVYFLAIL:
+    case 305:  // falchion
+    case 321:  // Double scimitar
+    case 317:  // Heavy mace
+    case 301:  // heavy pick
+      return 18;
+    case BASE_ITEM_LONGSWORD:
+    case BASE_ITEM_QUARTERSTAFF:
+    case BASE_ITEM_DOUBLEAXE:
+    case BASE_ITEM_TWOBLADEDSWORD:
+    case BASE_ITEM_DIREMACE:
+    case BASE_ITEM_BATTLEAXE:
+    case BASE_ITEM_WARHAMMER:
+    case BASE_ITEM_MORNINGSTAR:
+    case 304:  // Nunchaku
+    case 319:  // Mercurial longsword
+    case 324:  // Maugdoublesword
+    case 203:  // One handed spear
+    case 300:  // Onehanded triden
+      return 16;
+    case BASE_ITEM_SHORTSWORD:
+    case BASE_ITEM_RAPIER:
+    case BASE_ITEM_SCIMITAR:
+    case BASE_ITEM_KAMA:
+    case BASE_ITEM_SICKLE:
+    case BASE_ITEM_HANDAXE:
+    case BASE_ITEM_LIGHTHAMMER:
+    case BASE_ITEM_CLUB:
+    case BASE_ITEM_LIGHTMACE:
+    case 303:  // Sai
+    case 308:  // Sap
+    case BASE_ITEM_GLOVES:
+    case 302:  // Light pick
+      return 14;
+    case BASE_ITEM_DAGGER:
+    case BASE_ITEM_WHIP:
+    case BASE_ITEM_KUKRI:
+    case 310:  // Katar
+      return 120;
+    case BASE_ITEM_LIGHTFLAIL:
+      return 100;
+  }
+  return 0;
+
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////udela jmeno celkoveho vyrobku at uz to je cokoliv///////////////////////////////
@@ -1920,343 +2006,173 @@ int no_stacksize = GetItemStackSize(no_Item);      //zjisti kolik je toho ve sta
 
 
 
-void no_kamen( object no_pec, int no_mazani)
+void no_kamen( object no_pec, int no_mazani) {
 ///////////////////////////////////////////
 //// vystup:  no_forma
 //////
 ////////////////////////////////////////////
+  object no_Item2 = GetFirstItemInInventory(no_pec);
+  while(GetIsObjectValid(no_Item2))  {
 
-{ object no_Item2 = GetFirstItemInInventory(no_pec);
-while(GetIsObjectValid(no_Item2))  {
+    if ( (GetStringLeft(GetTag(no_Item2),11) == "no_oc_kame_") && 
+         (StringToInt(GetStringRight(GetTag(no_Item2),3)) > 0)   ) {
+      int no_co_mame_za_kamen = StringToInt(GetStringRight(GetTag(no_Item2),3));
+      if ( NO_oc_DEBUG == TRUE )
+        SendMessageToPC(no_oPC,"kamen pred upravou" + IntToString( no_co_mame_za_kamen) );
+      no_co_mame_za_kamen = no_co_mame_za_kamen/20;
+      no_co_mame_za_kamen = no_co_mame_za_kamen*20;
+      if ( NO_oc_DEBUG == TRUE )
+        SendMessageToPC(no_oPC,"kamen po uprave" + IntToString( no_co_mame_za_kamen) );
 
-    if ( (GetStringLeft(GetTag(no_Item2),11) == "no_oc_kame_")& (StringToInt(GetStringRight(GetTag(no_Item2),3)) > 0)   )
-     {
-     int no_co_mame_za_kamen = StringToInt(GetStringRight(GetTag(no_Item2),3));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"kamen pred upravou" + IntToString( no_co_mame_za_kamen) );
-     no_co_mame_za_kamen = no_co_mame_za_kamen/20;
-     no_co_mame_za_kamen = no_co_mame_za_kamen*20;
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"kamen po uprave" + IntToString( no_co_mame_za_kamen) );
+      SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
+      no_snizstack(no_Item2,no_mazani);
+      SetLocalInt(OBJECT_SELF,"no_cena_kamen",GetLocalInt(no_Item2,"tc_cena"));
+      //SetLocalInt(no_Item,"no_cena_kamen",GetLocalInt(OBJECT_SELF,"tc_cena"));
+      if (no_mazani == TRUE) {
 
-     SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
-     no_snizstack(no_Item2,no_mazani);
-     SetLocalInt(OBJECT_SELF,"no_cena_kamen",GetLocalInt(no_Item2,"tc_cena"));
-     //SetLocalInt(no_Item,"no_cena_kamen",GetLocalInt(OBJECT_SELF,"tc_cena"));
-if (no_mazani == TRUE) {
-
-            int no_level = TC_getLevel(no_oPC,TC_ocarovavac);  // TC kovar = 33
-            int no_menu_max_procent = 10;
-         if (no_level >16) {
-         no_menu_max_procent = 20;  }
-         else if ((no_level <17)&(no_level>13 )) {
-         no_menu_max_procent = 18;  }
-         else if ((no_level <14)&(no_level>10 )) {
-         no_menu_max_procent = 16;  }
-         else if ((no_level <11)&(no_level>7 )) {
-         no_menu_max_procent = 14;  }
-         else if ((no_level <8)&(no_level>4 )) {
-         no_menu_max_procent = 12;  }
-         else if ((no_level <5)) {
-         no_menu_max_procent = 10;  }
+          int no_level = TC_getLevel(no_oPC,TC_ocarovavac);  // TC kovar = 33
+          int no_menu_max_procent = __ocGetPercentsFromLevel(no_level);
 
 
 
-//pridano 28.2.
+        if (( GetLocalInt(OBJECT_SELF,"no_hl_mat")<5 )  || 
+            ( GetLocalInt(OBJECT_SELF,"no_ve_mat")<5 )) {
 
-//co je jaka zbran se da vycist v //no_zb_disr_kov
+          int iMaxPerc = __ocGetMaxEnchantment(GetLocalString(OBJECT_SELF,"no_druh_vyrobku"));
+          if(no_menu_max_procent > iMaxPerc) {
+            no_menu_max_procent = iMaxPerc;
+            FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich "+IntToString(iMaxPerc)+"0%" ,no_oPC,FALSE );
+          }
 
-//////////7_5_2014////////////
-///taak a tady je potreba doplnit, aby se to snizilo jen v pripade pouziti elementu.
-/////////////////////////////////////////////
-//void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta,int barva )
-// switch (GetLocalInt(OBJECT_SELF,"no_hl_mat")) {
-//
-//case 0: {no_menu_nazev_kovu = "kyselina";
-//         SetLocalInt(OBJECT_SELF,"no_hl_mat",1); break;}
-//case 1: {no_menu_nazev_kovu = "kyselina";    break;}
-//case 2: {no_menu_nazev_kovu = "elektrina";   break;}
-//case 3: {no_menu_nazev_kovu = "ohen";   break;}
-//case 4: {no_menu_nazev_kovu = "chlad";   break;}
-//case 5: {no_menu_nazev_kovu = "zvuk";   break;}
-if (( GetLocalInt(OBJECT_SELF,"no_hl_mat")<5 )  || ( GetLocalInt(OBJECT_SELF,"no_ve_mat")<5 ))
-{
+        }// pokud mame na zbrani vybrany element
 
-if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "dl") {
-            if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-           }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "dy" ){ if (no_menu_max_procent >12) {no_menu_max_procent = 12;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 120%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "kr" ){ if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "ba" ) { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
+  ///kamen je vetsi, nez maximum co umim, takze zkrouhnu kamen na maximum
+        if ( (no_menu_max_procent*10) < no_co_mame_za_kamen) {
+          no_co_mame_za_kamen = no_menu_max_procent*10; //krouhavam kamen na maximum co umim
+          int no_hl_proc =  GetLocalInt(OBJECT_SELF,"no_hl_proc")*10;
+
+          if (no_hl_proc> no_co_mame_za_kamen)
+            no_hl_proc = no_co_mame_za_kamen;
+            //tedy kdyz jsou nastavene vysoke procenta, ale mame je zkrouhnute zbrani trebas.
+          int no_co_mame_za_kamen2 = 0;
+          if ( NO_oc_DEBUG == TRUE )
+            SendMessageToPC(no_oPC,"(no_menu_max_procent*10) < no_co_mame_za_kamen)" );
+
+          no_co_mame_za_kamen2 = no_co_mame_za_kamen - no_hl_proc;
+          no_co_mame_za_kamen = no_hl_proc;
+          if(no_hl_proc == 200)
+            no_co_mame_za_kamen2 = no_co_mame_za_kamen-180; //TODO Why is that?
+
+          if (no_co_mame_za_kamen2>0) {
+            if (no_mazani == TRUE) {
+              FloatingTextStringOnCreature("Tenhle kamen je silny, bude pouzit jako: " +IntToString(no_co_mame_za_kamen)+"%"+GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu")+" "+IntToString(no_co_mame_za_kamen2)+"% "+ GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu2") ,no_oPC, FALSE);
             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "vm" ) { if (no_menu_max_procent >20) {no_menu_max_procent = 20;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 200%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ka" ) { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-           }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ra" ) { if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-           }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "sc" ) { if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ha" ) { if (no_menu_max_procent >20) {no_menu_max_procent = 20;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 200%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ko" ) { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ks" ) { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "tr" ) { if (no_menu_max_procent >20) {no_menu_max_procent = 20;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 200%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "hu" ) { if (no_menu_max_procent >16) {no_menu_max_procent =16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "bc" ) { if (no_menu_max_procent >12) {no_menu_max_procent = 12;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 120%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "km" ) { if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "ku" ){ if (no_menu_max_procent >12) {no_menu_max_procent = 12;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 120%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "sr" ) { if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ds" ) { if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "dm" ){ if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "dp" ){ if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "os" ){ if (no_menu_max_procent >20) {no_menu_max_procent = 20;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 200%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "rs") { if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ts") { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "bs") { if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "lc") { if (no_menu_max_procent >10) {no_menu_max_procent = 10;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 100%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "tc" ){ if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "lk" ){ if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "vk" ){ if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "kj" ){ if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "pa" ){ if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "re" ){ if (no_menu_max_procent >16) {no_menu_max_procent = 160;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ma") { if (no_menu_max_procent >20) {no_menu_max_procent = 20;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 200%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "x2"){ if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "x3" ){ if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "x4" ){ if (no_menu_max_procent >12) {no_menu_max_procent = 12;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 120%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "x5" ){ if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "x6") { if (no_menu_max_procent >14) {no_menu_max_procent = 14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "x7") { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "x8") { if (no_menu_max_procent >18) {no_menu_max_procent = 18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "y1"){ if (no_menu_max_procent >20) {no_menu_max_procent = 20;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 200%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "y2") { if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-             }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "y3" ){ if (no_menu_max_procent >16) {no_menu_max_procent = 16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ss" ) { if (no_menu_max_procent >16) {no_menu_max_procent =16;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 160%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "ru" ) { if (no_menu_max_procent >14) {no_menu_max_procent =14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "hp" ) { if (no_menu_max_procent >18) {no_menu_max_procent =18;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 180%" ,no_oPC,FALSE );                                                                        }
-            }
-else if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")==  "lp" ) { if (no_menu_max_procent >14) {no_menu_max_procent =14;
-             FloatingTextStringOnCreature("Do teto zbrane neni mozne vlozit tolik ocarovani ! Bude pouzito prvnich 140%" ,no_oPC,FALSE );                                                                        }
-            }
-            }// pokud mame na zbrani vybrany element
+          }
 
-///kamen je vetsi, nez maximum co umim, takze zkrouhnu kamen na maximum
-         if ( (no_menu_max_procent*10) < no_co_mame_za_kamen) {
-         no_co_mame_za_kamen = no_menu_max_procent*10; //krouhavam kamen na maximum co umim
-        int no_hl_proc =  GetLocalInt(OBJECT_SELF,"no_hl_proc")*10;
+          if (no_co_mame_za_kamen2==0)  {
+            if (no_mazani == TRUE) {
+              FloatingTextStringOnCreature("Tenhle kamen je silny, bude pouzit jako: " +IntToString(no_co_mame_za_kamen)+"%"+GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu") ,no_oPC, FALSE);
+            }
+          }
 
-if (no_hl_proc> no_co_mame_za_kamen) no_hl_proc = no_co_mame_za_kamen;
-      //tedy kdyz jsou nastavene vysoke procenta, ale mame je zkrouhnute zbrani trebas.
-          int no_co_mame_za_kamen2;
-          if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"(no_menu_max_procent*10) < no_co_mame_za_kamen)" );
-                            if ((no_hl_proc == 60)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-60;
-                            no_co_mame_za_kamen=60;}
-                            if ((no_hl_proc == 80)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-80;
-                            no_co_mame_za_kamen=80;}
-                            if ((no_hl_proc == 100)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-100;
-                            no_co_mame_za_kamen=100;}
-                            if ((no_hl_proc == 120)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-120;
-                            no_co_mame_za_kamen=120;}
-                            if ((no_hl_proc == 140)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-140;
-                            no_co_mame_za_kamen=140;}
-                            if ((no_hl_proc == 160)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-160;
-                            no_co_mame_za_kamen=160; }
-                            if ((no_hl_proc == 180)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-180;
-                            no_co_mame_za_kamen=180;}
-                            if ((no_hl_proc == 200)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-180;
-                            no_co_mame_za_kamen=200;}
+          SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
+          SetLocalInt(OBJECT_SELF,"no_kamen2",no_co_mame_za_kamen2);
+        }//kdyz duse mensi, nez max procent
 
-                if (no_co_mame_za_kamen2>0) {
-        if (no_mazani == TRUE){ FloatingTextStringOnCreature("Tenhle kamen je silny, bude pouzit jako: " +IntToString(no_co_mame_za_kamen)+"%"+GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu")+" "+IntToString(no_co_mame_za_kamen2)+"% "+ GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu2") ,no_oPC, FALSE);     }
-                }
-                if (no_co_mame_za_kamen2==0)  {
-       if (no_mazani == TRUE) { FloatingTextStringOnCreature("Tenhle kamen je silny, bude pouzit jako: " +IntToString(no_co_mame_za_kamen)+"%"+GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu") ,no_oPC, FALSE);  }
-                }
-
-        SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
-        SetLocalInt(OBJECT_SELF,"no_kamen2",no_co_mame_za_kamen2);
-            }//kdyz duse mensi, nez max procent
-
-// kamen je maly, nedosahnu na maximum, takze musim snizit % co to umi.
+  // kamen je maly, nedosahnu na maximum, takze musim snizit % co to umi.
         else if ( (no_menu_max_procent*10) > no_co_mame_za_kamen) {
-        int no_hl_proc =  GetLocalInt(OBJECT_SELF,"no_hl_proc")*10;
-        //kamen je maly, ze dosahne stezi jen na hlavni material.
-                if ( no_co_mame_za_kamen<=(no_hl_proc) ) {
-                    if ( NO_oc_DEBUG == TRUE )  {SendMessageToPC(no_oPC,"( no_co_mame_za_kamen<=(no_hl_proc) ) " ); }
-                            if (no_co_mame_za_kamen < 20) no_co_mame_za_kamen=0;
-                            if ((no_co_mame_za_kamen >= 20)&(no_co_mame_za_kamen < 40)) no_co_mame_za_kamen=20;
-                            if ((no_co_mame_za_kamen >= 40)&(no_co_mame_za_kamen < 60)) no_co_mame_za_kamen=40;
-                            if ((no_co_mame_za_kamen >= 60)&(no_co_mame_za_kamen < 80)) no_co_mame_za_kamen=60;
-                            if ((no_co_mame_za_kamen >= 80)&(no_co_mame_za_kamen < 100)) no_co_mame_za_kamen=80;
-                            if ((no_co_mame_za_kamen >= 100)&(no_co_mame_za_kamen < 120)) no_co_mame_za_kamen=100;
-                            if ((no_co_mame_za_kamen >= 120)&(no_co_mame_za_kamen < 140)) no_co_mame_za_kamen=120;
-                            if ((no_co_mame_za_kamen >= 140)&(no_co_mame_za_kamen < 160)) no_co_mame_za_kamen=140;
-                            if ((no_co_mame_za_kamen >=160)&(no_co_mame_za_kamen < 180)) no_co_mame_za_kamen=160;
-                            if ((no_co_mame_za_kamen >= 180)&(no_co_mame_za_kamen < 200)) no_co_mame_za_kamen=180;
-                            if ((no_co_mame_za_kamen >= 200)) no_co_mame_za_kamen=200;
-        if (no_mazani == TRUE) {FloatingTextStringOnCreature("Tenhle kamen je slabsi, bude pouzit jen jako: " + IntToString(no_co_mame_za_kamen) + "%" + GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu"),no_oPC, FALSE); }
+          int no_hl_proc =  GetLocalInt(OBJECT_SELF,"no_hl_proc")*10;
+          //kamen je maly, ze dosahne stezi jen na hlavni material.
+          if ( no_co_mame_za_kamen<=(no_hl_proc) ) {
+            if ( NO_oc_DEBUG == TRUE ) {
+              SendMessageToPC(no_oPC,"( no_co_mame_za_kamen<=(no_hl_proc) ) " );
+            }
+            no_co_mame_za_kamen = (no_co_mame_za_kamen / 20) * 20; //Floor to 20 steps
+            if(no_co_mame_za_kamen > 200)
+              no_co_mame_za_kamen = 200;
 
-        SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
-        SetLocalInt(OBJECT_SELF,"no_kamen2",0);
-                    }
-                    //kamen je maly,ale dosahne i na hlavni, i na vedeljsi material
-        else if ( no_co_mame_za_kamen >(no_hl_proc) ) {
-        int no_co_mame_za_kamen2;
-            if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_co_mame_za_kamen >(no_hl_proc)" );
-                            if ((no_hl_proc == 60)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-60;
-                            no_co_mame_za_kamen=60;}
-                            if ((no_hl_proc == 80)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-80;
-                            no_co_mame_za_kamen=80;}
-                            if ((no_hl_proc == 100)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-100;
-                            no_co_mame_za_kamen=100;}
-                            if ((no_hl_proc == 120)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-120;
-                            no_co_mame_za_kamen=120;}
-                            if ((no_hl_proc == 140)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-140;
-                            no_co_mame_za_kamen=140;}
-                            if ((no_hl_proc == 160)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-160;
-                            no_co_mame_za_kamen=160; }
-                            if ((no_hl_proc == 180)) {
-                            no_co_mame_za_kamen2 = no_co_mame_za_kamen-180;
-                            no_co_mame_za_kamen=180;}
+            if (no_mazani == TRUE) {
+              FloatingTextStringOnCreature("Tenhle kamen je slabsi, bude pouzit jen jako: " + IntToString(no_co_mame_za_kamen) + "%" + GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu"),no_oPC, FALSE);
+            }
 
-        if (no_mazani == TRUE){ FloatingTextStringOnCreature("Tenhle kamen je slabsi, bude pouzit jen jako: " +IntToString(no_co_mame_za_kamen)+"%"+GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu")+" "+IntToString(no_co_mame_za_kamen2)+"% "+ GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu2") ,no_oPC, FALSE);    }
-        SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
-        SetLocalInt(OBJECT_SELF,"no_kamen2",no_co_mame_za_kamen2);
+            SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
+            SetLocalInt(OBJECT_SELF,"no_kamen2",0);
+          }
+          //kamen je maly,ale dosahne i na hlavni, i na vedeljsi material
+          else if ( no_co_mame_za_kamen >(no_hl_proc) ) {
+            int no_co_mame_za_kamen2;
+            if ( NO_oc_DEBUG == TRUE )  
+              SendMessageToPC(no_oPC,"no_co_mame_za_kamen >(no_hl_proc)" );
+
+              no_co_mame_za_kamen2 = no_co_mame_za_kamen - no_hl_proc;
+              no_co_mame_za_kamen = no_hl_proc;
+
+            if (no_mazani == TRUE) {
+              FloatingTextStringOnCreature("Tenhle kamen je slabsi, bude pouzit jen jako: " +IntToString(no_co_mame_za_kamen)+"%"+GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu")+" "+IntToString(no_co_mame_za_kamen2)+"% "+ GetLocalString(OBJECT_SELF,"no_menu_nazev_kovu2") ,no_oPC, FALSE);
+            }
+            SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
+            SetLocalInt(OBJECT_SELF,"no_kamen2",no_co_mame_za_kamen2);
+
+          }
+
+        }//kdyz duse mensi, nez max procent
 
 
+      }// if (no_mazani == TRUE)
 
-        }
-
-           }//kdyz duse mensi, nez max procent
-
-
-             }// if (no_mazani == TRUE)
-
-         break;      }
-  no_Item2 = GetNextItemInInventory(no_pec);
+      break;
+    }
+    no_Item2 = GetNextItemInInventory(no_pec);
   }
 }
 
 
+int __getIsItemAllowedForEnchantment(object oItem) {
+  string sTag = GetTag(no_Item);
 
+  // Not stones?
+  if(GetStringRight(sTag,2) == "00")
+    return FALSE;
+  // Not already enchanted items
+  if(GetLocalInt(oItem,"no_OCAROVANO") )
+    return FALSE;
+  // Weapons
+  if((GetStringLeft(sTag,6) == "no_zb_") &&              
+     (GetStringLeft(GetResRef(oItem),10) != "no_zb_pris"))
+    return TRUE;
+  // Gloves
+  if((GetStringLeft(sTag,6) == "no_pl_") ||
+     (GetStringLeft(sTag,6) == "no_si_") ) {
+    if(GetBaseItemType(oItem) == BASE_ITEM_GLOVES)
+      return TRUE;
+  }
+  return FALSE;
+}
 
 
 void no_vyrobek (object no_Item, object no_pec, int no_mazani)
 // nastavi promennou no_vyrobek  na int cislo vyrobku, string tag veci.
 {
-no_Item = GetFirstItemInInventory(no_pec);
-while(GetIsObjectValid(no_Item))  {
+  no_Item = GetFirstItemInInventory(no_pec);
+  while(GetIsObjectValid(no_Item))  {
+    string sTag = GetTag(no_Item);
+    
+    if(__getIsItemAllowedForEnchantment(no_Item)) {
 
-if((GetStringRight(GetTag(no_Item),2) != "00")&((GetStringLeft(GetTag(no_Item),6) == "no_zb_")& (GetStringLeft(GetResRef(no_Item),10) != "no_zb_pris"))&(GetLocalInt(no_Item,"no_OCAROVANO") == FALSE))
-{ /////////////mame dokoncenou zbran
-    SetLocalString(OBJECT_SELF,"no_vyrobek",GetTag(no_Item));  // ulozime tag veci!!
-    SetLocalObject(OBJECT_SELF,"no_vyrobek",no_Item);
+/////////////mame dokoncenou zbran
+      SetLocalString(OBJECT_SELF,"no_vyrobek",GetTag(no_Item));  // ulozime tag veci!!
+      SetLocalObject(OBJECT_SELF,"no_vyrobek",no_Item);
 
-    //druh vyrobku, podle toho my urcime, kolik % se tam vejde.
-    string no_druh_vyrobku = GetStringLeft(GetTag(no_Item),8);
-    // budem do nej ukaladat co to ma za tip
-    no_druh_vyrobku = GetStringRight(no_druh_vyrobku,2);
-    SetLocalString(OBJECT_SELF,"no_druh_vyrobku",no_druh_vyrobku);
+      //druh vyrobku, podle toho my urcime, kolik % se tam vejde.
+      string no_druh_vyrobku = GetStringLeft(GetTag(no_Item),8);
+      // budem do nej ukaladat co to ma za tip
+      no_druh_vyrobku = GetStringRight(no_druh_vyrobku,2);
+      SetLocalString(OBJECT_SELF,"no_druh_vyrobku",no_druh_vyrobku);
 
 
-   // no_snizstack(no_Item,no_mazani);                          //znicime prisadu
-    break;
-  }
+      // no_snizstack(no_Item,no_mazani);                          //znicime prisadu
+      break;
+    }
 
 /*  //Rukavice ne
     if ((GetStringRight(GetTag(no_Item),5) != "00_00")&(GetStringLeft(GetTag(no_Item),8) == "no_si_r2")&(GetLocalInt(no_Item,"no_OCAROVANO") == FALSE))
