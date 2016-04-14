@@ -175,7 +175,7 @@ void spawn(object oPC){
                 }
 
                 // New spawn prototype
-                if(LOCK_ProcessSpawn(oObject, fSpawnDelay)) {
+                if(LOCK_ProcessSpawn(oObject, fSpawnDelay, oOverrrideFaction)) {
                     nNth++;
                     oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, nNth);
                     fSpawnDelay += 0.02; // To define an interval between all spawns.

@@ -471,7 +471,7 @@ void LOCK_SpawnObject(object oPC, location lLoc, string sTAG, string sNewTag="")
     SetLocalInt(oObject, "LOCK_DESPAWN", 1);
 }
 
-int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay) {
+int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay, object oFaction=OBJECT_INVALID ) {
   string sType = GetLocalString(oSpawn,"SPAWN_TYPE");
   location lLoc = GetLocation(oSpawn);
 
@@ -480,7 +480,7 @@ int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay) {
     return TRUE;
   }
   if(sType == "GROUP") {
-    LOCK_SpawnGroup(oSpawn);
+    LOCK_SpawnGroup(oSpawn, oFaction);
     return TRUE;
   }
   if(sType == "PLC") {
@@ -492,7 +492,7 @@ int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay) {
   if(sType == "NPC") {
     string sResref  = GetLocalString(oSpawn, "RESREF");
     string NEWTAG   = GetLocalString(oSpawn, "NEWTAG");
-    DelayCommand(fSpawnDelay, LOCK_SpawnCreature(lLoc, sResref, NEWTAG)); 
+    DelayCommand(fSpawnDelay, LOCK_SpawnCreature(lLoc, sResref, NEWTAG, oFaction));
     return TRUE;
   }
   if(sType == "SLOOT" ||
