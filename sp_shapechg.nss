@@ -32,9 +32,9 @@ void main()
 
     //Declare major variables
     int nSpell = GetSpellId();
-    effect  eV        = EffectVisualEffect(VFX_IMP_HEAD_ODD);
-    effect   eImpact     = EffectVisualEffect(VFX_FNF_DISPEL_DISJUNCTION);
-    spellsDispelMagic(OBJECT_SELF, 30, eV, eImpact, TRUE,TRUE);
+//    effect  eV        = EffectVisualEffect(VFX_IMP_HEAD_ODD);
+//    effect   eImpact     = EffectVisualEffect(VFX_FNF_DISPEL_DISJUNCTION);
+//    spellsDispelMagic(OBJECT_SELF, 30, eV, eImpact, TRUE,TRUE);
     effect eVis = EffectVisualEffect(VFX_FNF_SUMMON_MONSTER_3);
     effect ePoly;
     int nPoly;
