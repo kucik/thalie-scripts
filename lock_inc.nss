@@ -1061,6 +1061,7 @@ int lock_init_bosses(object oArea) {
       AssignCommand(oNPC, ClearAllActions(TRUE));
       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oNPC);
       */
+      SetLocalLocation(oNPC,"LOCK_MY_SPAWNPOINT",GetLocation(oNPC));
       DelayCommand(1.0,JumpToLimbo(oNPC));
 /*      DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eGhost,oNPC));
       DelayCommand(2.0, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDisApp,oNPC));*/
@@ -1122,7 +1123,7 @@ int lock_SpawnBosses(object oArea) {
 //    SendMessageToPC(GetFirstPC(),"Spawn all "+IntToString(iBossCount));
     for(i=1;i<=iBossCount;i++) {
       oNPC = GetLocalObject(oArea,"SLEEPING_BOSS_"+IntToString(i));
-      oBoss = CopyObject(oNPC,GetLocation(oNPC));
+      oBoss = CopyObject(oNPC,GetLocalLocation(oNPC,"LOCK_MY_SPAWNPOINT"));
       ChangeFaction(oBoss,oNPC);
       lock_CopyVars(oBoss,oNPC);
       lock_AppearBoss(oBoss);
@@ -1142,7 +1143,7 @@ int lock_SpawnBosses(object oArea) {
       i = Random(iBossCount)+1;
       /* Spawn boss */
       oNPC = GetLocalObject(oArea,"SLEEPING_BOSS_"+IntToString(i));
-      oBoss = CopyObject(oNPC,GetLocation(oNPC));
+      oBoss = CopyObject(oNPC,GetLocalLocation(oNPC,"LOCK_MY_SPAWNPOINT"));
       ChangeFaction(oBoss,oNPC);
 //      SendMessageToPC(GetFirstPC(),"Spawning "+GetName(oBoss));
       lock_CopyVars(oBoss,oNPC);
