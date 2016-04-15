@@ -2128,7 +2128,7 @@ void no_kamen( object no_pec, int no_mazani) {
 
 
 int __getIsItemAllowedForEnchantment(object oItem) {
-  string sTag = GetTag(no_Item);
+  string sTag = GetTag(oItem);
 
   // Not stones?
   if(GetStringRight(sTag,2) == "00")
