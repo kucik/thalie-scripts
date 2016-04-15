@@ -86,7 +86,7 @@ void main()
                        return;
                     }
                     //Apply linked effects and VFX impact
-                    DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration)));
+                    DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                 }
             }
