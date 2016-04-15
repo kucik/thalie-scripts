@@ -285,7 +285,7 @@ void __trapRandomRecoverable(object oTrap) {
 
 void ku_SetTrapDC(object oObject, int iTrapPower)
 {
-    if(iTrapPower < 0) 
+    if(iTrapPower < 0)
       iTrapPower = 0;
     SetTrapDetectDC(oObject,3 + 3*iTrapPower + d4());
     SetTrapDisarmDC(oObject,14 + 4*iTrapPower + Random(5));
@@ -412,7 +412,7 @@ void ku_LockLoot(object oChest, int iLockDC) {
       SetLockKeyRequired(oChest,FALSE);
       SetLockUnlockDC(oChest,Random(iLockDC)+(iLockDC/2));
     }
-  
+
 }
 
 void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
@@ -1091,7 +1091,13 @@ void __bossCheckersRegister(object oBoss) {
     if(GetObjectType(oChecker) == OBJECT_TYPE_WAYPOINT) {
       // Give me boss reference
       SetLocalObject(oChecker,"__LOCK_BOSS",oBoss);
-      DelayCommand(3.0, LOCK_BossCheckerCheckHP(oBoss, oChecker));
+//      WriteTimestampedLogEntry("BOSS CHECKER "+GetName(oBoss)+"  "+GetTag(oChecker));
+      string sChecker = GetLocalString(oChecker, "CHECK");
+      // Back compatibility
+      if(GetLocalString(oChecker, "CHECK_SCRIPT") == "ku_sp_checkhp")
+        sChecker = "HP";
+      if(sChecker == "HP")
+        DelayCommand(3.0, LOCK_BossCheckerCheckHP(oBoss, oChecker));
  //    ExecuteScript(GetLocalString(oChecker, "CHECK_SCRIPT"), oChecker);
     }
     i++;
@@ -1413,7 +1419,7 @@ int lock_init_SPLC(object oArea) {
           SetLocalInt(oSpawner,"__SPLC_LOCKED_"+si,GetLocked(oNPC)*GetLockUnlockDC(oNPC));
         }
         DestroyObject(oNPC,2.0);
-        
+
         SetLocalInt(oSpawner, "__SPLC_COUNT", iCnt + 1);
       }
       else {
@@ -1465,7 +1471,7 @@ void __processSpawnByTag(object oSpawner, string sTag) {
     return;
   if(sTag == "NONE")
     return;
-  
+
   int i = 1;
   object oSpawn =  GetNearestObjectByTag(sTag, oSpawner, i);
   while(GetIsObjectValid(oSpawn)) {
@@ -1498,9 +1504,9 @@ void LOCK_ProcessSpawnIF(object oSpawn) {
     if(iProb < 0) {
       __processSpawnByTag(oSpawn, GetLocalString(oSpawn, "SP_WP"+si));
       return;
-    }    
+    }
   }
-  
+
 }
 
 void LOCK_ProcessSpawnLIST(object oSpawn) {
@@ -1529,19 +1535,20 @@ void LOCK_ProcessSpawnAreaSWITCH(object oSpawn) {
 ///////////////////////////////////////////////////////////
 // Conditional spawn - Checker functions               ////
 ///////////////////////////////////////////////////////////
-void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot);
+void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot, object oSpawner);
 
-void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot) {
+void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot, object oSpawner) {
+//  WriteTimestampedLogEntry("BOSS CHECKHP "+GetName(oBoss)+" for "+IntToString(iHP));
   if(!GetIsObjectValid(oBoss))
     return;
 
   if( GetCurrentHitPoints(oBoss) < iHP) {
-    __processSpawnByTag(OBJECT_SELF, sSpawn);
+    __processSpawnByTag(oSpawner, sSpawn);
     if(iOneshot)
      return;
   }
 
-  DelayCommand(1.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot));
+  DelayCommand(1.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot, oSpawner));
 }
 
 void LOCK_BossCheckerCheckHP(object oBoss, object oSpawner) {
@@ -1549,8 +1556,9 @@ void LOCK_BossCheckerCheckHP(object oBoss, object oSpawner) {
   string sSpawn = GetLocalString(oSpawner, "SPAWN");
   int iOneshot = GetLocalInt(oSpawner, "ONESHOT");
 //  object oBoss = GetLocalObject(OBJECT_SELF, "__LOCK_BOSS");
+//  WriteTimestampedLogEntry("BOSS CHECKHP 1 "+GetName(oBoss)+" for "+IntToString(iHP));
 
-  DelayCommand(3.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot));
+  DelayCommand(3.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot, oSpawner));
 
 }
 

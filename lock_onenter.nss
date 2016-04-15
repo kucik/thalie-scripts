@@ -233,7 +233,7 @@ void main()
 
     // Only if the entering creature is a PC or DM.
     if (!(GetIsPC(oPC) || GetIsDMPossessed(oPC) || GetIsDM(oPC))) return;
-    
+
     if(Subraces_GetIsCharacterFromUnderdark(oPC ))
       SendMessageToPC(oPC,GetLocalString(OBJECT_SELF,"ph_hloubka"));
 
@@ -308,7 +308,7 @@ void main()
         {
             if( !GetIsDM(oPC) && (GetAppearanceType(oPC)!=APPEARANCE_TYPE_SPECTRE) )
                 DelayCommand(0.0f, ApplyDeadlandsEffects(oPC, oSoul));
-        }         
+        }
    }
    // Dismount in interior areas
    else if (!GetIsAreaExterior(OBJECT_SELF) && GetLocalInt(oSoul, "MOUNTED"))
