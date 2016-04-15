@@ -172,6 +172,9 @@ void LOCK_ProcessSpawnLIST(object oSpawn);
 // Area switch spawner
 void LOCK_ProcessSpawnAreaSWITCH(object oSpawn);
 
+// Boss Checkers
+void LOCK_BossCheckerCheckHP(object oBoss, object oSpawner);
+
 int ku_ChooseTrap(int power, int type) {
 
   int nTrap = 0;
@@ -1085,9 +1088,12 @@ void __bossCheckersRegister(object oBoss) {
   int i = 1;
   object oChecker = GetNearestObjectByTag(sTag, oBoss, i);
   while(GetIsObjectValid(oChecker)) {
-    // Give me boss reference
-    SetLocalObject(oChecker,"__LOCK_BOSS",oBoss);
-    ExecuteScript(GetLocalString(oChecker, "CHECK_SCRIPT"), oChecker);
+    if(GetObjectType(oChecker) == OBJECT_TYPE_WAYPOINT) {
+      // Give me boss reference
+      SetLocalObject(oChecker,"__LOCK_BOSS",oBoss);
+      DelayCommand(3.0, LOCK_BossCheckerCheckHP(oBoss, oChecker));
+ //    ExecuteScript(GetLocalString(oChecker, "CHECK_SCRIPT"), oChecker);
+    }
     i++;
     oChecker = GetNearestObjectByTag(sTag, oBoss, i);
   }
@@ -1519,3 +1525,32 @@ void LOCK_ProcessSpawnAreaSWITCH(object oSpawn) {
     __processSpawnByTag(oSpawn, sSwitch);
   }
 }
+
+///////////////////////////////////////////////////////////
+// Conditional spawn - Checker functions               ////
+///////////////////////////////////////////////////////////
+void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot);
+
+void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot) {
+  if(!GetIsObjectValid(oBoss))
+    return;
+
+  if( GetCurrentHitPoints(oBoss) < iHP) {
+    __processSpawnByTag(OBJECT_SELF, sSpawn);
+    if(iOneshot)
+     return;
+  }
+
+  DelayCommand(1.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot));
+}
+
+void LOCK_BossCheckerCheckHP(object oBoss, object oSpawner) {
+  int iHP = GetLocalInt(oSpawner, "MIN_HP");
+  string sSpawn = GetLocalString(oSpawner, "SPAWN");
+  int iOneshot = GetLocalInt(oSpawner, "ONESHOT");
+//  object oBoss = GetLocalObject(OBJECT_SELF, "__LOCK_BOSS");
+
+  DelayCommand(3.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot));
+
+}
+
