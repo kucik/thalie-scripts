@@ -431,7 +431,7 @@ int X2PreSpellCastCode()
    // with TRUE (unless they are DM possessed or in the Wild Magic Area in
    // Chapter 2 of Hordes of the Underdark.
    //---------------------------------------------------------------------------
-   if (!GetIsPC(OBJECT_SELF))
+   if (!GetIsPC(OBJECT_SELF) || GetIsPossessedFamiliar(OBJECT_SELF))
    {
        if( !GetIsDMPossessed(OBJECT_SELF) && !GetLocalInt(GetArea(OBJECT_SELF), "X2_L_WILD_MAGIC"))
        {
