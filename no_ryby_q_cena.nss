@@ -47,7 +47,7 @@ if (GetIsObjectValid(no_Item)) {
                 if (no_pocet>no_stacksize)   no_pocet=no_stacksize;
                 if (no_pocet<no_stacksize)   no_pocet= no_pocet;
                                                  //snizi se promena na obchodnikovy
-    price=price*10*no_pocet; //cena desekrat vetsi
+    price=price*3*no_pocet; //cena desekrat vetsi
     no_nazev = IntToString(price);
     no_pomocna = IntToString(no_pocet);
 

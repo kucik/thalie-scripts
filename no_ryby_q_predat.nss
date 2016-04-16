@@ -61,7 +61,7 @@ price == 0;
 
 
     //cena o pulku vyssi
-  float price2 = price * 1.5;
+  float price2 = price * 3.0;
   no_nazev = IntToString( FloatToInt(price2));
 
   SpeakString( "Tady mas za tech  " + IntToString(cnt) + " ryb " + no_nazev + " zlatek");
