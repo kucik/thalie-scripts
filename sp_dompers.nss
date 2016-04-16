@@ -17,6 +17,49 @@
 #include "x2_inc_spellhook"
 #include "ku_boss_inc"
 
+void __copyAction(object oTarget, object oSummon);
+void __copyAction(object oTarget, object oSummon) {
+  if(!GetHasSpellEffect(SPELL_DOMINATE_PERSON,oTarget) || !GetIsObjectValid(oSummon)) {
+//    SendMessageToPC(oTarget,"Free");
+    SetCommandable(TRUE,oTarget);
+    DestroyObject(oSummon);
+    return;
+  }
+//  SendMessageToPC(oTarget,"Dominated");
+//  AssignCommand(oTarget,ClearAllActions());
+
+  if(GetCurrentAction(oSummon) == ACTION_ATTACKOBJECT) {
+    object oEnemy = GetAttackTarget(oSummon);
+    if( (GetCurrentAction(oTarget) != ACTION_ATTACKOBJECT) ||
+        (GetAttackTarget(oTarget) != oEnemy) ) {
+//    SetCommandable(TRUE,oTarget);
+//      SendMessageToPC(oTarget,"Attack "+GetName(oEnemy));
+//    SetCommandable(TRUE,oTarget);
+      AssignCommand(oTarget,ClearAllActions());
+      AssignCommand(oTarget,ActionAttack(oEnemy));
+      SetCommandable(TRUE,oTarget);
+      DelayCommand(0.01, SetCommandable(FALSE,oTarget));
+    }
+  }
+  else {
+//    SendMessageToPC(oTarget,"Follow");
+//    AssignCommand(oTarget,ActionForceFollowObject(oSummon));
+    SetCommandable(TRUE,oTarget);
+    SetCommandable(FALSE,oTarget);
+  }
+
+//  SetCommandable(FALSE,oTarget);
+  DelayCommand(1.0,__copyAction(oTarget, oSummon));
+}
+
+void __followSummon(object oTarget) {
+  object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
+  SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
+  AssignCommand(oTarget,ActionForceFollowObject(oSummon));
+
+   __copyAction(oTarget, oSummon);
+}
+
 void main()
 {
 
@@ -85,8 +128,16 @@ void main()
                        SendMessageToPC(OBJECT_SELF,"Nelze ovládnout. NPC má vyšší úroveò než je vaše úroveò sesílatele.");
                        return;
                     }
-                    //Apply linked effects and VFX impact
-                    DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
+                    if(GetIsPC(oTarget)) {
+                      effect eSummon = EffectSummonCreature("ku_dominated", VFX_NONE);
+                      ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetLocation(oTarget), RoundsToSeconds(nDuration));
+                      DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eMind, oTarget, TurnsToSeconds(nDuration)));
+                      DelayCommand(1.3,__followSummon(oTarget));
+                    }
+                    else {
+                      //Apply linked effects and VFX impact
+                      DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
+                    }
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                 }
             }
