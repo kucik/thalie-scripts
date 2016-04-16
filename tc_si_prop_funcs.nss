@@ -218,9 +218,32 @@ int IP_CONST_DAMAGEREDUCTION_18                 = 17;
 int IP_CONST_DAMAGEREDUCTION_19                 = 18;
 int IP_CONST_DAMAGEREDUCTION_20                 = 19;
 */
+
+/*
+IP_CONST_DAMAGESOAK_5_HP        1
+IP_CONST_DAMAGESOAK_10_HP       2       
+IP_CONST_DAMAGESOAK_15_HP       3       
+IP_CONST_DAMAGESOAK_20_HP       4       
+IP_CONST_DAMAGESOAK_25_HP       5       
+IP_CONST_DAMAGESOAK_30_HP       6       
+IP_CONST_DAMAGESOAK_35_HP       7       
+IP_CONST_DAMAGESOAK_40_HP       8       
+IP_CONST_DAMAGESOAK_45_HP       9       
+IP_CONST_DAMAGESOAK_50_HP       10
+*/
 int ku_si_AddItemProperty_DmgReduction(object oItem, int iPower) {
 
-// switch(GetBaseItemType(oItem)) {
+  int iEnhancenment = 0;
+  int nHPSoak = 0;
+  switch(GetBaseItemType(oItem)) {
+    case BASE_ITEM_ARMOR:
+      iEnhancenment = (iPower -1) % 5; //0,1,2,3,4,0,1,2,3,4
+      nHPSoak = (iPower + 4 ) / 5; //1 - 2
+      break;
+    default:
+      iEnhancenment = iPower/2; //0 - 5
+      nHPSoak = IP_CONST_DAMAGESOAK_5_HP;
+      break;
 //   case BASE_ITEM_HELMET:
 //   case BASE_ITEM_GLOVES:
 //   case BASE_ITEM_BRACER:
@@ -232,9 +255,8 @@ int ku_si_AddItemProperty_DmgReduction(object oItem, int iPower) {
 //   default:
 //     iPower = iPower - 1 ;
 //     break;
-// }
-        iPower = iPower/2 ;
- itemproperty ip = ItemPropertyDamageReduction(iPower,IP_CONST_DAMAGESOAK_5_HP);
+  }
+ itemproperty ip = ItemPropertyDamageReduction(iEnhancenment, nHPSoak);
  AddItemProperty(DURATION_TYPE_PERMANENT,ip,oItem);
  return TRUE;
 }
