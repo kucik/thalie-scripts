@@ -16,12 +16,12 @@ int zbozi = GetLocalInt(OBJECT_SELF,"no_poptavka");
 
 
 switch(zbozi) {
-case id_no_cist_tin:  no_nazev = "kusu vycisteneho cinu"; break;
+/*case id_no_cist_tin:  no_nazev = "kusu vycisteneho cinu"; break;
 case id_no_cist_copp: no_nazev = "kusu vycistene medi"; break;
 case id_no_cist_verm: no_nazev = "kusu vycisteneho vermajlu"; break;
 case id_no_cist_iron: no_nazev = "kusu vycisteneho zeleza"; break;
 case id_no_cist_gold: no_nazev = "kusu vycisteneho zlata"; break;
-/*case id_no_cist_plat: no_nazev = "kusu vycistene platiny"; break;
+case id_no_cist_plat: no_nazev = "kusu vycistene platiny"; break;
 case id_no_cist_mith: no_nazev = "kusu vycisteneho mithrilu"; break;
 case id_no_cist_adam: no_nazev = "kusu vycisteneho adamantinu"; break;
 case id_no_cist_tita: no_nazev = "kusu vycisteneho titanu"; break;

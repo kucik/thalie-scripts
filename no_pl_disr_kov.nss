@@ -54,7 +54,7 @@ SetLocalString (OBJECT_SELF,"no_menu",GetStringRight(GetTag(no_vzataItem),2) );
 
 
 
-/////////////////////////////1-NASTAVIT vyroba krouzkovky/////////////////////////////////
+/////////////////////////////Krouzkova kosile - zakladni obranne cislo 4/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_krouz" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
@@ -65,40 +65,40 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet
 DelayCommand(0.1,SetLocalInt(OBJECT_SELF,"no_menu",1));
 } //////////////////////////////////////////////
 
-/////////////////////////////2-NASTAVIT vyroba drevcovych zbrani/////////////////////////////////
+/////////////////////////////Hrudn pancir - Zakladni obranne cislo 5/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_hrudn" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
-FloatingTextStringOnCreature("Vyroba destickove zbroje",no_oPC,FALSE );
+FloatingTextStringOnCreature("Vyroba hrudniho pancire",no_oPC,FALSE );
     no_reknimat(no_oPC);
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"));
 SetLocalInt(OBJECT_SELF,"no_menu",2);
 } //////////////////////////////////////////////
 
-/////////////////////////////3-NASTAVIT exoticke zbrane/////////////////////////////////
+/////////////////////////////Destickova zbroj - zakladni obranne cislo 6/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_desti" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
-FloatingTextStringOnCreature("Vyroba pancire",no_oPC,FALSE );
+FloatingTextStringOnCreature("Vyroba destikove zbroje",no_oPC,FALSE );
     no_reknimat(no_oPC);
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"));
 SetLocalInt(OBJECT_SELF,"no_menu",3);
 } //////////////////////////////////////////////
 
-/////////////////////////////4-NASTAVIT vyroba voboustranych zbrani/////////////////////////////////
+/////////////////////////////Polovicni platova zbroj- zakladni obranne cislo 7/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_pulpl" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
-FloatingTextStringOnCreature("Vyroba pulolovicni platove zbroje",no_oPC,FALSE );
+FloatingTextStringOnCreature("Vyroba polovicni platove zbroje",no_oPC,FALSE );
     no_reknimat(no_oPC);
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet"),"Zpet"));
 SetLocalInt(OBJECT_SELF,"no_menu",4);
 } /////////////////////////////////////////////
 
-/////////////////////////////5-NASTAVIT vyrobu seker /////////////////////////////////
+/////////////////////////////Plnopatova zbroj - zakladni obranne cislo 8/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_plnpl" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
@@ -109,7 +109,7 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_zpet
 SetLocalInt(OBJECT_SELF,"no_menu",5);
 } ////////////////////////////////////////
 
-/////////////////////////////6-NASTAVIT vyroba tupych zbrani/////////////////////////////////
+/////////////////////////////Helma /////////////////////////////////
 if (GetTag(no_vzataItem) == "no_vyr_helma" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
@@ -248,8 +248,8 @@ no_znicit(OBJECT_SELF); //znicime vsechny prepinace
 no_znicit(no_oPC);
 no_reopen(no_oPC);
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_krouz"),"Krouzkova kosile"));
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_hrudn"),"Destickova zbroj"));
-DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_desti"),"Pancir"));
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_hrudn"),"Hrudni pancir"));
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_desti"),"Destickova zbroj"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_pulpl"),"Pulovicni platova zbroj"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_plnpl"),"Plna platova zbroj"));
 DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_vyr_helma"),"Helma"));

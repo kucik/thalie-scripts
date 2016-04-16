@@ -34,7 +34,7 @@ void main()
                 return;
 
                 if(Random(100) > 75) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,20));
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,10));
                                             //40 minut v pripade ze zadny quest neni
                 return;
                                     }
@@ -57,9 +57,8 @@ case id_zahnuta_forma: SetLocalString(OBJECT_SELF,"no_nazevveci",resref_zahnuta_
     }
 
 
-
     no_nahoda = 5 + Random(20);//vygeneruje kolik toho chce
     SetLocalInt(OBJECT_SELF,"no_pocetveci",5+Random(20));
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,240)); // zachova si quest celej restart
-   }                                                                    //=12 hod REAL
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,120));
+   }                                                                    //=2 hodiny
 }

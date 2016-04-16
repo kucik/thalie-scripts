@@ -35,7 +35,7 @@ void main()
                 return;
 
                 if(Random(100) > 75) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,20));
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,10));
                                             //20 minut v pripade ze zadny quest neni
                 return;
                                     }
@@ -44,13 +44,13 @@ void main()
 
     SetLocalInt(OBJECT_SELF,"no_poptavka",no_nahoda);
     switch(no_nahoda) {
-  // brousene
+/*  // brousene
 case id_brou_nefr : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_nefr); break;
 case id_brou_ohni : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_ohni); break;
 case id_brou_amet : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_amet); break;
 case id_brou_fene : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_fene); break;
 case id_brou_mala : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_mala); break;
-case id_brou_aven : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_aven); break;
+case id_brou_aven : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_brou_aven); break;*/
 //vynikajici
 case id_fine_nefr : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_nefr); break;
 case id_fine_ohni : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_ohni); break;
@@ -70,7 +70,7 @@ case id_fine_zive : SetLocalString(OBJECT_SELF,"no_nazevveci",resref_fine_zive);
 
     no_nahoda = 5 + Random(10); //vygeneruje kolik toho chce
     SetLocalInt(OBJECT_SELF,"no_pocetveci",5+Random(10));
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,240)); // zachova 4 hodiny real
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,120)); // zachova 2 hodiny real
 
 }
 }

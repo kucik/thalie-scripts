@@ -34,7 +34,7 @@ void main()
                 return;
 
                 if(Random(100) > 75) { //  Vygeneruj quest s 25% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,20));
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,10));
                                             //20 minut v pripade ze zadny quest neni
                 return;
                                     }
@@ -77,6 +77,6 @@ case id_tc_nasa_jil :SetLocalString(OBJECT_SELF,"no_nazevveci",resref_tc_nasa_ji
 
     no_nahoda =5 + Random(10); //vygeneruje kolik toho chce
     SetLocalInt(OBJECT_SELF,"no_pocetveci",5+Random(10));
-    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,240)); //
-   }                                                                    //=4 hod REAL
+    SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,120)); //
+   }                                                                    //=2 hod REAL
 }

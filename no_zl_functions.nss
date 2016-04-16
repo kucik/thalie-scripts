@@ -455,7 +455,7 @@ if (no_random < (TC_dej_vlastnost(TC_zlatnik,no_oPC)/4+1) ) {
 if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
 FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-no_random = Random(30)+1;
+no_random = Random(24)+1;
 
 switch (no_random)  {
 case 1: {
@@ -473,167 +473,130 @@ case 2: {
 case 3: {
                     itemproperty no_ip = ItemPropertySkillBonus(SKILL_SEARCH,1);
                   AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  no_ip = ItemPropertyACBonusVsSAlign(IP_CONST_ALIGNMENTGROUP_LAWFUL,1);
-                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Hledac'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 case 4: {
-                   itemproperty no_ip = ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_UNDEAD,1);
-                   AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                   SetName(no_Item,GetName(no_Item) + "  'Zhouba nemrtvych'");
-                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 130);
-                   break;}
-case 5: {
-            itemproperty no_ip = ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_GIANT,1);
-                   AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                   SetName(no_Item,GetName(no_Item) + "  'Zhouba obru'");
-                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 130);
-                   break;}
-case 6: {
             itemproperty no_ip =ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_REFLEX,1);
                    AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Rychlovka'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 7: {
+case 5: {
             itemproperty no_ip =ItemPropertySkillBonus(SKILL_SPOT,2);
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Lepsi oko'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 8: {
+case 6: {
             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_WILL,1),no_Item);
             SetName(no_Item,GetName(no_Item) + "  'Nezlomna vule'");
             SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case  9: {
+case  7: {
                itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_ELECTRICAL,d2());
                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                 SetName(no_Item,GetName(no_Item) + "  'Uzemnovac'");
                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 10:  {
+case 8:  {
         itemproperty no_ip =ItemPropertySkillBonus(SKILL_HIDE,2);
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Schovka'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case  11:  {
+case  9:  {
         itemproperty no_ip =ItemPropertySkillBonus(SKILL_APPRAISE,2);
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Vyjednavac'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 12:  {
+case 10:  {
                 itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_SONIC,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Ucpavka usi'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 13:  {
+case 11:  {
                 itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_DIVINE,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Bozsky stit'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 14:  {
+case 12:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_DISEASE,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Chorobo pryc'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 15:  {
+case 13:  {
                  itemproperty no_ip =ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_FORTITUDE,1);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Tvrda hlava'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 16:  {
+case 14:  {
                   itemproperty no_ip = ItemPropertyACBonusVsSAlign(IP_CONST_ALIGNMENTGROUP_CHAOTIC,1);
                   AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Neutralizer'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 17:  {
+case 15:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_FEAR,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Nebojsa'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 18:  {
+case 16:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_COLD,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Zimomrivec'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 19:  {
+case 17:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_DEATH,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Smrto pryc'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 20:  {
+case 18:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_POISON,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Odolna kuze'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 21:  {
-            itemproperty no_ip = ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_DRAGON,2);
-                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Draci zhouba'");
-                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
-                   break;}
-case 22:  {
+case 19:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_DISEASE,2+d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Chorobo pryc'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 23:  {
+case 20:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_POSITIVE,2+d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Zivy stit'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 24:  {
+case 21:  {
                   itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,2+d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Mrtvak'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 25:  {
+case 22:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_FEAR,2+d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Nebojsa'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 26:  {
-            itemproperty no_ip = ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_HUMAN,1+d2());
-                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Lebko drtic'");
-                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
-                   break;}
-case 27:  {
-            itemproperty no_ip = ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_GIANT,1+d2());
-                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Nicitel obru'");
-                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
-                   break;}
-case 28:  {
-            itemproperty no_ip = ItemPropertyACBonusVsRace(IP_CONST_RACIALTYPE_DRAGON,1+d2());
-                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Drakobijec'");
-                  SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 500);
-                   break;}
-case 29:  {
+
+case 23:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_DEATH,2+d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Zachranar'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
-case 30:  {
+case 24:  {
                  itemproperty no_ip = ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_MINDAFFECTING,2+d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Mozkochran");
