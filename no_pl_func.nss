@@ -481,7 +481,7 @@ if (no_random < (TC_dej_vlastnost(TC_platner,no_oPC)/4+1) ) {
 if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
 FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-no_random = Random(20)+1;
+no_random = Random(16)+1;
 
 
 switch (no_random)  {
@@ -565,46 +565,19 @@ case 13:  {
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
 case 14:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_SLASHING,no_bonus_vylepseni+d2());
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Tvrdej plech'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-
-case 15:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,no_bonus_vylepseni+d2());
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Bodo stop'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-
-case 16:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_BLUDGEONING,no_bonus_vylepseni+d2());
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Otloukanek'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-case 17:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PHYSICAL,no_bonus_vylepseni+1);
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Extra trida'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-
-case 18:  {
                 itemproperty no_ip =ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_REFLEX,d2());
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Reakcnak'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 200);
                    break;}
 
-case  19:  {
+case  15:  {
         itemproperty no_ip =ItemPropertySkillBonus(SKILL_LISTEN,1 + d4());
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Poslouchac'");
                     SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 200);
                    break;}
-case  20:  {
+case  16:  {
         itemproperty no_ip =ItemPropertySkillBonus(SKILL_HEAL,1 + d2());
                     AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                     SetName(no_Item,GetName(no_Item) + "  'Lecitel'");
@@ -631,205 +604,205 @@ switch   (no_kov_co_pridavam){
                              break;  }
                         case 4: { no_bonus_vylepseni = no_bonus_vylepseni -3;
                                   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                   }
                              break;  }
                         case 6: { no_bonus_vylepseni = no_bonus_vylepseni -4;
                                   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                        //no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                   }
                              break;  }
                         case 8: { no_bonus_vylepseni = no_bonus_vylepseni -4;
                                   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                   }
                              break;  }
                         case 10: { no_bonus_vylepseni = no_bonus_vylepseni -5;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       //no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                              break;  }
                         case 12: { no_bonus_vylepseni = no_bonus_vylepseni -4;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                              break;  }
                         case 14: { no_bonus_vylepseni = no_bonus_vylepseni -3;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                              break;  }
                         case 16: { no_bonus_vylepseni = no_bonus_vylepseni -3;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                      // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                              break;  }
                         case 18: { no_bonus_vylepseni = no_bonus_vylepseni -2;
-                                   no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                 // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         case 20: { no_bonus_vylepseni = no_bonus_vylepseni -2;
-                                   no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                 //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         } //konec vnitrniho switche
                break;     }//konec cinu
         case 2:  {  switch (no_kov_pridame_procenta) {
         //meï
                         case 2: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                              break;  }
                         case 4: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                     //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                      // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                              break;  }
                         case 6: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                     //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    }
                                    no_bonus_vylepseni = no_bonus_vylepseni -2;
                              break;  }
                         case 8: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
-                                   }
+                                   }   //
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                    }
                                    no_bonus_vylepseni = no_bonus_vylepseni -2;
                              break;  }
                         case 10: { no_bonus_vylepseni = no_bonus_vylepseni -3;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +25;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +25;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                    }
                              break;  }
                         case 12: { no_bonus_vylepseni = no_bonus_vylepseni -3;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +25;
+                                       //no_vulnear_elektrika  = no_vulnear_elektrika +25;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                     //   no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                    }
                              break;  }
                         case 14: { no_bonus_vylepseni = no_bonus_vylepseni -2;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +25;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +25;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                    }
                              break;  }
                         case 16: { no_bonus_vylepseni = no_bonus_vylepseni -2;
                                    if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +25;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +25;
                                    }
                                    else {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                    }
                              break;  }
                         case 18: { no_bonus_vylepseni = no_bonus_vylepseni -1;
-                                   no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         case 20: { no_bonus_vylepseni = no_bonus_vylepseni -1;
-                                   no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                 //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         } //konec vnitrniho switche
                break;     }//konec medi
         case 3:  {  switch (no_kov_pridame_procenta) {
         //vermajl
                         case 2: {   no_disciple = no_disciple +1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                              break;  }
                         case 4: {   no_disciple = no_disciple +2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                              break;  }
                         case 6: {   no_disciple = no_disciple +3;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         case 8: {   no_disciple = no_disciple +4;
                                     if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                   //      no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                              break;  }
                         case 10: {  no_disciple = no_disciple +5;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +15;
                              break;  }
                         case 12: {  no_disciple = no_disciple +6;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                              break;  }
                         case 14: {  no_disciple = no_disciple +7;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                 //   no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         case 16: {  no_disciple = no_disciple +8;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         case 18: {  no_disciple = no_disciple +9;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                              break;  }
                         case 20: {  no_disciple = no_disciple +10;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                              break;  }
                         } //konec vnitrniho switche
                break;     }//konec bronzu
         case 4:  {  switch (no_kov_pridame_procenta) {
         //zelezo
                         case 2: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                     //   no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                              break;  }
                         case 4: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                              break;  }
                         case 6: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                      //   no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                              break; }
                         case 8: {   no_bonus_vylepseni = no_bonus_vylepseni +1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +25;
+                                   //no_vulnear_elektrika  = no_vulnear_elektrika +25;
                              break;  }
                         case 10: {  no_bonus_vylepseni = no_bonus_vylepseni +1;
                                     if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                    //     no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                                     else {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +25;
+                                      //   no_vulnear_elektrika  = no_vulnear_elektrika +25;
                                     }
                              break;  }
                         case 12: {  no_bonus_vylepseni = no_bonus_vylepseni +1;
                                     no_decrease_obratnost = no_decrease_obratnost+1;
                                     if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                       //  no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                                     else {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                              break;  }
                         case 14: {  no_bonus_vylepseni = no_bonus_vylepseni +1;
                                      no_decrease_obratnost = no_decrease_obratnost+1;
                                     if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                     //    no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                                     else {
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +20;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +20;
                                     }
                              break;  }
                         case 16: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
@@ -839,11 +812,11 @@ switch   (no_kov_co_pridavam){
                         case 18: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_SLASHING,2),no_Item);
                                      no_decrease_obratnost = no_decrease_obratnost+2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         case 20: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
                                      no_decrease_obratnost = no_decrease_obratnost+3;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                              break;  }
                         } //konec vnitrniho switche
                 break;    }//konec zeleza
@@ -859,7 +832,7 @@ switch   (no_kov_co_pridavam){
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_5),no_Item);
                                     }
                                     else  {}
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     break;  }
                         case 6: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_10),no_Item);
@@ -867,7 +840,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_5),no_Item);
                                     }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                 //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     break;  }
                         case 8: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_10),no_Item);
@@ -875,7 +848,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_5),no_Item);
                                     }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     no_bonus_vylepseni = no_bonus_vylepseni -3;
                                     break;  }
                         case 10: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
@@ -885,7 +858,7 @@ switch   (no_kov_co_pridavam){
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_10),no_Item);
                                     }
                                     no_bonus_vylepseni = no_bonus_vylepseni -3;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     break;  }
                         case 12: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_15),no_Item);
@@ -894,7 +867,7 @@ switch   (no_kov_co_pridavam){
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_10),no_Item);
                                     }
                                     no_bonus_vylepseni = no_bonus_vylepseni -2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                   //no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     break;  }
                         case 14: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_20),no_Item);
@@ -903,7 +876,7 @@ switch   (no_kov_co_pridavam){
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_15),no_Item);
                                     }
                                     no_bonus_vylepseni = no_bonus_vylepseni -1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 16: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_20),no_Item);
@@ -912,7 +885,7 @@ switch   (no_kov_co_pridavam){
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_15),no_Item);
                                     }
                                     no_bonus_vylepseni = no_bonus_vylepseni -1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 18: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_25),no_Item);
@@ -921,7 +894,7 @@ switch   (no_kov_co_pridavam){
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_15),no_Item);
                                     }
                                     no_bonus_vylepseni = no_bonus_vylepseni -1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 20: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGERESIST_25),no_Item);
@@ -962,42 +935,42 @@ switch   (no_kov_co_pridavam){
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_14),no_Item);
                                     }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     break;  }
                         case 10: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_20),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                      //  no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_16),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                        // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                                     break;  }
                         case 12: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_22),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_18),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                        // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                                     break;  }
                         case 14: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_22),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_18),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                                     break;  }
                         case 16: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_24),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                        // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     }
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_20),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                       // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     }
                                     break;  }
                         case 18: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
@@ -1006,7 +979,7 @@ switch   (no_kov_co_pridavam){
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_20),no_Item);
                                     }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 20: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_26),no_Item);
@@ -1026,35 +999,35 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 6: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
                                     no_bonus_vylepseni = no_bonus_vylepseni +1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break; }
                         case 8: {   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_40_PERCENT),no_Item);
                                     no_bonus_vylepseni = no_bonus_vylepseni +1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 10: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT),no_Item);
                                     no_bonus_vylepseni = no_bonus_vylepseni +2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     break;  }
                         case 12: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT),no_Item);
                                     no_bonus_vylepseni = no_bonus_vylepseni +2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     break;  }
                         case 14: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT),no_Item);
                                     no_bonus_vylepseni = no_bonus_vylepseni +2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 16: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT),no_Item);
                                     no_vulnear_elektrika  = no_vulnear_elektrika +5;
-                                    no_bonus_vylepseni = no_bonus_vylepseni +2;
+                                  //  no_bonus_vylepseni = no_bonus_vylepseni +2;
                                     break;  }
                         case 18: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
 
                                     no_vulnear_elektrika  = no_vulnear_elektrika +5;
-                                    no_bonus_vylepseni = no_bonus_vylepseni +2;
+                                  // no_bonus_vylepseni = no_bonus_vylepseni +2;
                                     break;  }
                         case 20: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
-                                    no_bonus_vylepseni = no_bonus_vylepseni +3;
+                                 //   no_bonus_vylepseni = no_bonus_vylepseni +3;
                                     break;  }
                         } //konec vnitrniho switche
                break;     }//konec mithril
@@ -1066,17 +1039,17 @@ switch   (no_kov_co_pridavam){
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                     break;  }
                         case 6: {   no_bonus_vylepseni = no_bonus_vylepseni +1;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                    //no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_10_LBS),no_Item);
                                     break; }
                         case 8: {   no_bonus_vylepseni = no_bonus_vylepseni +2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
 
                                     break;  }
                         case 10: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   //no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                     break;  }
                         case 12: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
@@ -1087,12 +1060,12 @@ switch   (no_kov_co_pridavam){
                         case 14: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                     no_decrease_obratnost = no_decrease_obratnost+2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    break;  }
                         case 16: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                      no_decrease_obratnost = no_decrease_obratnost+2;
-                                     no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                    // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 18: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
@@ -1125,7 +1098,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 8: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                       //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                                     else  {
                                      AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -1133,7 +1106,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 10: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                        // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                                     else  {
                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -1142,7 +1115,7 @@ switch   (no_kov_co_pridavam){
 
                         case 12: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-                                         no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                        // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                                     else  {
                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -1151,7 +1124,7 @@ switch   (no_kov_co_pridavam){
 
                         case 14: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-                                      no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                     // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                         }
                                     else  {
                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -1159,7 +1132,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 16: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-                                     no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                    // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                         }
                                     else  {
 
@@ -1168,7 +1141,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 18: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_10_HP),no_Item);
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                     //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                         }
                                     else  {
                                           AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -1176,7 +1149,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 20: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                           AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_10_HP),no_Item);
-                                          no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                        //  no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                          }
                                     else  {
                                            AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -1205,7 +1178,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,2),no_Item);
                                      }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                      no_bonus_vylepseni = no_bonus_vylepseni -1;
                                     break; }
                         case 8: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
@@ -1214,7 +1187,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,2),no_Item);
                                      }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                      no_bonus_vylepseni = no_bonus_vylepseni -1;
                                     break;  }
                         case 10: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
@@ -1223,7 +1196,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,2),no_Item);
                                     }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                   //no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                      no_bonus_vylepseni = no_bonus_vylepseni -2;
                                     break;  }
                         case 12: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
@@ -1232,7 +1205,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,3),no_Item);
                                     }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                  //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                      no_bonus_vylepseni = no_bonus_vylepseni -2;
                                     break;  }
                         case 14: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
@@ -1241,7 +1214,7 @@ switch   (no_kov_co_pridavam){
                                     else  {
                                     AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,3),no_Item);
                                      }
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                      no_bonus_vylepseni = no_bonus_vylepseni -1;
                                     break;  }
                         case 16: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {

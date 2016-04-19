@@ -441,7 +441,7 @@ if (no_random < (TC_dej_vlastnost(TC_siti,no_oPC)/4+1) ) {
 if  (GetIsDM(no_oPC)== TRUE) no_random = no_random -50;//DM maji vetsi sanci vyjimecneho kusu
 FloatingTextStringOnCreature("Podarilo se ti vyrobit vyjimecny kus !", no_oPC,TRUE);
 
-no_random = Random(22)+1;
+no_random = Random(18)+1;
 
 switch (no_random)  {
 
@@ -547,34 +547,8 @@ case 17:  {
                   SetName(no_Item,GetName(no_Item) + "  'Tvrdak'");
                   SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
                    break;}
+
 case 18:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_SLASHING,d2());
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Tvrdej plech'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-
-case 19:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PIERCING,d2());
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Bodo stop'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-
-case 20:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_BLUDGEONING,d2());
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Otloukanek'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-case 21:  {
-                itemproperty no_ip =ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_PHYSICAL,1);
-                 AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
-                  SetName(no_Item,GetName(no_Item) + "  'Extra trida'");
-                 SetLocalInt(no_Item,"tc_cena",GetLocalInt(no_Item,"tc_cena")+ 100);
-                   break;}
-
-case 22:  {
                 itemproperty no_ip =ItemPropertyBonusSavingThrow(IP_CONST_SAVEBASETYPE_REFLEX,1);
                  AddItemProperty(DURATION_TYPE_PERMANENT,no_ip,no_Item);
                   SetName(no_Item,GetName(no_Item) + "  'Reakcnak'");
