@@ -154,6 +154,7 @@ int __ocGetMaxEnchantment(string sType) {
     case 324:  // Maugdoublesword
     case 203:  // One handed spear
     case 300:  // Onehanded triden
+    case BASE_ITEM_GLOVES:
       return 16;
     case BASE_ITEM_SHORTSWORD:
     case BASE_ITEM_RAPIER:
@@ -166,7 +167,6 @@ int __ocGetMaxEnchantment(string sType) {
     case BASE_ITEM_LIGHTMACE:
     case 303:  // Sai
     case 308:  // Sap
-    case BASE_ITEM_GLOVES:
     case 302:  // Light pick
       return 14;
     case BASE_ITEM_DAGGER:
