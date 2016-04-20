@@ -57,7 +57,12 @@ int GetBarbarianAbilityBonus(object oPC);
 //Zvetsi barbarovy staty
 void IncreaseBarbarStats(object oPC,int iAbility)
 {
-          object oSaveItem = GetSoulStone(oPC);
+    object oSaveItem;
+    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
+      oSaveItem = GetSoulStone(OBJECT_SELF);
+    else
+      oSaveItem = OBJECT_SELF;
+
           int level = GetLevelByPosition(1,oPC)+GetLevelByPosition(2,oPC)+GetLevelByPosition(3,oPC);
           SetLocalInt(oSaveItem,AKTIVNI_RAGE,1);
           int base_str = GetAbilityScore(oPC,ABILITY_STRENGTH,TRUE);
@@ -77,7 +82,11 @@ void IncreaseBarbarStats(object oPC,int iAbility)
  //Snizi barbarovy staty
 void DecreaseBarbarStats(object oPC)
 {
-    object oSaveItem = GetSoulStone(oPC);
+    object oSaveItem;
+    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
+      oSaveItem = GetSoulStone(OBJECT_SELF);
+    else
+      oSaveItem = OBJECT_SELF;
 
     if (GetLocalInt(oSaveItem,AKTIVNI_RAGE) == 1)
     {
@@ -98,7 +107,11 @@ void DecreaseBarbarStats(object oPC)
 //Zvetsi TRPASLICIHO OBRANCE
 void IncreaseDefenderStats(object oPC,int iAbility_str, int iAbility_con)
 {
-    object oSaveItem = GetSoulStone(oPC);
+    object oSaveItem;
+    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
+      oSaveItem = GetSoulStone(OBJECT_SELF);
+    else
+      oSaveItem = OBJECT_SELF;
 
     if (GetLocalInt(oSaveItem,AKTIVNI_POSTOJ_OBRANCE) == 0)
     {
@@ -122,7 +135,11 @@ void IncreaseDefenderStats(object oPC,int iAbility_str, int iAbility_con)
  //Snizi staty TRPASLICIHO OBRANCE
 void DecreaseDefenderStats(object oPC)
 {
-    object oSaveItem = GetSoulStone(oPC);
+    object oSaveItem;
+    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
+      oSaveItem = GetSoulStone(OBJECT_SELF);
+    else
+      oSaveItem = OBJECT_SELF;
 
     if (GetLocalInt(oSaveItem,AKTIVNI_POSTOJ_OBRANCE) == 1)
     {

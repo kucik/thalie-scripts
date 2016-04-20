@@ -26,15 +26,17 @@
 void main()
 {
 
-
-    object oSaveItem = GetSoulStone(OBJECT_SELF);
+    object oSaveItem;
+    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
+      oSaveItem = GetSoulStone(OBJECT_SELF);
+    else
+      oSaveItem = OBJECT_SELF;
 
     if (GetLocalInt(oSaveItem,AKTIVNI_RAGE) == 0)
     {
         //Declare major variables
         object oPC =    OBJECT_SELF;
         int nLevel = GetLevelByClass(CLASS_TYPE_BARBARIAN);
-        object oSaveItem =  GetSoulStone(OBJECT_SELF);
         int iAbility = GetBarbarianAbilityBonus(OBJECT_SELF);
         PlayVoiceChat(VOICE_CHAT_BATTLECRY1);
 
