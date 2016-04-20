@@ -270,10 +270,14 @@ int ku_si_AddItemProperty_AttackBonus(object oItem, int iPower) {
    return TRUE;
  }
  return FALSE;
+}
 
-//bonus dmg added
+int ku_si_AddItemProperty_DamageBonus(object oItem, int iPower, int iType) {
+
+ iPower =  iPower / 2;
+
  if(iPower > 0) {
-   itemproperty ip = ItemPropertyDamageBonus( IP_CONST_DAMAGETYPE_BLUDGEONING,iPower);
+   itemproperty ip = ItemPropertyDamageBonus( iType, iPower);
    AddItemProperty(DURATION_TYPE_PERMANENT,ip,oItem);
    return TRUE;
  }
@@ -695,7 +699,8 @@ int ku_si_AddPropertiesStone_12(object oItem, int iPower) {
 
       return ku_si_AddItemProperty_AbilityBonus(oItem,iPower,ABILITY_DEXTERITY);
     case BASE_ITEM_GLOVES:
-      return ku_si_AddItemProperty_AttackBonus(oItem,iPower);
+      return ku_si_AddItemProperty_AttackBonus(oItem,iPower) + 
+             ku_si_AddItemProperty_DamageBonus(oItem,iPower, IP_CONST_DAMAGETYPE_PIERCING);
     case BASE_ITEM_BRACER:
          FloatingTextStringOnCreature(" Chranic nemuze obsahovat utok",OBJECT_SELF,TRUE );
 
