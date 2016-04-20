@@ -21,7 +21,7 @@ int no_pocet;
 string no_nazev;
 int no_DC;
 int no_bonus_vylepseni;
-int no_vulnear_elektrika;
+//int no_vulnear_elektrika;
 int no_disciple;
 int no_soak_bonus;
 int no_decrease_obratnost;
@@ -679,8 +679,8 @@ switch   (no_kov_co_pridavam){
                                    no_bonus_vylepseni = no_bonus_vylepseni -2;
                              break;  }
                         case 8: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        no_vulnear_elektrika  = no_vulnear_elektrika +10;
-                                   }   //
+                                      // no_vulnear_elektrika  = no_vulnear_elektrika +10;
+                                   }
                                    else {
                                        // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                    }
@@ -807,7 +807,7 @@ switch   (no_kov_co_pridavam){
                              break;  }
                         case 16: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
                                      no_decrease_obratnost = no_decrease_obratnost+2;
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +15;
+                                   //no_vulnear_elektrika  = no_vulnear_elektrika +15;
                              break;  }
                         case 18: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_SLASHING,2),no_Item);
@@ -1018,16 +1018,16 @@ switch   (no_kov_co_pridavam){
                                   // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 16: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_20_PERCENT),no_Item);
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
-                                  //  no_bonus_vylepseni = no_bonus_vylepseni +2;
+                                  // no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   no_bonus_vylepseni = no_bonus_vylepseni +2;
                                     break;  }
                         case 18: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
 
-                                    no_vulnear_elektrika  = no_vulnear_elektrika +5;
-                                  // no_bonus_vylepseni = no_bonus_vylepseni +2;
+                                   //no_vulnear_elektrika  = no_vulnear_elektrika +5;
+                                   no_bonus_vylepseni = no_bonus_vylepseni +2;
                                     break;  }
                         case 20: {  AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightReduction(IP_CONST_REDUCEDWEIGHT_10_PERCENT),no_Item);
-                                 //   no_bonus_vylepseni = no_bonus_vylepseni +3;
+                                   no_bonus_vylepseni = no_bonus_vylepseni +3;
                                     break;  }
                         } //konec vnitrniho switche
                break;     }//konec mithril
@@ -1053,26 +1053,26 @@ switch   (no_kov_co_pridavam){
                                     //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                     break;  }
                         case 12: {  no_bonus_vylepseni = no_bonus_vylepseni +2;
-                                    //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
+                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                    // AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_15_LBS),no_Item);
                                      no_decrease_obratnost = no_decrease_obratnost+1;
                                     break; }
                         case 14: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
-                                    //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
+                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                     no_decrease_obratnost = no_decrease_obratnost+2;
                                    // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                    break;  }
                         case 16: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
-                                    //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
+                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                      no_decrease_obratnost = no_decrease_obratnost+2;
                                     // no_vulnear_elektrika  = no_vulnear_elektrika +5;
                                     break;  }
                         case 18: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
-                                    //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
+                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
                                      no_decrease_obratnost = no_decrease_obratnost+2;
                                     break; }
                         case 20: {  no_bonus_vylepseni = no_bonus_vylepseni +3;
-                                    //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,1),no_Item);
+                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyBonusSavingThrowVsX(IP_CONST_SAVEVS_NEGATIVE,2),no_Item);
                                     no_decrease_obratnost = no_decrease_obratnost+3;
                                    break;  }
                         } //konec vnitrniho switche
@@ -1812,7 +1812,7 @@ if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "ru") {
 
 
 
-if (( no_vulnear_elektrika < 9)& ( no_vulnear_elektrika >= 0)) {
+/*if (( no_vulnear_elektrika < 9)& ( no_vulnear_elektrika >= 0)) {
 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_5_PERCENT),no_Item);
 }
 else if   (( no_vulnear_elektrika < 26)& ( no_vulnear_elektrika >= 10)){
@@ -1829,7 +1829,7 @@ AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST
 }
 else if   (( no_vulnear_elektrika < 100)& ( no_vulnear_elektrika >= 90)){
 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEVULNERABILITY_90_PERCENT),no_Item);
-}
+}*/
 
 
 
