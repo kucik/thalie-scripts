@@ -126,7 +126,7 @@ struct EssenceEffect GetEssenceAditionalEffect(int iEssence) {
     case ESENCE_ZHOUBNA:
       s_eff.eff = EffectParalyze(); //Stun or paralyze ???
       s_eff.fduration = RoundsToSeconds(1);
-      s_eff.iSave = SAVING_THROW_WILL;
+      s_eff.iSave = SAVING_THROW_FORT;
       s_eff.iSaveType = SAVING_THROW_TYPE_SPELL;
       return s_eff;
 
