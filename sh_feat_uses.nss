@@ -8,1104 +8,218 @@
 System pro dopocet poctu pouziti na den
 
 */
+
+
+
+int __getGetFeatUsesPerDay(int iFeat, object oPC) {
+  switch(iFeat) {
+    // Paladin
+    case FEAT_SMITE_EVIL: {
+      int lvlPaladin = GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
+      int lvlTorm = GetLevelByClass(CLASS_TYPE_DIVINECHAMPION,oPC);
+      int iCnt = 0;
+      if(lvlPaladin > 0)
+        iCnt = ((lvlPaladin + 1) / 5) +1;
+/*      if(lvlTorm > 5)
+        iCnt = iCnt + ((lvltorm-3) / 5)+1;
+*/
+      return iCnt;
+    }
+    case FEAT_REMOVE_DISEASE:
+      return (GetLevelByClass(CLASS_TYPE_PALADIN,oPC) - 2) /5 +1;
+    // Paladin + Torm
+    case FEAT_LAY_ON_HANDS: {
+      int lvlPaladin = GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
+      int iCnt = 0;
+      if(lvlPaladin > 0)
+        iCnt = ((lvlPaladin + 1) / 10);
+      int lvlTorm = GetLevelByClass(CLASS_TYPE_DIVINECHAMPION,oPC);
+      if(lvlTorm > 0) {
+        iCnt = iCnt + (lvlTorm / 10) + 1;
+      }
+      return iCnt;
+    }
+    // Torm
+    case FEAT_DIVINE_WRATH:
+      return GetLevelByClass(CLASS_TYPE_DIVINECHAMPION,oPC) / 5;
+    // DD
+    case FEAT_POSTOJ_TRPASLICI_OBRANCE1:
+      return (GetLevelByClass(CLASS_TYPE_DWARVEN_DEFENDER, oPC) - 1) /2 +1;
+    // PDK
+    case FEAT_PDK_RALLY:
+      return GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC) / 5 + 1 + GetAbilityModifier(ABILITY_CHARISMA,oPC);
+    case FEAT_PDK_SHIELD:
+      return GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC) / 5 + 1 + GetAbilityModifier(ABILITY_CHARISMA,oPC);
+    case FEAT_PDK_FEAR:
+      return (GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC) - 3) /5 +1;
+    case FEAT_PDK_WRATH:
+      return (GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC) - 7) /5 +1 + GetAbilityModifier(ABILITY_CHARISMA,oPC);
+    case FEAT_PDK_INSPIRE_1:
+      return (GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC) - 6) /5 +1 + GetAbilityModifier(ABILITY_CHARISMA,oPC);
+    case FEAT_PDK_STAND:
+      return (GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC) - 9) /5 +1 + GetAbilityModifier(ABILITY_CHARISMA,oPC);
+    // Blackguard
+    case FEAT_SMITE_GOOD:
+      return GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) /5 + 1;
+    case FEAT_BULLS_STRENGTH:
+      return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) - 2) /6 +1;
+    case FEAT_INFLICT_SERIOUS_WOUNDS:
+      return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) - 6) /6 +1;
+    case FEAT_INFLICT_CRITICAL_WOUNDS:
+      return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) - 9) /6 +1;
+    case FEAT_BG_HARM:
+      return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) -17) /6 +1;
+    case FEAT_CONTAGION:
+      return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) -7) /6 +1;
+    // Arcane Archer
+    case FEAT_PRESTIGE_IMBUE_ARROW:
+      return GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC) /5 +1;
+    case FEAT_PRESTIGE_SEEKER_ARROW_1:
+      return GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC) /4;
+    case FEAT_PRESTIGE_HAIL_OF_ARROWS:
+      return (GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC) -7) /4 +1;
+    case FEAT_PRESTIGE_ARROW_OF_DEATH: {
+      int iCnt = (GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC) - 10) /5 +1;
+      if(iCnt > 4)
+        iCnt = 4;
+      return iCnt;
+    }
+    // Shadowdancer
+    case FEAT_SHADOW_EVADE:
+      return GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC) / 5 +1;
+    case FEAT_SHADOW_DAZE:
+      return (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC) - 3) /4 +1;
+    case FEAT_SD_TEMNOTA:
+      return (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC) -2) /4 +1;
+    // Assassin
+    case FEAT_PRESTIGE_DARKNESS:
+      return (GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC) - 4) /5 +1;
+    case FEAT_PRESTIGE_SPELL_GHOSTLY_VISAGE:
+      return (GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC) - 2) /5 +1;
+    case FEAT_PRESTIGE_INVISIBILITY_1:
+      return (GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC) - 6) /5 +1;
+    case FEAT_PRESTIGE_INVISIBILITY_2:
+      return (GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC) - 8) /5 +1;
+    case FEAT_ASSASSIN_ZNACKA_SMRTI:
+      return GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC) / 10 + 1;
+    // Sermir
+    case FEAT_SERMIR_RYCHLY_BLESK:
+      return (GetLevelByClass(CLASS_TYPE_SERMIR,oPC) -3) /5 +1;
+    // Samuraj
+    case FEAT_SAMURAJ_KI_SILA:
+      return GetLevelByClass(CLASS_TYPE_SAMURAJ,oPC) /5;
+    case FEAT_SAMURAJ_PRESNY_UDER:
+      return (GetLevelByClass(CLASS_TYPE_SAMURAJ,oPC) -3) /5 +1;
+    // Exorcista
+    case FEAT_EXORCISTA_OCHRANA_PRED_ZLEM:
+      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -1) /5 +1;
+    case FEAT_EXORCISTA_NARUSENI_MAGIE:
+      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -3) /5 +1;
+    case FEAT_EXORCISTA_ROZPTYL_MAGII:
+      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -4) /5 +1;
+    case FEAT_EXORCISTA_SILNEJSI_ROZPTYL_MAGII:
+      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -7) /5 +1;
+    case FEAT_EXORCISTA_PRAVDIVE_VIDENI:
+      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -11) /5 +1;
+    // Shinobi
+    case FEAT_SHINOBI_UTISUJICI_UTOK:
+      return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
+    case FEAT_SHINOBI_SOVI_MOUDROST:
+      return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
+    case FEAT_SHINOBI_NEVIDITELNOST:
+      return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
+    case FEAT_SHINOBI_ZMATENI:
+      return (GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) -8) /5 +1;
+    // Druid
+    case FEAT_ELEMENTAL_SHAPE:
+      return (GetLevelByClass(CLASS_TYPE_DRUID,oPC) -17) /2 +1;
+    // Monk
+    case FEAT_WHOLENESS_OF_BODY:
+      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 6) /10 +1;
+    case FEAT_QUIVERING_PALM:
+      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 14) /8 +1;
+    case FEAT_EMPTY_BODY:
+      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 17) /10 +2;
+    // Kurtizana
+    case FEAT_KURTIZANA_ODHALENY_ZIVUTEK:
+      return (GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC) -1) /2 +2;
+    case FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL:
+      return (GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC) -4) /4 +1;
+  }
+  return 0;
+}
+
+void __restoreFeatUsesPerDay(int iFeat, object oPC) {
+  if(!GetHasFeat(iFeat, oPC))
+    return;
+
+  int iShouldHave = __getGetFeatUsesPerDay(iFeat, oPC);
+  // If we have feat, we must have at least one use
+  if(iShouldHave <=0 )
+    iShouldHave = 1;
+
+  int iHave = GetRemainingFeatUses(oPC, iFeat);
+  int i;
+  if(iShouldHave > iHave) {
+    for(i = 0; i < iShouldHave - iHave; i++)
+      IncrementRemainingFeatUses(oPC, iFeat);
+  }
+  if(iShouldHave < iHave) {
+    for(i = 0; i < iHave - iShouldHave; i++)
+      DecrementRemainingFeatUses(oPC, iFeat);
+  }
+}
+
+
 void RestoreFeatUses(object oPC)
 {
-
-    int aktualne;
-    int pocet;
-    int feat;
-    // Smite Evil    - PALADIN, TORM
-    if (GetHasFeat(FEAT_SMITE_EVIL,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,FEAT_SMITE_EVIL);
-        int pocet = 0;
-        int lvlpaladin =  GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
-        int lvltorm =  GetLevelByClass(CLASS_TYPE_DIVINECHAMPION,oPC);
-        if (lvlpaladin > 0)
-        {
-            pocet = ((lvlpaladin+1) / 5) +1;
-        }
-        if (lvltorm > 0)
-        {
-            pocet = ((lvltorm-3) / 5)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,FEAT_SMITE_EVIL);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,FEAT_SMITE_EVIL);
-        aktualne = GetRemainingFeatUses(oPC,FEAT_SMITE_EVIL);
-        }
-
-    }
-//-------------------------
-
- // Odstran chorobu - PALADIN
-    feat = FEAT_REMOVE_DISEASE;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvlpaladin =  GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
-
-        if (lvlpaladin > 0)
-        {
-            pocet = ((lvlpaladin-2) / 5)+1;
-        }
-
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-    // Lay on hands - PALADIN
-    feat = FEAT_LAY_ON_HANDS;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvlpaladin =  GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
-        int lvltorm =  GetLevelByClass(CLASS_TYPE_DIVINECHAMPION,oPC);
-        if (lvlpaladin > 0)
-        {
-           pocet = 1;
-           if (lvlpaladin >= 19) pocet = 2;
-           if (lvlpaladin >= 29) pocet = 3;
-           if (lvlpaladin >= 39) pocet = 4;
-
-
-        }
-        if (lvltorm > 0)
-        {
-            pocet = (lvltorm / 10)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-    // Divine wrath
-    feat = FEAT_DIVINE_WRATH;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_DIVINECHAMPION,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 5);
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-    // Postoj trpasliciho obrance
-    feat = FEAT_POSTOJ_TRPASLICI_OBRANCE1;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvldd =  GetLevelByClass(CLASS_TYPE_DWARVEN_DEFENDER,oPC);
-        if (lvldd > 0)
-        {
-            pocet = ((lvldd-1) / 2)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// PDK - RALLYING CRY
-    feat = FEAT_PDK_RALLY;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 5)+1;
-        }
-        pocet = pocet + GetAbilityModifier(ABILITY_CHARISMA,oPC);
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// PDK - HEORIC SHIEDL
-    feat = FEAT_PDK_SHIELD;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 5)+1;
-        }
-        pocet = pocet + GetAbilityModifier(ABILITY_CHARISMA,oPC);
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// PDK - FEAR
-    feat = FEAT_PDK_FEAR;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-3) / 5)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-    // PDK - oath of wrath
-    feat = FEAT_PDK_WRATH;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-7) / 5)+1;
-        }
-        pocet = pocet + GetAbilityModifier(ABILITY_CHARISMA,oPC);
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-    // PDK - inspire courage
-    feat = FEAT_PDK_INSPIRE_1;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-6) / 5)+1;
-        }
-        pocet = pocet + GetAbilityModifier(ABILITY_CHARISMA,oPC);
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-    // PDK - final stand
-    feat = FEAT_PDK_STAND;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-9) / 5)+1;
-        }
-        pocet = pocet + GetAbilityModifier(ABILITY_CHARISMA,oPC);
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// BG - SMITE GOOD
-    feat = FEAT_SMITE_GOOD;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 5)+1;
-        }
-        //SendMessageToPC(oPC,IntToString(aktualne)+ " "+IntToString(pocet) + " "+IntToString(lvl));
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// BG - byci sila
-    feat = FEAT_BULLS_STRENGTH;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-2) / 6)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// BG - zposob vazna zraneni
-    feat = FEAT_INFLICT_SERIOUS_WOUNDS;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-6) / 6)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// BG - zposob kriticka zraneni
-    feat = FEAT_INFLICT_CRITICAL_WOUNDS;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-9) / 6)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// BG - HARM - nove
-    feat = FEAT_BG_HARM;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-17) / 6)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// BG - contaigon
-    feat = FEAT_CONTAGION;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-7) / 6)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// AA - imbue arrow
-    feat = FEAT_PRESTIGE_IMBUE_ARROW;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 5)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// AA - seeker arrow
-    feat = FEAT_PRESTIGE_SEEKER_ARROW_1;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 4);
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// AA - hail of arrows
-    feat = FEAT_PRESTIGE_HAIL_OF_ARROWS;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-7) / 4)+1;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// AA - arrow of death
-    feat = FEAT_PRESTIGE_ARROW_OF_DEATH;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-10) / 5)+1;
-            if (pocet >=4) pocet = 4;
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// SD - Shadow Evade
-    feat = FEAT_SHADOW_EVADE;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// SD - Shadow DAZE
-    feat = FEAT_SHADOW_DAZE;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-3) / 4)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// SD - TEMNOTA
-    feat = FEAT_SD_TEMNOTA;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-2) / 4)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// ASSASSIN - TEMNOTA FEAT_PRESTIGE_DARKNESS
-    feat = FEAT_PRESTIGE_DARKNESS;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-4) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// ASSASSIN - VZHLED DUCHA
-    feat = FEAT_PRESTIGE_SPELL_GHOSTLY_VISAGE;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-2) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// ASSASSIN - NEVIDITELNOST
-    feat = FEAT_PRESTIGE_INVISIBILITY_1;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-6) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// ASSASSIN - VYLEPSENA NEVIDITELNOST
-    feat = FEAT_PRESTIGE_INVISIBILITY_2;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-8) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// ASSASSIN - ZNACKA SMRTI
-    feat = FEAT_ASSASSIN_ZNACKA_SMRTI;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_ASSASSIN,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl) / 10)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-
-// Sermir - rychly jako blesk
-    feat = FEAT_SERMIR_RYCHLY_BLESK;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SERMIR,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-3) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// Samuraj - ki sila
-    feat = FEAT_SAMURAJ_KI_SILA;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SAMURAJ,oPC);
-        if (lvl > 0)
-        {
-            pocet = (lvl / 5);
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// Samuraj - presny uder
-    feat = FEAT_SAMURAJ_PRESNY_UDER;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SAMURAJ,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-3) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// Exorcista - ochrana pred zlem
-    feat = FEAT_EXORCISTA_OCHRANA_PRED_ZLEM;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-1) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// Exorcista - naruseni magie
-    feat = FEAT_EXORCISTA_NARUSENI_MAGIE;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-3) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// Exorcista - rozptyl magii
-    feat = FEAT_EXORCISTA_ROZPTYL_MAGII;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-4) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// Exorcista - rozptyl magii silnejsi
-    feat = FEAT_EXORCISTA_SILNEJSI_ROZPTYL_MAGII;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-7) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// Exorcista - prave videni
-    feat = FEAT_EXORCISTA_PRAVDIVE_VIDENI;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-11) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// Shinobi FEAT_SHINOBI_UTISUJICI_UTOK
-    feat = FEAT_SHINOBI_UTISUJICI_UTOK;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHINOBI,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-// FEAT_SHINOBI_SOVI_MOUDROST
-    feat = FEAT_SHINOBI_SOVI_MOUDROST;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHINOBI,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-2) / 6)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// FEAT_SHINOBI_NEVIDITELNOST
-    feat = FEAT_SHINOBI_NEVIDITELNOST;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHINOBI,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// FEAT_SHINOBI_ZMATENI
-    feat = FEAT_SHINOBI_ZMATENI;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_SHINOBI,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-8) / 5)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-
-
-// druid - elemental shape
-    feat = FEAT_ELEMENTAL_SHAPE;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_DRUID,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-17) / 2)+1;
-
-        }
-
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-//-------------------------
-
-// monk wholeness
-feat = FEAT_WHOLENESS_OF_BODY;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_MONK,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-6) / 10)+1;
-
-        }
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-
-
-//-------------------------
-
-// monk dlan
-    feat = FEAT_QUIVERING_PALM;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_MONK,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-14) / 8)+1;
-
-        }
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-
-
-//-------------------------
-
-// monk cistota tela
-    feat = FEAT_QUIVERING_PALM;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_MONK,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-17) / 10)+2;
-
-        }
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-
-
-//-------------------------
-
-// kurtizana - zivutek
-    feat = FEAT_KURTIZANA_ODHALENY_ZIVUTEK;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-1) / 2)+2;
-
-        }
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-
-
-//-------------------------
-
-//kurtizana - jak jsi mi to rekl
-    feat = FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL;
-    if (GetHasFeat(feat,oPC))
-    {
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        int pocet = 0;
-        int lvl =  GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC);
-        if (lvl > 0)
-        {
-            pocet = ((lvl-4) /4)+1;
-
-        }
-        while (aktualne!=pocet)
-        {
-        if (aktualne > pocet) DecrementRemainingFeatUses(oPC,feat);
-        if (aktualne < pocet) IncrementRemainingFeatUses(oPC,feat);
-        aktualne = GetRemainingFeatUses(oPC,feat);
-        }
-
-    }
-
-
-//-------------------------
+  __restoreFeatUsesPerDay(FEAT_SMITE_EVIL, oPC);
+  __restoreFeatUsesPerDay(FEAT_REMOVE_DISEASE, oPC);
+  __restoreFeatUsesPerDay(FEAT_LAY_ON_HANDS, oPC);
+  __restoreFeatUsesPerDay(FEAT_DIVINE_WRATH, oPC);
+  __restoreFeatUsesPerDay(FEAT_POSTOJ_TRPASLICI_OBRANCE1, oPC);
+  __restoreFeatUsesPerDay(FEAT_PDK_RALLY, oPC);
+  __restoreFeatUsesPerDay(FEAT_PDK_SHIELD, oPC);
+  __restoreFeatUsesPerDay(FEAT_PDK_FEAR, oPC);
+  __restoreFeatUsesPerDay(FEAT_PDK_WRATH, oPC);
+  __restoreFeatUsesPerDay(FEAT_PDK_INSPIRE_1, oPC);
+  __restoreFeatUsesPerDay(FEAT_PDK_STAND, oPC);
+  __restoreFeatUsesPerDay(FEAT_SMITE_GOOD, oPC);
+  __restoreFeatUsesPerDay(FEAT_BULLS_STRENGTH, oPC);
+  __restoreFeatUsesPerDay(FEAT_INFLICT_SERIOUS_WOUNDS, oPC);
+  __restoreFeatUsesPerDay(FEAT_INFLICT_CRITICAL_WOUNDS, oPC);
+  __restoreFeatUsesPerDay(FEAT_BG_HARM, oPC);
+  __restoreFeatUsesPerDay(FEAT_CONTAGION, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_IMBUE_ARROW, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_SEEKER_ARROW_1, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_HAIL_OF_ARROWS, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_ARROW_OF_DEATH, oPC);
+  __restoreFeatUsesPerDay(FEAT_SHADOW_EVADE, oPC);
+  __restoreFeatUsesPerDay(FEAT_SHADOW_DAZE, oPC);
+  __restoreFeatUsesPerDay(FEAT_SD_TEMNOTA, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_DARKNESS, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_SPELL_GHOSTLY_VISAGE, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_INVISIBILITY_1, oPC);
+  __restoreFeatUsesPerDay(FEAT_PRESTIGE_INVISIBILITY_2, oPC);
+  __restoreFeatUsesPerDay(FEAT_ASSASSIN_ZNACKA_SMRTI, oPC);
+  __restoreFeatUsesPerDay(FEAT_SERMIR_RYCHLY_BLESK, oPC);
+  __restoreFeatUsesPerDay(FEAT_SAMURAJ_KI_SILA, oPC);
+  __restoreFeatUsesPerDay(FEAT_SAMURAJ_PRESNY_UDER, oPC);
+  __restoreFeatUsesPerDay(FEAT_EXORCISTA_OCHRANA_PRED_ZLEM, oPC);
+  __restoreFeatUsesPerDay(FEAT_EXORCISTA_NARUSENI_MAGIE, oPC);
+  __restoreFeatUsesPerDay(FEAT_EXORCISTA_ROZPTYL_MAGII, oPC);
+  __restoreFeatUsesPerDay(FEAT_EXORCISTA_SILNEJSI_ROZPTYL_MAGII, oPC);
+  __restoreFeatUsesPerDay(FEAT_EXORCISTA_PRAVDIVE_VIDENI, oPC);
+  __restoreFeatUsesPerDay(FEAT_SHINOBI_UTISUJICI_UTOK, oPC);
+  __restoreFeatUsesPerDay(FEAT_SHINOBI_SOVI_MOUDROST, oPC);
+  __restoreFeatUsesPerDay(FEAT_SHINOBI_NEVIDITELNOST, oPC);
+  __restoreFeatUsesPerDay(FEAT_SHINOBI_ZMATENI, oPC);
+  __restoreFeatUsesPerDay(FEAT_ELEMENTAL_SHAPE, oPC);
+  __restoreFeatUsesPerDay(FEAT_WHOLENESS_OF_BODY, oPC);
+  __restoreFeatUsesPerDay(FEAT_QUIVERING_PALM, oPC);
+  __restoreFeatUsesPerDay(FEAT_EMPTY_BODY, oPC);
+  __restoreFeatUsesPerDay(FEAT_KURTIZANA_ODHALENY_ZIVUTEK, oPC);
+  __restoreFeatUsesPerDay(FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL, oPC);
 }
 
 
