@@ -1781,21 +1781,20 @@ AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseAC(IP_CONST_ACMODIFI
 if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he"))
 {
 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_DISCIPLINE,no_disciple),no_Item);
-AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_MOVE_SILENTLY,(no_disciple+no_bonus_vylepseni)),no_Item);
-AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_HIDE,(no_disciple+no_bonus_vylepseni)),no_Item);
+AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_MOVE_SILENTLY,2),no_Item);
+AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_HIDE,3),no_Item);
          }
 else  {
         AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_DISCIPLINE,(no_disciple-1)),no_Item);
-        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_MOVE_SILENTLY,(no_disciple+no_bonus_vylepseni)),no_Item);
-        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_HIDE,(no_disciple+no_bonus_vylepseni)),no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_MOVE_SILENTLY,2),no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_HIDE,2),no_Item);
         }
 if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "he") {
-        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_SEARCH,(no_disciple+no_bonus_vylepseni)),no_Item);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_SEARCH,2),no_Item);
          }
-if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "ru") {
-        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_DISABLE_TRAP,(no_disciple+no_bonus_vylepseni)),no_Item);
-        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_SPELLCRAFT,(no_disciple+no_bonus_vylepseni)),no_Item);
-         }
+//if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku")== "ru") {
+  //      AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDecreaseSkill(SKILL_DISABLE_TRAP,2),no_Item);
+    //   }
 //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertySkillBonus(SKILL_DISCIPLINE,no_disciple+no_bonus_vylepseni),no_Item);
 
 //dublovani z 2.4.2010
