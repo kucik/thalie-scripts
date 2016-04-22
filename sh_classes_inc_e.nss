@@ -369,13 +369,32 @@ void ChangeDomain(object oTarget,int iNewDomain, int iIndex )
 
 }
 
+void RestoreCantripSpells(object oPC, int iClass) {
+
+  if(GetLevelByClass(iClass, oPC) <= 0)
+    return;
+
+  int i;
+  int iSlots = GetMaxSpellSlots(oPC, iClass, 0);
+  for(i = 0; i< iSlots; i++) {
+    struct MemorizedSpellSlot ms = GetMemorizedSpell(oPC, iClass, 0, i);
+
+//    SendMessageToPC(oPC," Spell:"+IntToString(ms.id)+" ready:"+IntToString(ms.ready)+" meta:"+IntToString(ms.meta));
+    ms.ready = 1;
+    if(ms.id > 0)
+      SetMemorizedSpell(oPC, iClass, 0, i, ms);
+  }
+
+}
+
 void RestoreCantripsSlots(object oPC)
 {
     SetRemainingSpellSlots(oPC,CLASS_TYPE_BARD,0,GetMaxSpellSlots(oPC,CLASS_TYPE_BARD,0));
-    SetRemainingSpellSlots(oPC,CLASS_TYPE_CLERIC,0,GetMaxSpellSlots(oPC,CLASS_TYPE_CLERIC,0));
-    SetRemainingSpellSlots(oPC,CLASS_TYPE_DRUID,0,GetMaxSpellSlots(oPC,CLASS_TYPE_DRUID,0));
+    RestoreCantripSpells(oPC, CLASS_TYPE_CLERIC);
+    RestoreCantripSpells(oPC, CLASS_TYPE_DRUID);
     SetRemainingSpellSlots(oPC,CLASS_TYPE_SORCERER,0,GetMaxSpellSlots(oPC,CLASS_TYPE_SORCERER,0));
-    SetRemainingSpellSlots(oPC,CLASS_TYPE_WIZARD,0,GetMaxSpellSlots(oPC,CLASS_TYPE_WIZARD,0));
+    RestoreCantripSpells(oPC, CLASS_TYPE_WIZARD);
+
 }
 
 
