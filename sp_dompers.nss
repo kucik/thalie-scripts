@@ -54,7 +54,9 @@ void __copyAction(object oTarget, object oSummon) {
 
 void __followSummon(object oTarget) {
   object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
-  SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectCutsceneGhost(), oSummon);
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectVisualEffect(VFX_DUR_CUTSCENE_INVISIBILITY), oSummon);
+//  SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
   AssignCommand(oTarget,ActionForceFollowObject(oSummon));
 
    __copyAction(oTarget, oSummon);
