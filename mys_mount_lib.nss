@@ -313,12 +313,25 @@ void RemoveMountedEffects(object oRider)
 
 int GetMountedRaceAppearance(object oRider)
 {
-    return 482 + GetRacialType(oRider) * 2 + !GetGender(oRider);
+    int iRacialType = GetRacialType(oRider);
+
+    /* Outsiders could be humans too :) */
+    if(iRacialType == RACIAL_TYPE_OUTSIDER &&
+       GetAppearanceType(oRider) == APPEARANCE_TYPE_HUMAN)
+      iRacialType = RACIAL_TYPE_HUMAN;
+
+    return 482 + iRacialType * 2 + !GetGender(oRider);
 }
 
 int GetMountedNullAppearance(object oRider)
 {
-    return 562 + GetRacialType(oRider);
+    int iRacialType = GetRacialType(oRider);
+    /* Outsiders could be humans too :) */
+    if(iRacialType == RACIAL_TYPE_OUTSIDER &&
+       GetAppearanceType(oRider) == APPEARANCE_TYPE_HUMAN)
+      iRacialType = RACIAL_TYPE_HUMAN;
+
+    return 562 + iRacialType;
 }
 
 int GetIsMounted(object oPC) {
