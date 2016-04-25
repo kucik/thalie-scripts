@@ -43,8 +43,11 @@ void main()
     //Declare major variables
     object oTarget = GetSpellTargetObject();
     int nMetaMagic = GetMetaMagicFeat();
-    int nCasterLevel = GetCasterLevel(OBJECT_SELF);
-    int nDam = d4(1) + 1;
+    int nCasterLvl = GetCasterLevel(OBJECT_SELF);
+    int nDices = nCasterLvl > 10 ? 5 : nCasterLvl/2;
+    if(nDices <=0)
+      nDices = 1;
+    int nDam = d4(nDices) + 1;
     effect eDam;
     effect eVis = EffectVisualEffect(VFX_IMP_FROST_S);
     effect eRay = EffectBeam(VFX_BEAM_COLD, OBJECT_SELF, BODY_NODE_HAND);
@@ -60,7 +63,7 @@ void main()
             //Enter Metamagic conditions
             if (nMetaMagic == METAMAGIC_MAXIMIZE)
             {
-                nDam = 5 ;//Damage is at max
+                nDam = nDices * 5 ;//Damage is at max
             }
             else if (nMetaMagic == METAMAGIC_EMPOWER)
             {

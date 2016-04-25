@@ -37,6 +37,9 @@ void main()
    //Declare major variables
     object oTarget = GetSpellTargetObject();
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
+    int nDices = nCasterLevel > 10 ? 5 : nCasterLevel/2;
+    if(nDices <=0)
+      nDices = 1;
 
 
     effect eVis = EffectVisualEffect(VFX_IMP_ACID_S);
@@ -48,7 +51,7 @@ void main()
         if(!MyResistSpell(OBJECT_SELF, oTarget))
         {
             //Set damage effect
-            int nDamage =  MaximizeOrEmpower(3, 1, GetMetaMagicFeat());
+            int nDamage =  MaximizeOrEmpower(3, nDices, GetMetaMagicFeat());
             effect eBad = EffectDamage(nDamage, DAMAGE_TYPE_ACID);
             //Apply the VFX impact and damage effect
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
