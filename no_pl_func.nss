@@ -1080,7 +1080,7 @@ switch   (no_kov_co_pridavam){
         case 9:  {  switch (no_kov_pridame_procenta) {
         //titan
                         case 2: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_2,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_1,IP_CONST_DAMAGESOAK_5_HP),no_Item);
                                     }
                                     else  {}
                                     break;  }
@@ -1090,14 +1090,14 @@ switch   (no_kov_co_pridavam){
                                     else  {}
                                     break;  }
                         case 6: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_1,IP_CONST_DAMAGESOAK_10_HP),no_Item);
                                     }
                                     else  {
-                                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                   AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_2,IP_CONST_DAMAGESOAK_5_HP),no_Item);
                                     }
                                     break;  }
                         case 8: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_2,IP_CONST_DAMAGESOAK_10_HP),no_Item);
                                        //  no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                     }
                                     else  {
@@ -1105,7 +1105,7 @@ switch   (no_kov_co_pridavam){
                                     }
                                     break;  }
                         case 10: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_10_HP),no_Item);
                                         // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                                     else  {
@@ -1114,7 +1114,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
 
                         case 12: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                        AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_10_HP),no_Item);
                                         // no_vulnear_elektrika  = no_vulnear_elektrika +15;
                                     }
                                     else  {
@@ -1123,7 +1123,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
 
                         case 14: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                       AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_10_HP),no_Item);
                                      // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                         }
                                     else  {
@@ -1131,7 +1131,7 @@ switch   (no_kov_co_pridavam){
                                     }
                                     break;  }
                         case 16: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+                                    AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_10_HP),no_Item);
                                     // no_vulnear_elektrika  = no_vulnear_elektrika +10;
                                         }
                                     else  {
@@ -1359,7 +1359,7 @@ switch   (no_kov_co_pridavam){
                                     no_bonus_vylepseni = no_bonus_vylepseni +1;
                                     break;  }
                         case 6: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
-                                         no_disciple = no_disciple +2;
+                                         no_disciple = no_disciple +3;
                                          no_soak_bonus=no_soak_bonus +2;
                                     }
                                     else{
@@ -1369,7 +1369,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 8: {   if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_5),no_Item);
-                                         no_disciple = no_disciple +3;
+                                         no_disciple = no_disciple +4;
                                          no_soak_bonus=no_soak_bonus +3;
                                     }
                                     else{
@@ -1390,7 +1390,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 12: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_5),no_Item);
-                                         no_disciple = no_disciple +3;
+                                         no_disciple = no_disciple +5;
                                         no_soak_bonus=no_soak_bonus +4;
                                     }
                                     else{
@@ -1401,7 +1401,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 14: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
-                                         no_disciple = no_disciple +4;
+                                         no_disciple = no_disciple +5;
                                          no_soak_bonus=no_soak_bonus +5;
                                     }
                                     else{
@@ -1412,7 +1412,7 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 16: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
-                                         no_disciple = no_disciple +4;
+                                         no_disciple = no_disciple +6;
                                          no_soak_bonus=no_soak_bonus +6;
                                     }
                                     else{
@@ -1423,14 +1423,14 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 18: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_15),no_Item);
-                                         no_disciple = no_disciple +5;
+                                         no_disciple = no_disciple +6;
                                          no_soak_bonus=no_soak_bonus +6;
                                     }
                                     else{
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_10),no_Item);
                                          no_disciple = no_disciple +5;
                                     }
-                                    no_bonus_vylepseni = no_bonus_vylepseni +4;
+                                    no_bonus_vylepseni = no_bonus_vylepseni +5;
                                     break;  }
                         case 20: {  if ((GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he")) {
                                          AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGERESIST_15),no_Item);
@@ -1645,7 +1645,7 @@ no_udelej_vlastnosti(GetLocalInt(no_pec,"no_kov_2"),no_menu_max_procent - GetLoc
 }
 
 //podla typu koze sa nastavi maximalne AC
-switch ( GetLocalInt(OBJECT_SELF,"no_druh_kuze")) {
+/*switch ( GetLocalInt(OBJECT_SELF,"no_druh_kuze")) {
 case 1: {   if ( no_bonus_vylepseni >0 ){
             no_bonus_vylepseni = 0;
             FloatingTextStringOnCreature(" Safra, pro lepsi vysledek budu potrebovat lepsi kuzi" ,no_oPC,FALSE);   }
@@ -1687,7 +1687,7 @@ case 6: {   if ( no_bonus_vylepseni >5 ){
             AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonusVsDmgType(IP_CONST_DAMAGETYPE_BLUDGEONING,3),no_Item);
             FloatingTextStringOnCreature(" Hm, takhle kvalitni kuze nebyla az tak zbytecna",no_oPC,FALSE );   }
             break;}
-} //konec switche nasady
+} */ // pri soucasnem nastaven NT zbytecne //konec switche nasady
 
 //podla typu no_kov_1 sa nastavi maximalne AC
 switch ( GetLocalInt(no_pec,"no_kov_1")) {
@@ -1737,10 +1737,10 @@ if (no_bonus_vylepseni>0) {
 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyACBonus(no_bonus_vylepseni),no_Item);
 
 //vsechny zbroje s  +1 AC a vys maji 5/+1 redukci
-if (( no_soak_bonus == 0)&( no_bonus_vylepseni<0)&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he"))
+/*if (( no_soak_bonus == 0)&( no_bonus_vylepseni<0)&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he"))
 {
 AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_1,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-}
+} */ //Karolina 25.4.2016 - projevuje se to na zbrojch mimo tabulku, +1/5hp nikoho nevytrhne a zbytecne to zveda ILR
 //
 //if (( no_soak_bonus < 2)&( no_bonus_vylepseni==2)&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "ru")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "bo")&(GetLocalString(OBJECT_SELF,"no_druh_vyrobku")!= "he"))
 //{
@@ -1750,13 +1750,13 @@ if (( no_soak_bonus < 1)&( no_bonus_vylepseni>0)&(GetLocalString(OBJECT_SELF,"no
 { no_soak_bonus = 1;  }
 //AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
 //}
-if ( no_soak_bonus ==1) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_1,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-if ( no_soak_bonus ==2) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_2,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-if ( no_soak_bonus ==3) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+if ( no_soak_bonus ==1) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_2,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+if ( no_soak_bonus ==2) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+if ( no_soak_bonus ==3) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_3,IP_CONST_DAMAGESOAK_10_HP),no_Item);
 if ( no_soak_bonus ==4) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-if ( no_soak_bonus ==5) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-if ( no_soak_bonus ==6) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_6,IP_CONST_DAMAGESOAK_5_HP),no_Item);
-if ( no_soak_bonus ==7) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_7,IP_CONST_DAMAGESOAK_5_HP),no_Item);
+if ( no_soak_bonus ==5) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_4,IP_CONST_DAMAGESOAK_10_HP),no_Item);
+if ( no_soak_bonus ==6) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_5,IP_CONST_DAMAGESOAK_10_HP),no_Item);
+if ( no_soak_bonus ==7) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_6,IP_CONST_DAMAGESOAK_10_HP),no_Item);
 if ( no_soak_bonus ==8) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_8,IP_CONST_DAMAGESOAK_5_HP),no_Item);
 if ( no_soak_bonus ==9) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_9,IP_CONST_DAMAGESOAK_5_HP),no_Item);
 if ( no_soak_bonus >9) AddItemProperty(DURATION_TYPE_PERMANENT,ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_10,IP_CONST_DAMAGESOAK_5_HP),no_Item);
@@ -2200,10 +2200,6 @@ while(GetIsObjectValid(no_Item))  {
 
   }//tak uz mame nasadu
 }
-
-
-
-
 
 
 void no_vyrobek (object no_Item, object no_pec, int no_mazani)
