@@ -180,9 +180,11 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/h <text> - vypise text jako by mluvil tvuj kun.");
       SendMessageToPC(oPC,"/c <text> - vypise text jako by mluvil tvuj animal companion.");
       SendMessageToPC(oPC,"/f <text> - vypise text jako by mluvil tvuj familiar.");
-      SendMessageToPC(oPC,"**************************************");
-      SendMessageToPC(oPC," DM ONLY :");
-      SendMessageToPC(oPC,"/pc item <resref itemu> - Vytvori item do invu.");
+      if(GetIsDM(oPC)) {
+        SendMessageToPC(oPC,"**************************************");
+        SendMessageToPC(oPC," DM ONLY :");
+        SendMessageToPC(oPC,"/pc item <resref itemu> - Vytvori item do invu.");
+      }
       break;
     }
     case 8: {
