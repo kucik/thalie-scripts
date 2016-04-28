@@ -415,6 +415,36 @@ void ku_LockLoot(object oChest, int iLockDC) {
 
 }
 
+void __createTrapOnLoot(object oObject, int iOneshot = 0, int iMod = 0) {
+  string sLootScript = GetStringLowerCase(GetScript(oObject, PLACEABLE_SCRIPT_OPEN));
+  int iLootType = 0;
+
+  // Trap enhancment by loot power
+  if(FindSubString(sLootScript,"high")>-1)
+    iLootType = 4;
+  else if(FindSubString(sLootScript,"uniq")>-1)
+    iLootType = 4;
+  else if(FindSubString(sLootScript,"med")>-1)
+    iLootType = 1;
+  else if(FindSubString(sLootScript,"low")>-1)
+    iLootType = 0;
+
+  // Trap levels
+  int iTrapPower = (GetLocalInt(GetArea(oObject),"TREASURE_VALUE")+ iLootType) / 5 + iMod;
+  if(iTrapPower <= 0)
+    return;
+
+  CreateTrapOnObject(ku_ChooseTrap(iTrapPower, Random(11)+1), oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm");
+
+  if(Random(100) < iOneshot)
+    SetTrapOneShot(oObject,FALSE);
+
+  SetTrapDetectDC(oObject,5 + 4*iTrapPower + d4());
+  SetTrapDisarmDC(oObject,10 + 4*iTrapPower + Random(5));
+  __trapRandomRecoverable(oObject);
+
+}
+
 void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
 {
     // Spawn of the placeable.
@@ -432,35 +462,25 @@ void LOCK_SpawnPlaceable(location lLoc, string sTAG, string sNewTag="")
     if(iTrapsProb == 0)
       return;
 
-    int iTrapPower = GetLocalInt(GetArea(oObject),"TREASURE_VALUE") / 5 +1;
+    int iLockPower = GetLocalInt(GetArea(oObject),"TREASURE_VALUE") / 5 +1;
 
     if( (FindSubString(sResref,"corpse")>-1) && (Random(100)  < (15 * iTrapsProb /100) ) ) {
-      iTrapPower--;
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm");
+      __createTrapOnLoot(oObject, 0, -1);
     } else if( (FindSubString(sResref,"treasure")>-1) && (Random(100) < (5 * iTrapsProb /100)) )  {
-      iTrapPower--;
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
+      __createTrapOnLoot(oObject, 0, -1);
     } else if( (FindSubString(sResref,"barrel")>-1) && (Random(100) < (30 * iTrapsProb /100)) ) {
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
+      __createTrapOnLoot(oObject, 0, 0);
     } else if( (FindSubString(sResref,"box")>-1) && (Random(100) < (50 * iTrapsProb /100)) ) {
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
-      if(Random(100) < 40)
-        SetTrapOneShot(oObject,FALSE);
+      __createTrapOnLoot(oObject, 40, 0);
       if(Random(100) < 15)
-        ku_LockLoot(oObject, iTrapPower);
+        ku_LockLoot(oObject, iLockPower);
     } else if( (FindSubString(sResref,"chest")>-1) && (Random(100) < (70 * iTrapsProb /100)) ) {
-//      iTrapPower++;
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oObject, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
+      __createTrapOnLoot(oObject, 50, 0);
       if(Random(100) < 50)
-        SetTrapOneShot(oObject,FALSE);
-      if(Random(100) < 50)
-        ku_LockLoot(oObject, iTrapPower);
+        ku_LockLoot(oObject, iLockPower);
     } else {
        return;
     }
-    SetTrapDetectDC(oObject,5 + 4*iTrapPower + d4());
-    SetTrapDisarmDC(oObject,19 + 5*iTrapPower + Random(5));
-    __trapRandomRecoverable(oObject);
 
 }
 
