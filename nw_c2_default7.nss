@@ -237,6 +237,9 @@ void SetPeltTimeStamp() {
 
   object oItem = GetFirstItemInInventory(oNPC);
   while(GetIsObjectValid(oItem)) {
+    if(GetBaseItemType(oItem) == BASE_ITEM_KEY) {
+      SetLocalInt(oItem,"KU_HIRE_EXPIRATION",ku_GetTimeStamp() + 86400); //24h real
+    }
     SetLocalInt(oItem,"TROFEJ_TIMESTAMP",iStamp);
     oItem = GetNextItemInInventory(oNPC);
   }

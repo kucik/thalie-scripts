@@ -13,7 +13,7 @@
 #include "ku_libtime"
 #include "aps_include"
 
-const int HIRE_TIME = 30;
+const int HIRE_TIME = 3600; // 60min real
 const int HIRE_PRICE = 20;
 const string HIRE_KEY_TAG = "ku_hire_key";
 
@@ -264,12 +264,20 @@ int ku_HireGetIsKeyExpired(object oKey) {
     return FALSE;
   }
 
-  if(GetStringLeft(GetTag(oKey),8) != "ku_hire_")
+  /* Boss keys */
+  int iTrofejTimestamp = GetLocalInt(oKey,"TROFEJ_TIMESTAMP");
+
+  if(GetStringLeft(GetTag(oKey),8) != "ku_hire_" || iTrofejTimestamp > 0)
     return FALSE;
 
   if(ku_GetTimeStamp() > GetLocalInt(oKey,"KU_HIRE_EXPIRATION")) {
     return TRUE;
   }
+
+  /* Keys from bosses - old*/
+  if(iTrofejTimestamp + 2592000 < ku_GetTimeStamp())
+    return TRUE;
+
   return FALSE;
 }
 
