@@ -275,7 +275,7 @@ int ku_HireGetIsKeyExpired(object oKey) {
   }
 
   /* Keys from bosses - old*/
-  if(iTrofejTimestamp + 2592000 < ku_GetTimeStamp())
+  if((iTrofejTimestamp > 0) && (iTrofejTimestamp + 2592000 < ku_GetTimeStamp()))
     return TRUE;
 
   return FALSE;
