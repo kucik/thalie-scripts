@@ -95,9 +95,9 @@ no_oPC=GetLastOpenedBy();
 
 
 //doplnena perzistence 5.5.2014
-if  (GetLocalInt(OBJECT_SELF,"no_prvni_otevreni")==0)   {
+/*if  (GetLocalInt(OBJECT_SELF,"no_prvni_otevreni")==0)   {
       SetLocalInt(OBJECT_SELF,"no_prvni_otevreni",1);
-      Persist_OnContainerOpen(OBJECT_SELF, no_oPC);             }
+      Persist_OnContainerOpen(OBJECT_SELF, no_oPC);             }   */
 ///////////////////////////////
 
 

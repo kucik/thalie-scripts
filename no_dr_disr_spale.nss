@@ -28,7 +28,7 @@ object no_vzataItem = GetInventoryDisturbItem();
 
 ///doplnena perzistence 5.5.2014
 
-                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+             //   DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 
 /////////////////////////////1-NASTAVIT SEKANI/////////////////////////////////
 if (GetTag(no_vzataItem) == "no_sekani" ) {

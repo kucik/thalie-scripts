@@ -38,7 +38,7 @@ object no_vzataItem = GetInventoryDisturbItem();
 
 
 ///doplnena perzistence 5.5.2014
-Persist_DeleteItemFromDB(GetInventoryDisturbItem());
+//Persist_DeleteItemFromDB(GetInventoryDisturbItem());
 
 ///////////////////// kdyz se jedna o vec, co se ma vyrabet//////////////////////
 //string no_menu_tagveci = GetStringRight(GetTag(no_vzataItem),6);
@@ -630,11 +630,11 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac001",OBJECT_SELF,1,"no_men_
 
 ////////////kdyz se prida neco do zarizeni/////////////////////////////////////////
 ///doplnena perzistence 5.5.2014
-if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
+/*if (GetInventoryDisturbType()== INVENTORY_DISTURB_TYPE_ADDED) {
 
 Persist_SaveItemToDB(GetInventoryDisturbItem(), Persist_InitContainer(OBJECT_SELF));
 
-}
+} */
 
 
 }

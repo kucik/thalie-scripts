@@ -1,6 +1,6 @@
 #include "tc_constants"
 
-const string no_verzecraftu =  "04.09.14";  // bude u kazdeho vyrobku napsane, at vime, jak je to starej vyrobek
+const string no_verzecraftu =  "04.05.16";  // bude u kazdeho vyrobku napsane, at vime, jak je to starej vyrobek
                                             //  obzvlaste po tech updatech tobude bourlive :D
 
 /*const int TC_zlatnik = 30; // cislo drevariny

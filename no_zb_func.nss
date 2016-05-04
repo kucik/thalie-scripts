@@ -888,13 +888,13 @@ switch   (no_kov_co_pridavam){
                                     break;  }
                         case 12: {  no_bonus_vylepseni = no_bonus_vylepseni -4;
                                     break;  }
-                        case 14: {  no_bonus_vylepseni = no_bonus_vylepseni -4;
+                        case 14: {  no_bonus_vylepseni = no_bonus_vylepseni -3;
                                     break;  }
-                        case 16: {  no_bonus_vylepseni = no_bonus_vylepseni -3;
+                        case 16: {  no_bonus_vylepseni = no_bonus_vylepseni -2;
                                     break;  }
-                        case 18: {  no_bonus_vylepseni = no_bonus_vylepseni -2;
+                        case 18: {  no_bonus_vylepseni = no_bonus_vylepseni -1;
                                     break;  }
-                        case 20: {  no_bonus_vylepseni = no_bonus_vylepseni -1;
+                        case 20: {  no_bonus_vylepseni = no_bonus_vylepseni +1;
                                     break;  }
 
                         } //konec vnitrniho switche

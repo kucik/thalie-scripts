@@ -100,7 +100,7 @@ object no_vzataItem = GetInventoryDisturbItem();
 
 
 ///doplnena perzistence 5.5.2014
-Persist_DeleteItemFromDB(GetInventoryDisturbItem());
+//Persist_DeleteItemFromDB(GetInventoryDisturbItem());
 
 ///////////////////// kdyz se jedna o vec, co se ma vyrabet//////////////////////
 //string no_menu_tagveci = GetStringRight(GetTag(no_vzataItem),6);

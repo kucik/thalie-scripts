@@ -119,7 +119,7 @@ object no_vzataItem = GetInventoryDisturbItem();
 
 
 ///doplnena perzistence 5.5.2014
-                DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+               // DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 
 
 ///////////////////// kdyz se jedna o vec, co se ma vyrabet//////////////////////
