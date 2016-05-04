@@ -6,10 +6,14 @@ const int RELOAD_KLEVETY = 6000;
 
 void ku_klevety_dialog(object NPC, string text);
 
+void __initPlc();
+
 void ku_klevety_init() {
   int initialized = GetLocalInt(OBJECT_SELF,"KU_NPC_KLEV_INITIALIZED");
   if(initialized)
     return;
+
+  string sEmptyText = "*Zivne*";
 
   object oNPC = OBJECT_SELF;
   string sNPCtag = GetTag(oNPC);
@@ -29,6 +33,11 @@ void ku_klevety_init() {
     }
   }
 
+  /* Location independent */
+  if(GetLocalInt(oNPC,"KLEV_NO_LOC")) {
+    sAreaTag = "-";
+  }
+
   int iCnt = 0;
   /* Check if NPC is initialized in DB */
   string sSQL = "SELECT count(*) FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"'; ";
@@ -37,28 +46,13 @@ void ku_klevety_init() {
     iCnt = StringToInt(SQLGetData(1));
   }
 
-  /* Get texts from DB */
-/*  string sSQL = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"'; ";
-  SQLExecDirect(sSQL);
-  string sText;
-  int i=0;
-  object oMod = GetModule();
-  while (SQLFetch() == SQL_SUCCESS) {
-
-    sText = SQLGetData(1);
-    sText = StrEncodeToCZ(oMod,sText);
-    SetLocalString(oNPC,"KU_KLEVETY_"+IntToString(i),sText);
-    i++;
-  }
-  SetLocalInt(oNPC,"KU_KLEVETY_CNT",i);*/
-
   /* If no text, initialize me in DB */
   if(iCnt == 0) {
     string sValues = "'"+sAreaTag+"',"+
                      "'"+sAreaName+"',"+
                      "'"+sNPCtag+"',"+
                      "'"+sNPCname+"',"+
-                     "'*Zivne*'";
+                     "'"+sEmptyText+"'";
     sSQL = "INSERT INTO Klevety  (lokace_tag,lokace,NPC_tag,NPC,text) VALUES ("+sValues+");";
     SQLExecDirect(sSQL);
   }
@@ -68,6 +62,9 @@ void ku_klevety_init() {
   SetLocalInt(OBJECT_SELF,"KU_NPC_KLEV_INITIALIZED",1);
 //  float timeout = IntToFloat(RELOAD_KLEVETY + Random(500));
 //  DelayCommand(timeout,DeleteLocalInt(oNPC,"KU_NPC_KLEV_INITIALIZED"));
+
+  if(GetObjectType(oNPC) == OBJECT_TYPE_PLACEABLE)
+    __initPlc();
 
   return;
 }
@@ -81,6 +78,10 @@ void ku_klevety_shout() {
   string sAreaTag = GetTag(oArea);
   object oMod = GetModule();
 
+  /* Location independent */
+  if(GetLocalInt(oNPC,"KLEV_NO_LOC")) {
+    sAreaTag = "-";
+  }
 
   // Fetch random text 
   string sSql = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"' ORDER BY RAND() LIMIT 0,1;";
@@ -124,7 +125,42 @@ void ku_klevety_dialog(object NPC, string text) {
   }
 }
 
+void __initPlc() {
+  /* Get texts from DB */
+  object oNPC = OBJECT_SELF;
+  string sNPCtag = GetTag(oNPC);
+  object oArea = GetArea(oNPC);
+  string sAreaTag = GetTag(oArea);
+
+  /* Location independent */
+  if(GetLocalInt(oNPC,"KLEV_NO_LOC")) {
+    sAreaTag = "-";
+  }
+
+  string sSQL = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"' order by id; ";
+  SQLExecDirect(sSQL);
+  string sText;
+  object oMod = GetModule();
+  string sDesc = "";
+  while (SQLFetch() == SQL_SUCCESS) {
+    sText = SQLGetData(1);
+    sText = StrEncodeToCZ(oMod,sText);
+    sDesc = sDesc + sText + "\n\n";
+  }
+  SetDescription(oNPC, sDesc);
+}
+
+int __plcCheckShout() {
+  if(GetLocalInt(OBJECT_SELF,"KU_NPC_KLEV_INITIALIZED"))
+    return FALSE;
+
+  return TRUE;
+}
+
 int klevetyChechShout() {
+  if(GetObjectType(OBJECT_SELF) == OBJECT_TYPE_PLACEABLE)
+    return __plcCheckShout();
+
   int irand = GetLocalInt(OBJECT_SELF,"KLEV_RAND");
   int iMinTime = GetLocalInt(OBJECT_SELF,"KLEV_MIN_TIME") * 60; // In minutes
   int iMaxTime = GetLocalInt(OBJECT_SELF,"KLEV_MAX_TIME") * 60; // In minutes
