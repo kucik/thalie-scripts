@@ -262,9 +262,9 @@ const int PWFXP_MAXIMUM_XP = 3000;
 // gets a total XP divisor of 2.5 (using default values).
 // if they kill a 1000XP mob, both PCs only receive 400 XP
 const float PWFXP_XP_DIVISOR_PC  = 1.0;            // orig 1.0
-const float PWFXP_XP_DIVISOR_DOMINATED = 0.5;      // orig 0.8
+const float PWFXP_XP_DIVISOR_DOMINATED = 0.0;      // orig 0.8
 const float PWFXP_XP_DIVISOR_HENCHMAN = 0.6;
-const float PWFXP_XP_DIVISOR_SUMMONED = 0.6;       // orig 0.3
+const float PWFXP_XP_DIVISOR_SUMMONED = 0.0;       // orig 0.3
 const float PWFXP_XP_DIVISOR_ANIMALCOMPANION = 0.0;
 const float PWFXP_XP_DIVISOR_FAMILIAR = 0.0;
 // used in case i can't determine the associate type
