@@ -38,7 +38,7 @@ void no_vynikajicikus(object no_Item);
 // prida nahodne neco dobreho, kdyz bude vynikajici vyrobek !
 
 // pridavame podle kovu procenta.
-void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta,int barva );
+void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta,int barva, object no_Item );
 
 //zkusi nejak zmenit vzhled.
 void no_udelej_vzhled(object no_Item);
@@ -117,10 +117,8 @@ int __ocGetPercentsFromLevel(int no_level) {
   return 10;
 }
 
-int __ocGetMaxEnchantment(string sType) {
-  int iType = TC_getBaseItemByShortcut(sType);
-  if(iType < 0)
-    return -1;
+
+int __ocGetMaxEnchantmentBaseItem(int iType){
 
   switch(iType) {
     case BASE_ITEM_GREATSWORD:
@@ -173,12 +171,20 @@ int __ocGetMaxEnchantment(string sType) {
     case BASE_ITEM_WHIP:
     case BASE_ITEM_KUKRI:
     case 310:  // Katar
-      return 120;
+      return 12;
     case BASE_ITEM_LIGHTFLAIL:
-      return 100;
+      return 10;
   }
   return 0;
 
+}
+
+int __ocGetMaxEnchantment(string sType) {
+  int iType = TC_getBaseItemByShortcut(sType);
+  if(iType < 0)
+    return -1;
+
+  return __ocGetMaxEnchantmentBaseItem(iType);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -439,8 +445,7 @@ case 30:  {
 }//konec veci navic
 
 // pridavame podle kovu procenta.
-void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta,int barva )
-{
+void no_udelej_vlastnosti(int no_kov_co_pridavam, int no_kov_pridame_procenta,int barva, object no_Item ) {
 
 //
 //V knihovnì x3_inc_string je funkce
@@ -1959,27 +1964,37 @@ void no_udelej_vzhled(object no_Item)
 
 void no_udelejocarovani(object no_Item)
 {
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"Vyrabim ocarovani" );
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"Vyrabim ocarovani-no_kamen   " + IntToString(GetLocalInt(no_Item,"no_kamen")) + "  " + IntToString(GetLocalInt(no_Item,"no_hl_mat")));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"Vyrabim ocarovani-no_kamen2   " + IntToString(GetLocalInt(no_Item,"no_kamen2")) +"  " + IntToString(GetLocalInt(no_Item,"no_ve_mat")));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"Vyrabim ocarovani" );
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"Vyrabim ocarovani-no_kamen   " + IntToString(GetLocalInt(no_Item,"no_kamen")) + "  " + IntToString(GetLocalInt(no_Item,"no_hl_mat")));
+  if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"Vyrabim ocarovani-no_kamen2   " + IntToString(GetLocalInt(no_Item,"no_kamen2")) +"  " + IntToString(GetLocalInt(no_Item,"no_ve_mat")));
 
 
 //SetLocalInt(no_Item,"no_ve_mat",GetLocalInt(OBJECT_SELF,"no_ve_mat"));
 //SetLocalInt(no_Item,"no_hl_mat",GetLocalInt(OBJECT_SELF,"no_hl_mat"));
 // pridavame podle kovu procenta.                                                    ///TRUE = barva
-no_udelej_vlastnosti(GetLocalInt(no_Item,"no_hl_mat"),GetLocalInt(no_Item,"no_kamen"),TRUE);
-no_udelej_vlastnosti(GetLocalInt(no_Item,"no_ve_mat"),GetLocalInt(no_Item,"no_kamen2"),FALSE);
+  int iMat1 = GetLocalInt(no_Item,"no_hl_mat");
+  int iMat2 = GetLocalInt(no_Item,"no_ve_mat");
+  int iPower1 = GetLocalInt(no_Item,"no_kamen");
+  int iPower2 = GetLocalInt(no_Item,"no_kamen2");
+  int iMaxPower = __ocGetMaxEnchantmentBaseItem(GetBaseItemType(no_Item));
+  /* Safety */
+  if(iPower1 > iMaxPower)
+    iPower1 = iMaxPower;
+  if(iPower1 + iPower2 > iMaxPower)
+    iPower2 = iMaxPower - iPower1;
+
+  no_udelej_vlastnosti(iMat1, iPower1, TRUE, no_Item);
+  no_udelej_vlastnosti(iMat2, iPower2, FALSE, no_Item);
 
 //kdyz neni druhy jako prvni material, tak udelame maxprocenta-hl.mat.procenta vlastnosti.
 
-//no_udelej_vlastnosti(GetLocalInt(OBJECT_SELF,"no_kov_2"),no_menu_max_procent - GetLocalInt(OBJECT_SELF,"no_kov_procenta") );
+  no_vynikajicikus(no_Item);
+  no_cenavyrobku(no_Item);
 
-
-no_vynikajicikus(no_Item);
-no_cenavyrobku(no_Item);
-
-//udelje jmeno musi byt posledni kvuli BUGu s set description
-no_udelejjmeno(no_Item);
+  //udelje jmeno musi byt posledni kvuli BUGu s set description
+  no_udelejjmeno(no_Item);
 }
 
 
@@ -2507,283 +2522,167 @@ FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FAL
 
 ///////////////////////////////Predelavam polotovar///////////////////////////////////////////////////////
 /////////zjisti pravdepodobnost, prideli xpy, prida %hotovosti vyrobku a kdz bude nad 100% udela jej hotovym.
+
+/* This seems to be DC to create item with such propery. Not a DC of itemproperty
+ * effect */
+int __GetDcByMaterial(int iMater) {
+  switch (iMater) {
+    // Elementy
+    case  1:
+    case  2:
+    case  3:
+    case  4:
+    case  5: return 9;
+    // Keen
+    case  6: return 10;
+    // Onhit
+    case  7:
+    case  8:
+    case  9:
+    case 10:
+    // DamageBonusVsRace
+    case 11: return 8;
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21: return 7;
+    // IP_CONST_ONHIT_SLAYRACE
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31: return 10;
+    // ItemPropertyDamageBonusVsAlign
+    case 32:
+    case 33:
+    case 34:
+    case 35: return 8;
+    // ItemPropertyVampiricRegeneration
+    case 36: return 9;
+    // ItemPropertyDamageBonusVsRace IP_CONST_RACIALTYPE_OUTSIDER
+    case 37: return 10;
+    // IP_CONST_ONHIT_WOUNDING
+    case 38: return 8;
+    // IP_CONST_ONHIT_LESSERDISPEL
+    case 39: return 10;
+    // IP_CONST_ONHIT_ITEMPOISON
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45: return 7;
+    // IP_CONST_ONHIT_LEVELDRAIN
+    case 46:
+    // IP_CONST_ONHIT_ABILITYDRAIN
+    case 47:
+    case 48:
+    case 49:
+    case 50:
+    case 51:
+    case 52: return 10;
+    // IP_CONST_REDUCEDWEIGHT_10_PERCENT
+    case 53: return 7;
+  }
+  return 0;
+}
+
 void no_xp_oc (object no_oPC, object no_pec)
 {
-int no_druh=0;
-int no_DC=1000;// radsi velke, kdyby nahodou se neprepsalo
-int no_level = TC_getLevel(no_oPC,TC_ocarovavac);  // TC kovar = 33
-if  (GetIsDM(no_oPC)== TRUE) no_level=no_level+20;
+  int no_druh=0;
+  int no_DC=1000;// radsi velke, kdyby nahodou se neprepsalo
+  int no_level = TC_getLevel(no_oPC,TC_ocarovavac);  // TC kovar = 33
+  if  (GetIsDM(no_oPC)== TRUE)
+    no_level=no_level+20;
 
 //        SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
 //        SetLocalInt(OBJECT_SELF,"no_kamen2",no_co_mame_za_kamen2);
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_Item =  " + GetName(no_Item));
-int no_vedlejsi_mat = GetLocalInt(no_Item,"no_ve_mat");
-int no_hlavni_mat = GetLocalInt(no_Item,"no_hl_mat");
-int no_procenta_hlmat = GetLocalInt(no_Item,"no_hl_proc");
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_vedlejsi_mat= " + IntToString(no_vedlejsi_mat));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_hlavni_mat= " + IntToString(no_hlavni_mat));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_procenta_hlmat= " + IntToString(no_procenta_hlmat));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_kamen= " + IntToString((GetLocalInt(no_Item,"no_kamen"))));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_kamen2= " + IntToString((GetLocalInt(no_Item,"no_kamen2"))));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_Item =  " + GetName(no_Item));
+  int no_vedlejsi_mat = GetLocalInt(no_Item,"no_ve_mat");
+  int no_hlavni_mat = GetLocalInt(no_Item,"no_hl_mat");
+  int no_procenta_hlmat = GetLocalInt(no_Item,"no_hl_proc");
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_vedlejsi_mat= " + IntToString(no_vedlejsi_mat));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_hlavni_mat= " + IntToString(no_hlavni_mat));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_procenta_hlmat= " + IntToString(no_procenta_hlmat));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_kamen= " + IntToString((GetLocalInt(no_Item,"no_kamen"))));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_kamen2= " + IntToString((GetLocalInt(no_Item,"no_kamen2"))));
 ////////ulozene pocty procent danych materialu.  1  pro hlavni, 2 pro vedlejsi..
        // SetLocalInt(OBJECT_SELF,"no_kamen",no_co_mame_za_kamen);
        // SetLocalInt(OBJECT_SELF,"no_kamen2",no_co_mame_za_kamen2);
 
-switch (no_hlavni_mat) {
-case 1: {no_DC = 9 * (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 2: {no_DC = 9 * (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 3: {no_DC = 9* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 4: {no_DC = 9 * (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 5: {no_DC = 9* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 6: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 7: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 8: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 9: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 10: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 11: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 12: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 13: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 14: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 15: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 16: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 17: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 18: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 19: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 20: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 21: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 22: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 23: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 24: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 25: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 26: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 27: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 28: {no_DC =10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 29: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 30: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 31: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 32: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 33: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 34: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 35: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 36: {no_DC = 9* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 37: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 38: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 39: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 40: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 41: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 42: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 43: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 44: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 45: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 46: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 47: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 48: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 49: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 50: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 51: {no_DC =10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 52: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-case 53: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen")/10) ;
-            break;}
-}//konec switche
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_DC hlmat= " + IntToString(no_DC));
+  // Hlavni material
+  no_DC = __GetDcByMaterial(no_hlavni_mat) * (GetLocalInt(no_Item,"no_kamen")/10);
 
-switch (no_vedlejsi_mat) {
-case 1: {no_DC = 9 * (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 2: {no_DC = 9 * (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 3: {no_DC = 9* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 4: {no_DC = 9 * (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 5: {no_DC = 9* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 6: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 7: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 8: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 9: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 10: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 11: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC- 10*no_level ;
-            break;}
-case 12: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 13: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 14: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 15: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 16: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 17: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 18: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC- 10*no_level ;
-            break;}
-case 19: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 20: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 21: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 22: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 23: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 24: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 25: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 26: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 27: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 28: {no_DC =10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC- 10*no_level;
-            break;}
-case 29: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 30: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC- 10*no_level;
-            break;}
-case 31: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 32: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 33: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC- 10*no_level;
-            break;}
-case 34: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 35: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 36: {no_DC = 9* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 37: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 38: {no_DC = 8* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 39: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 40: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 41: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 42: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 43: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 44: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 45: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 46: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 47: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 48: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 49: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 50: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 51: {no_DC =10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 52: {no_DC = 10* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-case 53: {no_DC = 7* (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
-            break;}
-}//konec switche
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_DC hlmat= " + IntToString(no_DC));
 
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_DC vedl mat= " + IntToString(no_DC+ 10*no_level));
-if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC,"no_DC - no_lvl= " + IntToString(no_DC));
+  // Vedlejsi material
+  no_DC = __GetDcByMaterial(no_vedlejsi_mat) * (GetLocalInt(no_Item,"no_kamen2")/10) + no_DC - 10*no_level;
+
+
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_DC vedl mat= " + IntToString(no_DC+ 10*no_level));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC,"no_DC - no_lvl= " + IntToString(no_DC));
 
 
 
-// pravdepodobnost uspechu =
-int no_chance = 100 - (no_DC*2) ;
-if (no_chance < 0) no_chance = 0;
-        if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC," Sance uspechu :" + IntToString(no_chance));
-//samotny hod
-int no_hod = 101-d100();
+  // pravdepodobnost uspechu =
+  int no_chance = 100 - (no_DC*2) ;
+  if (no_chance < 0)
+    no_chance = 0;
+
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC," Sance uspechu :" + IntToString(no_chance));
+  //samotny hod
+  int no_hod = 101-d100();
 
 ////6brezen/////
-if  (GetLocalFloat(no_Item,"no_suse_proc")==0.0) SetLocalFloat(no_Item,"no_suse_proc",10.0);
+  if (GetLocalFloat(no_Item,"no_suse_proc")==0.0)
+    SetLocalFloat(no_Item,"no_suse_proc",10.0);
 
 
- if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC," Hodils :" + IntToString(no_hod));
+  if ( NO_oc_DEBUG == TRUE )
+    SendMessageToPC(no_oPC," Hodils :" + IntToString(no_hod));
 
 
-if (no_hod <= no_chance ) {
-         if ( NO_oc_DEBUG == TRUE )  SendMessageToPC(no_oPC," no:item do procent =  :" + GetName(no_Item));
+  if (no_hod <= no_chance ) {
+    if ( NO_oc_DEBUG == TRUE )
+      SendMessageToPC(no_oPC," no:item do procent =  :" + GetName(no_Item));
 
 
-        float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
+    float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
 
-        SendMessageToPC(no_oPC,"===================================");
+    SendMessageToPC(no_oPC,"===================================");
 
-        if (no_chance >= 100) {FloatingTextStringOnCreature("Zpracovani je pro tebe trivialni",no_oPC,FALSE );
+    if (no_chance >= 100) {
+      FloatingTextStringOnCreature("Zpracovani je pro tebe trivialni",no_oPC,FALSE );
                          //no_procenta = no_procenta + 10 + d10(); // + 11-20 fixne za trivialni vec
-                         TC_setXPbyDifficulty(no_oPC,TC_ocarovavac,no_chance,TC_dej_vlastnost(TC_ocarovavac,no_oPC));
-                         }
+      TC_setXPbyDifficulty(no_oPC,TC_ocarovavac,no_chance,TC_dej_vlastnost(TC_ocarovavac,no_oPC));
+    }
 
-        if ((no_chance > 0)&(no_chance<100)) { TC_setXPbyDifficulty(no_oPC,TC_ocarovavac,no_chance,TC_dej_vlastnost(TC_ocarovavac,no_oPC));
-                            }
-        //////////povedlo se takze se zlepsi % zhotoveni na polotovaru////////////
-        ///////////nacteme procenta z minula kdyz je polotovar novej, mel by mit int=0 /////////////////
+    if ((no_chance > 0) && (no_chance<100)) {
+      TC_setXPbyDifficulty(no_oPC,TC_ocarovavac,no_chance,TC_dej_vlastnost(TC_ocarovavac,no_oPC));
+    }
+    //////////povedlo se takze se zlepsi % zhotoveni na polotovaru////////////
+    ///////////nacteme procenta z minula kdyz je polotovar novej, mel by mit int=0 /////////////////
 
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
@@ -2828,101 +2727,105 @@ if (no_hod <= no_chance ) {
             else if (no_obtiznost_vyrobku <10) {
             no_procenta = no_procenta + Random(10)/10.0 +5.0;}
 
-if (NO_oc_DEBUG == TRUE) no_procenta = no_procenta +30.0;
-            if  (GetIsDM(no_oPC)== TRUE) no_procenta = no_procenta + 50.0;
+    if (NO_oc_DEBUG == TRUE)
+      no_procenta = no_procenta +30.0;
+    if  (GetIsDM(no_oPC)== TRUE)
+      no_procenta = no_procenta + 50.0;
 
-        if (no_procenta >= 100.0) {  //kdyz je vyrobek 100% tak samozrejmeje hotovej
-        AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0, 5.0));
-        //DestroyObject(no_Item); //znicim ho, protoze predam hotovej vyrobek
+    if (no_procenta >= 100.0) {  //kdyz je vyrobek 100% tak samozrejmeje hotovej
+      AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0, 5.0));
+      //DestroyObject(no_Item); //znicim ho, protoze predam hotovej vyrobek
 
-// if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kr") {
-                       FloatingTextStringOnCreature("*** HOTOVO ***" ,no_oPC,FALSE );
+      // if (GetLocalString(OBJECT_SELF,"no_druh_vyrobku") == "kr") {
+      FloatingTextStringOnCreature("*** HOTOVO ***" ,no_oPC,FALSE );
 
-                        no_udelejocarovani(no_Item);
-                        DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+      no_udelejocarovani(no_Item);
+      DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 /// }////////////////// konec dodelavky zbrane ///////////////////////////////
 
 
 
-                        }//konec kdzy uz mam nad 100%
+    }//konec kdzy uz mam nad 100%
 
-        if (no_procenta < 100.0) {  //kdyz neni 100% tak samozrejmeje neni hotovej
-        no_vytvorprocenta(no_oPC,no_procenta,no_Item);
-          }// kdyz neni 100%
-        SendMessageToPC(no_oPC,"===================================");
+    if (no_procenta < 100.0) {  //kdyz neni 100% tak samozrejmeje neni hotovej
+      no_vytvorprocenta(no_oPC,no_procenta,no_Item);
+    }// kdyz neni 100%
+      SendMessageToPC(no_oPC,"===================================");
 
-       } /// konec, kdyz sme byli uspesni
+  } /// konec, kdyz sme byli uspesni
 
-else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime polotovar////////////////
+  else if (no_hod > no_chance )  {     ///////// bo se to nepovedlo, tak znicime polotovar////////////////
 
     float no_procenta = GetLocalFloat(no_Item,"no_suse_proc");
     int no_obtiznost_vyrobku = no_DC+( 10*no_level );
 
-            if (no_obtiznost_vyrobku >=190) {
-            no_procenta = no_procenta - 0.2 ;}
-            else if ((no_obtiznost_vyrobku <190)&(no_obtiznost_vyrobku>=180)) {
-            no_procenta = no_procenta - 0.3 ;}
-            else if ((no_obtiznost_vyrobku <180)&(no_obtiznost_vyrobku>=170)) {
-            no_procenta = no_procenta - Random(4)/10.0 ;}
-           else if ((no_obtiznost_vyrobku <170)&(no_obtiznost_vyrobku>=160)) {
-            no_procenta = no_procenta - Random(6)/10.0 ;} //0.1-0.6%
-            else if ((no_obtiznost_vyrobku <160)&(no_obtiznost_vyrobku>=150)) {
-            no_procenta = no_procenta - Random(10)/10.0 -0.3;}
-            else if ((no_obtiznost_vyrobku <150)&(no_obtiznost_vyrobku>=140)) {
-            no_procenta = no_procenta - Random(10)/10.0 -0.4;}
-            else if ((no_obtiznost_vyrobku<140)&(no_obtiznost_vyrobku>=130)) {
-            no_procenta = no_procenta - Random(10)/10.0 -0.5;}
-            else if ((no_obtiznost_vyrobku <130)&(no_obtiznost_vyrobku>=120)) {
-            no_procenta = no_procenta - Random(10)/10.0 -0.6;}
-            else if ((no_obtiznost_vyrobku <120)&(no_obtiznost_vyrobku>=110)) {
-            no_procenta = no_procenta - Random(10)/10.0 -0.9;}
-            else if ((no_obtiznost_vyrobku <110)&(no_obtiznost_vyrobku>=100)) {
-            no_procenta = no_procenta - Random(10)/10.0 -1.2;}
-            else if ((no_obtiznost_vyrobku <100)&(no_obtiznost_vyrobku>=90)) {
-            no_procenta = no_procenta - Random(10)/10.0 -1.5;}
-           else if ((no_obtiznost_vyrobku <90)&(no_obtiznost_vyrobku>=80)) {
-            no_procenta = no_procenta - Random(10)/10.0 -1.8;}
-            else if ((no_obtiznost_vyrobku <80)&(no_obtiznost_vyrobku>=70)) {
-            no_procenta = no_procenta - Random(10)/10.0 -1.9;}
-            else if ((no_obtiznost_vyrobku <70)&(no_obtiznost_vyrobku>=60)) {
-            no_procenta = no_procenta - Random(10)/10.0 -2.0;}
-            else if ((no_obtiznost_vyrobku <60)&(no_obtiznost_vyrobku>=50)) {
-            no_procenta = no_procenta - Random(10)/10.0- 3.0;}
-            else if ((no_obtiznost_vyrobku <50)&(no_obtiznost_vyrobku>=40)) {
-            no_procenta = no_procenta - Random(10)/10.0 -3.2;}
-            else if ((no_obtiznost_vyrobku <40)&(no_obtiznost_vyrobku>=30)) {
-            no_procenta = no_procenta - Random(10)/10.0 -4.5;}
-            else if ((no_obtiznost_vyrobku <30)&(no_obtiznost_vyrobku>=20)) {
-            no_procenta = no_procenta - Random(10)/10.0 - 5;}
-            else if ((no_obtiznost_vyrobku <20)&(no_obtiznost_vyrobku>=10)) {
-            no_procenta = no_procenta- Random(10)/10.0 -6.0;}
-            else if (no_obtiznost_vyrobku <10) {
-            no_procenta = no_procenta - Random(10)/10.0 -8.0;}
+          if (no_obtiznost_vyrobku >=190) {
+          no_procenta = no_procenta - 0.2 ;}
+          else if ((no_obtiznost_vyrobku <190)&(no_obtiznost_vyrobku>=180)) {
+          no_procenta = no_procenta - 0.3 ;}
+          else if ((no_obtiznost_vyrobku <180)&(no_obtiznost_vyrobku>=170)) {
+          no_procenta = no_procenta - Random(4)/10.0 ;}
+         else if ((no_obtiznost_vyrobku <170)&(no_obtiznost_vyrobku>=160)) {
+          no_procenta = no_procenta - Random(6)/10.0 ;} //0.1-0.6%
+          else if ((no_obtiznost_vyrobku <160)&(no_obtiznost_vyrobku>=150)) {
+          no_procenta = no_procenta - Random(10)/10.0 -0.3;}
+          else if ((no_obtiznost_vyrobku <150)&(no_obtiznost_vyrobku>=140)) {
+          no_procenta = no_procenta - Random(10)/10.0 -0.4;}
+          else if ((no_obtiznost_vyrobku<140)&(no_obtiznost_vyrobku>=130)) {
+          no_procenta = no_procenta - Random(10)/10.0 -0.5;}
+          else if ((no_obtiznost_vyrobku <130)&(no_obtiznost_vyrobku>=120)) {
+          no_procenta = no_procenta - Random(10)/10.0 -0.6;}
+          else if ((no_obtiznost_vyrobku <120)&(no_obtiznost_vyrobku>=110)) {
+          no_procenta = no_procenta - Random(10)/10.0 -0.9;}
+          else if ((no_obtiznost_vyrobku <110)&(no_obtiznost_vyrobku>=100)) {
+          no_procenta = no_procenta - Random(10)/10.0 -1.2;}
+          else if ((no_obtiznost_vyrobku <100)&(no_obtiznost_vyrobku>=90)) {
+          no_procenta = no_procenta - Random(10)/10.0 -1.5;}
+         else if ((no_obtiznost_vyrobku <90)&(no_obtiznost_vyrobku>=80)) {
+          no_procenta = no_procenta - Random(10)/10.0 -1.8;}
+          else if ((no_obtiznost_vyrobku <80)&(no_obtiznost_vyrobku>=70)) {
+          no_procenta = no_procenta - Random(10)/10.0 -1.9;}
+          else if ((no_obtiznost_vyrobku <70)&(no_obtiznost_vyrobku>=60)) {
+          no_procenta = no_procenta - Random(10)/10.0 -2.0;}
+          else if ((no_obtiznost_vyrobku <60)&(no_obtiznost_vyrobku>=50)) {
+          no_procenta = no_procenta - Random(10)/10.0- 3.0;}
+          else if ((no_obtiznost_vyrobku <50)&(no_obtiznost_vyrobku>=40)) {
+          no_procenta = no_procenta - Random(10)/10.0 -3.2;}
+          else if ((no_obtiznost_vyrobku <40)&(no_obtiznost_vyrobku>=30)) {
+          no_procenta = no_procenta - Random(10)/10.0 -4.5;}
+          else if ((no_obtiznost_vyrobku <30)&(no_obtiznost_vyrobku>=20)) {
+          no_procenta = no_procenta - Random(10)/10.0 - 5;}
+          else if ((no_obtiznost_vyrobku <20)&(no_obtiznost_vyrobku>=10)) {
+          no_procenta = no_procenta- Random(10)/10.0 -6.0;}
+          else if (no_obtiznost_vyrobku <10) {
+          no_procenta = no_procenta - Random(10)/10.0 -8.0;}
 
 
 
-         if (no_procenta <= 0.0 ){
-         DestroyObject(no_Item);
-         DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
+    if (no_procenta <= 0.0 ){
+      DestroyObject(no_Item);
+      DeleteAllInContainer(OBJECT_SELF); //smazu vse z kontejneru
 
-         FloatingTextStringOnCreature("Vyrobek se rozpadl",no_oPC,FALSE );
-         ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
-         DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
-                               }
-        else  if ((no_chance > 0)&(no_procenta>0.0)) {FloatingTextStringOnCreature("Vyrobek se brani prijeti duse",no_oPC,FALSE ); }
+      FloatingTextStringOnCreature("Vyrobek se rozpadl",no_oPC,FALSE );
+      ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_FIRE),OBJECT_SELF);
+      DelayCommand(1.0,AssignCommand(no_oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_BACK, 1.0, 2.0)));
+    }
+    else  if ((no_chance > 0)&(no_procenta>0.0)) {
+      FloatingTextStringOnCreature("Vyrobek se brani prijeti duse",no_oPC,FALSE );
+    }
 
-        if (no_chance == 0){ FloatingTextStringOnCreature(" Se zpracovani by si mel radeji pockat ",no_oPC,FALSE );
-                      DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
-                          }     //konec ifu
-        if (no_procenta > 0.0 ) {
-         no_vytvorprocenta(no_oPC,no_procenta,no_Item);
-                            }
+    if (no_chance == 0) {
+      FloatingTextStringOnCreature(" Se zpracovani by si mel radeji pockat ",no_oPC,FALSE );
+      DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_SONIC),no_oPC));
+    }     //konec ifu
+    if (no_procenta > 0.0 ) {
+      no_vytvorprocenta(no_oPC,no_procenta,no_Item);
+    }
 
 
 
-         }//konec else no_hod >no_chance
+  }//konec else no_hod >no_chance
 
-         //}// konec kdyz jsme meli nejakej no_druh
 
 }    ////konec no_xp_zb
 
