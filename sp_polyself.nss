@@ -79,6 +79,6 @@ void main()
     //Apply the VFX impact and effects
     AssignCommand(oTarget, ClearAllActions()); // prevents an exploit
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ePoly, oTarget, HoursToSeconds(nDuration));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ePoly, oTarget, TurnsToSeconds(nDuration));
 }
 
