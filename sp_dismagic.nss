@@ -40,6 +40,16 @@ void main()
     int       nCasterLevel = GetCasterLevel(OBJECT_SELF);
 
     //--------------------------------------------------------------------------
+    // Caster level progress above 10
+    //--------------------------------------------------------------------------
+    if(nCasterLevel > 10)
+    {
+        // +1 per caster level till 5
+        // +1 per two caster leves above 5
+        nCasterLevel = 10 + (nCasterLevel - 10) / 2;
+    }
+
+    //--------------------------------------------------------------------------
     // Dispel Magic is capped at caster level 10
     //--------------------------------------------------------------------------
 

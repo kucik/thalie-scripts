@@ -35,6 +35,16 @@ void main()
     location lLocal   =     GetSpellTargetLocation();
 
     //--------------------------------------------------------------------------
+    // Caster level progress above 10
+    //--------------------------------------------------------------------------
+    if(nCasterLevel > 15)
+    {
+        // +1 per caster level till 5
+        // +1 per two caster leves above 5
+        nCasterLevel = 15 + (nCasterLevel - 15) / 2;
+    }
+
+    //--------------------------------------------------------------------------
     // Dispel Magic is capped at caster level 10
     //--------------------------------------------------------------------------
 

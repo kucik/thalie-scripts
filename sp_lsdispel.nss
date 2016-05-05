@@ -36,11 +36,13 @@ void main()
     int       nCasterLevel = GetCasterLevel(OBJECT_SELF);
 
     //--------------------------------------------------------------------------
-    // Lesser Magic is capped at caster level 5
+    // Caster level progress above 5
     //--------------------------------------------------------------------------
     if(nCasterLevel > 5)
     {
-        nCasterLevel = 5;
+        // +1 per caster level till 5
+        // +1 per two caster leves above 5
+        nCasterLevel = 5 + (nCasterLevel - 5) / 2;
     }
 
 
