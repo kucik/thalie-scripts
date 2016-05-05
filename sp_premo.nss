@@ -46,7 +46,23 @@ void main()
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     int nLimit = nDuration * 10;
     int nMetaMagic = GetMetaMagicFeat();
-    effect eStone = EffectDamageReduction(30, DAMAGE_POWER_PLUS_FIVE, nLimit);
+
+    if(nLimit > 200) {
+      nLimit = 200 + (nDuration - 20) * 5;
+    }
+
+    // Variable damage power
+    int nDamagePower = DAMAGE_POWER_PLUS_FIVE;
+    if(nDuration >= 20)
+      nDamagePower = DAMAGE_POWER_PLUS_SIX;
+    if(nDuration >= 25)
+      nDamagePower = DAMAGE_POWER_PLUS_SEVEN;
+    if(nDuration >= 30)
+      nDamagePower = DAMAGE_POWER_PLUS_EIGHT;
+    if(nDuration >= 35)
+      nDamagePower = DAMAGE_POWER_PLUS_NINE;
+
+    effect eStone = EffectDamageReduction(30, nDamagePower, nLimit);
     effect eVis = EffectVisualEffect(VFX_DUR_PROT_PREMONITION);
     //Link the visual and the damage reduction effect
     effect eLink = EffectLinkEffects(eStone, eVis);

@@ -40,8 +40,9 @@ void main()
 
 
     //Declare major variables
-    int nAmount = GetCasterLevel(OBJECT_SELF);
-    nAmount = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nAmount,FALSE);
+    int nCasterLevel = GetCasterLevel(OBJECT_SELF);
+    nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel ,FALSE);
+    int nAmount = nCasterLevel;
     int nDuration = nAmount;
     object oTarget = GetSpellTargetObject();
 
@@ -50,7 +51,7 @@ void main()
 
     if (nAmount > 15)
     {
-        nAmount = 15;
+        nAmount = 15 + (nCasterLevel - 15)*5;
     }
     int nDamage = nAmount * 10;
     if (GetMetaMagicFeat() == METAMAGIC_EXTEND)
@@ -58,8 +59,15 @@ void main()
         nDuration *= 2;
     }
 
+    // Variable damage power
+    int nDamagePower = DAMAGE_POWER_PLUS_FIVE;
+    if(nCasterLevel >= 20)
+      nDamagePower = DAMAGE_POWER_PLUS_SIX;
+    if(nCasterLevel >= 25)
+      nDamagePower = DAMAGE_POWER_PLUS_SEVEN;
+
     effect eVis2 = EffectVisualEffect(VFX_IMP_POLYMORPH);
-    effect eStone = EffectDamageReduction(20, DAMAGE_POWER_PLUS_FIVE, nDamage);
+    effect eStone = EffectDamageReduction(20, nDamagePower, nDamage);
     effect eVis = EffectVisualEffect(VFX_DUR_PROT_STONESKIN);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
 

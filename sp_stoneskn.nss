@@ -55,7 +55,7 @@ void main()
     //Limit the amount protection to 100 points of damage
     if (nAmount > 100)
     {
-        nAmount = 100;
+        nAmount = 100 + (nCasterLevel - 10)*5;
     }
     //Meta Magic
     if(GetMetaMagicFeat() == METAMAGIC_EXTEND)
@@ -64,7 +64,13 @@ void main()
     }
 
     //Define the damage reduction effect
-    eStone = EffectDamageReduction(10, DAMAGE_POWER_PLUS_FIVE, nAmount);
+    int nDamagePower = DAMAGE_POWER_PLUS_FOUR;
+    if(nCasterLevel >= 20)
+      nDamagePower = DAMAGE_POWER_PLUS_FIVE;
+    if(nCasterLevel >= 25)
+      nDamagePower = DAMAGE_POWER_PLUS_SIX;
+
+    eStone = EffectDamageReduction(10, nDamagePower, nAmount);
     //Link the effects
     eLink = EffectLinkEffects(eStone, eVis);
     eLink = EffectLinkEffects(eLink, eDur);
