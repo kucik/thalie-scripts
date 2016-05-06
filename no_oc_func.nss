@@ -85,6 +85,7 @@ void no_xp_vyrobpolotovar(object no_oPC, object no_pec);
 void no_pohybklikacu(object no_oPC, object no_pec);
 
 
+int __GetIsLimitedByWeapon(int iMater);
 
 /////////zacatek zavadeni funkci//////////////////////////////////////////////
 
@@ -1980,10 +1981,13 @@ void no_udelejocarovani(object no_Item)
   int iPower2 = GetLocalInt(no_Item,"no_kamen2");
   int iMaxPower = __ocGetMaxEnchantmentBaseItem(GetBaseItemType(no_Item));
   /* Safety */
-  if(iPower1 > iMaxPower)
-    iPower1 = iMaxPower;
-  if(iPower1 + iPower2 > iMaxPower)
-    iPower2 = iMaxPower - iPower1;
+  if(__GetIsLimitedByWeapon(iMat1))
+    if(iPower1 > iMaxPower)
+      iPower1 = iMaxPower;
+
+  if(__GetIsLimitedByWeapon(iMat2))
+    if(iPower1 + iPower2 > iMaxPower)
+      iPower2 = iMaxPower - iPower1;
 
   no_udelej_vlastnosti(iMat1, iPower1, TRUE, no_Item);
   no_udelej_vlastnosti(iMat2, iPower2, FALSE, no_Item);
