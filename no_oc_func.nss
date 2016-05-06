@@ -2049,9 +2049,8 @@ void no_kamen( object no_pec, int no_mazani) {
           int no_menu_max_procent = __ocGetPercentsFromLevel(no_level);
 
 
-
-        if (( GetLocalInt(OBJECT_SELF,"no_hl_mat")<5 )  || 
-            ( GetLocalInt(OBJECT_SELF,"no_ve_mat")<5 )) {
+        if (__GetIsLimitedByWeapon(GetLocalInt(OBJECT_SELF,"no_hl_mat")) ||
+            __GetIsLimitedByWeapon(GetLocalInt(OBJECT_SELF,"no_ve_mat"))) {
 
           int iMaxPerc = __ocGetMaxEnchantment(GetLocalString(OBJECT_SELF,"no_druh_vyrobku"));
           if(no_menu_max_procent > iMaxPerc) {
@@ -2523,6 +2522,36 @@ FloatingTextStringOnCreature("***   " +no_nazev_procenta + "%   ***" ,no_oPC,FAL
 ///////////////////////////////Predelavam polotovar///////////////////////////////////////////////////////
 /////////zjisti pravdepodobnost, prideli xpy, prida %hotovosti vyrobku a kdz bude nad 100% udela jej hotovym.
 
+int __GetIsLimitedByWeapon(int iMater) {
+  switch (iMater) {
+    // Elementy
+    case  1:
+    case  2:
+    case  3:
+    case  4:
+    case  5:
+    // DamageBonusVsRace
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    // ItemPropertyDamageBonusVsAlign
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    // ItemPropertyDamageBonusVsRace IP_CONST_RACIALTYPE_OUTSIDER
+    case 37: return TRUE;
+  }
+  return FALSE;
+}
+
 /* This seems to be DC to create item with such propery. Not a DC of itemproperty
  * effect */
 int __GetDcByMaterial(int iMater) {
@@ -2540,8 +2569,8 @@ int __GetDcByMaterial(int iMater) {
     case  8:
     case  9:
     case 10:
-    // DamageBonusVsRace
     case 11: return 8;
+    // DamageBonusVsRace
     case 12:
     case 13:
     case 14:
