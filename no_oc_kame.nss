@@ -76,6 +76,9 @@ int no_procentaduse = FloatToInt ( (5+ no_challenge*5.5 + d10())/2 );
                                                }
     else  no_procentaduse = no_procentaduse + 100;
 
+
+if(no_procentaduse > 250)
+  no_procentaduse = 250;
 /////////////odstranime, nejka to blblo, stejnak to dalo xpy//////////////
 //if ((GetLocalInt(no_oPotvora,"AI_BOSS")!=1) || (GetLocalInt(no_oPotvora,"AI_BOSS")!=2))
      //nemame bosse

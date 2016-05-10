@@ -1980,6 +1980,12 @@ void no_udelejocarovani(object no_Item)
   int iPower1 = GetLocalInt(no_Item,"no_kamen");
   int iPower2 = GetLocalInt(no_Item,"no_kamen2");
   int iMaxPower = __ocGetMaxEnchantmentBaseItem(GetBaseItemType(no_Item));
+
+  if ( NO_oc_DEBUG ) {
+    SendMessageToPC(no_oPC,"DEBUG: Item "+GetName(no_Item)+" kamen1:("+IntToString(iMat1)+":"+IntToString(iPower1)+") Maxpower: "+IntToString(iMaxPower));
+    SendMessageToPC(no_oPC,"DEBUG: Item "+GetName(no_Item)+" kamen2:("+IntToString(iMat2)+":"+IntToString(iPower2)+") Maxpower: "+IntToString(iMaxPower));
+  }
+
   /* Safety */
   if(__GetIsLimitedByWeapon(iMat1))
     if(iPower1 > iMaxPower)
@@ -1989,8 +1995,13 @@ void no_udelejocarovani(object no_Item)
     if(iPower1 + iPower2 > iMaxPower)
       iPower2 = iMaxPower - iPower1;
 
-  no_udelej_vlastnosti(iMat1, iPower1, TRUE, no_Item);
-  no_udelej_vlastnosti(iMat2, iPower2, FALSE, no_Item);
+  if ( NO_oc_DEBUG ) {
+    SendMessageToPC(no_oPC,"DEBUG: Item "+GetName(no_Item)+" kamen1:("+IntToString(iMat1)+":"+IntToString(iPower1)+") Maxpower: "+IntToString(iMaxPower));
+    SendMessageToPC(no_oPC,"DEBUG: Item "+GetName(no_Item)+" kamen2:("+IntToString(iMat2)+":"+IntToString(iPower2)+") Maxpower: "+IntToString(iMaxPower));
+  }
+
+  no_udelej_vlastnosti(iMat1, iPower1*10, TRUE, no_Item);
+  no_udelej_vlastnosti(iMat2, iPower2*10, FALSE, no_Item);
 
 //kdyz neni druhy jako prvni material, tak udelame maxprocenta-hl.mat.procenta vlastnosti.
 
@@ -2033,7 +2044,7 @@ void no_kamen( object no_pec, int no_mazani) {
   object no_Item2 = GetFirstItemInInventory(no_pec);
   while(GetIsObjectValid(no_Item2))  {
 
-    if ( (GetStringLeft(GetTag(no_Item2),11) == "no_oc_kame_") && 
+    if ( (GetStringLeft(GetTag(no_Item2),11) == "no_oc_kame_") &&
          (StringToInt(GetStringRight(GetTag(no_Item2),3)) > 0)   ) {
       int no_co_mame_za_kamen = StringToInt(GetStringRight(GetTag(no_Item2),3));
       if ( NO_oc_DEBUG == TRUE )
@@ -2119,7 +2130,7 @@ void no_kamen( object no_pec, int no_mazani) {
           //kamen je maly,ale dosahne i na hlavni, i na vedeljsi material
           else if ( no_co_mame_za_kamen >(no_hl_proc) ) {
             int no_co_mame_za_kamen2;
-            if ( NO_oc_DEBUG == TRUE )  
+            if ( NO_oc_DEBUG == TRUE )
               SendMessageToPC(no_oPC,"no_co_mame_za_kamen >(no_hl_proc)" );
 
               no_co_mame_za_kamen2 = no_co_mame_za_kamen - no_hl_proc;
@@ -2155,7 +2166,7 @@ int __getIsItemAllowedForEnchantment(object oItem) {
   if(GetLocalInt(oItem,"no_OCAROVANO") )
     return FALSE;
   // Weapons
-  if((GetStringLeft(sTag,6) == "no_zb_") &&              
+  if((GetStringLeft(sTag,6) == "no_zb_") &&
      (GetStringLeft(GetResRef(oItem),10) != "no_zb_pris"))
     return TRUE;
   // Gloves
@@ -2174,7 +2185,7 @@ void no_vyrobek (object no_Item, object no_pec, int no_mazani)
   no_Item = GetFirstItemInInventory(no_pec);
   while(GetIsObjectValid(no_Item))  {
     string sTag = GetTag(no_Item);
-    
+
     if(__getIsItemAllowedForEnchantment(no_Item)) {
 
 /////////////mame dokoncenou zbran
