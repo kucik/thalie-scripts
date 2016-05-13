@@ -5,6 +5,7 @@
 // Pridat rovnou info o klici (store object), kvuli restore uses, abych nemusle jen kvuli tomu porad includovat knihovnu henchmanu
 
 #include "me_soul_inc"
+#include "nwnx_funcs"
 
 // Mount creature tag
 const string MOUNT_TAG = "mount";
@@ -247,6 +248,7 @@ void Dismount(object oRider, object oSoul, int bSummonMount)
         DeleteLocalInt(oSoul, "MOUNT_PHENOTYPE_L");
         DeleteLocalInt(oSoul, "MOUNT_SPEED");
     }
+    SetMovementRate(oRider,MOVEMENT_RATE_PC);
 }
 
 void ApplyMountedSpeed(object oRider, int iSpeed)
