@@ -439,7 +439,7 @@ void __createTrapOnLoot(object oObject, int iOneshot = 0, int iMod = 0) {
   if(Random(100) < iOneshot)
     SetTrapOneShot(oObject,FALSE);
 
-  SetTrapDetectDC(oObject,5 + 4*iTrapPower + d4());
+  SetTrapDetectDC(oObject,0 + 3*iTrapPower + d4());
   SetTrapDisarmDC(oObject,10 + 4*iTrapPower + Random(5));
   __trapRandomRecoverable(oObject);
 
@@ -1345,12 +1345,13 @@ void lock_SpawnBossLoot(object oArea) {
 
     //TRAPS
     if(iTrapsProb != 0) {
-      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oChest, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
+      __createTrapOnLoot(oChest, 50 , 1);
+/*      CreateTrapOnObject(ku_ChooseTrap(iTrapPower,Random(11)+1),oChest, STANDARD_FACTION_HOSTILE,"ku_trap_disarm" );
       if(Random(100) < 50)
         SetTrapOneShot(oChest,FALSE);
       SetTrapDetectDC(oChest,5 + 4*iTrapPower + d4());
       SetTrapDisarmDC(oChest,19 + 5*iTrapPower + Random(5));
-      __trapRandomRecoverable(oChest);
+      __trapRandomRecoverable(oChest);*/
     }
     /* Locking */
     iLockDC = GetLocalInt(oArea,"BOSS_LOOT_LOCKED_"+si);
