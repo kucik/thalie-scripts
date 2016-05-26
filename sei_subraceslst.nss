@@ -443,7 +443,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_CreateSubrace( SUBRACE_ELF_EAST, RACIAL_TYPE_ELF, "Vychodni Elf" );
     stSubrace = SEI_AddFieldText( stSubrace, "vychodni" );                  // "vychodni elf"
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 4 2" );           // +2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 2" );           // -2 Con
+    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
     stSubrace = SEI_AddTrait( stSubrace, "zbrane_vychodni" );
     SEI_SaveSubrace( stSubrace );
 
