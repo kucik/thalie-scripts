@@ -279,10 +279,12 @@ void SEI_DefineSubraces()
     // Clovek otrok- PODTEMNO
     stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_SLAVE, RACIAL_TYPE_HUMAN, "Clovek Otrok" );
     // The favored class for elves is any.
+    stSubrace.m_nAlignmentMask = 770;                                  // no good
     stSubrace = SEI_AddFieldText( stSubrace, "otrok" );                // "otrok"
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
+    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     SEI_SaveSubrace( stSubrace );
 
 
@@ -291,6 +293,7 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddFieldText( stSubrace, "desert" );                // "desert"
     stSubrace = SEI_AddFieldText( stSubrace, "poustni" );               // "poustni"
     stSubrace = SEI_AddFieldText( stSubrace, "pustny" );                // "pustny"
+    stSubrace = SEI_AddTrait( stSubrace, "feat_add 429" );              // Resist energy - Fire +5
     stSubrace = SEI_AddTrait( stSubrace, "ability_dec 4 2" );           // -2 Wis
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Con
     stSubrace = SEI_AddTrait( stSubrace, "scimitar" );
@@ -302,7 +305,8 @@ void SEI_DefineSubraces()
     stSubrace = SEI_AddFieldText( stSubrace, "nordic" );                // "nordic"
     stSubrace = SEI_AddFieldText( stSubrace, "severan" );               // "severan"
     stSubrace = SEI_AddTrait( stSubrace, "ability_dec 3 2" );           // -2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Con
+    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
+    stSubrace = SEI_AddTrait( stSubrace, "feat_add 427" );              // Resist energy - Cold +5
     SEI_SaveSubrace( stSubrace );
 
     // Clovek vychodni
