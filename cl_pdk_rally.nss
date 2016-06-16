@@ -27,7 +27,6 @@ void main()
     int iBonus = (iLvl / 5)+1;
 
     effect eAttack = EffectAttackIncrease(iBonus);// Increase attack by 1
-    effect eDamage = EffectDamageIncrease(iBonus);
     effect eSpeed = EffectMovementSpeedIncrease(20);// Increase movement
     effect eLink = EffectLinkEffects(eAttack, eSpeed);// Link effects
     eLink = EffectLinkEffects(eLink,eDamage);// Link effects
