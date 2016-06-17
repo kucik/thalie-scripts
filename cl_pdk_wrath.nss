@@ -44,7 +44,6 @@ void main()
     effect eAC = EffectACIncrease(iBonus);
     // Create 'versis racial type' effects
     eAttack = VersusRacialTypeEffect(eAttack, nRace);
-    eDamage = VersusRacialTypeEffect(eDamage, nRace);
     eSave = VersusRacialTypeEffect(eSave, nRace);
     eSkill = VersusRacialTypeEffect(eSkill, nRace);
     eAC = VersusRacialTypeEffect(eAC, nRace);
