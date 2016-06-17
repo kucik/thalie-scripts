@@ -29,7 +29,7 @@ void main()
     effect eAttack = EffectAttackIncrease(iBonus);// Increase attack by 1
     effect eSpeed = EffectMovementSpeedIncrease(20);// Increase movement
     effect eLink = EffectLinkEffects(eAttack, eSpeed);// Link effects
-    eLink = EffectLinkEffects(eLink,eDamage);// Link effects
+//    eLink = EffectLinkEffects(eLink,eDamage);// Link effects
     eLink = ExtraordinaryEffect(eLink);// Make effects ExtraOrdinary
 
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);// Get VFX
