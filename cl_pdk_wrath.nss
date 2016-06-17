@@ -39,7 +39,6 @@ void main()
 
 
     effect eAttack = EffectAttackIncrease(iBonus);// Increase attack
-    effect eDamage = EffectDamageIncrease(iBonus, DAMAGE_TYPE_BLUDGEONING);// Increase damage
     effect eSave = EffectSavingThrowIncrease(SAVING_THROW_ALL, iBonus);// Increase saving throws
     effect eSkill = EffectSkillIncrease(SKILL_ALL_SKILLS, iBonus);    // Increase skills
     effect eAC = EffectACIncrease(iBonus);
@@ -51,7 +50,6 @@ void main()
     eAC = VersusRacialTypeEffect(eAC, nRace);
     // Apply effects to caster
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eAttack, oPC, RoundsToSeconds(iDuration));
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDamage, oPC, RoundsToSeconds(iDuration));
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSave, oPC, RoundsToSeconds(iDuration));
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSkill, oPC, RoundsToSeconds(iDuration));
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eAC, oPC, RoundsToSeconds(iDuration));
