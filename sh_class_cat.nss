@@ -1229,6 +1229,7 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
             case SUBRACE_DWARF_DUERGAR_BRONZED:
                 iHide+=2;
                 iMoveSilently+=2;
+                iSpellcraft+=2;
             break;
 
             case SUBRACE_ORC_CITY:
@@ -1615,7 +1616,7 @@ void ApplyRegeneration(object oPC, object oPCSkin)
 {
 
     int iRegeneration = 0;
-    /*CERNOKNEZNIK Dábelská pružnost*/
+    /*CERNOKNEZNIK DÃ¡belskÃ¡ pruÂžnost*/
     if (GetHasFeat(FEAT_CERNOKNEZNI_DABELSKA_PRUZNOST,oPC) == TRUE)
     {
          iRegeneration += (GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,oPC)-8)/5+1;
