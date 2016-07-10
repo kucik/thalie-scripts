@@ -1511,8 +1511,8 @@ void doAura(int nAlign, int nVis1, int nVis2, int nDamageType)
 
 
     //Link effects
-    effect eLink = EffectLinkEffects(eImmune, eSave);
-    eLink = EffectLinkEffects(eLink, eAC);
+//    effect eLink = EffectLinkEffects(eImmune, eSave);
+    effect eLink = EffectLinkEffects(eImmune, eAC);
     eLink = EffectLinkEffects(eLink, eSR);
     eLink = EffectLinkEffects(eLink, eDur);
     eLink = EffectLinkEffects(eLink, eDur2);

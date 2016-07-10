@@ -14,7 +14,7 @@
 
 void main()
 {
-    int nBonus = nBonus = ArcaneArcherCalculateBonus();
+    int nBonus = ArcaneArcherCalculateBonus();
     int iCasterLvl = GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER);
     int iDex = GetAbilityModifier(ABILITY_DEXTERITY);
     object oTarget = GetSpellTargetObject();
