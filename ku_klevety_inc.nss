@@ -131,6 +131,7 @@ void __initPlc() {
   string sNPCtag = GetTag(oNPC);
   object oArea = GetArea(oNPC);
   string sAreaTag = GetTag(oArea);
+  object oMod = GetModule();
 
   /* Location independent */
   if(GetLocalInt(oNPC,"KLEV_NO_LOC")) {
@@ -140,12 +141,11 @@ void __initPlc() {
   string sSQL = "SELECT text FROM Klevety WHERE lokace_tag = '"+sAreaTag+"' AND NPC_tag = '"+sNPCtag+"' order by id; ";
   SQLExecDirect(sSQL);
   string sText;
-  object oMod = GetModule();
   string sDesc = "";
   while (SQLFetch() == SQL_SUCCESS) {
     sText = SQLGetData(1);
     sText = StrEncodeToCZ(oMod,sText);
-    sDesc = sDesc + sText + "\n\n";
+    sDesc = sDesc + sText;
   }
   SetDescription(oNPC, sDesc);
 }
