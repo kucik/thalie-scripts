@@ -69,12 +69,12 @@ string __chooseSummon(int iLevel) {
   // If summon is not set or it's not PC
   int iRow;
   //Clerics summon planars
-  if(GetLevelByClass(CLASS_TYPE_CLERIC) > 0) {
+  if( GetLastSpellCastClass() == CLASS_TYPE_CLERIC ) {
     // little bit hardcoded 2da lines
     switch(GetAlignmentGoodEvil(oCaster)) {
-      case ALIGNMENT_GOOD:    iRow = 45; // + iLevel - 1;
-      case ALIGNMENT_NEUTRAL: iRow = 54; // + iLevel - 1;
-      case ALIGNMENT_EVIL:    iRow = 63; // + iLevel - 1;
+      case ALIGNMENT_GOOD:    iRow = 45; break; // + iLevel - 1;
+      case ALIGNMENT_NEUTRAL: iRow = 54; break; // + iLevel - 1;
+      case ALIGNMENT_EVIL:    iRow = 63; break; // + iLevel - 1;
       default: iRow = 0; //fallback
     }
   }
