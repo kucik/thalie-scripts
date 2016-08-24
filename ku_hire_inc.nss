@@ -301,10 +301,10 @@ int ku_HireCheckHireLeft(object oKey) {
   int iLeft = (iExpiration - iActual)/FloatToInt(HoursToSeconds(1))/24; //To IC days
   if(iLeft > 0)
     sLeft = IntToString(iLeft)+" dni";
-  iLeft = (iExpiration - iActual)/FloatToInt(HoursToSeconds(1)); //To IC hours
+  iLeft = ((iExpiration - iActual) /FloatToInt(HoursToSeconds(1)) % 24; //To IC hours
   if(iLeft > 0)
     sLeft = sLeft+" "+IntToString(iLeft)+" hodin";
-  iLeft = (iExpiration - iActual)/FloatToInt(HoursToSeconds(1)/60.0); //To IC minutes
+  iLeft = ((iExpiration - iActual) % )/FloatToInt(HoursToSeconds(1)/60.0) % 60; //To IC minutes
   if(iLeft > 0)
     sLeft = sLeft+" "+IntToString(iLeft)+" minut";
 
