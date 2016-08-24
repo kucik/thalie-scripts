@@ -41,7 +41,9 @@ void main()
     int iBonus = 1;
     if (GetHasFeat(1456)) //FEAT_CERNOKNEZNIK_INVOKACE2_DOZVUK_BOLESTI
     {
-       iBonus = 3;
+       iBonus = (GetBaseAttackBonus(OBJECT_SELF)+4) / 5;
+       if(iBonus > 4)
+         iBonus = 4;
     }
     SetLocalInt(OBJECT_SELF,ULOZENI_CERNOKNEZNIK_OHAVNA_RANA,iBonus);
     SendMessageToPC(OBJECT_SELF,"Aktivovana Ohavna Rana.");
