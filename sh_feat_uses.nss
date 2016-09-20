@@ -131,8 +131,8 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
     case FEAT_SHINOBI_ZMATENI:
       return (GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) -8) /5 +1;
     // Druid
-    case FEAT_ELEMENTAL_SHAPE:
-      return (GetLevelByClass(CLASS_TYPE_DRUID,oPC) -17) /2 +1;
+//    case FEAT_ELEMENTAL_SHAPE:
+//      return (GetLevelByClass(CLASS_TYPE_DRUID,oPC) -17) /2 +1;
     // Monk
     case FEAT_WHOLENESS_OF_BODY:
       return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 6) /10 +1;
@@ -214,7 +214,7 @@ void RestoreFeatUses(object oPC)
   __restoreFeatUsesPerDay(FEAT_SHINOBI_SOVI_MOUDROST, oPC);
   __restoreFeatUsesPerDay(FEAT_SHINOBI_NEVIDITELNOST, oPC);
   __restoreFeatUsesPerDay(FEAT_SHINOBI_ZMATENI, oPC);
-  __restoreFeatUsesPerDay(FEAT_ELEMENTAL_SHAPE, oPC);
+//  __restoreFeatUsesPerDay(FEAT_ELEMENTAL_SHAPE, oPC);
   __restoreFeatUsesPerDay(FEAT_WHOLENESS_OF_BODY, oPC);
   __restoreFeatUsesPerDay(FEAT_QUIVERING_PALM, oPC);
   __restoreFeatUsesPerDay(FEAT_EMPTY_BODY, oPC);
