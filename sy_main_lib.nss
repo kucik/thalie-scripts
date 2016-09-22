@@ -56,6 +56,7 @@ void sy_remove_spells(object oPC)
                 case SPELL_SPELL_RESISTANCE:
                 case SPELL_SANCTUARY:
                 case SPELL_FREEDOM_OF_MOVEMENT:
+                case 909: //FEAT_SUBRACE_GENASI_ZEMNI_KAMENKA
                     RemoveEffect(oPC, eFX);
                     break;
             }
