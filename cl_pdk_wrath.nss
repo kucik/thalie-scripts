@@ -30,7 +30,7 @@ void main()
     // Dodano shaman88
     int iCHA = GetAbilityModifier(ABILITY_CHARISMA,OBJECT_SELF);
     int iLvl =  GetLevelByClass(CLASS_TYPE_PURPLE_DRAGON_KNIGHT,OBJECT_SELF);
-    int iDuration = 5 + iLvl + iCHA;
+    int iDuration = 10 + iLvl + iCHA;
     int iBonus = (iLvl / 5)+1;
 
 
