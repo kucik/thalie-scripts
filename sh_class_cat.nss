@@ -867,6 +867,13 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
     int iUseMagicDevice = 0;
 
     //uprava bonusu na zaklade featu
+	    /*Vojevudcuv bonus - Mastered discipline*/ //+1 on level 3 and each 3 levels +1
+         if (GetHasFeat(1284,oPC) == TRUE)  //FEAT_PDK_MASTERED_DISCIPLINE
+         {
+                int iLvL = GetLevelByClass(41,oPC);
+                iDiscipline +=(iLvL/3);
+         }
+	
         /*Zlodejuv bonus - nenapadnost*/
          if (GetHasFeat(FEAT_ROGUE_KAPSAR1,oPC) == TRUE)
          {
