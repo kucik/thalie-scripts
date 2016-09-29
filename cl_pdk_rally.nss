@@ -65,9 +65,6 @@ void __applyKeen(int iSlot, effect eVis, effect eDur, object oTarget, float fDur
 
  // +10 on 1st level and each 10. level.
  int iSpeedBonus = ((iLvl / 10) + 1) * 10;
- // Limit bonus on +30
- if(iSpeedBonus > 30)
-    iSpeedBonus = 30;
   effect eSpeed = EffectMovementSpeedIncrease(iSpeedBonus);
 
   // +1 on 20, 25 and 30
