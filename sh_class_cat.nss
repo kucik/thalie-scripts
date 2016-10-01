@@ -594,6 +594,14 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
     int iACdeflection= 0;
     int iACnatural = 0;
     int iDMG= 0;
+	/*Bonus vojevudce pdk - znalost boje*/
+    if (GetHasFeat(1283,oPC) == TRUE)
+    {
+           int iLvl = GetLevelByClass(41,oPC);
+           iDMG +=(iLvl-5)/5+1;
+           iAB +=(iLvl-5)/5+1;
+           iACnatural +=(iLvl-5)/5+1;
+    }
     /*Bonus trpasliciho obrance*/
     if (GetHasFeat(FEAT_BONUS_AC_TRPASLICI_OBRANCE,oPC)== TRUE)
     {
