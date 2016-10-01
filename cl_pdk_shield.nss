@@ -42,9 +42,9 @@ void main()
     effect eCONC = EffectSkillIncrease(SKILL_CONCENTRATION, iBonus2);
     effect eAC = EffectACIncrease(iBonus);
 	effect eLink = EffectLinkEffects(eDIS, eCONC);
-    effect eVFX = EffectVisualEffect(VFX_IMP_PDK_HEROIC_SHIELD);
+           eLink = EffectLinkEffects(eLink, eAC);
+	effect eVFX = EffectVisualEffect(VFX_IMP_PDK_HEROIC_SHIELD);
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(iDuration));
-	ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eAC, oTarget, RoundsToSeconds(iDuration));
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVFX, oTarget);
     SetLocalInt(oPC, "PDKHeroicTracking", TRUE);
     DelayCommand(RoundsToSeconds(iDuration), DeleteLocalInt(oPC, "PDKHeroicTracking"));
