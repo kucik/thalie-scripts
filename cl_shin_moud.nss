@@ -20,7 +20,7 @@ void main()
 
 
 
-    int nRaise = d4(1) + 1;
+    int nRaise = 4;
     int nDuration = GetLevelByClass(CLASS_TYPE_SHINOBI)+10;
 
      //Set Adjust Ability Score effect
