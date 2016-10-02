@@ -125,9 +125,9 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
     case FEAT_SHINOBI_UTISUJICI_UTOK:
       return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
     case FEAT_SHINOBI_SOVI_MOUDROST:
-      return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
+      return GetLevelByClass((CLASS_TYPE_SHINOBI,oPC)-2) /6 +1;
     case FEAT_SHINOBI_NEVIDITELNOST:
-      return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
+      return GetLevelByClass((CLASS_TYPE_SHINOBI,oPC)-6) /5 +1;
     case FEAT_SHINOBI_ZMATENI:
       return (GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) -8) /5 +1;
     // Druid
