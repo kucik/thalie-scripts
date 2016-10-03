@@ -17,6 +17,7 @@
 #include "mys_hen_lib"
 
 void __tellBugged(object oPC, string sMessage);
+void __checkInvalidFeats(object oPC, int Remove = FALSE);
 
 int __checkPolymorf(object oPC) {
 
@@ -96,7 +97,7 @@ void __buggedPC(object oPC, string sMessage) {
   
 }
 
-void __checkInvalidFeats(object oPC) {
+void __checkInvalidFeats(object oPC, int Remove = FALSE) {
   int iFeats = GetTotalKnownFeatsByLevel(oPC, 1);
 
   while( iFeats > 0) {
@@ -104,7 +105,8 @@ void __checkInvalidFeats(object oPC) {
     /* If feat did not meet requirements */
     int iFeat = GetKnownFeatByLevel(oPC, 1, iFeats);
     if(!__checkFeatAbiliesReq(oPC, iFeat)) {
-      //RemoveKnownFeat(oPC, iFeat);
+      if(Remove)
+        RemoveKnownFeat(oPC, iFeat);
       WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat));
     }
   }
@@ -492,6 +494,8 @@ void main()
         RepairObcanThalie(oPC);
         GiveStartpackage(oPC);
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
+        /* remove feats which player should not have */
+        __checkInvalidFeats(oPC,TRUE) {
 
  }
  // Get soul
