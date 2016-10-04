@@ -10,11 +10,11 @@
 //:: Edited  By: Paulus
 //:: Edited  On: 04.10.2016
 //:://////////////////////////////////////////////
-#include "x0_i0_spells"
+     #include "x0_i0_spells"
 
-#include "sh_classes_inc"
+     #include "sh_classes_inc"
 
-void main()
+     void main()
 
     {
 
