@@ -16,123 +16,94 @@
 
 void main()
 
-{
+    {
 
-int kontrola;
+        int kontrola;
+        if (GetHasEffect(EFFECT_TYPE_SILENCE,OBJECT_SELF))
 
-if (GetHasEffect(EFFECT_TYPE_SILENCE,OBJECT_SELF))
+        {
 
-{
+         // Not useable when silenced. Floating text to user
+            FloatingTextStrRefOnCreature(85764,OBJECT_SELF);
+            return;
+        }
 
-// Not useable when silenced. Floating text to user
+     //Declare major variables
+     object oPDK = OBJECT_SELF;
 
-FloatingTextStrRefOnCreature(85764,OBJECT_SELF);
-return;
-}
+     int nCount = GetLevelByClass(41, oPDK) + GetAbilityModifier(ABILITY_CHARISMA, oPDK);
+     int nHP = d10(GetLevelByClass(41, oPDK)); // Count of d10
+     int iCHA = GetAbilityModifier(ABILITY_CHARISMA,OBJECT_SELF);
+     int iLvl = GetLevelByClass(41,OBJECT_SELF);
+     int iDuration = 10 + iLvl + iCHA;
+     int iBonus = (iLvl / 5)+1;
+     int nDuration = 10; //+ nChr;
 
+     effect eSaveFEffectSavingThrowIncrease = EffectSavingThrowIncrease(SAVING_THROW_ALL, iBonus);// Saving throw increase
+     effect eHP = EffectTemporaryHitpoints(nHP); //Temporary HP increase
+     effect eImmune = EffectImmunity(IMMUNITY_TYPE_FEAR); //fear immunity
+     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE); // Get VFX
 
-//Declare major variables
-object oPDK = OBJECT_SELF;
+     effect eLink = EffectLinkEffects(eSaveFEffectSavingThrowIncrease, eHP);
+     eLink = EffectLinkEffects(eLink, eImmune);
+     eLink = EffectLinkEffects(eLink, eDur);// link VFXs
+     eLink = ExtraordinaryEffect(eLink); // make effects ExtraOrdinary
 
-int nCount = GetLevelByClass(41, oPDK) + GetAbilityModifier(ABILITY_CHARISMA, oPDK);
-int nHP = d10(GetLevelByClass(41, oPDK)); // Count of d10
-int iCHA = GetAbilityModifier(ABILITY_CHARISMA,OBJECT_SELF);
-int iLvl = GetLevelByClass(41,OBJECT_SELF);
-int iDuration = 10 + iLvl + iCHA;
-int iBonus = (iLvl / 5)+1;
+     SetEffectSpellId(eLink,EFFECT_PDK); //dodano shaman88
 
+     effect eImpact = EffectVisualEffect(VFX_IMP_PDK_GENERIC_HEAD_HIT);// Get VFX
 
+     // Apply effect at location
 
-int nDuration = 10; //+ nChr;
+     ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_PDK_INSPIRE_COURAGE), OBJECT_SELF);
 
-effect eSaveFEffectSavingThrowIncrease = EffectSavingThrowIncrease(SAVING_THROW_ALL, iBonus);// Saving throw increase
-effect eHP = EffectTemporaryHitpoints(nHP); //Teporary HP increase
-effect eImmune = EffectImmunity(IMMUNITY_TYPE_FEAR); //fear immunity
-effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE); // Get VFX
-
-effect eLink = EffectLinkEffects(eSaveFEffectSavingThrowIncrease, eHP);
-eLink = EffectLinkEffects(eLink, eImmune);
-eLink = EffectLinkEffects(eLink, eDur);// link VFXs
-eLink = ExtraordinaryEffect(eLink); // make effects ExtraOrdinary
-
-
-SetEffectSpellId(eLink,EFFECT_PDK); //dodano shaman88
-
-
-effect eImpact = EffectVisualEffect(VFX_IMP_PDK_GENERIC_HEAD_HIT);// Get VFX
+     DelayCommand(0.8, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_PDK_GENERIC_PULSE), OBJECT_SELF));
 
 
+     // Get first target
 
-// Apply effect at location
-
-ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_PDK_INSPIRE_COURAGE), OBJECT_SELF);
-
-DelayCommand(0.8, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_PDK_GENERIC_PULSE), OBJECT_SELF));
+     object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));
 
 
+     // Keep processing while oTarget is valid
 
-// Get first target
+        while(GetIsObjectValid(oTarget))
+        {
 
-object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));
+            // * GZ Oct 2003: If we are silenced, we can not benefit from bard song
 
+            if (!GetHasEffect(EFFECT_TYPE_SILENCE,oTarget) && !GetHasEffect(EFFECT_TYPE_DEAF,oTarget))
 
+            {
 
-// Keep processing while oTarget is valid
+                if((oTarget == OBJECT_SELF) || GetIsNeutral(oTarget) || GetIsFriend(oTarget))
 
-while(GetIsObjectValid(oTarget))
+                {
 
-{
+                    //shozeni stareho effektu
+                    effect eLoop=GetFirstEffect(oTarget);
+                    while (GetIsEffectValid(eLoop))
+                    {
+                        if (GetEffectSpellId(eLoop)==EFFECT_PDK)
+                        {
+                          RemoveEffect(oTarget,eLoop);
+						  
+                        }
 
+                        eLoop=GetNextEffect(oTarget);
 
+                    }
 
-// * GZ Oct 2003: If we are silenced, we can not benefit from bard song
+                    // oTarget is a friend, apply effects
+                    DelayCommand(0.9, ApplyEffectToObject(DURATION_TYPE_INSTANT, eImpact, oTarget));
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
 
-if (!GetHasEffect(EFFECT_TYPE_SILENCE,oTarget) && !GetHasEffect(EFFECT_TYPE_DEAF,oTarget))
+                }
+            }
+			
+            // Get next object in the sphere
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));
 
-{
-
-if((oTarget == OBJECT_SELF) || GetIsNeutral(oTarget) || GetIsFriend(oTarget))
-
-{
-
-//shozeni stareho effektu
-
-effect eLoop=GetFirstEffect(oTarget);
-
-while (GetIsEffectValid(eLoop))
-
-{
-
-if (GetEffectSpellId(eLoop)==EFFECT_PDK)
-
-{
-
-RemoveEffect(oTarget,eLoop);
-
-
-
-}
-
-eLoop=GetNextEffect(oTarget);
-
-}
-
-// oTarget is a friend, apply effects
-
-DelayCommand(0.9, ApplyEffectToObject(DURATION_TYPE_INSTANT, eImpact, oTarget));
-
-ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
-
-}
-
-}
-
-
-
-// Get next object in the sphere
-
-oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));
-
-}
-
-}
+        }
+    }
+	
