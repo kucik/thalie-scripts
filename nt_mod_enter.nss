@@ -495,7 +495,7 @@ void main()
         GiveStartpackage(oPC);
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
         /* remove feats which player should not have */
-        __checkInvalidFeats(oPC,TRUE) {
+        __checkInvalidFeats(oPC,TRUE);
 
  }
  // Get soul
