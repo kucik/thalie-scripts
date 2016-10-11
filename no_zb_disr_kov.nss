@@ -895,6 +895,24 @@ DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_men_
 FloatingTextStringOnCreature("Vyroba tezkeho palcatu",no_oPC,FALSE );
 SetLocalInt(OBJECT_SELF,"no_menu",76);
 }
+//77 - vyroba krumpac.   tag: no_vyr_hp
+if (GetTag(no_vzataItem) == "no_vyr_hp" ) {
+no_znicit(OBJECT_SELF); //znicime vsechny prepinace
+no_znicit(no_oPC);
+no_reopen(no_oPC);
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_men_speci"),"Zpet")); //pridame tlacitko zpet
+FloatingTextStringOnCreature("Vyroba krumpace",no_oPC,FALSE );
+SetLocalInt(OBJECT_SELF,"no_menu",77);
+}
+//78 - vyroba lehky krumpac   tag: no_vyr_lp
+if (GetTag(no_vzataItem) == "no_vyr_lp" ) {
+no_znicit(OBJECT_SELF); //znicime vsechny prepinace
+no_znicit(no_oPC);
+no_reopen(no_oPC);
+DelayCommand(0.1,SetName(CreateItemOnObject("prepinac003",OBJECT_SELF,1,"no_men_speci"),"Zpet")); //pridame tlacitko zpet
+FloatingTextStringOnCreature("Vyroba tezkeho palcatu",no_oPC,FALSE );
+SetLocalInt(OBJECT_SELF,"no_menu",78);
+}
 //79 - vyroba maug dv. mec tag: no_vyr_y3
 if (GetTag(no_vzataItem) == "no_vyr_y3" ) {
 no_znicit(OBJECT_SELF); //znicime vsechny prepinace
