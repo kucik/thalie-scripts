@@ -610,8 +610,6 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
 
     }
 
-    if (GetHasFeat(FEAT_EPIC_FIGHTER,oPC) == TRUE)
-    {
         //bojova zkusenost - ab a dmg
         if (GetHasFeat(FEAT_FIGHTER_BOJOVA_ZKUSENOST1,oPC) == TRUE)
         {
@@ -660,7 +658,6 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
             iDMG +=2;
         }
 
-    }
     //bonusy kensaie
     if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) > 3)
     {
