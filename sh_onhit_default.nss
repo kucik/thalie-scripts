@@ -160,12 +160,15 @@ void main()
     /*Sermir - presny bod*/
     if (GetHasFeat(FEAT_SERMIR_PRESNY_BOD,oSpellOrigin))
      {
-        if  ((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_RAPIER )  ||
-        (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_DAGGER )  ||
-        (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_SHORTSWORD )
+        if  (((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_RAPIER )
+        && GetHasFeat(FEAT_WEAPON_FOCUS_RAPIER, oSpellOrigin))||
+        ((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_DAGGER )
+        && GetHasFeat(FEAT_WEAPON_FOCUS_DAGGER, oSpellOrigin))||
+        ((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_SHORTSWORD )
+        && GetHasFeat(FEAT_WEAPON_FOCUS_SHORT_SWORD, oSpellOrigin)))
 
 
-        ){
+         {
             if (
                 (GetRacialType(oSpellTarget) != RACIAL_TYPE_UNDEAD) &&
                 (GetRacialType(oSpellTarget) != RACIAL_TYPE_ABERRATION) &&
