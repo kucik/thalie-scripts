@@ -123,8 +123,8 @@ const int    TREASURE_HIGH = 3;
     void CreateGenericWizardWeapon(object oTarget, object oAdventurer, int nTreasureType=TREASURE_MEDIUM, int nModifier = 0);
 
 
-    int KU_LootFunctions_SetLootToGroup(int LootCost);
-    int KU_LootFunctions_CheckLimitInGroup();
+//    int KU_LootFunctions_SetLootToGroup(int LootCost);
+//    int KU_LootFunctions_CheckLimitInGroup();
     void SetNextSpawn();
 
 
@@ -178,13 +178,14 @@ void dbCreateItemOnObject(string sItemTemplate, object oTarget = OBJECT_SELF, in
       }
     }
 
-    if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
+/*    if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
       // A ted pekne mezi vsechny z okoli rozdelime hodnotu itemu v GP - by Kucik
       if(GetBaseItemType(oItem)== BASE_ITEM_GOLD)
         KU_LootFunctions_SetLootToGroup(GetItemStackSize(oItem));
       else
         KU_LootFunctions_SetLootToGroup(GetGoldPieceValue(oItem));
     }
+*/
 
 
 }
@@ -3752,10 +3753,11 @@ void nt_GenerateSpecificTreasure(int iType, int nTreasureType, object oLastOpene
     }
 
    // Pokud v okoli neni nikdo, kdo nema plny loot limit, negeneruj nic - by Kucik
-   if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
+/*   if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
      if(!KU_LootFunctions_CheckLimitInGroup())
        return;
    }
+*/
 
    int iCount = 1;
    if(nTreasureType == TREASURE_MEDIUM )
@@ -3849,10 +3851,11 @@ void GenerateTreasure(int nTreasureType, object oLastOpener, object oCreateOn)
     }
 
    // Pokud v okoli neni nikdo, kdo nema plny loot limit, negeneruj nic - by Kucik
-   if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
+/*   if(GetLocalInt(OBJECT_SELF,"KU_TREASURE_TYPE")!=1) {
      if(!KU_LootFunctions_CheckLimitInGroup())
        return;
    }
+*/
 
    // * VARIABLES
    int nProbBook = 0;
