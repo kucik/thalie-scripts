@@ -15,6 +15,7 @@
 #include "me_pcneeds_inc"
 #include "sh_feat_uses"
 #include "sh_classes_inc_e"
+#include "sh_feat_uses"
 // doba spanku
 float iSleepTime = 150.0;
 
@@ -40,6 +41,7 @@ void main()
             ForceRest(oPC);
             FloatingTextStringOnCreature("*regeneruje*", oPC);
             restoreStamina(oPC, 10000.0);
+			RestoreFeatUses(oPC);
             return;
         }
 
