@@ -2633,6 +2633,9 @@ int KU_DicesDoThrow(object oPC,object oTarget) {
     return iThrow;
   }
 
+  if(GetIsDM(oPC))
+    oSoul = oPC;
+
   string sAdd = "";
   int iAdd = 0;
   switch(iType1) {
@@ -2643,6 +2646,7 @@ int KU_DicesDoThrow(object oPC,object oTarget) {
     case 2:
       iAdd = GetSavingThrowBonus(oTarget, iType2);
       sAdd = __saveToString(iType2);
+      break;
     case 3:
       iAdd =  GetSkillRank(iType2, oTarget);
       sAdd = Get2DAString("skills","Label",iType2);
@@ -2660,6 +2664,10 @@ void KU_DicesAct(int act) {
   location lTarget = GetLocalLocation(oPC,KU_WAND_TARGET_LOC);
   object oTarget = GetLocalObject(oPC,KU_WAND_TARGET );
   object oSoul = GetSoulStone(oPC);
+
+  if(GetIsDM(oPC)) {
+    oSoul = oPC;
+  }
 
   // Only DM can do throw on others
   if(!GetIsDM(oPC))
