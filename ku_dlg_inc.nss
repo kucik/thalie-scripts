@@ -2644,7 +2644,7 @@ int KU_DicesDoThrow(object oPC,object oTarget) {
       sAdd = __abilityToString(iType2);
       break;
     case 2:
-      iAdd = GetSavingThrowBonus(oTarget, iType2);
+      iAdd = GetSavingThrowBonus(oTarget, iType2 - 1);
       sAdd = __saveToString(iType2);
       break;
     case 3:
@@ -2895,8 +2895,8 @@ void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID) {
         ku_dlg_SetAll(0);
         ku_dlg_SetConv(0,1);
         SetCustomToken(6300,"Hazet na Zachranu:");
-        ku_dlg_SetConv(1,1);
-        SetCustomToken(6301,"Obecný");
+//        ku_dlg_SetConv(1,1);
+//        SetCustomToken(6301,"Obecný");
         ku_dlg_SetConv(2,1);
         SetCustomToken(6302,"Fortitude");
         ku_dlg_SetConv(3,1);
