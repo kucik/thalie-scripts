@@ -2622,6 +2622,9 @@ string __saveToString(int iSave) {
 
 int KU_DicesDoThrow(object oPC,object oTarget) {
   object oSoul = GetSoulStone(oPC);
+  if(GetIsDM(oPC))
+    oSoul = oPC;
+
   int iVisibility = GetLocalInt(oSoul,"KU_DICES_VISIBILITY");
   int iType1 = GetLocalInt(oPC,"KU_DICES_TYPE1");
   int iType2 = GetLocalInt(oPC,"KU_DICES_TYPE2");
@@ -2632,9 +2635,6 @@ int KU_DicesDoThrow(object oPC,object oTarget) {
     KU_DicesSayThrow(oPC, oTarget, iThrow, iDice, iVisibility, "");
     return iThrow;
   }
-
-  if(GetIsDM(oPC))
-    oSoul = oPC;
 
   string sAdd = "";
   int iAdd = 0;
