@@ -2574,13 +2574,19 @@ void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVi
   string sSay = GetName(oTarget)+" hazi d("+IntToString(iDice)+")"+sText+" : "+IntToString(iThrow);
 
   SendMessageToPC(oPC,sSay);
-  // Tel to others
 
+  // Tel to DM/ targeted player
   if(iVisibility == 2) {
-    SendMessageToAllDMs(sSay);
+    if(GetIsDM(oPC)) {
+      if(GetIsPC(oTaget))
+        SendMessageToPC(oTarget);
+    }
+    else
+      SendMessageToAllDMs(sSay);
     return;
   }
 
+  // Tell to all around
   if(iVisibility == 3) {
     object oTell = GetFirstPC();
     while(GetIsObjectValid(oTell)) {
@@ -2612,7 +2618,7 @@ string __abilityToString(int Ability) {
 
 string __saveToString(int iSave) {
    switch(iSave) {
-     case 0: return "Obecnou zachranu";
+     case 1: return "Obecnou zachranu";
      case 2: return "Fortitude";
      case 3: return "Reflex";
      case 4: return "Will";
@@ -2644,7 +2650,12 @@ int KU_DicesDoThrow(object oPC,object oTarget) {
       sAdd = __abilityToString(iType2);
       break;
     case 2:
-      iAdd = GetSavingThrowBonus(oTarget, iType2 - 1);
+      switch(iType2) {
+        case 1: iAdd = 0; break;
+        case 2: GetFortitudeSavingThrow(oTarget); break;
+        case 3: GetReflexSavingThrow(oTarget); break;
+        case 4: GetWillSavingThrow(oTarget); break;
+      }
       sAdd = __saveToString(iType2);
       break;
     case 3:
@@ -2762,7 +2773,7 @@ void KU_DicesAct(int act) {
         case 2:
         case 3:
         case 4:
-          SetLocalInt(oPC,"KU_DICES_TYPE2",act - 1);
+          SetLocalInt(oPC,"KU_DICES_TYPE2",act);
           SetLocalInt(oPC,KU_DLG+"state",24);
           break;
       }
@@ -2848,7 +2859,10 @@ void KU_DicesSetTokens(int iState, object oPC = OBJECT_INVALID) {
         ku_dlg_SetConv(1,1);
         SetCustomToken(6301,"Jen ja");
         ku_dlg_SetConv(2,1);
-        SetCustomToken(6302,"Ja a DM");
+        if(bIsDM)
+          SetCustomToken(6302,"DM a hráč");
+        else
+          SetCustomToken(6302,"Ja a DM");
         ku_dlg_SetConv(3,1);
         SetCustomToken(6303,"Vsichni okolo" );
         ku_dlg_SetConv(10,1);
