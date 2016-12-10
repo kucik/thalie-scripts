@@ -618,7 +618,7 @@ Funkce pro WM - supperior weapon focus
 		 case BASE_ITEM_DWARVENWARAXE: return FEAT_WEAPON_OF_CHOICE_DWAXE;
 		 case BASE_ITEM_WHIP: return FEAT_WEAPON_OF_CHOICE_WHIP;
 		 case BASE_ITEM_TRIDENT: return FEAT_WEAPON_OF_CHOICE_TRIDENT;
-         case 305: return 1180;
+         case 316: return 1180;
          case 202: return 1173;
          case 210: return 1174;
          case 300: return 1175;
