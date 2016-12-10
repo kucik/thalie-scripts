@@ -2578,8 +2578,8 @@ void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVi
   // Tel to DM/ targeted player
   if(iVisibility == 2) {
     if(GetIsDM(oPC)) {
-      if(GetIsPC(oTaget))
-        SendMessageToPC(oTarget);
+      if(GetIsPC(oTarget))
+        SendMessageToPC(oTarget, sSay);
     }
     else
       SendMessageToAllDMs(sSay);
