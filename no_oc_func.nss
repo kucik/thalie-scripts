@@ -1979,7 +1979,7 @@ void no_udelejocarovani(object no_Item)
   int iMat2 = GetLocalInt(no_Item,"no_ve_mat");
   int iPower1 = GetLocalInt(no_Item,"no_kamen");
   int iPower2 = GetLocalInt(no_Item,"no_kamen2");
-  int iMaxPower = __ocGetMaxEnchantmentBaseItem(GetBaseItemType(no_Item));
+  int iMaxPower = __ocGetMaxEnchantmentBaseItem(GetBaseItemType(no_Item))*10;
 
   if ( NO_oc_DEBUG ) {
     SendMessageToPC(no_oPC,"DEBUG: Item "+GetName(no_Item)+" kamen1:("+IntToString(iMat1)+":"+IntToString(iPower1)+") Maxpower: "+IntToString(iMaxPower));
@@ -2000,8 +2000,8 @@ void no_udelejocarovani(object no_Item)
     SendMessageToPC(no_oPC,"DEBUG: Item "+GetName(no_Item)+" kamen2:("+IntToString(iMat2)+":"+IntToString(iPower2)+") Maxpower: "+IntToString(iMaxPower));
   }
 
-  no_udelej_vlastnosti(iMat1, iPower1*10, TRUE, no_Item);
-  no_udelej_vlastnosti(iMat2, iPower2*10, FALSE, no_Item);
+  no_udelej_vlastnosti(iMat1, iPower1, TRUE, no_Item);
+  no_udelej_vlastnosti(iMat2, iPower2, FALSE, no_Item);
 
 //kdyz neni druhy jako prvni material, tak udelame maxprocenta-hl.mat.procenta vlastnosti.
 
