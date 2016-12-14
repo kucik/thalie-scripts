@@ -276,8 +276,10 @@ object ku_LootCreateBossUniqueItem(object oBoss, string sBoxTag) {
       if(GetLocalInt(OBJECT_SELF,"DEBUG") > 0) {
         SpeakString("DEBUG: "+GetName(oNew)+" + vlastnosti siti o sile kamenu "+IntToString(iPower1*20)+"% a "+IntToString(iPower1*20)+"%");
       }
-      tc_si_AddPropertyForStone(oNew,iStone1,iPower1,TRUE);
-      tc_si_AddPropertyForStone(oNew,iStone2,iPower2,TRUE);
+      if(iPower1 > 0)
+        tc_si_AddPropertyForStone(oNew,iStone1,iPower1,TRUE);
+      if(iPower2 > 0)
+        tc_si_AddPropertyForStone(oNew,iStone2,iPower2,TRUE);
       break;
     case BASE_ITEM_AMULET:
       /* Block natural AC bonus */
