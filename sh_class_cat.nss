@@ -659,7 +659,7 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
         }
 
     //bonusy kensaie
-    if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) > 3)
+    if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) >= 3)
     {
         int lvl = GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC);
 //        int iBonusAC = (lvl -3) / 4 +1;
