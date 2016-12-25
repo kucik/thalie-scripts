@@ -196,7 +196,7 @@ void main()
             if  (ku_GetTimeStamp(GetTimeSecond()-9,GetTimeMinute(),GetTimeHour()) <= iTime)
             {
                 int  nCasterLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA);
-                effect ef = EffectSpellFailure(nCasterLevel * 2);
+                effect ef = EffectSpellFailure((nCasterLevel + GetAbilityModifier(ABILITY_CHARISMA)) * 2);
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ef,oSpellTarget,RoundsToSeconds(nCasterLevel));
             }
             DeleteLocalInt(oSpellOrigin,ULOZENI_EXORCISTA_NARUSENI_MAGIE);
