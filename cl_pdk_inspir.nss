@@ -32,12 +32,11 @@
      object oPDK = OBJECT_SELF;
 
      int nCount = GetLevelByClass(41, oPDK) + GetAbilityModifier(ABILITY_CHARISMA, oPDK);
-     int nHP = d10(GetLevelByClass(41, oPDK)); // Count of d10
+     int nHP =  d10(((GetLevelByClass(41, oPDK))/6)+1); // Count of d10
      int iCHA = GetAbilityModifier(ABILITY_CHARISMA,OBJECT_SELF);
      int iLvl = GetLevelByClass(41,OBJECT_SELF);
-     int iDuration = 10 + iLvl + iCHA;
-     int iBonus = (iLvl / 5)+1;
-     int nDuration = 10; //+ nChr;
+     int nDuration = 10 + iLvl + iCHA;
+     int iBonus = (iLvl / 6)+1;
 
      effect eSaveFEffectSavingThrowIncrease = EffectSavingThrowIncrease(SAVING_THROW_ALL, iBonus);// Saving throw increase
      effect eHP = EffectTemporaryHitpoints(nHP); //Temporary HP increase
