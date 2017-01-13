@@ -55,7 +55,7 @@ void main()
 {
     int nEventType = GetEventType();
 //    WriteTimestampedLogEntry("NWNX Event fired: "+IntToString(nEventType)+", '"+GetName(OBJECT_SELF)+"'");
-    object oPC, oTarget, oItem;
+    object oPC, oTarget, oItem, oSoulStone;
     vector vTarget;
     int nSubID;
     switch(nEventType)
@@ -139,9 +139,20 @@ void main()
 
         case EVENT_TOGGLE_MODE:
             oPC = OBJECT_SELF;
+            oSoulStone = GetSoulStone(oPC);
             nSubID = GetEventSubType();  //ACTION_MODE_*
             //WriteTimestampedLogEntry(GetName(oPC)+" toggled mode  #"+IntToString(nSubID));
             //FloatingTextStringOnCreature(GetName(oPC)+" toggled mode  #"+IntToString(nSubID), oPC, FALSE);
+            if ((nSubID==ACTION_MODE_EXPERTISE) || (nSubID==ACTION_MODE_IMPROVED_EXPERTISE) || (nSubID==ACTION_MODE_IMPROVED_POWER_ATTACK) || (nSubID==ACTION_MODE_POWER_ATTACK))
+            {
+                if (GetLocalInt(oSoulStone,AKTIVNI_POSTOJ_OBRANCE) == 1)
+                {
+                    //odebrani efektu
+                    DelayCommand(1.0,DD_RemoveStance(oPC,oSoulStone));
+                    DecrementRemainingFeatUses(oPC,FEAT_POSTOJ_TRPASLICI_OBRANCE1);
+                }
+            }
+
             if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED && nSubID == 1) { //Unhide penalty
                 effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 50 ));
                 effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 50 ));
@@ -201,7 +212,7 @@ void main()
             //RandomBypass(oPC);
 
             break;
-        
+
         case EVENT_TYPE_VALIDATE_CHARACTER:
             BypassEvent();
             SetReturnValue(0);

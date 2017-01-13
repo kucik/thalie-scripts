@@ -45,6 +45,7 @@ const int EFFECT_SPEED = 2023;
 const int EFFECT_SPELL_RESISTANCE = 2024;
 const int EFFECT_POBLOUZNENI= 2025;
 const int EFFECT_TEMNOTA = 36;
+const int IP_DD_STANCE = 2027;
 
 //
 const int EFFECT_ELIXIR_STR = 3001;
@@ -77,4 +78,6 @@ const int ROGUE_MODE_KRVACIVE_RANY = 1;
 const int ROGUE_MODE_OSLEPENI = 2;
 const int ROGUE_MODE_UTISENI = 3;
 
+//konstanta pretizeni 100 000 liber
+const int IP_CONST_WEIGHTINCREASE_100_000_LBS = 6;
 

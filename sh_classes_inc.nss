@@ -582,8 +582,32 @@ void ApplyFeats(object oPC)
 }
 
 
+//Odstrani efekty postoje trpasliciho obrance
+void DD_RemoveStance(object oPC,object oSoulStone)
+{
+    effect eLoop=GetFirstEffect(oPC);
+    while (GetIsEffectValid(eLoop))
+    {
+        if (GetEffectSpellId(eLoop)==EFFECT_TRPASLICI_OBRANCE_POSTOJ)
+        {
+            RemoveEffect(oPC, eLoop);
+        }
+        eLoop=GetNextEffect(oPC);
 
+    }
+    itemproperty ipLoop=GetFirstItemProperty(oSoulStone);
+    while (GetIsItemPropertyValid(ipLoop))
+    {
+        if (GetItemPropertySpellId(ipLoop)==IP_DD_STANCE)
+        {
+            RemoveItemProperty(oSoulStone, ipLoop);
+        }
+        ipLoop=GetNextItemProperty(oSoulStone);
 
+    }
+    DecreaseDefenderStats(oPC);
+    SendMessageToPC(oPC,"Obrany postoj deaktivovan!");
+}
 
 
 ///***------------------------------------------------------------------------------------------------------------------
