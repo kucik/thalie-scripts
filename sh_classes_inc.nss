@@ -609,6 +609,20 @@ void DD_RemoveStance(object oPC,object oSoulStone)
     SendMessageToPC(oPC,"Obrany postoj deaktivovan!");
 }
 
+//Nastavi promenne na postavu tak aby bylo mozne brat prestizni povolani
+void ApplyClassConditions(object oPC)
+{
+    //kontrola rasy u AA
+    int iRace = GetRacialType(oPC);
+    if (((iRace == RACIAL_TYPE_HALFELF) &&  Subraces_GetCharacterSubrace(oPC)==SUBRACE_HALFELF)   ||
+       (iRace == RACIAL_TYPE_ELF))
+       {
+            SetLocalInt(oPC,"X1_AllowArcher",1);
+       }
+
+}
+
+
 
 ///***------------------------------------------------------------------------------------------------------------------
 /*
@@ -709,6 +723,7 @@ void OnDeathClassSystem(object oPC)
 void OnEnterClassSystem(object oPC)
 {
     //ReequipSkin(oPC);
+    ApplyClassConditions(oPC);
     ApplyFeats(oPC);
     DeleteLocalString(oPC,"OZNACEN"); //odstraneni znacky assassina
     DeleteLocalInt(oPC,"UderDoTepny"); //zruseni ucinku krvaceni
