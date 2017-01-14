@@ -32,7 +32,11 @@ void main()
 
         int nCharismaBonus = GetAbilityModifier(ABILITY_CHARISMA);
         effect eSave= EffectSavingThrowIncrease(SAVING_THROW_FORT,4);
+		effect ePoison = EffectImmunity(IMMUNITY_TYPE_POISON);
+		effect eDisease = EffectImmunity(IMMUNITY_TYPE_DISEASE);
         effect eLink = EffectLinkEffects(eSave, eDur);
+		eLink = EffectLinkEffects (eLink, ePoison);
+		eLink = EffectLinkEffects (eLink, eDisease);
         eLink = SupernaturalEffect(eLink);
 
         if (nCharismaBonus>0)
@@ -50,7 +54,7 @@ void main()
                             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 901, FALSE));
 
                             //Apply Link and VFX effects to the target
-                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus+5));
+                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5));
                             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                         }
                         else if(GetIsFriend(oTarget))
@@ -62,7 +66,7 @@ void main()
                             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 901, FALSE));
 
                             //Apply Link and VFX effects to the target
-                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus+5));
+                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5));
                             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                         }
 
