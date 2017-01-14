@@ -56,7 +56,7 @@ void main()
                             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 902, FALSE));
 
                             //Apply Link and VFX effects to the target
-                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus+5));
+                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5));
                             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                         }
                         else if(GetIsFriend(oTarget))
@@ -68,7 +68,7 @@ void main()
                             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 902, FALSE));
 
                             //Apply Link and VFX effects to the target
-                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus+5));
+                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5));
                             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                         }
 
