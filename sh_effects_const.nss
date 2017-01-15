@@ -46,6 +46,7 @@ const int EFFECT_SPELL_RESISTANCE = 2024;
 const int EFFECT_POBLOUZNENI= 2025;
 const int EFFECT_TEMNOTA = 36;
 const int IP_DD_STANCE = 2027;
+const int EFFECT_WM_ONEQUIP = 2028;
 
 //
 const int EFFECT_ELIXIR_STR = 3001;

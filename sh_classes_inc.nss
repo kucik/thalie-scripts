@@ -411,7 +411,7 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     while (GetIsEffectValid(eLoop))
     {
         iEffect = GetEffectSpellId(eLoop);
-        if (iEffect== EFFECT_BRUTALNI_VRH || iEffect==EFFECT_SPRAVEDLIVY_UDER)
+        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_WM_ONEQUIP))
         {
             RemoveEffect(oPC,eLoop);
         }
@@ -438,9 +438,25 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
         }
 
+        //bonusy kensaie
+        if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) >= 3)
+        {
+                int iWeapon = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC));
+                int iFeat = GetWeaponOfChoiceFeatForWeapon(iWeapon);
+                SendMessageToPC(oPC,"FEAT:"+IntToString(iFeat));
+                if((GetHasFeat(iFeat,oPC)) && (iFeat!=-1))
+                {
+                int iLevel = GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC);
+                int iBonus = iLevel / 3;
+                effect ef1 = EffectAttackIncrease(iBonus);
+                effect ef2 = EffectDamageIncrease(GetDamageBonusByValue(iBonus),DAMAGE_TYPE_SLASHING);
+                effect eLink = EffectLinkEffects(ef1,ef2);
+                eLink = SupernaturalEffect(eLink);
+                SetEffectSpellId(eLink,EFFECT_WM_ONEQUIP);
+                ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+            }
+                }
     }
-
-
 }
 
 void ApplyFeats(object oPC)

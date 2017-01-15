@@ -594,7 +594,7 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
     int iACdeflection= 0;
     int iACnatural = 0;
     int iDMG= 0;
-	/*Bonus vojevudce pdk - znalost boje*/
+    /*Bonus vojevudce pdk - znalost boje*/
     if (GetHasFeat(1283,oPC) == TRUE)
     {
            int iLvl = GetLevelByClass(41,oPC);
@@ -658,16 +658,6 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
             iDMG +=2;
         }
 
-    //bonusy kensaie
-    if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) >= 3)
-    {
-        int lvl = GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC);
-//        int iBonusAC = (lvl -3) / 4 +1;
-        int iBonusAB = lvl / 3;
-        iAB += iBonusAB;
-//        iACshield += iBonusAC;
-        iDMG += iBonusAB;
-    }
     //shinobi bonus do dodge AC
     if (GetHasFeat(FEAT_SHINOBI_BONUS_AC,oPC) == TRUE)
     {
@@ -872,13 +862,13 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
     int iUseMagicDevice = 0;
 
     //uprava bonusu na zaklade featu
-	    /*Vojevudcuv bonus - Mastered discipline*/ //+1 on level 3 and each 3 levels +1
+        /*Vojevudcuv bonus - Mastered discipline*/ //+1 on level 3 and each 3 levels +1
          if (GetHasFeat(1284,oPC) == TRUE)  //FEAT_PDK_MASTERED_DISCIPLINE
          {
                 int iLvL = GetLevelByClass(41,oPC);
                 iDiscipline +=(iLvL/3);
          }
-	
+
         /*Zlodejuv bonus - nenapadnost*/
          if (GetHasFeat(FEAT_ROGUE_KAPSAR1,oPC) == TRUE)
          {
