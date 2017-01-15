@@ -45,13 +45,14 @@ void main()
    oSpellTarget = GetSpellTargetObject();
    oItem        =  GetSpellCastItem();
    oSaveItem    = GetSoulStone(oSpellOrigin);
+   int iTargetRace = GetRacialType(oSpellTarget);
    int iRogueMode = GetLocalInt(oSaveItem,"ROGUE_MODE");
    int iRandom = 0;
 
     // SendMessageToPC(oSpellTarget,"Tady to dojede");
     // SendMessageToPC(oSpellOrigin,"Tady to dojede");
      //uder do tepny
-     if (GetHasFeat(FEAT_ASSASSIN_UDER_DO_TEPNY,oSpellOrigin)  && GetRacialType(oSpellTarget)!=RACIAL_TYPE_UNDEAD && GetRacialType(oSpellTarget)!=RACIAL_TYPE_CONSTRUCT && GetRacialType(oSpellTarget)!=RACIAL_TYPE_ELEMENTAL && GetRacialType(oSpellTarget)!=RACIAL_TYPE_OUTSIDER && GetRacialType(oSpellTarget)!=RACIAL_TYPE_OOZE)
+     if ((GetHasFeat(FEAT_ASSASSIN_UDER_DO_TEPNY,oSpellOrigin))  && (iTargetRace!=RACIAL_TYPE_UNDEAD) && (iTargetRace!=RACIAL_TYPE_CONSTRUCT) && (iTargetRace!=RACIAL_TYPE_ELEMENTAL) && (iTargetRace!=RACIAL_TYPE_OUTSIDER) && (iTargetRace!=RACIAL_TYPE_OOZE))
      {
         if (GetLocalInt(oSpellTarget,"UderDoTepny") == 0)
         {
@@ -89,12 +90,13 @@ void main()
 
     //udery zlodeje
     //krvacive rany
-     if ((iRogueMode == ROGUE_MODE_KRVACIVE_RANY) && GetHasFeat(FEAT_ROGUE_KRVACIVE_RANY,oSpellOrigin) && GetRacialType(oSpellTarget)!=RACIAL_TYPE_UNDEAD && GetRacialType(oSpellTarget)!=RACIAL_TYPE_CONSTRUCT && GetRacialType(oSpellTarget)!=RACIAL_TYPE_ELEMENTAL && GetRacialType(oSpellTarget)!=RACIAL_TYPE_OUTSIDER && GetRacialType(oSpellTarget)!=RACIAL_TYPE_OOZE)
+     if ((iRogueMode == ROGUE_MODE_KRVACIVE_RANY) && (GetHasFeat(FEAT_ROGUE_KRVACIVE_RANY,oSpellOrigin)) && (iTargetRace!=RACIAL_TYPE_UNDEAD) && (iTargetRace!=RACIAL_TYPE_CONSTRUCT) && (iTargetRace!=RACIAL_TYPE_ELEMENTAL) && (iTargetRace!=RACIAL_TYPE_OUTSIDER) && (iTargetRace!=RACIAL_TYPE_OOZE))
      {
         iRandom = d100(1);
-        SendMessageToPC(oSpellOrigin,"Hod na krvacive rany: " + IntToString(iRandom)+".");
+
         if  (iRandom <= 24)
         {
+            SendMessageToPC(oSpellOrigin,"Krvacive rany: " + IntToString(iRandom)+" proti 25. Uspech.");
             if (GetLocalInt(oSpellTarget,"UderDoTepny") == 0)
             {
                 int iCasterLevel = GetLevelByClass(CLASS_TYPE_NEWROGUE,oSpellOrigin);
@@ -108,40 +110,52 @@ void main()
 
             }
         }
+        else
+        {
+            SendMessageToPC(oSpellOrigin,"Krvacive rany: " + IntToString(iRandom)+"proti 25. Neuspech.");
+        }
      }
      if ((iRogueMode == ROGUE_MODE_UTISENI) && GetHasFeat(FEAT_ROGUE_UTISENI,oSpellOrigin))
      {
         iRandom = d100(1);
-        SendMessageToPC(oSpellOrigin,"Hod na utiseni: " + IntToString(iRandom)+".");
         if  (iRandom <= 24)
         {
+            SendMessageToPC(oSpellOrigin,"Utiseni: " + IntToString(iRandom)+"<25. Uspech.");
             int iCasterLevel = GetLevelByClass(CLASS_TYPE_NEWROGUE,oSpellOrigin);
-            effect ef = EffectSilence();
+            effect eDur2 = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
+            effect eSilence = EffectSilence();
+            effect eLink = EffectLinkEffects(eDur2, eSilence);
             int iDC = 10 + (iCasterLevel+1) / 2;
             if (MySavingThrow(SAVING_THROW_FORT, oSpellTarget, iDC) == 0)
             {
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ef,oSpellTarget,RoundsToSeconds(iCasterLevel/5));
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLink,oSpellTarget,RoundsToSeconds(iCasterLevel/5));
             }
-
-
+        }
+        else
+        {
+            SendMessageToPC(oSpellOrigin,"Utiseni: " + IntToString(iRandom)+"proti 25. Neuspech.");
         }
      }
 
      if ((iRogueMode == ROGUE_MODE_OSLEPENI) && GetHasFeat(FEAT_ROGUE_OSLEPENI,oSpellOrigin))
      {
         iRandom = d100(1);
-        SendMessageToPC(oSpellOrigin,"Hod na oslepeni: " + IntToString(iRandom)+".");
         if  (iRandom <= 24)
         {
+            SendMessageToPC(oSpellOrigin,"Oslepeni: " + IntToString(iRandom)+"proti 25. Uspech.");
             int iCasterLevel = GetLevelByClass(CLASS_TYPE_NEWROGUE,oSpellOrigin);
             effect ef = EffectBlindness();
+            effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
+            effect eLink = EffectLinkEffects(ef,eDur);
             int iDC = 10 + (iCasterLevel+1) / 2;
             if (MySavingThrow(SAVING_THROW_FORT, oSpellTarget, iDC) == 0)
             {
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ef,oSpellTarget,RoundsToSeconds(iCasterLevel/5));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLink,oSpellTarget,RoundsToSeconds(iCasterLevel/5));
             }
-
-
+        }
+        else
+        {
+            SendMessageToPC(oSpellOrigin,"Oslepeni: " + IntToString(iRandom)+"proti 25. Neuspech.");
         }
      }
      /*Konec udery zlodeje*/
