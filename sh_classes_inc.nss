@@ -637,6 +637,14 @@ void ApplyClassConditions(object oPC)
        }
 
 }
+//Odstrani featy - pro rizeni specialnich schopnosti na konkretnich lvlech
+void RemoveClassFeats(object oPC)
+{
+    if (GetLevelByClass(CLASS_TYPE_DRUID,oPC) >=8)
+    {
+        RemoveKnownFeat(oPC,FEAT_DRUID_SPECIALIZACE_VYBER);
+    }
+}
 
 
 
@@ -668,7 +676,7 @@ void OnLvlupClassSystem(object oPC)
    object oPCSkin = GetPCSkin(oPC);
    //vymazani bonusu
    RemoveClassItemPropertyAndEffects(oPC,oPCSkin);
-
+   RemoveClassFeats(oPC);
    //  puvodni
    ApplyBarbarianDamageReduction(oPC);  //effekt
    ApplyShadowDancerZrak(oPC);//effekt
