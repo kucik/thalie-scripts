@@ -11,5 +11,3 @@ void SetVisibility(object oObject1, object oObject2, int nVisibility)
 {
     SetLocalString(oObject1, "NWNX!VISIBILITY!SET_VISIBILITY", ObjectToString(oObject2)+"¬"+IntToString(nVisibility));
 }
-
-

@@ -2331,7 +2331,7 @@ void KU_DM_PortalsAct(int act) {
         // Zacni portal trigger
         case 2: {
           string sTag = "trans_"+GetStringLeft(GetPCPlayerName(oPC),10)+IntToString(ku_GetTimeStamp());
-          object oTrans = CreateAreaTransitionOnLocation(lTarget,AREA_TRANSITION_LINK_NONE,sTag,1.0,sTag);
+          object oTrans = CreateAreaTransitionAtLocation(lTarget,AREA_TRANSITION_LINK_NONE,sTag,1.0,sTag);
           SetLocalObject(oPC,"KU_TRANS_A",oTrans);
           SetLocalString(oPC,"KU_TRANS_TAG",sTag);
           SendMessageToPC(oPC,"***** Portal zapocat ****** ");
@@ -2364,7 +2364,7 @@ void KU_DM_PortalsAct(int act) {
             return;
           }
           string sTag = GetLocalString(oPC,"KU_TRANS_TAG");
-          object oTransB = CreateAreaTransitionOnLocation(lTarget,AREA_TRANSITION_LINK_NONE,sTag,1.0,sTag);
+          object oTransB = CreateAreaTransitionAtLocation(lTarget,AREA_TRANSITION_LINK_NONE,sTag,1.0,sTag);
 
           SetLocalObject(oTransB,"FUNCSEXT_TRANSITION_TARGET",oTransA);
           SetLocalObject(oTransA,"FUNCSEXT_TRANSITION_TARGET",oTransB);

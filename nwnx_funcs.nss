@@ -18,6 +18,99 @@ const int CREATURE_EVENT_DEATH                  = 10;
 const int CREATURE_EVENT_USERDEF                = 11;
 const int CREATURE_EVENT_BLOCKED                = 12;
 
+// Supported by SetEventHandler() / GetEventHandler
+int CREATURE_SCRIPT_ON_HEARTBEAT              = 0;
+int CREATURE_SCRIPT_ON_NOTICE                 = 1;
+int CREATURE_SCRIPT_ON_SPELLCASTAT            = 2;
+int CREATURE_SCRIPT_ON_MELEE_ATTACKED         = 3;
+int CREATURE_SCRIPT_ON_DAMAGED                = 4;
+int CREATURE_SCRIPT_ON_DISTURBED              = 5;
+int CREATURE_SCRIPT_ON_END_COMBATROUND        = 6;
+int CREATURE_SCRIPT_ON_DIALOGUE               = 7;
+int CREATURE_SCRIPT_ON_SPAWN_IN               = 8;
+int CREATURE_SCRIPT_ON_RESTED                 = 9;
+int CREATURE_SCRIPT_ON_DEATH                  = 10;
+int CREATURE_SCRIPT_ON_USER_DEFINED_EVENT     = 11;
+int CREATURE_SCRIPT_ON_BLOCKED_BY_DOOR        = 12;
+// Trigger
+int SCRIPT_TRIGGER_ON_HEARTBEAT          = 0;
+int SCRIPT_TRIGGER_ON_OBJECT_ENTER       = 1;
+int SCRIPT_TRIGGER_ON_OBJECT_EXIT        = 2;
+int SCRIPT_TRIGGER_ON_USER_DEFINED_EVENT = 3;
+int SCRIPT_TRIGGER_ON_TRAPTRIGGERED      = 4;
+int SCRIPT_TRIGGER_ON_DISARMED           = 5;
+int SCRIPT_TRIGGER_ON_CLICKED            = 6;
+// Area
+int SCRIPT_AREA_ON_HEARTBEAT            = 0;
+int SCRIPT_AREA_ON_USER_DEFINED_EVENT   = 1;
+int SCRIPT_AREA_ON_ENTER                = 2;
+int SCRIPT_AREA_ON_EXIT                 = 3;
+int SCRIPT_AREA_ON_CLIENT_ENTER	        = 4;
+// Door
+int SCRIPT_DOOR_ON_OPEN            = 0;
+int SCRIPT_DOOR_ON_CLOSE           = 1;
+int SCRIPT_DOOR_ON_DAMAGE          = 2;
+int SCRIPT_DOOR_ON_DEATH           = 3;
+int SCRIPT_DOOR_ON_DISARM          = 4;
+int SCRIPT_DOOR_ON_HEARTBEAT       = 5;
+int SCRIPT_DOOR_ON_LOCK            = 6;
+int SCRIPT_DOOR_ON_MELEE_ATTACKED  = 7;
+int SCRIPT_DOOR_ON_SPELLCASTAT     = 8;
+int SCRIPT_DOOR_ON_TRAPTRIGGERED   = 9;
+int SCRIPT_DOOR_ON_UNLOCK          = 10;
+int SCRIPT_DOOR_ON_USERDEFINED     = 11;
+int SCRIPT_DOOR_ON_CLICKED         = 12;
+int SCRIPT_DOOR_ON_DIALOGUE        = 13;
+int SCRIPT_DOOR_ON_FAIL_TO_OPEN    = 14;
+// Encounter
+int SCRIPT_ENCOUNTER_ON_OBJECT_ENTER        = 0;
+int SCRIPT_ENCOUNTER_ON_OBJECT_EXIT         = 1;
+int SCRIPT_ENCOUNTER_ON_HEARTBEAT           = 2;
+int SCRIPT_ENCOUNTER_ON_ENCOUNTER_EXHAUSTED = 3;
+int SCRIPT_ENCOUNTER_ON_USER_DEFINED_EVENT  = 4;
+// Module
+int SCRIPT_MODULE_ON_HEARTBEAT              = 0;
+int SCRIPT_MODULE_ON_USER_DEFINED_EVENT     = 1;
+int SCRIPT_MODULE_ON_MODULE_LOAD            = 2;
+int SCRIPT_MODULE_ON_MODULE_START           = 3;
+int SCRIPT_MODULE_ON_CLIENT_ENTER           = 4;
+int SCRIPT_MODULE_ON_CLIENT_EXIT            = 5;
+int SCRIPT_MODULE_ON_ACTIVATE_ITEM          = 6;
+int SCRIPT_MODULE_ON_ACQUIRE_ITEM           = 7;
+int SCRIPT_MODULE_ON_LOSE_ITEM              = 8;
+int SCRIPT_MODULE_ON_PLAYER_DEATH           = 9;
+int SCRIPT_MODULE_ON_PLAYER_DYING           = 10;
+int SCRIPT_MODULE_ON_RESPAWN_BUTTON_PRESSED = 11;
+int SCRIPT_MODULE_ON_PLAYER_REST            = 12;
+int SCRIPT_MODULE_ON_PLAYER_LEVEL_UP        = 13;
+int SCRIPT_MODULE_ON_PLAYER_CANCEL_CUTSCENE = 14;
+int SCRIPT_MODULE_ON_EQUIP_ITEM             = 15;
+int SCRIPT_MODULE_ON_UNEQUIP_ITEM           = 16;
+// Placeable
+int SCRIPT_PLACEABLE_ON_CLOSED              = 0;
+int SCRIPT_PLACEABLE_ON_DAMAGED             = 1;
+int SCRIPT_PLACEABLE_ON_DEATH               = 2;
+int SCRIPT_PLACEABLE_ON_DISARM              = 3;
+int SCRIPT_PLACEABLE_ON_HEARTBEAT           = 4;
+int SCRIPT_PLACEABLE_ON_INVENTORYDISTURBED  = 5;
+int SCRIPT_PLACEABLE_ON_LOCK                = 6;
+int SCRIPT_PLACEABLE_ON_MELEEATTACKED       = 7;
+int SCRIPT_PLACEABLE_ON_OPEN                = 8;
+int SCRIPT_PLACEABLE_ON_SPELLCASTAT         = 9;
+int SCRIPT_PLACEABLE_ON_TRAPTRIGGERED       = 10;
+int SCRIPT_PLACEABLE_ON_UNLOCK              = 11;
+int SCRIPT_PLACEABLE_ON_USED                = 12;
+int SCRIPT_PLACEABLE_ON_USER_DEFINED_EVENT  = 13;
+int SCRIPT_PLACEABLE_ON_DIALOGUE            = 14;
+// AOE
+int SCRIPT_AOE_ON_HEARTBEAT            = 0;
+int SCRIPT_AOE_ON_USER_DEFINED_EVENT   = 1;
+int SCRIPT_AOE_ON_OBJECT_ENTER         = 2;
+int SCRIPT_AOE_ON_OBJECT_EXIT          = 3;
+// Store
+int SCRIPT_STORE_ON_OPEN              = 0;
+int SCRIPT_STORE_ON_CLOSE             = 1;
+
 const int MOVEMENT_RATE_PC                      = 0;
 const int MOVEMENT_RATE_IMMOBILE                = 1;
 const int MOVEMENT_RATE_VERY_SLOW               = 2;
@@ -41,7 +134,7 @@ const int QUICKBAR_TYPE_FEAT                    = 4;
 
 struct MemorizedSpellSlot {
     int id;
-    int ready, meta;
+    int ready, meta, domain;
 };
 
 struct SpecialAbilitySlot {
@@ -101,6 +194,11 @@ struct CreatureSkills {
     int sk_ride;
 };
 
+struct Timeval {
+    int sec;
+    int usec;
+};
+
 /* Returns TRUE if the target inherently knows a feat (as opposed to
  * by any equipment they may possess) */
 int GetKnowsFeat (int nFeatId, object oCreature);
@@ -119,6 +217,9 @@ int ModifyAbilityScore (object oCreature, int nAbility, int nValue);
 
 /* Modifies oCreature's base skill rank for nSkill by nValue. */
 int ModifySkillRank (object oCreature, int nSkill, int nValue);
+
+/* Modifies oCreature's base skill rank for nSkill at nLevel by nValue. */
+int ModifySkillRankByLevel (object oCreature, int nLevel, int nSkill, int nValue);
 
 /* Gets oCreature's natural base AC */
 int GetACNaturalBase (object oCreature);
@@ -263,7 +364,7 @@ int GetTotalKnownSpells (object oCreature, int nClass, int nSpellLevel);
 int AddKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId);
 
 /* Remove a spell from oCreature's spellbook for nClass. */
-int RemoveKnownSpell (object oCreature, int nClass, int nSpellId);
+int RemoveKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId);
 
 /* Replace a spell in oCreature's spellbook for nClass. */
 int ReplaceKnownSpell (object oCreature, int nClass, int nOldSpell, int nNewSpell);
@@ -366,6 +467,9 @@ object GetFirstArea ();
 /* Get the next area in the module. */
 object GetNextArea ();
 
+/* Set oItem's base item type. */
+int SetBaseItemType (object oItem, int nBaseItem);
+
 /* Set oItem's value in gold pieces. Will not persist through zoning or saving. */
 int SetGoldPieceValue (object oItem, int nValue);
 
@@ -386,6 +490,8 @@ int SetItemAppearance (object oItem, int nIndex, int nValue);
 /* Directly set a color value on an item. This will not be visible to PCs until the
  * item is refreshed for them (e.g. by logging out and back in). */
 int SetItemColor (object oItem, int nIndex, int nColor);
+
+int GetIsStatic (object oPlace);
 
 /* Set oPlace's appearance. Will not update for PCs until they re-enter the area. */
 int SetPlaceableAppearance (object oPlace, int nApp);
@@ -415,6 +521,12 @@ string GetCreatureEventHandler (object oCreature, int nEvent);
 
 /* Set oCreature's event handler for nEvent. */
 string SetCreatureEventHandler (object oCreature, int nEvent, string sScript);
+
+/* Get oObject's event handler for nEvent. */
+string GetEventHandler (object oObject, int nEvent);
+
+/* Set oObject's event handler for nEvent. */
+string SetEventHandler (object oObject, int nEvent, string sScript);
 
 /* Get oObject's faction ID. */
 int GetFactionId (object oObject);
@@ -446,11 +558,49 @@ string GetPCFileName (object oPC);
 /* Jump oCreature to Limbo. */
 void JumpToLimbo (object oCreature);
 
+/* Broadcast the projectile for nSpellId going from oSource to oTarget. nDelay
+ * is in milliseconds (1000=1s). If nSpellId is -1, the projectile for
+ * oSource's weapon (e.g. an arrow if oSource is wielding a bow) will be
+ * displayed.
+ *
+ * This will display cones for cone spells as well, though they will always
+ * be forward-facing from oSource. */
+int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, int nDelay=-1);
+
+/* As for BroadcastProjectileToObject(), but to a target location. */
+int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1);
+
+//Sets disarm flag on oCreature
+//Returns:
+//  1 on success
+//  0 on failure
+//Note: standard function GetIsCreatureDisarmable() also takes into account weapon in creature's right hand besides disarm flag itself
+int SetIsCreatureDisarmable(object oCreature, int bDisarmable);
+
 /* Convert an object ID to an object. */
 object IntToObject (int nObjectId);
+object StringToObject (string sObjectId);
 
 /* Dump oObject to the NWNX log. */
 void DumpObject (object oObject);
+
+/* Sleep for the given number of microseconds. This will block the whole nwserver process. */
+void USleep (int usec);
+
+/* Returns the current system time.
+ * Returns .sec = 0 and .usec = 0 on failure. */
+struct Timeval GetTimeOfDay();
+
+//Sets oCreature's corpse decay time in milliseconds
+//Returns:
+//  1 on success
+//  0 on failure
+int SetCorpseDecayTime(object oCreature, int nTime);
+
+//Returns:
+//  oCreature's corpse decay time in milliseconds on success
+//  0 on failure
+int GetCorpseDecayTime(object oCreature);
 
 
 int NWNXFuncsZero (object oObject, string sFunc) {
@@ -475,6 +625,24 @@ int NWNXFuncsThree (object oObject, string sFunc, int nVal1, int nVal2, int nVal
 }
 
 
+void USleep (int usec) {
+    NWNXFuncsOne(GetModule(), "NWNX!FUNCS!USLEEP", usec);
+}
+
+struct Timeval GetTimeOfDay() {
+    struct Timeval ret;
+    string sFunc = "NWNX!FUNCS!GETTIMEOFDAY";
+    SetLocalString(GetModule(),
+        sFunc, "                                         ");
+    string time = GetLocalString(GetModule(), sFunc);
+    int idx = FindSubString(time, ".");
+    if (-1 != idx) {
+        ret.sec = StringToInt(GetSubString(time, 0, idx));
+        ret.usec = StringToInt(GetSubString(time, idx + 1, 32));
+    }
+    return ret;
+}
+
 int SetAbilityScore (object oCreature, int nAbility, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!SETABILITYSCORE", nAbility, nValue);
 }
@@ -490,6 +658,10 @@ int SetSkillRank (object oCreature, int nSkill, int nValue) {
 
 int ModifySkillRank (object oCreature, int nSkill, int nValue) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!MODIFYSKILLRANK", nSkill, nValue);
+}
+
+int ModifySkillRankByLevel (object oCreature, int nLevel, int nSkill, int nValue) {
+    return NWNXFuncsThree(oCreature, "NWNX!FUNCS!MODIFYSKILLRANKBYLEVEL", nLevel, nSkill, nValue);
 }
 
 
@@ -577,7 +749,7 @@ int GetMeetsFeatRequirements (object oCreature, int nFeat) {
 }
 
 int GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat, int nClass, int nAbility, struct CreatureSkills sk) {
-    SetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", ">" +
+    SetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", ">" + 
         IntToString(nFeat)          + " " +
         IntToString(nClass)         + " " +
         IntToString(nAbility)       + " ¬" +
@@ -743,6 +915,11 @@ int SetMaxHitPoints (object oCreature, int nHP) {
 }
 
 
+int RecalculateDexModifier (object oCreature) {
+    return NWNXFuncsZero(oCreature, "NWNX!FUNCS!RECALCULATEDEXMODIFIER");
+}
+
+
 int GetKnowsSpell (int nSpellId, object oCreature, int nClass=CLASS_TYPE_INVALID) {
     return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!GETKNOWSSPELL", nClass, nSpellId);
 }
@@ -766,8 +943,8 @@ int AddKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId) 
     return NWNXFuncsThree(oCreature, "NWNX!FUNCS!ADDKNOWNSPELL", nClass, nSpellLevel, nSpellId);
 }
 
-int RemoveKnownSpell (object oCreature, int nClass, int nSpellId) {
-    return NWNXFuncsTwo(oCreature, "NWNX!FUNCS!REMOVEKNOWNSPELL", nClass, nSpellId);
+int RemoveKnownSpell (object oCreature, int nClass, int nSpellLevel, int nSpellId) {
+    return NWNXFuncsThree(oCreature, "NWNX!FUNCS!REMOVEKNOWNSPELL", nClass, nSpellLevel, nSpellId);
 }
 
 int ReplaceKnownSpell (object oCreature, int nClass, int nOldSpell, int nNewSpell) {
@@ -794,9 +971,10 @@ struct MemorizedSpellSlot GetMemorizedSpell (object oCreature, int nClass, int n
 }
 
 int SetMemorizedSpell (object oCreature, int nClass, int nLevel, int nIndex, struct MemorizedSpellSlot mss) {
+    int nFlags = (mss.ready != 0) | ((mss.domain != 0) << 1);
     SetLocalString(oCreature, "NWNX!FUNCS!SETMEMORIZEDSPELL",
         IntToString(nClass) + " " + IntToString(nLevel) + " " + IntToString(nIndex) + " " +
-        IntToString(mss.id) + " " + IntToString(mss.meta & 0x7F) + " " + IntToString(mss.ready != 0) + "          ");
+        IntToString(mss.id) + " " + IntToString(mss.meta & 0x7F) + " " + IntToString(nFlags) + "          ");
     return StringToInt(GetLocalString(oCreature, "NWNX!FUNCS!GETMEMORIZEDSPELL"));
 }
 
@@ -936,11 +1114,13 @@ int SetTrapCreator (object oTrap, object oCreator) {
 
 
 string GetConversation (object oCreature) {
-    return "";
+    SetLocalString(oCreature, "NWNX!FUNCS!GETCONVERSATION", "                ");
+    return GetLocalString(oCreature, "NWNX!FUNCS!GETCONVERSATION");
 }
 
 string SetConversation (object oCreature, string sConv) {
-    return "";
+    SetLocalString(oCreature, "NWNX!FUNCS!SETCONVERSATION", sConv);
+    return GetLocalString(oCreature, "NWNX!FUNCS!SETCONVERSATION");
 }
 
 
@@ -963,7 +1143,7 @@ struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos) {
     struct LocalVariable lv;
 
     DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
-    SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION",
+    SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION", 
         IntToString(nPos) + "                                                                                                                                ");
 
     lv.name = GetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
@@ -1047,6 +1227,11 @@ object GetNextArea () {
     return GetLocalObject(GetModule(), "NWNX!FUNCS!GETNEXTAREA");
 }
 
+int SetBaseItemType (object oItem, int nBaseItem)
+{
+    SetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE", IntToString(nBaseItem));
+    return StringToInt(GetLocalString(oItem, "NWNX!FUNCS!SETBASEITEMTYPE"));
+}
 
 int SetGoldPieceValue (object oItem, int nValue) {
     SetLocalInt(oItem,"GOLDPIECEVALUE",nValue);
@@ -1089,16 +1274,27 @@ void RestoreItemAppearance (object oItem, string sApp) {
 }
 
 int SetItemAppearance (object oItem, int nIndex, int nValue) {
-    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+    int nRet = NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE", nIndex, nValue);
+    DeleteLocalString(oItem, "NWNX!FUNCS!SETITEMAPPEARANCE");
+    return nRet;
 }
 
 int SetItemColor (object oItem, int nIndex, int nColor) {
-    return NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+    int nRet = NWNXFuncsTwo(oItem, "NWNX!FUNCS!SETITEMCOLOR", nIndex, nColor);
+    DeleteLocalString(oItem, "NWNX!FUNCS!SETITEMCOLOR");
+    return nRet;
 }
 
+int GetIsStatic (object oPlace) {
+    int nRet = NWNXFuncsZero(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    DeleteLocalString(oPlace, "NWNX!FUNCS!GETISSTATIC");
+    return nRet;
+}
 
 int SetPlaceableAppearance (object oPlace, int nApp) {
-    return NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
+    int nRet = NWNXFuncsOne(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE", nApp);
+    DeleteLocalString(oPlace, "NWNX!FUNCS!SETPLACEABLEAPPEARANCE");
+    return nRet;
 }
 
 
@@ -1169,6 +1365,15 @@ string SetCreatureEventHandler (object oCreature, int nEvent, string sScript) {
     return GetLocalString(oCreature, "NWNX!FUNCS!SETCREATUREEVENTHANDLER");
 }
 
+string GetEventHandler (object oObject, int nEvent) {
+    SetLocalString(oObject, "NWNX!FUNCS!GETEVENTHANDLER", IntToString(nEvent) + "                ");
+    return GetLocalString(oObject, "NWNX!FUNCS!GETEVENTHANDLER");
+}
+
+string SetEventHandler (object oObject, int nEvent, string sScript) {
+    SetLocalString(oObject, "NWNX!FUNCS!SETEVENTHANDLER", IntToString(nEvent) + " " + sScript);
+    return GetLocalString(oObject, "NWNX!FUNCS!SETEVENTHANDLER");
+}
 
 int GetFactionId (object oObject) {
     return NWNXFuncsZero(oObject, "NWNX!FUNCS!GETFACTIONID");
@@ -1194,6 +1399,8 @@ int GetItemCount (object oCreature) {
 
 
 int SetMovementRate (object oCreature, int nRate) {
+    if (GetIsDM(oCreature))
+        nRate = MOVEMENT_RATE_DM_FAST;
     return NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETMOVEMENTRATE", nRate);
 }
 
@@ -1223,8 +1430,72 @@ void JumpToLimbo (object oCreature) {
 }
 
 
+int BroadcastProjectileToObject (object oSource, object oTarget, int nSpellId, int nDelay=-1) {
+    if (!GetIsObjectValid(oTarget))
+        return 0;
+
+    location lTarget = GetLocation(oTarget);
+    vector vTarget   = GetPositionFromLocation(lTarget);
+
+    if (nDelay < 0) {
+        float fDelay = GetDistanceBetween(oSource, oTarget) / 20;
+        nDelay = FloatToInt(fDelay * 1000);
+    }
+
+    SetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE",
+        ObjectToString(oTarget)        + " " +
+        FloatToString(vTarget.x, 1, 4) + " " +
+        FloatToString(vTarget.y, 1, 4) + " " +
+        FloatToString(vTarget.z, 1, 4) + " " +
+        IntToString(nSpellId) + " " + IntToString(nDelay));
+    return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
+}
+
+int BroadcastProjectileToLocation (object oSource, location lTarget, int nSpellId, int nDelay=-1) {
+    vector vTarget = GetPositionFromLocation(lTarget);
+
+    if (nDelay < 0) {
+        float fDelay = GetDistanceBetweenLocations(GetLocation(oSource), lTarget) / 20;
+        nDelay = FloatToInt(fDelay * 1000);
+    }
+
+    SetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE", "0 " +
+        FloatToString(vTarget.x, 1, 4) + " " +
+        FloatToString(vTarget.y, 1, 4) + " " +
+        FloatToString(vTarget.z, 1, 4) + " " +
+        IntToString(nSpellId) + " " + IntToString(nDelay));
+    return StringToInt(GetLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE"));
+}
+
+
+int SetIsCreatureDisarmable(object oCreature, int bDisarmable)
+{
+    int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE", bDisarmable != FALSE);
+    DeleteLocalString(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE");
+    return nRet;	
+}
+
+int SetCorpseDecayTime(object oCreature, int nTime)
+{
+    int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETCORPSEDECAYTIME", nTime);
+    DeleteLocalString(oCreature, "NWNX!FUNCS!SETCORPSEDECAYTIME");
+    return nRet;
+}
+
+int GetCorpseDecayTime(object oCreature)
+{
+    int nRet = NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETCORPSEDECAYTIME");
+    DeleteLocalString(oCreature, "NWNX!FUNCS!GETCORPSEDECAYTIME");
+    return nRet;	
+}
+
 object IntToObject (int nObjectId) {
     SetLocalString(GetModule(), "NWNX!FUNCS!INTTOOBJECTREQUEST", IntToString(nObjectId));
+    return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
+}
+
+object StringToObject (string sObjectId) {
+    SetLocalString(GetModule(), "NWNX!FUNCS!STRINGTOOBJECTREQUEST", sObjectId);
     return GetLocalObject(GetModule(), "NWNX!FUNCS!INTTOOBJECT");
 }
 
