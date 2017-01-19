@@ -614,8 +614,9 @@ void DD_RemoveStance(object oPC,object oSoulStone)
     itemproperty ipLoop=GetFirstItemProperty(oSoulStone);
     while (GetIsItemPropertyValid(ipLoop))
     {
-        if (GetItemPropertySpellId(ipLoop)==IP_DD_STANCE)
+        if ((GetItemPropertySpellId(ipLoop)==IP_DD_STANCE) || (GetItemPropertyType(ipLoop)==ITEM_PROPERTY_WEIGHT_INCREASE))
         {
+
             RemoveItemProperty(oSoulStone, ipLoop);
         }
         ipLoop=GetNextItemProperty(oSoulStone);
