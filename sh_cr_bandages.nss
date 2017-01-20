@@ -55,7 +55,7 @@ void sh_ModuleOnActivationItemCheckBandages(object oItem, object oTarget, object
         break;
       case 5:
         iRegenBand = 12;
-        iSkillHealMin = 15;
+        iSkillHealMin = 14;
         break;
       case 6:
         iRegenBand = 20;
