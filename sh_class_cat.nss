@@ -283,6 +283,7 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
         || (iEffect == EFFECT_BRUTALNI_VRH )
         || (iEffect == EFFECT_SPEED)
         || (iEffect == EFFECT_SPELL_RESISTANCE)
+        || (iEffect == EFFECT_DAMAGE_REDUCTION)
         )
         {
             RemoveEffect(oPC,eLoop);
@@ -1468,6 +1469,7 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     }
 
     itemproperty ip;
+    effect ef,eSup;
     //pohlceni
     if (iDamageReductionFire >0)
     {
@@ -1496,52 +1498,60 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     //zranitelnost
     if (iVulnerabilityFire >0)
     {
-        ip = ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_FIRE,GetIPDamageVulnerabilityConstant(iVulnerabilityFire));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityDecrease(DAMAGE_TYPE_FIRE,iVulnerabilityFire);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     if (iVulnerabilityCold >0)
     {
-        ip = ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_COLD,GetIPDamageVulnerabilityConstant(iVulnerabilityCold));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityDecrease(DAMAGE_TYPE_COLD,iVulnerabilityCold);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     if (iVulnerabilityAcid >0)
     {
-        ip = ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ACID,GetIPDamageVulnerabilityConstant(iVulnerabilityAcid));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityDecrease(DAMAGE_TYPE_ACID,iVulnerabilityAcid);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     if (iVulnerabilityElec >0)
     {
-        ip = ItemPropertyDamageVulnerability(IP_CONST_DAMAGETYPE_ELECTRICAL,GetIPDamageVulnerabilityConstant(iVulnerabilityElec));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityDecrease(DAMAGE_TYPE_ELECTRICAL,iVulnerabilityElec);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     //immunita
     if (iImmunityFire >0)
     {
-        ip = ItemPropertyDamageImmunity(IP_CONST_DAMAGETYPE_FIRE,GetIPDamageImmunityConstant(iImmunityFire));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityIncrease(DAMAGE_TYPE_FIRE,iImmunityFire);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     if (iImmunityCold >0)
     {
-        ip = ItemPropertyDamageImmunity(IP_CONST_DAMAGETYPE_COLD,GetIPDamageImmunityConstant(iImmunityCold));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityIncrease(DAMAGE_TYPE_COLD,iImmunityCold);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     if (iImmunityAcid >0)
     {
-        ip = ItemPropertyDamageImmunity(IP_CONST_DAMAGETYPE_ACID,GetIPDamageImmunityConstant(iImmunityAcid));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityIncrease(DAMAGE_TYPE_ACID,iImmunityAcid);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     if (iImmunityElec >0)
     {
-        ip = ItemPropertyDamageImmunity(IP_CONST_DAMAGETYPE_ELECTRICAL,GetIPDamageImmunityConstant(iImmunityElec));
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+        ef =  EffectDamageImmunityIncrease(DAMAGE_TYPE_ELECTRICAL,iImmunityElec);
+        eSup = SupernaturalEffect(ef);
+        SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
     }
     // kompletni imunita
     if (iImmunityPoison)
