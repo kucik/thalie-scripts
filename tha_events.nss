@@ -153,24 +153,26 @@ void main()
                 }
             }
 
-            if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED && nSubID == 1) { //Unhide penalty
-                effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 50 ));
-                effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 50 ));
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 6.0f);
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 6.0f);
-            }
-
-            if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC)>=1 && nSubID == 1) //Hide
+            if (nSubID == ACTION_MODE_STEALTH)
             {
-                if (GetStealthMode(oPC)==STEALTH_MODE_DISABLED)
-                {
-                     ApplyShadowDancerRychlost(oPC);
-                }
-                else if (GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED)
-                {
-                    ZrusSDRychlost(oPC);
+                if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED) { //Unhide penalty
+                    effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 50 ));
+                    effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 50 ));
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 6.0f);
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 6.0f);
                 }
 
+                if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC)>=1) //Hide
+                {
+                    if (GetStealthMode(oPC)==STEALTH_MODE_DISABLED)
+                    {
+                         ApplyShadowDancerRychlost(oPC);
+                    }
+                    else if (GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED)
+                    {
+                        ZrusSDRychlost(oPC);
+                    }
+                }
             }
 
 
