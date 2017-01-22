@@ -2970,61 +2970,42 @@ x ++;
 
 DestroyObject(oItem);
 
-///           platne vzhledy 4_6_2014
-//Malý štít
-//iashsw_011-019;021-025;031-033;041-043;051-059;086-088;125-130
-//Velký štít
-//iashlw_011-019;021-029;031-035;041-043;051-088;090-109;111-119;121-129;131-139;141-149;151-213;220-255
-//Pavéza
-//iashto_011-013;021-023;031-039;041-049;051;055-060;62-119;121-129;131-139;141-149;151-153;181-230;232-241
+//Preskakovat  - 22.01.2017
+//malý štít  0-10,20,26-30,40,50,60,65-85, 89-124, 132-255
+//velké štíty: 0-10,20,30,36-40,50,89,110,120,130,150
+//pavézy: 0-10,20,24-30,40,50,120,130,140,150,154-180,231,235-255
 
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==20))  ) x = 21;      //SH - OK
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<=30)&(x>=26))  ) x = 31;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==40))  ) x = 41;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==50))  ) x = 51;;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<=85)&(x>=65))  ) x = 86;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<=124)&(x>=89))  ) x = 125;
 
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<52)&(x>32))  ) x = 53;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<66)&(x>59))  ) x = 66;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<52)&(x>42))  ) x = 53;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<21)&(x>13))  ) x = 21;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==20))  ) x = 21;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==30))  ) x = 31;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<=40)&(x>=36))  ) x = 41;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==50))  ) x = 51;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==89))  ) x = 90;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==110))  ) x = 111;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==120))  ) x = 121;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==130))  ) x = 131;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==150))  ) x = 151;
 
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>30) ) x = 1;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>240) ) x = 1;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>240) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==20))  ) x = 21;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<=30)&(x>=24))  ) x = 31;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==40))  ) x = 41;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==50))  ) x = 51;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==120))  ) x = 121;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==130))  ) x = 131;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==140))  ) x = 141;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==150))  ) x = 151;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<=180)&(x>=154))  ) x = 181;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==231))  ) x = 232;
 
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==20))  ) x = 21;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<31)&(x>25))  ) x = 31;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<41)&(x>33))  ) x = 41;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<51)&(x>43))  ) x = 51;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<86)&(x>59))  ) x = 86;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<125)&(x>88))  ) x = 125;
-
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<21)&(x>19))  ) x = 21;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<31)&(x>29))  ) x = 31;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<41)&(x>35))  ) x = 41;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<51)&(x>43))  ) x = 51;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<90)&(x>88))  ) x = 90;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<111)&(x>109))  ) x = 111;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<121)&(x>119))  ) x = 121;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<131)&(x>129))  ) x = 131;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<141)&(x>139))  ) x = 141;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<151)&(x>149))  ) x = 151;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<220)&(x>213))  ) x = 220;
-
-
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<21)&(x>13))  ) x = 21;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<31)&(x>23))  ) x = 31;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<41)&(x>39))  ) x = 41;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<51)&(x>49))  ) x = 51;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<55)&(x>51))  ) x = 55;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<62)&(x>60))  ) x = 62;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<121)&(x>119))  ) x = 121;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<131)&(x>129))  ) x = 131;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<141)&(x>139))  ) x = 141;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<151)&(x>149))  ) x = 151;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<181)&(x>153))  ) x = 181;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<232)&(x>230))  ) x = 232;
-
-
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>130) ) x = 1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>240) ) x = 1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>240) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>=132) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>=241) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>=235) ) x = 1;
 
 /////1 = ignored
 object no_item_modify;
@@ -3036,9 +3017,9 @@ while ( GetIsObjectValid(no_item_modify) == FALSE ) {
 //FloatingTextStringOnCreature(" Neplatny vzhled cislo: " + IntToString(x) ,GetPCSpeaker() ,FALSE);
 DestroyObject(no_item_modify);
 x = x+1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>30) ) x = 1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>240) ) x = 1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>240) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>=132) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>=241) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>=235) ) x = 1;
 
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 //FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) ,GetPCSpeaker() ,FALSE);
@@ -3071,9 +3052,9 @@ if (GetIsObjectValid(oItem) == FALSE ) {
 FloatingTextStringOnCreature(" Neplatny vzhled cislo: " + IntToString(x) , no_oPC ,FALSE);
 DestroyObject(oItem);
 x = x+10;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>30) ) x = 1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>240) ) x = 1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>240) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x>=132) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x>=241) ) x = 1;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x>=235) ) x = 1;
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) , no_oPC ,FALSE);
 }
@@ -3124,58 +3105,43 @@ x = x-1;
 //object no_Item_change  = CopyItem( oItem,OBJECT_SELF,  TRUE );
 
 DestroyObject(oItem);
-///           platne vzhledy 4_6_2014
-//Malý štít
-//iashsw_011-019;021-025;031-033;041-043;051-059;086-088;125-130
-//Velký štít
-//iashlw_011-019;021-029;031-035;041-043;051-088;090-109;111-119;121-129;131-139;141-149;151-213;220-255
-//Pavéza
-//iashto_011-013;021-023;031-039;041-049;051;055-060;62-119;121-129;131-139;141-149;151-153;181-230;232-241
 
+//Preskakovat  - 22.01.2017
+//malý štít  0-10,20,26-30,40,50,60,65-85, 89-124, 132-255
+//velké štíty: 0-10,20,30,36-40,50,89,110,120,130,150
+//pavézy: 0-10,20,24-30,40,50,120,130,140,150,154-180,231,235-255
 
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==20))  ) x = 19;      //SH - OK
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<=30)&(x>=26))  ) x = 25;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==40))  ) x = 39;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==50))  ) x = 49;;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<=85)&(x>=65))  ) x = 64;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<=124)&(x>=89))  ) x = 88;
 
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<52)&(x>32))  ) x = 53;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<66)&(x>59))  ) x = 66;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<52)&(x>42))  ) x = 41;
-//if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<21)&(x>13))  ) x = 12;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==20))  ) x = 19;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==30))  ) x = 29;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<=40)&(x>=36))  ) x = 35;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==50))  ) x = 49;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==89))  ) x = 88;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==110))  ) x = 109;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==120))  ) x = 119;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==130))  ) x = 129;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x==150))  ) x = 149;
 
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x==20))  ) x = 19;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<31)&(x>25))  ) x = 25;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<41)&(x>33))  ) x = 33;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<51)&(x>43))  ) x = 43;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<86)&(x>59))  ) x = 59;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & ((x<125)&(x>88))  ) x = 88;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==20))  ) x = 19;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<=30)&(x>=24))  ) x = 23;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==40))  ) x = 39;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==50))  ) x = 49;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==120))  ) x = 119;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==130))  ) x = 129;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==140))  ) x = 139;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==150))  ) x = 149;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<=180)&(x>=154))  ) x = 153;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x==231))  ) x = 230;
 
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<21)&(x>19))  ) x = 19;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<31)&(x>29))  ) x = 29;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<41)&(x>35))  ) x = 35;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<51)&(x>43))  ) x = 43;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<90)&(x>88))  ) x = 88;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<111)&(x>109))  ) x = 109;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<121)&(x>119))  ) x = 119;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<131)&(x>129))  ) x = 129;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<141)&(x>139))  ) x = 139;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<151)&(x>149))  ) x = 149;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & ((x<220)&(x>213))  ) x = 213;
-
-
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<21)&(x>13))  ) x = 13;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<31)&(x>23))  ) x = 23;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<41)&(x>39))  ) x = 39;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<51)&(x>49))  ) x = 49;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<55)&(x>51))  ) x = 51;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<62)&(x>60))  ) x = 60;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<121)&(x>119))  ) x = 119;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<131)&(x>129))  ) x = 129;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<141)&(x>139))  ) x = 139;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<151)&(x>149))  ) x = 149;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<181)&(x>153))  ) x = 153;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & ((x<232)&(x>230))  ) x = 230;
-
-
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x<1) ) x = 130;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x<1) ) x = 255;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x<1) ) x = 241;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x<1) ) x = 131;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x<1) ) x = 240;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x<1) ) x = 234;
 /////1 = ignored
 object no_item_modify;
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
@@ -3186,9 +3152,9 @@ while ( GetIsObjectValid(no_item_modify) == FALSE ) {
 //FloatingTextStringOnCreature(" Neplatny vzhled cislo: " + IntToString(x) ,GetPCSpeaker() ,FALSE);
 DestroyObject(no_item_modify);
 x = x+1;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x<1) ) x = 30;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x<1) ) x = 131;
 if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x<1) ) x = 240;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x<1) ) x = 240;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x<1) ) x = 234;
 
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 //FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) ,GetPCSpeaker() ,FALSE);
@@ -3221,9 +3187,9 @@ if (GetIsObjectValid(oItem) == FALSE ) {
 FloatingTextStringOnCreature(" Neplatny vzhled cislo: " + IntToString(x) , no_oPC ,FALSE);
 DestroyObject(oItem);
 x = x-10;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x<1) ) x = 30;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 1) & (x<1) ) x = 131;
 if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 2) & (x<1) ) x = 240;
-if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x<1) ) x = 240;
+if ( (GetLocalInt(OBJECT_SELF, "no_stit_typ") == 3) & (x<1) ) x = 234;
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) , no_oPC ,FALSE);
 }
@@ -3329,16 +3295,7 @@ DestroyObject(oItem);
 
 
 if ( (GetLocalInt(OBJECT_SELF, "no_helm_typ") == 1) & (x>80) ) x = 1;
-if ( x == 33 ) x = 48;
-if (x==34) { x= 33; //mame kapuci
-FloatingTextStringOnCreature(" Kapuce nelze menit ",no_oPC ,FALSE);
-}
-
-if (GetItemAppearance(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL,1) == 33)  {   //GetItemAppearance(object oItem, int nType, int nIndex)
-x= 33; //mame kapuci
-FloatingTextStringOnCreature(" Kapuce nelze menit ",no_oPC ,FALSE);
-}
-
+if ( x == 34 ) x = 48;
 
 /////1 = ignored
 object no_item_modify;
@@ -3384,7 +3341,7 @@ FloatingTextStringOnCreature(" Neplatny vzhled cislo: " + IntToString(x) , no_oP
 DestroyObject(oItem);
 x = x+10;
 if ( (GetLocalInt(OBJECT_SELF, "no_helm_typ") == 1) & (x>80) ) x = 1;
-if ( x == 32 ) x = 48;
+if ( x == 34 ) x = 48;
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) , no_oPC ,FALSE);
 }
@@ -3406,9 +3363,6 @@ AssignCommand(no_oPC,DelayCommand(0.1,ActionEquipItem(no_item_modify,INVENTORY_S
 
 SetLocalInt(OBJECT_SELF,"no_vzhled_helm",x);
 
-if (GetItemAppearance(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL,1) == 33)  {   //GetItemAppearance(object oItem, int nType, int nIndex)
-x= 1; //mame kapuci
-}
 
 }//kdyz mame stit v ruce
 
@@ -3442,20 +3396,8 @@ x = x-1;
 
 DestroyObject(oItem);
 
-if (x==32) {x= 33; //mame kapuci
-FloatingTextStringOnCreature(" Kapuce nelze menit ",no_oPC ,FALSE);
-x=1;
-
-}
-
-if (GetItemAppearance(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL,1) == 33)  {   //GetItemAppearance(object oItem, int nType, int nIndex)
-x= 33; //mame kapuci
-FloatingTextStringOnCreature(" Kapuce nelze menit ",no_oPC ,FALSE);
-
-}
-
 if ( (GetLocalInt(OBJECT_SELF, "no_helm_typ") == 1) & (x<1) ) x = 80;
-if ( x == 47 ) x = 32;
+if ( x == 47 ) x = 33;
 /////1 = ignored
 object no_item_modify;
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
@@ -3467,7 +3409,7 @@ while ( GetIsObjectValid(no_item_modify) == FALSE ) {
 DestroyObject(no_item_modify);
 x = x+1;
 if ( (GetLocalInt(OBJECT_SELF, "no_helm_typ") == 1) & (x<1) ) x = 80;
-if ( x == 47 ) x = 32;
+if ( x == 47 ) x = 33;
 
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 //FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) ,GetPCSpeaker() ,FALSE);
@@ -3501,13 +3443,10 @@ FloatingTextStringOnCreature(" Neplatny vzhled cislo: " + IntToString(x) , no_oP
 DestroyObject(oItem);
 x = x-10;
 if ( (GetLocalInt(OBJECT_SELF, "no_helm_typ") == 1) & (x<1) ) x = 80;
-if ( x == 49 ) x = 32;
+if ( x == 49 ) x = 33;
 no_item_modify = CopyItemAndModify(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL, 1,x, TRUE);
 FloatingTextStringOnCreature(" Novy vzhled cislo: " + IntToString(x) , no_oPC ,FALSE);
 
-if (GetItemAppearance(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL,1) == 33)  {   //GetItemAppearance(object oItem, int nType, int nIndex)
-x= 1; //mame kapuci
-}
 }
 
 
