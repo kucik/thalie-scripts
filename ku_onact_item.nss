@@ -60,7 +60,12 @@ void main()
      ku_ShipsTellDepartureTime(GetStringRight(sActivated,GetStringLength(sActivated) - 14),oPlayer);
   }
 
-  if(GetStringLeft(sActivated,8) == "ku_write") {
+  /* Writing documents */
+  if(sActivated == "sy_not_document" ||
+     sActivated == "sy_not_letter" ||
+     sActivated == "sy_not_paper" ||
+     sActivated == "sy_logbook") {
+     /* sy_not_pen */
     StartStopWriting(oPlayer, oActivated);
     return;
   }
