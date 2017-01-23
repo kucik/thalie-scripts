@@ -4,6 +4,7 @@
 #include "ku_libchat"
 #include "mys_music"
 #include "mys_dmlisten_lib"
+#include "ku_write_inc"
 
     /*
     int    TALKVOLUME_TALK          = 0;
@@ -79,6 +80,9 @@ void main()
         if (!iDM && !iDMp)
             SetPCChatVolume(TALKVOLUME_TALK);
     }
+
+    // Call system for books/letters writing
+    WriteCheck(oSpeaker, sSpoke);
 
     if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
     {
