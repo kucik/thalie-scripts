@@ -33,7 +33,7 @@ void RefresDesc(object oBook) {
   int i;
 
   /* Refresh description from stored texts */
-  for(i = 1; i < iCount, i++) {
+  for(i = 1; i < iCount; i++) {
     if(iShowLines)
       sDesc = sDesc+IntToString(i)+". ";
     sDesc = sDesc+GetLocalString(oBook, "KU_WRITE"+IntToString(i))+"\n";
@@ -60,7 +60,7 @@ void TextRemove(object oBook, string sPar) {
   RefresDesc(oBook);
 }
 
-void TextAdd(object oBookm string sText) {
+void TextAdd(object oBookm, string sText) {
   int iCount = GetLocalInt(oBook, "KU_WRITE_CNT");
   iCount++;
   SetLocalInt(oBook, "KU_WRITE_CNT", iCount);
