@@ -38,7 +38,7 @@ void RefresDesc(object oBook) {
       sDesc = sDesc+IntToString(i)+". ";
     sDesc = sDesc+GetLocalString(oBook, "KU_WRITE"+IntToString(i))+"\n";
   }
-  SetDescription(oItem, sDesc);
+  SetDescription(oBook, sDesc);
 }
 
 void TextRemove(object oBook, string sPar) {
@@ -140,7 +140,7 @@ void StartStopWriting(object oPC, object oBook) {
     return;
   }
 
-  PrintHelp();
+  PrintHelp(oPC);
 
   /* List is locked */
   if(iLock) {
