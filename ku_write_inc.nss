@@ -60,7 +60,7 @@ void TextRemove(object oBook, string sPar) {
   RefresDesc(oBook);
 }
 
-void TextAdd(object oBookm, string sText) {
+void TextAdd(object oBook, string sText) {
   int iCount = GetLocalInt(oBook, "KU_WRITE_CNT");
   iCount++;
   SetLocalInt(oBook, "KU_WRITE_CNT", iCount);
