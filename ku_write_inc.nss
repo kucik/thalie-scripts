@@ -8,14 +8,17 @@
  * /num - Zobraz/skryj cisla radku
  */
 
+const int DEBUG = FALSE;
+
 void PrintHelp(object oPC) {
   SendMessageToPC(oPC,"Ovladani:");
   SendMessageToPC(oPC,"<text> - Prida text na konec.");
   SendMessageToPC(oPC,"/rm - Smaz posledni radek.");
   SendMessageToPC(oPC,"/rm <cislo> - Smaz konkretni radek");
   SendMessageToPC(oPC,"/num - Zobraz/skryj cisla radku");
-  SendMessageToPC(oPC,"/hotovo - Ukonci pisemnost - jiz do ni nelze psat.");
+  SendMessageToPC(oPC,"/hotovo - Ukonci pisemnost - jiz do ni nelze NIKDY psat.");
   SendMessageToPC(oPC,"/pecet - Zapeceti pisemnost. Nebude jej mozno cist do rozlomeni pecete.");
+  SendMessageToPC(oPC,"Opetovnym pouzitim predmetu se psani prerusi.");
 
 }
 
@@ -33,7 +36,7 @@ void RefresDesc(object oBook) {
   int i;
 
   /* Refresh description from stored texts */
-  for(i = 1; i < iCount; i++) {
+  for(i = 1; i <= iCount; i++) {
     if(iShowLines)
       sDesc = sDesc+IntToString(i)+". ";
     sDesc = sDesc+GetLocalString(oBook, "KU_WRITE"+IntToString(i))+"\n";
@@ -42,16 +45,24 @@ void RefresDesc(object oBook) {
 }
 
 void TextRemove(object oBook, string sPar) {
+  int iLock = GetLocalInt(oBook,"KU_WRITELOCK");
   int iCount = GetLocalInt(oBook, "KU_WRITE_CNT");
   int iLn = StringToInt(sPar);
   int i;
 
+  if(iLock) {
+    SendMessageToPC(GetPCChatSpeaker(), "Predmet je ukoncen a nelze ho menit "+GetName(oBook));
+    return;
+  }
+
   if(iLn == 0)
     iLn = iCount;
 
+  SendMessageToPC(GetPCChatSpeaker(), "Smazan radek #"+IntToString(iLn));
+
   iCount--;
   /* Shift strings down */
-  for(i = iLn; i < iCount; i++) {
+  for(i = iLn; i <= iCount; i++) {
     SetLocalString(oBook, "KU_WRITE"+IntToString(i), GetLocalString(oBook, "KU_WRITE"+IntToString(i+1)));
   }
 
@@ -62,7 +73,17 @@ void TextRemove(object oBook, string sPar) {
 
 void TextAdd(object oBook, string sText) {
   int iCount = GetLocalInt(oBook, "KU_WRITE_CNT");
+  int iLock = GetLocalInt(oBook,"KU_WRITELOCK");
   iCount++;
+
+  if(iLock) {
+    SendMessageToPC(GetPCChatSpeaker(), "Predmet je ukoncen a jiz do nej nelze psat: "+GetName(oBook));
+    return;
+  }
+
+  if(DEBUG)
+    SendMessageToPC(GetPCChatSpeaker(),"DEBUG: Write "+IntToString(iCount)+" text:"+sText);
+
   SetLocalInt(oBook, "KU_WRITE_CNT", iCount);
   SetLocalString(oBook, "KU_WRITE"+IntToString(iCount), sText);
   RefresDesc(oBook);
@@ -94,10 +115,10 @@ void WriteCheck(object oPC, string sText) {
 
   /* Lock item against overwriting */
   if(GetStringLeft(sText, 7) == "/hotovo") {
-    DeleteLocalObject(oPC,"KU_WRITETEXT");
-    SetLocalInt(oPC,"KU_WRITETEXT", FALSE);
+//    DeleteLocalObject(oPC,"KU_WRITETEXT");
+//    SetLocalInt(oPC,"KU_WRITETEXT", FALSE);
     SetLocalInt(oBook, "KU_WRITELOCK", 1);
-    SendMessageToPC(oPC, "Listina je ukoncena a dale ji nelze upravovat");
+    SendMessageToPC(oPC, "Listina je ukoncena a dale ji nelze upravovat.");
     return;
   }
 
@@ -124,14 +145,14 @@ void StartStopWriting(object oPC, object oBook) {
   /* Pecet 1st attempt to brake */
   if(iPecet == 1) {
     SendMessageToPC(oPC, "Pisemnost "+GetName(oBook)+" je zapecetena. Dalsim pouzitim bude pecet rozlomena.");
-    SetLocalInt(oPC,"KU_WRITE_PECET", 2);
+    SetLocalInt(oBook,"KU_WRITE_PECET", 2);
     return;
   }
 
   /* Pecet 2nd attempt to brake */
   if(iPecet == 2) {
     SendMessageToPC(oPC, "Rozpeceteno: "+GetName(oBook));
-    SetLocalInt(oPC,"KU_WRITE_PECET", 3);
+    SetLocalInt(oBook,"KU_WRITE_PECET", 3);
     RefresDesc(oBook);
     return;
   }
@@ -143,16 +164,20 @@ void StartStopWriting(object oPC, object oBook) {
   PrintHelp(oPC);
 
   /* List is locked */
-  if(iLock) {
+/*  if(iLock) {
     DeleteLocalObject(oPC,"KU_WRITETEXT");
     SetLocalInt(oPC,"KU_WRITETEXT", FALSE);
     return;
   }
+*/
 
   /* Switch writing on/off by using item */
   if(iWriting) {
     SetLocalObject(oPC,"KU_WRITETEXT", oBook);
-    SendMessageToPC(oPC, "Zapnuto psani do: "+GetName(oBook));
+    if(iLock)
+      SendMessageToPC(oPC, "Predmet je ukoncen a jiz do nej nelze psat: "+GetName(oBook));
+    else
+      SendMessageToPC(oPC, "Zapnuto psani do: "+GetName(oBook));
   }
   else {
     SendMessageToPC(oPC, "Vypnuto psani.");
