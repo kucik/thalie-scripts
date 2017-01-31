@@ -65,7 +65,7 @@ void main()
 
 
         effect eAC = EffectACDecrease(2, AC_DODGE_BONUS);
-        effect eSave = EffectSavingThrowIncrease(SAVING_THROW_WILL,iAbility);
+        effect eSave = EffectSavingThrowIncrease(SAVING_THROW_WILL,iAbility/2);
         effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
         effect eLink = EffectLinkEffects(eAC,eSave);
         if (GetHasFeat(FEAT_EPICGENERAL_CHAOTICKA_ZURIVOST,oPC) == TRUE)

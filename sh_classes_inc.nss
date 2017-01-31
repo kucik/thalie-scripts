@@ -166,26 +166,33 @@ void ApplyBarbarianDamageReduction(object oPC)
 {
     if (GetHasFeat(FEAT_SNIZENI_ZRANENI_BARBAR,oPC) == TRUE)
     {
-        int bonus = 0;
-        if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_1,oPC) == TRUE)
-        {
-            bonus = 5;
-        }
-        if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_2,oPC) == TRUE)
-        {
-            bonus = 10;
-        }
+        int iBonus = 0;
         if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_3,oPC) == TRUE)
         {
-            bonus = 15;
+            iBonus = 30;
         }
-        int lvl = GetLevelByClass(CLASS_TYPE_BARBARIAN,oPC);
+        else if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_2,oPC) == TRUE)
+        {
+            iBonus = 20;
+        }
+        else if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_1,oPC) == TRUE)
+        {
+            iBonus = 10;
+        }
+        int iLvL = GetLevelByClass (CLASS_TYPE_BARBARIAN,oPC)+1;
+		        
+				if (iLvL > 20)
+			       {
+			        iLvL = 20;
+				   }
+			
+			   
         //pridani imunuty na tupe
-        effect ef1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,lvl+bonus);
+        effect ef1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,iLvL+iBonus);
          //pridani imunuty na bodne
-        effect ef2 = EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING,lvl+bonus);
+        effect ef2 = EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING,iLvL+iBonus);
          //pridani imunuty na tupe
-        effect ef3 = EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING,lvl+bonus);
+        effect ef3 = EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING,iLvL+iBonus);
         effect eLink = EffectLinkEffects(ef1,ef2);
                eLink =  EffectLinkEffects(eLink,ef3);
                eLink = SupernaturalEffect(eLink);

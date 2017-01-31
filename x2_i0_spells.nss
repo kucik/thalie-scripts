@@ -393,16 +393,31 @@ void CheckAndApplyThunderingRage(int nRounds)
 //------------------------------------------------------------------------------
 void CheckAndApplyTerrifyingRage(int nRounds)
 {
-    if (GetHasFeat(989, OBJECT_SELF))
+   effect eAOE;
+    if ((GetHasFeat(989, OBJECT_SELF)) && (GetHasFeat(988, OBJECT_SELF)))
     {
-        effect eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "****","****");
-        if (GetHasFeat(988, OBJECT_SELF))
-        {
-            eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "cl_barb_thunrage","****");
-        }
-        eAOE = ExtraordinaryEffect(eAOE);
-        ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
+     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "cl_barb_thunrage","****");
+     eAOE = ExtraordinaryEffect(eAOE);
+     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
     }
+
+    else if (GetHasFeat(989, OBJECT_SELF))
+    {
+     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "****","****");
+     eAOE = ExtraordinaryEffect(eAOE);
+     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
+    }
+
+    else if (GetHasFeat(988, OBJECT_SELF))
+    {
+     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"****", "cl_barb_thunrage","****");
+     eAOE = ExtraordinaryEffect(eAOE);
+     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
+    }
+
+
+
+
 }
 
 

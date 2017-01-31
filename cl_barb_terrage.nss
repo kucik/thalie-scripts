@@ -39,7 +39,7 @@ void main()
     int nHD = GetHitDice(GetAreaOfEffectCreator());
 
     int nRoll = d10(1); //sorry but d20() was just too unbalancing for the game, if you are a rules layer, just put the d20 here...
-    int nDC = 10 + GetSkillRank(SKILL_INTIMIDATE,oBarb) / 3;
+    int nDC = 10 + GetSkillRank(SKILL_INTIMIDATE,oBarb) / 2;
     int nDuration = d3();
     if(GetIsEnemy(oTarget, oBarb))
     {
@@ -58,8 +58,8 @@ void main()
                 {
                     //Apply the VFX impact and effects
 //                    effect eFear = EffectParalyze();
-                    effect eFear = EffectFrightened();
-                    eLink = EffectLinkEffects(eFear, eDur);
+                    effect eStun = EffectStunned();
+                    eLink = EffectLinkEffects(eStun, eDur);
                     eLink = EffectLinkEffects(eLink, eDur2);
                     eLink = ExtraordinaryEffect(eLink);
                     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
