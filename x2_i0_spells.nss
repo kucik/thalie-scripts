@@ -45,18 +45,6 @@ int GetIsMagicStatBonus(object oCaster);
 // * if used by a placeable, it is equal to the placeables WILL save field.
 int GetEpicSpellSaveDC(object oCaster);
 
-// * Hub function for the epic barbarian feats that upgrade rage. Call from
-// * the end of the barbarian rage spellscript
-void CheckAndApplyEpicRageFeats(int nRounds);
-
-// * Checks the character for the thundering rage feat and will apply temporary massive critical
-// * to the worn weapons
-// * called by CheckAndApplyEpicRageFeats(
-void CheckAndApplyThunderingRage(int nRounds);
-
-// * Checks and runs Rerrifying Rage feat
-// * called by CheckAndApplyEpicRageFeats(
-void CheckAndApplyTerrifyingRage(int nRounds);
 
 
 // * Do a mind blast
@@ -342,47 +330,7 @@ int GetIsMagicStatBonus(object oCaster)
     return GetAbilityModifier(nAbility, oCaster);
 }
 
-//------------------------------------------------------------------------------
-// GZ, 2003-07-09
-// Hub function for the epic barbarian feats that upgrade rage. Call from
-// the end of the barbarian rage spellscript
-//------------------------------------------------------------------------------
-void CheckAndApplyEpicRageFeats(int nRounds)
-{
-   // CheckAndApplyThunderingRage(nRounds);
-    CheckAndApplyTerrifyingRage(nRounds);
-}
 
-//------------------------------------------------------------------------------
-// GZ, 2003-07-09
-// If the character calling this function from a spellscript has the thundering
-// rage feat, his weapons are upgraded to deafen and cause 2d6 points of massive
-// criticals
-//------------------------------------------------------------------------------
-void CheckAndApplyThunderingRage(int nRounds)
-{
-    if (GetHasFeat(988, OBJECT_SELF))
-    {
-        object oWeapon =  GetItemInSlot(INVENTORY_SLOT_RIGHTHAND);
-
-        if (GetIsObjectValid(oWeapon))
-        {
-           IPSafeAddItemProperty(oWeapon, ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_2d6), RoundsToSeconds(nRounds), X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
-           IPSafeAddItemProperty(oWeapon, ItemPropertyVisualEffect(ITEM_VISUAL_SONIC), RoundsToSeconds(nRounds), X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-           IPSafeAddItemProperty(oWeapon, ItemPropertyOnHitProps(IP_CONST_ONHIT_DEAFNESS,IP_CONST_ONHIT_SAVEDC_20,IP_CONST_ONHIT_DURATION_25_PERCENT_3_ROUNDS), RoundsToSeconds(nRounds), X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-        }
-
-        oWeapon =  GetItemInSlot(INVENTORY_SLOT_LEFTHAND);
-
-        if (GetIsObjectValid(oWeapon) )
-        {
-           IPSafeAddItemProperty(oWeapon, ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_2d6), RoundsToSeconds(nRounds), X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
-           IPSafeAddItemProperty(oWeapon,ItemPropertyVisualEffect(ITEM_VISUAL_SONIC), RoundsToSeconds(nRounds), X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-        }
-
-
-     }
-}
 
 //------------------------------------------------------------------------------
 // GZ, 2003-07-09
@@ -391,34 +339,7 @@ void CheckAndApplyThunderingRage(int nRounds)
 // The saving throw against this fear is a check opposed to the character's
 // intimidation skill
 //------------------------------------------------------------------------------
-void CheckAndApplyTerrifyingRage(int nRounds)
-{
-   effect eAOE;
-    if ((GetHasFeat(989, OBJECT_SELF)) && (GetHasFeat(988, OBJECT_SELF)))
-    {
-     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "cl_barb_thunrage","****");
-     eAOE = ExtraordinaryEffect(eAOE);
-     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
-    }
 
-    else if (GetHasFeat(989, OBJECT_SELF))
-    {
-     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "****","****");
-     eAOE = ExtraordinaryEffect(eAOE);
-     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
-    }
-
-    else if (GetHasFeat(988, OBJECT_SELF))
-    {
-     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"****", "cl_barb_thunrage","****");
-     eAOE = ExtraordinaryEffect(eAOE);
-     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
-    }
-
-
-
-
-}
 
 
 

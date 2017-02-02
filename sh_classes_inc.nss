@@ -25,6 +25,9 @@ Pridavam hracum kuzi s tagem th_pl_skin
 // Vraci o kolik se zvednou staty pri barbarove rage
 int GetBarbarianAbilityBonus(object oPC);
 
+// * Hub function for the epic barbarian feats that upgrade rage. Call from
+// * the end of the barbarian rage spellscript
+void CheckAndApplyEpicRageFeats(int nRounds);
 
 
 
@@ -180,13 +183,13 @@ void ApplyBarbarianDamageReduction(object oPC)
             iBonus = 10;
         }
         int iLvL = GetLevelByClass (CLASS_TYPE_BARBARIAN,oPC)+1;
-		        
-				if (iLvL > 20)
-			       {
-			        iLvL = 20;
-				   }
-			
-			   
+
+                if (iLvL > 20)
+                   {
+                    iLvL = 20;
+                   }
+
+
         //pridani imunuty na tupe
         effect ef1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,iLvL+iBonus);
          //pridani imunuty na bodne
@@ -252,32 +255,41 @@ void ApplyShadowDancerZrak(object oPC)
 void ApplyNewMonkPerfectSelf(object oPC, object oPCSkin)
 {
     //odstraneni efektu
-    if (GetHasFeat(FEAT_NEWPERFECTSELF,oPC) == TRUE)
+    if (GetLevelByClass(CLASS_TYPE_MONK,oPC) >= 19)
     {
 
-        int lvl = GetLevelByClass(CLASS_TYPE_MONK,oPC);
-        int iBonus = ((lvl-19) /10)+1;
         int iEnch;
         // IMUNITA NA MIND SPELLY
         itemproperty ip = ItemPropertyImmunityMisc(IP_CONST_IMMUNITYMISC_MINDSPELLS);
         SetItemPropertySpellId(ip,IP_NEWPERFECTSELF);
         AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
         //POHLCENI
-        switch (iBonus)
-        {
-            case 1:
-            iEnch =IP_CONST_DAMAGEREDUCTION_1;
-            break;
-            case 2:
-            iEnch =IP_CONST_DAMAGEREDUCTION_2;
-            break;
-            case 3:
-            iEnch =IP_CONST_DAMAGEREDUCTION_3;
-            break;
-            default:
-            iEnch =IP_CONST_DAMAGEREDUCTION_1;
 
-        }
+
+            if (GetHasFeat(FEAT_NEWPERFECTSELF5,oPC))
+            {
+             iEnch =IP_CONST_DAMAGEREDUCTION_5;
+            }
+
+            else if (GetHasFeat(FEAT_NEWPERFECTSELF4,oPC))
+            {
+             iEnch =IP_CONST_DAMAGEREDUCTION_4;
+            }
+
+            else if (GetHasFeat(FEAT_NEWPERFECTSELF3,oPC))
+            {
+             iEnch =IP_CONST_DAMAGEREDUCTION_3;
+            }
+
+            else if (GetHasFeat(FEAT_NEWPERFECTSELF2,oPC))
+            {
+             iEnch =IP_CONST_DAMAGEREDUCTION_2;
+            }
+            else
+            {
+             iEnch =IP_CONST_DAMAGEREDUCTION_1;
+            }
+
         itemproperty ip1 = ItemPropertyDamageReduction(iEnch,IP_CONST_DAMAGESOAK_20_HP);
         SetItemPropertySpellId(ip1,IP_NEWPERFECTSELF);
         AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oPCSkin,99999.0);
@@ -652,6 +664,41 @@ void RemoveClassFeats(object oPC)
     {
         RemoveKnownFeat(oPC,FEAT_DRUID_SPECIALIZACE_VYBER);
     }
+}
+
+
+//------------------------------------------------------------------------------
+// GZ, 2003-07-09
+// Hub function for the epic barbarian feats that upgrade rage. Call from
+// the end of the barbarian rage spellscript
+//------------------------------------------------------------------------------
+void CheckAndApplyEpicRageFeats(int nRounds)
+{
+
+	effect eAOE;
+    if ((GetHasFeat(989, OBJECT_SELF)) && (GetHasFeat(988, OBJECT_SELF)))
+    {
+     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "cl_barb_thunrage","****");
+     eAOE = ExtraordinaryEffect(eAOE);
+     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
+    }
+
+    else if (GetHasFeat(989, OBJECT_SELF))
+    {
+     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "****","****");
+     eAOE = ExtraordinaryEffect(eAOE);
+     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
+    }
+
+    else if (GetHasFeat(988, OBJECT_SELF))
+    {
+     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"****", "cl_barb_thunrage","****");
+     eAOE = ExtraordinaryEffect(eAOE);
+     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
+    }
+	
+	
+	
 }
 
 

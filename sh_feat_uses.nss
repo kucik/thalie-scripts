@@ -134,12 +134,12 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
 //    case FEAT_ELEMENTAL_SHAPE:
 //      return (GetLevelByClass(CLASS_TYPE_DRUID,oPC) -17) /2 +1;
     // Monk
-    case FEAT_WHOLENESS_OF_BODY:
-      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 6) /10 +1;
-    case FEAT_QUIVERING_PALM:
-      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 14) /8 +1;
-    case FEAT_EMPTY_BODY:
-      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 17) /10 +2;
+//    case FEAT_WHOLENESS_OF_BODY:
+//      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 6) /10 +1;
+//    case FEAT_QUIVERING_PALM:
+//      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 14) /8 +1;
+//    case FEAT_EMPTY_BODY:
+//      return (GetLevelByClass(CLASS_TYPE_MONK,oPC) - 17) /10 +2;
     // Kurtizana
     case FEAT_KURTIZANA_ODHALENY_ZIVUTEK:
       return (GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC) -1) /2 +2;
@@ -215,9 +215,9 @@ void RestoreFeatUses(object oPC)
   __restoreFeatUsesPerDay(FEAT_SHINOBI_NEVIDITELNOST, oPC);
   __restoreFeatUsesPerDay(FEAT_SHINOBI_ZMATENI, oPC);
 //  __restoreFeatUsesPerDay(FEAT_ELEMENTAL_SHAPE, oPC);
-  __restoreFeatUsesPerDay(FEAT_WHOLENESS_OF_BODY, oPC);
-  __restoreFeatUsesPerDay(FEAT_QUIVERING_PALM, oPC);
-  __restoreFeatUsesPerDay(FEAT_EMPTY_BODY, oPC);
+//  __restoreFeatUsesPerDay(FEAT_WHOLENESS_OF_BODY, oPC);
+//  __restoreFeatUsesPerDay(FEAT_QUIVERING_PALM, oPC);
+//  __restoreFeatUsesPerDay(FEAT_EMPTY_BODY, oPC);
   __restoreFeatUsesPerDay(FEAT_KURTIZANA_ODHALENY_ZIVUTEK, oPC);
   __restoreFeatUsesPerDay(FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL, oPC);
 }

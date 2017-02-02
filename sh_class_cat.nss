@@ -1688,6 +1688,11 @@ void ApplySpeed(object oPC, object oPCSkin)
        iSpeed+= 20;
     }
 
+    if ((GetLevelByClass(CLASS_TYPE_MONK,oPC))>= 10)
+    {
+       iSpeed+= 150;
+    }
+
     if (iSpeed >0)
     {
         effect ef =  EffectMovementSpeedIncrease(iSpeed);

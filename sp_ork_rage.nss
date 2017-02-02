@@ -14,7 +14,7 @@
 
 
 //include pro schopnosti terryfing rage a thundering rage
-#include "x2_i0_spells"
+
 //include pro barbarovy funkce
 #include "sh_classes_inc"
 
