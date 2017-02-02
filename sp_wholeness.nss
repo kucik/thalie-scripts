@@ -17,8 +17,9 @@ void main()
     int nLevel = GetLevelByClass(CLASS_TYPE_MONK);
     int iWis = GetAbilityModifier(ABILITY_WISDOM);
     int nDuration = (nLevel+iWis);
-	effect eRegen = EffectRegenerate(iWis,6.0);
+    effect eRegen = EffectRegenerate(iWis,6.0);
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_NATURE);
+    eRegen = ExtraordinaryEffect(eRegen);
     SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELLABILITY_WHOLENESS_OF_BODY, FALSE));
     //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);

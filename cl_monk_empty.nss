@@ -30,7 +30,7 @@ void main()
         effect eLink = EffectLinkEffects(eCover, eVis);
         eLink = EffectLinkEffects(eLink, eDur);
 
-        eLink = SupernaturalEffect(eLink);
+        eLink = ExtraordinaryEffect(eLink);
 
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELLABILITY_EMPTY_BODY, FALSE));
