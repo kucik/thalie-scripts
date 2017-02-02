@@ -734,7 +734,7 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
     if (GetHasFeat(FEAT_EXORCISTA_ZHOUBA_ZLA,oPC))
     {
        int iWis = GetAbilityModifier(ABILITY_WISDOM,oPC);
-       int iDamage = GetDamageBonusByLevelExorcista(iWis);
+       int iDamage = GetDamageBonusByValue(iWis);
        effect ef = EffectDamageIncrease(iDamage,DAMAGE_TYPE_DIVINE);
        effect eLink = VersusAlignmentEffect(ef,ALIGNMENT_ALL,ALIGNMENT_EVIL);
        eLink = SupernaturalEffect(ef);
