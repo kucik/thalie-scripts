@@ -112,7 +112,7 @@ void main()
                                     eDeath = SupernaturalEffect( eDeath );
                                     //Boss exception
                                     if(GetIsBoss(oTarget))
-                                      DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, nCasterLvl));
+                                      DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, nCasterLvl,FALSE));
                                     else
                                       DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                                 }

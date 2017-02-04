@@ -61,7 +61,7 @@ void main()
                 {
                   //Boss exception
                   if(GetIsBoss(oTarget)) {
-                    DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                    DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),FALSE));
                          }
                   else
                     //Apply death effect and the VFX impact

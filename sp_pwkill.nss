@@ -73,7 +73,7 @@ void main()
                       {
                         // Boss exception
                         if(GetIsBoss(oTarget))
-                          ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF));
+                          ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE);
                         else {
                           //Apply the death effect and the VFX impact
                           ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(), oTarget);

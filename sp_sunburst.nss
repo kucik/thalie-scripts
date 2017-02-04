@@ -78,7 +78,7 @@ void main()
                 }
                 bDoNotDoDamage = FALSE; // initialization
                 // * if a vampire then destroy it
-                if (GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_MALE || 
+                if (GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_MALE ||
                     GetAppearanceType(oTarget) == APPEARANCE_TYPE_VAMPIRE_FEMALE ||
                     GetSubRace(oTarget) == "Vampire")
                 {   // target is vampire, try to destroy it by instant-death if failed reflex save
@@ -91,7 +91,7 @@ void main()
                         ApplyEffectToObject(DURATION_TYPE_INSTANT, eExplode, oTarget);
                       //Boss exception
                       if(GetIsBoss(oTarget))
-                        DelayCommand(0.5,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                        DelayCommand(0.5,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),FALSE));
                       else
                         // Apply instant-death effect
                         DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDead, oTarget));
@@ -114,7 +114,7 @@ void main()
                             //Set DC of blind effect
                             nBlindDC = GetSpellSaveDC();
                             // Change of DC for light-sensitive (sub)races has been cancelled.
-                            // Check if the oTarget is sensivitve to bright light, if so, improve the spell's DC                        
+                            // Check if the oTarget is sensivitve to bright light, if so, improve the spell's DC
                             if (GetIsPC(oTarget))
                             {  // target is PC
                               if (Subraces_GetIsCharacterFromUnderdark(oTarget)) // test for PC faction
@@ -132,8 +132,8 @@ void main()
                                 sLine = "DEBUG: Target identified as underdark NPC, ID=" + ObjectToString(oTarget);  //debug
                                 PrintString(sLine); //debug
                                 nBlindDC = nBlindDC + 2;
-                              } 
-                            }  // end of else of if GetIsPC(oTarget)  
+                              }
+                            }  // end of else of if GetIsPC(oTarget)
                             */
 
                             // * if reflex saving throw fails no blindness
@@ -150,6 +150,6 @@ void main()
             }  // end of if (!MyResistSpell(OBJECT_SELF, oTarget, fDelay))
         }    // end of if (spellsIsTarget(oTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
         //Select the next target within the spell shape.
-        oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);        
+        oTarget = GetNextObjectInShape(SHAPE_SPHERE, nSize, lTarget, TRUE, OBJECT_TYPE_CREATURE);
     } // end of     while (GetIsObjectValid(oTarget))
 }

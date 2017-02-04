@@ -81,7 +81,7 @@ void main()
                         effect eDeath = EffectDeath();
                         //Boss exception
                         if(GetIsBoss(oTarget))
-                           DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                           DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE));
                         else
                           DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget)); // no delay
                     }

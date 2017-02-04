@@ -42,7 +42,7 @@ void main()
     object oTarget = GetSpellTargetObject();
     location lSpellTargetLOC;
     int Alignment = GetAlignmentGoodEvil(OBJECT_SELF);
-    
+
     if (GetIsObjectValid(oTarget))
     {
         if ((GetRacialType((oTarget)) == RACIAL_TYPE_OUTSIDER))
@@ -51,7 +51,7 @@ void main()
            {
                //Boss exception
                if(GetIsBoss(oTarget)) {
-                   DelayCommand(0.25,ApplyBossInstantKillDamage(oTarget, nCasterLevel));
+                   DelayCommand(0.25,ApplyBossInstantKillDamage(oTarget, nCasterLevel,TRUE));
                }
                else {
                             effect eKill = EffectDamage(GetCurrentHitPoints(oTarget));
@@ -78,7 +78,7 @@ void main()
     }
     //Summon the Balor and apply the VFX impact
     //ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetSpellTargetLocation());
-    
+
     if(Alignment == ALIGNMENT_GOOD){
         eSummon = EffectSummonCreature("ry_s_dracspl", VFX_FNF_SUMMON_GATE, 3.0);
         float fSeconds = RoundsToSeconds(nDuration);

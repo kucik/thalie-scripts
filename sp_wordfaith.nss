@@ -84,7 +84,7 @@ void main()
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eUnsummon, oTarget));
                         //Boss exception
                         if(GetIsBoss(oTarget))
-                          DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, nCasterLevel));
+                          DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, nCasterLevel,TRUE));
                         else
                           DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                     }

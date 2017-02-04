@@ -36,7 +36,7 @@ void DoUndeadToDeath(object oCreature)
             effect eVis = EffectVisualEffect(VFX_IMP_DEATH);
             //Boss exception
             if(GetIsBoss(oCreature))
-               DelayCommand(fDelay+0.5f,ApplyBossInstantKillDamage(oCreature, GetCasterLevel(OBJECT_SELF)));
+               DelayCommand(fDelay+0.5f,ApplyBossInstantKillDamage(oCreature, GetCasterLevel(OBJECT_SELF),FALSE));
             else
                DelayCommand(fDelay+0.5f,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDeath,oCreature));
             DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oCreature));

@@ -94,7 +94,7 @@ void main()
                     else
                     {
                        if(GetIsBoss(oTarget))
-                         ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF));
+                         ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),FALSE);
                        else {
                          //Apply the death effect and VFX impact
                          // Immunity to death magic, should not make you immune to Phantasmal Killer.

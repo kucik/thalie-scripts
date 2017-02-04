@@ -96,7 +96,7 @@ void main()
                          ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetLocation(oTarget));
                          //Boss exception
                          if(GetIsBoss(oTarget)) {
-                           DelayCommand(0.25,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF)));
+                           DelayCommand(0.25,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE));
                          }
                          else if (CanCreatureBeDestroyed(oTarget) == TRUE)
                          {
