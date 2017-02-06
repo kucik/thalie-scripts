@@ -726,19 +726,7 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
     }
 
-    /*Exorcistuv dmg divine*/
-    if (GetHasFeat(FEAT_EXORCISTA_ZHOUBA_ZLA,oPC))
-    {
-       int iWis = GetAbilityModifier(ABILITY_WISDOM,oPC);
-       int iDamage = GetDamageBonusByValue(iWis);
-       effect ef = EffectDamageIncrease(iDamage,DAMAGE_TYPE_DIVINE);
-       effect eEvil = VersusAlignmentEffect(ef,ALIGNMENT_ALL,ALIGNMENT_EVIL);
-       effect eLink = EffectLinkEffects(ef, eEvil);
-       eLink = SupernaturalEffect(eLink);
-       SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
 
-    }
 
     /*feat - svaty uder*/
     if (GetHasFeat(FEAT_EPICGENERAL_SVATY_UDER,oPC))

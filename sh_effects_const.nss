@@ -48,6 +48,7 @@ const int EFFECT_TEMNOTA = 36;
 const int IP_DD_STANCE = 2027;
 const int EFFECT_WM_ONEQUIP = 2028;
 const int EFFECT_DAMAGE_REDUCTION = 2029;
+const int EFFECT_EXOR_DAMAGE_DIVINE = 2030;
 
 //
 const int EFFECT_ELIXIR_STR = 3001;

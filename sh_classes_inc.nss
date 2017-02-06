@@ -404,7 +404,7 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     while (GetIsEffectValid(eLoop))
     {
         iEffect = GetEffectSpellId(eLoop);
-        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_WM_ONEQUIP))
+        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_EXOR_DAMAGE_DIVINE))
         {
             RemoveEffect(oPC,eLoop);
         }
@@ -430,7 +430,19 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
             SetEffectSpellId(eLink,EFFECT_SPRAVEDLIVY_UDER);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
         }
+            /*Exorcistuv dmg divine*/
+        if (GetHasFeat(FEAT_EXORCISTA_ZHOUBA_ZLA,oPC))
+        {
+         int iWis = GetAbilityModifier(ABILITY_WISDOM,oPC);
+         int iDamage = GetDamageBonusByValue(iWis);
+         effect ef = EffectDamageIncrease(iDamage,DAMAGE_TYPE_DIVINE);
+         effect eEvil = VersusAlignmentEffect(ef,ALIGNMENT_ALL,ALIGNMENT_EVIL);
+         effect eLink = EffectLinkEffects(ef, eEvil);
+         eLink = SupernaturalEffect(eLink);
+         SetEffectSpellId(eLink,EFFECT_EXOR_DAMAGE_DIVINE);
+         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
 
+        }
         
                
     }
