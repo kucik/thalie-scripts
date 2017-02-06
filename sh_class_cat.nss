@@ -536,11 +536,7 @@ void ApplyBonusSaves(object oPC, object oPCSkin)
          {
                iDeath +=1;
          }
-         if (GetHasFeat(FEAT_KENSAI_BONUS,oPC) == TRUE) {
-           // From 15. level +2 bonus every 5th. level.
-           // Feat is granted on 15. level so <0 is not needed.
-           iReflex += (((GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) - 10) / 5) *2);
-         }
+
        // pridani bonusu
         if (iReflex > 0)
         {
@@ -1016,12 +1012,7 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
                 iAppraise+= 2;
                 iTaunt+= 2;
          }
-         /*Kensaiuv akrobat*/
-         if (GetHasFeat(FEAT_KENSAI_AKROBAT,oPC) == TRUE)
-         {
-                iTumble +=20;
 
-         }
          /*Exorcistova znalost magie*/
          if (GetHasFeat(FEAT_EXORCISTA_ZNALOST_MAGIE,oPC) == TRUE)
          {

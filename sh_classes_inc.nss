@@ -209,32 +209,6 @@ Shodi Kensaiovi Itemy pokud si oblece zbroj, stit nebo helmu
 */
 
 
-void ApplyKensaiLimitation(object oPC,object oItem)
-{
-    return;
-    int sundani =FALSE;
-    if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC) > 0)
-    {
-        //zhozeni stitu
-        if ((GetBaseItemType(oItem) == BASE_ITEM_TOWERSHIELD) || (GetBaseItemType(oItem) == BASE_ITEM_LARGESHIELD) || (GetBaseItemType(oItem) == BASE_ITEM_SMALLSHIELD))
-        {
-            sundani = TRUE;
-        }
-
-        //zhozeni zbroje
-        if (GetBaseItemType(oItem) == BASE_ITEM_ARMOR)
-        {
-             if (GetArcaneSpellFailure(oPC)>0)sundani = TRUE;
-        }
-
-        //samotne zhozeni
-        if (sundani == TRUE)
-        {
-            AssignCommand(oPC,ActionUnequipItem(oItem));
-         }
-    }
-}
-
 /*
 Nastavi SD Zrak stinu
 */
@@ -457,24 +431,8 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
         }
 
-        //bonusy kensaie
-        if (GetLevelByClass(CLASS_TYPE_WEAPON_MASTER, oPC) >= 3)
-        {
-                int iWeapon = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC));
-                int iFeat = GetWeaponOfChoiceFeatForWeapon(iWeapon);
-                SendMessageToPC(oPC,"FEAT:"+IntToString(iFeat));
-                if((GetHasFeat(iFeat,oPC)) && (iFeat!=-1))
-                {
-                int iLevel = GetLevelByClass(CLASS_TYPE_WEAPON_MASTER,oPC);
-                int iBonus = iLevel / 3;
-                effect ef1 = EffectAttackIncrease(iBonus);
-                effect ef2 = EffectDamageIncrease(GetDamageBonusByValue(iBonus),DAMAGE_TYPE_SLASHING);
-                effect eLink = EffectLinkEffects(ef1,ef2);
-                eLink = SupernaturalEffect(eLink);
-                SetEffectSpellId(eLink,EFFECT_WM_ONEQUIP);
-                ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-            }
-                }
+        
+               
     }
 }
 
@@ -771,7 +729,6 @@ void OnEquipClassSystem(object oPC, object oItem)
   object oDuse = GetSoulStone(oPC);
    object oPCSkin = GetPCSkin(oPC);
 
- ApplyKensaiLimitation( oPC,oItem);
  AddZbranThalie(oPC,oItem);
  RefreshBonusACNaturalBase(oPC,oPCSkin);
  RefreshOnEquipSpecialBonuses(oPC,1);
