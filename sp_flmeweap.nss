@@ -5,8 +5,8 @@
 //:://////////////////////////////////////////////
 /*
   Gives a melee weapon 1d6 damage +1 per caster
-  level/4 to a maximum of +10 for caster lvl rounds. 
-  Dmg type follows subradial menu: 
+  level/4 to a maximum of +10 for caster lvl rounds.
+  Dmg type follows subradial menu:
   fire, acid, cold, electricity
 */
 //:://////////////////////////////////////////////
@@ -68,10 +68,10 @@ void main()
     int iIPConstDmgTypeID = IP_CONST_DAMAGETYPE_FIRE;
     int nSpell = GetSpellId();
     int iCastingVisualEffectID = VFX_IMP_PULSE_FIRE; // default casting visual effect
-    int iItemVisualTypeID = ITEM_VISUAL_FIRE; // default on-weapon visual effect 
+    int iItemVisualTypeID = ITEM_VISUAL_FIRE; // default on-weapon visual effect
     int iDmgTypeID = ITEM_VISUAL_FIRE;    // default dmg type
-    
-    
+
+
     //Determine subradial type
     if (nSpell == 953)     // acid dmg
     {
@@ -97,8 +97,8 @@ void main()
       iCastingVisualEffectID = VFX_IMP_PULSE_FIRE; // change casting effect to default (_PULSE_FIRE))
       iItemVisualTypeID = ITEM_VISUAL_FIRE;
       iDmgTypeID = IP_CONST_DAMAGETYPE_FIRE;
-    }    
-    
+    }
+
     effect eVis = EffectVisualEffect(iCastingVisualEffectID);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int nCasterLvl = GetCasterLevel(OBJECT_SELF)+1;
@@ -142,7 +142,7 @@ void main()
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
-        TestAndRemoveTemporalDmgBonus(oMyWeapon); 
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
         if (nDuration>0)
         {
@@ -175,7 +175,7 @@ void main()
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
     if(GetIsObjectValid(oMyWeapon) && GetBaseItemType(oMyWeapon) == BASE_ITEM_GLOVES )
     {
-        TestAndRemoveTemporalDmgBonus(oMyWeapon);    
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
         if (nDuration>0)
         {
@@ -185,5 +185,51 @@ void main()
         }
 
     }
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);
+        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        if (nDuration>0)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
+            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
 
+        }
+
+    }
+
+   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);
+        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        if (nDuration>0)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
+            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+
+        }
+
+    }
+
+   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        TestAndRemoveTemporalDmgBonus(oMyWeapon);
+        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        if (nDuration>0)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
+            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
+            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+
+        }
+
+    }
 }
