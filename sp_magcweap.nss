@@ -4,8 +4,8 @@
 //:: Copyright (c) 2001 Bioware Corp.
 //:://////////////////////////////////////////////
 /*
-  Grants a +1 enhancement bonus to all weapons  equipped 
-  by a target of the spell. Lasts 1 turn per level. 
+  Grants a +1 enhancement bonus to all weapons  equipped
+  by a target of the spell. Lasts 1 turn per level.
 */
 //:://////////////////////////////////////////////
 //:: Created By: Andrew Nobbs
@@ -67,16 +67,16 @@ void main()
     object oTarget = GetSpellTargetObject();
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
     // object oMyWeapon   =  IPGetTargetedOrEquippedMeleeWeapon();
-    
-    
+
+
     if (nDuration < 1) // if GetCasterLevel function encountered an error, return value is zero - deal with it now
       /* Test for error value of the function GetCasterLevel()
         If error in the function GetCasterLevel, then return value is zero, therefore
-        nDuration is set to zero. 
-        
+        nDuration is set to zero.
+
         If so, then
         a) set nDuration to 1, to protect script from launching destructor of enhancement
-          property earlier than the constructor of the enhancement.      
+          property earlier than the constructor of the enhancement.
         b) send debug message to caster if it is PC
         c) send debug message to target if it is PC
       */
@@ -89,7 +89,7 @@ void main()
       if (GetIsPC( oTarget ) )
       {
         SendMessageToPC(oTarget, "DEBUG: spell magic_weapon, target: caster level not identified"); // DEBUG msg
-      }    
+      }
     } // end of if (nDuration < 1)
 
     if (nMetaMagic == METAMAGIC_EXTEND)
@@ -142,7 +142,36 @@ void main()
         }
     }
 
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
+        }
+    }
 
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
+        }
+    }
 
-
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), HoursToSeconds(nDuration));
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration)); // zmena na +1 enhancement, 2014_09_21
+        }
+    }
 }
