@@ -6,7 +6,7 @@
 /*
   Grants a +1 enhancement bonus per 4 caster levels
   (maximum of +5) do any weapon(s) equipped by target
-  of the spell. Lasts 1 turn per level. 
+  of the spell. Lasts 1 turn per level.
   Commented: Updated to suppport empowered version (max bonus +7).
 */
 //:://////////////////////////////////////////////
@@ -60,15 +60,15 @@ void main()
     // End of Spell Cast Hook
 
 
-    //Declare major variables 
+    //Declare major variables
     object oTarget = GetSpellTargetObject();
     effect eVis = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel);
-    
+
     // if GetCasterLevel function encountered an error, return value is zero - deal with it now
-    if (iCasterLevel < 1) 
+    if (iCasterLevel < 1)
       /* Test for error value of the function GetCasterLevel()
       If error in the function GetCasterLevel, then return value is zero, therefore
       iCasterLevel is set to zero.
@@ -89,7 +89,7 @@ void main()
         SendMessageToPC(oTarget, "DEBUG: spell greater_magic_weapon, target: caster level not identified"); // DEBUG msg
       }
     } // end of if (iCasterLevel < 1)
- 
+
     //Finish declaration of major variables
     int iBonus = iCasterLevel /4;
     int nDuration =  iCasterLevel ;
@@ -122,6 +122,7 @@ void main()
         nDuration = nDuration * 2; //Duration is +100%
     }
 
+
     object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
@@ -131,7 +132,7 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
-            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014            
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014
         }
 
     }
@@ -146,7 +147,7 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
-            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014                        
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014
         }
 
     }
@@ -161,7 +162,46 @@ void main()
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon),TurnsToSeconds(nDuration));
             //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus);// tvar z pred 27.2.2014
-            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014                        
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014
+        }
+
+    }
+   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        // if (nDuration>0) // nDuration is always larger than 0, IF deleted
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014
+        }
+
+    }
+   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        // if (nDuration>0) // nDuration is always larger than 0, IF deleted
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014
+        }
+
+    }
+   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        // if (nDuration>0) // nDuration is always larger than 0, IF deleted
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
+            //AddAttackEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // tvar z pred 27.2.2014
+            AddGreaterEnhancementEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration),iBonus); // upraveno dle Rejtyho, 27.2.2014
         }
 
     }
