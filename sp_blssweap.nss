@@ -73,7 +73,7 @@ void main()
     {
        nDuration = nDuration * 2; //Duration is +100%
     }
-    
+
     if (GetIsObjectValid(oTarget) && nDuration)
     {
         if (GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
@@ -91,7 +91,7 @@ void main()
             object oWeapon;
             int iBlessed;
             oWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oTarget);
-            
+
             if (GetIsObjectValid(oWeapon))
             {
                 SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
@@ -102,7 +102,7 @@ void main()
             }
 
             oWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oTarget);
-            
+
             if (GetIsObjectValid(oWeapon))
             {
                 SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
@@ -111,11 +111,44 @@ void main()
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
                 iBlessed = TRUE;
             }
-            
+
+            oWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B, oTarget);
+
+            if (GetIsObjectValid(oWeapon))
+            {
+                SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+                AddBlessEffectToWeapon(oWeapon, TurnsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oWeapon));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
+                iBlessed = TRUE;
+            }
+
+            oWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L, oTarget);
+
+            if (GetIsObjectValid(oWeapon))
+            {
+                SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+                AddBlessEffectToWeapon(oWeapon, TurnsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oWeapon));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
+                iBlessed = TRUE;
+            }
+
+            oWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R, oTarget);
+
+            if (GetIsObjectValid(oWeapon))
+            {
+                SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+                AddBlessEffectToWeapon(oWeapon, TurnsToSeconds(nDuration));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oWeapon));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
+                iBlessed = TRUE;
+            }
+
             if (iBlessed) return;
 
             oWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS, oTarget);
-            
+
             if(GetIsObjectValid(oWeapon))
             {
                 SignalEvent(GetItemPossessor(oWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
@@ -124,5 +157,5 @@ void main()
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oWeapon), TurnsToSeconds(nDuration));
             }
         }
-    }    
+    }
 }
