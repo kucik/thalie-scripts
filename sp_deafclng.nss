@@ -103,5 +103,44 @@ void main()
 
     }
 
+       oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        if (nDuration>0)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+        }
+
+    }
+
+       oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        if (nDuration>0)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+        }
+
+    }
+
+       oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
+    if(GetIsObjectValid(oMyWeapon) )
+    {
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+        if (nDuration>0)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+        }
+
+    }
+
 
 }
