@@ -42,6 +42,8 @@ int ku_loot_GetIsWeapon(object oItem);
 // Spawn unique boss loot on boss corpse
 int ku_LootCreateBossUniqueLootItems(object oBoss);
 
+int __LootCreateBossUniqueLootItems(object oBoss, string sBoxTag);
+
 //
 // Init unique boss loot
 // Run this on module load script
@@ -195,7 +197,22 @@ void ku_InitBossUniqueLoot() {
 
 int ku_LootCreateBossUniqueLootItems(object oBoss) {
 
-  string sBoxTag = GetLocalString(oBoss,"LOOT");
+  string sBoxTag;
+  sBoxTag = GetLocalString(oBoss,"LOOT");
+  if(GetStringLength(sBoxTag) > 0)
+    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+  sBoxTag = GetLocalString(oBoss,"LOOT2");
+  if(GetStringLength(sBoxTag) > 0)
+    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+  sBoxTag = GetLocalString(oBoss,"LOOT3");
+  if(GetStringLength(sBoxTag) > 0)
+    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+  sBoxTag = GetLocalString(oBoss,"LOOT4");
+  if(GetStringLength(sBoxTag) > 0)
+    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+}
+
+int __LootCreateBossUniqueLootItems(object oBoss, string sBoxTag) {
 
   WriteTimestampedLogEntry("BOSS '"+GetName(oBoss)+"' has lootbag '"+sBoxTag+"'");
 
