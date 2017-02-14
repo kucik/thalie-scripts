@@ -198,18 +198,21 @@ void ku_InitBossUniqueLoot() {
 int ku_LootCreateBossUniqueLootItems(object oBoss) {
 
   string sBoxTag;
+  int iCount = 0;
   sBoxTag = GetLocalString(oBoss,"LOOT");
   if(GetStringLength(sBoxTag) > 0)
-    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+    iCount += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
   sBoxTag = GetLocalString(oBoss,"LOOT2");
   if(GetStringLength(sBoxTag) > 0)
-    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+    Count += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
   sBoxTag = GetLocalString(oBoss,"LOOT3");
   if(GetStringLength(sBoxTag) > 0)
-    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+    iCount += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
   sBoxTag = GetLocalString(oBoss,"LOOT4");
   if(GetStringLength(sBoxTag) > 0)
-    __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+    iCount += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+
+  return iCount;
 }
 
 int __LootCreateBossUniqueLootItems(object oBoss, string sBoxTag) {
