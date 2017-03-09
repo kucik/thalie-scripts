@@ -1112,8 +1112,9 @@ void __bossCheckersRegister(object oBoss) {
       // Give me boss reference
       SetLocalObject(oChecker,"__LOCK_BOSS",oBoss);
 //      WriteTimestampedLogEntry("BOSS CHECKER "+GetName(oBoss)+"  "+GetTag(oChecker));
-      string sChecker = GetLocalString(oChecker, "CHECK");
+      string sChecker = GetLocalString(oChecker, "CHECK"+sChecker);
       // Back compatibility
+      WriteTimestampedLogEntry("BOSS CHECKER found "+sChecker);
       if(GetLocalString(oChecker, "CHECK_SCRIPT") == "ku_sp_checkhp")
         sChecker = "HP";
       if(sChecker == "HP")
@@ -1181,6 +1182,7 @@ int lock_SpawnBosses(object oArea) {
       lock_CopyVars(oBoss,oNPC);
       lock_AppearBoss(oBoss);
       SetLocalObject(oArea,"ACTUAL_BOSS",oBoss);
+      WriteTimestampedLogEntry("BOSS spawned "+GetTag(oBoss)+" "+GetName(oBoss));
       DelayCommand(0.5, __bossCheckersRegister(oBoss));
       cnt--;
     }
@@ -1565,6 +1567,7 @@ void __performCheckHP(int iHP, string sSpawn, object oBoss, int iOneshot, object
 
   if( GetCurrentHitPoints(oBoss) < iHP) {
     __processSpawnByTag(oSpawner, sSpawn);
+    WriteTimestampedLogEntry("BOSS CHECKHP "+GetName(oBoss)+" for "+IntToString(iHP)+" run spawn "+sSpawn);
     if(iOneshot)
      return;
   }
@@ -1577,7 +1580,7 @@ void LOCK_BossCheckerCheckHP(object oBoss, object oSpawner) {
   string sSpawn = GetLocalString(oSpawner, "SPAWN");
   int iOneshot = GetLocalInt(oSpawner, "ONESHOT");
 //  object oBoss = GetLocalObject(OBJECT_SELF, "__LOCK_BOSS");
-//  WriteTimestampedLogEntry("BOSS CHECKHP 1 "+GetName(oBoss)+" for "+IntToString(iHP));
+  WriteTimestampedLogEntry("BOSS CHECKHP 1 "+GetName(oBoss)+" for "+IntToString(iHP));
 
   DelayCommand(3.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot, oSpawner));
 
