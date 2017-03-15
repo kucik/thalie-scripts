@@ -536,6 +536,8 @@ int LOCK_ProcessSpawn(object oSpawn, float fSpawnDelay, object oFaction=OBJECT_I
     return TRUE;
   }
 
+  WriteTimestampedLogEntry("ERROR: Unknown spawn type '"+sType+"' on "+GetTag(oSpawn)+" in "+GetTag(GetArea(oSpawn)));
+
   return FALSE;
 
 }
@@ -549,7 +551,7 @@ void LOCK_CleanArea(object oArea)
         iObject = GetObjectType(oObject);
         if (GetIsPC(oObject))
         {
-            WriteTimestampedLogEntry("**/!\** Joueur: " + GetName(oObject) + " present dans la zone" + GetName(OBJECT_SELF) + " lors du nettoyage **/!\**");
+//            WriteTimestampedLogEntry("**/!\** Joueur: " + GetName(oObject) + " present dans la zone" + GetName(OBJECT_SELF) + " lors du nettoyage **/!\**");
             return;
         }
         else if(GetIsDM(oObject)){
@@ -1092,6 +1094,7 @@ int lock_init_bosses(object oArea) {
       SetLocalObject(oArea,"SLEEPING_BOSS_"+IntToString(cnt),oNPC);
       SetLocalObject(oNPC,"KU_MY_AREA",oArea);
 //      SendMessageToPC(GetFirstPC(),"Saved boss "+GetName(oNPC));
+      WriteTimestampedLogEntry("BOSS initailized "+GetName(oNPC)+" in "+GetTag(oArea));
     }
     oNPC = GetNearestObject(OBJECT_TYPE_CREATURE, oFirst, i);
     i++;
@@ -1131,6 +1134,8 @@ int lock_SpawnBosses(object oArea) {
   int iBossCount = GetLocalInt(oArea,"BOSS_COUNT");
   int i;
 
+//  WriteTimestampedLogEntry("BOSS spawn check "+GetTag(oArea));
+
 
 //  SendMessageToPC(GetFirstPC(),"Spawning if "+IntToString(ku_GetTimeStamp())+"<"+IntToString(GetLocalInt(oArea,"NEXT_BOSS_SPAWN_TIME")));
   if(ku_GetTimeStamp() < GetLocalInt(oArea,"NEXT_BOSS_SPAWN_TIME"))
@@ -1161,6 +1166,8 @@ int lock_SpawnBosses(object oArea) {
       lock_CopyVars(oBoss,oNPC);
       lock_AppearBoss(oBoss);
       SetLocalObject(oArea,"ACTUAL_BOSS",oBoss);
+      WriteTimestampedLogEntry("BOSS spawned "+GetTag(oBoss)+" "+GetName(oBoss));
+      DelayCommand(0.5, __bossCheckersRegister(oBoss));
     }
     return iBossCount;
   }
@@ -1580,7 +1587,6 @@ void LOCK_BossCheckerCheckHP(object oBoss, object oSpawner) {
   string sSpawn = GetLocalString(oSpawner, "SPAWN");
   int iOneshot = GetLocalInt(oSpawner, "ONESHOT");
 //  object oBoss = GetLocalObject(OBJECT_SELF, "__LOCK_BOSS");
-  WriteTimestampedLogEntry("BOSS CHECKHP 1 "+GetName(oBoss)+" for "+IntToString(iHP));
 
   DelayCommand(3.0, __performCheckHP(iHP, sSpawn, oBoss, iOneshot, oSpawner));
 
