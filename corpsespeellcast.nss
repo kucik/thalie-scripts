@@ -52,7 +52,7 @@ void main()
     int i = GetLastSpell();
     object oCaster = GetLastSpellCaster();
     int iCasterlvl = GetCasterLevel(oCaster);
-    if( i == SPELL_RESURRECTION || i == SPELL_RAISE_DEAD ){
+    if( i == SPELL_RESURRECTION || i == SPELL_RAISE_DEAD  || i == 972  ){
         object oPC = GetFirstPC();
         string sPlayerName = GetLocalString(OBJECT_SELF, "PLAYER");
         string sPCName = GetLocalString(OBJECT_SELF, "PC");
@@ -80,7 +80,17 @@ void main()
                   AssignCommand(oPC, ClearAllActions());
                   location lRaise = GetLocation(OBJECT_SELF);
                   AssignCommand(oPC, JumpToLocation(lRaise));
-                  if (i == SPELL_RAISE_DEAD){
+                  if (i == 972 )                           //Epic spell ressurection
+                  {
+                        effect eDam1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,100);
+                        effect eDam2 = EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING,100);
+                        effect eDam3 = EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING,100);
+                        effect eLink = EffectLinkEffects(eDam1,eDam2);
+                        eLink = EffectLinkEffects(eLink,eDam3);
+                        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oPC,9.0f);
+
+                  }
+                  else if (i == SPELL_RAISE_DEAD){
                       ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(GetCurrentHitPoints(oPC)-1),oPC);
                       ApplyPenalty(oPC,1.0);
                       woundStamina(oPC, getMaxStamina(oPC),TRUE);
