@@ -22,36 +22,32 @@ void __activateStand(object oPC,object oSoulStone) {
 
                 // zjisteni velikosti bonusu
         int lvl = GetLevelByClass(CLASS_TYPE_DWARVENDEFENDER, oPC);
-        int bonus_str = 2, bonus_con = 4, bonus_save = 2, bonus_dodge = 4;
+        int bonus_str = 0, bonus_con = 0, bonus_save = 2, bonus_dodge = 4;
         if (lvl >= 10)
         {
-           bonus_str = 2;
-           bonus_con =  6;
            bonus_save = 3;
            bonus_dodge =6;
         }
         if (lvl >= 20)
         {
-           bonus_str = 4;
-           bonus_con =  8;
            bonus_save = 4;
            bonus_dodge =8;
         }
-        if (lvl >= 25)
-        {
-           bonus_str = 4;
-           bonus_con =  10;
-           bonus_save = 4;
-           bonus_dodge =10;
-        }
         if (lvl == 30)
         {
-           bonus_str = 6;
-           bonus_con =  12;
            bonus_save = 5;
-           bonus_dodge =12;
+           bonus_dodge =10;
 
         }
+
+        if (GetHasFeat(1640,oPC)){bonus_str = 12;}                     //Styl kladiva 3
+        else if (GetHasFeat(1639,oPC)){bonus_str = 8;}                     //Styl kladiva 2
+        else if (GetHasFeat(1638,oPC)){bonus_str = 4;}                     //Styl kladiva 1
+        else if (GetHasFeat(1643,oPC)){bonus_con = 12;}                     //Styl skaly 3
+        else if (GetHasFeat(1642,oPC)){bonus_con = 8;}                     //Styl skaly 2
+        else if (GetHasFeat(1641,oPC)){bonus_con = 4;}                     //Styl skaly 1
+
+
 
         int iHPbonus = bonus_con/2 * GetHitDice(oPC) - 1;
         // vytvoreni efektu savu a dodge ac

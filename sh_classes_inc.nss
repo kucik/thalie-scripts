@@ -443,8 +443,8 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
          ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
 
         }
-        
-               
+
+
     }
 }
 
@@ -634,6 +634,12 @@ void RemoveClassFeats(object oPC)
     {
         RemoveKnownFeat(oPC,FEAT_DRUID_SPECIALIZACE_VYBER);
     }
+
+    if ((GetHasFeat(1638,oPC)) || (GetHasFeat(1641,oPC)))                       //pokud ma dd styl skaly nebo kladiva odstran obecny styl
+    {
+        RemoveKnownFeat(oPC,1637);
+    }
+
 }
 
 
@@ -645,7 +651,7 @@ void RemoveClassFeats(object oPC)
 void CheckAndApplyEpicRageFeats(int nRounds)
 {
 
-	effect eAOE;
+    effect eAOE;
     if ((GetHasFeat(989, OBJECT_SELF)) && (GetHasFeat(988, OBJECT_SELF)))
     {
      eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "cl_barb_thunrage","****");
@@ -666,9 +672,9 @@ void CheckAndApplyEpicRageFeats(int nRounds)
      eAOE = ExtraordinaryEffect(eAOE);
      ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
     }
-	
-	
-	
+
+
+
 }
 
 
