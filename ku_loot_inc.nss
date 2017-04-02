@@ -204,7 +204,7 @@ int ku_LootCreateBossUniqueLootItems(object oBoss) {
     iCount += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
   sBoxTag = GetLocalString(oBoss,"LOOT2");
   if(GetStringLength(sBoxTag) > 0)
-    Count += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
+    iCount += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
   sBoxTag = GetLocalString(oBoss,"LOOT3");
   if(GetStringLength(sBoxTag) > 0)
     iCount += __LootCreateBossUniqueLootItems(oBoss, sBoxTag);
