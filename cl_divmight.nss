@@ -30,6 +30,10 @@ void main()
    else
    if(GetHasFeatEffect(413) == FALSE)
    {
+        int iFeatBonus =0;
+        if (GetHasFeat(1646,OBJECT_SELF)){iFeatBonus = 15;}                              //Bozska prizen 3
+        else if (GetHasFeat(1645,OBJECT_SELF)){iFeatBonus = 10;}                         //Bozska prizen 2
+        else if (GetHasFeat(1644,OBJECT_SELF)){iFeatBonus = 5;}                          //Bozska prizen 1
         //Declare major variables
         object oTarget = GetSpellTargetObject();
         int nLevel = GetCasterLevel(OBJECT_SELF);
@@ -53,7 +57,7 @@ void main()
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_DIVINE_MIGHT, FALSE));
 
             //Apply Link and VFX effects to the target
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus+5));
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus+5+iFeatBonus));
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
         }
 

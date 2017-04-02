@@ -21,8 +21,11 @@ void main()
         SpeakStringByStrRef(40550);
    }
    else
-   if(GetHasFeatEffect(413) == FALSE)
    {
+        int iFeatBonus =0;
+        if (GetHasFeat(1646,OBJECT_SELF)){iFeatBonus = 15;}                              //Bozska prizen 3
+        else if (GetHasFeat(1645,OBJECT_SELF)){iFeatBonus = 10;}                         //Bozska prizen 2
+        else if (GetHasFeat(1644,OBJECT_SELF)){iFeatBonus = 5;}                          //Bozska prizen 1
         //Declare major variables
         object oTarget = GetSpellTargetObject();
         int nLevel = GetCasterLevel(OBJECT_SELF);
@@ -32,11 +35,11 @@ void main()
 
         int nCharismaBonus = GetAbilityModifier(ABILITY_CHARISMA);
         effect eSave= EffectSavingThrowIncrease(SAVING_THROW_FORT,4);
-		effect ePoison = EffectImmunity(IMMUNITY_TYPE_POISON);
-		effect eDisease = EffectImmunity(IMMUNITY_TYPE_DISEASE);
+        effect ePoison = EffectImmunity(IMMUNITY_TYPE_POISON);
+        effect eDisease = EffectImmunity(IMMUNITY_TYPE_DISEASE);
         effect eLink = EffectLinkEffects(eSave, eDur);
-		eLink = EffectLinkEffects (eLink, ePoison);
-		eLink = EffectLinkEffects (eLink, eDisease);
+        eLink = EffectLinkEffects (eLink, ePoison);
+        eLink = EffectLinkEffects (eLink, eDisease);
         eLink = SupernaturalEffect(eLink);
 
         if (nCharismaBonus>0)
@@ -51,10 +54,10 @@ void main()
                             RemoveEffectsFromSpell(oTarget, GetSpellId());
 
                             //Fire cast spell at event for the specified target
-                            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 901, FALSE));
+                            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 1484, FALSE));
 
                             //Apply Link and VFX effects to the target
-                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5));
+                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5+iFeatBonus));
                             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                         }
                         else if(GetIsFriend(oTarget))
@@ -63,10 +66,10 @@ void main()
                             RemoveEffectsFromSpell(oTarget, GetSpellId());
 
                             //Fire cast spell at event for the specified target
-                            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 901, FALSE));
+                            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 1484, FALSE));
 
                             //Apply Link and VFX effects to the target
-                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5));
+                            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus+5+iFeatBonus));
                             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
                         }
 
