@@ -27,7 +27,7 @@ void main()
     int nCasterLvl = GetCasterLevel(oCaster);
     nCasterLvl = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLvl,FALSE);
     effect eExplode = EffectVisualEffect(VFX_FNF_LOS_EVIL_20); //Replace with Negative Pulse
-    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieSpellDCBonus(OBJECT_SELF);
+    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF);
     effect eVis = EffectVisualEffect(VFX_IMP_NEGATIVE_ENERGY);
     effect eVisHeal = EffectVisualEffect(VFX_IMP_HEALING_M);
     effect eDam, eHeal;
@@ -36,7 +36,7 @@ void main()
     float fDelay;
 
     //Get the spell target location as opposed to the spell target.
-    location lTarget = GetSpellTargetLocation();
+    location lTarget = GetLocation(OBJECT_SELF);
     //Apply the explosion at the location captured above.
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eExplode, lTarget);
     //Declare the spell shape, size and the location.  Capture the first target object in the shape.
@@ -44,7 +44,7 @@ void main()
     //Cycle through the targets within the spell shape until an invalid object is captured.
     while (GetIsObjectValid(oTarget))
     {
-       if((GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD) && (GetRacialType(oTarget) != RACIAL_TYPE_CONSTRUCT))
+       if((GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD) && (GetRacialType(oTarget) != RACIAL_TYPE_CONSTRUCT)&& (oTarget!= OBJECT_SELF))
        {
             //Roll damage for each target
             nDamage = d6(nCasterLvl);

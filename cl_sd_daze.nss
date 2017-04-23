@@ -27,7 +27,7 @@ void main()
 
     effect eVis = EffectVisualEffect(VFX_IMP_DAZED_S);
     int nDuration = 2;
-    int iDC = 10 + GetHitDice(OBJECT_SELF) + dex;
+    int iDC = 10 + GetHitDice(OBJECT_SELF)/2 + dex;
     int nRacial = GetRacialType(oTarget);
     if(GetHasFeat(1610, OBJECT_SELF)) { // EPIC_SHADOW_DAZE_I
       nDuration = nDuration + 1;

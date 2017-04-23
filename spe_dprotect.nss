@@ -44,13 +44,14 @@ void main()
     eLink = EffectLinkEffects(eLink, eSlow);
     eLink = EffectLinkEffects(eLink, eMove);
     eLink = EffectLinkEffects(eLink, eVisMovement);
-    eLink = EffectLinkEffects(eLink, eCold);
-    eLink = EffectLinkEffects(eLink, eFire);
-    eLink = EffectLinkEffects(eLink, eAcid);
-    eLink = EffectLinkEffects(eLink, eSonic);
-    eLink = EffectLinkEffects(eLink, eElec);
-    eLink = EffectLinkEffects(eLink, eDurElem);
     eLink = ExtraordinaryEffect(eLink);
+
+    effect eLink2 = EffectLinkEffects(eFire, eCold);
+    eLink2 = EffectLinkEffects(eLink2, eAcid);
+    eLink2 = EffectLinkEffects(eLink2, eSonic);
+    eLink2 = EffectLinkEffects(eLink2, eElec);
+    eLink2 = EffectLinkEffects(eLink2, eDurElem);
+    eLink2 = ExtraordinaryEffect(eLink2);
     //Get first target in spell area
     location lLoc = GetLocation(OBJECT_SELF);
     oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_LARGE, lLoc, FALSE);
@@ -63,6 +64,7 @@ void main()
             DelayCommand(fDelay,SignalEvent(oTarget, EventSpellCastAt(oTarget, GetSpellId(), FALSE)));
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget)); // apply visual effect of the casted spell
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fDuration)); // apply spell effects
+            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink2, oTarget, fDuration)); // apply spell effects
         }
         //Get next target in spell area
         oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_LARGE, lLoc, FALSE);
@@ -70,4 +72,5 @@ void main()
     DelayCommand(0.1,SignalEvent(oTarget, EventSpellCastAt(oTarget, GetSpellId(), FALSE)));
     DelayCommand(0.1, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF));
     DelayCommand(0.1, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, OBJECT_SELF, fDuration));
+    DelayCommand(0.1, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink2, OBJECT_SELF, fDuration)); // apply spell effects
 }

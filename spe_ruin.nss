@@ -41,7 +41,7 @@ void main()
     float fDist = GetDistanceBetween(OBJECT_SELF, oTarget);
     float fDelay = fDist/(3.0 * log(fDist) + 2.0);
 
-    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieSpellDCBonus(OBJECT_SELF);
+    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel,FALSE);
 
@@ -51,9 +51,7 @@ void main()
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
         //Roll damage
         int nDam = d6(iCasterLevel*2);
-        //Set damage effect
-        if(!MySavingThrow(SAVING_THROW_FORT, oTarget,nSpellDC, SAVING_THROW_TYPE_DEATH, OBJECT_SELF, fDelay))
-        {
+
             if (GetRacialType(oTarget) == RACIAL_TYPE_CONSTRUCT)
             {
 
@@ -61,6 +59,10 @@ void main()
                 if(GetIsBoss(oTarget))
                 {
                     DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),FALSE));
+                    ApplyEffectAtLocation (DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SCREEN_SHAKE), GetLocation(oTarget));
+                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(487), oTarget);
+                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_COM_BLOOD_CRT_RED), oTarget);
+                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_COM_CHUNK_BONE_MEDIUM), oTarget);
                 }
                 else
                 {
@@ -83,7 +85,8 @@ void main()
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
            }
 
-        }
+
+
 
     }
 }

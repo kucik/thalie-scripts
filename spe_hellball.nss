@@ -62,7 +62,7 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_FLAME_M);
     effect eVis2 = EffectVisualEffect(VFX_IMP_ACID_L);
     effect eVis3 = EffectVisualEffect(VFX_IMP_SONIC);
-    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieSpellDCBonus(OBJECT_SELF);
+    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,iCasterLevel,FALSE);
 

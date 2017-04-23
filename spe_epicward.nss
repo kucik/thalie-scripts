@@ -46,7 +46,7 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
     effect eDur = EffectVisualEffect(495);
-    effect eProt = EffectDamageReduction(40, DAMAGE_POWER_PLUS_TWENTY);
+    effect eProt = EffectDamageReduction(40, DAMAGE_POWER_PLUS_TWENTY,50*iCasterLevel);
     effect eLink = EffectLinkEffects(eDur, eProt);
     eLink = EffectLinkEffects(eLink, eDur);
 

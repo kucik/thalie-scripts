@@ -3,7 +3,7 @@
 #include "nwnx_funcs"
 #include "nwnx_structs"
 #include "sh_classes_const"
-
+#include "sh_spells_inc"
 /*
 System pro dopocet poctu pouziti na den
 
@@ -145,6 +145,12 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
       return (GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC) -1) /2 +2;
     case FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL:
       return (GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC) -4) /4 +1;
+    case 1621:                                                                  //Magovy dvere
+    {
+         int nCasterLvl = GetCasterLevel(OBJECT_SELF);
+         nCasterLvl = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLvl,FALSE);
+         return  (nCasterLvl / 10) +1;
+    }
   }
   return 0;
 }
@@ -220,6 +226,7 @@ void RestoreFeatUses(object oPC)
 //  __restoreFeatUsesPerDay(FEAT_EMPTY_BODY, oPC);
   __restoreFeatUsesPerDay(FEAT_KURTIZANA_ODHALENY_ZIVUTEK, oPC);
   __restoreFeatUsesPerDay(FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL, oPC);
+  __restoreFeatUsesPerDay(1621, oPC);
 }
 
 

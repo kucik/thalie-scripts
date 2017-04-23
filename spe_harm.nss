@@ -15,7 +15,7 @@
 //:://////////////////////////////////////////////
 
 #include "NW_I0_SPELLS"
-#include "x0_I0_SPELLS"
+#include "x2_I0_SPELLS"
 #include "x2_inc_spellhook"
 
 void main()
@@ -77,7 +77,7 @@ void main()
             {
 
                 iValue= 20*(iCasterLevel);
-                if (!MySavingThrow(SAVING_THROW_WILL,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_NEGATIVE, OBJECT_SELF, 1.0))
+                if (!MySavingThrow(SAVING_THROW_WILL,oTarget,GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_NEGATIVE, OBJECT_SELF, 1.0))
                 {
                    nDamage = iValue;
                 }

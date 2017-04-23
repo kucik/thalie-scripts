@@ -13,6 +13,7 @@
 //:://////////////////////////////////////////////
 
 #include "x2_inc_spellhook"
+#include "sh_effects_const"
 
 void main()
 {
@@ -43,6 +44,19 @@ void main()
     effect im1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,25);
     effect im2 = EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING,25);
     effect im3 = EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING,25);
+    int iEffect;
+    effect eLoop = GetFirstEffect(oTarget);
+    while (GetIsEffectValid(eLoop))
+    {
+      iEffect = GetEffectSpellId(eLoop);
+      if (iEffect== EFFECT_ETHERNAL_VISAGE)
+      {
+        RemoveEffect(oTarget,eLoop);
+      }
+      eLoop = GetNextEffect(oTarget);
+    }
+
+
     effect eLink = EffectLinkEffects(eDam, eVis);
     eLink = EffectLinkEffects(eLink, eSpell);
     eLink = EffectLinkEffects(eLink, eDur);
@@ -50,7 +64,7 @@ void main()
     eLink = EffectLinkEffects(eLink, im1);
     eLink = EffectLinkEffects(eLink, im2);
     eLink = EffectLinkEffects(eLink, im3);
-
+    SetEffectSpellId(eLink,EFFECT_ETHERNAL_VISAGE);
     int nMetaMagic = GetMetaMagicFeat();
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);

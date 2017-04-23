@@ -12,6 +12,8 @@
 //:://////////////////////////////////////////////
 
 #include "NW_I0_SPELLS"
+
+#include "X2_I0_SPELLS"
 #include "x2_inc_spellhook"
 
 void main()
@@ -69,7 +71,7 @@ void main()
                     {
 
                         //Detemine the damage to inflict to the undead
-                        nDamage =  GetReflexAdjustedDamage(iHeal,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF));
+                        nDamage =  GetReflexAdjustedDamage(iHeal,oTarget,GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF));
 
                         //Set the damage effect
 

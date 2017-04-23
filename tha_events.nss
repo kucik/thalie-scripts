@@ -3,44 +3,32 @@
 #include "ku_hire_inc"
 #include "shm_pick_pocket"
 
-void ZrusSDRychlost(object oPC)
+const float INTERVAL = 0.2;    //check interval in seconds
+const string IN_HIDE = "JA_WAS_IN_HIDE";
+
+
+//declaration
+void sdRun(object oPC);
+
+void sdRun(object oPC)
 {
-        if (GetStealthMode(oPC)==STEALTH_MODE_DISABLED)
-        {
-            effect eLoop=GetFirstEffect(oPC);
-            while (GetIsEffectValid(eLoop))
-            {
-                if (GetEffectSpellId(eLoop)==EFFECT_SD_RYCHLOST)
-                {
-                    RemoveEffect(oPC, eLoop);
-
-                }
-                eLoop=GetNextEffect(oPC);
-
-            }
+        if( GetLocalInt( oPC, IN_HIDE ) ){
+             if (! GetActionMode(oPC, ACTION_MODE_STEALTH)){
+                effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 100 ));
+                effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 100 ));
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 10.0f);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 10.0f);
+                DeleteLocalInt( oPC, IN_HIDE );
+             }
         }
-        else
-        {
-         DelayCommand(6.0,ZrusSDRychlost(oPC));
-
+        else if( GetActionMode(oPC, ACTION_MODE_STEALTH) ) {
+            SetLocalInt( oPC, IN_HIDE, 1 );
         }
 
+
+    DelayCommand(INTERVAL, sdRun(oPC));
 }
 
-/*
-Prida rychlost SD - v hispu,
-vola rekurzivne funkci ZrusSDRychlost v sh_classes_inc_e
-*/
-void ApplyShadowDancerRychlost(object oPC)
-{
-        int iLevel = GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC);
-        effect rychlost = EffectMovementSpeedIncrease(20+iLevel);
-        effect eLink = ExtraordinaryEffect(rychlost);
-
-        SetEffectSpellId(eLink,EFFECT_SD_RYCHLOST);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-        DelayCommand(6.0,ZrusSDRychlost(oPC));
-}
 void RandomBypass(object oPC)
 {
     if(d2()==1)
@@ -156,22 +144,7 @@ void main()
             if (nSubID == ACTION_MODE_STEALTH)
             {
                 if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED) { //Unhide penalty
-                    effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 50 ));
-                    effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 50 ));
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 6.0f);
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 6.0f);
-                }
-
-                if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC)>=1) //Hide
-                {
-                    if (GetStealthMode(oPC)==STEALTH_MODE_DISABLED)
-                    {
-                         ApplyShadowDancerRychlost(oPC);
-                    }
-                    else if (GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED)
-                    {
-                        ZrusSDRychlost(oPC);
-                    }
+                    sdRun(oPC);
                 }
             }
 

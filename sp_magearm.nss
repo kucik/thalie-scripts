@@ -70,6 +70,7 @@ void main()
     eLink = EffectLinkEffects(eLink, eDur);
 
     RemoveEffectsFromSpell(oTarget, SPELL_MAGE_ARMOR);
+    RemoveEffectsFromSpell(oTarget,SPELL_SHADOW_CONJURATION_MAGE_ARMOR);
 
     //Apply the armor bonuses and the VFX impact
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration));

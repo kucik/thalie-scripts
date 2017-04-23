@@ -1,4 +1,4 @@
-#include "X0_I0_SPELLS"
+#include "X2_I0_SPELLS"
 #include "x2_inc_spellhook"
 #include "ku_boss_inc"
 
@@ -36,10 +36,6 @@ void main()
         {
            iBonusDC = 0;
            iAligment = GetAlignmentLawChaos(oTarget);
-           if (iAligment== ALIGNMENT_LAWFUL)
-           {
-                iBonusDC = -4;
-           }
            if (iAligment== ALIGNMENT_CHAOTIC)
            {
                 iBonusDC = 4;
@@ -49,7 +45,7 @@ void main()
            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
            fDelay = GetRandomDelay();
            //Make Will Save
-           if (!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iBonusDC, SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay))
+           if (!MySavingThrow(SAVING_THROW_WILL, oTarget, GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF)+iBonusDC, SAVING_THROW_TYPE_MIND_SPELLS, OBJECT_SELF, fDelay))
            {
                    //Apply linked effect and VFX Impact
                    nDuration = GetScaledDuration(GetCasterLevel(OBJECT_SELF), oTarget);

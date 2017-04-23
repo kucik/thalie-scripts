@@ -43,3 +43,9 @@ int GetThalieSpellDCBonus(object oPCNPC)
 // nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel);
 //+GetThalieSpellDCBonus(OBJECT_SELF)
 // nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel,FALSE);
+
+int GetThalieEpicSpellDCBonus(object oPC)
+{
+    int iHD = GetHitDice(oPC);
+    return iHD / 3 +1;
+}

@@ -9,7 +9,7 @@ void main()
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
     effect eDur2 = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_DISABLED);
     effect eImpact = EffectVisualEffect(VFX_FNF_HOWL_MIND);
-    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieSpellDCBonus(OBJECT_SELF);
+    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,iCasterLevel,FALSE);
     effect eLink = EffectLinkEffects(eHowl, eDur);

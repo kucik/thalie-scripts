@@ -17,7 +17,7 @@ void main()
     object oCaster  = OBJECT_SELF;
 
     object oTarget = GetSpellTargetObject();
-    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieSpellDCBonus(OBJECT_SELF);
+    int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF);
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel,FALSE);
 
