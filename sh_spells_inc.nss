@@ -8,6 +8,12 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
          iModifiedCasterLevel+= GetLevelByClass(47,oCaster);
     }
 
+    /* Underdark penalty */
+    /* UNDERDARK_SETTING == KU_AREA_UNDERDARK */
+    if(GetLocalInt( oCaster, "UNDERDARK_SETTING") == 300 ) {
+        iModifiedCasterLevel+= -5;
+    }
+
     /* For boost spells always reduce caster level. Cannot be higher than caster
        level*/
     if (bChangeCL)

@@ -1883,7 +1883,7 @@ void SEI_ApplyAreaSettings( object a_oCharacter, object oArea, int a_nSettings )
                             a_oCharacter );
                         SEI_ApplyEffectToObject(
                             DURATION_TYPE_PERMANENT,
-                            EffectSpellFailure(10),
+                            EffectSkillDecrease(SKILL_CONCENTRATION ,6),
                             a_oCharacter );
 
                         // Remember that the character is in underdark area.
@@ -1905,7 +1905,7 @@ void SEI_ApplyAreaSettings( object a_oCharacter, object oArea, int a_nSettings )
                         SEI_RemoveSubraceEffects( a_oCharacter, FALSE, EFFECT_TYPE_AC_DECREASE );
                         SEI_RemoveSubraceEffects( a_oCharacter, FALSE, EFFECT_TYPE_ATTACK_DECREASE );
                         SEI_RemoveSubraceEffects( a_oCharacter, FALSE, EFFECT_TYPE_SKILL_DECREASE );
-                        SEI_RemoveSubraceEffects( a_oCharacter, FALSE, EFFECT_TYPE_SPELL_FAILURE );
+/*                        SEI_RemoveSubraceEffects( a_oCharacter, FALSE, EFFECT_TYPE_SPELL_FAILURE );*/
 
                         // Remember that the character is in surface area.
                         SetLocalInt( a_oCharacter, UNDERDARK_SETTING, KU_AREA_SURFACE );
