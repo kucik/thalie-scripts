@@ -147,9 +147,37 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
       return (GetLevelByClass(CLASS_TYPE_KURTIZANA,oPC) -4) /4 +1;
     case 1621:                                                                  //Magovy dvere
     {
-         int nCasterLvl = GetCasterLevel(OBJECT_SELF);
-         nCasterLvl = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLvl,FALSE);
+         int nCasterLvl = GetLevelByClass(CLASS_TYPE_WIZARD,oPC)+GetLevelByClass(CLASS_TYPE_SORCERER,oPC)+1;
          return  (nCasterLvl / 10) +1;
+    }
+    case 1647:                                                                  //Sermirske finty
+    {
+        int iCount = 3 + GetAbilityModifier(ABILITY_INTELLIGENCE,oPC);
+        if (GetHasFeat(1649,oPC) == TRUE)//Vylepseny necestny boj 1
+        {
+          iCount += 1;
+        }
+        if (GetHasFeat(1650,oPC) == TRUE)//Vylepseny necestny boj 2
+        {
+            iCount += 1;
+        }
+        if (GetHasFeat(1651,oPC) == TRUE)//Vylepseny necestny boj 3
+        {
+            iCount += 1;
+        }
+        if (GetHasFeat(1662,oPC) == TRUE)//Extra finty 1
+        {
+            iCount += 3;
+        }
+        if (GetHasFeat(1663,oPC) == TRUE)//Extra finty 2
+        {
+            iCount += 3;
+        }
+        if (GetHasFeat(1664,oPC) == TRUE)//Extra finty 3
+        {
+            iCount += 3;
+        }
+        return  iCount;
     }
   }
   return 0;
@@ -227,6 +255,7 @@ void RestoreFeatUses(object oPC)
   __restoreFeatUsesPerDay(FEAT_KURTIZANA_ODHALENY_ZIVUTEK, oPC);
   __restoreFeatUsesPerDay(FEAT_KURTIZANA_JAK_JSI_MI_TO_REKL, oPC);
   __restoreFeatUsesPerDay(1621, oPC);
+  __restoreFeatUsesPerDay(1647, oPC);
 }
 
 

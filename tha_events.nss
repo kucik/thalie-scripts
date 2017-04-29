@@ -147,45 +147,6 @@ void main()
                     sdRun(oPC);
                 }
             }
-
-
-            /*Sermir Propracovana obrana*/
-            if (GetHasFeat(FEAT_SERMIR_PROPRACOVANA_OBRANA,oPC)==TRUE && nSubID == ACTION_MODE_PARRY)
-            {
-
-                if (GetActionMode(oPC, ACTION_MODE_PARRY)== FALSE)
-                {
-                    int iCasterLevel = GetLevelByClass(CLASS_TYPE_SERMIR,oPC);
-                    int iBonus = (iCasterLevel/5)+1;
-                    effect ef = EffectACIncrease(iBonus);
-                    effect eLink = ExtraordinaryEffect(ef);
-                    SetEffectSpellId(eLink,EFFECT_SERMIR_PROPRACOVANA_OBRANA_DODGE_AC);
-                    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-
-                }
-                else
-                {
-                      int iEffect;
-                      effect eLoop = GetFirstEffect(oPC);
-                      while (GetIsEffectValid(eLoop))
-                      {
-                        iEffect = GetEffectSpellId(eLoop);
-                        if
-                        (iEffect== EFFECT_SERMIR_PROPRACOVANA_OBRANA_DODGE_AC)
-
-                        {
-                            RemoveEffect(oPC,eLoop);
-                        }
-                        eLoop = GetNextEffect(oPC);
-                     }
-                }
-            }
-
-
-
-
-            //RandomBypass(oPC);
-
             break;
 
         case EVENT_TYPE_VALIDATE_CHARACTER:

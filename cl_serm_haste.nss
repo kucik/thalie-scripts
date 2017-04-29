@@ -5,7 +5,13 @@
 
 void main()
 {
-
+   object oPC = OBJECT_SELF;
+   if (!GetHasFeat(1647, OBJECT_SELF))
+   {
+        SendMessageToPC(OBJECT_SELF,"Jiz nemas zadne finty.");
+   }
+   else
+   {
 
     //Declare major variables
     object oTarget = OBJECT_SELF;
@@ -17,11 +23,12 @@ void main()
     effect eLink = EffectLinkEffects(eHaste, eDur);
     eLink = EffectLinkEffects(eLink, eACdec);
     eLink = EffectLinkEffects(eLink, eABinc);
-    int nDuration = GetLevelByClass(CLASS_TYPE_SERMIR);
+    int iDuration = GetLevelByClass(CLASS_TYPE_SERMIR)+GetAbilityModifier(ABILITY_INTELLIGENCE,oPC);
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_HASTE, FALSE));
     // Apply effects to the currently selected target.
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration+10));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(iDuration));
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
+    DecrementRemainingFeatUses(OBJECT_SELF, 1647);
+    }
 }
-
 

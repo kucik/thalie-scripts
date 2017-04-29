@@ -174,29 +174,102 @@ void main()
     /*Sermir - presny bod*/
     if (GetHasFeat(FEAT_SERMIR_PRESNY_BOD,oSpellOrigin))
      {
-        if  (((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_RAPIER )
-        && GetHasFeat(FEAT_WEAPON_FOCUS_RAPIER, oSpellOrigin))||
-        ((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_DAGGER )
-        && GetHasFeat(FEAT_WEAPON_FOCUS_DAGGER, oSpellOrigin))||
-        ((GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin)) == BASE_ITEM_SHORTSWORD )
-        && GetHasFeat(FEAT_WEAPON_FOCUS_SHORT_SWORD, oSpellOrigin)))
+        int iBaseMain = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oSpellOrigin));
+        int iResult = FALSE;
+        switch(iBaseMain) {
+            case BASE_ITEM_KATANA:
+            case BASE_ITEM_SHORTSPEAR:
+            case BASE_ITEM_DWARVENWARAXE:
+            case 317:  // Heavy mace
+            case 301:  // heavy pick
+            case BASE_ITEM_LONGSWORD:
+            case BASE_ITEM_BATTLEAXE:
+            case BASE_ITEM_WARHAMMER:
+            case BASE_ITEM_MORNINGSTAR:
+            case 304:  // Nunchaku
+            case 319:  // Mercurial longsword
+            case 203:  // One handed spear
+            case 300:  // Onehanded triden
+            case BASE_ITEM_SHORTSWORD:
+            case BASE_ITEM_RAPIER:
+            case BASE_ITEM_SCIMITAR:
+            case BASE_ITEM_KAMA:
+            case BASE_ITEM_SICKLE:
+            case BASE_ITEM_HANDAXE:
+            case BASE_ITEM_LIGHTHAMMER:
+            case BASE_ITEM_CLUB:
+            case BASE_ITEM_LIGHTMACE:
+            case 303:  // Sai
+            case 308:  // Sap
+            case 302:  // Light pick
+            case BASE_ITEM_DAGGER:
+            case BASE_ITEM_WHIP:
+            case BASE_ITEM_KUKRI:
+            case 310:  // Katar
+            case BASE_ITEM_LIGHTFLAIL:
+              iResult = TRUE;
 
-
-         {
+            int iRacialType = GetRacialType(oSpellTarget) ;
             if (
-                (GetRacialType(oSpellTarget) != RACIAL_TYPE_UNDEAD) &&
-                (GetRacialType(oSpellTarget) != RACIAL_TYPE_ABERRATION) &&
-                (GetRacialType(oSpellTarget) != RACIAL_TYPE_CONSTRUCT) &&
-                (GetRacialType(oSpellTarget) != RACIAL_TYPE_ELEMENTAL) &&
-                (GetRacialType(oSpellTarget) != RACIAL_TYPE_INVALID) &&
-                (GetRacialType(oSpellTarget) != RACIAL_TYPE_OOZE)
+                (iRacialType != RACIAL_TYPE_UNDEAD) &&
+                (iRacialType != RACIAL_TYPE_ABERRATION) &&
+                (iRacialType != RACIAL_TYPE_CONSTRUCT) &&
+                (iRacialType != RACIAL_TYPE_ELEMENTAL) &&
+                (iRacialType != RACIAL_TYPE_INVALID) &&
+                (iRacialType != RACIAL_TYPE_OOZE) &&
+                (iResult == TRUE)
             )
             {
-
+            int iBonus = 1;
             int iCasterLevel = GetLevelByClass(CLASS_TYPE_SERMIR,oSpellOrigin);
-            int iBonus = (iCasterLevel/5)+1;
+            if (iCasterLevel >= 4)
+            {
+                iBonus = (iCasterLevel/5)+2;
+            }
+            if (GetHasFeat(1652,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1653,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1654,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1655,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1656,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1657,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1658,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1659,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1660,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+            if (GetHasFeat(1661,oSpellOrigin) == TRUE)//Vylepseny presny bod
+            {
+                iBonus += 1;
+            }
+
+
             int iDamage = d6(iBonus);
-            AssignCommand(oSpellOrigin,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(iDamage,DAMAGE_TYPE_BASE_WEAPON),oSpellTarget));
+            AssignCommand(oSpellOrigin,ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(iDamage,DAMAGE_TYPE_BLUDGEONING),oSpellTarget));
             }
 
          }
