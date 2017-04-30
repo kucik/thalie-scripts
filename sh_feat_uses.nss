@@ -110,17 +110,6 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
       return GetLevelByClass(CLASS_TYPE_SAMURAJ,oPC) /5;
     case FEAT_SAMURAJ_PRESNY_UDER:
       return (GetLevelByClass(CLASS_TYPE_SAMURAJ,oPC) -3) /5 +1;
-    // Exorcista
-    case FEAT_EXORCISTA_OCHRANA_PRED_ZLEM:
-      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -1) /5 +1;
-    case FEAT_EXORCISTA_NARUSENI_MAGIE:
-      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -3) /5 +1;
-    case FEAT_EXORCISTA_ROZPTYL_MAGII:
-      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -4) /5 +1;
-    case FEAT_EXORCISTA_SILNEJSI_ROZPTYL_MAGII:
-      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -7) /5 +1;
-    case FEAT_EXORCISTA_PRAVDIVE_VIDENI:
-      return (GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC) -11) /5 +1;
     // Shinobi
     case FEAT_SHINOBI_UTISUJICI_UTOK:
       return GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5 +1;
@@ -239,11 +228,6 @@ void RestoreFeatUses(object oPC)
   __restoreFeatUsesPerDay(FEAT_SERMIR_RYCHLY_BLESK, oPC);
   __restoreFeatUsesPerDay(FEAT_SAMURAJ_KI_SILA, oPC);
   __restoreFeatUsesPerDay(FEAT_SAMURAJ_PRESNY_UDER, oPC);
-  __restoreFeatUsesPerDay(FEAT_EXORCISTA_OCHRANA_PRED_ZLEM, oPC);
-  __restoreFeatUsesPerDay(FEAT_EXORCISTA_NARUSENI_MAGIE, oPC);
-  __restoreFeatUsesPerDay(FEAT_EXORCISTA_ROZPTYL_MAGII, oPC);
-  __restoreFeatUsesPerDay(FEAT_EXORCISTA_SILNEJSI_ROZPTYL_MAGII, oPC);
-  __restoreFeatUsesPerDay(FEAT_EXORCISTA_PRAVDIVE_VIDENI, oPC);
   __restoreFeatUsesPerDay(FEAT_SHINOBI_UTISUJICI_UTOK, oPC);
   __restoreFeatUsesPerDay(FEAT_SHINOBI_SOVI_MOUDROST, oPC);
   __restoreFeatUsesPerDay(FEAT_SHINOBI_NEVIDITELNOST, oPC);

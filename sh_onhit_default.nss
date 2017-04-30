@@ -283,7 +283,23 @@ void main()
             if  (ku_GetTimeStamp(GetTimeSecond()-9,GetTimeMinute(),GetTimeHour()) <= iTime)
             {
                 int  nCasterLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA);
-                effect ef = EffectSpellFailure((nCasterLevel + GetAbilityModifier(ABILITY_CHARISMA)) * 2);
+                int iModif = 3;
+                if (GetHasFeat(1665,oSpellOrigin) == TRUE)//Vylepseny presny bod
+                {
+                    iModif = 4;
+                }
+                if (GetHasFeat(1666,oSpellOrigin) == TRUE)//Vylepseny presny bod
+                {
+                    iModif = 5;
+                }
+                if (GetHasFeat(1667,oSpellOrigin) == TRUE)//Vylepseny presny bod
+                {
+                    iModif = 6;
+                }
+                int iBonus = GetAbilityModifier(ABILITY_WISDOM)*iModif;
+                if (iBonus>=100) iBonus=100;
+
+                effect ef = EffectSpellFailure(iBonus);
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ef,oSpellTarget,RoundsToSeconds(nCasterLevel));
             }
             DeleteLocalInt(oSpellOrigin,ULOZENI_EXORCISTA_NARUSENI_MAGIE);

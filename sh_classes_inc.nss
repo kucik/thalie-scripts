@@ -274,6 +274,43 @@ void ApplyNewMonkPerfectSelf(object oPC, object oPCSkin)
     }
 
 }
+
+void ApplyExorcistBonuses(object oPC)
+{
+    int iLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
+    if (iLevel >= 5)
+    {
+        int iBonus = 2* (iLevel/5);
+        effect eMind = EffectSavingThrowIncrease(SAVING_THROW_WILL,iBonus,SAVING_THROW_TYPE_MIND_SPELLS);
+        eMind = SupernaturalEffect(eMind);
+        SetEffectSpellId(eMind,EFFECT_EXORCISTA_PASSIVE);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eMind,oPC);
+    }
+    if (iLevel >= 10)
+    {
+        effect eDom = EffectImmunity(IMMUNITY_TYPE_DOMINATE);
+        effect eSup = SupernaturalEffect(eDom);
+        SetEffectSpellId(eSup,EFFECT_EXORCISTA_PASSIVE);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eSup,oPC);
+    }
+    if (GetHasFeat(FEAT_EXORCISTA_POZEHNANE_VIDENI,oPC))
+    {
+        effect eUlt = EffectUltravision();
+        effect eSee = EffectSeeInvisible();
+        effect eLink = EffectLinkEffects(eUlt,eSee);
+        eLink = SupernaturalEffect(eLink);
+        SetEffectSpellId(eLink,EFFECT_EXORCISTA_PASSIVE);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+    }
+
+
+
+
+
+}
+
+
+
 int GetIsPCValid(object oPC)
 {
     int iSkill = GetPCSkillPoints(oPC);
@@ -434,11 +471,11 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
         if (GetHasFeat(FEAT_EXORCISTA_ZHOUBA_ZLA,oPC))
         {
          int iWis = GetAbilityModifier(ABILITY_WISDOM,oPC);
+         int iLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
+         if (iWis > iLevel) iWis = iLevel;
          int iDamage = GetDamageBonusByValue(iWis);
          effect ef = EffectDamageIncrease(iDamage,DAMAGE_TYPE_DIVINE);
-         effect eEvil = VersusAlignmentEffect(ef,ALIGNMENT_ALL,ALIGNMENT_EVIL);
-         effect eLink = EffectLinkEffects(ef, eEvil);
-         eLink = SupernaturalEffect(eLink);
+         effect eLink = SupernaturalEffect(ef);
          SetEffectSpellId(eLink,EFFECT_EXOR_DAMAGE_DIVINE);
          ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
 
@@ -712,6 +749,7 @@ void OnLvlupClassSystem(object oPC)
    ApplyBarbarianDamageReduction(oPC);  //effekt
    ApplyShadowDancerZrak(oPC);//effekt
    ApplyNewMonkPerfectSelf(oPC,oPCSkin);
+   ApplyExorcistBonuses(oPC);
    // nove
    AddSkillIPBonuses(oPC,oPCSkin);
    ApplyAB_AC_DMGBonus(oPC,oPCSkin);

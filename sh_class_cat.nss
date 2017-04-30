@@ -284,6 +284,7 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
         || (iEffect == EFFECT_SPEED)
         || (iEffect == EFFECT_SPELL_RESISTANCE)
         || (iEffect == EFFECT_DAMAGE_REDUCTION)
+        || (iEffect == EFFECT_EXORCISTA_PASSIVE)
         )
         {
             RemoveEffect(oPC,eLoop);
