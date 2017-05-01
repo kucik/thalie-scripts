@@ -28,7 +28,7 @@ void main()
     //towngate_
     if (GetSubString(sTargetTag,0,9)=="towngate_")
     {
-        if (GetHasFeat(958))                                                    //mestska brana
+        if (GetHasFeat(1618))                                                    //mestska brana
         {
             SetLocalString(oSoulStone,"TOWNGATE_ACTIVE_TAG",sTargetTag);
             effect eVis = EffectVisualEffect(VFX_IMP_HOLY_AID);
