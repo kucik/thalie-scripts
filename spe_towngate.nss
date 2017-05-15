@@ -16,17 +16,26 @@ void main()
         SendMessageToPC(oPC,"Kotva jiz neexistuje.");
         return;
     }
-    //Kontrola na nepratele v okoli
+    //kontrola na validitu lokace
     object oArea = GetArea(oPC);
-    object oTest = GetFirstObjectInArea(oArea);
+    string sAreaTag = GetTag(oArea);
+    if (sAreaTag=="Sferamrtvych")
+    {
+        SendMessageToPC(oPC,"V teto lokaci je brana zakazana.");
+        return;
+    }
+
+    //Kontrola na nepratele v okoli
+    location lPC = GetLocation(oPC);
+    object oTest = GetFirstObjectInShape(SHAPE_SPHERE,30.0,lPC);
     while (GetIsObjectValid(oTest))
     {
-        if (GetIsReactionTypeHostile(oTest,oPC))
+        if (GetIsEnemy(oTest,oPC))
         {
-            SendMessageToPC(oPC,"Kouzlo nelze seslat, v lokaci je nepratelska entita.");
+            SendMessageToPC(oPC,"Kouzlo nelze seslat, v okoli je nepratelska entita.");
             return;
         }
-        oTest = GetNextObjectInArea(oArea);
+        oTest = GetNextObjectInShape(SHAPE_SPHERE,30.0,lPC);
     }
     //Area effect
     location lBase = GetLocation(oPC);
