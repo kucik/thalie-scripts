@@ -320,6 +320,7 @@ void main()
 
 void ApplyDeadlandsEffects(object oPC, object oSoul)
 {
-    SetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
+    if(!GetLocalInt(oSoul, "KU_CHANGED_APPEARANCE"))
+      SetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
     SetCreatureAppearanceType(oPC,APPEARANCE_TYPE_SPECTRE);
 }

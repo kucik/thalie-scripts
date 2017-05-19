@@ -36,6 +36,7 @@ void main()
     if( (GetTag(OBJECT_SELF)=="Sferamrtvych") && (GetAppearanceType(oPC)==APPEARANCE_TYPE_SPECTRE) && GetIsPC(oPC) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)){
       SetCreatureAppearanceType(oPC,GetLocalInt(GetSoulStone(oPC),"KU_PC_ALIVE_APPEARANCE"));
       DeleteLocalInt(GetSoulStone(oPC),"KU_PC_ALIVE_APPEARANCE");
+      DeleteLocalInt(GetSoulStone(oPC),"KU_CHANGED_APPEARANCE");
       OnLvlupClassSystem(oPC);
     }
 

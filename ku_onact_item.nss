@@ -17,6 +17,8 @@
 #include "sh_sipy_inc"
 #include "ku_write_inc"
 
+void __appearanceChange(object oPC, object oItem);
+
 void FRAKCE_ZabitiHracePoAktivaciItemu(object oPC,string sInt);
 void FRAKCE_ZabitiHracePoAktivaciItemu(object oPC,string sInt)
 {
@@ -58,6 +60,10 @@ void main()
   // Lodni listek "ku_ship_ticket"
   if (GetStringLeft(sActivated,14) == "ku_ship_ticket" ) {
      ku_ShipsTellDepartureTime(GetStringRight(sActivated,GetStringLength(sActivated) - 14),oPlayer);
+  }
+
+  if(sActivated == "jah_druid_change") {
+    __appearanceChange(oPlayer, oActivated);
   }
 
   /* Writing documents */
@@ -197,5 +203,29 @@ if (GetTag(oActivated)=="ku_ability_check"){
   SendMessageToPC(oPlayer,"Wisdom " + IntToString(iScore));
 }
 */
+}
+
+void __appearanceChange(object oPC, object oItem) {
+  object oArea = GetArea(oPC);
+  object oSoul = GetSoulStone(oPC);
+
+  if(GetTag(oArea) == "Sferamrtvych")
+    return;
+
+  int iChangedAppearance = GetLocalInt(oSoul, "KU_CHANGED_APPEARANCE");
+  if(iChangedAppearance > 0) {
+    SetCreatureAppearanceType(oPC,GetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE"));
+    DeleteLocalInt(oSoul, "KU_CHANGED_APPEARANCE");
+    return;
+  }
+  else {
+    int iChange = GetLocalInt(oItem,"KU_APPEARANCE_CHANGE");
+    if(!iChange)
+      return;
+
+    SetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
+    SetLocalInt(oSoul, "KU_CHANGED_APPEARANCE",TRUE);
+    SetCreatureAppearanceType(oPC, iChange);
+  }
 }
 
