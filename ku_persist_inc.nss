@@ -969,11 +969,11 @@ void Persist_ShopPayToCrafter(object oItem) {
 
 //  int iPrice     = GetLocalInt(oItem,"GOLDPIECEVALUE");
   int iPrice     = GetLocalInt(oItem,KU_PERS_SHOP_ITEMPRICE);
-  WriteTimestampedLogEntry("PERSSHOP: ... koupil "+GetName(oItem)+" za "+IntToString(iPrice)+".");
 
   string  sPlayer = GetLocalString(oItem,"KU_PERS_SHOP_SELLER_P");
   string  sTag    = GetLocalString(oItem,"KU_PERS_SHOP_SELLER_T");
   string  sPrice  = IntToString(iPrice);
+  WriteTimestampedLogEntry("PERSSHOP: ... koupil "+GetName(oItem)+" za "+sPrice+" -> ("+sPlayer+" "+sTag+").");
   string  sWhere  = "  WHERE player='" + sPlayer + "' AND tag='" + sTag + "' AND name='GOLD'";
 
   string sSQL = "SELECT val FROM pwdata "+sWhere+"";
