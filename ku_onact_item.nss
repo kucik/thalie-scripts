@@ -209,6 +209,8 @@ void __appearanceChange(object oPC, object oItem) {
   object oArea = GetArea(oPC);
   object oSoul = GetSoulStone(oPC);
 
+  SendMessageToPC(oPC, "Druid - zmena vzhledu.");
+
   if(GetTag(oArea) == "Sferamrtvych")
     return;
 
@@ -225,6 +227,7 @@ void __appearanceChange(object oPC, object oItem) {
 
     SetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
     SetLocalInt(oSoul, "KU_CHANGED_APPEARANCE",TRUE);
+    SendMessageToPC(oPC, "Druid - zmena vzhledu -> "+IntToString(iChange));
     SetCreatureAppearanceType(oPC, iChange);
   }
 }
