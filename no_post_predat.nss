@@ -38,5 +38,12 @@ void main()
   DestroyObject(oItem,0.1);
   GiveGoldToCreature(oPC,iPrice);
 
+  /* Give XP */
+  int iXP = iPrice;
+  if(iXP > 1000)
+    iXP = 1000;
+  if(iXP > 0)
+    SetXP(oPC, GetXP(oPC) + iXP);
+
 
 }
