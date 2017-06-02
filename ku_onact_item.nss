@@ -214,10 +214,12 @@ void __appearanceChange(object oPC, object oItem) {
   if(GetTag(oArea) == "Sferamrtvych")
     return;
 
+  effect eVis = EffectVisualEffect(VFX_IMP_POLYMORPH);
   int iChangedAppearance = GetLocalInt(oSoul, "KU_CHANGED_APPEARANCE");
   if(iChangedAppearance > 0) {
     SetCreatureAppearanceType(oPC,GetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE"));
     DeleteLocalInt(oSoul, "KU_CHANGED_APPEARANCE");
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oPC);
     return;
   }
   else {
@@ -228,6 +230,7 @@ void __appearanceChange(object oPC, object oItem) {
     SetLocalInt(oSoul,"KU_PC_ALIVE_APPEARANCE",GetAppearanceType(oPC));
     SetLocalInt(oSoul, "KU_CHANGED_APPEARANCE",TRUE);
     SendMessageToPC(oPC, "Druid - zmena vzhledu -> "+IntToString(iChange));
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oPC);
     SetCreatureAppearanceType(oPC, iChange);
   }
 }
