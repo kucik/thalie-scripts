@@ -268,6 +268,8 @@ object ku_LootCreateBossUniqueItem(object oBoss, string sBoxTag) {
   SetDroppableFlag(oNew,TRUE);
   SetIdentified(oNew,0);
 
+  return oNew;
+
   /* Item properties power = 2 * loot_power(1-6) = 2-12 */
   int iPower = StringToInt(GetStringRight(sBoxTag,1)) * 2;
   /* choose stones and define stone power */
