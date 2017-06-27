@@ -218,6 +218,17 @@ int ku_LootCreateBossUniqueLootItems(object oBoss) {
 int __LootCreateBossUniqueLootItems(object oBoss, string sBoxTag) {
 
   WriteTimestampedLogEntry("BOSS '"+GetName(oBoss)+"' has lootbag '"+sBoxTag+"'");
+  int ai_boss = GetLocalInt(oBoss, "AI_BOSS");
+
+  /* Percentage probability of loot drop */
+  int item_1_perc = 100;
+  int item_2_perc = 10;
+  int item_3_perc = 1;
+  if(ai_boss == 2) {
+    item_1_perc = 25;
+    item_2_perc = 1;
+    item_3_perc = 0;
+  }
 
   if(GetStringLength(sBoxTag) == 0) {
     return -1;
@@ -225,13 +236,13 @@ int __LootCreateBossUniqueLootItems(object oBoss, string sBoxTag) {
 
   int iRand = Random(100);
   int iItems = 0;
-  if(iRand < 25) {
+  if(iRand < item_1_perc) {
     iItems++;
   }
-  if(iRand < 10) {
+  if(iRand < item_2_perc) {
     iItems++;
   }
-  if(iRand <  2) {
+  if(iRand <  item_3_perc) {
     iItems++;
   }
   int i;
