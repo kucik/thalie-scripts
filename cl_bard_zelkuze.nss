@@ -13,7 +13,7 @@
 #include "nwnx_funcs"
 void main()
 {
-    int iNumSong = GetRemainingFeatUses(OBJECT_SELF,FEAT_BARD_SONGS);
+    int iNumSong = GetHasFeat(FEAT_BARD_SONGS,OBJECT_SELF);
     if (iNumSong > 0)
     {
 
