@@ -362,7 +362,7 @@ void AddZbranThalie(object oPC,object oItem)
         //zhozeni stitu
         int iType =GetBaseItemType(oItem);
         int iWeaponType = StringToInt(Get2DAString("baseitems","WeaponType",iType));
-        if(iWeaponType > 0) {
+        if ((iWeaponType > 0) ||(iType==BASE_ITEM_ARROW)||(iType==BASE_ITEM_BOLT)||(iType==BASE_ITEM_BULLET) ){
 
             itemproperty ipLoop = GetFirstItemProperty(oItem);
             while (GetIsItemPropertyValid(ipLoop))
