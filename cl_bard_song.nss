@@ -143,7 +143,7 @@ void main()
         nReflex = 3;
         nHP = 58;
         nAC = 7;
-        nSkill = 51;
+        nSkill = 21;
     }
     else if(nPerform >= 88 && nLevel >= 34)
     {
