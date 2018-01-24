@@ -67,11 +67,13 @@ void main()
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eCrumb, oTarget);
         if (nType != OBJECT_TYPE_CREATURE && nType !=  OBJECT_TYPE_PLACEABLE && nType != OBJECT_TYPE_DOOR )
         {
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF), OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
             continue;
         }
 
         if (GetRacialType(oTarget) != RACIAL_TYPE_CONSTRUCT  &&  GetLevelByClass(CLASS_TYPE_CONSTRUCT,oTarget) == 0)
         {
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF), OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
             continue;
         }
 
