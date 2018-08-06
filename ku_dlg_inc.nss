@@ -2520,7 +2520,7 @@ void KU_DM_FactionsAct(int act) {
           break;
         // Set faction
         default: {
-          int iFaction = iState + act;
+          int iFaction = iState + act-1;
           string sFaction = GetFactionByID(iFaction);
 
           SetNPCFaction(oTarget, sFaction);
@@ -2572,6 +2572,7 @@ void KU_DM_FactionsSetTokens(int iState, object oPC = OBJECT_INVALID) {
 
 void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVisibility, string sText = "") {
   string sSay = GetName(oTarget)+" hazi d("+IntToString(iDice)+")"+sText+" : "+IntToString(iThrow);
+  string sFloat = "Hod d("+IntToString(iDice)+") "+sText+" : "+IntToString(iThrow);
 
   SendMessageToPC(oPC,sSay);
 
@@ -2588,6 +2589,7 @@ void KU_DicesSayThrow(object oPC, object oTarget, int iThrow, int iDice, int iVi
 
   // Tell to all around
   if(iVisibility == 3) {
+    FloatingTextStringOnCreature(sFloat, oTarget, FALSE);
     object oTell = GetFirstPC();
     while(GetIsObjectValid(oTell)) {
       if( oPC != oTell) {

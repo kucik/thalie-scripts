@@ -71,6 +71,9 @@ void ku_klevety_init() {
 
 void ku_klevety_shout() {
   object oNPC = OBJECT_SELF;
+  if(GetObjectType(oNPC) == OBJECT_TYPE_PLACEABLE)
+    return;
+
   object oFriend = GetLocalObject(oNPC,"KLEV_FRIEND");
   string sText;
   string sNPCtag = GetTag(oNPC);
