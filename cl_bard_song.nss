@@ -40,6 +40,12 @@ void main()
         }
     }
 
+    if (GetLevelByClass(CLASS_TYPE_BLACKGUARD) > 0)
+    {
+        ExecuteScript("cl_bard_cursesng",OBJECT_SELF);
+        return;
+    }
+
 
     //Declare major variables
     int nLevel = GetLevelByClass(CLASS_TYPE_BARD);

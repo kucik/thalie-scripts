@@ -97,6 +97,24 @@ void main()
         return;
     }
 
+    if ((GetLevelByClass(CLASS_TYPE_MONK,oPC)>0) && (GetLevelByClass(CLASS_TYPE_DRUID,oPC)>0))
+    {
+        SendMessageToPC(oPC, "</c>Na Thalii neni povolena kombinace druida s mnichem.</c>");
+        sy_relevel(oPC, nLevel);
+        return;
+    }
+
+    int iPaladinLevel = GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
+    if (iPaladinLevel >0)
+    {
+        if ((GetHitDice(oPC)-iPaladinLevel+10)>30)
+        {
+            SendMessageToPC(oPC, "</c>Pokud hrajes paladina, musis mit 10 urovni.</c>");
+            sy_relevel(oPC, nLevel);
+            return;
+        }
+    }
+
     //ak trener nepovolil trenink alebo nastal pad serveru a hrac ma tu premennu
     //nastavenu na 0, tak vypisem chybovu hlasku
     if (GetLocalInt(oPC, "sy_allowlvl")==0)

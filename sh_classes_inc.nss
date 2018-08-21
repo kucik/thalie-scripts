@@ -336,24 +336,6 @@ int GetIsPCValid(object oPC)
 
 
 
-
-/*
-Pokud je to prvni lvl odstrani featy zlodeje a nastavi spravne parametry postave
-*/
-void RepairObcanThalie(object oPC)
-{
-   object oSaveItem = GetSoulStone(oPC);
-
-   if (GetLocalInt(oSaveItem,OBCAN_THALIE) == 0)
-   {
-
-       RemoveKnownFeat(oPC,FEAT_SNEAK_ATTACK);
-       RemoveKnownFeat(oPC,FEAT_WEAPON_PROFICIENCY_ROGUE);
-       RemoveKnownFeat(oPC,FEAT_ARMOR_PROFICIENCY_LIGHT);
-       SetLocalInt(oSaveItem,OBCAN_THALIE,1);
-   }
-
-}
 /*Prida zbran onhit property - zbran thalie*/
 void AddZbranThalie(object oPC,object oItem)
 {
@@ -450,14 +432,6 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     if (iEquip)
     {
         int iItemTypeM = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC));
-        if ((GetHasFeat(FEAT_EPICGENERAL_BRUTALNI_VRH,oPC) == TRUE) && ((iItemTypeM == BASE_ITEM_DART)||(iItemTypeM == BASE_ITEM_THROWINGAXE)||(iItemTypeM == BASE_ITEM_SHURIKEN) ))
-        {
-
-            effect eLink = EffectAttackIncrease(iSTR);
-            eLink = SupernaturalEffect(eLink);
-            SetEffectSpellId(eLink,EFFECT_BRUTALNI_VRH);
-            ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-        }
         if ((GetHasFeat(EFFECT_SPRAVEDLIVY_UDER,oPC) == TRUE) && (iItemTypeM == BASE_ITEM_INVALID) )
         {
 
@@ -664,21 +638,6 @@ void ApplyClassConditions(object oPC)
        }
 
 }
-//Odstrani featy - pro rizeni specialnich schopnosti na konkretnich lvlech
-void RemoveClassFeats(object oPC)
-{
-    if (GetLevelByClass(CLASS_TYPE_DRUID,oPC) >=8)
-    {
-        RemoveKnownFeat(oPC,FEAT_DRUID_SPECIALIZACE_VYBER);
-    }
-
-    if ((GetHasFeat(1638,oPC)) || (GetHasFeat(1641,oPC)))                       //pokud ma dd styl skaly nebo kladiva odstran obecny styl
-    {
-        RemoveKnownFeat(oPC,1637);
-    }
-
-}
-
 
 //------------------------------------------------------------------------------
 // GZ, 2003-07-09
@@ -744,7 +703,6 @@ void OnLvlupClassSystem(object oPC)
    object oPCSkin = GetPCSkin(oPC);
    //vymazani bonusu
    RemoveClassItemPropertyAndEffects(oPC,oPCSkin);
-   RemoveClassFeats(oPC);
    //  puvodni
    ApplyBarbarianDamageReduction(oPC);  //effekt
    ApplyShadowDancerZrak(oPC);//effekt

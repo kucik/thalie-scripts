@@ -94,7 +94,7 @@ void __buggedPC(object oPC, string sMessage) {
 
   __tellBugged(oPC, sMessage);
   AssignCommand(oPC, SetCommandable(FALSE));
-  
+
 }
 
 void __checkInvalidFeats(object oPC, int Remove = FALSE) {
@@ -306,7 +306,7 @@ void GiveStartpackage(object oPC) {
   SetLocalInt(oItem,"VodaType",1);
   //Jídlo
   CreateItemOnObject("ke_oblhousk", oPC, 10);
-  
+
 }
 
 void main()
@@ -406,11 +406,11 @@ void main()
         //WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", NENI DOBRODRUH.");
      __buggedPC(oPC, "Chyba! Postava nebyla zalozena s povolanim DOBRODRUH!");
    }
- 
+
  if(GetHitDice(oPC)==1) {
    int iSkillSum = 0;
    int iSkill = 0;
-   for (iSkill=0;iSkill<=27;iSkill++) 
+   for (iSkill=0;iSkill<=27;iSkill++)
      iSkillSum +=GetSkillRank(iSkill,oPC,TRUE);
 
    if (iSkillSum >0 )
@@ -491,7 +491,6 @@ void main()
         TakeGoldFromCreature(GetGold(oPC), oPC, TRUE);
         //GiveGoldToCreature(oPC, 3000);
         SetPersistentInt(oPC, "HP", GetCurrentHitPoints(oPC));
-        RepairObcanThalie(oPC);
         GiveStartpackage(oPC);
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
         /* remove feats which player should not have */
