@@ -459,145 +459,6 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     }
 }
 
-void ApplyFeats(object oPC)
-{
-    int iSubrace = Subraces_GetCharacterSubrace(oPC);
-    // Let
-    if ((iSubrace == SUBRACE_ELF_WINGED) ||
-    (iSubrace == SUBRACE_HALFDRAGON_BLACK) ||
-    (iSubrace == SUBRACE_HALFDRAGON_BLUE) ||
-    (iSubrace == SUBRACE_HALFDRAGON_GREEN) ||
-    (iSubrace == SUBRACE_HALFDRAGON_RED) ||
-    (iSubrace == SUBRACE_HALFDRAGON_WHITE)||
-    (iSubrace == SUBRACE_HUMAN_AASIMAR) ||
-    (iSubrace == SUBRACE_HUMAN_TIEFLING))
-    {
-        RemoveKnownFeat(oPC,FEAT_SUBRACE_LET);
-        if (GetHitDice(oPC)>= 21)
-        {
-            AddKnownFeat(oPC,FEAT_SUBRACE_LET,21);
-        }
-    }
-    // elf
-    if (GetHasFeat(FEAT_SKILL_AFFINITY_LISTEN,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_SKILL_AFFINITY_LISTEN);
-    }
-    if (GetHasFeat(FEAT_SKILL_AFFINITY_SEARCH,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_SKILL_AFFINITY_SEARCH);
-    }
-    if (GetHasFeat(FEAT_SKILL_AFFINITY_SPOT,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_SKILL_AFFINITY_SPOT);
-    }
-    if (GetHasFeat(FEAT_WEAPON_PROFICIENCY_ELF,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_WEAPON_PROFICIENCY_ELF);
-    }
-    if ((GetHasFeat(FEAT_IMMUNITY_TO_SLEEP,oPC)) && ((iSubrace == SUBRACE_ELF_DROW) ||
-    (iSubrace == SUBRACE_ELF_OBSIDIAN_DROW)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_IMMUNITY_TO_SLEEP);
-    }
-    // trpaslik
-    if (GetHasFeat(FEAT_STONECUNNING,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_STONECUNNING);
-    }
-    if (GetHasFeat(FEAT_HARDINESS_VERSUS_POISONS,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_HARDINESS_VERSUS_POISONS);
-    }
-    if (GetHasFeat(FEAT_SKILL_AFFINITY_LORE,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_SKILL_AFFINITY_LORE);
-    }
-    if (GetHasFeat(FEAT_BATTLE_TRAINING_VERSUS_GIANTS,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_BATTLE_TRAINING_VERSUS_GIANTS);
-    }
-    if (GetHasFeat(FEAT_BATTLE_TRAINING_VERSUS_GOBLINS,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_BATTLE_TRAINING_VERSUS_GOBLINS);
-    }
-        if (GetHasFeat(FEAT_BATTLE_TRAINING_VERSUS_ORCS,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_BATTLE_TRAINING_VERSUS_ORCS);
-    }
-    // pulcik
-    if (GetHasFeat(FEAT_SKILL_AFFINITY_MOVE_SILENTLY,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_SKILL_AFFINITY_MOVE_SILENTLY);
-    }
-    if ((GetHasFeat(FEAT_LUCKY,oPC)) && ((iSubrace == SUBRACE_HALFLING_KOBOLD)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_LUCKY);
-    }
-    if ((GetHasFeat(FEAT_FEARLESS,oPC)) && ((iSubrace == SUBRACE_HALFLING_KOBOLD)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_FEARLESS);
-    }
-    if ((GetHasFeat(FEAT_GOOD_AIM,oPC)) && ((iSubrace == SUBRACE_HALFLING_KOBOLD)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_GOOD_AIM);
-    }
-    // gnom
-    if (GetHasFeat(FEAT_BATTLE_TRAINING_VERSUS_REPTILIANS,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_BATTLE_TRAINING_VERSUS_REPTILIANS);
-    }
-    if (GetHasFeat(FEAT_SKILL_AFFINITY_CONCENTRATION,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_SKILL_AFFINITY_CONCENTRATION);
-    }
-    if ((GetHasFeat(FEAT_HARDINESS_VERSUS_ILLUSIONS,oPC)) && ((iSubrace == SUBRACE_GNOME_GOBLIN_DEEP) ||
-    (iSubrace == SUBRACE_GNOME_PIXIE)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_HARDINESS_VERSUS_ILLUSIONS);
-    }
-    if ((GetHasFeat(FEAT_SPELL_FOCUS_ILLUSION,oPC)) && ((iSubrace == SUBRACE_GNOME_GOBLIN_DEEP) ||
-    (iSubrace == SUBRACE_GNOME_PIXIE)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_SPELL_FOCUS_ILLUSION);
-    }
-    // pulelf
-    if (GetHasFeat(FEAT_HARDINESS_VERSUS_ENCHANTMENTS,oPC))
-    {
-        RemoveKnownFeat(oPC,FEAT_HARDINESS_VERSUS_ENCHANTMENTS);
-    }
-    if ((GetHasFeat(FEAT_IMMUNITY_TO_SLEEP,oPC)) && ((iSubrace == SUBRACE_HALFDRAGON_BLACK) ||
-    (iSubrace == SUBRACE_HALFDRAGON_BLUE) ||
-    (iSubrace == SUBRACE_HALFDRAGON_GREEN) ||
-    (iSubrace == SUBRACE_HALFDRAGON_RED) ||
-    (iSubrace == SUBRACE_HALFDRAGON_WHITE) ||
-    (iSubrace == SUBRACE_ILLITHID)
-    ))
-    {
-        RemoveKnownFeat(oPC,FEAT_IMMUNITY_TO_SLEEP);
-    }
-    if ((GetHasFeat(FEAT_KEEN_SENSE,oPC) == FALSE) && ((iSubrace == SUBRACE_HALFELF)))
-    {
-        AddKnownFeat(oPC,FEAT_KEEN_SENSE);
-    }
-    // General feats for all
-    if (!GetHasFeat(FEAT_GENERAL_SEBRAT, oPC))
-        AddKnownFeat(oPC, FEAT_GENERAL_SEBRAT);
-    if (!GetHasFeat(FEAT_GENERAL_POUZIT, oPC))
-        AddKnownFeat(oPC, FEAT_GENERAL_POUZIT);
-    if (!GetHasFeat(FEAT_GENERAL_TARGET, oPC))
-        AddKnownFeat(oPC, FEAT_GENERAL_TARGET);
-    if (!GetHasFeat(FEAT_HORSE_MENU, oPC))
-        AddKnownFeat(oPC, FEAT_HORSE_MENU);
-}
-
-
 //Odstrani efekty postoje trpasliciho obrance
 void DD_RemoveStance(object oPC,object oSoulStone)
 {
@@ -631,7 +492,7 @@ void ApplyClassConditions(object oPC)
 {
     //kontrola rasy u AA
     int iRace = GetRacialType(oPC);
-    if (((iRace == RACIAL_TYPE_HALFELF) &&  Subraces_GetCharacterSubrace(oPC)==SUBRACE_HALFELF)   ||
+    if (((iRace == RACIAL_TYPE_HALFELF) &&  Subraces_GetCharacterSubrace(oPC)==NT2_SUBRACE_HALFELF)   ||
        (iRace == RACIAL_TYPE_ELF))
        {
             SetLocalInt(oPC,"X1_AllowArcher",1);
@@ -717,8 +578,6 @@ void OnLvlupClassSystem(object oPC)
    ApplyConcealment(oPC,oPCSkin);
    ApplySpeed(oPC,oPCSkin);
    ApplyDamageReduction(oPC,oPCSkin);
-   ApplySpellResistance(oPC,oPCSkin);
-   ApplyFeats(oPC);
    // nastaveni poctu featu na den
    RestoreFeatUses(oPC);
 
@@ -774,7 +633,6 @@ void OnEnterClassSystem(object oPC)
 {
     //ReequipSkin(oPC);
     ApplyClassConditions(oPC);
-    ApplyFeats(oPC);
     DeleteLocalString(oPC,"OZNACEN"); //odstraneni znacky assassina
     DeleteLocalInt(oPC,"UderDoTepny"); //zruseni ucinku krvaceni
     DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK");

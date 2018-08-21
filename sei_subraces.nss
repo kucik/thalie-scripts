@@ -160,11 +160,11 @@ int ku_GetHasUnderdarkPenalty(object oPC,int underd)
 string SEI_SubraceEnumToString( int a_nSubrace )
 {
 
-    if( a_nSubrace == SUBRACE_NONE )
+    if( a_nSubrace == NT2_SUBRACE_NONE )
     {
         return "subrace not initialized";
     }
-    else if( a_nSubrace == SUBRACE_MONSTER )
+    else if( a_nSubrace == NT2_SUBRACE_MONSTER )
     {
         return "Monster";
     }
@@ -431,7 +431,7 @@ int KU_GetIsFromUnderdark( object a_oCharacter )
     int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
     // Make sure we actually have a subrace.
-    if( nSubrace != SUBRACE_NONE )
+    if( nSubrace != NT2_SUBRACE_NONE )
     {
 
         // Load the information on the character's subrace.
@@ -457,7 +457,7 @@ int KU_GetSubraceAppearanceChange( object a_oCharacter )
     int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
     // Make sure we actually have a subrace.
-    if( nSubrace != SUBRACE_NONE )
+    if( nSubrace != NT2_SUBRACE_NONE )
     {
 
         // Load the information on the character's subrace.
@@ -989,6 +989,16 @@ int SEI_NWNXParseTrait( object oPC, string a_sTrait )
         KU_SUB_GiveFeat( oPC, 1416 );  //FEAT_POUZITI_ZBRANE_STRASLIVY_PALCAT
         return 1;
     }
+    if( a_sTrait == "maul" )
+    {
+        KU_SUB_GiveFeat( oPC, 1402 );  //FEAT_POUZITI_ZBRANE_maul
+        return 1;
+    }
+    if( a_sTrait == "velka_sekera" )
+    {
+        KU_SUB_GiveFeat( oPC, 1423 );  //FEAT_POUZITI_ZBRANE_VELKA_SEKERA
+        return 1;
+    }
     if( a_sTrait == "dvojity_mec" )
     {
         KU_SUB_GiveFeat( oPC, 1405 );  //FEAT_POUZITI_ZBRANE_OBOUSTRANNY_MEC
@@ -1090,7 +1100,7 @@ void SEI_InitSubraces()
     struct Subrace stSubrace;
 
     // First define an invalid subrace.
-    stSubrace = SEI_CreateSubrace( SUBRACE_NONE, RACIAL_TYPE_INVALID, "Invalid subrace" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_NONE, RACIAL_TYPE_INVALID, "Invalid subrace" );
     stSubrace.m_bIsDefault = TRUE;
     SEI_SaveSubrace( stSubrace );
 
@@ -1135,7 +1145,7 @@ void SEI_SetSubraceVar( object a_oCharacter, int a_nSubrace, int a_bPrintToLog =
 int SEI_TestSubraceField( struct Subrace a_stSubrace, int a_nRace, string a_sSubraceField )
 {
 
-    int nSubrace = SUBRACE_NONE;
+    int nSubrace = NT2_SUBRACE_NONE;
 
     // If subrace's base race matches the to be tested race.
     if( a_stSubrace.m_nBaseRace == a_nRace )
@@ -1158,7 +1168,7 @@ int SEI_TestSubraceField( struct Subrace a_stSubrace, int a_nRace, string a_sSub
             // For each text stored (and so long as we haven't found a match).
             int nField;
             for( nField = 0 ;
-                 ( nField < a_stSubrace.m_nNumFieldValues ) && ( nSubrace == SUBRACE_NONE ) ;
+                 ( nField < a_stSubrace.m_nNumFieldValues ) && ( nSubrace == NT2_SUBRACE_NONE ) ;
                  ++nField )
             {
                 // Get the field text and test for a match.
@@ -1183,14 +1193,14 @@ int SEI_TestSubraceField( struct Subrace a_stSubrace, int a_nRace, string a_sSub
 int SEI_ReadSubraceField( int a_nRace, string a_sSubraceField )
 {
 
-    int nSubrace = SUBRACE_NONE;
+    int nSubrace = NT2_SUBRACE_NONE;
 
     // Get the total number of added subraces.
     int nNrSubraces = GetLocalInt( GetModule(), SUBRACE_COUNT );
 
     // For each subrace stored (and so long as we haven't found a match).
     int nIdx;
-    for( nIdx = 0 ; ( nIdx < nNrSubraces ) && ( nSubrace == SUBRACE_NONE ) ; ++nIdx )
+    for( nIdx = 0 ; ( nIdx < nNrSubraces ) && ( nSubrace == NT2_SUBRACE_NONE ) ; ++nIdx )
     {
         // Load the subrace information and check to see if there's a match.
         struct Subrace stSubrace = SEI_LoadSubraceIdx( nIdx );
@@ -1255,7 +1265,7 @@ int SEI_InitSubraceVar( object a_oCharacter )
     int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
     // Only initialize the subrace variable if we haven't done so already.
-    if( nSubrace == SUBRACE_NONE )
+    if( nSubrace == NT2_SUBRACE_NONE )
     {
 
         string sSubraceField = GetStringLowerCase( GetSubRace( a_oCharacter ) );
@@ -1279,7 +1289,7 @@ int SEI_InitSubraceVar( object a_oCharacter )
         }
 
         // See if we have recognized the subrace or not.
-        if( nSubrace == SUBRACE_NONE )
+        if( nSubrace == NT2_SUBRACE_NONE )
         {
             if( GetIsPC( a_oCharacter ) )
             {
@@ -1289,7 +1299,7 @@ int SEI_InitSubraceVar( object a_oCharacter )
             else
             {
                 // Assume the character is a monster.
-                nSubrace = SUBRACE_MONSTER;
+                nSubrace = NT2_SUBRACE_MONSTER;
             }
         }
 
@@ -1693,7 +1703,7 @@ void SEI_ApplyAreaSettings( object a_oCharacter, object oArea, int a_nSettings )
         int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
         // Make sure we actually have a subrace.
-        if( nSubrace != SUBRACE_NONE )
+        if( nSubrace != NT2_SUBRACE_NONE )
         {
             if(SUBRACE_DEBUG)
               SendMessageToPC(a_oCharacter,"Subrasa je OK");
@@ -2200,7 +2210,7 @@ void SEI_InitSubraceTraits( object a_oCharacter)
     int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
     // Make sure we actually have a subrace.
-    if( nSubrace != SUBRACE_NONE )
+    if( nSubrace != NT2_SUBRACE_NONE )
     {
 
         // Load the information on the character's subrace.
@@ -2309,14 +2319,14 @@ void SEI_InitSubrace( object a_oCharacter )
         SEI_RemoveSubrace( a_oCharacter );
 
         // See if this character's subrace has been initialized before.
-        if( nSubrace == SUBRACE_NONE )
+        if( nSubrace == NT2_SUBRACE_NONE )
         {
 
             // Initialize the subrace variable on the character.
             nSubrace = SEI_InitSubraceVar( a_oCharacter );
 
             // See if we successfully initialized the character's subrace.
-            if( nSubrace != SUBRACE_NONE )
+            if( nSubrace != NT2_SUBRACE_NONE )
             {
 
                 // Initialize the subrace traits on the character.
@@ -2405,7 +2415,7 @@ void SEI_LevelUpSubrace( object a_oCharacter )
     int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
     // Make sure that we actually have a subrace.
-    if( nSubrace != SUBRACE_NONE )
+    if( nSubrace != NT2_SUBRACE_NONE )
     {
 
         // Load the information on the character's subrace.
@@ -2440,7 +2450,7 @@ void SEI_LevelUpSubrace( object a_oCharacter )
 int SEI_GetCharacterSubrace( object a_oCharacter )
 {
 
-    int nSubrace = SUBRACE_NONE;
+    int nSubrace = NT2_SUBRACE_NONE;
 
     // Sanity check, make sure we have something to work with.
     if( a_oCharacter != OBJECT_INVALID )
@@ -2455,7 +2465,7 @@ int SEI_GetCharacterSubrace( object a_oCharacter )
                                   " (" + SEI_SubraceEnumToString( nSubrace ) + ")", TRUE );
 
         // If subrace not initialized yet.
-        if( nSubrace == SUBRACE_NONE )
+        if( nSubrace == NT2_SUBRACE_NONE )
         {
             SEI_InitSubrace( a_oCharacter );
             nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
@@ -2511,7 +2521,7 @@ int SEI_FindDefaultSubrace( int a_nRace )
     } // End for
 
     // There is no default race for this subrace.
-    return SUBRACE_NONE;
+    return NT2_SUBRACE_NONE;
 
 } // End SEI_FindDefaultSubrace
 
@@ -2601,7 +2611,7 @@ int SEI_GetECLClass( object a_oCharacter )
     int nSubrace = GetLocalInt( a_oCharacter, SUBRACE_FIELD );
 
     // Make sure we actually have a subrace.
-    if( nSubrace != SUBRACE_NONE )
+    if( nSubrace != NT2_SUBRACE_NONE )
     {
 
         // Load the information on the character's subrace.

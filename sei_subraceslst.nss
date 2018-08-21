@@ -19,58 +19,43 @@
 // **********************
 
 // Enum of the supported subraces
-const int SUBRACE_NONE                    =   0;  // No Subrace set yet
-const int SUBRACE_MONSTER                 =   1;  // For monsters, etc. without subrace
+const int NT2_SUBRACE_NONE                    =   0;  // No Subrace set yet
+const int NT2_SUBRACE_MONSTER                 =   1;  // For monsters, etc. without subrace
 
-const int SUBRACE_HUMAN_CITY              =   2;  // Clovek mestsky  - DEFAULT
-const int SUBRACE_HUMAN_SLAVE             =   3;  // Clovek otrok   - PODTEMNO
-const int SUBRACE_HUMAN_DESERT            =   4;  // Clovek poustni
-const int SUBRACE_HUMAN_NORDIC            =   5;  // Clovek seversky
-const int SUBRACE_HUMAN_EAST              =   6;  // Clovek vychodni
-const int SUBRACE_HUMAN_AASIMAR           =   7;  // Clovek mestsky
-const int SUBRACE_HUMAN_TIEFLING          =   8;  // Clovek mestsky
-const int SUBRACE_HUMAN_GENASI_WATER      =   9;  // Clovek mestsky
-const int SUBRACE_HUMAN_GENASI_AIR        =   10;  // Clovek mestsky
-const int SUBRACE_HUMAN_GENASI_EARTH      =   11;  // Clovek mestsky
-const int SUBRACE_HUMAN_GENASI_FIRE       =   12;  // Clovek mestsky
+const int NT2_SUBRACE_HUMAN_CITY              =   2;  // Clovek mestsky  - DEFAULT
+const int NT2_SUBRACE_HUMAN_SLAVE             =   3;  // Clovek otrok   - PODTEMNO
 
-const int SUBRACE_ELF_WOOD                =   13;  // Elf lesni
-const int SUBRACE_ELF_WILD                =   14;  // Elf divoky
-const int SUBRACE_ELF_MOON                =   15;  // Elf mesicni
-const int SUBRACE_ELF_SUN                 =   16;  // Elf slunecni
-const int SUBRACE_ELF_WINGED              =   17;  // Elf okridleny
-const int SUBRACE_ELF_EAST                =   18;  // Elf vychodni
-const int SUBRACE_ELF_DROW                =   19;  // Drow           - PODTEMNO
-const int SUBRACE_ELF_OBSIDIAN_DROW       =   20;  // Drow obsidianovy - PODTEMNO
+const int NT2_SUBRACE_HUMAN_AASIMAR           =   7;  // Clovek mestsky
+const int NT2_SUBRACE_HUMAN_TIEFLING          =   8;  // Clovek mestsky
 
-const int SUBRACE_DWARF_MOUNTAIN          =   21;  // Trpaslik horsky
-const int SUBRACE_DWARF_GOLD              =   22;  // Trpaslik zlaty
-const int SUBRACE_DWARF_SHIELD            =   23;  // Trpaslik stitovy
-const int SUBRACE_DWARF_DUERGAR           =   24;  // Duergar           - PODTEMNO
-const int SUBRACE_DWARF_DUERGAR_BRONZED   =   25;  // Duergar Bronzovy  - PODTEMNO
 
-const int SUBRACE_ORC_CITY                =   26;  // Pulork mestsky
-const int SUBRACE_ORC_NORDIC              =   27;  // Pulork seversky
-const int SUBRACE_ORC_DEEP                =   28;  // Pulork hlubinny   - PODTEMNO
-const int SUBRACE_ORC_HIRAN               =   29;  // Hiran             - PODTEMNO
+const int NT2_SUBRACE_ELF_NONE                =   13;  // Elf
+const int NT2_SUBRACE_ELF_WINGED              =   17;  // Elf okridleny
+const int NT2_SUBRACE_ELF_DROW                =   19;  // Drow           - PODTEMNO
 
-const int SUBRACE_HALFLING_CITY           =   30;  // Pulcik mestsky
-const int SUBRACE_HALFLING_WILD           =   31;  // Pulcik divoky
-const int SUBRACE_HALFLING_DEEP           =   32;  // Pulcik hlubinny   - PODTEMNO
-const int SUBRACE_HALFLING_KOBOLD         =   33;  // Kobold            - PODTEMNO
 
-const int SUBRACE_GNOME_CITY              =   34;  // Gnom mestsky
-const int SUBRACE_GNOME_SWIRFNEBLIN       =   35;  // Svirfneblin       - PODTEMNO
-const int SUBRACE_GNOME_GOBLIN_DEEP       =   36;  // Skret hlubinny    - PODTEMNO
-const int SUBRACE_GNOME_PIXIE             =   37;  // Pixie
+const int NT2_SUBRACE_DWARF_NONE              =   21;  // Trpaslik
+const int NT2_SUBRACE_DWARF_DUERGAR           =   24;  // Duergar           - PODTEMNO
 
-const int SUBRACE_HALFELF                 =   38;  // Pulelf
-const int SUBRACE_HALFDRAGON_BLACK        =   39;  // Puldrak cerny
-const int SUBRACE_HALFDRAGON_BLUE         =   40;  // Puldrak modry
-const int SUBRACE_HALFDRAGON_GREEN        =   41;  // Puldrak zeleny
-const int SUBRACE_HALFDRAGON_RED          =   42;  // Puldrak cerveny
-const int SUBRACE_HALFDRAGON_WHITE        =   43;  // Puldrak bily
-const int SUBRACE_ILLITHID                =   44;  // Illithid          - PODTEMNO
+const int NT2_SUBRACE_ORC_NONE                =   26;  // Pulork
+const int NT2_SUBRACE_ORC_DEEP                =   28;  // Pulork hlubinny   - PODTEMNO
+const int NT2_SUBRACE_ORC_HIRAN               =   29;  // Hiran             - PODTEMNO
+
+const int NT2_SUBRACE_HALFLING_NONE       =   30;  // Pulcik
+const int NT2_SUBRACE_HALFLING_DEEP       =   32;  // Pulcik hlubinny   - PODTEMNO
+const int NT2_SUBRACE_HALFLING_KOBOLD     =   33;  // Kobold            - PODTEMNO
+
+const int NT2_SUBRACE_GNOME_NONE              =   34;  // Gnom
+const int NT2_SUBRACE_GNOME_SWIRFNEBLIN       =   35;  // Svirfneblin       - PODTEMNO
+const int NT2_SUBRACE_GNOME_GOBLIN_DEEP       =   36;  // Skret hlubinny    - PODTEMNO
+const int NT2_SUBRACE_GNOME_PIXIE             =   37;  // Pixie
+
+const int NT2_SUBRACE_HALFELF                 =   38;  // Pulelf
+const int NT2_SUBRACE_HALFDRAGON_BLACK        =   39;  // Puldrak cerny
+const int NT2_SUBRACE_HALFDRAGON_BLUE         =   40;  // Puldrak modry
+const int NT2_SUBRACE_HALFDRAGON_GREEN        =   41;  // Puldrak zeleny
+const int NT2_SUBRACE_HALFDRAGON_RED          =   42;  // Puldrak cerveny
+const int NT2_SUBRACE_HALFDRAGON_WHITE        =   43;  // Puldrak bily
 
 
 
@@ -270,69 +255,34 @@ void SEI_DefineSubraces()
 
 //////////////////////////-- LIDE --//////////////////////////
     // Clovek mestsky  - DEFAULT
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_CITY, RACIAL_TYPE_HUMAN, "Clovek");
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HUMAN_CITY, RACIAL_TYPE_HUMAN, "Clovek");
 
     stSubrace.m_bIsDefault = TRUE;
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
     SEI_SaveSubrace( stSubrace );
 
     // Clovek otrok- PODTEMNO
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_SLAVE, RACIAL_TYPE_HUMAN, "Clovek Otrok" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HUMAN_SLAVE, RACIAL_TYPE_HUMAN, "Clovek Otrok" );
     // The favored class for elves is any.
     stSubrace = SEI_AddFieldText( stSubrace, "otrok" );                // "otrok"
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
     SEI_SaveSubrace( stSubrace );
 
-
-    // Clovek poustni
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_DESERT, RACIAL_TYPE_HUMAN, "Poustni Clovek" );
-    stSubrace = SEI_AddFieldText( stSubrace, "desert" );                // "desert"
-    stSubrace = SEI_AddFieldText( stSubrace, "poustni" );               // "poustni"
-    stSubrace = SEI_AddFieldText( stSubrace, "pustny" );                // "pustny"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 4 2" );           // -2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "scimitar" );
-    stSubrace = SEI_AddTrait( stSubrace, "falchion" );
-    SEI_SaveSubrace( stSubrace );
-
-    // Clovek seversky
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_NORDIC, RACIAL_TYPE_HUMAN, "Severan" );
-    stSubrace = SEI_AddFieldText( stSubrace, "nordic" );                // "nordic"
-    stSubrace = SEI_AddFieldText( stSubrace, "severan" );               // "severan"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 3 2" );           // -2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Con
-    SEI_SaveSubrace( stSubrace );
-
-    // Clovek vychodni
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_EAST, RACIAL_TYPE_HUMAN, "Vychodni Clovek" );
-    stSubrace = SEI_AddFieldText( stSubrace, "vychodnan" );                // "vychodnan"
-    stSubrace = SEI_AddFieldText( stSubrace, "east" );                // "vychodni"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 2" );           // -2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "zbrane_vychodni" );
-    SEI_SaveSubrace( stSubrace );
 
     // Define the "Aasimar" subrace.
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_AASIMAR, RACIAL_TYPE_HUMAN, "Aasimar" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HUMAN_AASIMAR , RACIAL_TYPE_HUMAN, "Aasimar" );
     stSubrace = SEI_AddFieldText( stSubrace, "aasimar" );               // "aasimar"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 4 2" );           // +2 wis
     //pridat leceni
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nAlignmentMask = 7;                                     // good
     stSubrace.m_nWingType = CREATURE_WING_TYPE_ANGEL;                   // Andelska kridla
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
     // Define the "Tiefling" subrace.
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_TIEFLING, RACIAL_TYPE_HUMAN, "Tiefling" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HUMAN_TIEFLING , RACIAL_TYPE_HUMAN, "Tiefling" );
     stSubrace = SEI_AddFieldText( stSubrace, "tiefling" );              // "tiefling"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
     //pridat zran
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
@@ -341,131 +291,27 @@ void SEI_DefineSubraces()
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = CREATURE_TAIL_TYPE_DEVIL;                   // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
-    // Clovek Genasi vodni
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_GENASI_WATER, RACIAL_TYPE_HUMAN, "Vodni genasi" );
-    stSubrace = SEI_AddFieldText( stSubrace, "vodni genasi" );                // "Vodni genasi"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "genasi_kuzel_mrazu" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
-    SEI_SaveSubrace( stSubrace );
-
-    // Clovek Genasi vzdusny
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_GENASI_AIR, RACIAL_TYPE_HUMAN, "Vzdusny genasi" );
-    stSubrace = SEI_AddFieldText( stSubrace, "vzdusny genasi" );                // "Vzdusny genasi"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "genasi_zavan_vetru" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
-    SEI_SaveSubrace( stSubrace );
-
-    // Clovek Genasi vzdusny
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_GENASI_EARTH, RACIAL_TYPE_HUMAN, "Zemni genasi" );
-    stSubrace = SEI_AddFieldText( stSubrace, "zemni genasi" );                // "Zemni genasi"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "genasi_kamenna_kuze" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
-    SEI_SaveSubrace( stSubrace );
-
-     // Clovek Genasi ohnivy
-    stSubrace = SEI_CreateSubrace( SUBRACE_HUMAN_GENASI_FIRE, RACIAL_TYPE_HUMAN, "Ohnivy genasi" );
-    stSubrace = SEI_AddFieldText( stSubrace, "ohnivy genasi" );                // "Ohnivy genasi"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "genasi_fireball" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
-    SEI_SaveSubrace( stSubrace );
 
 //////////////////////////-- Elfove --//////////////////////////
 
     // Lesni elf - default
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_WOOD, RACIAL_TYPE_ELF, "Lesni Elf" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_ELF_NONE, RACIAL_TYPE_ELF, "Lesni Elf" );
     stSubrace.m_bIsDefault = TRUE;
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_luk" );
     SEI_SaveSubrace( stSubrace );
-
-     // Divoky elf
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_WILD, RACIAL_TYPE_ELF, "Divoky Elf" );
-    stSubrace = SEI_AddFieldText( stSubrace, "wild" );                  // "wild elf"
-    stSubrace = SEI_AddFieldText( stSubrace, "divoky" );                // "divoky elf"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 3 2" );           // -2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_luk" );
-    SEI_SaveSubrace( stSubrace );
-
-    //Mesicni elf
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_MOON, RACIAL_TYPE_ELF, "Mesicni Elf" );
-    stSubrace = SEI_AddFieldText( stSubrace, "moon" );                  // "moon"
-    stSubrace = SEI_AddFieldText( stSubrace, "mesicni" );               // "mesicni elf"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_luk" );
-    SEI_SaveSubrace( stSubrace );
-
-
-     //Slunecni elf
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_SUN, RACIAL_TYPE_ELF, "Slunecni Elf" );
-    stSubrace = SEI_AddFieldText( stSubrace, "sun" );                   // "sun elf"
-    stSubrace = SEI_AddFieldText( stSubrace, "slunecni" );              // "slunecni elf"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Char
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_luk" );
-    SEI_SaveSubrace( stSubrace );
-
-
 
     //Okridleny elf
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_WINGED, RACIAL_TYPE_ELF, "Okridleny Elf" );
-    stSubrace = SEI_AddFieldText( stSubrace, "winged" );                // "winged elf"
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_ELF_WINGED, RACIAL_TYPE_ELF, "Okridleny Elf" );
     stSubrace = SEI_AddFieldText( stSubrace, "okridleny" );             // "okridleny elf"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 2" );           // -2 Str
     stSubrace.m_nAlignmentMask = 33;                                    // non lawfull and non evil
-    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
+    stSubrace.m_nECLClass = 2;                                          // Postih na expy = 1
     stSubrace.m_nWingType = CREATURE_WING_TYPE_BIRD;                    // Ptaci kridla
     stSubrace.m_nWingLevel = 21;                                        // na 15. levelu
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_luk" );
-    SEI_SaveSubrace( stSubrace );
-
-
-      // Vychodni elf
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_EAST, RACIAL_TYPE_ELF, "Vychodni Elf" );
-    stSubrace = SEI_AddFieldText( stSubrace, "vychodni" );                  // "vychodni elf"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 4 2" );           // +2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "zbrane_vychodni" );
-    SEI_SaveSubrace( stSubrace );
-
-
-    // Drow obsidianovy
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_OBSIDIAN_DROW, RACIAL_TYPE_ELF, "Drow obsidianovy" );
-    stSubrace = SEI_AddFieldText( stSubrace, "obsidian" );       // "obsidian"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
-    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
-    stSubrace = SEI_AddTrait( stSubrace, "drow_temnota" );
-    stSubrace = SEI_AddTrait( stSubrace, "bic" );
-    stSubrace = SEI_AddTrait( stSubrace, "scimitar" );
-    stSubrace = SEI_AddTrait( stSubrace, "tezka_kuse" );
-    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 2
-    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     SEI_SaveSubrace( stSubrace );
 
     // Drow
-    stSubrace = SEI_CreateSubrace( SUBRACE_ELF_DROW, RACIAL_TYPE_ELF, "Drow" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_ELF_DROW, RACIAL_TYPE_ELF, "Drow" );
     stSubrace = SEI_AddFieldText( stSubrace, "drow" );                  // "drow"
     stSubrace.m_nAlignmentMask = 700;                                    // evil
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
@@ -481,98 +327,38 @@ void SEI_DefineSubraces()
 //////////////////////////-- TRPASLICI --//////////////////////////
 
 //  Stitovy
-    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_SHIELD, RACIAL_TYPE_DWARF, "Stitovy Trpaslik" );
-    stSubrace = SEI_AddFieldText( stSubrace, "shield" );    // "shield dwarf"
-    stSubrace = SEI_AddFieldText( stSubrace, "stitovy" );    // "shield dwarf"
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_DWARF_NONE, RACIAL_TYPE_DWARF, "Stitovy Trpaslik" );
     stSubrace.m_bIsDefault = TRUE;
     stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_stitovy" );
     SEI_SaveSubrace( stSubrace );
 
-//  Horsky
-    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_MOUNTAIN, RACIAL_TYPE_DWARF, "Horsky Trpaslik" );
-    stSubrace = SEI_AddFieldText( stSubrace, "horsky" );    // "shield dwarf"
-    stSubrace = SEI_AddFieldText( stSubrace, "mountain" );    // "shield dwarf"
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 2" );           // -2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_horsky" );
-    SEI_SaveSubrace( stSubrace );
-
-    // Zlaty trpos
-    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_GOLD, RACIAL_TYPE_DWARF, "Zlaty Trpaslik" );
-    stSubrace = SEI_AddFieldText( stSubrace, "gold" );                  // "gold"
-    stSubrace = SEI_AddFieldText( stSubrace, "zlaty" );                 // "zlaty"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 4 2" );           // +2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 2" );           // -2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_zlaty" );
-    SEI_SaveSubrace( stSubrace );
-
-
-    // Bronzovy duergar
-    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_DUERGAR_BRONZED, RACIAL_TYPE_DWARF, "Bronzovy Duergar" );
-    stSubrace = SEI_AddFieldText( stSubrace, "bronzovy" );               // "bronzovy"
-    //dodelat imunitu na paralyzu
-    //dodelat imunitu na jedy
-    stSubrace = SEI_AddTrait( stSubrace, "feat_add 203" );              // VenomImmunity
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
-    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
-    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
-    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
-    stSubrace.m_nAlignmentMask = 700;                                    // evil
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_duergar" );
-    SEI_SaveSubrace( stSubrace );
 
     // Duergar
-    stSubrace = SEI_CreateSubrace( SUBRACE_DWARF_DUERGAR, RACIAL_TYPE_DWARF, "Duergar" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_DWARF_DUERGAR, RACIAL_TYPE_DWARF, "Duergar" );
     stSubrace = SEI_AddFieldText( stSubrace, "duergar" );               // "duergar"
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     stSubrace.m_nAlignmentMask = 700;                                    // evil
     stSubrace = SEI_AddTrait( stSubrace, "trpaslici_sekera" );
-    stSubrace = SEI_AddTrait( stSubrace, "trpaslik_duergar" );
     SEI_SaveSubrace( stSubrace );
 
 
 //////////////////////////-- ORKOVE --//////////////////////////
 
     // Mestsky ork
-    stSubrace = SEI_CreateSubrace( SUBRACE_ORC_CITY, RACIAL_TYPE_HALFORC, "Mestsky Pul-Ork" );
-    stSubrace = SEI_AddFieldText( stSubrace, "mestsky pulork" );                // "mestsky pulork"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 2" );           // -2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "dvojity_palcat" );
-    stSubrace = SEI_AddTrait( stSubrace, "dvojity_mec" ) ;
-    stSubrace = SEI_AddTrait( stSubrace, "dvojita_sekera" ) ;
-    stSubrace = SEI_AddTrait( stSubrace, "ork_zurivost" );
-    SEI_SaveSubrace( stSubrace );
-
-    // Seversky ork
-    stSubrace = SEI_CreateSubrace( SUBRACE_ORC_NORDIC, RACIAL_TYPE_HALFORC, "Severni Pul-Ork" );
-    stSubrace = SEI_AddFieldText( stSubrace, "nordic" );                // "nordic"
-    stSubrace = SEI_AddFieldText( stSubrace, "seversky" );              // "seversky"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_ORC_NONE, RACIAL_TYPE_HALFORC, "Mestsky Pul-Ork" );
     stSubrace.m_bIsDefault = TRUE;
+    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
     stSubrace = SEI_AddTrait( stSubrace, "dvojity_palcat" );
     stSubrace = SEI_AddTrait( stSubrace, "dvojity_mec" ) ;
     stSubrace = SEI_AddTrait( stSubrace, "dvojita_sekera" ) ;
     stSubrace = SEI_AddTrait( stSubrace, "ork_zurivost" );
     SEI_SaveSubrace( stSubrace );
 
-    // Hlubinny ork
-    stSubrace = SEI_CreateSubrace( SUBRACE_ORC_DEEP, RACIAL_TYPE_HALFORC, "Hlubinny ork" );
+   // Hlubinny ork
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_ORC_DEEP, RACIAL_TYPE_HALFORC, "Hlubinny ork" );
     stSubrace = SEI_AddFieldText( stSubrace, "hlubinny ork" );          // "hlubinny ork"
     stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
 //    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
@@ -584,74 +370,60 @@ void SEI_DefineSubraces()
     SEI_SaveSubrace( stSubrace );
 
     // Hiran
-    stSubrace = SEI_CreateSubrace( SUBRACE_ORC_HIRAN, RACIAL_TYPE_HALFORC, "Hiran" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_ORC_HIRAN, RACIAL_TYPE_HALFORC, "Hiran" );
     stSubrace = SEI_AddFieldText( stSubrace, "hiran" );                 // "hiran"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 4" );           // +4 Con
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 4 2" );           // -2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
+    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
     stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
-    stSubrace.m_nAlignmentMask = 770;                                    // no good
+    stSubrace.m_nAlignmentMask = 770;                                   // no good
     stSubrace.m_nChangeAppearance = 985;                                // favored class barbarian
+    stSubrace = SEI_AddTrait( stSubrace, "maul" );
+    stSubrace = SEI_AddTrait( stSubrace, "velka_sekera" );
     SEI_SaveSubrace( stSubrace );
 
 
 //////////////////////////-- Pulcikove --//////////////////////////
 
-    // Mestsky
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFLING_CITY, RACIAL_TYPE_HALFLING, "Mestsky Pulcik" );
-    stSubrace = SEI_AddFieldText( stSubrace, "city" );                  //"city"
-    stSubrace = SEI_AddFieldText( stSubrace, "mestsky" );               //"mestsky"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 1 2" );           // -2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "kukri" );
-    SEI_SaveSubrace( stSubrace );
-
     // Divoky
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFLING_WILD, RACIAL_TYPE_HALFLING, "Divoky Pulcik" );
-    stSubrace = SEI_AddFieldText( stSubrace, "wild" );                  // "wild"
-    stSubrace = SEI_AddFieldText( stSubrace, "divoky" );                // "divoky"
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFLING_NONE, RACIAL_TYPE_HALFLING, "Divoky Pulcik" );
+    stSubrace = SEI_AddTrait( stSubrace, "kukri" );
     stSubrace.m_bIsDefault = TRUE;
     SEI_SaveSubrace( stSubrace );
 
     // Hlubinny pulcik
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFLING_DEEP, RACIAL_TYPE_HALFLING, "Hlubinny pulcik" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFLING_DEEP, RACIAL_TYPE_HALFLING, "Hlubinny pulcik" );
     stSubrace = SEI_AddFieldText( stSubrace, "deep" );                  // "deep"
     stSubrace = SEI_AddFieldText( stSubrace, "hlubinny" );              // "hlubinny"
     stSubrace = SEI_AddTrait( stSubrace, "ultravision" );               // Ultravision
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     stSubrace.m_nLightSensitivity = 3;
     stSubrace.m_nAlignmentMask = 770;                                    // no good
+    stSubrace = SEI_AddTrait( stSubrace, "kukri" );
     SEI_SaveSubrace( stSubrace );
 
     // Kobold
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFLING_KOBOLD, RACIAL_TYPE_HALFLING, "Kobold" );
-    stSubrace = SEI_AddTrait( stSubrace, "feat_add 203" );              // VenomImmunity
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFLING_KOBOLD, RACIAL_TYPE_HALFLING, "Kobold" );
     stSubrace = SEI_AddFieldText( stSubrace, "kobold" );                // "kobold"
     stSubrace = SEI_AddTrait( stSubrace, "ultravision" );               // Ultravision
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
     stSubrace.m_nLightSensitivity = 3;
     stSubrace.m_nChangeAppearance = 984;                                // Kobold
     stSubrace.m_nAlignmentMask = 770;                                    // no good
+    stSubrace = SEI_AddTrait( stSubrace, "kukri" );
     SEI_SaveSubrace( stSubrace );
 
 //////////////////////////-- Gnomove --//////////////////////////
 
 
     // Mestsky
-    stSubrace = SEI_CreateSubrace( SUBRACE_GNOME_CITY, RACIAL_TYPE_GNOME, "Gnome" );
-    stSubrace = SEI_AddFieldText( stSubrace, "mestsky gnom" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_GNOME_NONE, RACIAL_TYPE_GNOME, "Gnome" );
     stSubrace.m_bIsDefault = TRUE;
     SEI_SaveSubrace( stSubrace );
 
     // Define the "svirfneblin" subrace.
-    stSubrace = SEI_CreateSubrace( SUBRACE_GNOME_SWIRFNEBLIN, RACIAL_TYPE_GNOME, "Svirfneblin" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_GNOME_SWIRFNEBLIN, RACIAL_TYPE_GNOME, "Svirfneblin" );
     stSubrace = SEI_AddFieldText( stSubrace, "svirfneblin" );           // "svirfneblin"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 Int
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
@@ -659,10 +431,8 @@ void SEI_DefineSubraces()
     SEI_SaveSubrace( stSubrace );
 
     // Hlubinny skret
-    stSubrace = SEI_CreateSubrace( SUBRACE_GNOME_GOBLIN_DEEP, RACIAL_TYPE_GNOME, "Hlubinny Skret" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_GNOME_GOBLIN_DEEP, RACIAL_TYPE_GNOME, "Hlubinny Skret" );
     stSubrace = SEI_AddFieldText( stSubrace, "skret" );           // "skret"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 5 2" );           // -2 Cha
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
     stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
@@ -671,126 +441,83 @@ void SEI_DefineSubraces()
     SEI_SaveSubrace( stSubrace );
 
     // Pixie
-    stSubrace = SEI_CreateSubrace( SUBRACE_GNOME_PIXIE, RACIAL_TYPE_GNOME, "Pixie" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_GNOME_PIXIE, RACIAL_TYPE_GNOME, "Pixie" );
     stSubrace = SEI_AddFieldText( stSubrace, "pixie" );           // "pixie"
-//    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 2" );           // -2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 4" );           // -4 Str
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 4" );           // +4 Dex
-//    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 4" );           // -2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 2" );           // -2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 5 2" );           // +2 Cha
+    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
+    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 4" );           // -4 Con
     stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nAlignmentMask = 333;                                   // no lawfull
     stSubrace.m_nWingType = CREATURE_WING_TYPE_BUTTERFLY;               // Fairy kridla(5) nebo 11-15,48-56
     stSubrace.m_nWingLevel = 1;       // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "finty" );
-    stSubrace = SEI_AddTrait( stSubrace, "kridla_let" );
     stSubrace.m_nChangeAppearance = 1002;
-    stSubrace.m_nRacialType = RACIAL_TYPE_OUTSIDER;
     SEI_SaveSubrace( stSubrace );
 
 //////////////////////////-- Pulelfove --//////////////////////////
 
     // Pulelf
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFELF, RACIAL_TYPE_HALFELF, "Pul-Elf" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFELF, RACIAL_TYPE_HALFELF, "Pul-Elf" );
     stSubrace = SEI_AddFieldText( stSubrace, "pulelf" );           // "pulelf"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );           // +1 Dex
+    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 1" );      // +1 Dex
     stSubrace.m_bIsDefault = TRUE;
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_mec" );
-    stSubrace = SEI_AddTrait( stSubrace, "dlouhy_luk" );
     SEI_SaveSubrace( stSubrace );
 
     // Cerny puldrak
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFDRAGON_BLACK, RACIAL_TYPE_HALFELF, "Cerny puldrak" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFDRAGON_BLACK, RACIAL_TYPE_HALFELF, "Cerny puldrak" );
     stSubrace = SEI_AddFieldText( stSubrace, "cerny puldrak" );               // "cerny puldrak"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 1 2" );           // +2 Dex
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nWingType = 34;                                          // 65,75
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = 9;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_cerny" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Modry puldrak
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFDRAGON_BLUE, RACIAL_TYPE_HALFELF, "Modry puldrak" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFDRAGON_BLUE, RACIAL_TYPE_HALFELF, "Modry puldrak" );
     stSubrace = SEI_AddFieldText( stSubrace, "modry puldrak" );               // "modry puldrak"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 4 2" );           // +2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nWingType = 35;                                          // 67,77
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = 10;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_modry" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
+
     SEI_SaveSubrace( stSubrace );
 
     // Zeleny puldrak
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFDRAGON_GREEN, RACIAL_TYPE_HALFELF, "Zeleny puldrak" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFDRAGON_GREEN, RACIAL_TYPE_HALFELF, "Zeleny puldrak" );
     stSubrace = SEI_AddFieldText( stSubrace, "zeleny puldrak" );               // "zeleny puldrak"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 2 2" );           // +2 Con
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nWingType = 40;                                          // 66,76
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = 11;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_zeleny" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Cerveny puldrak
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFDRAGON_RED, RACIAL_TYPE_HALFELF, "Cerveny puldrak" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFDRAGON_RED, RACIAL_TYPE_HALFELF, "Cerveny puldrak" );
     stSubrace = SEI_AddFieldText( stSubrace, "cerveny puldrak" );               // "cerveny puldrak"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 2" );           // +2 int
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nWingType = 4;                                          // 68,78
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = 12;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_cerveny" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
 
     // Bily puldrak
-    stSubrace = SEI_CreateSubrace( SUBRACE_HALFDRAGON_WHITE, RACIAL_TYPE_HALFELF, "Bily puldrak" );
+    stSubrace = SEI_CreateSubrace( NT2_SUBRACE_HALFDRAGON_WHITE, RACIAL_TYPE_HALFELF, "Bily puldrak" );
     stSubrace = SEI_AddFieldText( stSubrace, "bily puldrak" );               // "bily puldrak"
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 0 2" );           // +2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
     stSubrace.m_nECLClass = 2;                                          // Postih na expy = 2
     stSubrace.m_nWingType = 42;                                          // 64,74
     stSubrace.m_nWingLevel = 21;                                        // ^^ na 21. levelu
     stSubrace.m_nTailType = 13;                                          // Ocas
     stSubrace.m_nTailLevel = 1;                                         // ^^ na 1. levelu
     stSubrace = SEI_AddTrait( stSubrace, "puldrak_dech_bily" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_HALFELF;
     SEI_SaveSubrace( stSubrace );
-
-    // Illithid
-    stSubrace = SEI_CreateSubrace( SUBRACE_ILLITHID, RACIAL_TYPE_HALFELF, "Illithid " );
-    stSubrace = SEI_AddFieldText( stSubrace, "illithid" );           // "Illithid "
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 0 2" );           // -2 Str
-    stSubrace = SEI_AddTrait( stSubrace, "ability_dec 2 4" );           // -4 Con
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 4 2" );           // +2 Wis
-    stSubrace = SEI_AddTrait( stSubrace, "ability_inc 3 4" );           // +4 Int
-    stSubrace = SEI_AddTrait( stSubrace, "darkvision" );                // Darkvision
-    stSubrace.m_nLightSensitivity = 3;                                  // Slepy na svetle
-    stSubrace.m_nECLClass = 1;                                          // Postih na expy = 1
-    stSubrace.m_bIsUnderdark = 1;                                       // Subrasa podtemna
-    stSubrace.m_nAlignmentMask = 700;                                   // evil
-    stSubrace.m_nChangeAppearance = 413;
-    stSubrace = SEI_AddTrait( stSubrace, "zamereni_ocarovani" );
-    stSubrace = SEI_AddTrait( stSubrace, "illithid_zachrane_hody" );
-    stSubrace.m_nRacialType = RACIAL_TYPE_ABERRATION;
-    SEI_SaveSubrace( stSubrace );
-
-
-
 
 
 

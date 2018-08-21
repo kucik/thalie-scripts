@@ -662,13 +662,7 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
 
         iACshield+= GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5;
     }
-    int iSubrace = Subraces_GetCharacterSubrace(oPC);
-    if (iSubrace == SUBRACE_ILLITHID)
-    {
-        iACdodge+=2;
-    }
-
-    //nahozeni bonusu
+     //nahozeni bonusu
     if (iAB > 0)
     {
         effect ef = EffectAttackIncrease(iAB);
@@ -753,67 +747,6 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
     if (iRangerLevel >= 0)
     {
         SetFavoredEnemyDamage(oPC,iRangerLevel);
-    }
-    // trpaslici bonusy
-    effect eDwarfAB,eDwarfAC;
-    switch(iSubrace)
-    {
-        case SUBRACE_DWARF_SHIELD:
-        eDwarfAC = EffectACIncrease(4);
-        eDwarfAC = VersusRacialTypeEffect(eDwarfAC,RACIAL_TYPE_HUMANOID_ORC);
-        eDwarfAC = SupernaturalEffect(eDwarfAC);
-        SetEffectSpellId(eDwarfAC,EFFECT_AB_AC_DMG);
-        eDwarfAB = EffectAttackIncrease(1);
-        eDwarfAB = VersusRacialTypeEffect(eDwarfAB,RACIAL_TYPE_HUMANOID_ORC);
-        eDwarfAB = SupernaturalEffect(eDwarfAB);
-        SetEffectSpellId(eDwarfAB,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAC,oPC);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAB,oPC);
-        break;
-
-        case SUBRACE_DWARF_MOUNTAIN:
-        eDwarfAC = EffectACIncrease(4);
-        eDwarfAC = VersusRacialTypeEffect(eDwarfAC,RACIAL_TYPE_GIANT);
-        eDwarfAC = SupernaturalEffect(eDwarfAC);
-        SetEffectSpellId(eDwarfAC,EFFECT_AB_AC_DMG);
-        eDwarfAB = EffectAttackIncrease(1);
-        eDwarfAB = VersusRacialTypeEffect(eDwarfAB,RACIAL_TYPE_GIANT);
-        eDwarfAB = SupernaturalEffect(eDwarfAB);
-        SetEffectSpellId(eDwarfAB,EFFECT_AB_AC_DMG);
-
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAC,oPC);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAB,oPC);
-        break;
-
-        case SUBRACE_DWARF_GOLD:
-        eDwarfAC = EffectACIncrease(4);
-        eDwarfAC = VersusRacialTypeEffect(eDwarfAC,RACIAL_TYPE_ELEMENTAL);
-        eDwarfAC = SupernaturalEffect(eDwarfAC);
-        SetEffectSpellId(eDwarfAC,EFFECT_AB_AC_DMG);
-        eDwarfAB = EffectAttackIncrease(1);
-        eDwarfAB = VersusRacialTypeEffect(eDwarfAB,RACIAL_TYPE_ELEMENTAL);
-        eDwarfAB = SupernaturalEffect(eDwarfAB);
-        SetEffectSpellId(eDwarfAB,EFFECT_AB_AC_DMG);
-
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAC,oPC);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAB,oPC);
-        break;
-
-        case SUBRACE_DWARF_DUERGAR:
-        case SUBRACE_DWARF_DUERGAR_BRONZED:
-        eDwarfAC = EffectACIncrease(4);
-        eDwarfAC = VersusRacialTypeEffect(eDwarfAC,RACIAL_TYPE_OUTSIDER);
-        eDwarfAC = SupernaturalEffect(eDwarfAC);
-        SetEffectSpellId(eDwarfAC,EFFECT_AB_AC_DMG);
-        eDwarfAB = EffectAttackIncrease(1);
-        eDwarfAB = VersusRacialTypeEffect(eDwarfAB,RACIAL_TYPE_OUTSIDER);
-        eDwarfAB = SupernaturalEffect(eDwarfAB);
-        SetEffectSpellId(eDwarfAB,EFFECT_AB_AC_DMG);;
-
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAC,oPC);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDwarfAB,oPC);
-        break;
-
     }
 }
 /*
@@ -1092,233 +1025,23 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
         int iSubrace = Subraces_GetCharacterSubrace(oPC);
         switch (iSubrace)
         {
-            case SUBRACE_HUMAN_CITY:
 
-            break;
-
-            case SUBRACE_HUMAN_AASIMAR:
-                iAppraise+=4;
-                iPersuade+=4;
-                iConcetration+=4;
-                iSpot +=4;
-            break;
-
-            case SUBRACE_HUMAN_TIEFLING:
-                iIntimidate+=4;
-                iTaunt+=4;
-                iMoveSilently+=4;
-                iHide +=4;
-            break;
-
-            case SUBRACE_HUMAN_GENASI_WATER:
-                iConcetration+=4;
-                iSearch+=4;
-                iListen+=4;
-            break;
-
-            case SUBRACE_HUMAN_GENASI_AIR:
-                iConcetration+=4;
-                iMoveSilently+=4;
-                iHide+=4;
-            break;
-
-            case SUBRACE_HUMAN_GENASI_EARTH:
-                iConcetration+=4;
-                iDiscipline+=4;
-                iSpot+=4;
-            break;
-
-            case SUBRACE_HUMAN_GENASI_FIRE:
-                iConcetration+=4;
-                iSpellcraft+=4;
-                iLore+=4;
-            break;
-
-            case SUBRACE_ELF_WOOD:
-                iListen+=2;
-                iSearch+=2;
-                iMoveSilently+=2;
-                iHide +=2;
-            break;
-
-            case SUBRACE_ELF_WILD:
-                iListen+=2;
-                iSearch+=2;
-                iAnimalEmpathy+=2;
-                iDiscipline +=2;
-            break;
-
-            case SUBRACE_ELF_MOON:
-                iListen+=2;
-                iSearch+=2;
-                iConcetration+=2;
-                iSpellcraft +=2;
-            break;
-
-            case SUBRACE_ELF_SUN:
-                iListen+=2;
-                iSearch+=2;
-                iConcetration+=2;
-                iSpellcraft +=2;
-            break;
-
-            case SUBRACE_ELF_WINGED:
-                iListen+=2;
-                iSearch+=2;
-                iMoveSilently+=2;
-                iHide +=2;
-            break;
-
-            case SUBRACE_ELF_EAST:
-                iDiscipline+=2;
-                iSpot+=2;
-                iMoveSilently+=2;
-                iHide +=2;
-            break;
-
-            case SUBRACE_ELF_DROW:
-                iListen+=2;
-                iSpot+=2;
-                iSearch+=2;
-                iSpellcraft +=2;
-            break;
-
-            case SUBRACE_ELF_OBSIDIAN_DROW:
-                iListen+=2;
-                iSpot+=2;
-                iSearch+=2;
-                iSpellcraft +=2;
-            break;
-
-            case SUBRACE_DWARF_SHIELD:
-                iDiscipline+=2;
-                iSpot+=2;
-            break;
-
-            case SUBRACE_DWARF_MOUNTAIN:
-                iDiscipline+=2;
-                iIntimidate+=2;
-            break;
-
-            case SUBRACE_DWARF_GOLD:
-                iConcetration+=2;
-                iSpellcraft+=2;
-            break;
-
-            case SUBRACE_DWARF_DUERGAR:
-                iHide+=2;
-                iMoveSilently+=2;
-            break;
-
-            case SUBRACE_DWARF_DUERGAR_BRONZED:
-                iHide+=2;
-                iMoveSilently+=2;
-                iSpellcraft+=2;
-            break;
-
-            case SUBRACE_ORC_CITY:
+             case NT2_SUBRACE_ORC_NONE:
                 iIntimidate+=2;
                 iTaunt+=2;
             break;
 
-            case SUBRACE_ORC_NORDIC:
+            case NT2_SUBRACE_ORC_DEEP:
                 iIntimidate+=2;
                 iTaunt+=2;
             break;
 
-            case SUBRACE_ORC_DEEP:
+            case NT2_SUBRACE_ORC_HIRAN:
                 iIntimidate+=2;
                 iTaunt+=2;
             break;
 
-            case SUBRACE_ORC_HIRAN:
-                iIntimidate+=4;
-                iTaunt+=4;
-                iDiscipline+=4;
-            break;
 
-            case SUBRACE_HALFLING_CITY:
-                iTaunt+=2;
-                iAppraise+=2;
-                iConcetration+=2;
-            break;
-
-            case SUBRACE_HALFLING_WILD:
-                iTaunt+=2;
-                iDiscipline+=2;
-                iIntimidate+=2;
-            break;
-
-            case SUBRACE_HALFLING_DEEP:
-                iTaunt+=2;
-                iHide+=2;
-                iMoveSilently+=2;
-            break;
-
-            case SUBRACE_HALFLING_KOBOLD:
-                iPerform+=2;
-                iHide+=2;
-                iMoveSilently+=2;
-            break;
-
-            case SUBRACE_GNOME_CITY:
-                iConcetration+=2;
-                iSpellcraft+=2;
-                iLore+=2;
-            break;
-
-            case SUBRACE_GNOME_SWIRFNEBLIN:
-                iConcetration+=2;
-                iSpellcraft+=2;
-                iLore+=2;
-            break;
-
-            case SUBRACE_GNOME_GOBLIN_DEEP:
-                iTaunt+=2;
-                iAppraise+=2;
-            break;
-
-            case SUBRACE_GNOME_PIXIE:
-                iSpellcraft+=4;
-                iSpot+=4;
-                iHide+=4;
-                iMoveSilently+=4;
-            break;
-
-            case SUBRACE_HALFELF:
-            break;
-
-            case SUBRACE_HALFDRAGON_BLACK:
-                iSpot+=4;
-                iIntimidate+=4;
-            break;
-
-            case SUBRACE_HALFDRAGON_BLUE:
-                iSpot+=4;
-                iIntimidate+=4;
-            break;
-
-            case SUBRACE_HALFDRAGON_GREEN:
-                iSpot+=4;
-                iIntimidate+=4;
-            break;
-
-            case SUBRACE_HALFDRAGON_RED:
-                iSpot+=4;
-                iIntimidate+=4;
-            break;
-
-            case SUBRACE_HALFDRAGON_WHITE:
-                iSpot+=4;
-                iIntimidate+=4;
-            break;
-
-            case SUBRACE_ILLITHID:
-                iSpot+=4;
-                iConcetration+=4;
-                iSpellcraft+=4;
-                iLore+=4;
-            break;
         }
 
 
@@ -1373,7 +1096,6 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     int iImmunityPoison = FALSE;
     int iImmunityParalysis = FALSE;
     int iImmunityDisease = FALSE;
-    int iImmunityMind  = FALSE;
     if (GetHasFeat(FEAT_KURTIZANA_IMUNITA_NEMOCI,oPC) == TRUE)
     {
          iImmunityDisease = TRUE;
@@ -1382,65 +1104,42 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     int iSubrace = Subraces_GetCharacterSubrace(oPC);
     switch (iSubrace)
     {
-        case SUBRACE_HUMAN_DESERT:
-        if (iDamageReductionFire < 5) iDamageReductionFire = 5;
-        break;
-
-        case SUBRACE_HUMAN_NORDIC:
-        if (iDamageReductionCold < 5) iDamageReductionCold = 5;
-        break;
-
-        case SUBRACE_HUMAN_AASIMAR:
+        case NT2_SUBRACE_HUMAN_AASIMAR:
         if (iDamageReductionCold < 5) iDamageReductionCold = 5;
         if (iDamageReductionElec < 5) iDamageReductionElec = 5;
         iVulnerabilityFire+= 25;
         break;
 
-        case SUBRACE_HUMAN_TIEFLING:
+        case NT2_SUBRACE_HUMAN_TIEFLING:
         if (iDamageReductionFire < 5) iDamageReductionFire = 5;
         if (iDamageReductionAcid < 5) iDamageReductionAcid = 5;
         iVulnerabilityCold+= 25;
         break;
 
-        case SUBRACE_DWARF_DUERGAR_BRONZED:
-        iImmunityPoison = TRUE;
-        iImmunityParalysis = TRUE;
-        break;
-
-        case SUBRACE_HALFLING_KOBOLD:
-        iImmunityPoison = TRUE;
-        iImmunityDisease = TRUE;
-        break;
-
-        case SUBRACE_HALFDRAGON_BLACK:
+        case NT2_SUBRACE_HALFDRAGON_BLACK:
         iImmunityAcid += 20+2*iHD;
         iVulnerabilityCold += 20+2*iHD;
         break;
 
-        case SUBRACE_HALFDRAGON_BLUE:
+        case NT2_SUBRACE_HALFDRAGON_BLUE:
         iImmunityElec += 20+2*iHD;
         iVulnerabilityAcid += 20+2*iHD;
         break;
 
-        case SUBRACE_HALFDRAGON_GREEN:
+        case NT2_SUBRACE_HALFDRAGON_GREEN:
         iImmunityAcid += 20+2*iHD;
         iVulnerabilityElec += 20+2*iHD;
         break;
 
-        case SUBRACE_HALFDRAGON_RED:
+        case NT2_SUBRACE_HALFDRAGON_RED:
         iImmunityFire += 20+2*iHD;
         iVulnerabilityCold += 20+2*iHD;
         break;
 
-        case SUBRACE_HALFDRAGON_WHITE:
+        case NT2_SUBRACE_HALFDRAGON_WHITE:
         iImmunityCold += 20+2*iHD;
         iVulnerabilityFire+= 20+2*iHD;
         break;
-
-        case SUBRACE_ILLITHID:
-        iImmunityMind = TRUE;
-        break;
-
 
     }
     //domeny
@@ -1553,12 +1252,7 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
         AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
     }
-    if (iImmunityMind)
-    {
-        ip = ItemPropertyImmunityMisc(IP_CONST_IMMUNITYMISC_MINDSPELLS);
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
-    }
+
 
     if (GetHasFeat(FEAT_KURTIZANA_JASNE_JAKO_FACKA,oPC) == TRUE)
     {
@@ -1566,42 +1260,6 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
         AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
     }
-
-
-
-}
-
-void ApplySpellResistance(object oPC, object oPCSkin)
-{
-    int iSR = 0;
-    int iHD = GetHitDice(oPC);
-    int iSubrace = Subraces_GetCharacterSubrace(oPC);
-    int iBonus = 0;
-    if (iSubrace == SUBRACE_ELF_OBSIDIAN_DROW)
-    {
-       iBonus = iHD /2 +10 ;
-       if (iSR < iBonus)
-       {
-            iSR = iBonus;
-       }
-    }
-    if (iSubrace ==SUBRACE_GNOME_PIXIE)
-    {
-       iBonus = iHD /2 +10;
-       if (iSR < iBonus)
-       {
-            iSR = iBonus;
-       }
-    }
-    if (iSR >0)
-    {
-        effect ef =  EffectSpellResistanceIncrease(iSR);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId (eLink,EFFECT_SPELL_RESISTANCE);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-
-    }
-
 }
 
 /*Bonusy do regenerace*/
@@ -1672,7 +1330,7 @@ void ApplySpeed(object oPC, object oPCSkin)
 
     int iSpeed = 0;
     int iSubrace = Subraces_GetCharacterSubrace(oPC);
-    if (iSubrace == SUBRACE_ELF_WINGED)
+    if (iSubrace == NT2_SUBRACE_ELF_WINGED)
     {
        iSpeed+= 20;
     }

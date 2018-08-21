@@ -42,161 +42,57 @@ void AddLanguagesOnClientEnter(object oPC)
     int iSubrace = Subraces_GetCharacterSubrace(oPC);
        switch (iSubrace)
         {
-             case SUBRACE_HUMAN_CITY:
-             break;
 
-             case SUBRACE_HUMAN_SLAVE:
-             break;
-
-             case SUBRACE_HUMAN_DESERT:
-             break;
-
-             case SUBRACE_HUMAN_NORDIC:
-             break;
-
-             case SUBRACE_HUMAN_EAST:
-             AddLanguage(oPC,LANGUAGE_SYLVAN);
-             break;
-
-             case SUBRACE_HUMAN_AASIMAR:
-             break;
-
-             case SUBRACE_HUMAN_TIEFLING:
-             break;
-
-             case SUBRACE_HUMAN_GENASI_WATER:
-             AddLanguage(oPC,LANGUAGE_AQUAN);
-             break;
-
-             case SUBRACE_HUMAN_GENASI_AIR:
-             AddLanguage(oPC,LANGUAGE_SYLVAN);
-             break;
-
-             case SUBRACE_HUMAN_GENASI_EARTH:
-             AddLanguage(oPC,LANGUAGE_DWARVEN);
-             break;
-
-             case SUBRACE_HUMAN_GENASI_FIRE:
-             AddLanguage(oPC,LANGUAGE_AURAN);
-             break;
-
-             case SUBRACE_ELF_WOOD:
+             case NT2_SUBRACE_ELF_NONE:
              AddLanguage(oPC,LANGUAGE_ELVEN);
              break;
 
-             case SUBRACE_ELF_WILD:
+             case NT2_SUBRACE_ELF_WINGED:
              AddLanguage(oPC,LANGUAGE_ELVEN);
              break;
 
-             case SUBRACE_ELF_MOON:
-             AddLanguage(oPC,LANGUAGE_ELVEN);
-             break;
-
-             case SUBRACE_ELF_SUN:
-             AddLanguage(oPC,LANGUAGE_ELVEN);
-             break;
-
-             case SUBRACE_ELF_WINGED:
-             AddLanguage(oPC,LANGUAGE_ELVEN);
-             break;
-
-             case SUBRACE_ELF_EAST:
-             AddLanguage(oPC,LANGUAGE_SYLVAN);
-             break;
-
-             case SUBRACE_ELF_DROW:
+             case NT2_SUBRACE_ELF_DROW:
              AddLanguage(oPC,LANGUAGE_UNDERCOMMON);
              break;
 
-             case SUBRACE_ELF_OBSIDIAN_DROW:
-             AddLanguage(oPC,LANGUAGE_UNDERCOMMON);
-             break;
-
-             case SUBRACE_DWARF_MOUNTAIN:
+             case NT2_SUBRACE_DWARF_NONE:
              AddLanguage(oPC,LANGUAGE_DWARVEN);
              break;
 
-             case SUBRACE_DWARF_GOLD:
-             AddLanguage(oPC,LANGUAGE_DWARVEN);
-             break;
-
-             case SUBRACE_DWARF_SHIELD:
-             AddLanguage(oPC,LANGUAGE_DWARVEN);
-             break;
-
-             case SUBRACE_DWARF_DUERGAR:
+             case NT2_SUBRACE_DWARF_DUERGAR:
              AddLanguage(oPC,LANGUAGE_GOBLIN);
              break;
 
-             case SUBRACE_DWARF_DUERGAR_BRONZED:
-             AddLanguage(oPC,LANGUAGE_GOBLIN);
-             break;
-
-             case SUBRACE_ORC_CITY:
+             case NT2_SUBRACE_ORC_NONE:
              AddLanguage(oPC,LANGUAGE_ORC);
              break;
 
-             case SUBRACE_ORC_NORDIC:
-             AddLanguage(oPC,LANGUAGE_ORC);
-             break;
-
-             case SUBRACE_ORC_DEEP:
+             case NT2_SUBRACE_ORC_DEEP:
              AddLanguage(oPC,LANGUAGE_GIANT);
              break;
 
-             case SUBRACE_ORC_HIRAN:
+             case NT2_SUBRACE_ORC_HIRAN:
              AddLanguage(oPC,LANGUAGE_GIANT);
              break;
 
-             case SUBRACE_HALFLING_CITY:
-             break;
-
-             case SUBRACE_HALFLING_WILD:
-             break;
-
-             case SUBRACE_HALFLING_DEEP:
-             break;
-
-             case SUBRACE_HALFLING_KOBOLD:
-             break;
-
-             case SUBRACE_GNOME_CITY:
+             case NT2_SUBRACE_GNOME_NONE:
              AddLanguage(oPC,LANGUAGE_GNOME);
              break;
 
-             case SUBRACE_GNOME_SWIRFNEBLIN:
+             case NT2_SUBRACE_GNOME_SWIRFNEBLIN:
              AddLanguage(oPC,LANGUAGE_IGNAN);
              break;
 
-             case SUBRACE_GNOME_GOBLIN_DEEP:
+             case NT2_SUBRACE_GNOME_GOBLIN_DEEP:
              AddLanguage(oPC,LANGUAGE_GIANT);
              break;
 
-             case SUBRACE_GNOME_PIXIE:
+             case NT2_SUBRACE_GNOME_PIXIE:
              AddLanguage(oPC,LANGUAGE_ELVEN);
              break;
 
-             case SUBRACE_HALFELF:
+             case NT2_SUBRACE_HALFELF:
              AddLanguage(oPC,LANGUAGE_ELVEN);
-             break;
-
-             case SUBRACE_HALFDRAGON_BLACK:
-             break;
-
-             case SUBRACE_HALFDRAGON_BLUE:
-             break;
-
-             case SUBRACE_HALFDRAGON_GREEN:
-             break;
-
-             case SUBRACE_HALFDRAGON_RED:
-             break;
-
-             case SUBRACE_HALFDRAGON_WHITE:
-             break;
-
-             case SUBRACE_ILLITHID:
-             AddLanguage(oPC,LANGUAGE_DRACONIC);
              break;
 
     }
