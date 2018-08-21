@@ -1609,6 +1609,7 @@ void ApplyRegeneration(object oPC, object oPCSkin)
 {
 
     int iRegeneration = 0;
+    int iDDRegen = 0;
     /*CERNOKNEZNIK Dábelská prunost*/
     if (GetHasFeat(FEAT_CERNOKNEZNI_DABELSKA_PRUZNOST,oPC) == TRUE)
     {
@@ -1617,22 +1618,29 @@ void ApplyRegeneration(object oPC, object oPCSkin)
     /*Rychle hojeni*/
     if (GetHasFeat(FEAT_EPICGENERAL_RYCHLE_HOJENI_1,oPC) == TRUE)
     {
-         iRegeneration += 3;
+         iDDRegen = 5;
     }
     /*Rychle hojeni*/
     if (GetHasFeat(FEAT_EPICGENERAL_RYCHLE_HOJENI_2,oPC) == TRUE)
     {
-         iRegeneration += 3;
+         iDDRegen = 10;
     }
     /*Rychle hojeni*/
     if (GetHasFeat(FEAT_EPICGENERAL_RYCHLE_HOJENI_3,oPC) == TRUE)
     {
-         iRegeneration += 3;
+         iDDRegen = 20;
     }
-
+    itemproperty eRegen;
     if (iRegeneration >0)
     {
-        itemproperty eRegen = ItemPropertyRegeneration(iRegeneration);
+        eRegen = ItemPropertyRegeneration(iRegeneration);
+        SetItemPropertySpellId(eRegen,IP_REGENERATION);
+        AddItemProperty(DURATION_TYPE_TEMPORARY,eRegen,oPCSkin,43200.0);
+
+    }
+    if (iDDRegen >0)
+    {
+        eRegen = ItemPropertyRegeneration(iDDRegen);
         SetItemPropertySpellId(eRegen,IP_REGENERATION);
         AddItemProperty(DURATION_TYPE_TEMPORARY,eRegen,oPCSkin,43200.0);
 
