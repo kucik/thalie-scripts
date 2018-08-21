@@ -99,7 +99,7 @@ void main()
             SendMessageToPC(oSpellOrigin,"Krvacive rany: " + IntToString(iRandom)+" proti 25. Uspech.");
             if (GetLocalInt(oSpellTarget,"UderDoTepny") == 0)
             {
-                int iCasterLevel = GetLevelByClass(CLASS_TYPE_NEWROGUE,oSpellOrigin);
+                int iCasterLevel = GetLevelByClass(CLASS_TYPE_ROGUE,oSpellOrigin);
                 SetLocalInt(oSpellTarget,"UderDoTepny",(iCasterLevel/5)*2);
                 int iDC = 10 + (iCasterLevel+1) / 2;
                 effect eDamage = EffectDamage(2);
@@ -121,7 +121,7 @@ void main()
         if  (iRandom <= 24)
         {
             SendMessageToPC(oSpellOrigin,"Utiseni: " + IntToString(iRandom)+"<25. Uspech.");
-            int iCasterLevel = GetLevelByClass(CLASS_TYPE_NEWROGUE,oSpellOrigin);
+            int iCasterLevel = GetLevelByClass(CLASS_TYPE_ROGUE,oSpellOrigin);
             effect eDur2 = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
             effect eSilence = EffectSilence();
             effect eLink = EffectLinkEffects(eDur2, eSilence);
@@ -143,7 +143,7 @@ void main()
         if  (iRandom <= 24)
         {
             SendMessageToPC(oSpellOrigin,"Oslepeni: " + IntToString(iRandom)+"proti 25. Uspech.");
-            int iCasterLevel = GetLevelByClass(CLASS_TYPE_NEWROGUE,oSpellOrigin);
+            int iCasterLevel = GetLevelByClass(CLASS_TYPE_ROGUE,oSpellOrigin);
             effect ef = EffectBlindness();
             effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
             effect eLink = EffectLinkEffects(ef,eDur);

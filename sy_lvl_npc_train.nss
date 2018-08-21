@@ -29,7 +29,7 @@ string sy_get_remeslo()
         case CLASS_TYPE_PALADIN         : return "paladiny";
         case CLASS_TYPE_PALE_MASTER     : return "pany smrti";
         case CLASS_TYPE_RANGER          : return "hranicare";
-        case CLASS_TYPE_NEWROGUE           : return "tulaky";
+        case CLASS_TYPE_ROGUE           : return "tulaky";
         case CLASS_TYPE_SHADOWDANCER    : return "stinovye tanecniky";
         case CLASS_TYPE_SHIFTER         : return "menavce";
         case CLASS_TYPE_SORCERER        : return "zaklinace";
@@ -67,7 +67,7 @@ int KU_GetPriceForClass()
         case CLASS_TYPE_PALADIN         : return 15;
         case CLASS_TYPE_PALE_MASTER     : return 20;
         case CLASS_TYPE_RANGER          : return 15;
-        case CLASS_TYPE_NEWROGUE        : return 10;
+        case CLASS_TYPE_ROGUE        : return 10;
         case CLASS_TYPE_SHADOWDANCER    : return 25;
         case CLASS_TYPE_SHIFTER         : return 25;
         case CLASS_TYPE_SORCERER        : return 15;

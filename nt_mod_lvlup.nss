@@ -90,6 +90,13 @@ void main()
     }
     }
 
+    if (nClass3 != CLASS_TYPE_INVALID)
+    {
+        SendMessageToPC(oPC, "</c>Na Thalii neni povoleno 3. povolani.</c>");
+        sy_relevel(oPC, nLevel);
+        return;
+    }
+
     //ak trener nepovolil trenink alebo nastal pad serveru a hrac ma tu premennu
     //nastavenu na 0, tak vypisem chybovu hlasku
     if (GetLocalInt(oPC, "sy_allowlvl")==0)

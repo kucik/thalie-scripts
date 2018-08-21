@@ -1,6 +1,6 @@
 //konstanty pro povolani
 const int CLASS_TYPE_SHINOBI = 42;
-const int CLASS_TYPE_NEWROGUE = 43;
+const int CLASS_TYPE_OBCAN = 43;
 const int CLASS_TYPE_CERNOKNEZNIK = 44;
 const int CLASS_TYPE_SERMIR = 45;
 const int CLASS_TYPE_SAMURAJ = 46;
