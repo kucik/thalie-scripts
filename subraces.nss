@@ -274,8 +274,8 @@ void Subraces_InitSubrace( object a_oCharacter )
     if(SUBRACE_DEBUG)
       SendMessageToPC(a_oCharacter,"Subrasa nastavena.");
 
-    // Dopocitej skillpointy
-    KU_CalcAndGiveSkillPoints(a_oCharacter);
+    // Dopocitej skillpointy    - SH-Zrusen, zadna subrasa uz nema bonus do int
+    //KU_CalcAndGiveSkillPoints(a_oCharacter);
 }
 
 

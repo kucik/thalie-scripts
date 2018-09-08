@@ -49,10 +49,6 @@ void main()
     {
        nDuration = nDuration *2;    //Duration is +100%
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_PODZEMI || GetClericDomain(OBJECT_SELF,2)==DOMENA_PODZEMI)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
-    }
     //Create an instance of the AOE Object using the Apply Effect function
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eAOE, lTarget, RoundsToSeconds(nDuration));
 }

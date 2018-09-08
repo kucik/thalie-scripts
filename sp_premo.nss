@@ -46,9 +46,9 @@ void main()
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     int nLimit = nDuration * 10;
     int nMetaMagic = GetMetaMagicFeat();
-
-    if(nLimit > 200) {
-      nLimit = 200 + (nDuration - 20) * 5;
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    {
+        nLimit += nLimit/2;
     }
 
     // Variable damage power
@@ -73,10 +73,7 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
-    }
+
     RemoveEffectsFromSpell(oTarget, SPELL_PREMONITION);
     //Apply the linked effect
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(nDuration));

@@ -51,10 +51,6 @@ void main()
     effect eLink = eAttack;
     eLink = EffectLinkEffects(eLink, eDur);
     float nDuration = 9.0;
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
-    }
     oTarget = OBJECT_SELF;
 
     //Fire spell cast at event for target

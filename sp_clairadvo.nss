@@ -38,8 +38,13 @@ void main()
 
 
     //Declare major variables
-    effect eSpot = EffectSkillIncrease(SKILL_SPOT, 10);
-    effect eListen = EffectSkillIncrease(SKILL_LISTEN, 10);
+    int iBonus = 10;
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    {
+        iBonus = 15;
+    }
+    effect eSpot = EffectSkillIncrease(SKILL_SPOT, iBonus);
+    effect eListen = EffectSkillIncrease(SKILL_LISTEN, iBonus);
     effect eVis = EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
 
@@ -57,11 +62,6 @@ void main()
     {
         nLevel *= 2;
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
-    {
-        nLevel = nLevel * 2; //Duration is +100%
-    }
-
     //Make sure the spell has not already been applied
     if(!GetHasSpellEffect(SPELL_CLAIRAUDIENCE_AND_CLAIRVOYANCE, oTarget))
     {

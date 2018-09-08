@@ -19,6 +19,7 @@
 #include "sh_deity_inc"
 #include "x2_inc_spellhook"
 #include "sh_classes_inc_e"
+#include "sh_deity_inc"
 //#include "nwnx_funcs"
 //#include "nwnx_functions"
 
@@ -84,7 +85,7 @@ void main()
       }
     }
     */
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_NORD)
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
@@ -105,10 +106,10 @@ void main()
         }
     }
     object oShield = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
-    if(   (bHasArmorBonus==TRUE) && 
-          (GetIsObjectValid(oShield)) && 
+    if(   (bHasArmorBonus==TRUE) &&
+          (GetIsObjectValid(oShield)) &&
           ( (GetBaseItemType(oShield) == BASE_ITEM_LARGESHIELD) ||
-            (GetBaseItemType(oShield) == BASE_ITEM_SMALLSHIELD) || 
+            (GetBaseItemType(oShield) == BASE_ITEM_SMALLSHIELD) ||
             (GetBaseItemType(oShield) == BASE_ITEM_TOWERSHIELD)))
     {
         DelayCommand(1.3f, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));

@@ -16,6 +16,7 @@
 #include "X0_I0_SPELLS"
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -62,6 +63,11 @@ void main()
     if (GetRacialType(oTarget) != GetRacialType(OBJECT_SELF))
     {
         nModifier = 4;
+    }
+
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_MORUS)
+    {
+        nModifier = 0;
     }
     if(!GetIsReactionTypeFriendly(oTarget))
     {

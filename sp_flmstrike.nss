@@ -21,6 +21,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -85,6 +86,10 @@ void main()
                 if (nMetaMagic == METAMAGIC_EMPOWER)
                 {
                       nDamage = nDamage + (nDamage/2);
+                }
+                if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LILITH)
+                {
+                    nDamage = nDamage + (nDamage/2);
                 }
                 //Adjust the damage based on Reflex Save, Evasion and Improved Evasion
                 nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DIVINE);

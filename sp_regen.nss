@@ -13,6 +13,7 @@
 //:://////////////////////////////////////////////
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -49,6 +50,11 @@ void main()
     {
         iRegen = 9;
     }
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_AZHAR)
+    {
+        iRegen *= 2;
+    }
+
     effect eRegen = EffectRegenerate(iRegen, 6.0);
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_NATURE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);

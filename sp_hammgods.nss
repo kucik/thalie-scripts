@@ -16,7 +16,7 @@
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
 #include "ku_boss_inc"
-
+#include "sh_deity_inc"
 void main()
 {
 
@@ -87,6 +87,11 @@ void main()
                 {
                     nDamage = FloatToInt( IntToFloat(nDamage) * 1.5 );
                 }
+                if (GetThalieClericDeity(OBJECT_SELF)==DEITY_DEI_ANANG)
+                {
+                    nDamage = FloatToInt( IntToFloat(nDamage) * 1.5 );
+                }
+
                 //Make a will save for half damage and negation of daze effect
                 if (MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DIVINE, OBJECT_SELF, 0.5))
                 {

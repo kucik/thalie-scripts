@@ -23,6 +23,7 @@ bugfix by Kovi 2002.07.28
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
 #include "ku_boss_inc"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -42,7 +43,11 @@ void main()
     }
 
 // End of Spell Cast Hook
-
+    int iBonus = 0;
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    {
+      iBonus = 50;
+    }
 
     //Declare major variables
     object oTarget = GetSpellTargetObject();
@@ -58,17 +63,17 @@ void main()
     //Apply the VFX impact
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eWord, GetSpellTargetLocation());
     //Determine the number rounds the creature will be stunned
-    if (nHP >= 151)
+    if (nHP >= (151+iBonus))
     {
         nDuration = 0;
         nMeta = 0;
     }
-    else if (nHP >= 101 && nHP <= 150)
+    else if (nHP >= (101+iBonus) && nHP <= (150+iBonus))
     {
         nDuration = d4(1);
         nMeta = 4;
     }
-    else if (nHP >= 51  && nHP <= 100)
+    else if (nHP >= (51+iBonus)  && nHP <= (100+iBonus))
     {
         nDuration = d4(2);
         nMeta = 8;

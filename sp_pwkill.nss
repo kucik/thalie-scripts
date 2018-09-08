@@ -25,6 +25,7 @@
 
 #include "x2_inc_spellhook"
 #include "ku_boss_inc"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -48,6 +49,12 @@ void main()
 
       //Declare major variables
       object oTarget = GetSpellTargetObject();
+      int iBonus = 0;
+      if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+      {
+        iBonus = 50;
+      }
+
 
       int nDamageDealt = 0;
       int nHitpoints, nMin;
@@ -67,7 +74,7 @@ void main()
                 //Fire cast spell at event for the specified target
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_POWER_WORD_KILL));
                 //Check the creatures HP
-                if ( GetCurrentHitPoints(oTarget) <= 100 )
+                if ( GetCurrentHitPoints(oTarget) <= (100+iBonus) )
                 {
                       if(!MyResistSpell(OBJECT_SELF, oTarget))
                       {
@@ -86,7 +93,7 @@ void main()
       else
       {
             //Continue through the while loop while the damage deal is less than 200.
-            while (nDamageDealt < 200)
+            while (nDamageDealt < (200+iBonus))
             {
                   //Set nMin higher than the highest HP amount allowed
                   nMin = 25;

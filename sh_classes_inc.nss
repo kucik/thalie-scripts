@@ -51,6 +51,8 @@ void CheckAndApplyEpicRageFeats(int nRounds);
 //bonusy dle kategorii
 #include "sei_subraceslst"
 
+#include "sh_deity_inc"
+
 
 
 
@@ -534,6 +536,45 @@ void CheckAndApplyEpicRageFeats(int nRounds)
 
 }
 
+void UnEquipPlateArmor(object oPC)
+{
+  //feat pouziti platove zbroje - 1672
+  object oArmor = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC);
+  if (GetIsObjectValid(oArmor))
+  {
+    if ((GetItemACValue(oArmor) >=7)  && (GetHasFeat(1672,oPC)==FALSE))
+    {
+        AssignCommand(oPC,ActionUnequipItem(oArmor));
+    }
+  }
+}
+
+void RepairDeities(object oPC)
+{
+    if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC) > 0)  //zkontroluj domeny
+    {
+        int iDeity = GetThalieDeity(oPC);
+        int iDomain1 = GetClericDomain(oPC,1);
+        int iDomain2 = GetClericDomain(oPC,2);
+        if (!GetIsDeityAndDomainsValid(iDeity, iDomain1,iDomain2))
+        {
+            SetDomainsByDeity(oPC,iDeity);
+        }
+    }
+}
+
+void ApplyLilithDmgShield(object oPC)
+{
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LILITH)
+    {
+        int iDamage = GetLevelByClass(CLASS_TYPE_CLERIC,oPC) /2;
+        if (iDamage = 0) iDamage=1;
+        effect ef1 =EffectDamageShield(iDamage,DAMAGE_BONUS_1,DAMAGE_TYPE_FIRE);
+        SetEffectSpellId(ef1,EFFECT_LILITH_PASSIVE);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef1,oPC);
+    }
+}
+
 
 
 ///***------------------------------------------------------------------------------------------------------------------
@@ -580,9 +621,7 @@ void OnLvlupClassSystem(object oPC)
    ApplyDamageReduction(oPC,oPCSkin);
    // nastaveni poctu featu na den
    RestoreFeatUses(oPC);
-
-
-
+   RepairDeities(oPC);
 }
 
 void OnRestClassSystem(object oPC)
@@ -605,6 +644,8 @@ void OnEquipClassSystem(object oPC, object oItem)
  AddZbranThalie(oPC,oItem);
  RefreshBonusACNaturalBase(oPC,oPCSkin);
  RefreshOnEquipSpecialBonuses(oPC,1);
+ UnEquipPlateArmor(oPC);
+
 }
 
 void OnUnEquipClassSystem(object oPC,object oItem)
@@ -642,6 +683,6 @@ void OnEnterClassSystem(object oPC)
     DecreaseBarbarStats(oPC);
     DecreaseDefenderStats(oPC);
     OnLvlupClassSystem(oPC);
-
+    RepairDeities(oPC);
  }
 

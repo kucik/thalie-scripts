@@ -44,6 +44,10 @@ void main()
     int nLevel = GetCasterLevel(oTarget);
     nLevel = GetThalieCaster(OBJECT_SELF,oTarget,nLevel,FALSE);
     int nBonus = 10 + (nLevel / 2);
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    {
+        nBonus += nBonus/2;
+    }
     effect eLore = EffectSkillIncrease(SKILL_LORE, nBonus);
     effect eVis = EffectVisualEffect(VFX_IMP_MAGICAL_VISION);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
@@ -55,10 +59,7 @@ void main()
     {
         nLevel *= 2;
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
-    {
-        nLevel = nLevel * 2; //Duration is +100%
-    }
+
     //Make sure the spell has not already been applied
     if(!GetHasSpellEffect(SPELL_IDENTIFY, oTarget) || !GetHasSpellEffect(SPELL_LEGEND_LORE, oTarget))
     {

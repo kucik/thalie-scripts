@@ -1,9 +1,9 @@
 #include "sh_classes_inc_e"
 
 int GetIsDeityAndDomainsValid(int iDeityFeat, int iDomain1,int iDomain2);
+void SetDomainsByDeity(object oPC, int iDeity);
 //DEITY
-/*
-const int DEITY_ATHEIST = 0;
+const int DEITY_BEZVEREC = 0;
 const int DEITY_DEI_ANANG = 1;
 const int DEITY_JUANA = 2;
 const int DEITY_NORD = 3;
@@ -16,107 +16,89 @@ const int DEITY_GORDUL = 9;
 const int DEITY_HELGARON = 10;
 const int DEITY_ZEIR = 11;
 const int DEITY_XIAN = 12;
-*/
 //domains
-const int DOMENA_VZDUCH = 0;
-const int DOMENA_ZVIRATA = 1;
-const int DOMENA_SMRT = 3;
-const int DOMENA_NICENI = 4;
-const int DOMENA_ZEME = 5;
-const int DOMENA_SFERY= 6;
-const int DOMENA_OHEN = 7;
-const int DOMENA_LECENI = 9;
-const int DOMENA_MAGIE = 13;
-const int DOMENA_ROSTLINY = 14;
-const int DOMENA_OCHRANA = 15;
-const int DOMENA_SILA = 16;
-const int DOMENA_SLUNCE = 17;
-const int DOMENA_PUTOVANI = 18;
-const int DOMENA_KLAM = 19;
-const int DOMENA_VALKA = 20;
-const int DOMENA_VODA = 21;
-const int DOMENA_STESTI = 22;
-const int DOMENA_KOV = 23;
-const int DOMENA_PAVOUCI = 24;
-const int DOMENA_ILUZE = 25;
-const int DOMENA_ZIVOT = 26;
-const int DOMENA_VEDENI = 27;
-const int DOMENA_RAD = 28;
-const int DOMENA_HNEV = 29;
-const int DOMENA_PODZEMI = 30;
-const int DOMENA_CHAOS = 31;
-const int DOMENA_OBCHOD = 32;
+const int DOMENA_BEZVEREC1 = 22;
+const int DOMENA_BEZVEREC2 = 23;
+const int DOMENA_JUANA1 = 24;
+const int DOMENA_JUANA2 = 25;
+const int DOMENA_DEI_ANANG1 = 26;
+const int DOMENA_DEI_ANANG2 = 27;
+const int DOMENA_NORD1 = 28;
+const int DOMENA_NORD2 = 29;
+const int DOMENA_LOTHIAN1 = 30;
+const int DOMENA_LOTHIAN2 = 31;
+const int DOMENA_AZHAR1 = 32;
+const int DOMENA_AZHAR2 = 33;
+const int DOMENA_MORUS1 = 34;
+const int DOMENA_MORUS2 = 35;
+const int DOMENA_LILITH1 = 36;
+const int DOMENA_LILITH2 = 37;
+const int DOMENA_THAL1 = 38;
+const int DOMENA_THAL2 = 39;
+const int DOMENA_XIAN1 = 40;
+const int DOMENA_XIAN2 = 41;
+const int DOMENA_GORDUL1 = 42;
+const int DOMENA_GORDUL2 = 43;
+const int DOMENA_HELGARON1 = 44;
+const int DOMENA_HELGARON2 = 45;
+const int DOMENA_ZEIR1 = 46;
+const int DOMENA_ZEIR2 = 47;
 
-void RemoveAllDeitys(object oPC)
-{
-    RemoveKnownFeat (oPC,FEAT_DEITY_ATHEIST );
-    RemoveKnownFeat (oPC,FEAT_DEITY_AZHAR );
-    RemoveKnownFeat (oPC,FEAT_DEITY_DEI_ANANG );
-    RemoveKnownFeat (oPC,FEAT_DEITY_GORDUL );
-    RemoveKnownFeat (oPC,FEAT_DEITY_HELGARON );
-    RemoveKnownFeat (oPC,FEAT_DEITY_JUANA );
-    RemoveKnownFeat (oPC,FEAT_DEITY_LILITH );
-    RemoveKnownFeat (oPC,FEAT_DEITY_LOTHIAN );
-    RemoveKnownFeat (oPC,FEAT_DEITY_MORUS );
-    RemoveKnownFeat (oPC,FEAT_DEITY_NORD );
-    RemoveKnownFeat (oPC,FEAT_DEITY_THAL );
-    RemoveKnownFeat (oPC,FEAT_DEITY_XIAN );
-    RemoveKnownFeat (oPC,FEAT_DEITY_ZEIR );
-
-}
 
 
 string GetDeityName(object oPC)
 {
-    if (GetHasFeat(FEAT_DEITY_ATHEIST,oPC))
+    object oDuse =GetSoulStone(oPC);
+    int iDeity= GetLocalInt(oDuse,"DEITY");
+    if (iDeity==DEITY_BEZVEREC)
     {
         return "Ateista";
     }
-    else if (GetHasFeat(FEAT_DEITY_AZHAR,oPC))
+    else if (iDeity==DEITY_AZHAR)
     {
         return "Azhar";
     }
-    else if (GetHasFeat(FEAT_DEITY_DEI_ANANG,oPC))
+    else if (iDeity==DEITY_DEI_ANANG)
     {
         return "Dei-Anang";
     }
-    else if (GetHasFeat(FEAT_DEITY_GORDUL,oPC))
+    else if (iDeity==DEITY_GORDUL)
     {
         return "Gordul";
     }
-    else if (GetHasFeat(FEAT_DEITY_HELGARON,oPC))
+    else if (iDeity==DEITY_HELGARON)
     {
         return "Helgaron";
     }
-    else if (GetHasFeat(FEAT_DEITY_JUANA,oPC))
+    else if (iDeity==DEITY_JUANA)
     {
         return "Juana";
     }
-    else if (GetHasFeat(FEAT_DEITY_LILITH,oPC))
+    else if (iDeity==DEITY_LILITH)
     {
         return "Lilith";
     }
-    else if (GetHasFeat(FEAT_DEITY_LOTHIAN,oPC))
+    else if (iDeity==DEITY_LOTHIAN)
     {
         return "Lothian";
     }
-    else if (GetHasFeat(FEAT_DEITY_MORUS,oPC))
+    else if (iDeity==DEITY_MORUS)
     {
         return "Morus";
     }
-    else if (GetHasFeat(FEAT_DEITY_NORD,oPC))
+    else if (iDeity==DEITY_NORD)
     {
         return "Nord";
     }
-    else if (GetHasFeat(FEAT_DEITY_THAL,oPC))
+    else if (iDeity==DEITY_THAL)
     {
         return "Thal";
     }
-    else if (GetHasFeat(FEAT_DEITY_XIAN,oPC))
+    else if (iDeity==DEITY_XIAN)
     {
         return "Xian";
     }
-    else if (GetHasFeat(FEAT_DEITY_ZEIR,oPC))
+    else if (iDeity==DEITY_ZEIR)
     {
         return "Zeir";
     }
@@ -125,537 +107,207 @@ string GetDeityName(object oPC)
 
 /*Vraci 1 pokud uspesne nastavil bozstvo, 0 pokud nerozpoznal text, -1 pokud jsou spatne domeny
 */
-int SetThalieDeity(object oPC, string sDeity)
+int DM_SetThalieDeity(object oPC, string sDeity)
 {
     string sLowDeity = GetStringLowerCase(sDeity);
     int iDeity = 0;
     int iDomain1,iDomain2;
     if (sLowDeity == "ateista" || sLowDeity == "bezverec")
     {
-        iDeity = FEAT_DEITY_ATHEIST;
-
-
+        iDeity = DEITY_BEZVEREC;
     }
     else if (sLowDeity == "azhar")
     {
-        iDeity = FEAT_DEITY_AZHAR;
+        iDeity = DEITY_AZHAR;
 
     }
     else if (sLowDeity == "dei-anang" || sLowDeity == "deianang")
     {
-        iDeity = FEAT_DEITY_DEI_ANANG;
+        iDeity = DEITY_DEI_ANANG;
 
     }
     else if (sLowDeity == "gordul")
     {
-        iDeity = FEAT_DEITY_GORDUL;
+        iDeity = DEITY_GORDUL;
 
     }
     else if (sLowDeity == "helgaron")
     {
-        iDeity = FEAT_DEITY_HELGARON;
+        iDeity = DEITY_HELGARON;
 
     }
     else if (sLowDeity == "juana")
     {
-        iDeity = FEAT_DEITY_JUANA;
+        iDeity = DEITY_JUANA;
 
     }
     else if (sLowDeity == "lilith")
     {
-        iDeity = FEAT_DEITY_LILITH;
+        iDeity = DEITY_LILITH;
     }
     else if (sLowDeity == "lothian")
     {
-        iDeity = FEAT_DEITY_LOTHIAN;
+        iDeity = DEITY_LOTHIAN;
 
     }
     else if (sLowDeity == "morus")
     {
-        iDeity = FEAT_DEITY_MORUS;
+        iDeity = DEITY_MORUS;
     }
     else if (sLowDeity == "nord")
     {
-        iDeity = FEAT_DEITY_NORD;
+        iDeity = DEITY_NORD;
     }
     else if (sLowDeity == "thal")
     {
-        iDeity = FEAT_DEITY_THAL;
+        iDeity = DEITY_THAL;
     }
     else if (sLowDeity == "xian" || sLowDeity == "xi'an")
     {
-        iDeity = FEAT_DEITY_XIAN;
+        iDeity = DEITY_XIAN;
     }
     else if (sLowDeity == "zeir")
     {
-        iDeity = FEAT_DEITY_ZEIR;
+        iDeity = DEITY_ZEIR;
     }
     else return 0;
+    object oDuse =GetSoulStone(oPC);
+    SetLocalInt(oDuse,"DEITY",iDeity);
     if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC) > 0)  //zkontroluj domeny
     {
         iDomain1 = GetClericDomain(oPC,1);
         iDomain2 = GetClericDomain(oPC,2);
-        if (!GetIsDeityAndDomainsValid(iDeity, iDomain1,iDomain2)) return -1;
+        if (!GetIsDeityAndDomainsValid(iDeity, iDomain1,iDomain2))
+        {
+            SetDomainsByDeity(oPC,iDeity);
+        }
     }
-    RemoveAllDeitys(oPC);
-    AddKnownFeat(oPC,iDeity);
     return 1;
 }
 
-
-int GetIsDeityAndDomainsValid(int iDeityFeat, int iDomain1,int iDomain2)
+int GetIsDeityAndDomainsValid(int iDeity, int iDomain1, int iDomain2)
 {
-    switch (iDeityFeat)
+    switch (iDeity)
     {
-        case FEAT_DEITY_ATHEIST:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_AZHAR:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            //if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            //if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            //if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            //if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            //if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            //if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            //if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_DEI_ANANG:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            //if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            //if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            //if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            //if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            //if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            //if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            //if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_GORDUL:
-            //if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            //if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            //if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            //if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            //if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            //if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            //if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_HELGARON:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            //if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            //if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            //if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            //if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            //if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            //if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            //if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            //if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_JUANA:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            //if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            //if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            //if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            //if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            //if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            //if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            //if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_LILITH:
-            //if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            //if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            //if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            //if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            //if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            //if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            //if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_LOTHIAN:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            //if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            //if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            //if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            //if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            //if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            //if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            //if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_MORUS:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            //if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            //if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            //if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            //if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            //if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            //if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            //if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_NORD:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            //if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            //if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            //if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            //if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            //if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            //if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            //if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            //if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_THAL:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            //if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            //if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            //if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            //if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            //if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            //if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            //if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            //if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_XIAN:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            //if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            //if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            //if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            //if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            //if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            //if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            //if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            //if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-        case FEAT_DEITY_ZEIR:
-            if (iDomain1 == DOMENA_HNEV || iDomain2 == DOMENA_HNEV) return 0;
-            if (iDomain1 == DOMENA_CHAOS || iDomain2 == DOMENA_CHAOS) return 0;
-            if (iDomain1 == DOMENA_ILUZE || iDomain2 == DOMENA_ILUZE) return 0;
-            if (iDomain1 == DOMENA_KLAM || iDomain2 == DOMENA_KLAM) return 0;
-            if (iDomain1 == DOMENA_KOV || iDomain2 == DOMENA_KOV) return 0;
-            if (iDomain1 == DOMENA_LECENI || iDomain2 == DOMENA_LECENI) return 0;
-            //if (iDomain1 == DOMENA_MAGIE || iDomain2 == DOMENA_MAGIE) return 0;
-            if (iDomain1 == DOMENA_NICENI || iDomain2 == DOMENA_NICENI) return 0;
-            if (iDomain1 == DOMENA_OBCHOD || iDomain2 == DOMENA_OBCHOD) return 0;
-            if (iDomain1 == DOMENA_OHEN || iDomain2 == DOMENA_OHEN) return 0;
-            //if (iDomain1 == DOMENA_OCHRANA || iDomain2 == DOMENA_OCHRANA) return 0;
-            if (iDomain1 == DOMENA_PAVOUCI || iDomain2 == DOMENA_PAVOUCI) return 0;
-            //if (iDomain1 == DOMENA_PODZEMI || iDomain2 == DOMENA_PODZEMI) return 0;
-            if (iDomain1 == DOMENA_PUTOVANI || iDomain2 == DOMENA_PUTOVANI) return 0;
-            //if (iDomain1 == DOMENA_RAD || iDomain2 == DOMENA_RAD) return 0;
-            if (iDomain1 == DOMENA_ROSTLINY || iDomain2 == DOMENA_ROSTLINY) return 0;
-            if (iDomain1 == DOMENA_SFERY || iDomain2 == DOMENA_SFERY) return 0;
-            if (iDomain1 == DOMENA_SILA || iDomain2 == DOMENA_SILA) return 0;
-            if (iDomain1 == DOMENA_SLUNCE || iDomain2 == DOMENA_SLUNCE) return 0;
-            //if (iDomain1 == DOMENA_SMRT || iDomain2 == DOMENA_SMRT) return 0;
-            if (iDomain1 == DOMENA_STESTI || iDomain2 == DOMENA_STESTI) return 0;
-            if (iDomain1 == DOMENA_VALKA || iDomain2 == DOMENA_VALKA) return 0;
-            //if (iDomain1 == DOMENA_VEDENI || iDomain2 == DOMENA_VEDENI) return 0;
-            if (iDomain1 == DOMENA_VODA || iDomain2 == DOMENA_VODA) return 0;
-            if (iDomain1 == DOMENA_VZDUCH || iDomain2 == DOMENA_VZDUCH) return 0;
-            if (iDomain1 == DOMENA_ZEME || iDomain2 == DOMENA_ZEME) return 0;
-            //if (iDomain1 == DOMENA_ZIVOT || iDomain2 == DOMENA_ZIVOT) return 0;
-            if (iDomain1 == DOMENA_ZVIRATA || iDomain2 == DOMENA_ZVIRATA) return 0;
-        break;
-
+        case DEITY_BEZVEREC:
+                    if (iDomain1 == DOMENA_BEZVEREC1 || iDomain2 == DOMENA_BEZVEREC2) return 1;
+                    break;
+        case DEITY_JUANA:
+                    if (iDomain1 == DOMENA_JUANA1 || iDomain2 == DOMENA_JUANA2) return 1;
+                    break;
+        case DEITY_DEI_ANANG:
+                    if (iDomain1 == DOMENA_DEI_ANANG1 || iDomain2 == DOMENA_DEI_ANANG2) return 1;
+                    break;
+        case DEITY_NORD:
+                    if (iDomain1 == DOMENA_NORD1 || iDomain2 == DOMENA_NORD2) return 1;
+                    break;
+        case DEITY_LOTHIAN:
+                    if (iDomain1 == DOMENA_LOTHIAN1 || iDomain2 == DOMENA_LOTHIAN2) return 1;
+                    break;
+        case DEITY_AZHAR:
+                    if (iDomain1 == DOMENA_AZHAR1 || iDomain2 == DOMENA_AZHAR2) return 1;
+                    break;
+        case DEITY_MORUS:
+                    if (iDomain1 == DOMENA_MORUS1 || iDomain2 == DOMENA_MORUS2) return 1;
+                    break;
+        case DEITY_LILITH:
+                    if (iDomain1 == DOMENA_LILITH1 || iDomain2 == DOMENA_LILITH2) return 1;
+                    break;
+        case DEITY_THAL:
+                    if (iDomain1 == DOMENA_THAL1 || iDomain2 == DOMENA_THAL2) return 1;
+                    break;
+        case DEITY_XIAN:
+                    if (iDomain1 == DOMENA_XIAN1 || iDomain2 == DOMENA_XIAN2) return 1;
+                    break;
+        case DEITY_GORDUL:
+                    if (iDomain1 == DOMENA_GORDUL1 || iDomain2 == DOMENA_GORDUL2) return 1;
+                    break;
+        case DEITY_HELGARON:
+                    if (iDomain1 == DOMENA_HELGARON1 || iDomain2 == DOMENA_HELGARON2) return 1;
+                    break;
+        case DEITY_ZEIR:
+                    if (iDomain1 == DOMENA_ZEIR1 || iDomain2 == DOMENA_ZEIR2) return 1;
+                    break;
 
     }
-    return 1;
+    return 0;
 }
+
+
+void SetDomainsByDeity(object oPC, int iDeity)
+{
+    switch (iDeity)
+    {
+        case DEITY_BEZVEREC:
+            SetClericDomain(oPC,1,DOMENA_BEZVEREC1);
+            SetClericDomain(oPC,2,DOMENA_BEZVEREC2);
+            break;
+        case DEITY_JUANA:
+            SetClericDomain(oPC,1,DOMENA_JUANA1);
+            SetClericDomain(oPC,2,DOMENA_JUANA2);
+            break;
+        case DEITY_DEI_ANANG:
+            SetClericDomain(oPC,1,DOMENA_DEI_ANANG1);
+            SetClericDomain(oPC,2,DOMENA_DEI_ANANG2);
+            break;
+        case DEITY_NORD:
+            SetClericDomain(oPC,1,DOMENA_NORD1);
+            SetClericDomain(oPC,2,DOMENA_NORD2);
+            break;
+        case DEITY_LOTHIAN:
+            SetClericDomain(oPC,1,DOMENA_LOTHIAN1);
+            SetClericDomain(oPC,2,DOMENA_LOTHIAN2);
+            break;
+        case DEITY_AZHAR:
+            SetClericDomain(oPC,1,DOMENA_AZHAR1);
+            SetClericDomain(oPC,2,DOMENA_AZHAR2);
+            break;
+        case DEITY_MORUS:
+            SetClericDomain(oPC,1,DOMENA_MORUS1);
+            SetClericDomain(oPC,2,DOMENA_MORUS2);
+            break;
+        case DEITY_LILITH:
+            SetClericDomain(oPC,1,DOMENA_LILITH1);
+            SetClericDomain(oPC,2,DOMENA_LILITH2);
+            break;
+        case DEITY_THAL:
+            SetClericDomain(oPC,1,DOMENA_THAL1);
+            SetClericDomain(oPC,2,DOMENA_THAL2);
+            break;
+        case DEITY_XIAN:
+            SetClericDomain(oPC,1,DOMENA_XIAN1);
+            SetClericDomain(oPC,2,DOMENA_XIAN2);
+            break;
+        case DEITY_GORDUL:
+            SetClericDomain(oPC,1,DOMENA_GORDUL1);
+            SetClericDomain(oPC,2,DOMENA_GORDUL2);
+            break;
+        case DEITY_HELGARON:
+            SetClericDomain(oPC,1,DOMENA_HELGARON1);
+            SetClericDomain(oPC,2,DOMENA_HELGARON2);
+            break;
+        case DEITY_ZEIR:
+            SetClericDomain(oPC,1,DOMENA_ZEIR1);
+            SetClericDomain(oPC,2,DOMENA_ZEIR2);
+            break;
+    }
+
+}
+
+
+
 
 int GetThalieDeity(object oPC)
 {
-    if (GetHasFeat(FEAT_DEITY_ATHEIST,oPC))
+    object oDuse = GetSoulStone(oPC);
+    return GetLocalInt(oDuse,"DEITY");
+}
+
+int GetThalieClericDeity(object oPC)
+{
+    if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC) > 0)
     {
-        return FEAT_DEITY_ATHEIST;
+        return GetThalieDeity(oPC);
     }
-    else if (GetHasFeat(FEAT_DEITY_AZHAR,oPC))
-    {
-        return FEAT_DEITY_AZHAR;
-    }
-    else if (GetHasFeat(FEAT_DEITY_DEI_ANANG,oPC))
-    {
-        return FEAT_DEITY_DEI_ANANG;
-    }
-    else if (GetHasFeat(FEAT_DEITY_GORDUL,oPC))
-    {
-        return FEAT_DEITY_GORDUL;
-    }
-    else if (GetHasFeat(FEAT_DEITY_HELGARON,oPC))
-    {
-        return FEAT_DEITY_HELGARON;
-    }
-    else if (GetHasFeat(FEAT_DEITY_JUANA,oPC))
-    {
-        return FEAT_DEITY_JUANA;
-    }
-    else if (GetHasFeat(FEAT_DEITY_LILITH,oPC))
-    {
-        return FEAT_DEITY_LILITH;
-    }
-    else if (GetHasFeat(FEAT_DEITY_LOTHIAN,oPC))
-    {
-        return FEAT_DEITY_LOTHIAN;
-    }
-    else if (GetHasFeat(FEAT_DEITY_MORUS,oPC))
-    {
-        return FEAT_DEITY_MORUS;
-    }
-    else if (GetHasFeat(FEAT_DEITY_NORD,oPC))
-    {
-        return FEAT_DEITY_NORD;
-    }
-    else if (GetHasFeat(FEAT_DEITY_THAL,oPC))
-    {
-        return FEAT_DEITY_THAL;
-    }
-    else if (GetHasFeat(FEAT_DEITY_XIAN,oPC))
-    {
-        return FEAT_DEITY_XIAN;
-    }
-    else if (GetHasFeat(FEAT_DEITY_ZEIR,oPC))
-    {
-        return FEAT_DEITY_ZEIR;
-    }
-    return -1;
+    return DEITY_BEZVEREC;
 }

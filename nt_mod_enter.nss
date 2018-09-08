@@ -10,7 +10,7 @@
 // kuly alchymii
 #include "tc_constants"
 //#include "sh_classes_inc"
-#include "sh_deity_inc"
+#include "sh_deity_inc"RemoveKnownFeat
 //#include "ku_dlg_inc"
 #include "sh_lang_start"
 #include "mys_mount_lib"
@@ -112,19 +112,6 @@ void __checkInvalidFeats(object oPC, int Remove = FALSE) {
   }
 
 }
-
-void __checkSkillPointsProgress(object oPC) {
- int  iSkill = 0;
- for (iSkill=0;iSkill<=27;iSkill++)
- {
-    if (GetSkillIncreaseByLevel(oPC,1,iSkill)>0)
-    {
-         SetLocalInt(oPC,"JE_POSTAVA_ZABUGOVANA",1); //zrusi postave prijem zkusenosti
-         break;
-    }
- }
-}
-
 
 void DismountAfterActions(object oPC, object oSoul);
 
@@ -399,26 +386,7 @@ void main()
 //~safety*/
 
 
- // DestroyTHSkins(oPC);
- /* Jestli je dobrodruh*/
- if (GetClassByPosition(1,oPC)!=CLASS_TYPE_ROGUE)
-   {
-        //WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", NENI DOBRODRUH.");
-     __buggedPC(oPC, "Chyba! Postava nebyla zalozena s povolanim DOBRODRUH!");
-   }
-
- if(GetHitDice(oPC)==1) {
-   int iSkillSum = 0;
-   int iSkill = 0;
-   for (iSkill=0;iSkill<=27;iSkill++)
-     iSkillSum +=GetSkillRank(iSkill,oPC,TRUE);
-
-   if (iSkillSum >0 )
-   {
-//      WriteTimestampedLogEntry("LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", dal body do skillu.");
-     __buggedPC(oPC, "Chyba! Pri zakladani postavy jsi dal body do skillu! Zaloz postavu znovu!");
-   }
- }
+ DestroyTHSkins(oPC);
 
  // Check duplicit character
  int iPlayed = GetPersistentInt(oPC, "PLAYED","pwchars");
@@ -429,38 +397,11 @@ void main()
     return;
  }
 
- //------- PODVODY
- // kontrola na to zda postava na prvnim lvlu dala body do skillu
- DelayCommand(15.0, __checkSkillPointsProgress(oPC));
-
- if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC) > 0)
- {
-        int iDomain1 = GetClericDomain(oPC,1);
-        int iDomain2 = GetClericDomain(oPC,2);
-        int iDeity = GetThalieDeity(oPC);
-        if (!GetIsDeityAndDomainsValid(iDeity, iDomain1,iDomain2))
-        {
-            SetLocalInt(oPC,"JE_POSTAVA_ZABUGOVANA",1); //zrusi postave prijem zkusenosti
-        }
- }
- //Opravy chyb//
- int iMonkLevel = GetLevelByClass(CLASS_TYPE_MONK,oPC);
- if (iMonkLevel > 0 && iMonkLevel<11) RemoveKnownFeat(oPC,FEAT_MONK_AC_BONUS);
- //~Opravy chyb//
- // Craft tools
- if(!GetHasFeat(1400, oPC)) // FEAT_POUZITI_ZBRANE_LEHKY_KRUMPAC_neprirazeno
-   AddKnownFeat(oPC, 1400, 1);
- if(GetHasFeat(1419, oPC)) // FEAT_POUZITI_ZBRANE_TEZKY_KRUMPAC_neprirazeno
-   RemoveKnownFeat(oPC, 1419);
-   //AddKnownFeat(oPC, 1419, 1);
- if(!GetHasFeat(1410, oPC)) // FEAT_POUZITI_ZBRANE_RUCNI_SEKERA_neprirazeno
-   AddKnownFeat(oPC, 1410, 1);
  //~Craft tools
  DelayCommand(120.0,UpdateLoginIP(oPC));
 
  AddPlayerToDump(oPC);
 
- //zapoznakovani Shaman - vyhazuje ze serveru
  // FAZE 2. ROZDELENI - PRVNI VSTUP-------------------------------------------------------------------
  int iPlayedAfterReboot = GetLocalInt(oPC, "PLAYED");
  if (iPlayed)  //uz tady byl
@@ -506,7 +447,6 @@ void main()
  setFactionsToPC(oPC, getFaction(oPC));
  ku_OnClientEnter(oPC); // Inicializace eXPiciho systemu pri loginu hrace.
  Subraces_InitSubrace( oPC ); //Inicializace subrasy
- //KU_CalcAndGiveSkillPoints(oPC); //Nastav postave spravne volne skillpointy
 
  // PC Skin
  object oPCSkin = GetPCSkin(oPC);
@@ -621,13 +561,6 @@ void main()
 
 // Set dislike automagicaly
  DelayCommand(60.0, DislikeFactions(oPC));
-
-// ExecuteScript("cnr_module_oce", OBJECT_SELF);
-//povoleni kurtizany pro zeny
-  if (GetGender(oPC) == GENDER_FEMALE)
-  {
-    SetLocalInt(oSoulStone,"sh_AllowKurtizana",1);
-  }
 
   // Send welcome messages to player
   DelayCommand(30.0, SendPCWelcomeMessages(oPC));

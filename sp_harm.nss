@@ -17,6 +17,7 @@
 #include "NW_I0_SPELLS"
 #include "x0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -60,13 +61,13 @@ void main()
     {
         iValue = 250;
     }
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || GetHasFeat(FEAT_DESTRUCTION_DOMAIN_POWER))
+    if (nMetaMagic == METAMAGIC_EMPOWER)
     {
        iValue =  iValue+ (iValue/2);
     }
-    if (GetHasFeat(1476)) //FEAT_DRUID_SPECIALIZACE_MOROVY
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_ZEIR)
     {
-        iValue =  iValue+ (iValue/5);
+        iValue =  iValue+ (iValue/2);
     }
     //Check that the target is undead
     if (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)

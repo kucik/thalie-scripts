@@ -28,9 +28,6 @@ void sy_relevel(object oPC, int nLevel)
     SetLocalInt(oPC,"RELEVELING",TRUE);
     SetXP(oPC,nXP);
 
-    // Zkontrolovat a dopocitat skillpointy
-    KU_CalcAndGiveSkillPoints(oPC);
-
     DelayCommand(2.0f, sy_relevel_retxp(oPC,nXpNow));
 }
 

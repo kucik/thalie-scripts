@@ -52,10 +52,6 @@ void main()
     object oTarget = GetSpellTargetObject();
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE)/2;
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
-    }
     int nMetaMagic = GetMetaMagicFeat();
     effect eVis = EffectVisualEffect(VFX_IMP_REDUCE_ABILITY_SCORE);
     effect eRay = EffectBeam(VFX_BEAM_MIND, OBJECT_SELF, BODY_NODE_HAND);

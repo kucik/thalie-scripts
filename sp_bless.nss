@@ -20,6 +20,9 @@
 #include "NW_I0_SPELLS"
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
+
+
 
 void main()
 {
@@ -42,31 +45,106 @@ void main()
 
 
     //Declare major variables
+    int iDamageBonus;
     object oTarget = GetSpellTargetObject();
-    int nDuration = 1 + GetCasterLevel(OBJECT_SELF);
-    nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
+    int iCasterLevel = GetCasterLevel(OBJECT_SELF);
+    iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel,FALSE);
+    int nDuration = iCasterLevel;
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_HOLY);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-    // ---------------- TARGETED ON BOLT  -------------------
-    if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
-    {
-        // special handling for blessing crossbow bolts that can slay rakshasa's
-        if (GetBaseItemType(oTarget) ==  BASE_ITEM_BOLT)
-        {
-           SignalEvent(GetItemPossessor(oTarget), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-           IPSafeAddItemProperty(oTarget, ItemPropertyOnHitCastSpell(123,1), RoundsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_KEEP_EXISTING );
-           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oTarget));
-           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oTarget), TurnsToSeconds(nDuration));
-           return;
-        }
-    }
-
 
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_HOLY_30);
     effect eAttack = EffectAttackIncrease(1);
     effect eSave = EffectSavingThrowIncrease(SAVING_THROW_ALL, 1, SAVING_THROW_TYPE_FEAR);
-
     effect eLink = EffectLinkEffects(eAttack, eSave);
+
+
+
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_DEI_ANANG)
+    {
+        iDamageBonus = DAMAGE_BONUS_1d4;
+        if (iCasterLevel == 30)
+        {
+            iDamageBonus = DAMAGE_BONUS_1d10;
+        }
+        else if (iCasterLevel >= 20)
+        {
+            iDamageBonus = DAMAGE_BONUS_1d8;
+        }
+        else if (iCasterLevel >= 10)
+        {
+            iDamageBonus = DAMAGE_BONUS_1d6;
+        }
+        effect eDei = EffectDamageIncrease(iDamageBonus,DAMAGE_TYPE_DIVINE);
+        effect eDei2= VersusRacialTypeEffect(eDei,RACIAL_TYPE_UNDEAD);
+        eLink = EffectLinkEffects(eLink, eDei2);
+        eDei = EffectDamageIncrease(iDamageBonus,DAMAGE_TYPE_DIVINE);
+        eDei2= VersusRacialTypeEffect(eDei,RACIAL_TYPE_OUTSIDER);
+        eLink = EffectLinkEffects(eLink, eDei2);
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_NORD)
+    {
+        eLink = EffectLinkEffects(eLink, EffectUltravision());
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LOTHIAN)
+    {
+        int iDamageBonus = (iCasterLevel / 10)+2;
+        effect eLoth = EffectDamageIncrease(iDamageBonus,DAMAGE_TYPE_DIVINE);
+        effect eLoth2= VersusRacialTypeEffect(eLoth,RACIAL_TYPE_ANIMAL);
+        eLink = EffectLinkEffects(eLink, eLoth2);
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_AZHAR)
+    {
+        int iDamageBonus = (iCasterLevel / 15)+1;
+        effect eAzhar = EffectRegenerate(iDamageBonus,3.0);
+        eLink = EffectLinkEffects(eLink, eAzhar);
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_MORUS)
+    {
+        int iDamageBonus = (iCasterLevel / 10)+2;
+        effect eMorus = EffectSkillIncrease(SKILL_ALL_SKILLS,iDamageBonus);
+        eLink = EffectLinkEffects(eLink, eMorus);
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LILITH)
+    {
+        iDamageBonus = 5;
+        if (iCasterLevel == 30)
+        {
+            iDamageBonus = 20;
+        }
+        else if (iCasterLevel >= 20)
+        {
+            iDamageBonus = 15;
+        }
+        else if (iCasterLevel >= 10)
+        {
+            iDamageBonus = 10;
+        }
+        effect eLilith = EffectDamageResistance(iDamageBonus,DAMAGE_TYPE_FIRE,0);
+        eLink = EffectLinkEffects(eLink, eLilith);
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL)
+    {
+        int iDamageBonus = (iCasterLevel / 10)+2;
+        eAttack = EffectAttackIncrease(iDamageBonus);
+        eSave = EffectSavingThrowIncrease(SAVING_THROW_ALL, iDamageBonus, SAVING_THROW_TYPE_FEAR);
+        eLink = EffectLinkEffects(eAttack, eSave);
+    }
+    else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_HELGARON)
+    {
+        int iDamageBonus = (iCasterLevel / 10)+2;
+        effect eHelg = EffectDamageIncrease(iDamageBonus,DAMAGE_TYPE_DIVINE);
+        eLink = EffectLinkEffects(eLink, eHelg);
+    }
+
+
+
+
+
+
+
+
+
     eLink = EffectLinkEffects(eLink, eDur);
 
     int nMetaMagic = GetMetaMagicFeat();
@@ -92,6 +170,58 @@ void main()
             //Apply VFX impact and bonus effects
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
+
+            if (GetThalieClericDeity(OBJECT_SELF)==DEITY_XIAN)
+            {
+                iDamageBonus = IP_CONST_FEAT_SNEAK_ATTACK_1D6;
+                if (iCasterLevel == 30)
+                {
+                    iDamageBonus = IP_CONST_FEAT_SNEAK_ATTACK_5D6;
+                }
+                else if (iCasterLevel >= 20)
+                {
+                    iDamageBonus = IP_CONST_FEAT_SNEAK_ATTACK_3D6;
+                }
+                else if (iCasterLevel >= 10)
+                {
+                    iDamageBonus = IP_CONST_FEAT_SNEAK_ATTACK_2D6;
+                }
+                float fDuration = TurnsToSeconds(nDuration);
+                object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
+                if(GetIsObjectValid(oMyWeapon) )
+                {
+                    IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+                }
+
+
+                oMyWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
+                if(GetIsObjectValid(oMyWeapon))
+                {
+                    IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+                }
+
+
+                oMyWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
+                if(GetIsObjectValid(oMyWeapon))
+                {
+                    IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+                }
+                oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
+                if(GetIsObjectValid(oMyWeapon))
+                {
+                    IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+                }
+                oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
+                if(GetIsObjectValid(oMyWeapon))
+                {
+                    IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+                }
+                oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
+                if(GetIsObjectValid(oMyWeapon))
+                {
+                    IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+                }
+            }
         }
         //Get the next target in the specified area around the caster
         oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));

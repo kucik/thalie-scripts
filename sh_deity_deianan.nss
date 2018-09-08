@@ -4,7 +4,7 @@ void main()
 {
     object oPC = GetPCSpeaker();
     object oDuse =GetSoulStone(oPC);
-    AddKnownFeat (oPC,FEAT_DEITY_DEI_ANANG,1);
+    SetLocalInt(oDuse,"DEITY",DEITY_DEI_ANANG);
       string sDestination = GetLocalString(OBJECT_SELF, "DESTINATION");
  effect eVis = EffectVisualEffect(VFX_FNF_SUMMON_MONSTER_2);
 

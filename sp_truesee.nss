@@ -46,6 +46,10 @@ void main()
     effect eDark = EffectUltravision();
     effect eSkill = EffectSkillIncrease(SKILL_SPOT,nDuration);
     effect eLink = EffectLinkEffects(eVis, eSight);
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    {
+       eLink= EffectLinkEffects(eLink,EffectTrueSeeing());
+    }
     eLink = EffectLinkEffects(eLink, eDur);
     eLink = EffectLinkEffects(eLink, eDark);
     eLink = EffectLinkEffects(eLink, eSkill);
@@ -58,10 +62,6 @@ void main()
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
         nDuration = nDuration *2; //Duration is +100%
-    }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
     }
     //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration));

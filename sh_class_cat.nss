@@ -285,6 +285,7 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
         || (iEffect == EFFECT_SPELL_RESISTANCE)
         || (iEffect == EFFECT_DAMAGE_REDUCTION)
         || (iEffect == EFFECT_EXORCISTA_PASSIVE)
+        || (iEffect == EFFECT_LILITH_PASSIVE)
         )
         {
             RemoveEffect(oPC,eLoop);
@@ -1093,14 +1094,6 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     int iImmunityAcid = 0;
     int iImmunityElec = 0;
 
-    int iImmunityPoison = FALSE;
-    int iImmunityParalysis = FALSE;
-    int iImmunityDisease = FALSE;
-    if (GetHasFeat(FEAT_KURTIZANA_IMUNITA_NEMOCI,oPC) == TRUE)
-    {
-         iImmunityDisease = TRUE;
-    }
-
     int iSubrace = Subraces_GetCharacterSubrace(oPC);
     switch (iSubrace)
     {
@@ -1142,12 +1135,6 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         break;
 
     }
-    //domeny
-    if (GetClericDomain(oPC,1) ==DOMENA_PAVOUCI || GetClericDomain(oPC,2)==DOMENA_PAVOUCI)
-    {
-        iImmunityPoison = TRUE;
-    }
-
     itemproperty ip;
     effect ef,eSup;
     //pohlceni
@@ -1232,33 +1219,6 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         eSup = SupernaturalEffect(ef);
         SetEffectSpellId(eSup,EFFECT_DAMAGE_REDUCTION);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSup,oPC);
-    }
-    // kompletni imunita
-    if (iImmunityPoison)
-    {
-        ip = ItemPropertyImmunityMisc(IP_CONST_IMMUNITYMISC_POISON);
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
-    }
-    if (iImmunityParalysis)
-    {
-        ip = ItemPropertyImmunityMisc(IP_CONST_IMMUNITYMISC_PARALYSIS);
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
-    }
-    if (iImmunityDisease)
-    {
-        ip = ItemPropertyImmunityMisc(IP_CONST_IMMUNITYMISC_DISEASE);
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
-    }
-
-
-    if (GetHasFeat(FEAT_KURTIZANA_JASNE_JAKO_FACKA,oPC) == TRUE)
-    {
-        ip = ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_1,IP_CONST_DAMAGESOAK_15_HP);
-        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
     }
 }
 

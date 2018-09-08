@@ -24,6 +24,7 @@
 #include "x2_inc_spellhook"
 #include "sh_classes_const"
 #include "nwnx_funcs"
+#include "sh_deity_inc"
 
 /*
 void  AddAttackEffectToWeapon(object oMyWeapon, float fDuration, int nBonus)
@@ -117,7 +118,7 @@ void main()
     }
     */
 
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_NORD)
     {
         nDuration = nDuration * 2; //Duration is +100%
     }

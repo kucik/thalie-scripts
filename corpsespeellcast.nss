@@ -5,6 +5,7 @@
 //#include "ku_libbase"
 #include "ku_exp_inc"
 #include "ja_inc_stamina"
+#include "sh_deity_inc"
 
 void ApplyPenalty(object oDead, float nPerc)
 {
@@ -98,6 +99,30 @@ void main()
                   else {
                       ApplyPenalty(oPC,1.0);
                   }
+                  if (i==SPELL_RESURRECTION)
+                  {
+                    if (GetThalieClericDeity(oCaster)==DEITY_JUANA)
+                    {
+                        effect ef1 = EffectImmunity(IMMUNITY_TYPE_ABILITY_DECREASE);
+                        effect ef2 = EffectImmunity(IMMUNITY_TYPE_DEATH);
+                        effect ef3 = EffectImmunity(IMMUNITY_TYPE_FEAR);
+                        effect ef4 = EffectImmunity(IMMUNITY_TYPE_NEGATIVE_LEVEL);
+                        effect ef5 = EffectImmunity(IMMUNITY_TYPE_MOVEMENT_SPEED_DECREASE);
+                        effect ef6 = EffectImmunity(IMMUNITY_TYPE_MIND_SPELLS);
+                        effect ef7 = EffectImmunity(IMMUNITY_TYPE_PARALYSIS);
+                        effect ef8 = EffectImmunity(IMMUNITY_TYPE_STUN);
+                        effect eL = EffectLinkEffects(ef1,ef2);
+                        eL = EffectLinkEffects(eL,ef3);
+                        eL = EffectLinkEffects(eL,ef4);
+                        eL = EffectLinkEffects(eL,ef5);
+                        eL = EffectLinkEffects(eL,ef6);
+                        eL = EffectLinkEffects(eL,ef7);
+                        eL = EffectLinkEffects(eL,ef8);
+                        eL = SupernaturalEffect(eL);
+                        DelayCommand(0.5,AssignCommand(oPC,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eL,oPC,TurnsToSeconds(1))));
+                    }
+                  }
+
                   ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_RAISE_DEAD), lRaise);
                   SetLocalLocation(oPC, "LOCATION", lRaise);
                   SetPersistentLocation(oPC, "LOCATION", lRaise);

@@ -951,7 +951,7 @@ void main()
         case 90:SetLocalInt(oSoulTarget,"NT_XP_BONUS_LEVEL",iDMSetNumber);break;
         //bozstva
         case 20:
-        iSet = SetThalieDeity(oTarget,sDMstring);
+        iSet = DM_SetThalieDeity(oTarget,sDMstring);
         if (iSet == 1)
         {
             SendMessageToPC(oMySpeaker,"Bozstvo bylo nastaveno.");

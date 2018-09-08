@@ -16,6 +16,7 @@
 
 #include "x2_inc_spellhook"
 #include "x0_i0_spells"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -53,6 +54,10 @@ void main()
         nLevel *= 2;
     }
     if (nMeta == METAMAGIC_EMPOWER)
+    {
+        iRegen *= 2;
+    }
+    if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_LOTHIAN) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_AZHAR))
     {
         iRegen *= 2;
     }

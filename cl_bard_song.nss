@@ -11,6 +11,7 @@
 //:://////////////////////////////////////////////
 
 #include "x0_i0_spells"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -49,6 +50,12 @@ void main()
 
     //Declare major variables
     int nLevel = GetLevelByClass(CLASS_TYPE_BARD);
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_MORUS)
+    {
+        nLevel += GetLevelByClass(CLASS_TYPE_CLERIC,OBJECT_SELF) ;
+    }
+
+
     int nRanks = GetSkillRank(SKILL_PERFORM);
     int nChr = GetAbilityModifier(ABILITY_CHARISMA);
     int nPerform = nRanks;

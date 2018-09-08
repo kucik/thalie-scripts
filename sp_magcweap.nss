@@ -96,7 +96,7 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_KOV || GetClericDomain(OBJECT_SELF,2)==DOMENA_KOV)
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_NORD)
     {
         nDuration = nDuration * 2; //Duration is +100%
     }

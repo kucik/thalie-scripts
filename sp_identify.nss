@@ -17,6 +17,7 @@
 #include "sh_classes_const"
 #include "nwnx_funcs"
 #include "sh_deity_inc"
+
 void main()
 {
 
@@ -57,9 +58,9 @@ void main()
     {
         nDuration = 4;
     }
-    if (GetClericDomain(OBJECT_SELF,1) ==DOMENA_VEDENI || GetClericDomain(OBJECT_SELF,2)==DOMENA_VEDENI)
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
     {
-        nDuration = nDuration * 2; //Duration is +100%
+        nBonus += nBonus /2;
     }
 
     //Make sure the spell has not already been applied

@@ -16,6 +16,7 @@
 #include "X0_I0_SPELLS"
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -41,12 +42,19 @@ void main()
     object oTarget;
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_EVIL);
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_EVIL_30);
-    effect eAttack = EffectAttackDecrease(1);
-    effect eSave = EffectSavingThrowDecrease(SAVING_THROW_ALL, 1, SAVING_THROW_TYPE_FEAR);
+    int iBonus = 1;
+    int nDuration = GetCasterLevel(OBJECT_SELF);
+    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_ZEIR)
+    {
+        iBonus = (nDuration/10) +2;
+    }
+    effect eAttack = EffectAttackDecrease(iBonus);
+    effect eSave = EffectSavingThrowDecrease(SAVING_THROW_ALL, iBonus, SAVING_THROW_TYPE_FEAR);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eLink = EffectLinkEffects(eAttack, eSave);
     eLink = EffectLinkEffects(eLink, eDur);
-    int nDuration = GetCasterLevel(OBJECT_SELF);
+
+
     int nMetaMagic = GetMetaMagicFeat();
     float fDelay;
     //Metamagic duration check
