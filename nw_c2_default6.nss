@@ -172,7 +172,9 @@ void main()
             DebugActionSpeakByInt(62, oDamager);
             if(GetArea(oDamager) == GetArea(OBJECT_SELF))
             {
-                DetermineCombatRound(oDamager);
+                //SH - uprava, pri zasahu NPC nejde po utocnikovi ale samo se rozhodne pro nejblizsi cil
+                //DetermineCombatRound(oDamager);
+                DetermineCombatRound();
             }
             else
             {

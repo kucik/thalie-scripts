@@ -99,7 +99,9 @@ void main()
                 {
                     // 68: "[Spell:Enemy/Hostile] Not in combat. Attacking: [Caster] " + GetName(oCaster)
                     DebugActionSpeakByInt(68, oCaster);
-                    DetermineCombatRound(oCaster);
+                    //SH - uprava, pri zasahu kouzlem NPC nejde po sesilateli ale samo se rozhodne pro nejblizsi cil
+                    //DetermineCombatRound(oCaster);
+                    DetermineCombatRound();
                 }
             }
         }

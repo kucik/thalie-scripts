@@ -166,6 +166,10 @@ void main()
         {
             fDelay = GetRandomDelay(0.4, 1.1);
             //Fire spell cast at event for target
+            if (GetHasSpellEffect(SPELL_BLESS, oTarget) == TRUE)
+            {
+                RemoveSpellEffects(SPELL_BLESS, OBJECT_SELF, oTarget);
+            }
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_BLESS, FALSE));
             //Apply VFX impact and bonus effects
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));

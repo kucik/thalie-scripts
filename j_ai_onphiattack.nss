@@ -82,8 +82,11 @@ void main()
             if(GetArea(oAttacker) == GetArea(OBJECT_SELF))
             {
                 // 59: "[Phisically Attacked] Attacking back. [Attacker(enemy)] " + GetName(oAttacker)
+                //SH - uprava, pri zasahu NPC nejde po utocnikovi ale samo se rozhodne pro nejblizsi cil
+                //DetermineCombatRound(oAttacker);
+                DetermineCombatRound();
                 DebugActionSpeakByInt(59, oAttacker);
-                DetermineCombatRound(oAttacker);
+
             }
             else
             {

