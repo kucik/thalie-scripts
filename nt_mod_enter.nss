@@ -10,7 +10,7 @@
 // kuly alchymii
 #include "tc_constants"
 //#include "sh_classes_inc"
-#include "sh_deity_inc"RemoveKnownFeat
+#include "sh_deity_inc"
 //#include "ku_dlg_inc"
 #include "sh_lang_start"
 #include "mys_mount_lib"
