@@ -44,21 +44,9 @@ void main()
     object oSoulStone = GetSoulStone(oPC);    //by jaara
     int nLevel  = GetHitDice(oPC);
     object oTrainer = GetLocalObject(oPC, "JA_LVL_TRAINER");
-    int iLevel2UP = GetLocalInt(oSoulStone, "SH_LVL2_UP1");
     if (nLevel <= 2)
     {
-        if (iLevel2UP ==0)
-        {
-            SendMessageToPC(oPC, "</c>Systemovy relevel - nutno prodelat.</c>");
-            sy_relevel(oPC, nLevel);
-            SetLocalInt(oSoulStone, "SH_LVL2_UP1",1);
-            return;
-        }
-        else
-        {
-
-            return; //do lvlu 2 nemusi mit mistra -- Shaman
-        }
+        return; //do lvlu 2 nemusi mit mistra -- Shaman
     }
 
 
@@ -67,21 +55,22 @@ void main()
     int oldLevel = GetLocalInt(oSoulStone, "JA_LAST_LVL");
 
     //ziskam nejake potrebne premenne
+    int nClass1 = GetClassByPosition(1, oPC);
     int nClass2 = GetClassByPosition(2, oPC);
     int nClass3 = GetClassByPosition(3, oPC);
 
     int classPos = 0;
-    if(nClass2 == oldClass)
+    if(nClass1 == oldClass)
+      classPos = 1;
+    else if(nClass2 == oldClass)
       classPos = 2;
-    else if(nClass3 == oldClass)
-      classPos = 3;
 
 
     if(classPos != 0 && GetLevelByPosition(classPos, oPC) == oldLevel){
-    if( (GetLevelByPosition(2, oPC) <= GetLocalInt(oSoulStone, "KU_LAST_LVL2") ) &&
-        (GetLevelByPosition(3, oPC) <= GetLocalInt(oSoulStone, "KU_LAST_LVL3") ) &&
-        (nClass2 == GetLocalInt(oSoulStone, "KU_LAST_CLASS2") )                  &&
-        (nClass3 == GetLocalInt(oSoulStone, "KU_LAST_CLASS3") )                  ) {
+    if( (GetLevelByPosition(1, oPC) <= GetLocalInt(oSoulStone, "KU_LAST_LVL1") ) &&
+        (GetLevelByPosition(2, oPC) <= GetLocalInt(oSoulStone, "KU_LAST_LVL2") ) &&
+        (nClass1 == GetLocalInt(oSoulStone, "KU_LAST_CLASS1") )                  &&
+        (nClass2 == GetLocalInt(oSoulStone, "KU_LAST_CLASS2") )                  ) {
         SendMessageToPC(oPC, "Protoze jsi umrel, je ti povoleno znovu nahazet level zadarmo a bez ucitele");
         return; //udelal znovu lvl
     }
@@ -133,15 +122,15 @@ void main()
       return;
     }
 
+    int nLvl1       = GetLevelByPosition(1, oPC);
     int nLvl2       = GetLevelByPosition(2, oPC);
-    int nLvl3       = GetLevelByPosition(3, oPC);
-    int oldClass2Lvl = GetLocalInt(oPC, "sy_class2_lvl");            //lvl pociatocne povolanie
+    int oldClass1Lvl = GetLocalInt(oPC, "sy_class1_lvl");            //lvl pociatocne povolanie
     int misterClass = GetLocalInt(oPC, "sy_class_mistra");            //typ - povolanie majstra
     int class;
-    if (oldClass2Lvl == nLvl2)                               //zistim ktore povolanie ziskalo lvl
-        class = 3;            //2. zustalo stejne, muselo tedy povysit 3.
+    if (oldClass1Lvl == nLvl1)                               //zistim ktore povolanie ziskalo lvl
+        class = 2;            //1. zustalo stejne, muselo tedy povysit 2.
         else
-        class =2;
+        class =1;
 
     if (GetClassByPosition(class, oPC) != misterClass)    //porovna majstrovo a hracove pridane povolanie
     {
@@ -183,7 +172,7 @@ void main()
 
     //zmazem docasne premenne na hracovi
     DeleteLocalInt(oPC, "sy_class_mistra");
-    DeleteLocalInt(oPC, "sy_class2_lvl");
+    DeleteLocalInt(oPC, "sy_class1_lvl");
     DeleteLocalInt(oPC, "sy_gp_cost");
     DeleteLocalInt(oPC, "sy_allowlvl");
     for (nLoop = 0;nLoop<27;nLoop++) DeleteLocalInt(oPC, "sy_skill"+IntToString(nLoop));
@@ -193,10 +182,10 @@ void main()
 
     SetLocalInt(oSoulStone, "JA_LAST_CLASS", misterClass);       //by jaara
     SetLocalInt(oSoulStone, "JA_LAST_LVL", GetLevelByPosition(class, oPC));
+    SetLocalInt(oSoulStone, "KU_LAST_LVL1", GetLevelByPosition(1, oPC));
     SetLocalInt(oSoulStone, "KU_LAST_LVL2", GetLevelByPosition(2, oPC));
-    SetLocalInt(oSoulStone, "KU_LAST_LVL3", GetLevelByPosition(3, oPC));
+    SetLocalInt(oSoulStone, "KU_LAST_CLASS1", GetClassByPosition(1, oPC));
     SetLocalInt(oSoulStone, "KU_LAST_CLASS2", GetClassByPosition(2, oPC));
-    SetLocalInt(oSoulStone, "KU_LAST_CLASS3", GetClassByPosition(3, oPC));
     OnLvlupClassSystem(oPC);
     Subraces_LevelUpSubrace( oPC ); // uprava vlastnosti subrasy zavislych na levelu
 

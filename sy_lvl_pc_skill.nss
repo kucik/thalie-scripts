@@ -29,7 +29,7 @@ void main()
     }
 
     //ulozim aj info o leveloch postavy pred levelupom na hraca
-    SetLocalInt(oPC, "sy_class2_lvl", GetLevelByPosition(2, oPC));
+    SetLocalInt(oPC, "sy_class1_lvl", GetLevelByPosition(1, oPC));
 
     //ulozim ake povolanie je povolene dat si - zavisi od majstra a jeho povolania
     SetLocalInt(oPC, "sy_class_mistra", GetClassByPosition(1, OBJECT_SELF));
