@@ -100,39 +100,6 @@ int GetIPDamageBonusByValue(int iValue)
     return 0;
 }
 
-
-
-
-
-/*Vraci typ zbroje, pokud to neni zbroj tak 0*/
-int GetItemACBase (object oItem) {
-     if (!GetIsObjectValid(oItem))
-         return 0;
-
-     switch (GetBaseItemType(oItem)) {
-         case BASE_ITEM_SMALLSHIELD: return 0;
-         case BASE_ITEM_LARGESHIELD: return 0;
-         case BASE_ITEM_TOWERSHIELD: return 0;
-         case BASE_ITEM_ARMOR: break;
-         default: return 0;
-     }
-
-    int nBaseAC = 0;
-     SetIdentified(oItem, FALSE);
-     switch (GetGoldPieceValue(oItem)) {
-         case 200:    nBaseAC = 1; break;  // Padded
-         case 400:   nBaseAC = 2; break;  // Leather
-         case 500:   nBaseAC = 3; break;  // Studded Leather / Hide
-         case 3000:  nBaseAC = 4; break;  // Chain Shirt / Scale Mail
-         case 4000:  nBaseAC = 5; break;  // Chainmail / Breastplate
-         case 5000:  nBaseAC = 6; break;  // Splint Mail / Banded Mail
-         case 8500:  nBaseAC = 7; break;  // Half Plate
-         case 10000: nBaseAC = 8; break;  // Full Plate
-     }
-     SetIdentified(oItem, TRUE);
-     return nBaseAC;
- }
-
 /*Vraci konstantu pro urceni bonusoveho divine dmge exorcisty*/
  int GetDamageBonusByLevelExorcista(int iLevel)
  {

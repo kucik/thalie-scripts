@@ -45,7 +45,7 @@ int SCRIPT_AREA_ON_HEARTBEAT            = 0;
 int SCRIPT_AREA_ON_USER_DEFINED_EVENT   = 1;
 int SCRIPT_AREA_ON_ENTER                = 2;
 int SCRIPT_AREA_ON_EXIT                 = 3;
-int SCRIPT_AREA_ON_CLIENT_ENTER	        = 4;
+int SCRIPT_AREA_ON_CLIENT_ENTER         = 4;
 // Door
 int SCRIPT_DOOR_ON_OPEN            = 0;
 int SCRIPT_DOOR_ON_CLOSE           = 1;
@@ -198,6 +198,9 @@ struct Timeval {
     int sec;
     int usec;
 };
+
+// Get the AC of armor oObject
+int GetArmorAC(object oObject);
 
 /* Returns TRUE if the target inherently knows a feat (as opposed to
  * by any equipment they may possess) */
@@ -602,6 +605,14 @@ int SetCorpseDecayTime(object oCreature, int nTime);
 //  0 on failure
 int GetCorpseDecayTime(object oCreature);
 
+int GetArmorAC(object oObject)
+{
+    string sAC;
+    SetLocalString(oObject, "NWNX!FUNCTIONS!GETARMORAC", "      ");
+    sAC = GetLocalString(oObject, "NWNX!FUNCTIONS!GETARMORAC");
+    DeleteLocalString(oObject, "NWNX!FUNCTIONS!GETARMORAC");
+    return StringToInt(sAC);
+}
 
 int NWNXFuncsZero (object oObject, string sFunc) {
     SetLocalString(oObject, sFunc, "          ");
@@ -749,7 +760,7 @@ int GetMeetsFeatRequirements (object oCreature, int nFeat) {
 }
 
 int GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat, int nClass, int nAbility, struct CreatureSkills sk) {
-    SetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", ">" + 
+    SetLocalString(oCreature, "NWNX!FUNCS!GETMEETSFEATREQUIREMENTS", ">" +
         IntToString(nFeat)          + " " +
         IntToString(nClass)         + " " +
         IntToString(nAbility)       + " ¬" +
@@ -1143,7 +1154,7 @@ struct LocalVariable GetLocalVariableByPosition (object oObject, int nPos) {
     struct LocalVariable lv;
 
     DeleteLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
-    SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION", 
+    SetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION",
         IntToString(nPos) + "                                                                                                                                ");
 
     lv.name = GetLocalString(oObject, "NWNX!FUNCS!GETLOCALVARIABLEBYPOSITION");
@@ -1472,7 +1483,7 @@ int SetIsCreatureDisarmable(object oCreature, int bDisarmable)
 {
     int nRet = NWNXFuncsOne(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE", bDisarmable != FALSE);
     DeleteLocalString(oCreature, "NWNX!FUNCS!SETISCREATUREDISARMABLE");
-    return nRet;	
+    return nRet;
 }
 
 int SetCorpseDecayTime(object oCreature, int nTime)
@@ -1486,7 +1497,7 @@ int GetCorpseDecayTime(object oCreature)
 {
     int nRet = NWNXFuncsZero(oCreature, "NWNX!FUNCS!GETCORPSEDECAYTIME");
     DeleteLocalString(oCreature, "NWNX!FUNCS!GETCORPSEDECAYTIME");
-    return nRet;	
+    return nRet;
 }
 
 object IntToObject (int nObjectId) {

@@ -378,7 +378,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     {
 
       if (
-      ((GetBaseItemType(oItem = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC)) == BASE_ITEM_ARMOR ) && (GetItemACBase (oItem) > 0 ) )||
+      ((GetBaseItemType(oItem = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC)) == BASE_ITEM_ARMOR ) && (GetArmorAC (oItem) > 0 ) )||
 //      (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_TOWERSHIELD )    ||
       (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_SMALLSHIELD )     ||
       (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_LARGESHIELD )
@@ -395,8 +395,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     if (GetHasFeat(FEAT_SERMIR_CHYTRA_OBRANA,oPC)==TRUE)
     {
        if (
-      ((GetBaseItemType(oItem = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC)) == BASE_ITEM_ARMOR ) && (GetItemACBase (oItem) > 0) )||
-      //((GetBaseItemType(oItem = GetItemInSlot(INVENTORY_SLOT_HEAD,oPC))  == BASE_ITEM_HELMET) && ( GetLocalInt(oItem,"ku_kapuce")!=1))     ||
+      ((GetBaseItemType(oItem = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC)) == BASE_ITEM_ARMOR ) && (GetArmorAC(oItem) > 0) )||
       (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_TOWERSHIELD )    ||
       (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_LARGESHIELD )
       )

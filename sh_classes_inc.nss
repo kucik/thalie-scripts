@@ -542,7 +542,7 @@ void UnEquipPlateArmor(object oPC)
   object oArmor = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC);
   if (GetIsObjectValid(oArmor))
   {
-    if ((GetItemACBase(oArmor) >=7)  && (GetHasFeat(1672,oPC)==FALSE))
+    if ((GetArmorAC(oArmor) >=7)  && (GetHasFeat(1672,oPC)==FALSE))
     {
         AssignCommand(oPC,ActionUnequipItem(oArmor));
     }
