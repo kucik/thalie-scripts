@@ -33,7 +33,7 @@ string sy_get_remeslo()
         case CLASS_TYPE_SHADOWDANCER    : return "stinovye tanecniky";
         case CLASS_TYPE_SHIFTER         : return "menavce";
         case CLASS_TYPE_SORCERER        : return "zaklinace";
-        case CLASS_TYPE_WEAPON_MASTER   : return "kensaie";
+        case CLASS_TYPE_WEAPON_MASTER   : return "pany zbrane";
         case CLASS_TYPE_WIZARD          : return "carodeje";
         case CLASS_TYPE_SHINOBI          : return "shinobi";
         case CLASS_TYPE_CERNOKNEZNIK          : return "cernoknezniky";
