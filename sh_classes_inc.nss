@@ -619,9 +619,11 @@ void OnLvlupClassSystem(object oPC)
    ApplyConcealment(oPC,oPCSkin);
    ApplySpeed(oPC,oPCSkin);
    ApplyDamageReduction(oPC,oPCSkin);
+   ApplyLilithDmgShield(oPC);
    // nastaveni poctu featu na den
    RestoreFeatUses(oPC);
    RepairDeities(oPC);
+
 }
 
 void OnRestClassSystem(object oPC)

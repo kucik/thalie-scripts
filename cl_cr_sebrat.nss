@@ -18,7 +18,7 @@ void ActionPickUp(object oTarget, string sCollectableItemResRef)
 
 void main()
 {
-    object oTarget = GetNearestObjectToLocation(OBJECT_TYPE_PLACEABLE, GetSpellTargetLocation());
+    object oTarget = GetSpellTargetObject();
     string sTargetTag = GetTag(oTarget);
     object oSoulStone = GetSoulStone(OBJECT_SELF);
     string sCollectableItemResRef = GetLocalString(oTarget, "PLC_ITEMRESREF");
@@ -28,19 +28,11 @@ void main()
     //towngate_
     if (GetSubString(sTargetTag,0,9)=="towngate_")
     {
-        if (GetHasFeat(1618))                                                    //mestska brana
-        {
-            SetLocalString(oSoulStone,"TOWNGATE_ACTIVE_TAG",sTargetTag);
-            effect eVis = EffectVisualEffect(VFX_IMP_HOLY_AID);
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
-            SendMessageToPC(OBJECT_SELF,"Dimenzionalni kotva nastavena.");
-        }
-        else
-        {
-            SendMessageToPC(OBJECT_SELF,"Objekt nelze pouzit.");
-        }
+        SetLocalString(oSoulStone,"TOWNGATE_ACTIVE_TAG",sTargetTag);
+        effect eVis = EffectVisualEffect(VFX_IMP_HOLY_AID);
+        ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
+        SendMessageToPC(OBJECT_SELF,"Dimenzionalni kotva nastavena.");
     }
-
     if (sCollectableItemResRef != "")
     {
         ActionMoveToLocation(GetLocation(oTarget), FALSE);

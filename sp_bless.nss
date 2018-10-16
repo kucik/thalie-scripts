@@ -120,7 +120,7 @@ void main()
         {
             iDamageBonus = 10;
         }
-        effect eLilith = EffectDamageResistance(iDamageBonus,DAMAGE_TYPE_FIRE,0);
+        effect eLilith = EffectDamageResistance(DAMAGE_TYPE_FIRE,iDamageBonus,0);
         eLink = EffectLinkEffects(eLink, eLilith);
     }
     else if (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL)

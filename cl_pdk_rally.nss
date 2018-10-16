@@ -65,16 +65,8 @@ void __applyKeen(int iSlot, effect eVis, effect eDur, object oTarget, float fDur
 
  // +10 on 1st level and each 10. level.
  int iSpeedBonus = ((iLvl / 10) + 1) * 10;
-  effect eSpeed = EffectMovementSpeedIncrease(iSpeedBonus);
+ effect eSpeed = EffectMovementSpeedIncrease(iSpeedBonus);
 
-  // +1 on 20, 25 and 30
-  effect eDamage;
-  int iDmgBonus = (iLvl - 15)/5;
-  // Limit bonus on +3
-  if(iDmgBonus > 3)
-    iDmgBonus = 3;
-  if(iDmgBonus > 0)
-    eDamage = EffectDamageIncrease(3, DAMAGE_TYPE_SONIC);
 
 
   // Chceme dalsi visual keen efektu?
@@ -83,11 +75,14 @@ void __applyKeen(int iSlot, effect eVis, effect eDur, object oTarget, float fDur
 
  effect eLink = EffectLinkEffects(eAttack, eSpeed);// Link effects
  // Do not link if effect does not exist
- if(iDmgBonus > 0)
-   eLink = EffectLinkEffects(eLink,eDamage);// Link effects
+ if (iLvl == 20)
+ {
+    effect eDamage = EffectDamageIncrease(1, DAMAGE_TYPE_SONIC);
+    eLink = EffectLinkEffects(eLink,eDamage);// Link effects
+ }
 
  // Extraordinary nejde dispellnout
- //eLink = ExtraordinaryEffect(eLink);// Make effects ExtraOrdinary
+ eLink = ExtraordinaryEffect(eLink);// Make effects ExtraOrdinary
 
  effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);// Get VFX
  eLink = EffectLinkEffects(eLink, eDur);// Link effects
@@ -127,9 +122,12 @@ void __applyKeen(int iSlot, effect eVis, effect eDur, object oTarget, float fDur
        DelayCommand(0.9, ApplyEffectToObject(DURATION_TYPE_INSTANT, eImpact, oTarget));
        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fDuration);
        // Aplikujem keen
-       __applyKeen(INVENTORY_SLOT_LEFTHAND, eVis, eDur, oTarget, fDuration);
-       __applyKeen(INVENTORY_SLOT_RIGHTHAND, eVis, eDur, oTarget, fDuration);
-       __applyKeen(INVENTORY_SLOT_ARMS, eVis, eDur, oTarget, fDuration);
+       if (iLvl >= 10)
+       {
+           __applyKeen(INVENTORY_SLOT_LEFTHAND, eVis, eDur, oTarget, fDuration);
+           __applyKeen(INVENTORY_SLOT_RIGHTHAND, eVis, eDur, oTarget, fDuration);
+           __applyKeen(INVENTORY_SLOT_ARMS, eVis, eDur, oTarget, fDuration);
+       }
      }
    }
    // Get next object in the sphere
