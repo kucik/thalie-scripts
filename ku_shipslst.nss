@@ -586,6 +586,41 @@ void KU_DefineShips()
     stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
     KU_SaveShip( stShip );
 
+
+//  Lodni linka Z Karathy do Tartenu
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Karatha -> Tarten"; // Nazev trasy
+    stShip.m_nCost      = 80;                           // Cena listku
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ry_kar_tarprod";           // Tag prodavace listku
+    stShip.m_sPort      = "ry_kar_tar_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ry_kar_tart_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ry_kar_tar_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "ry_kar_tarprod";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
+//  Lodni linka Z Tartenu do Karathy
+    stShip = KU_CreateShip();
+    stShip.m_sName      = "Tarten - Karatha"; // Nazev trasy
+    stShip.m_nCost      = 80;                           // Cena listku
+    stShip.m_nSpent     = 3;                            // cas, straveny na mori
+    stShip.m_nMaxDelay  = 1;                            // Maximalni zpozdeni
+    stShip.m_sMerchant  = "ry_tar_karprod";           // Tag prodavace listku
+    stShip.m_sPort      = "ry_tar_kar_dost_z";          // Tag bodu, odkud lod vyrazi
+    stShip.m_sSea       = "ry_tart_kar_dost_l";          // Tag bodu na mori
+    stShip.m_sFinish    = "ry_tar_kar_dost_c";          // Tag cile cesty
+    stShip.m_sCabin     = "";                           // Tag kajuty
+    stShip.m_sShouter_p = "";           // Tag vyvolavace v pristavu
+    stShip.m_sShouter_s = "ry_tar_karprod";            // Tag vyvolavace na mori
+//    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
+    stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
+    KU_SaveShip( stShip );
+
 ///////////////////////////////////////////////////
 // Konec definice lodnich linek
 ///////////////////////////////////////////////////
