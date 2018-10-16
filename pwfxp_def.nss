@@ -251,6 +251,7 @@ const int PWFXP_MINIMUM_XP = 1;
 // safety mechanism
 // maximum XP for a kill
 const int PWFXP_MAXIMUM_XP = 3000;
+const int PWFXP_MAXIMUM_XP_MOB = 250;
 
 // UPDATED:
 // these constants determine how XP division works

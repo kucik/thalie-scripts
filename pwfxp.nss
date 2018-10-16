@@ -240,10 +240,12 @@ int PWFXP_GetLevel(object oPC)
 // see PWFXP_LEVEL_MODIFIER constant description
 float PWFXP_GetLevelModifier(int nLevel)
 {
-  float fA = 0.56; // Exponencial koeficient
-  float fB = 0.96; // Semi linear koeficient. Should be from 0.8 to 1.0
+  float fA = 0.6; // Exponencial koeficient
+  float fB = 0.9; // Semi linear koeficient. Should be from 0.8 to 1.0
+  float fC = 0.12; // linear shift
+  float MaxLevel = 30.0;
   float fLevel = IntToFloat(nLevel);
-  return 3.0 * (1/(pow(fLevel, fA))) * (40 - pow(fLevel, fB)) / 40.0;
+  return 3.0 * (1/(pow(fLevel, fA))) * ( MaxLevel - pow(fLevel, fB)) / MaxLevel - fC;
 
   return StringToFloat(GetSubString( PWFXP_LEVEL_MODIFIERS, (nLevel - 1) * 7, 6));
 }
@@ -623,8 +625,13 @@ int CalculateXPforGrpMember(object oGroupMbr, object oDead, object oKiller, floa
       if(nXP < iMinXP) {
         nXP = iMinXP;
       }
+      // Min XP
       if(nXP < PWFXP_MINIMUM_XP)
         nXP = PWFXP_MINIMUM_XP;
+      // Max XP mob
+      else if ((nXP > PWFXP_MAXIMUM_XP_MOB) && (fBossModifier <= 1.0))
+        nXP = PWFXP_MAXIMUM_XP_MOB;
+      // Max XP BOSS
       else if(nXP > PWFXP_MAXIMUM_XP)
         nXP = PWFXP_MAXIMUM_XP;
 

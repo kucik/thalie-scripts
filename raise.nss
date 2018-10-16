@@ -25,8 +25,8 @@ void ApplyPenalty(object oDead)
 
     nPenalty = nXP - nNewXP;*/
     // Limit 40 000 through respawn 4% of 20. level
-    if(nPenalty > 40000)
-       nPenalty = 40000;
+    if(nPenalty > 30000)
+       nPenalty = 30000;
 
     object oSoul = GetSoulStone(oDead);
     /* CTF Mode penalta */

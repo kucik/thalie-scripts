@@ -108,16 +108,24 @@ void ku_GiveXPDebt(object oPC, int iXP) {
   int iXPDebt = ku_GetXpDebt(oPC);
   int iPCXP = GetXP(oPC);
 
+  // Reduce by 1/3 of current debt */
+  int reducedXp = iXP - (iXPDebt / 3);
+  // minimal penalty is 1000
+  if(reducedXp < 1000)
+    reducedXp = 1000;
+  // check againts raising of penalty up
+  if(iXP < reducedXp)
+    reducedXp = iXP;
+
   // Reduce debt if current debt is more than 15% XP
-  if( (iXP / 0.15) >  IntToFloat(GetXP(oPC)) )
-    iXP = iXP /2;
+/*  if( (iXP / 0.15) >  IntToFloat(GetXP(oPC)) )
+    iXP = iXP /2;*/
 
   // in case of bug
   if(iXPDebt < 0)
     iXPDebt = 0;
 
-  SetPersistentInt(oPC, "XP_DEBT", iXPDebt + iXP);
-
+  SetPersistentInt(oPC, "XP_DEBT", iXPDebt + reducedXp);
 }
 
 int ku_SaveXPPerKill(object oPC, int xp)
