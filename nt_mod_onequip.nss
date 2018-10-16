@@ -39,7 +39,14 @@ void main()
     object oPC   = GetPCItemLastEquippedBy();
     object oItem = GetPCItemLastEquipped();
     OnEquipClassSystem(oPC,oItem);
-
+    //pytel na hlavu - slepota
+    if (GetTag(oItem)=="sys_blind_helmet")
+    {
+        effect ef = EffectBlindness();
+        ef = SupernaturalEffect(ef);
+        SetEffectSpellId(ef,EFFECT_PYTEL_NA_HLAVU);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
+    }
 
     int allowed = ku_CheckItemRestrictions(oPC, oItem);
 

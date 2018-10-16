@@ -13,7 +13,19 @@ void main()
     object oPC   = GetPCItemLastUnequippedBy();
     OnUnEquipClassSystem(oPC,oItem);
     //sy_on_unequip (oPC, oItem);
-
+    //pytel na hlavu - perma slepota
+    if (GetTag(oItem)=="sys_blind_helmet")
+    {
+        effect ef = GetFirstEffect(oPC);
+        while (GetIsEffectValid(ef))
+        {
+            if (GetEffectSpellId(ef)==EFFECT_PYTEL_NA_HLAVU)
+            {
+                RemoveEffect(oPC,ef);
+            }
+            ef = GetNextEffect(oPC);
+        }
+    }
     int bByItem=FALSE;
     int iItemType=GetBaseItemType(oItem);
 
