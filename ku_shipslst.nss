@@ -602,6 +602,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 //  Lodni linka Z Tartenu do Karathy
@@ -619,6 +620,7 @@ void KU_DefineShips()
     stShip.m_sShouter_s = "ry_tar_karprod";            // Tag vyvolavace na mori
 //    stShip.m_fStartTime = 6.0;                          // Prvni odjezd lodi
     stShip.m_iInterval  = 5;                            // Iterval lodi v minutach
+    stShip.m_iType      = 2;                              // Dostavnik
     KU_SaveShip( stShip );
 
 ///////////////////////////////////////////////////
