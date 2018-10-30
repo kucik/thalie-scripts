@@ -1,24 +1,14 @@
 #include "me_soul_inc"
 #include "aps_include"
-//#include "persistence"
-//#include "zep_inc_phenos"
-//#include "ja_inc_stamina"
-//#include "me_pcneeds_inc"
 #include "ja_inc_frakce"
-//#include "ku_libbase"
 #include "ku_exp_time"
-// kuly alchymii
 #include "tc_constants"
-//#include "sh_classes_inc"
 #include "sh_deity_inc"
-//#include "ku_dlg_inc"
 #include "sh_lang_start"
 #include "mys_mount_lib"
 #include "mys_hen_lib"
 
 void __tellBugged(object oPC, string sMessage);
-void __checkInvalidFeats(object oPC, int Remove = FALSE);
-
 int __checkPolymorf(object oPC) {
 
     effect ePoly = GetFirstEffect(oPC);
@@ -31,49 +21,6 @@ int __checkPolymorf(object oPC) {
         ePoly = GetNextEffect(oPC);
     }
     return FALSE;
-}
-
-int __checkFeatAbiliesReq(object oPC, int iFeat) {
-  int iReq;
-
-  // STR
-  iReq = StringToInt(Get2DAString("feat","MINSTR",iFeat));
-  if(iReq > 0 && GetAbilityScore(oPC,  ABILITY_STRENGTH, TRUE) < iReq) {
-    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for STR="+IntToString(GetAbilityScore(oPC,  ABILITY_STRENGTH, TRUE)));
-    return FALSE;
-  }
-  // DEX
-  iReq = StringToInt(Get2DAString("feat","MINDEX",iFeat));
-  if(iReq > 0 && GetAbilityScore(oPC,   ABILITY_DEXTERITY , TRUE) < iReq) {
-    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for DEX="+IntToString(GetAbilityScore(oPC,   ABILITY_DEXTERITY , TRUE)));
-    return FALSE;
-  }
-  // INT
-  iReq = StringToInt(Get2DAString("feat","MININT",iFeat));
-  if(iReq > 0 && GetAbilityScore(oPC,  ABILITY_INTELLIGENCE, TRUE) < iReq) {
-    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for INT="+IntToString(GetAbilityScore(oPC,ABILITY_INTELLIGENCE, TRUE)));
-    return FALSE;
-  }
-  // WIS
-  iReq = StringToInt(Get2DAString("feat","MINWIS",iFeat));
-  if(iReq > 0 && GetAbilityScore(oPC,ABILITY_WISDOM , TRUE) < iReq) {
-    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for WIS="+IntToString(GetAbilityScore(oPC, ABILITY_WISDOM , TRUE)));
-    return FALSE;
-  }
-  // CON
-  iReq = StringToInt(Get2DAString("feat","MINCON",iFeat));
-  if(iReq > 0 && GetAbilityScore(oPC, ABILITY_CONSTITUTION , TRUE) < iReq) {
-    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for CON="+IntToString(GetAbilityScore(oPC,   ABILITY_CONSTITUTION , TRUE)));
-    return FALSE;
-  }
-  // CHA
-  iReq = StringToInt(Get2DAString("feat","MINCHA",iFeat));
-  if(iReq > 0 && GetAbilityScore(oPC, ABILITY_CHARISMA , TRUE) < iReq) {
-    WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat)+" for CHA="+IntToString(GetAbilityScore(oPC, ABILITY_CHARISMA , TRUE)));
-    return FALSE;
-  }
-
-  return TRUE;
 }
 
 void __tellBugged(object oPC, string sMessage) {
@@ -94,22 +41,6 @@ void __buggedPC(object oPC, string sMessage) {
 
   __tellBugged(oPC, sMessage);
   AssignCommand(oPC, SetCommandable(FALSE));
-
-}
-
-void __checkInvalidFeats(object oPC, int Remove = FALSE) {
-  int iFeats = GetTotalKnownFeatsByLevel(oPC, 1);
-
-  while( iFeats > 0) {
-    iFeats--;
-    /* If feat did not meet requirements */
-    int iFeat = GetKnownFeatByLevel(oPC, 1, iFeats);
-    if(!__checkFeatAbiliesReq(oPC, iFeat)) {
-      if(Remove)
-        RemoveKnownFeat(oPC, iFeat);
-      WriteTimestampedLogEntry("BUG! "+GetPCPlayerName(oPC)+" - "+GetName(oPC)+" has invalid feat "+IntToString(iFeat));
-    }
-  }
 
 }
 
@@ -164,35 +95,7 @@ void __saveAllPlayers() {
   }
 
 }
-/*
-void UnspellItems(object oPC){
-     object oItem = GetFirstItemInInventory(oPC);
-     int iGold, iWeight;
 
-    //ohen na zbrani
-    itemproperty prop = GetFirstItemProperty(oItem);
-    //Search for properties
-    while(GetIsItemPropertyValid(prop))
-    {
-       if(GetItemPropertyDurationType(prop) == DURATION_TYPE_TEMPORARY)
-           RemoveItemProperty(oItem, prop);
-       prop = GetNextItemProperty(oItem);
-    }
-
-    // Vaha a cena predmetu
-    iGold = GetLocalInt(oItem,"GOLDPIECEVALUE");
-    iWeight = GetLocalInt(oItem,"WEIGHT");
-    if(iGold > 0 && iGold != GetGoldPieceValue(oItem))
-      SetGoldPieceValue(oItem,iGold);
-    if(iWeight > 0 && iWeight != GetWeight(oItem))
-      SetItemWeight(oItem,iWeight);
-
-    oItem = GetNextItemInInventory(oPC);
-
-    //~ohen na zbrani
-
-}
- */
 void FixMovementSpeed(object oPC) {
   int iAppearance = GetAppearanceType(oPC);
   if(GetIsDM(oPC))
@@ -434,9 +337,6 @@ void main()
         SetPersistentInt(oPC, "HP", GetCurrentHitPoints(oPC));
         GiveStartpackage(oPC);
         SetPersistentInt(oPC, "PLAYED",1,0,"pwchars");
-        /* remove feats which player should not have */
-        __checkInvalidFeats(oPC,TRUE);
-
  }
  // Get soul
  oSoulStone = CreateSoulStone(oPC);
@@ -470,8 +370,6 @@ void main()
  */
  SetLocalInt(oPC, "HP", GetCurrentHitPoints(oPC));
 
-// string spells = GetPersistentString(oPC, "SPELLS");
-// string feats  = GetPersistentString(oPC, "FEATS");
  string sChram = GetPersistentString(oPC, "CHRAM");
 
  location lLoc = GetPersistentLocation(oPC, "LOCATION");
@@ -482,30 +380,9 @@ void main()
  SetLocalString(oPC, "NAME", GetName(oPC));
  SetLocalString(oPC, "PLAYERNAME", GetPCPlayerName(oPC));
 
-// pSetSpells(oPC, spells);
-// pSetFeats(oPC, feats);
-
-// UnspellItems(oPC);
-
 //horses
  object oTest = GetLocalObject(oPC, "JA_HORSE_OBJECT");
- /*
- if(!GetIsObjectValid(oTest)){
-     string sResRef = GetPersistentString( oPC, "HORSE", "pwhorses" );
-     if( sResRef != "" ){
-         location lHorseLoc = GetPersistentLocation( oPC, "LOCATION", "pwhorses");
-         if(!GetIsObjectValid(GetAreaFromLocation(lHorseLoc)))
-            lHorseLoc = lLoc;
-         object oHorse = CreateObject( OBJECT_TYPE_CREATURE, sResRef, lHorseLoc );
-         SetLocalObject(oHorse, "JA_HORSE_PC", oPC);
-         SetLocalObject(oPC, "JA_HORSE_OBJECT", oHorse);
-         /* Horse name
-         string sName = GetPersistentString( oPC, "HORSE_NAME", "pwhorses");
-         if(GetStringLength(sName) > 0) {
-           SetName(oHorse,sName);
-         }
-     }
- }  */
+
 //~horses
 
 //stamina
@@ -570,7 +447,7 @@ void main()
   DeleteLocalInt(oPC,"ku_sleeping");
   DeleteLocalInt(oPC,"KU_DEATH_NOLOG");
   DelayCommand(10.0,FixMovementSpeed(oPC));
-  DelayCommand(30.0,__checkInvalidFeats(oPC));
+
 
   SetLocalInt(oPC, "PLAYED",TRUE);
 
