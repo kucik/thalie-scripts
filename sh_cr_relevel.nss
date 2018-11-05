@@ -16,21 +16,27 @@ void main()
         for (i = 1; i <= 35; i++)
         {
             iSkillXP = GetLocalInt(oItem,"SYS_CRAFT_"+IntToString(i));
-            TC_setXP(oItem,i,iSkillXP);
+            TC_setXP(oPC,i,iSkillXP);
         }
         SendMessageToPC(oPC,"Craft nacten");
+        SendMessageToAllDMs("Craft nacten");
 
     }
     else
     {
+        string sText = "";
         object oItem = CreateItemOnObject(sTokenResRef,oPC);
         //vytvor item a uloz craft
         for (i = 1; i <= 35; i++)
         {
-            iSkillXP = TC_getXP(oItem,i);
+            iSkillXP = TC_getXP(oPC,i);
             SetLocalInt(oItem,"SYS_CRAFT_"+IntToString(i),iSkillXP);
+            sText =sText + IntToString(i)+":"+IntToString(iSkillXP)+". \n";
 
         }
+        SetDescription(oItem,sText);
+        SetName(oItem,GetName(oPC));
         SendMessageToPC(oPC,"Craft ulozen");
+        SendMessageToAllDMs("Craft ulozen");
     }
 }
