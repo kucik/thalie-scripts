@@ -146,9 +146,11 @@ void spawn(object oPC){
 
         // Find out the first LOCK WP.
         if (GetStringLeft(GetTag(oTarget), 5) != "LOCK_")
+            WriteTimestampedLogEntry("[DEBUG]Spawn first object is: "+GetName(oTarget)+" ["+GetTag(oTarget)+"].");
              oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, nNth);
         else
         {
+            WriteTimestampedLogEntry("[DEBUG]Spawn first object is (target): "+GetName(oTarget)+" ["+GetTag(oTarget)+"].");
             oObject = oTarget;
             nNth = 0;            // Corrected on 08/02/2005 by Firya'nis.
         }

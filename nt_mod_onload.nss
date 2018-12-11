@@ -58,6 +58,11 @@ void __resetResmanLocStatus() {
   SQLExecDirect(sql);
 }
 
+void __updateAreaTable(object oArea) {
+  string sql = "UPDATE location_property SET name ='"+GetName(oArea)+"' WHERE tag = '"+GetTag(oArea)+"';";
+  SQLExecDirect(sql);
+}
+
 void __setMarkLocationLoaded(string sResRef) {
   string sql = "UPDATE resman_locations SET status='3' where location = '"+sResRef+"';";
   SQLExecDirect(sql);
@@ -70,6 +75,7 @@ void __loadLocations() {
   oArea = GetFirstArea();
   while(GetIsObjectValid(oArea)) {
     __setMarkLocationLoaded(GetResRef(oArea));
+    __updateAreaTable(oArea);
     WriteTimestampedLogEntry("AREAS: Area "+GetResRef(oArea)+" ("+GetTag(oArea)+") marked as loaded.");
     oArea = GetNextArea();
   }
