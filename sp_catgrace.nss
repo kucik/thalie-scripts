@@ -19,6 +19,7 @@
 
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -53,7 +54,7 @@ void main()
     //Signal spell cast at event to fire on the target.
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_CATS_GRACE, FALSE));
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || GetHasFeat(FEAT_STRENGTH_DOMAIN_POWER))
+    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
         nModify = 6; //Damage/Healing is +50%
     }

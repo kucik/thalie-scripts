@@ -12,6 +12,7 @@
 //:://////////////////////////////////////////////
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -47,7 +48,7 @@ void main()
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_FOXS_CUNNING, FALSE));
 
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || GetHasFeat(FEAT_STRENGTH_DOMAIN_POWER))
+    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
         nRaise = 6; //Damage/Healing is +50%
     }

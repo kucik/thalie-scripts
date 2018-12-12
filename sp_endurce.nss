@@ -9,6 +9,7 @@
 //:: Created On: Jan 31, 2001
 //:://////////////////////////////////////////////
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -43,7 +44,7 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_ENDURANCE, FALSE));
     //Check for metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || GetHasFeat(FEAT_STRENGTH_DOMAIN_POWER))
+    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
         nModify = 6;
     }

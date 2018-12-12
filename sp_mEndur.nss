@@ -15,6 +15,7 @@
 #include "x2_inc_spellhook"
 #include "nw_i0_spells"
 #include "nwnx_structs"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -51,7 +52,7 @@ void main()
     float fRadius = YardsToMeters((25 + 5*nCasterLvl / 2.0)); // radius, in meters, i.e. (25 ft. + 5 ft./2 levels)
 
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || GetHasFeat(FEAT_STRENGTH_DOMAIN_POWER))
+    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
         nModify = 6;
     }

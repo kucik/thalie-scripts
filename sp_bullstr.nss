@@ -9,6 +9,7 @@
 
 #include "x2_inc_spellhook"
 #include "nw_i0_spells"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -38,14 +39,14 @@ void main()
     int nModify = 4;
     float fDuration = TurnsToSeconds(nCasterLvl);
     int iHereticLevel = GetLevelByClass(31, OBJECT_SELF); // Heretic
-    float fHereticDuration = -1.0; 
+    float fHereticDuration = -1.0;
     if(iHereticLevel > 0)
       fHereticDuration = TurnsToSeconds(10 + iHereticLevel);
     int nMetaMagic = GetMetaMagicFeat();
     //Signal the spell cast at event
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_BULLS_STRENGTH, FALSE));
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || GetHasFeat(FEAT_STRENGTH_DOMAIN_POWER))
+    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
     nModify = 6;
     }
