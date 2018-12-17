@@ -160,6 +160,7 @@ void spawn(object oPC){
 
         while (GetIsObjectValid(oObject))
         {
+            WriteTimestampedLogEntry("[DEBUG] Processing "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"].");
             //SpeakString("SPAWNING", TALKVOLUME_SHOUT);
             string sTag = GetTag(oObject);
             if (GetStringLeft(sTag, 5) == "LOCK_")
@@ -168,6 +169,7 @@ void spawn(object oPC){
                 int prob = GetLocalInt(oObject, "JA_SPAWN_PROBABILITY");
 
                 if((iWhen != iDayNight) && (iWhen != 0) || (Random(100) < prob)){
+                    WriteTimestampedLogEntry("[DEBUG] Skipping "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"]. because of "+IntToString(iWhen)+" != "+IntToString(iDayNight)+" or prob="+IntToString(prob));
                     nNth++;
                     oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, nNth);
                     continue;
@@ -180,6 +182,7 @@ void spawn(object oPC){
 
                 // New spawn prototype
                 if(LOCK_ProcessSpawn(oObject, fSpawnDelay, oOverrrideFaction)) {
+                    WriteTimestampedLogEntry("[DEBUG] Processing "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"].");
                     nNth++;
                     oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, nNth);
                     fSpawnDelay += 0.02; // To define an interval between all spawns.
