@@ -66,6 +66,64 @@ void MakeAnimalFriends(object oPC){
    }
 }
 
+int lock_spawnProcessing(object oObject, int cnt, int iDayNight, object oOverrrideFaction) {
+  string sTag = GetTag(oObject);
+  if (GetStringLeft(sTag, 5) != "LOCK_")
+    return 0;
+
+  int iWhen = GetLocalInt(oObject, "JA_SPAWN_TIME");
+  int prob = GetLocalInt(oObject, "JA_SPAWN_PROBABILITY");
+
+  if((iWhen != iDayNight) && (iWhen != 0) || (Random(100) < prob)) {
+    WriteTimestampedLogEntry("[DEBUG] Skipping "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"]. because of "+IntToString(iWhen)+" != "+IntToString(iDayNight)+" or prob="+IntToString(prob));
+    return 0;
+  }
+
+  // Old group spawn
+  if (GetStringLeft(sTag, 7) == "LOCK_RA") {
+    SetLocalString(oObject,"SPAWN_TYPE","GROUP");
+  }
+
+  float fSpawnDelay = 0.02 * cnt;
+
+  // New spawn prototype
+  if(LOCK_ProcessSpawn(oObject, fSpawnDelay, oOverrrideFaction)) {
+    WriteTimestampedLogEntry("[DEBUG] Processing "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"].");
+    return 1;
+  }
+
+  // Get information about this WP.
+  location lLoc = GetLocation(oObject);
+  string sWP    = sTag;
+  int length       = GetStringLength(sWP)-5;
+  string sResref   = GetStringRight(sWP, length);
+
+  // Get the variables on the WP.
+  int PLC         = GetLocalInt(oObject, "PLC");
+  int ITEM        = GetLocalInt(oObject, "ITEM");
+  string NEWTAG   = GetLocalString(oObject, "NEWTAG");
+
+  if (PLC == 1)       // Is it a placeable ?
+    DelayCommand(fSpawnDelay, LOCK_SpawnPlaceable(lLoc, sResref, NEWTAG));
+  else                // So... it should be a creature !
+    DelayCommand(fSpawnDelay, LOCK_SpawnCreature(lLoc, sResref, NEWTAG,oOverrrideFaction));
+  return 1;
+}
+
+void spawn_fallback(int iDayNight, object oOverrrideFaction) {
+  object oArea = OBJECT_SELF;
+  object oObject = GetFirstObjectInArea(oArea);
+  int cnt = 0;
+
+  while(GetIsObjectValid(oObject)) {
+    WriteTimestampedLogEntry("[DEBUG] (fb) Found object: "+GetName(oObject)+" ["+GetTag(oObject)+"] of type: "+IntToString(GetObjectType(oObject)));
+    if(GetObjectType(oObject) == OBJECT_TYPE_WAYPOINT) {
+      cnt += lock_spawnProcessing(oObject, cnt, iDayNight, oOverrrideFaction);
+    }
+    oObject = GetNextObjectInArea(oArea);
+  }
+}
+
 void spawn(object oPC){
      int iSpawn = GetLocalInt(OBJECT_SELF, "LOCK_SPAWN_ENTER");
      int iDisable_spawn = GetLocalInt(OBJECT_SELF,"KU_LOC_DISABLE_SPAWN");
@@ -157,6 +215,7 @@ void spawn(object oPC){
             nNth = 0;            // Corrected on 08/02/2005 by Firya'nis.
         }
         i=1;
+        int bSpawned = FALSE;
 
         while (GetIsObjectValid(oObject))
         {
@@ -186,6 +245,7 @@ void spawn(object oPC){
                     nNth++;
                     oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, nNth);
                     fSpawnDelay += 0.02; // To define an interval between all spawns.
+                    bSpawned = TRUE;
                     continue;
                 }
 
@@ -214,6 +274,8 @@ void spawn(object oPC){
         }
         SetLocalInt(OBJECT_SELF, "LOCK_SPAWN_ENTER", 1);
         WriteTimestampedLogEntry("Spawned "+IntToString(FloatToInt(fSpawnDelay / 0.02))+" from "+IntToString(nNth)+" waypoints '"+GetName(oArea)+"' '"+GetTag(oArea)+"'");
+        if(!bSpawned)
+          spawn_fallback(iDayNight, oOverrrideFaction);
      }
      // We confirm the spawn has been done.
      DelayCommand(5.0f, MakeAnimalFriends(oPC));
