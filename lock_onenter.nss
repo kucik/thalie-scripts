@@ -75,7 +75,7 @@ int lock_spawnProcessing(object oObject, int cnt, int iDayNight, object oOverrri
   int prob = GetLocalInt(oObject, "JA_SPAWN_PROBABILITY");
 
   if((iWhen != iDayNight) && (iWhen != 0) || (Random(100) < prob)) {
-    WriteTimestampedLogEntry("[DEBUG] Skipping "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"]. because of "+IntToString(iWhen)+" != "+IntToString(iDayNight)+" or prob="+IntToString(prob));
+    WriteTimestampedLogEntry("[DEBUG] Skipping "+IntToString(cnt)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"]. because of "+IntToString(iWhen)+" != "+IntToString(iDayNight)+" or prob="+IntToString(prob));
     return 0;
   }
 
@@ -88,7 +88,7 @@ int lock_spawnProcessing(object oObject, int cnt, int iDayNight, object oOverrri
 
   // New spawn prototype
   if(LOCK_ProcessSpawn(oObject, fSpawnDelay, oOverrrideFaction)) {
-    WriteTimestampedLogEntry("[DEBUG] Processing "+IntToString(nNth)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"].");
+    WriteTimestampedLogEntry("[DEBUG] Processing "+IntToString(cnt)+". object: "+GetName(oObject)+" ["+GetTag(oObject)+"].");
     return 1;
   }
 
@@ -273,7 +273,7 @@ void spawn(object oPC){
             oObject = GetNearestObject(OBJECT_TYPE_WAYPOINT, oTarget, nNth);
         }
         SetLocalInt(OBJECT_SELF, "LOCK_SPAWN_ENTER", 1);
-        WriteTimestampedLogEntry("Spawned "+IntToString(FloatToInt(fSpawnDelay / 0.02))+" from "+IntToString(nNth)+" waypoints '"+GetName(oArea)+"' '"+GetTag(oArea)+"'");
+        WriteTimestampedLogEntry("Spawned ("+IntToString(bSpawned)+")"+IntToString(FloatToInt(fSpawnDelay / 0.02))+" from "+IntToString(nNth)+" waypoints '"+GetName(oArea)+"' '"+GetTag(oArea)+"'");
         if(!bSpawned)
           spawn_fallback(iDayNight, oOverrrideFaction);
      }
