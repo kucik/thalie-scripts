@@ -83,6 +83,8 @@ int lock_spawnProcessing(object oObject, int cnt, int iDayNight, object oOverrri
   if (GetStringLeft(sTag, 7) == "LOCK_RA") {
     SetLocalString(oObject,"SPAWN_TYPE","GROUP");
   }
+  if(GetLocalInt(oObject, "PLC") == 1)
+    SetLocalString(oObject,"SPAWN_TYPE","PLC");
 
   float fSpawnDelay = 0.02 * cnt;
 
@@ -100,7 +102,6 @@ int lock_spawnProcessing(object oObject, int cnt, int iDayNight, object oOverrri
 
   // Get the variables on the WP.
   int PLC         = GetLocalInt(oObject, "PLC");
-  int ITEM        = GetLocalInt(oObject, "ITEM");
   string NEWTAG   = GetLocalString(oObject, "NEWTAG");
 
   if (PLC == 1)       // Is it a placeable ?
