@@ -416,7 +416,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     // Dokonaly kryt - AC
     if (GetHasFeat(FEAT_FIGHTER_DOKOLANY_KRYT1,oPC) == TRUE)
     {
-        iBonus +=1;
+        iBonus +=2;
     }
     if (GetHasFeat(FEAT_FIGHTER_DOKOLANY_KRYT2,oPC) == TRUE)
     {
@@ -424,7 +424,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     }
     if (GetHasFeat(FEAT_FIGHTER_DOKOLANY_KRYT3,oPC) == TRUE)
     {
-        iBonus +=1;
+        iBonus +=2;
     }
     if (GetHasFeat(FEAT_FIGHTER_DOKOLANY_KRYT4,oPC) == TRUE)
     {
@@ -432,7 +432,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     }
     if (GetHasFeat(FEAT_FIGHTER_DOKOLANY_KRYT5,oPC) == TRUE)
     {
-        iBonus +=1;
+        iBonus +=2;
     }
 
     if (GetHasFeat(FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA,oPC) == TRUE)
