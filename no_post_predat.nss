@@ -2,6 +2,16 @@
 #include "ku_libtime"
 
 
+int __reduceXpByLevel(int iXP, object oPC)
+{
+  int iHD = GetHitDice(oPC);
+  if(iHD > 15)
+    return 0;
+  if(iHD > 10)
+    return iXP/2;
+  return iXP;
+}
+
 void main()
 {
 
@@ -42,6 +52,10 @@ void main()
   int iXP = iPrice;
   if(iXP > 1000)
     iXP = 1000;
+
+  /* Reduce XP by PC level */
+  iXP = __reduceXpByLevel(iXP, oPC);
+
   if(iXP > 0)
     SetXP(oPC, GetXP(oPC) + iXP);
 
