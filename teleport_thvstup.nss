@@ -1,7 +1,7 @@
 #include "ja_inc_frakce"
 
 void __teleportMeToWorld(object oPC, location lLoc) {
-  
+
   // Doubleclick block
   if(GetLocalInt(oPC,"ku_teleport_ran")) {
     DeleteLocalInt(oPC,"ku_teleport_ran");
@@ -29,7 +29,7 @@ void __teleportMeToWorld(object oPC, location lLoc) {
   // Mark PCto know we tried teleport
   SetLocalInt(oPC, "ku_teleport_send", TRUE);
   DelayCommand(30.0,DeleteLocalInt(oPC,"ku_teleport_send"));
-  
+
 
   //Try to jump
   AssignCommand(oPC,ActionJumpToLocation(lLoc));
@@ -41,6 +41,24 @@ void main()
     object oSoul = GetSoulStone(oPC);
     int iPlayed = GetLocalInt(oSoul, "PLAYED");
     location lLoc;
+    //Test na 3. povolani
+    int iClass3 = GetLevelByPosition(3,oPC);
+    int iIsClass3Valid = GetLocalInt(oSoul,"T2_CLASS3VALID");
+    if ((iClass3>0) & (iIsClass3Valid==FALSE))
+    {
+       SendMessageToPC(oPC,"Mas nevalidni 3. povolani.");
+       return;
+    }
+    //Test na 30. level
+    int iHD = GetHitDice(oPC);
+    if (iHD>30)
+    {
+       SendMessageToPC(oPC,"Do sveta jsou pousteny jen postavy s urovni do 30.");
+       return;
+    }
+
+
+
     if(iPlayed)
     {
         lLoc = GetPersistentLocation(oPC, "LOCATION");

@@ -1694,7 +1694,8 @@ void ku_RemoveLightBlindness( object oPC )
 //
 void SEI_ApplyAreaSettings( object a_oCharacter, object oArea, int a_nSettings )
 {
-
+    //Vypnuti bonusu podle subras - Shaman
+    return;
     // If we have something to work with.
     if( GetIsObjectValid( a_oCharacter ) )
     {

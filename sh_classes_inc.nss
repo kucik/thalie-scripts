@@ -425,7 +425,7 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     while (GetIsEffectValid(eLoop))
     {
         iEffect = GetEffectSpellId(eLoop);
-        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_EXOR_DAMAGE_DIVINE))
+        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_EXOR_DAMAGE_DIVINE) || (iEffect==EFFECT_TWOHANDED_2AB))
         {
             RemoveEffect(oPC,eLoop);
         }
@@ -433,7 +433,8 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     }
     if (iEquip)
     {
-        int iItemTypeM = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC));
+        object oItem = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
+        int iItemTypeM = GetBaseItemType(oItem);
         if ((GetHasFeat(EFFECT_SPRAVEDLIVY_UDER,oPC) == TRUE) && (iItemTypeM == BASE_ITEM_INVALID) )
         {
 
@@ -456,8 +457,16 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
          ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
 
         }
-
-
+        if (GetIsObjectValid(oItem))
+        {
+            if (GetIsTwoHandedWeapon(oPC, iItemTypeM))
+            {
+                effect ef = EffectAttackIncrease(2);
+                effect eLink = SupernaturalEffect(ef);
+                SetEffectSpellId(eLink,EFFECT_TWOHANDED_2AB);
+                ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+            }
+        }
     }
 }
 

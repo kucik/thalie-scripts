@@ -10,16 +10,6 @@ void main()
     //hrac ktory prave vedie dialog s majstrom remesla
     object oPC = GetPCSpeaker();
 
-    //ak hrac nema dost penazi, ci trener nedokaze trenovat hraca v rozsahu
-    //aky ma zadany tak sa nic nestane
-    if (GetLocalInt(oPC,"sy_gp_cost")>GetGold(oPC))
-    {
-        SpeakString("Nebudu te ucit, pokud mi nezaplatis! Kazdy trenink vyzaduje radu ucebnich pomucek, ktere neco stoji a navic ja taky musim z neceho zit. Nedelam to zadarmo. Takze bud zaplat a nebo odejdi...");
-        DeleteLocalInt(oPC,"sy_gp_cost");
-        ClearAllActions();
-        return;
-    }
-
     //ulozim info o vyske skiloch pred levelupom na hraca
     int nLoop, nSkill;
     for (nLoop=0;nLoop<27;nLoop++)

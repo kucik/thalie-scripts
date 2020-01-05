@@ -107,30 +107,14 @@ int StartingConditional()
         return 1;
     }
 
-    //vyratam celkovu cenu za vsetky lvl postavy
-    //(vzorec sa pouzije na vypocet ceny prestupu na dalsi lvl)
-    int nLvlCost;
-    float fLevel = IntToFloat(nLevel);
-    if(nLevel <= 3){
-        nLvlCost = nLevel*15;
-    }
-    else{
-        nLvlCost = FloatToInt(1.123*fLevel*fLevel*fLevel*fLevel - 23.421*fLevel*fLevel*fLevel + 227.34*fLevel*fLevel - 669.7*fLevel + 500.85);
-    }
-    float fPrice = 0.1 * IntToFloat(GetAbilityScore(OBJECT_SELF,ABILITY_CHARISMA,TRUE));
-    nLvlCost = FloatToInt(fPrice * nLvlCost);
-    nLvlCost = nLvlCost * KU_GetPriceForClass() / 100;
-
-
     //takto vyzera zakladny dialog ak hrac splna vsetky predpoklady
-    string sToken = "A vidim, ze ty splnujes me pozadavky! Doufam, ze z tebe bude dobry zak. Muzeme zacit, az budes pripraven Moje standartni cena je "+IntToString(nLvlCost);
+    string sToken = "A vidim, ze ty splnujes me pozadavky! Doufam, ze z tebe bude dobry zak. Muzeme zacit, az budes pripraven. ";
 
     //test ci hrac uz ma lvl (vidno ikonu levelup)
     int nLevel2 = GetXP(oPC) - (((nLevel * (nLevel - 1)) / 2) * 5000);
     if (nLevel2<0)
     {
         sToken = "Jak tak na tebe koukam, jeste nejsi dost zkuseny/a, abych te mohl/a neco noveho naucit. Vrat se pozdeji a snad pro tebe budu moci neco udelat...";
-        nLvlCost = 0;
     }
 
     //zistim aky lvl budem mat po lvlupe v danom remesle, podla hlavneho remesla
@@ -141,20 +125,14 @@ int StartingConditional()
     if (nLevel<nMinLvl)
     {
         sToken   = "Jeste nejsi dostatecne zdatny/a na to, abys pochopil/a moji vyuku a ja te mohl/a naucit neco noveho. Prijd az naberes vic zkusenosti. (Vyzaduji uroven "+IntToString(nMinLvl)+")";
-        nLvlCost = 0;
     }
 
     //ak trener uz nedokaze hraca naucit nic, cize hrac ma vyssi lvl ako trener
     if (nLevel>nMaxLvl)
     {
         sToken   = "Bohuzel jsem te jiz naucil/a vse, co sam umim. Jsem na tebe pysny/a muj sverence. Budes si muset najit lepsiho ucitele, nez jsem ja. Hodne stesti a nekdy se za mnou stav, rad se dozvim, jak pokracujes na tve ceste...";
-        nLvlCost = 0;
     }
 
-    //zapisem cenu v GP za dany lvl, ak majster nevie trenovat ucna v rozsahu lvl
-    //alebo ucen nema peniaze oznacim si premennu na hracovi ako 0, inac tam bude
-    //cena priamo v GP ktoru potom script zoberie po uspesnom lvlupe
-    SetLocalInt(oPC,"sy_gp_cost",nLvlCost);
     SetCustomToken(7000, sToken);
 
     return 1;

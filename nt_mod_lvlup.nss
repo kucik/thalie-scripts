@@ -131,14 +131,14 @@ void main()
         class = 2;            //1. zustalo stejne, muselo tedy povysit 2.
         else
         class =1;
-
+/*  Zruseni kontroly mistrova povolani
     if (GetClassByPosition(class, oPC) != misterClass)    //porovna majstrovo a hracove pridane povolanie
     {
         AssignCommand(oTrainer,SpeakString("Tomuhle povolani te nemohu naucit. Na to si najdi jineho ucitele a me nezdrzuj..."));
         sy_relevel(oPC, nLevel);
         return;
     }
-
+ */
     //6. test vysky skilov
     int nSkill, nSkillPC, nLoop;
     for (nLoop=0;nLoop<27;nLoop++)
@@ -158,17 +158,7 @@ void main()
         }
     }
 
-    //zistim ci ma hrac potrebne peniaze na lvlup
-    //musim to testovat tu az ked uspesne potvrdi level, az tak sa odcitaju
-    //zlataky, tak som rozhodol
-    int nLvlCost = GetLocalInt(oPC, "sy_gp_cost");
-    if (GetGold(oPC)<nLvlCost)
-    {
-        AssignCommand(oTrainer,SpeakString("Ty nemas "+IntToString(nLvlCost)+" zlatych?! To je moje cena. Dokud nebudes mit na zaplaceni, tak te nic noveho nenaucim!"));
-        sy_relevel(oPC, nLevel);
-        return;
-    }
-    AssignCommand(oTrainer, TakeGoldFromCreature(nLvlCost, oPC, TRUE));
+
 
     //zmazem docasne premenne na hracovi
     DeleteLocalInt(oPC, "sy_class_mistra");

@@ -422,4 +422,55 @@ int GetWeaponOfChoiceFeatForWeapon(int iWeapon)
 }
 
 
+int GetIsTwoHandedWeapon(object oPC, int iWeaponType)
+{
+    int iRace = GetRacialType(oPC);
+    if ((iRace==RACIAL_TYPE_HALFLING) | (iRace==RACIAL_TYPE_GNOME))
+    {
+        switch (iWeaponType)
+        {
+            case BASE_ITEM_CLUB:
+            case BASE_ITEM_MAGICSTAFF:
+            case BASE_ITEM_MORNINGSTAR:
+            case BASE_ITEM_BATTLEAXE:
+            case BASE_ITEM_LIGHTFLAIL:
+            case BASE_ITEM_LONGSWORD:
+            case BASE_ITEM_RAPIER:
+            case BASE_ITEM_SCIMITAR:
+            case BASE_ITEM_SHORTBOW:
+            case BASE_ITEM_WARHAMMER:
+            case BASE_ITEM_BASTARDSWORD:
+            case BASE_ITEM_DWARVENWARAXE:
+            case BASE_ITEM_KATANA:
+                return TRUE;
+
+
+        }
+    }
+    else
+    {
+        switch (iWeaponType)
+        {
+            case BASE_ITEM_QUARTERSTAFF:
+            case BASE_ITEM_SHORTSPEAR:
+            case BASE_ITEM_GREATAXE:
+            case BASE_ITEM_GREATSWORD:
+            case BASE_ITEM_HALBERD:
+            case BASE_ITEM_HEAVYFLAIL:
+            case BASE_ITEM_TRIDENT:
+            case BASE_ITEM_DIREMACE:
+            case BASE_ITEM_DOUBLEAXE:
+            case BASE_ITEM_SCYTHE:
+            case BASE_ITEM_TWOBLADEDSWORD:
+                return TRUE;
+
+        }
+
+
+    }
+    return FALSE;
+
+
+}
+
 

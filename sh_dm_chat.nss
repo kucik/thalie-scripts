@@ -83,9 +83,24 @@ void main()
 
     // Call system for books/letters writing
     WriteCheck(oSpeaker, sSpoke);
-
+    int iLocationBonus = 0;
     if (GetStringLeft(sSpoke, 1) == "/" && GetStringLeft(sSpoke, 2) != "//")
     {
+        if (sSpoke == "/AreaC")
+        {
+            object oArea = GetFirstArea();
+            while (GetIsObjectValid(oArea))
+            {
+                iLocationBonus = GetLocalInt(oArea, "XP_BONUS");
+                if (iLocationBonus>0)
+                {
+                    SendMessageToPC(oSpeaker,"Area "+GetName(oArea)+":"+IntToString(iLocationBonus));
+                }
+                oArea = GetNextArea();
+            }
+
+        }
+
         // DM commands
         if ((iDM || iDMp) && sLeft3 == "/dm")
             DmSpeakFunction();
@@ -132,7 +147,20 @@ void main()
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
-
+        else if (sLeft3 == "/-xp")
+        {
+            if (GetTag(GetArea(oSpeaker))=="th_vitejte") return;
+            string sXP = GetStringRight(sSpoke, iLength - 4);
+            sXP = StrTrim(sXP," ");
+            int iXPToRemove = StringToInt(sXP);
+            if (iXPToRemove>0)
+            {
+                int iXP = GetXP(oSpeaker);
+                int iNewXP = iXP-iXPToRemove;
+                SetXP(oSpeaker,iNewXP);
+            }
+            return;
+        }
         else
         {
             PCEmoteFunction();
