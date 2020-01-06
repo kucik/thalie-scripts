@@ -147,7 +147,38 @@ void main()
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
-        else if (sLeft3 == "/-xp")
+        else if (sSpoke == "/relevel")
+        {
+            if (iDM)
+            {
+                SendMessageToPC(oSpeaker,"Relevely:");
+                object oPC = GetFirstPC();
+                while (GetIsObjectValid(oPC))
+                {
+                    object oSoulStone = GetSoulStone(oPC);
+                    int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
+                    SendMessageToPC(oSpeaker,GetName(oPC)+":"+IntToString(iRelevelCount));
+                    oPC = GetFirstPC();
+                }
+                return;
+            }
+            else
+            {
+                int iHasRelevel = GetLocalInt(oSpeaker,"HAS_RELEVEL");
+                if (iHasRelevel==FALSE)
+                {
+                    int iXP = GetXP(oSpeaker);
+                    SetLocalInt(oSpeaker,"HAS_RELEVEL",1);
+                    object oSoulStone = GetSoulStone(oSpeaker);
+                    int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
+                    SetLocalInt(oSoulStone,"RELEVEL_COUNT",iRelevelCount+1);
+                    SetXP(oSpeaker,0);
+                    DelayCommand(1.0,SetXP(oSpeaker,iXP));
+                    return;
+                }
+            }
+        }
+        /*else if (sLeft3 == "/-xp")
         {
             if (GetTag(GetArea(oSpeaker))=="th_vitejte") return;
             string sXP = GetStringRight(sSpoke, iLength - 4);
@@ -160,7 +191,7 @@ void main()
                 SetXP(oSpeaker,iNewXP);
             }
             return;
-        }
+        }*/
         else
         {
             PCEmoteFunction();
