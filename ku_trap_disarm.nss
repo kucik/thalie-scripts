@@ -6,8 +6,13 @@ void main()
      object oPC = GetLastDisarmed();
      if (GetIsPC(oPC))
      {
-          int iXP = GetTrapDisarmDC(OBJECT_SELF) - GetSkillRank(SKILL_DISABLE_TRAP,oPC) + d10();
-          WriteTimestampedLogEntry("TRAP disarm: "+GetName(oPC)+" disarmed trap DC "+IntToString(GetTrapDisarmDC(OBJECT_SELF)) + "with skill"+IntToString(GetSkillRank(SKILL_DISABLE_TRAP,oPC))+". Got "+IntToString(iXP)+"XP");
+          int iDC = GetTrapDisarmDC(OBJECT_SELF);
+          int iSkill = GetSkillRank(SKILL_DISABLE_TRAP,oPC);
+          /* No XP if PC should not be able to disarm trap - spell disarmed */
+          if(iSkill == 0 || (iDC > iSkill + 20))
+            return;
+          int iXP = iDC - iSkill + d10();
+          WriteTimestampedLogEntry("TRAP disarm: "+GetName(oPC)+" disarmed trap DC "+IntToString(iDC) + "with skill"+IntToString(iSkill)+". Got "+IntToString(iXP)+"XP");
           if(iXP > 0)
             SetXP(oPC,GetXP(oPC) + iXP);
      }
