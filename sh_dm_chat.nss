@@ -158,7 +158,7 @@ void main()
                     object oSoulStone = GetSoulStone(oPC);
                     int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
                     SendMessageToPC(oSpeaker,GetName(oPC)+":"+IntToString(iRelevelCount));
-                    oPC = GetFirstPC();
+                    oPC = GetNextPC();
                 }
                 return;
             }
