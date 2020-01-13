@@ -129,7 +129,7 @@ void main()
     {
         // svice maji "Vyzor" prefix "sy_svicka"
         // stany maji "Vyzor" prefix "sy_stan"
-        
+
         object   oPlayer = GetItemActivator();
         string   sVyzor  = GetLocalString(oItem,"Vyzor");
         vector   vPos    = GetPosition(oPlayer);
@@ -137,10 +137,10 @@ void main()
         vPos.z = vPos.z - fOsZ;
         location lPoz = Location(GetArea(oPlayer),vPos,GetFacing(oPlayer));
         object   oPlc  = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
-        
+
         SetUseableFlag(oPlc, FALSE);
-        SetLocalString(oPlc, "PLC_ITEMRESREF", GetResRef(oItem));        
-        
+        SetLocalString(oPlc, "PLC_ITEMRESREF", GetResRef(oItem));
+
         // Candles
         if (GetStringLeft(sVyzor, 9) == "sy_svicka")
         {
@@ -148,7 +148,7 @@ void main()
             // Expire in 2 hours
             DestroyObject(oPlc, 7200.0);
         }
-        
+
         // Tents
         if (GetStringLeft(sVyzor, 7) == "sy_stan")
         {
@@ -156,9 +156,9 @@ void main()
             // Default 3 real days.
             int iExpiration = GetLocalInt(oItem, "expiration");
             iExpiration = iExpiration ? ku_GetTimeStamp(iExpiration) : ku_GetTimeStamp(0,0,0,3);
-            
+
             SetLocalInt(oPlc, "PLC_EXPIRATION", iExpiration);
-            
+
             // Set placeable persistent
             Persist_SavePlaceable(oPlc, GetArea(oPlayer));
         }
@@ -201,21 +201,21 @@ void main()
         object   oPlc    = CreateObject(OBJECT_TYPE_PLACEABLE,sVyzor,lPoz,FALSE,"");
 
         SetUseableFlag(oPlc, FALSE);
-        
+
         // Default expiration = 3 real days.
         int iExpiration = GetLocalInt(oItem, "expiration");
         iExpiration = iExpiration ? ku_GetTimeStamp(iExpiration) : ku_GetTimeStamp(0,0,0,3);
-        
+
         // Set placeable variables (expiration and item resref)
         SetLocalString(oPlc, "PLC_ITEMRESREF", GetResRef(oItem));
         SetLocalInt(oPlc, "PLC_EXPIRATION", iExpiration);
-        
+
         // Set placeable persistent
         Persist_SavePlaceable(oPlc, GetArea(oPlayer));
 
         //zmazem deku z inventara hraca
         DestroyObject(oItem, 0.0f);
-        
+
         AssignCommand (oPlayer, ActionPlayAnimation (ANIMATION_LOOPING_GET_LOW, 0.5, 2.0));
         return;
     }
@@ -256,6 +256,56 @@ void main()
         if (GetHenchman(oPlayer)==OBJECT_INVALID) AddHenchman(oPlayer,oZviera);
         return;
     }
+    //Teleportace
+    if (GetResRef(oItem)=="it_portal_gem")
+    {
+        object oPC = GetItemActivator();
+        //kontrola na validitu lokace
+        object oArea = GetArea(oPC);
+        string sAreaTag = GetTag(oArea);
+        if (sAreaTag=="Sferamrtvych")
+        {
+            SendMessageToPC(oPC,"V teto lokaci je brana zakazana.");
+            return;
+        }
+        string sTarget = GetLocalString(oItem,"PORTAL_TARGET");
+        if (sTarget=="")
+        {
+            //Kamen neni napojen na zadnou kotvu.
+            SendMessageToPC(oPC,"Kamen neni napojen na zadnou kotvu.");
+            return;
+        }
+        else
+        {
+            int iValid = FALSE;
+            //najdu zda je v dosahu 10m nejaky jiny towngate
+            object oPL = GetFirstObjectInShape(SHAPE_SPHERE,12.0,GetLocation(oPC),FALSE,OBJECT_TYPE_PLACEABLE);
+            while (GetIsObjectValid(oPL))
+            {
+                string sTownGateTag = GetTag(oPL);
+                if (GetSubString(sTownGateTag,0,9)=="towngate_")
+                {
+                    iValid = TRUE;
+                    break;
+                }
+                oPL = GetNextObjectInShape(SHAPE_SPHERE,12.0,GetLocation(oPC),FALSE,OBJECT_TYPE_PLACEABLE);
+            }
+            if (iValid)
+            {
+                object oPortal = CreateObject(OBJECT_TYPE_PLACEABLE,"teleport_portal",GetLocation(oPC),TRUE);
+                SetName(oPortal,GetLocalString(oItem,"PORTAL_TARGET_AREA"));
+                SetLocalString(oPortal,"PORTAL_TARGET",GetLocalString(oItem,"PORTAL_TARGET"));
+                DelayCommand(80.0,DestroyObject(oPortal,10.0));
+                return;
+            }
+            else
+            {
+                SendMessageToPC(oPC,"Nejsi v dosahu jine dimenzionalni kotvy.");
+                return;
+            }
+        }
+    }
+
 
     //upravena cnrShovel lopata aby slo s nou kopat
     if (GetTag(oItem)=="cnrShovel")
