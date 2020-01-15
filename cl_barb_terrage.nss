@@ -37,9 +37,9 @@ void main()
 
     object oBarb =GetAreaOfEffectCreator();
     int nHD = GetHitDice(GetAreaOfEffectCreator());
-
-    int nRoll = d10(1); //sorry but d20() was just too unbalancing for the game, if you are a rules layer, just put the d20 here...
-    int nDC = 10 + GetSkillRank(SKILL_INTIMIDATE,oBarb) / 2;
+    int iCon = GetAbilityModifier(ABILITY_CONSTITUTION);
+    int nLevel = GetLevelByClass(CLASS_TYPE_BARBARIAN);
+    int nDC = 10 + GetSkillRank(SKILL_INTIMIDATE,oBarb,TRUE)/3 +nLevel/2 + iCon;
     int nDuration = d3();
     if(GetIsEnemy(oTarget, oBarb))
     {

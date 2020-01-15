@@ -136,7 +136,6 @@ void main()
                 if (GetLocalInt(oSoulStone,AKTIVNI_POSTOJ_OBRANCE) == 1)
                 {
                     //odebrani efektu
-                    DelayCommand(1.0,DD_RemoveStance(oPC,oSoulStone));
                     DecrementRemainingFeatUses(oPC,FEAT_POSTOJ_TRPASLICI_OBRANCE1);
                 }
             }

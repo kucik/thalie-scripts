@@ -54,229 +54,6 @@ void CheckAndApplyEpicRageFeats(int nRounds);
 #include "sh_deity_inc"
 
 
-
-
-
-
-
-//Zvetsi barbarovy staty
-void IncreaseBarbarStats(object oPC,int iAbility)
-{
-    object oSaveItem;
-    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
-      oSaveItem = GetSoulStone(OBJECT_SELF);
-    else
-      oSaveItem = OBJECT_SELF;
-
-          int level = GetLevelByPosition(1,oPC)+GetLevelByPosition(2,oPC)+GetLevelByPosition(3,oPC);
-          SetLocalInt(oSaveItem,AKTIVNI_RAGE,1);
-          int base_str = GetAbilityScore(oPC,ABILITY_STRENGTH,TRUE);
-          SetLocalInt(oSaveItem,ULOZENI_SILA_BARBAR,base_str);
-          int base_con = GetAbilityScore(oPC,ABILITY_CONSTITUTION,TRUE);
-          SetLocalInt(oSaveItem,ULOZENI_ODOLNOST_BARBAR,base_con);
-          ModifyAbilityScore(oPC,ABILITY_STRENGTH,iAbility );
-          ModifyAbilityScore(oPC,ABILITY_CONSTITUTION,iAbility);
-         // SetLocalInt(oSaveItem,ULOZENI_DOCASNE_ZIVOTY_BARBAR,iAbility*level);
-          ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectHeal(iAbility*level),oPC);
-
-
-
- }
-
-
- //Snizi barbarovy staty
-void DecreaseBarbarStats(object oPC)
-{
-    object oSaveItem;
-    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
-      oSaveItem = GetSoulStone(OBJECT_SELF);
-    else
-      oSaveItem = OBJECT_SELF;
-
-    if (GetLocalInt(oSaveItem,AKTIVNI_RAGE) == 1)
-    {
-          int base_str = GetLocalInt(oSaveItem,ULOZENI_SILA_BARBAR);
-          int base_con = GetLocalInt(oSaveItem,ULOZENI_ODOLNOST_BARBAR);
-          if (base_str != 0) ModifyAbilityScore(oPC,ABILITY_STRENGTH,base_str-GetAbilityScore(oPC,ABILITY_STRENGTH,TRUE));
-
-          if (base_con != 0) ModifyAbilityScore(oPC,ABILITY_CONSTITUTION,base_con-GetAbilityScore(oPC,ABILITY_CONSTITUTION,TRUE));
-
-          SetLocalInt(oSaveItem,AKTIVNI_RAGE,0);
-          SetLocalInt(oSaveItem,ULOZENI_ODOLNOST_BARBAR,0);
-          SetLocalInt(oSaveItem,ULOZENI_SILA_BARBAR,0);
-          //int damage = GetLocalInt(oSaveItem,ULOZENI_DOCASNE_ZIVOTY_BARBAR);
-          //ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(damage),oPC);
-
-    }
- }
-//Zvetsi TRPASLICIHO OBRANCE
-void IncreaseDefenderStats(object oPC,int iAbility_str, int iAbility_con)
-{
-    object oSaveItem;
-    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
-      oSaveItem = GetSoulStone(OBJECT_SELF);
-    else
-      oSaveItem = OBJECT_SELF;
-
-    if (GetLocalInt(oSaveItem,AKTIVNI_POSTOJ_OBRANCE) == 0)
-    {
-          int level = GetLevelByPosition(1,oPC)+GetLevelByPosition(2,oPC)+GetLevelByPosition(3,oPC);
-          SetLocalInt(oSaveItem,AKTIVNI_POSTOJ_OBRANCE,1);
-          int base_str = GetAbilityScore(oPC,ABILITY_STRENGTH,TRUE);
-          SetLocalInt(oSaveItem,ULOZENI_SILA_OBRANCE,base_str);
-          int base_con = GetAbilityScore(oPC,ABILITY_CONSTITUTION,TRUE);
-
-          SetLocalInt(oSaveItem,ULOZENI_ODOLNOST_OBRANCE,base_con);
-          ModifyAbilityScore(oPC,ABILITY_STRENGTH,iAbility_str );
-          ModifyAbilityScore(oPC,ABILITY_CONSTITUTION,iAbility_con);
-          //SetLocalInt(oSaveItem,ULOZENI_DOCASNE_ZIVOTY_OBRANCE,iAbility_con*level);
-          //ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectHeal(iAbility_con*level),oPC);
-
-
-    }
- }
-
-
- //Snizi staty TRPASLICIHO OBRANCE
-void DecreaseDefenderStats(object oPC)
-{
-    object oSaveItem;
-    if(GetIsPC(OBJECT_SELF) && !GetIsDMPossessed(OBJECT_SELF) )
-      oSaveItem = GetSoulStone(OBJECT_SELF);
-    else
-      oSaveItem = OBJECT_SELF;
-
-    if (GetLocalInt(oSaveItem,AKTIVNI_POSTOJ_OBRANCE) == 1)
-    {
-          int base_str = GetLocalInt(oSaveItem,ULOZENI_SILA_OBRANCE);
-          int base_con = GetLocalInt(oSaveItem,ULOZENI_ODOLNOST_OBRANCE);
-
-            if (base_str != 0) ModifyAbilityScore(oPC,ABILITY_STRENGTH,base_str-GetAbilityScore(oPC,ABILITY_STRENGTH,TRUE));
-
-          if (base_con != 0) ModifyAbilityScore(oPC,ABILITY_CONSTITUTION,base_con-GetAbilityScore(oPC,ABILITY_CONSTITUTION,TRUE));
-
-
-          SetLocalInt(oSaveItem,AKTIVNI_POSTOJ_OBRANCE,0);
-          SetLocalInt(oSaveItem,ULOZENI_ODOLNOST_OBRANCE,0);
-          SetLocalInt(oSaveItem,ULOZENI_SILA_OBRANCE,0);
-          //int damage = GetLocalInt(oSaveItem,ULOZENI_DOCASNE_ZIVOTY_OBRANCE);
-          //ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(damage),oPC);
-
-
-    }
- }
-
-// aplikuje imunitu barbara
-void ApplyBarbarianDamageReduction(object oPC)
-{
-    if (GetHasFeat(FEAT_SNIZENI_ZRANENI_BARBAR,oPC) == TRUE)
-    {
-        int iBonus = 0;
-        if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_3,oPC) == TRUE)
-        {
-            iBonus = 30;
-        }
-        else if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_2,oPC) == TRUE)
-        {
-            iBonus = 20;
-        }
-        else if (GetHasFeat(FEAT_EPICKE_SNIZENI_ZRANENI_BARBAR_1,oPC) == TRUE)
-        {
-            iBonus = 10;
-        }
-        int iLvL = GetLevelByClass (CLASS_TYPE_BARBARIAN,oPC)+1;
-
-                if (iLvL > 20)
-                   {
-                    iLvL = 20;
-                   }
-
-
-        //pridani imunuty na tupe
-        effect ef1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,iLvL+iBonus);
-         //pridani imunuty na bodne
-        effect ef2 = EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING,iLvL+iBonus);
-         //pridani imunuty na tupe
-        effect ef3 = EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING,iLvL+iBonus);
-        effect eLink = EffectLinkEffects(ef1,ef2);
-               eLink =  EffectLinkEffects(eLink,ef3);
-               eLink = SupernaturalEffect(eLink);
-
-        SetEffectSpellId(eLink,EFFECT_BARBAR_SNIZENI_ZRANENI);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-}
-/*
-Shodi Kensaiovi Itemy pokud si oblece zbroj, stit nebo helmu
-*/
-
-
-/*
-Nastavi SD Zrak stinu
-*/
-void ApplyShadowDancerZrak(object oPC)
-{
-    //odstraneni efektu
-    if (GetLevelByClass(CLASS_TYPE_SHADOWDANCER,oPC) >= 1)
-    {
-        effect eLink = EffectUltravision();
-        eLink = SupernaturalEffect(eLink);
-        SetEffectSpellId(eLink,EFFECT_SD_ZRAK);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-}
-
-
-void ApplyNewMonkPerfectSelf(object oPC, object oPCSkin)
-{
-    //odstraneni efektu
-    if (GetLevelByClass(CLASS_TYPE_MONK,oPC) >= 19)
-    {
-
-        int iEnch;
-        // IMUNITA NA MIND SPELLY
-        itemproperty ip = ItemPropertyImmunityMisc(IP_CONST_IMMUNITYMISC_MINDSPELLS);
-        SetItemPropertySpellId(ip,IP_NEWPERFECTSELF);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
-        //POHLCENI
-
-
-            if (GetHasFeat(FEAT_NEWPERFECTSELF5,oPC))
-            {
-             iEnch =IP_CONST_DAMAGEREDUCTION_5;
-            }
-
-            else if (GetHasFeat(FEAT_NEWPERFECTSELF4,oPC))
-            {
-             iEnch =IP_CONST_DAMAGEREDUCTION_4;
-            }
-
-            else if (GetHasFeat(FEAT_NEWPERFECTSELF3,oPC))
-            {
-             iEnch =IP_CONST_DAMAGEREDUCTION_3;
-            }
-
-            else if (GetHasFeat(FEAT_NEWPERFECTSELF2,oPC))
-            {
-             iEnch =IP_CONST_DAMAGEREDUCTION_2;
-            }
-            else
-            {
-             iEnch =IP_CONST_DAMAGEREDUCTION_1;
-            }
-
-        itemproperty ip1 = ItemPropertyDamageReduction(iEnch,IP_CONST_DAMAGESOAK_20_HP);
-        SetItemPropertySpellId(ip1,IP_NEWPERFECTSELF);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,ip1,oPCSkin,99999.0);
-
-
-
-
-    }
-
-}
-
 void ApplyExorcistBonuses(object oPC)
 {
     int iLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
@@ -309,31 +86,6 @@ void ApplyExorcistBonuses(object oPC)
 
 
 
-}
-
-
-
-int GetIsPCValid(object oPC)
-{
-    int iSkill = GetPCSkillPoints(oPC);
-    int iRace = GetRacialType(oPC);
-    if (iSkill != (8+GetAbilityModifier(ABILITY_INTELLIGENCE,oPC)+(iRace == RACIAL_TYPE_HUMAN))*4)
-    {
-        return FALSE;
-    }
-    if (GetClassByPosition(1,oPC)!=CLASS_TYPE_ROGUE)
-    {
-        return FALSE;
-    }
-    if ((GetHasFeat(FEAT_ARMOR_PROFICIENCY_MEDIUM,oPC)) ||
-    (GetHasFeat(FEAT_ARMOR_PROFICIENCY_HEAVY,oPC)) ||
-    (GetHasFeat(FEAT_SHIELD_PROFICIENCY,oPC)) ||
-    (GetHasFeat(FEAT_WEAPON_PROFICIENCY_MARTIAL,oPC))
-    )
-    {
-        return FALSE;
-    }
-    return TRUE;
 }
 
 
@@ -382,40 +134,7 @@ void RemoveZbranThalie(object oPC,object oItem)
 
 
 }
-void SetRangerNaturalSkills (object oPC,object oArea)
-{
-    int iRangerLevel = GetLevelByClass(CLASS_TYPE_RANGER,oPC);
-    if (iRangerLevel >= 0)
-    {
-        int iEffect;
-        effect eLoop = GetFirstEffect(oPC);
-        while (GetIsEffectValid(eLoop))
-        {
-            iEffect = GetEffectSpellId(eLoop);
-            if (iEffect== EFFECT_RANGER_NATURAL_SKILLS)
-            {
-                RemoveEffect(oPC,eLoop);
-            }
-            eLoop = GetNextEffect(oPC);
-        }
-        if (GetIsAreaNatural(oArea))
-        {
-            int iBonus = (((iRangerLevel - 14)/5)+1)*2;
-            effect ef1 = EffectSkillIncrease(SKILL_MOVE_SILENTLY,iBonus);
-            effect ef2 = EffectSkillIncrease(SKILL_HIDE,iBonus);
-            effect eLink = EffectLinkEffects(ef1,ef2) ;
-            eLink = SupernaturalEffect(eLink);
-            SetEffectSpellId(eLink,EFFECT_RANGER_NATURAL_SKILLS);
-            ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-        }
 
-
-
-    }
-
-
-
-}
 
 void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
 {
@@ -470,34 +189,6 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     }
 }
 
-//Odstrani efekty postoje trpasliciho obrance
-void DD_RemoveStance(object oPC,object oSoulStone)
-{
-    effect eLoop=GetFirstEffect(oPC);
-    while (GetIsEffectValid(eLoop))
-    {
-        if (GetEffectSpellId(eLoop)==EFFECT_TRPASLICI_OBRANCE_POSTOJ)
-        {
-            RemoveEffect(oPC, eLoop);
-        }
-        eLoop=GetNextEffect(oPC);
-
-    }
-    itemproperty ipLoop=GetFirstItemProperty(oSoulStone);
-    while (GetIsItemPropertyValid(ipLoop))
-    {
-        if ((GetItemPropertySpellId(ipLoop)==IP_DD_STANCE) || (GetItemPropertyType(ipLoop)==ITEM_PROPERTY_WEIGHT_INCREASE))
-        {
-
-            RemoveItemProperty(oSoulStone, ipLoop);
-        }
-        ipLoop=GetNextItemProperty(oSoulStone);
-
-    }
-    DecreaseDefenderStats(oPC);
-    SendMessageToPC(oPC,"Obrany postoj deaktivovan!");
-}
-
 //Nastavi promenne na postavu tak aby bylo mozne brat prestizni povolani
 void ApplyClassConditions(object oPC)
 {
@@ -511,52 +202,6 @@ void ApplyClassConditions(object oPC)
 
 }
 
-//------------------------------------------------------------------------------
-// GZ, 2003-07-09
-// Hub function for the epic barbarian feats that upgrade rage. Call from
-// the end of the barbarian rage spellscript
-//------------------------------------------------------------------------------
-void CheckAndApplyEpicRageFeats(int nRounds)
-{
-
-    effect eAOE;
-    if ((GetHasFeat(989, OBJECT_SELF)) && (GetHasFeat(988, OBJECT_SELF)))
-    {
-     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "cl_barb_thunrage","****");
-     eAOE = ExtraordinaryEffect(eAOE);
-     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
-    }
-
-    else if (GetHasFeat(989, OBJECT_SELF))
-    {
-     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"cl_barb_terrage", "****","****");
-     eAOE = ExtraordinaryEffect(eAOE);
-     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
-    }
-
-    else if (GetHasFeat(988, OBJECT_SELF))
-    {
-     eAOE = EffectAreaOfEffect(AOE_MOB_FEAR,"****", "cl_barb_thunrage","****");
-     eAOE = ExtraordinaryEffect(eAOE);
-     ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eAOE,OBJECT_SELF,RoundsToSeconds(nRounds));
-    }
-
-
-
-}
-
-void UnEquipPlateArmor(object oPC)
-{
-  //feat pouziti platove zbroje - 1672
-  object oArmor = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC);
-  if (GetIsObjectValid(oArmor))
-  {
-    if ((GetArmorAC(oArmor) >=7)  && (GetHasFeat(1672,oPC)==FALSE))
-    {
-        AssignCommand(oPC,ActionUnequipItem(oArmor));
-    }
-  }
-}
 
 void RepairDeities(object oPC)
 {
@@ -595,12 +240,12 @@ Globalni metody pro zakladni eventy
 
 void OnEnterFirstLocation(object oPC)
 {
-  //RepairObcanThalie(oPC);
+
 }
 
 void OnEnterArea(object oPC,object oArea)
 {
-   SetRangerNaturalSkills (oPC,oArea);
+
 
 }
 
@@ -615,9 +260,6 @@ void OnLvlupClassSystem(object oPC)
    //vymazani bonusu
    RemoveClassItemPropertyAndEffects(oPC,oPCSkin);
    //  puvodni
-   ApplyBarbarianDamageReduction(oPC);  //effekt
-   ApplyShadowDancerZrak(oPC);//effekt
-   ApplyNewMonkPerfectSelf(oPC,oPCSkin);
    ApplyExorcistBonuses(oPC);
    // nove
    AddSkillIPBonuses(oPC,oPCSkin);
@@ -637,8 +279,6 @@ void OnLvlupClassSystem(object oPC)
 
 void OnRestClassSystem(object oPC)
 {
-   DecreaseBarbarStats(oPC);
-   DecreaseDefenderStats(oPC);
    RestoreFeatUses(oPC);
    object oSoul = GetSoulStone(oPC);
    SetLocalInt(oSoul,"RACIAL_ABILITY",1);
@@ -655,8 +295,6 @@ void OnEquipClassSystem(object oPC, object oItem)
  AddZbranThalie(oPC,oItem);
  RefreshBonusACNaturalBase(oPC,oPCSkin);
  RefreshOnEquipSpecialBonuses(oPC,1);
- UnEquipPlateArmor(oPC);
-
 }
 
 void OnUnEquipClassSystem(object oPC,object oItem)
@@ -675,10 +313,6 @@ void OnDeathClassSystem(object oPC)
 {
   DeleteLocalInt(oPC,"UderDoTepny"); //zruseni ucinku krvaceni
   DeleteLocalString(oPC,"OZNACEN"); //odstraneni znacky assassina
-  DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK");
-  DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK_TARGET");
-  DecreaseBarbarStats(oPC);
-  DecreaseDefenderStats(oPC);
 }
 
 void OnEnterClassSystem(object oPC)
@@ -689,10 +323,9 @@ void OnEnterClassSystem(object oPC)
     DeleteLocalInt(oPC,"UderDoTepny"); //zruseni ucinku krvaceni
     DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK");
     DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK_TARGET");
+    SetLocalInt(oPC,"BARBARIAN_RAGE",0);
     object oSoul = GetSoulStone(oPC);
     DeleteLocalInt(oSoul,"KURTIZANA_KZEMI");
-    DecreaseBarbarStats(oPC);
-    DecreaseDefenderStats(oPC);
     OnLvlupClassSystem(oPC);
     RepairDeities(oPC);
  }

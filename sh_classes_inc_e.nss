@@ -8,37 +8,6 @@ Dale obsahuje pomocne funkce
 #include "sh_classes_const"
 #include "me_soul_inc"
 
-// Vraci o kolik se zvednou staty pri barbarove rage
-int GetBarbarianAbilityBonus(object oPC)
-{
-    if (GetKnowsFeat(FEAT_LEGENDARNI_ZURIVOST3, oPC))
-    {
-        return 16;
-    }
-    if (GetKnowsFeat(FEAT_LEGENDARNI_ZURIVOST2, oPC))
-    {
-        return 14;
-    }
-    if (GetKnowsFeat(FEAT_LEGENDARNI_ZURIVOST1, oPC))
-    {
-        return 12;
-    }
-    if (GetKnowsFeat(FEAT_EPICKA_ZURIVOST, oPC))
-    {
-        return 10;
-    }
-    if (GetKnowsFeat(FEAT_MOCNA_ZURIVOST, oPC))
-    {
-        return 8;
-    }
-    if (GetKnowsFeat(FEAT_VETSI_ZURIVOST, oPC))
-    {
-        return 6;
-    }
-    return 4;
-
-}
-
 
 /*
 Pro hodnoty 1 - 20 vrati pozadovane konstanty.
@@ -128,53 +97,6 @@ int GetIPDamageBonusByValue(int iValue)
  }
 
 
-int GetFavoredDamageByRangerLevel(int iRangerLevel)
-{
-    switch (iRangerLevel) {
-         case  1: return 0;
-         case  2: return 0;
-         case  3: return 1;
-         case  4: return 1;
-         case  5: return 1;
-         case  6: return 1;
-         case  7: return 2;
-         case  8: return 2;
-         case  9: return 3;
-         case 10: return 2;
-         case 11: return 3;
-         case 12: return 3;
-         case 13: return 4;
-         case 14: return 4;
-         case 15: return 4;
-         case 16: return 4;
-         case 17: return 5;
-         case 18: return 5;
-         case 19: return 6;
-         case 20: return 5;
-         case 21: return 6;
-         case 22: return 6;
-         case 23: return 7;
-         case 24: return 7;
-         case 25: return 7;
-         case 26: return 7;
-         case 27: return 8;
-         case 28: return 8;
-         case 29: return 9;
-         case 30: return 8;
-         case 31: return 9;
-         case 32: return 9;
-         case 33: return 10;
-         case 34: return 10;
-         case 35: return 10;
-         case 36: return 10;
-         case 37: return 11;
-         case 38: return 11;
-         case 39: return 12;
-         default: return 0;
-     }
-     return 0;
-}
-                            //EFFECT_AB_AC_DMG
 
 
 int GetIPDamageReductionHPResistConstant(int iAmount)
@@ -359,66 +281,6 @@ void RestoreCantripsSlots(object oPC)
     SetRemainingSpellSlots(oPC,CLASS_TYPE_SORCERER,0,GetMaxSpellSlots(oPC,CLASS_TYPE_SORCERER,0));
     RestoreCantripSpells(oPC, CLASS_TYPE_WIZARD);
 
-}
-
-/*Funkce pro WM - supperior weapon focus
-*/
-int GetWeaponOfChoiceFeatForWeapon(int iWeapon)
-{
-    switch(iWeapon)
-        {
-         case BASE_ITEM_SICKLE: return FEAT_WEAPON_OF_CHOICE_SICKLE;
-         case BASE_ITEM_KAMA: return FEAT_WEAPON_OF_CHOICE_KAMA;
-            case BASE_ITEM_KUKRI: return FEAT_WEAPON_OF_CHOICE_KUKRI;
-            case BASE_ITEM_CLUB: return FEAT_WEAPON_OF_CHOICE_CLUB;
-            case BASE_ITEM_DAGGER: return FEAT_WEAPON_OF_CHOICE_DAGGER;
-            case BASE_ITEM_LIGHTMACE: return FEAT_WEAPON_OF_CHOICE_LIGHTMACE;
-            case BASE_ITEM_MORNINGSTAR: return FEAT_WEAPON_OF_CHOICE_MORNINGSTAR;
-            case BASE_ITEM_QUARTERSTAFF: return FEAT_WEAPON_OF_CHOICE_QUARTERSTAFF;
-            case BASE_ITEM_SHORTSPEAR: return FEAT_WEAPON_OF_CHOICE_SHORTSPEAR;
-            case BASE_ITEM_SHORTSWORD: return FEAT_WEAPON_OF_CHOICE_SHORTSWORD;
-            case BASE_ITEM_RAPIER: return FEAT_WEAPON_OF_CHOICE_RAPIER;
-            case BASE_ITEM_SCIMITAR: return FEAT_WEAPON_OF_CHOICE_SCIMITAR;
-            case BASE_ITEM_LONGSWORD: return FEAT_WEAPON_OF_CHOICE_LONGSWORD;
-            case BASE_ITEM_GREATSWORD: return FEAT_WEAPON_OF_CHOICE_GREATSWORD;
-            case BASE_ITEM_HANDAXE: return FEAT_WEAPON_OF_CHOICE_HANDAXE;
-            case BASE_ITEM_BATTLEAXE: return FEAT_WEAPON_OF_CHOICE_BATTLEAXE;
-            case BASE_ITEM_GREATAXE: return FEAT_WEAPON_OF_CHOICE_GREATAXE;
-            case BASE_ITEM_HALBERD: return FEAT_WEAPON_OF_CHOICE_HALBERD;
-            case BASE_ITEM_LIGHTHAMMER: return FEAT_WEAPON_OF_CHOICE_LIGHTHAMMER;
-            case BASE_ITEM_LIGHTFLAIL: return FEAT_WEAPON_OF_CHOICE_LIGHTFLAIL;
-            case BASE_ITEM_WARHAMMER: return FEAT_WEAPON_OF_CHOICE_WARHAMMER;
-            case BASE_ITEM_HEAVYFLAIL: return FEAT_WEAPON_OF_CHOICE_HEAVYFLAIL;
-            case BASE_ITEM_SCYTHE: return FEAT_WEAPON_OF_CHOICE_SCYTHE;
-            case BASE_ITEM_KATANA: return FEAT_WEAPON_OF_CHOICE_KATANA;
-            case BASE_ITEM_BASTARDSWORD: return FEAT_WEAPON_OF_CHOICE_BASTARDSWORD;
-            case BASE_ITEM_DIREMACE: return FEAT_WEAPON_OF_CHOICE_DIREMACE;
-            case BASE_ITEM_DOUBLEAXE: return FEAT_WEAPON_OF_CHOICE_DOUBLEAXE;
-            case BASE_ITEM_TWOBLADEDSWORD: return FEAT_WEAPON_OF_CHOICE_TWOBLADEDSWORD;
-            case BASE_ITEM_DWARVENWARAXE: return FEAT_WEAPON_OF_CHOICE_DWAXE;
-            case BASE_ITEM_WHIP: return FEAT_WEAPON_OF_CHOICE_WHIP;
-            case BASE_ITEM_TRIDENT: return FEAT_WEAPON_OF_CHOICE_TRIDENT;
-         case 305: return 1180;
-         case 202: return 1173;
-         case 210: return 1174;
-         case 300: return 1175;
-         case 301: return 1176;
-         case 302: return 1177;
-         case 303: return 1178;
-         case 304: return 1179;
-         case 308: return 1181;
-         case 309: return 1182;
-         case 310: return 1183;
-         case 317: return 1184;
-         case 318: return 1185;
-         case 319: return 1186;
-         case 320: return 1187;
-         case 321: return 1188;
-         case 322: return 1189;
-         case 323: return 1190;
-         case 324: return 1191;
-    }
-    return -1; //chyba
 }
 
 

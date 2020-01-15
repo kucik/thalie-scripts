@@ -48,8 +48,7 @@ void main()
 
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
-    int nPower = (nCasterLevel) / 4;
-    if (nPower > 5)  nPower = 5;  // * max of +4 bonus
+    int nPower = (nCasterLevel-2) / 3;
     if (nPower < 1)  nPower = 1;  // * min of +1 bonus
     int nDamagePower = DAMAGE_POWER_PLUS_ONE;
 
@@ -60,6 +59,11 @@ void main()
         case 3: nDamagePower = DAMAGE_POWER_PLUS_THREE; break;
         case 4: nDamagePower = DAMAGE_POWER_PLUS_FOUR; break;
         case 5: nDamagePower = DAMAGE_POWER_PLUS_FIVE; break;
+        case 6: nDamagePower = DAMAGE_POWER_PLUS_SIX; break;
+        case 7: nDamagePower = DAMAGE_POWER_PLUS_SEVEN; break;
+        case 8: nDamagePower = DAMAGE_POWER_PLUS_EIGHT; break;
+        case 9: nDamagePower = DAMAGE_POWER_PLUS_NINE; break;
+        case 10: nDamagePower = DAMAGE_POWER_PLUS_TEN; break;
     }
     DoMagicFang(nPower, nDamagePower);
 }

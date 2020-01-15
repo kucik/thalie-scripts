@@ -23,231 +23,6 @@ BONUSY PRO POSTAVY SPECIFICKE PODLE KATEGORII
 #include "sh_deity_inc"
 #include "sh_effects_const"
 //Subraces_GetCharacterSubrace
-void SetFavoredEnemyDamage(object oPC, int iLevel)
-{
-
-    effect eApply;
-    int iBonus = GetFavoredDamageByRangerLevel(iLevel);
-    int iBonus1 = 0;
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_1,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_2,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_3,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_4,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_5,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_6,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_7,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_8,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_9,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    if (GetHasFeat(FEAT_EPICGENERAL_ZLEPSENY_UHLAVNI_NEPRITEL_10,oPC) == TRUE)
-    {
-        iBonus1 += 2;
-    }
-    effect eLink =  EffectDamageIncrease(GetDamageBonusByValue(iBonus),DAMAGE_TYPE_PIERCING);
-
-    if (iBonus1 > 0)
-    {
-        effect ef1 =   EffectDamageIncrease(GetDamageBonusByValue(iBonus1),DAMAGE_TYPE_SLASHING);
-        eLink = EffectLinkEffects(eLink,ef1);
-    }
-
-    if (GetHasFeat(FEAT_FAVORED_ENEMY_ABERRATION,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_ABERRATION);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_ANIMAL,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_ANIMAL);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_BEAST,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_BEAST);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_CONSTRUCT,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_CONSTRUCT);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_DRAGON,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_DRAGON);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_DWARF,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_DWARF);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_ELEMENTAL,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_ELEMENTAL);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_ELF,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_ELF);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_FEY,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_FEY);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_GIANT,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_GIANT);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_GNOME,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_GNOME);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_GOBLINOID,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HUMANOID_GOBLINOID);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_HALFELF,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HALFELF);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_HALFLING,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HALFLING);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_HALFORC,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HALFORC);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_HUMAN,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HUMAN);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_MAGICAL_BEAST,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_MAGICAL_BEAST);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_MONSTROUS,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HUMANOID_MONSTROUS);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_ORC,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HUMANOID_ORC);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_OUTSIDER,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_OUTSIDER);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_REPTILIAN,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_HUMANOID_REPTILIAN);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_SHAPECHANGER,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_SHAPECHANGER);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_UNDEAD,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_UNDEAD);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-        if (GetHasFeat(FEAT_FAVORED_ENEMY_VERMIN,oPC))
-    {
-       eApply = VersusRacialTypeEffect(eLink,RACIAL_TYPE_VERMIN);
-       eApply = SupernaturalEffect(eApply);
-       SetEffectSpellId(eApply,EFFECT_AB_AC_DMG);
-       ApplyEffectToObject(DURATION_TYPE_PERMANENT, eApply,oPC);
-    }
-
-
-}
 
 /*
 Aplikace IP s body do skillu, pokud  je hodnota iValue vetsi nez 0
@@ -276,13 +51,8 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
         iEffect = GetEffectSpellId(eLoop);
         if (
         (iEffect== EFFECT_AB_AC_DMG)
-        || (iEffect == EFFECT_BARBAR_SNIZENI_ZRANENI)
-        || (iEffect == EFFECT_SD_ZRAK)
-        || (iEffect == EFFECT_SD_RYCHLOST)
         || (iEffect == EFFECT_CONCEALMENT )
-        || (iEffect == EFFECT_BRUTALNI_VRH )
         || (iEffect == EFFECT_SPEED)
-        || (iEffect == EFFECT_SPELL_RESISTANCE)
         || (iEffect == EFFECT_DAMAGE_REDUCTION)
         || (iEffect == EFFECT_EXORCISTA_PASSIVE)
         || (iEffect == EFFECT_LILITH_PASSIVE)
@@ -303,7 +73,6 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
         if(
         (iIP == IP_SKILL_BONUS)
         || (iIP== IP_SAVE)
-        || (iIP== IP_NEWPERFECTSELF)
         || (iIP== IP_REGENERATION)
         || (iIP== IP_DAMAGE_REDUCTION)
         )
@@ -370,28 +139,7 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     int iItemTypeRightMain,iItemTypeLeftOff,iWeaponBonus;
 
     object oItem;
-    /*
-    Prida shinobi bonus do ac z aktualni moudrosti.
-    Melo by volat pri onequipu, onunequipu a po kouzleni
-    */
-    if (GetHasFeat(FEAT_SHINOBI_OBRANA,oPC)==TRUE)
-    {
 
-      if (
-      ((GetBaseItemType(oItem = GetItemInSlot(INVENTORY_SLOT_CHEST,oPC)) == BASE_ITEM_ARMOR ) && (GetArmorAC (oItem) > 0 ) )||
-//      (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_TOWERSHIELD )    ||
-      (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_SMALLSHIELD )     ||
-      (GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC)) == BASE_ITEM_LARGESHIELD )
-
-      )
-      {
-            ;
-      }
-      else
-      {
-          iBonus += GetAbilityModifier(ABILITY_WISDOM,oPC);
-      }
-    }
     if (GetHasFeat(FEAT_SERMIR_CHYTRA_OBRANA,oPC)==TRUE)
     {
        if (
@@ -439,16 +187,6 @@ void RefreshBonusACNaturalBase(object oPC, object oPCSkin)
     {
        iBonus += __FEAT_GENERAL_OBRANA_SE_DVEMA_ZBRANEMA(oPC);
     }
-    iItemTypeLeftOff = GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC));
-    if ((GetHasFeat(FEAT_KURTIZANA_POBLOUZNENI,oPC) == TRUE) && (iItemTypeLeftOff == 314) )  //FASHION ACC...
-    {
-        int iCasterLevelKurtizana = GetLevelByClass(CLASS_TYPE_KURTIZANA);
-        iBonus += (iCasterLevelKurtizana -23)/3+1;
-    }
-
-
-
-
     SetACNaturalBase(oPC,iBonus);
 }
 
@@ -459,53 +197,12 @@ Prida bonusy do zachranych hodu
 void ApplyBonusSaves(object oPC, object oPCSkin)
 {
       int iReflex = 0;
-      int iFort = 0;
       int iWill = 0;
       int iPoison = 0;
       int iFear = 0;
       int iDeath = 0;
-      //bonus do savu od boziho bojovnika
-      if (GetHasFeat(FEAT_TORM_ODRIKANI,oPC) == TRUE)
-      {
-        int lvl = GetLevelByClass(CLASS_TYPE_DIVINE_CHAMPION,oPC);
-        int iBonus = lvl /3;
-        iReflex +=iBonus;
-        iWill += iBonus;
-        iFort += iBonus;
-       }
-       // rogue - dite stesteny
-       if (GetHasFeat(FEAT_ROGUE_DITE_STESTENY1,oPC) == TRUE)
-        {
-            iReflex +=1;
-            iWill += 1;
-            iFort += 1;
 
-        }
-        if (GetHasFeat(FEAT_ROGUE_DITE_STESTENY2,oPC) == TRUE)
-        {
-            iReflex +=1;
-            iWill += 1;
-            iFort += 1;
-        }
-        if (GetHasFeat(FEAT_ROGUE_DITE_STESTENY3,oPC) == TRUE)
-        {
-            iReflex +=1;
-            iWill += 1;
-            iFort += 1;
-        }
-        if (GetHasFeat(FEAT_ROGUE_DITE_STESTENY4,oPC) == TRUE)
-        {
-            iReflex +=1;
-            iWill += 1;
-            iFort += 1;
-        }
-        if (GetHasFeat(FEAT_ROGUE_DITE_STESTENY5,oPC) == TRUE)
-        {
-            iReflex +=1;
-            iWill += 1;
-            iFort += 1;
-        }
-        /*GENERAL FEAT - bullheaded*/
+         /*GENERAL FEAT - bullheaded*/
          if (GetHasFeat(FEAT_BLOODED,oPC) == TRUE)
          {
               iWill += 1;
@@ -542,12 +239,6 @@ void ApplyBonusSaves(object oPC, object oPCSkin)
         if (iReflex > 0)
         {
             itemproperty ip = ItemPropertyBonusSavingThrow(SAVING_THROW_REFLEX,iReflex);
-            SetItemPropertySpellId(ip,IP_SAVE);
-            AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
-        }
-        if (iFort > 0)
-        {
-            itemproperty ip = ItemPropertyBonusSavingThrow(SAVING_THROW_FORT,iFort);
             SetItemPropertySpellId(ip,IP_SAVE);
             AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
         }
@@ -600,104 +291,10 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
            iAB +=(iLvl-5)/5+1;
            iACnatural +=(iLvl-5)/5+1;
     }
-    /*Bonus trpasliciho obrance*/
-    if (GetHasFeat(FEAT_BONUS_AC_TRPASLICI_OBRANCE,oPC)== TRUE)
-    {
-           int lvl = GetLevelByClass(CLASS_TYPE_DWARVENDEFENDER,oPC);
-           iACnatural += (lvl+ 1) / 4;
-
-    }
-
-        //bojova zkusenost - ab a dmg
-        if (GetHasFeat(FEAT_FIGHTER_BOJOVA_ZKUSENOST1,oPC) == TRUE)
-        {
-            iAB +=1;
-            iDMG+=1;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_BOJOVA_ZKUSENOST2,oPC) == TRUE)
-        {
-             iAB +=1;
-            iDMG+=1;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_BOJOVA_ZKUSENOST3,oPC) == TRUE)
-        {
-             iAB +=1;
-            iDMG+=1;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_BOJOVA_ZKUSENOST4,oPC) == TRUE)
-        {
-             iAB +=1;
-            iDMG+=1;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_BOJOVA_ZKUSENOST5,oPC) == TRUE)
-        {
-             iAB +=1;
-            iDMG+=1;
-        }
-        //tvrdy zasah - dmg
-        if (GetHasFeat(FEAT_FIGHTER_TVRDY_ZASAH1,oPC) == TRUE)
-        {
-            iDMG +=2;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_TVRDY_ZASAH2,oPC) == TRUE)
-        {
-            iDMG +=2;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_TVRDY_ZASAH3,oPC) == TRUE)
-        {
-            iDMG +=2;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_TVRDY_ZASAH4,oPC) == TRUE)
-        {
-            iDMG +=2;
-        }
-        if (GetHasFeat(FEAT_FIGHTER_TVRDY_ZASAH5,oPC) == TRUE)
-        {
-            iDMG +=2;
-        }
-
-    //shinobi bonus do dodge AC
-    if (GetHasFeat(FEAT_SHINOBI_BONUS_AC,oPC) == TRUE)
-    {
-
-        iACshield+= GetLevelByClass(CLASS_TYPE_SHINOBI,oPC) /5;
-    }
      //nahozeni bonusu
     if (iAB > 0)
     {
         effect ef = EffectAttackIncrease(iAB);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-    if (iACdodge > 0)
-    {
-        effect ef = EffectACIncrease(iACdodge);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-    if (iACarmor > 0)
-    {
-        effect ef = EffectACIncrease(iACarmor,AC_ARMOUR_ENCHANTMENT_BONUS);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-    if (iACshield > 0)
-    {
-        effect ef = EffectACIncrease(iACshield,AC_SHIELD_ENCHANTMENT_BONUS);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-    if (iACdeflection > 0)
-    {
-        effect ef = EffectACIncrease(iACdeflection,AC_DEFLECTION_BONUS);
         effect eLink = SupernaturalEffect(ef);
         SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
@@ -742,12 +339,6 @@ void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
 
     }
 
-    /* Favored Enemy*/
-    int iRangerLevel = GetLevelByClass(CLASS_TYPE_RANGER,oPC);
-    if (iRangerLevel >= 0)
-    {
-        SetFavoredEnemyDamage(oPC,iRangerLevel);
-    }
 }
 /*
 Pridava, vsechny bonusy do skillu
@@ -787,152 +378,6 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
          {
                 int iLvL = GetLevelByClass(41,oPC);
                 iDiscipline +=(iLvL/3);
-         }
-
-        /*Zlodejuv bonus - nenapadnost*/
-         if (GetHasFeat(FEAT_ROGUE_KAPSAR1,oPC) == TRUE)
-         {
-                iPickPocket +=2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_KAPSAR2,oPC) == TRUE)
-         {
-                iPickPocket +=2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_KAPSAR3,oPC) == TRUE)
-         {
-                iPickPocket +=2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_KAPSAR4,oPC) == TRUE)
-         {
-                iPickPocket +=2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_KAPSAR5,oPC) == TRUE)
-         {
-                iPickPocket +=2;
-         }
-        /*Zlodejuv bonus - nenapadnost*/
-         if (GetHasFeat(FEAT_ROGUE_NENAPADNOST1,oPC) == TRUE)
-         {
-                iHide +=2;
-                iMoveSilently+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_NENAPADNOST2,oPC) == TRUE)
-         {
-                iHide +=2;
-                iMoveSilently+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_NENAPADNOST3,oPC) == TRUE)
-         {
-                iHide +=2;
-                iMoveSilently+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_NENAPADNOST4,oPC) == TRUE)
-         {
-                iHide +=2;
-                iMoveSilently+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_NENAPADNOST5,oPC) == TRUE)
-         {
-                iHide +=2;
-                iMoveSilently+= 2;
-         }
-        /*Zlodejuv bonus - bystrost */
-        if (GetHasFeat(FEAT_ROGUE_BYSTROST1,oPC) == TRUE)
-         {
-                iSearch +=2;
-                iSpot+= 2;
-                iListen+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_BYSTROST2,oPC) == TRUE)
-         {
-                iSearch +=2;
-                iSpot+= 2;
-                iListen+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_BYSTROST3,oPC) == TRUE)
-         {
-                iSearch +=2;
-                iSpot+= 2;
-                iListen+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_BYSTROST4,oPC) == TRUE)
-         {
-                iSearch +=2;
-                iSpot+= 2;
-                iListen+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_BYSTROST5,oPC) == TRUE)
-         {
-                iSearch +=2;
-                iSpot+= 2;
-                iListen+= 2;
-         }
-         /*Zlodejuv bonus - sikovnost*/
-         if (GetHasFeat(FEAT_ROGUE_SIKOVNOST1,oPC) == TRUE)
-         {
-                iDisableTrap +=2;
-                iOpenLock+= 2;
-                iSetTrap+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SIKOVNOST2,oPC) == TRUE)
-         {
-                iDisableTrap +=2;
-                iOpenLock+= 2;
-                iSetTrap+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SIKOVNOST3,oPC) == TRUE)
-         {
-                iDisableTrap +=2;
-                iOpenLock+= 2;
-                iSetTrap+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SIKOVNOST4,oPC) == TRUE)
-         {
-                iDisableTrap +=2;
-                iOpenLock+= 2;
-                iSetTrap+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SIKOVNOST5,oPC) == TRUE)
-         {
-                iDisableTrap +=2;
-                iOpenLock+= 2;
-                iSetTrap+= 2;
-         }
-         /*Zlodejuv bonus - svetak*/
-         if (GetHasFeat(FEAT_ROGUE_SVETAK1,oPC) == TRUE)
-         {
-                iPersuade +=2;
-                iIntimidate+= 2;
-                iAppraise+= 2;
-                iTaunt+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SVETAK2,oPC) == TRUE)
-         {
-                iPersuade +=2;
-                iIntimidate+= 2;
-                iAppraise+= 2;
-                iTaunt+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SVETAK3,oPC) == TRUE)
-         {
-                iPersuade +=2;
-                iIntimidate+= 2;
-                iAppraise+= 2;
-                iTaunt+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SVETAK4,oPC) == TRUE)
-         {
-                iPersuade +=2;
-                iIntimidate+= 2;
-                iAppraise+= 2;
-                iTaunt+= 2;
-         }
-         if (GetHasFeat(FEAT_ROGUE_SVETAK5,oPC) == TRUE)
-         {
-                iPersuade +=2;
-                iIntimidate+= 2;
-                iAppraise+= 2;
-                iTaunt+= 2;
          }
 
          /*Exorcistova znalost magie*/
@@ -1013,7 +458,7 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
                iPersuade +=2;
          }
 
-        /*GENERAL FEAT - epic reputation*/
+         /*GENERAL FEAT - epic reputation*/
          if (GetHasFeat(FEAT_EPIC_REPUTATION,oPC) == TRUE)
          {
                iBluff +=4;
@@ -1030,17 +475,6 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
                 iIntimidate+=2;
                 iTaunt+=2;
             break;
-
-            case NT2_SUBRACE_ORC_DEEP:
-                iIntimidate+=2;
-                iTaunt+=2;
-            break;
-
-            case NT2_SUBRACE_ORC_HIRAN:
-                iIntimidate+=2;
-                iTaunt+=2;
-            break;
-
 
         }
 
