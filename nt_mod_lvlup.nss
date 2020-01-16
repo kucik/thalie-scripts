@@ -83,6 +83,16 @@ void main()
             return;
         }
     }
+    int iMonkLevel = GetLevelByClass(CLASS_TYPE_MONK,oPC);
+    if (iMonkLevel >0)
+    {
+        if ((GetHitDice(oPC)-iMonkLevel+10)>30)
+        {
+            SendMessageToPC(oPC, "</c>Pokud hrajes mnicha, musis mit 10 urovni.</c>");
+            sy_relevel(oPC, nLevel);
+            return;
+        }
+    }
     // Because of rage ability bonus
     if(GetLocalInt(oSoulStone,"rage") > 0) { // AKTIVNI_RAGE
       SendMessageToPC(oPC, "Nemuzes provadet lvlup s aktivni zurivosti!");

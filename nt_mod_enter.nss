@@ -472,6 +472,10 @@ void main()
   if(__checkPolymorf(oPC) == FALSE )
     SetPersistentString(oPC, "PORTRAIT", GetPortrait(oPC));
 
+ //rp_list
+ if(!GetIsObjectValid(GetItemPossessedBy(oPC, "rp_list"))){
+       CreateItemOnObject("rp_list", oPC);
+  }
   //ku_EtherealClientEnter(oPC);
   SkinCleanup(oPC);
 }

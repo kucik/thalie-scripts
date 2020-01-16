@@ -121,12 +121,13 @@ void main()
          eLink = EffectLinkEffects(eLink,ef8);
          iHPbonus = iHPbonus + (10*nLevel);
        }
-       effect ef6 = EffectTemporaryHitpoints(iHPbonus);
-       eLink = EffectLinkEffects(eLink,ef6);
        eLink = ExtraordinaryEffect(eLink);
        int iDuration = iCon +5;
-       SetEffectSpellId(eLink,EFFECT_TRPASLICI_OBRANCE_POSTOJ);
+
+       effect ef6 = EffectTemporaryHitpoints(iHPbonus);
+       ef6 = ExtraordinaryEffect(ef6);
        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink,oPC,RoundsToSeconds(iDuration));
+       ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ef6,oPC,RoundsToSeconds(iDuration));
        CheckAndApplyEpicRageFeats(iDuration);
        SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELLABILITY_BARBARIAN_RAGE, FALSE));
        SetLocalInt(oPC,"BARBARIAN_RAGE",1);

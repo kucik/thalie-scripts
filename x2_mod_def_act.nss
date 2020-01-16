@@ -16,10 +16,10 @@ void main()
     object oItem = GetItemActivated();
     object oTarget = GetItemActivatedTarget();
     string sTag = GetTag(oItem);
-    
+
     // XP system
     ku_ItemActivated(oActivator, oItem);
-    
+
     // Tag based scripting
     SetUserDefinedItemEventNumber(X2_ITEM_EVENT_ACTIVATE);
     int nRet = ExecuteScriptAndReturnInt(GetUserDefinedItemEventScriptName(oItem), OBJECT_SELF);
@@ -29,7 +29,7 @@ void main()
     // Bandages and potions
     sh_ModuleOnActivationItemCheckElixirs(oItem, oTarget, oActivator);
     sh_ModuleOnActivationItemCheckBandages(oItem, oTarget, oActivator);
-    
+
     // Food and water
     if (GetStringLeft(sTag, 5) == "water" || GetStringLeft(sTag, 4) == "food")
     {
@@ -37,34 +37,67 @@ void main()
         PC_ConsumeIt(oActivator, oItem);
         return;
     }
-    
+
     // Skinning knife
     if (GetTag(oItem) == "cnrSkinningKnife")
     {
         SkinningKnife(oActivator, oItem);
         return;
     }
-    
+
     // Dead PC body
     if (GetResRef(oItem) == "mrtvola")
     {
         DeadBody(oActivator, oItem);
         return;
     }
-    
+
     // Henchman key
     if (GetResRef(oItem) == HENCHMAN_KEY_TAG)
     {
         UseHenchmanKey(oActivator, oItem);
         return;
     }
-    
+
     if (GetTag(oItem) == "me_fishingpole")
     {
         ExecuteScript("me_nc_cfishfresh", oActivator);
         return;
     }
-    
+
+    if (GetTag(oItem) == "rp_list")
+    {
+        if (oActivator==oTarget)
+        {
+            if (GetLocalInt(oTarget,"RP_LIST")==1)
+            {
+                SetLocalInt(oTarget,"RP_LIST",0);
+                SendMessageToPC(oTarget,"Postava byla odebrana z RP seznamu.");
+            }
+            else
+            {
+                SetLocalInt(oTarget,"RP_LIST",1);
+                SendMessageToPC(oTarget,"Postava byla pridana na RP seznam.");
+            }
+        }
+        else
+        {
+            SendMessageToPC(oActivator,"RP List:");
+            object oPC = GetFirstPC();
+            while (GetIsObjectValid(oPC))
+            {
+                if (GetIsDM(oPC)==FALSE)
+                {
+                    SendMessageToPC(oActivator,GetName(oPC)+" - "+GetName(GetArea(oPC)));
+                }
+                oPC = GetNextPC();
+            }
+
+
+        }
+        return;
+    }
+
     if (ExecuteScriptAndReturnInt("sy_mod_onitemact", OBJECT_SELF))
         return;
 
@@ -112,12 +145,12 @@ void UseHenchmanKey(object oActivator, object oItem)
     if (!GetIsHenchmanKeyExpired(oItem))
     {
         object oHenchman = GetLocalObject(oItem, "HENCHMAN");
-        
+
         // Debug:
         //SendMessageToPC(oActivator, "[DEBUG] Poèet použití vyvolávacího itemu: " + IntToString(GetLocalInt(oItem, "HENCHMAN_USES")));
         //if (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman))
-            //SendMessageToPC(oActivator, "[DEBUG] Mount jménem " + GetName(oHenchman) + " je již vyvolán. Pøivolávám.");                      
-        
+            //SendMessageToPC(oActivator, "[DEBUG] Mount jménem " + GetName(oHenchman) + " je již vyvolán. Pøivolávám.");
+
         // Summon when exists elsewhere, or is unsummoned.
         if (GetLocalInt(oItem, "HENCHMAN_USES") || (GetIsObjectValid(oHenchman) && !GetIsDead(oHenchman)))
         {
@@ -132,7 +165,7 @@ void UseHenchmanKey(object oActivator, object oItem)
             object oMount = SummonHenchman(oItem);
             SetMountProperties(oMount, oItem);
             // for /h chat command
-            SetLocalObject(oActivator, "HENCHMAN", oMount);            
+            SetLocalObject(oActivator, "HENCHMAN", oMount);
             if (GetIsObjectValid(oMount))
             {
                 //SendMessageToPC(oActivator, "[DEBUG] Mount povolán.");
