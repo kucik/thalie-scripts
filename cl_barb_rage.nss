@@ -97,7 +97,7 @@ void main()
        int iHPbonus = 2 * nLevel;
 
        effect ef1 = EffectAttackIncrease(iAB);
-       effect ef2 =EffectDamageIncrease(DAMAGE_BONUS_1,DAMAGE_TYPE_BASE_WEAPON);
+       effect ef2 =EffectDamageIncrease(GetDamageBonusByValue(iDMG),DAMAGE_TYPE_BASE_WEAPON);
        effect eLink = EffectLinkEffects(ef1,ef2);
        if (iSaves>0)
        {

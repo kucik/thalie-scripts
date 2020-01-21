@@ -44,6 +44,10 @@ void __activateStand(object oPC,object oSoulStone)
         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink,oPC,9999.0);
         IncrementRemainingFeatUses(OBJECT_SELF,FEAT_POSTOJ_TRPASLICI_OBRANCE1);
         SendMessageToPC(oPC,"Obrany postoj aktivovan!");
+        SetLocalInt(oSoulStone,"STANCE",1);
+        itemproperty ip = ItemPropertyWeightIncrease(IP_CONST_WEIGHTINCREASE_100_000_LBS);
+        SetItemPropertySpellId(ip,IP_DD_STANCE);
+        AddItemProperty(DURATION_TYPE_PERMANENT,ip,oSoulStone);
 }
 
 //Odstrani efekty postoje trpasliciho obrance
@@ -60,13 +64,25 @@ void DD_RemoveStance(object oPC,object oSoulStone)
 
     }
     SendMessageToPC(oPC,"Obrany postoj deaktivovan!");
+    SetLocalInt(oSoulStone,"STANCE",0);
+    itemproperty ipLoop=GetFirstItemProperty(oSoulStone);
+    while (GetIsItemPropertyValid(ipLoop))
+    {
+        if ((GetItemPropertySpellId(ipLoop)==IP_DD_STANCE) || (GetItemPropertyType(ipLoop)==ITEM_PROPERTY_WEIGHT_INCREASE))
+        {
+
+            RemoveItemProperty(oSoulStone, ipLoop);
+        }
+        ipLoop=GetNextItemProperty(oSoulStone);
+
+    }
 }
 
 void main()
 {
     object oSoulStone = GetSoulStone(OBJECT_SELF);
     object oPC = OBJECT_SELF;
-    if (GetLocalInt(oSoulStone,AKTIVNI_POSTOJ_OBRANCE) == 0)
+    if (GetLocalInt(oSoulStone,"STANCE") == 0)
     {
         if (GetActionMode(oPC,ACTION_MODE_EXPERTISE))
         {

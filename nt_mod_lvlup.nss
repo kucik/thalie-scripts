@@ -66,13 +66,6 @@ void main()
         return;
     }
 
-    if ((GetLevelByClass(CLASS_TYPE_MONK,oPC)>0) && (GetLevelByClass(CLASS_TYPE_DRUID,oPC)>0))
-    {
-        SendMessageToPC(oPC, "</c>Na Thalii neni povolena kombinace druida s mnichem.</c>");
-        sy_relevel(oPC, nLevel);
-        return;
-    }
-
     int iPaladinLevel = GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
     if (iPaladinLevel >0)
     {

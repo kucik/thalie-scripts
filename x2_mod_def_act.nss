@@ -88,7 +88,10 @@ void main()
             {
                 if (GetIsDM(oPC)==FALSE)
                 {
-                    SendMessageToPC(oActivator,GetName(oPC)+" - "+GetName(GetArea(oPC)));
+                    if (GetLocalInt(oPC,"RP_LIST")==1)
+                    {
+                        SendMessageToPC(oActivator,GetName(oPC)+" - "+GetName(GetArea(oPC)));
+                    }
                 }
                 oPC = GetNextPC();
             }
