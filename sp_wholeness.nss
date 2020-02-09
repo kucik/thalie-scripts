@@ -15,7 +15,7 @@ void main()
 {
     //Declare major variables
     int nLevel = GetLevelByClass(CLASS_TYPE_MONK, OBJECT_SELF) * 2;
-    effect eHeal = Effectheal (nLevel);
+    effect eHeal = EffectHeal (nLevel);
     effect eVis = EffectVisualEffect(VFX_IMP_HEALING_M);
     SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELLABILITY_WHOLENESS_OF_BODY, FALSE));
     //Apply the VFX impact and effects
