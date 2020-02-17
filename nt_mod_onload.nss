@@ -59,7 +59,7 @@ void __resetResmanLocStatus() {
 }
 
 void __updateAreaTable(object oArea) {
-  string sql = "UPDATE location_property SET name ='"+GetName(oArea)+"' WHERE tag = '"+GetTag(oArea)+"';";
+  string sql = "UPDATE location_property SET name ='"+SQLEncodeSpecialChars(GetName(oArea))+"' WHERE tag = '"+GetTag(oArea)+"';";
   SQLExecDirect(sql);
 }
 
