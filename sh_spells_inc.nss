@@ -2,7 +2,7 @@
 /*Nastavit bChange CL na FALSE, pokud nechceme omezovat podle caster level targetu*/
 int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL = TRUE,string params = "")
 {
-    int iModifiedCasterLevel =iCasterLevel+1;                                   //Pridano +1 dobrodruh
+    int iModifiedCasterLevel =iCasterLevel;                                   //zustalo po zruseni dobrodruha kvuli proměnným
     if (GetLevelByClass(47,oCaster)>0)  //CLASS_TYPE_EXORCISTA
     {
          iModifiedCasterLevel+= GetLevelByClass(47,oCaster);
