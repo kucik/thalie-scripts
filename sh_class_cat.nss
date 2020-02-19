@@ -395,9 +395,9 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
         /*GENERAL FEAT - Artist*/
          if (GetHasFeat(FEAT_ARTIST,oPC) == TRUE)
          {
-               iSpot +=2;
-               iPerform+= 2;
-               iPersuade += 2;
+               iSpot +=4;
+               iPerform+= 4;
+               iPersuade += 4;
          }
 
         /*GENERAL FEAT - blooded*/
