@@ -77,6 +77,15 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
         }
         return  iCount;
     }
+    //Paladin
+	case FEAT_SMITE_EVIL: 
+	{
+	 int lvlPaladin = GetLevelByClass (CLASS_TYPE_PALADIN,oPC);
+	 int iCnt= 0;
+	 if (lvlPaladin > 0)
+	  iCnt = (lvlPaladin / 5) +1;
+	  return iCnt;
+	}
   }
   return 0;
 }
