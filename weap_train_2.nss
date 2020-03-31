@@ -24,6 +24,10 @@ void main()
         if (iTrainingType==0)
         {
             iTrainingType = GetWeaponFocusOrSpecializationRanged(oPC);
+            if (iTrainingType==0)
+            {
+                return; //Neplatny stav
+            }
             SetLocalInt(oPC,"WEAPON_TRAINING_BASETYPE",iTrainingType);
             if (iTrainingType == -1)
             {
@@ -78,7 +82,7 @@ void main()
         object oSoulStone = GetSoulStone(oPC);
         int iEpicTrainingLevel = GetLocalInt(oSoulStone,"WEAPON_TRAINING_EPIC_LEVEL");
         int iTrainingType = GetEpicWeaponFocusOrSpecializationRanged(oPC);
-        if ((iEpicTrainingLevel==1) && (iTrainingType==1))
+        if ((iEpicTrainingLevel==1) && (iTrainingType>=1))
         {
             iMaxHitCount = GetLocalInt(oSoulStone,"WEAPON_TRAINING_MAXHITCOUNT_EPIC1");
             if (iMaxHitCount==0)
