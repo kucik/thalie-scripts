@@ -86,6 +86,25 @@ int __getGetFeatUsesPerDay(int iFeat, object oPC) {
 	  iCnt = (lvlPaladin / 5) +1;
 	  return iCnt;
 	}
+  //Blackguard - heretik
+  case FEAT_SMITE_GOOD:
+   return GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) /5 + 1;
+
+  case FEAT_BULLS_STRENGTH:
+   return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) - 2) /6 +1; 
+
+  case FEAT_INFLICT_SERIOUS_WOUNDS:
+   return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) - 6) /6 +1;
+    
+  case FEAT_INFLICT_CRITICAL_WOUNDS:
+   return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) - 9) /6 +1;
+    
+  case FEAT_BG_HARM:
+   return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) -17) /6 +1;
+    
+  case FEAT_CONTAGION:
+   return (GetLevelByClass(CLASS_TYPE_BLACKGUARD,oPC) -7) /6 +1;
+
   }
   return 0;
 }
