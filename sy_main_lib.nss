@@ -57,6 +57,14 @@ void sy_remove_spells(object oPC)
                 case SPELL_SANCTUARY:
                 case SPELL_FREEDOM_OF_MOVEMENT:
                 case 909: //FEAT_SUBRACE_GENASI_ZEMNI_KAMENKA
+                case 141: //SPELL_PROTECTION_FROM_SPELS:
+                case 554: //iounsky kamen
+                case 555: //iounsky kamen
+                case 556: //iounsky kamen
+                case 557: //iounsky kamen
+                case 558: //iounsky kamen
+                case 559: //iounsky kamen
+                case 560: //iounsky kamen
                     RemoveEffect(oPC, eFX);
                     break;
             }
