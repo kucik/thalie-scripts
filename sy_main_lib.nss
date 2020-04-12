@@ -65,6 +65,10 @@ void sy_remove_spells(object oPC)
                 case 558: //iounsky kamen
                 case 559: //iounsky kamen
                 case 560: //iounsky kamen
+                case 136: //protection from alligment
+                case 138: //protection from alligment
+                case 139: //protection from alligment
+                case 140: //protection from alligment
                     RemoveEffect(oPC, eFX);
                     break;
             }
