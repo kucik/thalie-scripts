@@ -2,6 +2,7 @@
 #include "sh_classes_inc"
 #include "ku_hire_inc"
 #include "shm_pick_pocket"
+#include "quest_inc"
 
 const float INTERVAL = 0.2;    //check interval in seconds
 const string IN_HIDE = "JA_WAS_IN_HIDE";
@@ -83,11 +84,10 @@ void main()
             oPC = OBJECT_SELF;
             nSubID = GetEventSubType();
             FloatingTextStringOnCreature("Quickchat: phrase #"+IntToString(nSubID), oPC, FALSE);
-            break;
-        case EVENT_EXAMINE:
+            break;   */
+        /*case EVENT_EXAMINE:
             oPC = OBJECT_SELF;
             oTarget = GetActionTarget();
-
             WriteTimestampedLogEntry(GetName(oPC)+" examined "+GetName(oTarget));
             FloatingTextStringOnCreature(GetName(oPC)+" examined "+GetName(oTarget), oPC, FALSE);
             if(d2()==1)
@@ -95,8 +95,8 @@ void main()
                 BypassEvent();
                 WriteTimestampedLogEntry("The action was cancelled");
                 FloatingTextStringOnCreature("The action was cancelled", oPC, FALSE);
-            }
-            break;
+            }*
+            break;     /*
         case EVENT_USE_SKILL:
             oPC = OBJECT_SELF;
             nSubID = GetEventSubType();    //SKILL_*
@@ -123,6 +123,7 @@ void main()
             oPC = OBJECT_SELF;
             oTarget = GetActionTarget();
             ku_HireCheckHireLeft(oTarget);
+            QUEST_QuestBoardExamine(oPC,oTarget);
             break;
 
         case EVENT_TOGGLE_MODE:

@@ -49,6 +49,7 @@
 #include "ku_libchat"
 #include "ku_loot_inc"
 #include "ja_inc_frakce"
+#include "quest_inc"
 
 void __saveAllPlayers(float delay);
 void __InitWeaponsFeats();
