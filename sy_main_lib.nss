@@ -69,6 +69,7 @@ void sy_remove_spells(object oPC)
                 case 138: //protection from alligment
                 case 139: //protection from alligment
                 case 140: //protection from alligment
+                case 417: //Shield
                     RemoveEffect(oPC, eFX);
                     break;
             }
