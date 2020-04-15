@@ -34,7 +34,7 @@ void main()
                 return;
 
                 if(Random(100) > 80) { //  Vygeneruj quest s 20% sanci
-                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,10));
+                SetLocalInt(OBJECT_SELF,"obch_q_lastquest",ku_GetTimeStamp(0,35));
                                             //10 minut v pripade ze zadny quest neni
                 return;
                                     }
