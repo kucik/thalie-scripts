@@ -70,6 +70,7 @@ void sy_remove_spells(object oPC)
                 case 139: //protection from alligment
                 case 140: //protection from alligment
                 case 417: //Shield
+                case 967: //EPIC_SPELL_DAY_OF_PROTECTION
                     RemoveEffect(oPC, eFX);
                     break;
             }
