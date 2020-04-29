@@ -1024,31 +1024,7 @@ int SEI_NWNXParseTrait( object oPC, string a_sTrait )
         KU_SUB_GiveFeat( oPC, FEAT_WEAPON_FINESSE );  //FEAT_WEAPON_FINESSE
         return 1;
     }
-    if( a_sTrait == "puldrak_dech_cerny" )
-    {
-        KU_SUB_GiveFeat( oPC, 1529 );  //FEAT_SUBRACE_PULDRAK_DECH_CERNY
-        return 1;
-    }
-    if( a_sTrait == "puldrak_dech_modry" )
-    {
-        KU_SUB_GiveFeat( oPC, 1530 );  //FEAT_SUBRACE_PULDRAK_DECH_MODRY
-        return 1;
-    }
-    if( a_sTrait == "puldrak_dech_zeleny" )
-    {
-        KU_SUB_GiveFeat( oPC, 1531 );  //FEAT_SUBRACE_PULDRAK_DECH_ZELENY
-        return 1;
-    }
-    if( a_sTrait == "puldrak_dech_cerveny" )
-    {
-        KU_SUB_GiveFeat( oPC, 1532 );  //FEAT_SUBRACE_PULDRAK_DECH_CERVENY
-        return 1;
-    }
-    if( a_sTrait == "puldrak_dech_bily" )
-    {
-        KU_SUB_GiveFeat( oPC, 1533 );  //FEAT_SUBRACE_PULDRAK_DECH_BILY
-        return 1;
-    }
+    
     if( a_sTrait == "zamereni_ocarovani" )
     {
         KU_SUB_GiveFeat( oPC, FEAT_SPELL_FOCUS_ENCHANTMENT );  //FEAT_SPELL_FOCUS_ENCHANTMENT
