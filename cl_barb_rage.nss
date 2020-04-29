@@ -123,6 +123,11 @@ void main()
        }
        eLink = ExtraordinaryEffect(eLink);
        int iDuration = iCon +5;
+       if (GetHasFeat(1528,oPC) == TRUE)
+        {
+
+            iDuration = iCon +10;
+        }
 
        effect ef6 = EffectTemporaryHitpoints(iHPbonus);
        ef6 = ExtraordinaryEffect(ef6);
