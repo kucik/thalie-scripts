@@ -512,38 +512,34 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         case NT2_SUBRACE_HUMAN_AASIMAR:
         if (iDamageReductionCold < 5) iDamageReductionCold = 5;
         if (iDamageReductionElec < 5) iDamageReductionElec = 5;
-        iVulnerabilityFire+= 25;
+        if (iDamageReductionAcid < 5) iDamageReductionAcid = 5;
         break;
 
         case NT2_SUBRACE_HUMAN_TIEFLING:
         if (iDamageReductionFire < 5) iDamageReductionFire = 5;
-        if (iDamageReductionAcid < 5) iDamageReductionAcid = 5;
-        iVulnerabilityCold+= 25;
+        if (iDamageReductionCold < 5) iDamageReductionCold = 5;
+        if (iDamageReductionElec < 5) iDamageReductionElec = 5;
+        
         break;
 
         case NT2_SUBRACE_HALFDRAGON_BLACK:
-        iImmunityAcid += 20+2*iHD;
-        iVulnerabilityCold += 20+2*iHD;
+        iImmunityAcid += 50;
         break;
 
         case NT2_SUBRACE_HALFDRAGON_BLUE:
-        iImmunityElec += 20+2*iHD;
-        iVulnerabilityAcid += 20+2*iHD;
+        iImmunityElec += 50;
         break;
 
         case NT2_SUBRACE_HALFDRAGON_GREEN:
-        iImmunityAcid += 20+2*iHD;
-        iVulnerabilityElec += 20+2*iHD;
+        iImmunityAcid += 50;
         break;
 
         case NT2_SUBRACE_HALFDRAGON_RED:
-        iImmunityFire += 20+2*iHD;
-        iVulnerabilityCold += 20+2*iHD;
+        iImmunityFire += 50;
         break;
 
         case NT2_SUBRACE_HALFDRAGON_WHITE:
-        iImmunityCold += 20+2*iHD;
-        iVulnerabilityFire+= 20+2*iHD;
+        iImmunityCold += 50;
         break;
 
     }
