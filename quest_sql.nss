@@ -24,7 +24,7 @@ void QUEST_CreateTaskList(object oPC, int iOrder, int iQuest)
 {
     int iTaskType,iTargetCount,iValue;
     string sTargetAreaTag,sTargetTag,sTaskSuperTag;
-    string sSql = "SELECT TaskType,TargetAreaTag,TargetTag,TargetCount FROM th_task where QuestId="+IntToString(iQuest);
+    string sSql = "SELECT TaskType,TargetAreaTag,TargetTag,TargetCount FROM th_task where QuestId="+IntToString(iQuest)+";";
     SQLExecDirect(sSql);
     while (SQLFetch() == SQL_SUCCESS)
     {
@@ -63,7 +63,7 @@ void QUEST_LoadQuestsForBoard(object oPC, object oBoard)
 {
     string sResult = "";
     string sName,sDescription,sId,sLevel,sGP,sXP;
-    string sSql = "SELECT Q.Id,Q.Name,Q.Description,Q.RecomendedLevel,Q.XPReward,Q.GPReward FROM th_quest Q JOIN th_questboard B ON Q.Id=B.QuestId where B.QuestBoardTag="+GetTag(oBoard)+ " and (Q.MaxLevel<="+IntToString(GetHitDice(oPC))+" or Q.MaxLevel=0)";
+    string sSql = "SELECT Q.Id,Q.Name,Q.Description,Q.RecommendedLevel,Q.XPReward,Q.GPReward FROM th_quest Q JOIN th_questboard B ON Q.Id=B.QuestId where B.QuestBoardTag='"+GetTag(oBoard)+"' and ("+IntToString(GetHitDice(oPC))+"<=Q.MaxLevel or Q.MaxLevel=0);";
     SQLExecDirect(sSql);
     while (SQLFetch() == SQL_SUCCESS)
     {
@@ -90,12 +90,51 @@ int QUEST_GetIsQuestValid(object oPC, object oBoard, int iQuest)
 {
     string sResult = "";
     string sName,sDescription,sId,sLevel,sGP,sXP;
-    string sSql = "SELECT Q.Id FROM th_quest Q JOIN th_questboard B ON Q.Id=B.QuestId where B.QuestBoardTag="+GetTag(oBoard)+ " and (Q.MaxLevel<="+IntToString(GetHitDice(oPC))+" or Q.MaxLevel=0) and Q.Id="+IntToString(iQuest);
+    string sSql = "SELECT Q.Id FROM th_quest Q JOIN th_questboard B ON Q.Id=B.QuestId where B.QuestBoardTag='"+GetTag(oBoard)+ "' and ("+IntToString(GetHitDice(oPC))+" <= Q.MaxLevel or Q.MaxLevel=0) and Q.Id="+IntToString(iQuest)+";";
+    if (QUEST_DEBUG) SendMessageToPC(oPC,"Valid SQL:"+sSql);
     SQLExecDirect(sSql);
+
     if (SQLFetch() == SQL_SUCCESS)
     {
         return TRUE;
     }
     return FALSE;
 }
+
+
+string QUEST_LoadQuestInfo(object oPC,int iQuestId)
+{
+    string sResult = "";
+    string sName,sDescription,sId,sLevel,sGP,sXP;
+    string sSql = "SELECT Q.Name FROM th_quest Q where Q.Id="+IntToString(iQuestId);
+    SQLExecDirect(sSql);
+    if (SQLFetch() == SQL_SUCCESS)
+    {
+        sName = SQLGetData(1);
+        sResult = sName+"\n";
+        string sSql = "SELECT T.Text FROM th_task T where T.QuestId="+IntToString(iQuestId);
+        SQLExecDirect(sSql);
+        while (SQLFetch() == SQL_SUCCESS)
+        {
+            sName = SQLGetData(1);
+            sResult += "- "+sName+"\n";
+        }
+
+
+
+
+
+
+
+
+
+
+
+        sResult += "\n";
+    }
+
+
+    return sResult;
+}
+
 
