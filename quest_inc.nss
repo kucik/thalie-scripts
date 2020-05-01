@@ -1,3 +1,5 @@
+
+const int QUEST_DEBUG = 1;
 #include "quest_sql"
 //konstanty
 const int QUEST_TYPE_ENTER_TRIGGER = 1;                                         //TargetTag
@@ -10,6 +12,8 @@ void QUEST_InitQuest();
 //Vrati objekt pro cache questu
 object QUEST_GetQuestTaskObject();
 void QUEST_QuestBoardExamine(object oPC,object oQuestBoard);
+void QUEST_QuestLogExamine(object oPC,object oQuestLog);
+void QUEST_LoadQuestsForLog(object oPC,object oQuestLog);
 
 //
 void QUEST_InitQuest()
@@ -39,7 +43,12 @@ void QUEST_QuestBoardExamine(object oPC,object oQuestBoard)
     object oQuestLog = GetItemPossessedBy(oPC,"quest_log");
     if (GetIsObjectValid(oQuestLog)==FALSE)
     {
+        if (QUEST_DEBUG) SendMessageToPC(oPC,"Nemas knihu ukolu.");
         return;
+    }
+    else
+    {
+        if (QUEST_DEBUG) SendMessageToPC(oPC,"Kniha ukolu je na miste.");
     }
     QUEST_LoadQuestsForBoard(oPC,oQuestBoard);
 }
@@ -90,7 +99,38 @@ void QUEST_ActivateQuest(object oPC,object oQuestBoard, int iQuestNumber)
     }
 }
 
+void QUEST_QuestLogExamine(object oPC,object oQuestLog)
+{
+    if (GetTag(oQuestLog)=="quest_log")
+    {
+        QUEST_LoadQuestsForLog(oPC,oQuestLog);
+    }
+}
 
+
+void QUEST_LoadQuestsForLog(object oPC,object oQuestLog)
+{
+    string sResult = "Obsahuje tyto ukoly:\n\n";
+    int iQuest1 = GetLocalInt(oPC,"QUEST_ORDER_1");
+    int iQuest2 = GetLocalInt(oPC,"QUEST_ORDER_2");
+    int iQuest3 = GetLocalInt(oPC,"QUEST_ORDER_3");
+
+    if (iQuest1)
+    {
+        sResult = QUEST_LoadQuestInfo(oPC,iQuest1);
+    }
+    if (iQuest2)
+    {
+        sResult += "\n";
+        sResult += QUEST_LoadQuestInfo(oPC,iQuest2);
+    }
+    if (iQuest3)
+    {
+        sResult += "\n";
+        sResult += QUEST_LoadQuestInfo(oPC,iQuest3);
+    }
+    SetDescription(oQuestLog,sResult);
+}
 
 
 

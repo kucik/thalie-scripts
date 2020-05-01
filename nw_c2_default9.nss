@@ -705,10 +705,22 @@ if(ai_boss) {
         DelayCommand(3.0f, ActionSit(oChair));
     }
 }
+void HideCR()
+{
+    string sName = GetName(OBJECT_SELF);
+    int iCRPosition = FindSubString(sName,"%");
+    if (iCRPosition > 0)
+    {
+        string sNewName = GetStringLeft(sName,iCRPosition-1);
+        SetName(OBJECT_SELF,sNewName);
+    }
+}
 
 
-void main(){
+void main()
+{
 
+ HideCR();
  DelayCommand(0.1f, SetupSpawn());
 
  // Kucik Vraceni se na svuj spawn point
