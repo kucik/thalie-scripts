@@ -517,7 +517,7 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
 
         case NT2_SUBRACE_HUMAN_TIEFLING:
         if (iDamageReductionFire < 5) iDamageReductionFire = 5;
-        if (iDamageReductionCold < 5) iDamageReductionCold = 5;
+        if (iDamageReductionAcid < 5) iDamageReductionAcid = 5;
         if (iDamageReductionElec < 5) iDamageReductionElec = 5;
         
         break;
