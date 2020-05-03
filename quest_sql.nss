@@ -43,7 +43,7 @@ string QUEST_GetTaskSuperString(int iTaskType, string sTargetAreaTag, string sTa
 }
 
 
-void QUEST_CreateTaskList(object oPC, int iOrder, int iQuest)
+void QUEST_CreateTaskList(object oPC,int iQuest , int iOrder)
 {
     int iTaskType,iTargetCount,iValue;
     string sTargetAreaTag,sTargetTag,sTaskSuperTag;
