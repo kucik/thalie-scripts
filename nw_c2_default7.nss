@@ -21,6 +21,7 @@
 #include "j_inc_constants"
 #include "ja_lib"
 #include "ku_loot_inc"
+#include "quest_inc"
 
 // We need a wrapper. If the amount of deaths, got in this, is not equal to iDeaths,
 // we don't execute the script, else we do. :-P
@@ -35,6 +36,19 @@ void main()
     // Who killed us? (alignment changing, debug, XP).
     object oKiller = GetLastKiller();
 
+    //ProcessQuest
+    object oPC = oKiller;
+    object oMaster = GetMaster(oPC);
+    if (GetIsObjectValid(oMaster))
+    {
+        oPC = oMaster;
+    }
+    QUEST_ProcessTaskType34(oPC,OBJECT_SELF);
+
+
+
+    //ProcessQuest - END
+
     // Boss shortcut because of missing body
     if(GetLocalInt(OBJECT_SELF,"AI_BOSS")) {
       ExecuteScript("pwfxp", OBJECT_SELF);
@@ -42,6 +56,7 @@ void main()
       SetNextSpawn();
       return;
     }
+
 
     if(proceedMaster() && GetTag(OBJECT_SELF) != "JA_COPY"){
         ExecuteScript("nw_ch_ac7", OBJECT_SELF);

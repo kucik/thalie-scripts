@@ -18,6 +18,29 @@ INSERT INTO th_task (QuestId, Label,QuestType,TargetAreaTag,TargetName,TargetCou
 
 */
 #include "aps_include"
+string QUEST_GetTaskSuperString(int iTaskType, string sTargetAreaTag, string sTargetTag)
+{
+    string sTaskSuperTag = "";
+    switch (iTaskType)
+    {
+            case QUEST_TYPE_ENTER_TRIGGER:
+                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetTag;
+            break;
+            case QUEST_TYPE_ENTER_AREA:
+                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetAreaTag;
+            break;
+            case QUEST_TYPE_KILL_BY_AREA:
+                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetAreaTag;
+            break;
+            case QUEST_TYPE_KILL_BY_MONSTER:
+                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetAreaTag+"#"+sTargetAreaTag;
+            break;
+            default:
+
+            break;
+    }
+    return sTaskSuperTag;
+}
 
 
 void QUEST_CreateTaskList(object oPC, int iOrder, int iQuest)
@@ -32,30 +55,23 @@ void QUEST_CreateTaskList(object oPC, int iOrder, int iQuest)
         sTargetAreaTag = SQLGetData(2);
         sTargetTag  = SQLGetData(3);
         iTargetCount = StringToInt(SQLGetData(4));
+        sTaskSuperTag = QUEST_GetTaskSuperString(iTaskType, sTargetAreaTag,sTargetTag);
         switch (iTaskType)
         {
-            case 1:
-                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetTag;
-                iValue = TASK_STATE_ACTIVE;
-            break;
-            case 2:
-                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetAreaTag;
-                iValue = TASK_STATE_ACTIVE;
-            break;
-            case 3:
-                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetAreaTag;
+            case QUEST_TYPE_KILL_BY_AREA:
                 iValue = iTargetCount;
             break;
-            case 4:
-                sTaskSuperTag = IntToString(iTaskType)+"#"+sTargetAreaTag+"#"+sTargetAreaTag;
+            case QUEST_TYPE_KILL_BY_MONSTER:
                 iValue = iTargetCount;
             break;
             default:
-                return;
+                iValue = TASK_STATE_ACTIVE;
             break;
         }
+
         sTaskSuperTag = IntToString(iOrder)+"_"+ sTaskSuperTag;
         SetLocalInt(oPC,sTaskSuperTag,iValue);
+        if (QUEST_DEBUG) SendMessageToPC(oPC,"SuperTag:"+sTaskSuperTag+"!!!"+IntToString(iValue));
     }
 }
 
@@ -102,39 +118,120 @@ int QUEST_GetIsQuestValid(object oPC, object oBoard, int iQuest)
 }
 
 
-string QUEST_LoadQuestInfo(object oPC,int iQuestId)
+string QUEST_LoadQuestInfo(int iOrder,object oPC,int iQuestId)
 {
     string sResult = "";
-    string sName,sDescription,sId,sLevel,sGP,sXP;
+    string sName,sQuestState,sState,sSuperString,sText,sAreaTag,sTargetTag,sTargetCount;
+    int iTaskType,iTaskValue;
     string sSql = "SELECT Q.Name FROM th_quest Q where Q.Id="+IntToString(iQuestId);
     SQLExecDirect(sSql);
     if (SQLFetch() == SQL_SUCCESS)
     {
+        int iReward = GetLocalInt(oPC,IntToString(iOrder)+"REWARD");
+        sQuestState = "";
+        if (iReward)
+        {
+            sQuestState = " - ODEVZDANO";
+        }
         sName = SQLGetData(1);
-        sResult = sName+"\n";
-        string sSql = "SELECT T.Text FROM th_task T where T.QuestId="+IntToString(iQuestId);
+        sResult = sResult + sName+sQuestState+"\n";
+        string sSql = "SELECT T.Text,T.TaskType,T.TargetAreaTag,TargetTag,TargetCount FROM th_task T where T.QuestId="+IntToString(iQuestId);
         SQLExecDirect(sSql);
         while (SQLFetch() == SQL_SUCCESS)
         {
-            sName = SQLGetData(1);
-            sResult += "- "+sName+"\n";
+            sText = SQLGetData(1);
+            iTaskType = StringToInt(SQLGetData(2));
+            sAreaTag = SQLGetData(3);
+            sTargetTag = SQLGetData(4);
+            sTargetCount = SQLGetData(5);
+            sSuperString = IntToString(iOrder)+"_"+QUEST_GetTaskSuperString(iTaskType,sAreaTag,sTargetTag);
+            iTaskValue =  GetLocalInt(oPC,sSuperString);
+            if (QUEST_DEBUG) SendMessageToPC(oPC,"OVEROVANI-SuperTag:"+sSuperString+"!!!"+IntToString(iTaskValue));
+            sState = "";
+            switch (iTaskType)
+            {
+                case QUEST_TYPE_ENTER_AREA:
+                case QUEST_TYPE_ENTER_TRIGGER:
+                    if (iTaskValue==TASK_STATE_FINISHED)
+                    {
+                        sState = " - HOTOVO";
+                    }
+                break;
+                case QUEST_TYPE_KILL_BY_MONSTER:
+                case QUEST_TYPE_KILL_BY_AREA:
+                    if (iTaskValue==TASK_STATE_FINISHED)
+                    {
+                        sState = " - HOTOVO";
+                    }
+                    else
+                    {
+                        sState = " ("+IntToString(StringToInt(sTargetCount)-iTaskValue)+"/"+sTargetCount+")";
+                    }
+                break;
+            }
+            sResult += "- "+sText+sState+"\n";
         }
-
-
-
-
-
-
-
-
-
-
-
         sResult += "\n";
     }
-
-
     return sResult;
 }
 
 
+
+void QUEST_ProcessReward(int iOrder,object oPC,int iQuestId)
+{
+    int iReward = GetLocalInt(oPC,IntToString(iOrder)+"REWARD");
+    if (iReward==1)
+    {
+        //Postava jiz odmenu dostala
+        return;
+    }
+
+    string sResult = "";
+    string sName,sState,sSuperString,sText,sAreaTag,sTargetTag;
+    int iTaskType,iTaskValue;
+    int iXPReward = 0;
+    int iGPReward = 0;
+    string sQuestName;
+    //Zjistim zlato a zkusenosti
+    string sSql = "SELECT Q.XPReward,Q.GPReward,Q.Name FROM th_quest Q where Q.Id="+IntToString(iQuestId);
+    SQLExecDirect(sSql);
+    if (SQLFetch() == SQL_SUCCESS)
+    {
+        iXPReward =StringToInt(SQLGetData(1));
+        iGPReward = StringToInt(SQLGetData(2));
+        sQuestName = SQLGetData(3);
+    }
+    else
+    {
+        return;
+    }
+    //Projdu tasky
+    sSql = "SELECT T.TaskType,T.TargetAreaTag,TargetTag,T.Text FROM th_task T where T.QuestId="+IntToString(iQuestId);
+    SQLExecDirect(sSql);
+    while (SQLFetch() == SQL_SUCCESS)
+    {
+        iTaskType = StringToInt(SQLGetData(1));
+        sAreaTag = SQLGetData(2);
+        sTargetTag = SQLGetData(3);
+        sText = SQLGetData(4);
+        sSuperString = IntToString(iOrder)+"_"+QUEST_GetTaskSuperString(iTaskType,sAreaTag,sTargetTag);
+        iTaskValue =  GetLocalInt(oPC,sSuperString);
+        if (iTaskValue==TASK_STATE_FINISHED)
+        {
+            //Je to okej
+        }
+        else
+        {
+            if (QUEST_DEBUG) SendMessageToPC(oPC,IntToString(iOrder) + " - Nesplnen ukol -  "+sText);
+            return;
+        }
+    }
+    //Zavedu odmenu
+    SendMessageToPC(oPC,"Ukol dokoncen: "+sQuestName);
+    //Oznacim vybrani odmeny
+    SetLocalInt(oPC,IntToString(iOrder)+"REWARD",TRUE);
+    //Vyplatim odmenu
+    SetXP(oPC,GetXP(oPC)+iXPReward);
+    GiveGoldToCreature(oPC,iGPReward);
+}

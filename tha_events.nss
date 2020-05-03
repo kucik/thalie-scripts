@@ -124,6 +124,7 @@ void main()
             oTarget = GetActionTarget();
             ku_HireCheckHireLeft(oTarget);
             QUEST_QuestBoardExamine(oPC,oTarget);
+            QUEST_QuestLogExamine(oTarget);
             break;
 
         case EVENT_TOGGLE_MODE:

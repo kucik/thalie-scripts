@@ -6,7 +6,7 @@ void main()
     int nMatch = GetListenPatternNumber();
     if(nMatch == -1)
     {
-        SpeakString("Ne!");
+        BeginConversation();
     }
     else if(nMatch == QUEST_NPC_LISTEN_PATTERN)
     {

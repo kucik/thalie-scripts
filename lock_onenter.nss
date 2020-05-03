@@ -22,6 +22,7 @@
 #include "mys_mount_lib"
 #include "me_soul_inc"
 #include "area_lib"
+#include "quest_inc"
 
 void ApplyDeadlandsEffects(object oPC, object oSoul);
 
@@ -292,6 +293,7 @@ void main()
       WriteTimestampedLogEntry("Player "+GetPCPlayerName(oPC)+", character "+GetName(oPC)+"["+IntToString(GetHitDice(oPC))+"] entering "+GetName(OBJECT_SELF)+"("+GetTag(OBJECT_SELF)+")TV:["+IntToString(GetLocalInt(OBJECT_SELF, "TREASURE_VALUE"))+"]");
     }
 
+    QUEST_ProcessTaskType2(oPC,oLoc);
     /* Nastav, ze lokace neni prazdna */
     if(GetIsPC(oPC)) {
       lock_init_location();
