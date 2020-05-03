@@ -254,50 +254,6 @@ Nastavi Bonus AC dodge,AB a DMG   ->     JAKO EFEKTY NA POSTAVU
 */
 void ApplyAB_AC_DMGBonus(object oPC, object oPCSkin)
 {
-    //odstraneni efektu
-    int iAB = 0;
-    int iACdodge = 0;
-    int iACarmor = 0;
-    int iACshield = 0;
-    int iACdeflection= 0;
-    int iACnatural = 0;
-    int iDMG= 0;
-    /*Bonus vojevudce pdk - znalost boje*/
-    if (GetHasFeat(1283,oPC) == TRUE)
-    {
-           int iLvl = GetLevelByClass(41,oPC);
-           iDMG +=(iLvl-5)/5+1;
-           iAB +=(iLvl-5)/5+1;
-           iACnatural +=(iLvl-5)/5+1;
-    }
-     //nahozeni bonusu
-    if (iAB > 0)
-    {
-        effect ef = EffectAttackIncrease(iAB);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-    if (iACnatural > 0)
-    {
-        effect ef = EffectACIncrease(iACnatural,AC_NATURAL_BONUS);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-
-    if (iDMG > 0)
-    {
-
-        effect ef = EffectDamageIncrease(GetDamageBonusByValue(iDMG),DAMAGE_TYPE_SLASHING);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId(eLink,EFFECT_AB_AC_DMG);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-    }
-
-
 
     /*feat - svaty uder*/
     if (GetHasFeat(FEAT_EPICGENERAL_SVATY_UDER,oPC))
@@ -352,17 +308,10 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
     int iUseMagicDevice = 0;
 
     //uprava bonusu na zaklade featu
-        /*Vojevudcuv bonus - Mastered discipline*/ //+1 on level 3 and each 3 levels +1
-         if (GetHasFeat(1284,oPC) == TRUE)  //FEAT_PDK_MASTERED_DISCIPLINE
-         {
-                int iLvL = GetLevelByClass(41,oPC);
-                iDiscipline +=(iLvL/3);
-         }
-
          /*Exorcistova znalost magie*/
          if (GetHasFeat(FEAT_EXORCISTA_ZNALOST_MAGIE,oPC) == TRUE)
          {
-                iSpellcraft +=GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
+                iSpellcraft +=15;
 
          }
          /*CERNOKNEZNIK osaleni predmetu*/
@@ -519,7 +468,7 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         if (iDamageReductionFire < 5) iDamageReductionFire = 5;
         if (iDamageReductionAcid < 5) iDamageReductionAcid = 5;
         if (iDamageReductionElec < 5) iDamageReductionElec = 5;
-        
+
         break;
 
         case NT2_SUBRACE_HALFDRAGON_BLACK:

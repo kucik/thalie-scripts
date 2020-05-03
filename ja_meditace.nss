@@ -93,11 +93,7 @@ void main()
     int length = 10 + GetHitDice(oPC); // v minutach (tazich)
     if(length > 30)
       length = 30;
-    //KURTIZANA JE IMUNNI NA UNAVU
-    if (GetHasFeat(FEAT_KURTIZANA_CELE_NOCI_OKA_NEZAMHOURI,oPC) == TRUE)
-    {
-        length = length/3;
-    }
+
     int awake = getMinutesAwake(oPC, "JA_MED_");
 
     if(length <= awake){
