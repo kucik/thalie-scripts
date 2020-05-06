@@ -45,7 +45,7 @@ void main()
     effect eLink = EffectLinkEffects(eAC, eDur);// Link effects
     eLink = ExtraordinaryEffect(eLink);// Make effects ExtraOrdinary
 
-    // SetEffectSpellId(eLink,EFFECT_PDK); //dodano shaman88
+    SetEffectSpellId(eLink,EFFECT_PDK); //dodano shaman88
     effect eImpact = EffectVisualEffect(VFX_IMP_PDK_GENERIC_HEAD_HIT);// Get VFX
 
    // Apply effect at a location
