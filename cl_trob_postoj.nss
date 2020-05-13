@@ -38,10 +38,11 @@ void __activateStand(object oPC,object oSoulStone)
         eLink = EffectLinkEffects(eLink,ef3);
         eLink = EffectLinkEffects(eLink,ef4);
         eLink = EffectLinkEffects(eLink,ef5);
-        eLink = EffectLinkEffects(eLink,ef6);
         eLink = ExtraordinaryEffect(eLink);
         SetEffectSpellId(eLink,EFFECT_TRPASLICI_OBRANCE_POSTOJ);
+        SetEffectSpellId(ef6,EFFECT_TRPASLICI_OBRANCE_POSTOJ);
         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink,oPC,9999.0);
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ef6,oPC,9999.0);
         IncrementRemainingFeatUses(OBJECT_SELF,FEAT_POSTOJ_TRPASLICI_OBRANCE1);
         SendMessageToPC(oPC,"Obrany postoj aktivovan!");
         SetLocalInt(oSoulStone,"STANCE",1);
