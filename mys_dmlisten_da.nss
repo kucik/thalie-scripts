@@ -4,7 +4,7 @@ void main()
 {
     object oDM = GetPCSpeaker();
     object oTarget = GetLocalObject(oDM, "dmfi_univ_target");
-    
+
     if (RemoveListener(oTarget, oDM))
     {
         SendMessageToPC(oDM, GetName(oTarget) + ": ucho off.");
