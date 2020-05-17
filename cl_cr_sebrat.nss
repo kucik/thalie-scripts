@@ -19,6 +19,10 @@ void ActionPickUp(object oTarget, string sCollectableItemResRef)
 void main()
 {
     object oTarget = GetSpellTargetObject();
+    if (oTarget==OBJECT_SELF)
+    {
+        oTarget = GetNearestObject(OBJECT_TYPE_PLACEABLE, OBJECT_SELF);
+    }
     string sTargetTag = GetTag(oTarget);
     object oSoulStone = GetSoulStone(OBJECT_SELF);
     string sCollectableItemResRef = GetLocalString(oTarget, "PLC_ITEMRESREF");
