@@ -56,6 +56,10 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_ABJURATION))
+    {
+        nAbsorb = nAbsorb + (nAbsorb/2);
+    }
     //Link Effects
     effect eAbsob = EffectSpellLevelAbsorption(9, nAbsorb);
     effect eLink = EffectLinkEffects(eVis, eAbsob);

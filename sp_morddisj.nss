@@ -44,15 +44,6 @@ void main()
     int      nCasterLevel= GetCasterLevel(OBJECT_SELF);
 
 
-    //--------------------------------------------------------------------------
-    // Mord's is not capped anymore as we can go past level 20 now
-    //--------------------------------------------------------------------------
-    /*
-        if(nCasterLevel > 20)
-        {
-            nCasterLevel = 20;
-        }
-    */
 
     if (GetIsObjectValid(oTarget))
     {

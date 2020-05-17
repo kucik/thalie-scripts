@@ -40,9 +40,7 @@ void main()
     //--------------------------------------------------------------------------
     if(nCasterLevel > 5)
     {
-        // +1 per caster level till 5
-        // +1 per two caster leves above 5
-        nCasterLevel = 5 + (nCasterLevel - 5) / 2;
+        nCasterLevel = 5;
     }
 
 

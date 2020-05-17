@@ -48,8 +48,12 @@ void main()
     {
         if(GetIsTrapped(oTrap))
         {
-
-            if(GetTrapDisarmDC(oTrap) <= (d20()+iBonus+iCasterLvl))
+            int iTest = d20()+iBonus+iCasterLvl;
+            if (iTest>35)
+            {
+                iTest = 35;
+            }
+            if(GetTrapDisarmDC(oTrap) <= iTest)
             {
                 SetTrapDetectedBy(oTrap, OBJECT_SELF);
                 ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetLocation(oTrap));

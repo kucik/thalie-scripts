@@ -51,6 +51,17 @@ void main()
     effect eLink = EffectLinkEffects(eArmor, eDur);
     eLink = EffectLinkEffects(eLink, eSpell);
 
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_ABJURATION))
+    {
+        effect eSpell2 = EffectSpellImmunity(SPELL_ISAACS_LESSER_MISSILE_STORM);
+        eLink = EffectLinkEffects(eLink, eSpell2);
+    }
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_ABJURATION))
+    {
+        effect eSpell3 = EffectSpellImmunity(SPELL_ISAACS_GREATER_MISSILE_STORM);
+        eLink = EffectLinkEffects(eLink, eSpell3);
+    }
+
     int nDuration = GetCasterLevel(OBJECT_SELF); // * Duration 1 turn
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     if (nMetaMagic == METAMAGIC_EXTEND) //Duration is +100%

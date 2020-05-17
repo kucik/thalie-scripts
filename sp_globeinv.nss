@@ -53,7 +53,16 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
+    float fDuration;
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_ABJURATION))
+    {
+        fDuration = TurnsToSeconds(nDuration);
+    }
+    else
+    {
+        fDuration =RoundsToSeconds(nDuration);
+    }
     //Apply the VFX impact and effects
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fDuration);
 }
 

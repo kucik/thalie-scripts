@@ -46,23 +46,20 @@ void main()
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     int nLimit = nDuration * 10;
     int nMetaMagic = GetMetaMagicFeat();
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    if ((GetHasFeat(FEAT_SPELL_FOCUS_DIVINATION)) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL))
     {
-        nLimit += nLimit/2;
+        nLimit +=100;
+    }
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION))
+    {
+        nLimit +=100;
+    }
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_DIVINATION))
+    {
+        nLimit +=100;
     }
 
-    // Variable damage power
-    int nDamagePower = DAMAGE_POWER_PLUS_FIVE;
-    if(nDuration >= 20)
-      nDamagePower = DAMAGE_POWER_PLUS_SIX;
-    if(nDuration >= 25)
-      nDamagePower = DAMAGE_POWER_PLUS_SEVEN;
-    if(nDuration >= 30)
-      nDamagePower = DAMAGE_POWER_PLUS_EIGHT;
-    if(nDuration >= 35)
-      nDamagePower = DAMAGE_POWER_PLUS_NINE;
-
-    effect eStone = EffectDamageReduction(30, nDamagePower, nLimit);
+    effect eStone = EffectDamageReduction(30, DAMAGE_POWER_PLUS_FIVE, nLimit);
     effect eVis = EffectVisualEffect(VFX_DUR_PROT_PREMONITION);
     //Link the visual and the damage reduction effect
     effect eLink = EffectLinkEffects(eStone, eVis);

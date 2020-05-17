@@ -50,10 +50,13 @@ void main()
     eAC = VersusAlignmentEffect(eAC,ALIGNMENT_ALL, nAlign);
     effect eSave = EffectSavingThrowIncrease(SAVING_THROW_ALL, 2);
     eSave = VersusAlignmentEffect(eSave,ALIGNMENT_ALL, nAlign);
+    effect eSave2 = EffectSavingThrowIncrease(SAVING_THROW_WILL, 4);
+    eSave2 = VersusAlignmentEffect(eSave2,ALIGNMENT_ALL, nAlign);
     effect eDur = EffectVisualEffect(VFX_DUR_PROTECTION_GOOD_MINOR);
     effect eDur2 = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
 
     effect eLink = EffectLinkEffects(eSave, eAC);
+    eLink = EffectLinkEffects(eLink, eSave2);
     eLink = EffectLinkEffects(eLink, eDur);
     eLink = EffectLinkEffects(eLink, eDur2);
 

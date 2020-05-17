@@ -42,17 +42,19 @@ void main()
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
     effect eVis = EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-    effect eSight = EffectSeeInvisible();
     effect eDark = EffectUltravision();
-    effect eSkill = EffectSkillIncrease(SKILL_SPOT,nDuration);
-    effect eLink = EffectLinkEffects(eVis, eSight);
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    effect eSkill = EffectSkillIncrease(SKILL_SPOT,12);
+    effect eLink = EffectLinkEffects(eVis, eDur);
+    eLink = EffectLinkEffects(eLink, eDark);
+    eLink = EffectLinkEffects(eLink, eSkill);
+    if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)  || (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_DIVINATION)))
     {
        eLink= EffectLinkEffects(eLink,EffectTrueSeeing());
     }
-    eLink = EffectLinkEffects(eLink, eDur);
-    eLink = EffectLinkEffects(eLink, eDark);
-    eLink = EffectLinkEffects(eLink, eSkill);
+    else
+    {
+        eLink= EffectLinkEffects(eLink,EffectSeeInvisible());
+    }
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_TRUE_SEEING, FALSE));
 

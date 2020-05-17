@@ -44,9 +44,9 @@ void main()
 
 // End of Spell Cast Hook
     int iBonus = 0;
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+    if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL) || (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)))
     {
-      iBonus = 50;
+      iBonus = 25;
     }
 
     //Declare major variables
@@ -63,17 +63,16 @@ void main()
     //Apply the VFX impact
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eWord, GetSpellTargetLocation());
     //Determine the number rounds the creature will be stunned
-    if (nHP >= (151+iBonus))
+    if (nHP >= (150+iBonus*3))
     {
-        nDuration = 0;
-        nMeta = 0;
+        return;
     }
-    else if (nHP >= (101+iBonus) && nHP <= (150+iBonus))
+    else if (nHP >= (101+iBonus*2) && nHP <= (150+iBonus*3))
     {
         nDuration = d4(1);
         nMeta = 4;
     }
-    else if (nHP >= (51+iBonus)  && nHP <= (100+iBonus))
+    else if (nHP >= (51+iBonus)  && nHP <= (100+iBonus*2))
     {
         nDuration = d4(2);
         nMeta = 8;

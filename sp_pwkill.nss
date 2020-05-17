@@ -50,9 +50,11 @@ void main()
       //Declare major variables
       object oTarget = GetSpellTargetObject();
       int iBonus = 0;
-      if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
+      int iBonusHPMax = 0;
+      if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)|| (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)))
       {
-        iBonus = 50;
+        iBonus = 25;
+        iBonusHPMax = 10;
       }
 
 
@@ -93,10 +95,10 @@ void main()
       else
       {
             //Continue through the while loop while the damage deal is less than 200.
-            while (nDamageDealt < (200+iBonus))
+            while (nDamageDealt < (200+iBonus*2))
             {
                   //Set nMin higher than the highest HP amount allowed
-                  nMin = 25;
+                  nMin = 35;
                   oWeakest = OBJECT_INVALID;
                   //Get the first target in the spell area
                   oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_LARGE, GetSpellTargetLocation());
@@ -109,7 +111,7 @@ void main()
                               //Get the HP of the current target
                               nHitpoints = GetCurrentHitPoints(oTarget);
                               //Check if the currently selected target is lower in HP than the weakest stored creature
-                              if ((nHitpoints < nMin) && ((nHitpoints > 0) && (nHitpoints <= 20)) && bKill == FALSE)
+                              if ((nHitpoints < nMin) && ((nHitpoints > 0) && (nHitpoints <= (20+iBonusHPMax))) && bKill == FALSE)
                               {
                                     nMin = nHitpoints;
                                     oWeakest = oTarget;
@@ -121,7 +123,7 @@ void main()
                   //If no weak targets are available then break out of the loop
                   if (!GetIsObjectValid(oWeakest))
                   {
-                        nDamageDealt = 250;
+                        nDamageDealt = 500;
                   }
                   else
                   {
