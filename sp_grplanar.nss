@@ -14,6 +14,32 @@
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
 #include "ku_boss_inc"
+#include "nwnx_funcs"
+
+void __boostSummon() {
+    // Boost summon
+    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
+    SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
+    int iBonus = 0;
+    if (GetHasFeat(FEAT_SPELL_FOCUS_CONJURATION))
+    {
+        iBonus +=2;
+    }
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_CONJURATION))
+    {
+        iBonus +=2;
+    }
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_CONJURATION))
+    {
+        iBonus +=2;
+    }
+    if (iBonus>0)
+    {
+        SetAbilityScore(oSummon,ABILITY_DEXTERITY,GetAbilityScore(oSummon,ABILITY_DEXTERITY,TRUE)+iBonus);
+        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+iBonus);
+        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+iBonus);
+    }
+}
 
 void main()
 {
@@ -100,7 +126,8 @@ void main()
             break;
         }
         //Apply the VFX impact and summon effect
-        ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), HoursToSeconds(nDuration));
+        ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), RoundsToSeconds(nDuration));
+        DelayCommand(0.2,__boostSummon());
     }
 }
 

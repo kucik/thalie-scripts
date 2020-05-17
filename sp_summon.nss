@@ -91,10 +91,24 @@ void __boostSummon() {
     // Boost summon
     object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
     SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
-    if (GetHasFeat(1478 )) //FEAT_GENERAL_POSILENE_VYVOLAVANI
+    int iBonus = 0;
+    if (GetHasFeat(FEAT_SPELL_FOCUS_CONJURATION))
     {
-        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+4);
-        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+4);
+        iBonus +=2;
+    }
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_CONJURATION))
+    {
+        iBonus +=2;
+    }
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_CONJURATION))
+    {
+        iBonus +=2;
+    }
+    if (iBonus>0)
+    {
+        SetAbilityScore(oSummon,ABILITY_DEXTERITY,GetAbilityScore(oSummon,ABILITY_DEXTERITY,TRUE)+iBonus);
+        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+iBonus);
+        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+iBonus);
     }
     SetName(oSummon,"Povolany");
 
@@ -123,11 +137,8 @@ void main()
     //Declare major variables
     int nSpellID = GetSpellId();
     int nDuration = GetCasterLevel(OBJECT_SELF);
-    nDuration = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nDuration);
-    if(nDuration == 1)
-    {
-        nDuration = 2;
-    }
+    nDuration = 24;
+
     int iSummoningLevel = __getSummonLevel(nSpellID);
 
     //Make metamagic check for extend

@@ -37,9 +37,7 @@ void main()
    //Declare major variables
     object oTarget = GetSpellTargetObject();
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
-    int nDices = nCasterLevel > 10 ? 5 : nCasterLevel/2;
-    if(nDices <=0)
-      nDices = 1;
+    int nDices = 1;
 
 
     effect eVis = EffectVisualEffect(VFX_IMP_ACID_S);

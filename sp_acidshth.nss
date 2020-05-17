@@ -44,8 +44,7 @@ void main()
     effect eVis = EffectVisualEffect(448);
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nDuration,FALSE);
-    int nDamage = nDuration;
-    if (nDamage > 20)  nDamage = 20;
+    int nDamage = nDuration*2;
     int nMetaMagic = GetMetaMagicFeat();
     object oTarget = OBJECT_SELF;
     effect eShield = EffectDamageShield(nDamage, DAMAGE_BONUS_1d6, DAMAGE_TYPE_ACID);

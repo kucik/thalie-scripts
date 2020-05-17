@@ -55,8 +55,7 @@ void main()
     }
 
 
-    //Set the damage effect
-    eDam = EffectDamage(nDamage, DAMAGE_TYPE_ACID);
+
     //Start cycling through the AOE Object for viable targets including doors and placable objects.
     oTarget = GetFirstInPersistentObject(OBJECT_SELF);
     while(GetIsObjectValid(oTarget))
@@ -67,6 +66,8 @@ void main()
             {
                  nDamage = d6();
             }
+            //Set the damage effect
+            eDam = EffectDamage(nDamage, DAMAGE_TYPE_ACID);
             fDelay = GetRandomDelay(0.4, 1.2);
             //Fire cast spell at event for the affected target
             SignalEvent(oTarget, EventSpellCastAt(GetAreaOfEffectCreator(), SPELL_ACID_FOG));

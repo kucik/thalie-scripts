@@ -27,7 +27,7 @@ void main()
     effect eDeath = EffectDeath();
     effect eVis =   EffectVisualEffect(VFX_IMP_DEATH);
     effect eNeg = EffectVisualEffect(VFX_IMP_NEGATIVE_ENERGY);
-    effect eSpeed = EffectMovementSpeedDecrease(80);
+    effect eSpeed = EffectMovementSpeedDecrease(50);
     effect eVis2 = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
     effect eLink = EffectLinkEffects(eSpeed, eVis2);
 
@@ -76,7 +76,7 @@ void main()
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eNeg, oTarget));
                     if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_NONE, OBJECT_SELF, fDelay))
                     {
-                        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eSpeed, oTarget);
+                        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSpeed, oTarget,300.0);
                     }
                 }
             }
@@ -84,7 +84,7 @@ void main()
             {
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eNeg, oTarget));
-                ApplyEffectToObject(DURATION_TYPE_PERMANENT, eSpeed, oTarget);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSpeed, oTarget,300.0);
             }
         }
     }
