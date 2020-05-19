@@ -2,7 +2,7 @@ void main()
 {
     object oPC = GetLastUsedBy();
     string sPCName = GetPCPlayerName(oPC);
-    if ((sPCName=="Nalkanar") || (sPCName=="BlackDiamond") || (sPCName=="Paulus"))
+    if ((sPCName=="Nalkanar") || (sPCName=="BlackDiamond") || (sPCName=="Paulus") || (sPCName=="Sokar"))
     {
         object oQuestLog = GetItemPossessedBy(oPC,"quest_log");
         if (GetIsObjectValid(oQuestLog)==FALSE)
