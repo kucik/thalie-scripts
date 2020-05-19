@@ -11,6 +11,7 @@
 #include "x0_i0_position"
 #include "strings_inc"
 #include "ku_exp_inc"
+#include "mo_usefeat"
 
 const int KU_CHAT_CACHE_SIZE = 50;
 const string KU_CHAT_CACHE = "KU_CHAT_CACHE_";
@@ -21,6 +22,7 @@ const int KU_CHAT_CMD_SOUL = 2;
 const int KU_CHAT_CMD_SIT = 3;
 const int KU_CHAT_CMD_SLOW = 4;
 const int KU_CHAT_CMD_SLOWMEW = 5;
+const int KU_CHAT_CMD_FEAT = 6;
 
 
 // Functions declaration
@@ -130,6 +132,10 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       AssignCommand(oPC,ku_SlowMe(StringToInt(param)));
       break;
     }
+	case KU_CHAT_CMD_FEAT: {
+	  mo_usefeat(oPC, param);
+	  break;
+	}
 /*    case 5: {
       CreateItemOnObject(param,oPC);
       break;
@@ -176,6 +182,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc kostky - Otevre dialog s pokrocilymi hody");
       SendMessageToPC(oPC,"/pc strip - Svlekani casti odevu.");
       SendMessageToPC(oPC,"/pc help ");
+	  SendMessageToPC(oPC,"/pc feat <nazev odbornosti> , /pc odbornost <nazev odbornosti> - Použije odbornost na aktuální cíl");
       SendMessageToPC(oPC,"/pc ? - vypise tento vypis");
       SendMessageToPC(oPC,"/h <text> - vypise text jako by mluvil tvuj kun.");
       SendMessageToPC(oPC,"/c <text> - vypise text jako by mluvil tvuj animal companion.");
@@ -429,6 +436,8 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(KU_CHAT_CMD_SIT,"sedni");
    ku_DefineChatCommand(KU_CHAT_CMD_SLOW,"slow");
    ku_DefineChatCommand(KU_CHAT_CMD_SLOW,"pomalu");
+   ku_DefineChatCommand(KU_CHAT_CMD_FEAT,"feat");
+   ku_DefineChatCommand(KU_CHAT_CMD_FEAT,"odbornost");
 //   ku_DefineChatCommand(5,"create"); //create item
    ku_DefineChatCommand(6,"dislike");
    ku_DefineChatCommand(7,"?");
