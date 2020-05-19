@@ -132,10 +132,10 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       AssignCommand(oPC,ku_SlowMe(StringToInt(param)));
       break;
     }
-	case KU_CHAT_CMD_FEAT: {
-	  mo_usefeat(oPC, param);
-	  break;
-	}
+    case KU_CHAT_CMD_FEAT: {
+      mo_useFeat(oPC, param);
+      break;
+    }
 /*    case 5: {
       CreateItemOnObject(param,oPC);
       break;
@@ -182,7 +182,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
       SendMessageToPC(oPC,"/pc kostky - Otevre dialog s pokrocilymi hody");
       SendMessageToPC(oPC,"/pc strip - Svlekani casti odevu.");
       SendMessageToPC(oPC,"/pc help ");
-	  SendMessageToPC(oPC,"/pc feat <nazev odbornosti> , /pc odbornost <nazev odbornosti> - Použije odbornost na aktuální cíl");
+      SendMessageToPC(oPC,"/pc feat <nazev odbornosti> , /pc odbornost <nazev odbornosti> - Použije odbornost na aktuální cíl");
       SendMessageToPC(oPC,"/pc ? - vypise tento vypis");
       SendMessageToPC(oPC,"/h <text> - vypise text jako by mluvil tvuj kun.");
       SendMessageToPC(oPC,"/c <text> - vypise text jako by mluvil tvuj animal companion.");
