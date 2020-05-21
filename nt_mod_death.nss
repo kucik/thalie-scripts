@@ -23,12 +23,12 @@
 int GetSubdualMode(object oDammager)
 {
     int nSubdual = GetLocalInt(oDammager, "SUBDUAL_MODE");
-    
+
     if (!nSubdual)
     {
         if (GetIsPlayer(oDammager))
             nSubdual = GetLocalInt(GetSoulStone(oDammager), "SUBDUAL_MODE");
-                            
+
         else if (GetAssociateType(oDammager))
         {
             object oMaster = GetTopMaster(oDammager);
@@ -64,7 +64,7 @@ void DropDisallowedItems(object oPC)
             SetLocalString(oCorpse, "PC", sPCName);
             SetLocalInt(oCorpse,"SUBDUAL",iSubdual);
         }
-        
+
         oItem = GetNextItemInInventory(oPC);
     }
 }
@@ -143,19 +143,44 @@ void DeathLog(object oPC, object oKiller, int nSubdual) {
 
 }
 
+void ApplyPenalty(object oDead)
+{
+    int nXP = GetXP(oDead);
+    int nHD = GetHitDice(oDead);
+    int nPenalty = nHD*250;
+
+    object oSoul = GetSoulStone(oDead);
+
+    int xpk = GetLocalInt(oSoul,"ku_XPLost");
+    SetLocalInt(oSoul,"ku_XPLost",xpk + nPenalty);
+
+    int nNewXP;
+    if (nXP > nPenalty)
+    {
+        nNewXP = nXP - nPenalty;
+    }
+    else
+    {
+        nNewXP = 0;
+    }
+
+    SetXP(oDead, nNewXP);
+}
+
+
 void main()
 {
 
     object oPC = GetLastPlayerDied();
     object oDammager = GetLastDamager(oPC);
-    
+
     // Get subdual damage (stínovky)
     int nSubdual = GetLocalInt(oPC,"SUBDAMADE_TYPE");
     if (!nSubdual)
         nSubdual = GetSubdualMode(oDammager);
-    
+
     OnDeathClassSystem(oPC);
-    
+
 //    SendMessageToPC(oPC,"//Debug info: Zabil te "+GetName(oDammager)+", subdual=."+IntToString(nSubdual));
     if(nSubdual == 2) {
       if(CheckIsSubdualValid(oPC))
@@ -255,7 +280,7 @@ void main()
       oKiller = oDammager;
     }
     DeathLog(oPC,oKiller,nSubdual);
-    
+
     DelayCommand(0.0f, DropDisallowedItems(oPC));
 
     DelayCommand(1.0f, Raise(oPC));
@@ -265,6 +290,7 @@ void main()
     SetPersistentLocation(oPC, "LOCATION", GetLocation(wpDeath));
     DelayCommand(0.9f, AssignCommand(oPC, ClearAllActions(TRUE)));
 //    SendMessageToPC(oPC,"JUMP to "+GetTag(wpDeath));
+    ApplyPenalty(oPC);
     DelayCommand(1.0f, AssignCommand(oPC, JumpToObject(wpDeath)));
 
     //edit Sylm : na zaver ulozim do duse bytosti premennu isDead = 1

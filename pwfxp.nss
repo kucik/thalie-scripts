@@ -402,7 +402,6 @@ void PWFXP_GiveXP(object oPC, int nXP)
     return;
   }
   // Reduce XP for death
-  nXP = ku_ReduceXPGainForDeath(oPC, nXP);
   nXP = ku_SaveXPPerKill(oPC, nXP);
 
   if(GetXP(oPC) > NT_PC_MAX_XP) return;

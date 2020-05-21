@@ -236,14 +236,5 @@ void main()
     object oSoulItem = GetSoulStone(oPC);
     SetLocalInt(oSoulItem, "isDead", 1);
     //end Sylm
-
-    /* CTF mode */
-    if(GetLocalInt(oArea,"CTF_AREA")) {
-      SetLocalInt(oSoulItem,"CTF_DEATH",TRUE);
-    }
-    else {
-      DeleteLocalInt(oSoulItem, "CTF_DEATH");
-    }
-
 }
 

@@ -12,7 +12,6 @@ void main()
         object oPC = GetFirstPC();
         string sPlayerName = GetLocalString(OBJECT_SELF, "PLAYER");
         string sPCName = GetLocalString(OBJECT_SELF, "PC");
-        int bIsItCleric = GetLocalInt(OBJECT_SELF, "KU_CLERIC");
         while(oPC != OBJECT_INVALID){
             if(GetPCPlayerName(oPC) == sPlayerName && GetName(oPC) == sPCName){
 

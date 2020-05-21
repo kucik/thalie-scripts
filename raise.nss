@@ -9,40 +9,26 @@
 void ApplyPenalty(object oDead)
 {
     int nXP = GetXP(oDead);
-    int nPenalty = nXP * 4 / 100;
     int nHD = GetHitDice(oDead);
-/*    // * You can not lose a level with this respawning under 4th level
-    int nMin;
-    if(nHD < 4)
-        nMin = ((nHD * (nHD - 1)) / 2) * 1000;
-    else
-        nMin = 0;
-
-    int nNewXP = nXP - nPenalty;
-    if (nNewXP < nMin)
-       nNewXP = nMin;
-    
-
-    nPenalty = nXP - nNewXP;*/
-    // Limit 40 000 through respawn 4% of 20. level
-    if(nPenalty > 30000)
-       nPenalty = 30000;
+    int nPenalty = nHD*500;
 
     object oSoul = GetSoulStone(oDead);
-    /* CTF Mode penalta */
-    if(GetLocalInt(oSoul,"CTF_DEATH")) {
-      nPenalty = nPenalty / 10;
-    }
-    DeleteLocalInt(oSoul,"CTF_DEATH");
 
     int xpk = GetLocalInt(oSoul,"ku_XPLost");
     SetLocalInt(oSoul,"ku_XPLost",xpk + nPenalty);
 
-//    SetXP(oDead, nNewXP);
-    ku_GiveXPDebt(oDead,nPenalty);
+    int nNewXP;
+    if (nXP > nPenalty)
+    {
+        nNewXP = nXP - nPenalty;
+    }
+    else
+    {
+        nNewXP = 0;
+    }
 
-
-     int nGoldToTake = 0;
+    SetXP(oDead, nNewXP);
+    int nGoldToTake = 0;
     if(nHD > 5)
     nGoldToTake = FloatToInt(0.5 * GetGold(oDead));
     if(nHD > 10)
