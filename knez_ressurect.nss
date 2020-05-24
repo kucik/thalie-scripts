@@ -22,7 +22,7 @@ void main()
    string sPCName = GetLocalString(oCorpse, "PC");
    string sCorpseTag = GetTag(oCorpse);
 
-   DestroyObject(oCorpse, 0.0f);
+   DestroyObject(oCorpse, 0.5f);
 
    location lCorpse = GetLocation(oPC);
 

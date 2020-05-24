@@ -90,31 +90,6 @@ void ApplyExorcistBonuses(object oPC)
 
 
 
-/*Prida zbran onhit property - zbran thalie*/
-void AddZbranThalie(object oPC,object oItem)
-{
-
-
-        //zhozeni stitu
-        int iType =GetBaseItemType(oItem);
-        int iWeaponType = StringToInt(Get2DAString("baseitems","WeaponType",iType));
-        if ((iWeaponType > 0) ||(iType==BASE_ITEM_ARROW)||(iType==BASE_ITEM_BOLT)||(iType==BASE_ITEM_BULLET) ){
-
-            itemproperty ipLoop = GetFirstItemProperty(oItem);
-            while (GetIsItemPropertyValid(ipLoop))
-            {
-                if (GetItemPropertyType(ipLoop)== ITEM_PROPERTY_ONHITCASTSPELL)
-                {
-                    RemoveItemProperty(oItem,ipLoop);
-                }
-                ipLoop = GetNextItemProperty(oItem);
-            }
-
-            itemproperty ipZbranThalie = ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_THALIJSKA_ZBRAN,10);
-            SetItemPropertySpellId(ipZbranThalie,IP_ZBRAN_THALIE);
-            AddItemProperty(DURATION_TYPE_PERMANENT,ipZbranThalie,oItem);
-        }
-}
 /*Odstrani zbran onhit property - zbran thalie - pri unequipu*/
 void RemoveZbranThalie(object oPC,object oItem)
 {
@@ -144,7 +119,7 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     while (GetIsEffectValid(eLoop))
     {
         iEffect = GetEffectSpellId(eLoop);
-        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_EXOR_DAMAGE_DIVINE) || (iEffect==EFFECT_TWOHANDED_2AB))
+        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_EXOR_DAMAGE_DIVINE) || (iEffect==EFFECT_TWOHANDED_2AB) || (iEffect==EFFECT_PRESNY_BOD))
         {
             RemoveEffect(oPC,eLoop);
         }
@@ -184,8 +159,25 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
                 effect eLink = SupernaturalEffect(ef);
                 SetEffectSpellId(eLink,EFFECT_TWOHANDED_2AB);
                 ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+
+            }
+            int iBaseItem = GetBaseItemType(oItem);
+            if (
+              (iBaseItem == BASE_ITEM_LONGSWORD) ||
+              (iBaseItem == BASE_ITEM_SHORTSWORD) ||
+              (iBaseItem == BASE_ITEM_RAPIER) ||
+              (iBaseItem == BASE_ITEM_DAGGER))
+            {
+                int iCasterLevel = GetLevelByClass(CLASS_TYPE_SERMIR,oPC);
+                effect ef = EffectDamageIncrease(iCasterLevel/5 +1,DAMAGE_TYPE_PIERCING);
+                effect eLink = SupernaturalEffect(ef);
+                SetEffectSpellId(eLink,EFFECT_PRESNY_BOD);
+                ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
             }
         }
+
+
+
     }
 }
 
@@ -292,7 +284,6 @@ void OnEquipClassSystem(object oPC, object oItem)
   object oDuse = GetSoulStone(oPC);
    object oPCSkin = GetPCSkin(oPC);
 
- AddZbranThalie(oPC,oItem);
  RefreshBonusACNaturalBase(oPC,oPCSkin);
  RefreshOnEquipSpecialBonuses(oPC,1);
 }

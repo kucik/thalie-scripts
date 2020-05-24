@@ -77,7 +77,7 @@ void FindAndRaisePlayer(int iSpell,object oCaster,string sPlayerName, string sCh
 
         while(oPC != OBJECT_INVALID)
         {
-            if(GetPCPlayerName(oPC) == sPlayerName && GetName(oPC) == sCharacterName)
+            if((GetPCPlayerName(oPC) == sPlayerName) && (GetName(oPC) == sCharacterName))
             {
                 // Levelup on raise bugfix
                 if(GetLocalInt(oPC,"RELEVELING"))
@@ -148,7 +148,7 @@ void FindAndRaisePlayer(int iSpell,object oCaster,string sPlayerName, string sCh
                   DeleteLocalInt(oPC, "LastDayRest");
                   DeleteLocalInt(oPC, "LastYearRest");
                   DeleteLocalInt(oPC, "LastMonthRest");
-
+                  SendMessageToPC(oPC,"Postava "+sCharacterName+" byla ozivena.");
                   return;
                 }
                 SendMessageToPC(oPC,"Nepodarilo se vyprostit dusi z podsveti.");
