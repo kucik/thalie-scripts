@@ -8,6 +8,8 @@
 //:: Created On: Jan 2, 2002
 //:: Updated By: 2003/20/10 Georg Zoeller
 //:://////////////////////////////////////////////
+#include "sh_effects_const"
+#include "nwnx_effects"
 
 // GZ: Number of spells in GetSpellBreachProtections
 const int NW_I0_SPELLS_MAX_BREACH = 33;
@@ -196,6 +198,106 @@ void spellsCure(int nDamage, int nMaxExtraDamage, int nMaximized, int vfx_impact
     }
 }
 
+void RemoveAbsoluteDispelBonuses(object oTarget)
+{
+    effect eLoop = GetFirstEffect(oTarget);
+    while (GetIsEffectValid(eLoop))
+    {
+        int iEffect = GetEffectSpellId(eLoop);
+        if (iEffect== EFFECT_IP_ABSOLUTE)
+        {
+            RemoveEffect(oTarget,eLoop);
+        }
+        eLoop = GetNextEffect(oTarget);
+    }
+
+    itemproperty ipLoop;
+    object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        ipLoop = GetFirstItemProperty(oMyWeapon);
+        while (GetIsItemPropertyValid(ipLoop))
+        {
+            if (GetItemPropertySpellId (ipLoop)== EFFECT_IP_ABSOLUTE)
+            {
+                RemoveItemProperty(oMyWeapon,ipLoop);
+            }
+            ipLoop = GetNextItemProperty(oMyWeapon);
+        }
+    }
+
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        ipLoop = GetFirstItemProperty(oMyWeapon);
+        while (GetIsItemPropertyValid(ipLoop))
+        {
+            if (GetItemPropertySpellId (ipLoop)== EFFECT_IP_ABSOLUTE)
+            {
+                RemoveItemProperty(oMyWeapon,ipLoop);
+            }
+            ipLoop = GetNextItemProperty(oMyWeapon);
+        }
+    }
+
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        ipLoop = GetFirstItemProperty(oMyWeapon);
+        while (GetIsItemPropertyValid(ipLoop))
+        {
+            if (GetItemPropertySpellId (ipLoop)== EFFECT_IP_ABSOLUTE)
+            {
+                RemoveItemProperty(oMyWeapon,ipLoop);
+            }
+            ipLoop = GetNextItemProperty(oMyWeapon);
+        }
+    }
+
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        ipLoop = GetFirstItemProperty(oMyWeapon);
+        while (GetIsItemPropertyValid(ipLoop))
+        {
+            if (GetItemPropertySpellId (ipLoop)== EFFECT_IP_ABSOLUTE)
+            {
+                RemoveItemProperty(oMyWeapon,ipLoop);
+            }
+            ipLoop = GetNextItemProperty(oMyWeapon);
+        }
+    }
+
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        ipLoop = GetFirstItemProperty(oMyWeapon);
+        while (GetIsItemPropertyValid(ipLoop))
+        {
+            if (GetItemPropertySpellId (ipLoop)== EFFECT_IP_ABSOLUTE)
+            {
+                RemoveItemProperty(oMyWeapon,ipLoop);
+            }
+            ipLoop = GetNextItemProperty(oMyWeapon);
+        }
+    }
+
+    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        ipLoop = GetFirstItemProperty(oMyWeapon);
+        while (GetIsItemPropertyValid(ipLoop))
+        {
+            if (GetItemPropertySpellId (ipLoop)== EFFECT_IP_ABSOLUTE)
+            {
+                RemoveItemProperty(oMyWeapon,ipLoop);
+            }
+            ipLoop = GetNextItemProperty(oMyWeapon);
+        }
+    }
+
+}
+
 //::///////////////////////////////////////////////
 //:: DoSpelLBreach
 //:: Copyright (c) 2001 Bioware Corp.
@@ -236,6 +338,7 @@ void DoSpellBreach(object oTarget, int nTotal, int nSR, int nSpellId = -1)
         // This can not be dispelled
         //--------------------------------------------------------------------------
         eLink = ExtraordinaryEffect(eLink);
+        RemoveAbsoluteDispelBonuses(oTarget);
         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(10));
     }
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);

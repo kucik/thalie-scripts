@@ -46,27 +46,54 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION))
+    {
+        //Determine Polymorph subradial type
+        if(nSpell == 392)
+        {
+            nPoly = 113;
+        }
+        else if (nSpell == 393)
+        {
+            nPoly = 114;
+        }
+        else if (nSpell == 394)
+        {
+            nPoly = 115;
+        }
+        else if (nSpell == 395)
+        {
+            nPoly = 116;
+        }
+        else if (nSpell == 396)
+        {
+            nPoly = 117;
+        }
+    }
+    else
+    {
+                //Determine Polymorph subradial type
+        if(nSpell == 392)
+        {
+            nPoly = POLYMORPH_TYPE_RED_DRAGON;
+        }
+        else if (nSpell == 393)
+        {
+            nPoly = POLYMORPH_TYPE_FIRE_GIANT;
+        }
+        else if (nSpell == 394)
+        {
+            nPoly = POLYMORPH_TYPE_BALOR;
+        }
+        else if (nSpell == 395)
+        {
+            nPoly = POLYMORPH_TYPE_DEATH_SLAAD;
+        }
+        else if (nSpell == 396)
+        {
+            nPoly = POLYMORPH_TYPE_IRON_GOLEM;
+        }
 
-    //Determine Polymorph subradial type
-    if(nSpell == 392)
-    {
-        nPoly = POLYMORPH_TYPE_RED_DRAGON;
-    }
-    else if (nSpell == 393)
-    {
-        nPoly = POLYMORPH_TYPE_FIRE_GIANT;
-    }
-    else if (nSpell == 394)
-    {
-        nPoly = POLYMORPH_TYPE_BALOR;
-    }
-    else if (nSpell == 395)
-    {
-        nPoly = POLYMORPH_TYPE_DEATH_SLAAD;
-    }
-    else if (nSpell == 396)
-    {
-        nPoly = POLYMORPH_TYPE_IRON_GOLEM;
     }
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target

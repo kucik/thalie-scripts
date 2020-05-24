@@ -21,6 +21,7 @@
 #include "sh_classes_const"
 #include "nwnx_funcs"
 #include "sh_deity_inc"
+#include "sh_effects_const"
 
 
 /*
@@ -33,7 +34,9 @@ void  AddAttackEffectToWeapon(object oMyWeapon, float fDuration)
 
 void AddGreaterEnhancementEffectToWeapon(object oMyWeapon, float fDuration)
 {
-  IPSafeAddItemProperty(oMyWeapon,ItemPropertyEnhancementBonus(1), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
+  itemproperty ip = ItemPropertyAttackBonus(1);
+  SetItemPropertySpellId  (ip,EFFECT_IP_ABSOLUTE);
+  IPSafeAddItemProperty(oMyWeapon,ip, fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
   return;
 }
 

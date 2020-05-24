@@ -64,7 +64,9 @@ void main()
     }
 
     // 2003-07-07: Stacking Spell Pass, Georg
-    RemoveEffectsFromSpell(oTarget, GetSpellId());
+    RemoveEffectsFromSpell(oTarget, SPELL_MESTILS_ACID_SHEATH);
+    RemoveEffectsFromSpell(oTarget, SPELL_DEATH_ARMOR);
+    RemoveEffectsFromSpell(oTarget, SPELL_ELEMENTAL_SHIELD);
 
     //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));

@@ -56,11 +56,9 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_ELEMENTAL_SHIELD, FALSE));
 
-    //  *GZ: No longer stack this spell
-    if (GetHasSpellEffect(GetSpellId(),oTarget))
-    {
-         RemoveSpellEffects(GetSpellId(), OBJECT_SELF, oTarget);
-    }
+    RemoveEffectsFromSpell(oTarget, SPELL_MESTILS_ACID_SHEATH);
+    RemoveEffectsFromSpell(oTarget, SPELL_DEATH_ARMOR);
+    RemoveEffectsFromSpell(oTarget, SPELL_ELEMENTAL_SHIELD);   RemoveSpellEffects(GetSpellId(), OBJECT_SELF, oTarget);
 
     //Enter Metamagic conditions
     if (nMetaMagic == METAMAGIC_EXTEND)

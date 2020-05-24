@@ -50,27 +50,53 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
-
-    //Determine Polymorph subradial type
-    if(nSpell == 387)
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION))
     {
-        nPoly = POLYMORPH_TYPE_GIANT_SPIDER;
+        //Determine Polymorph subradial type
+        if(nSpell == 387)
+        {
+            nPoly = 108;
+        }
+        else if (nSpell == 388)
+        {
+            nPoly = 109;
+        }
+        else if (nSpell == 389)
+        {
+            nPoly = 110;
+        }
+        else if (nSpell == 390)
+        {
+            nPoly = 111;
+        }
+        else if (nSpell == 391)
+        {
+            nPoly = 112;
+        }
     }
-    else if (nSpell == 388)
+    else
     {
-        nPoly = POLYMORPH_TYPE_TROLL;
-    }
-    else if (nSpell == 389)
-    {
-        nPoly = POLYMORPH_TYPE_UMBER_HULK;
-    }
-    else if (nSpell == 390)
-    {
-        nPoly = POLYMORPH_TYPE_PIXIE;
-    }
-    else if (nSpell == 391)
-    {
-        nPoly = POLYMORPH_TYPE_ZOMBIE;
+        //Determine Polymorph subradial type
+        if(nSpell == 387)
+        {
+            nPoly = POLYMORPH_TYPE_GIANT_SPIDER;
+        }
+        else if (nSpell == 388)
+        {
+            nPoly = POLYMORPH_TYPE_TROLL;
+        }
+        else if (nSpell == 389)
+        {
+            nPoly = POLYMORPH_TYPE_UMBER_HULK;
+        }
+        else if (nSpell == 390)
+        {
+            nPoly = POLYMORPH_TYPE_PIXIE;
+        }
+        else if (nSpell == 391)
+        {
+            nPoly = POLYMORPH_TYPE_ZOMBIE;
+        }
     }
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target

@@ -87,7 +87,7 @@ void main()
                         nDamage = nDamage/2;
                     }
                     //Set the damage effect
-                    eDam = EffectDamage(nDamage, DAMAGE_TYPE_MAGICAL);
+                    eDam = EffectDamage(nDamage, DAMAGE_TYPE_NEGATIVE);
                     // Apply effects to the currently selected target.
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
                     //This visual effect is applied to the target object not the location as above.  This visual effect

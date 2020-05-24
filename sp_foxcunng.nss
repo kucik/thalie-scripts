@@ -41,7 +41,7 @@ void main()
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
 
     int nMetaMagic = GetMetaMagicFeat();
-    int nRaise = 4;
+    int nModify = d4()+1;
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
     //Fire cast spell at event for the specified target
@@ -50,14 +50,18 @@ void main()
     //Enter Metamagic conditions
     if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
-        nRaise = 6; //Damage/Healing is +50%
+        nModify = nModify+nModify/2;
+    }
+    if ((nMetaMagic == METAMAGIC_MAXIMIZE))
+    {
+        nModify = 5;
     }
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
         nDuration = nDuration *2; //Duration is +100%
     }
     //Set Adjust Ability Score effect
-    eRaise = EffectAbilityIncrease(ABILITY_INTELLIGENCE, nRaise);
+    eRaise = EffectAbilityIncrease(ABILITY_INTELLIGENCE, nModify);
     effect eLink = EffectLinkEffects(eRaise, eDur);
 
     //Apply the VFX impact and effects

@@ -52,8 +52,12 @@ void main()
         fDelay = GetRandomDelay(0.5, 2.5);
         if(!GetPlotFlag(oTarget) && GetLocked(oTarget))
         {
-
-            if (GetLockLockDC(oTarget) > (d20()+nCasterLevel+mainAbility)) continue;
+            int iTest = d20()+nCasterLevel+mainAbility;
+            if (iTest>35)
+            {
+                iTest = 35;
+            }
+            if (GetLockLockDC(oTarget) > (iTest)) continue;
             nResist =  GetDoorFlag(oTarget,DOOR_FLAG_RESIST_KNOCK);
             if (nResist == 0)
             {

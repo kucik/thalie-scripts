@@ -1838,7 +1838,7 @@ void spellsDispelMagic(object oTarget, int nCasterLevel, effect eVis, effect eIm
            DoSpellBreach(oTarget, 2, 10, nId);
         }
     }
-
+    DelayCommand(fDelay, RemoveAbsoluteDispelBonuses(oTarget));
     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDispel, oTarget));
 }

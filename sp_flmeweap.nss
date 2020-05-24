@@ -120,6 +120,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
+            SetItemPropertySpellId  (ip,EFFECT_IP_ABSOLUTE);
             AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
             IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
 

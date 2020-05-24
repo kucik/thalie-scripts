@@ -51,7 +51,7 @@ void main()
 
     if (nAmount > 15)
     {
-        nAmount = 15 + (nCasterLevel - 15)*5;
+        nAmount = 15;
     }
     int nDamage = nAmount * 10;
     if (GetMetaMagicFeat() == METAMAGIC_EXTEND)
@@ -61,10 +61,6 @@ void main()
 
     // Variable damage power
     int nDamagePower = DAMAGE_POWER_PLUS_FIVE;
-    if(nCasterLevel >= 20)
-      nDamagePower = DAMAGE_POWER_PLUS_SIX;
-    if(nCasterLevel >= 25)
-      nDamagePower = DAMAGE_POWER_PLUS_SEVEN;
 
     effect eVis2 = EffectVisualEffect(VFX_IMP_POLYMORPH);
     effect eStone = EffectDamageReduction(20, nDamagePower, nDamage);

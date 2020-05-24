@@ -20,10 +20,30 @@
 #include "x2_i0_spells"
 
 #include "x2_inc_spellhook"
+#include "sh_effects_const"
 
 
 void  AddKeenEffectToWeapon(object oMyWeapon, float fDuration)
 {
+   itemproperty ip;
+   int iBaseItem = GetBaseItemType(oMyWeapon);
+   if (
+      (iBaseItem == BASE_ITEM_LONGBOW) ||
+      (iBaseItem == BASE_ITEM_SHORTBOW) ||
+      (iBaseItem == BASE_ITEM_HEAVYCROSSBOW) ||
+      (iBaseItem == BASE_ITEM_LIGHTCROSSBOW) ||
+      (iBaseItem == BASE_ITEM_SLING) ||
+      (iBaseItem == BASE_ITEM_THROWINGAXE) ||
+      (iBaseItem == BASE_ITEM_SHURIKEN) ||
+      (iBaseItem == BASE_ITEM_DART))
+   {
+      ip = ItemPropertyMassiveCritical(IP_CONST_DAMAGEBONUS_1d8);
+   }
+   else
+   {
+      ip = ItemPropertyKeen();
+   }
+   SetItemPropertySpellId  (ip,EFFECT_IP_ABSOLUTE);
    IPSafeAddItemProperty(oMyWeapon,ItemPropertyKeen(), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING ,TRUE,TRUE);
    return;
 }

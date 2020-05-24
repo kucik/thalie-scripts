@@ -36,7 +36,7 @@ void main()
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int nCasterLvl = GetCasterLevel(OBJECT_SELF);
     nCasterLvl = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLvl);
-    int nModify = 4;
+    int nModify = d4()+1;
     float fDuration = TurnsToSeconds(nCasterLvl);
     int iHereticLevel = GetLevelByClass(31, OBJECT_SELF); // Heretic
     float fHereticDuration = -1.0;
@@ -48,7 +48,11 @@ void main()
     //Enter Metamagic conditions
     if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
     {
-    nModify = 6;
+        nModify = nModify+nModify/2;
+    }
+    if ((nMetaMagic == METAMAGIC_MAXIMIZE))
+    {
+        nModify = 5;
     }
     if(fHereticDuration > fDuration)
       fDuration = fHereticDuration;

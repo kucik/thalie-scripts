@@ -85,7 +85,7 @@ void main()
                      nDamage = nDamage + (nDamage/2); //Damage/Healing is +50%
                 }
                 //Run the damage through the various reflex save and evasion feats
-
+                nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
                 eFire = EffectDamage(nDamage, DAMAGE_TYPE_FIRE);
                 if(nDamage > 0)
                 {

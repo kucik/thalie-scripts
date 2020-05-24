@@ -39,7 +39,7 @@ void main()
    //Declare major variables
    object oTarget = GetSpellTargetObject();
    int nMetaMagic = GetMetaMagicFeat();
-   int nDuration = d4();
+   int nDuration = d3();
    effect eScare = EffectFrightened();
    effect eSave = EffectSavingThrowDecrease(SAVING_THROW_WILL, 2, SAVING_THROW_TYPE_MIND_SPELLS);
    effect eMind = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_FEAR);
@@ -56,7 +56,7 @@ void main()
    eLink2 = EffectLinkEffects(eLink2, eAttackPenalty);
 
    //Check the Hit Dice of the creature
-   if ((GetHitDice(oTarget) < 6) && GetObjectType(oTarget) == OBJECT_TYPE_CREATURE)
+   if (((GetHitDice(oTarget) < 6) || (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_NECROMANCY))) && GetObjectType(oTarget) == OBJECT_TYPE_CREATURE)
    {
         // * added rep check April 2003
         if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF) == TRUE)

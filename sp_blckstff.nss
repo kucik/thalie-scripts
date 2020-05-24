@@ -22,7 +22,7 @@
 
 void AddBlackStaffEffectOnWeapon (object oTarget, float fDuration)
 {
-   IPSafeAddItemProperty(oTarget, ItemPropertyAttackBonus(6), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE, TRUE);
+   IPSafeAddItemProperty(oTarget, ItemPropertyEnhancementBonus(4), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE, TRUE);
    IPSafeAddItemProperty(oTarget, ItemPropertyOnHitProps(IP_CONST_ONHIT_DISPELMAGIC, IP_CONST_ONHIT_SAVEDC_16), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING );
    IPSafeAddItemProperty(oTarget, ItemPropertyVisualEffect(ITEM_VISUAL_EVIL), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE );
    return;
@@ -66,7 +66,7 @@ void main()
     {
         SignalEvent(GetItemPossessor(oMyWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
 
-        if (GetBaseItemType(oMyWeapon) == BASE_ITEM_QUARTERSTAFF)
+        if ((GetBaseItemType(oMyWeapon) == BASE_ITEM_QUARTERSTAFF) || (GetBaseItemType(oMyWeapon) == BASE_ITEM_MAGICSTAFF))
         {
             if (nDuration>0)
             {

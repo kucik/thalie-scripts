@@ -49,15 +49,15 @@ void main()
 
     int nMetaMagic = GetMetaMagicFeat();
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
+    nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
     int nDuration = nCasterLevel;
-    int nHD = nCasterLevel;
-    nHD = GetThalieCaster(OBJECT_SELF,oTarget,nHD,FALSE);
+    int iHD  = GetHitDice(OBJECT_SELF);
     //Make meta magic
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
         nDuration = nCasterLevel * 2;
     }
-    if (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD && GetHitDice(oTarget) <= nHD)
+    if ((GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD) && (GetHitDice(oTarget) <= iHD))
     {
         if(!GetIsReactionTypeFriendly(oTarget))
         {

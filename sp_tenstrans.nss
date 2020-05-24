@@ -91,14 +91,11 @@ void main()
     eLink = EffectLinkEffects(eLink, eDur);
     eLink = EffectLinkEffects(eLink, eSwing);
 
-    effect eHP = EffectTemporaryHitpoints(nHP);
-
     effect eVis = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
     //Signal Spell Event
     SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELL_TENSERS_TRANSFORMATION, FALSE));
 
     ClearAllActions(); // prevents an exploit
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eHP, OBJECT_SELF, RoundsToSeconds(nDuration));
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, OBJECT_SELF, RoundsToSeconds(nDuration));
 }
