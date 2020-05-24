@@ -28,11 +28,8 @@ void main()
     effect eVis2 = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
     effect eLink = eVis2; //EffectLinkEffects(eSpeed, eVis2);
     float fDelay;
-
     //Capture the first target object in the shape.
     oTarget = GetEnteringObject();
-    effect eBlind = EffectBlindness();
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eBlind,oTarget,7.0);
     //Declare the spell shape, size and the location.
     if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
     {
@@ -54,7 +51,7 @@ void main()
                      nDamage = nDamage + (nDamage/2); //Damage/Healing is +50%
                 }
             //Adjust damage for Reflex Save, Evasion and Improved Evasion
-            //nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
+            nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
             // Apply effects to the currently selected target.
             eDam = EffectDamage(nDamage, DAMAGE_TYPE_FIRE);
             if(nDamage > 0)

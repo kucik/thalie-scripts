@@ -55,17 +55,19 @@ void main()
         }
         if (!MyResistSpell(OBJECT_SELF, oTarget))
         {
+            if (!MySavingThrow(SAVING_THROW_REFLEX,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF),SAVING_THROW_TYPE_SPELL) )
+            {
+                effect eAC1 = EffectAttackDecrease(5);
+                effect eVis = EffectVisualEffect(VFX_DUR_BIGBYS_INTERPOSING_HAND);
+                effect eLink = EffectLinkEffects(eAC1, eVis);
 
-        effect eAC1 = EffectAttackDecrease(10);
-        effect eVis = EffectVisualEffect(VFX_DUR_BIGBYS_INTERPOSING_HAND);
-        effect eLink = EffectLinkEffects(eAC1, eVis);
 
-
-        //Apply the TO HIT PENALTIES bonuses and the VFX impact
-        ApplyEffectToObject(DURATION_TYPE_TEMPORARY,
-                            eLink,
-                            oTarget,
-                            RoundsToSeconds(nDuration));
+                //Apply the TO HIT PENALTIES bonuses and the VFX impact
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY,
+                                    eLink,
+                                    oTarget,
+                                    RoundsToSeconds(nDuration));
+            }
         }
     }
 }

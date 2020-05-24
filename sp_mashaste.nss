@@ -45,10 +45,6 @@ void main()
     effect eLink = EffectLinkEffects(eHaste, eDur);
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_NORMAL_30);
     //
-    effect eACdec = EffectACDecrease(3);
-    effect eABinc = EffectAttackIncrease(1);
-    eLink = EffectLinkEffects(eLink, eACdec);
-    eLink = EffectLinkEffects(eLink, eABinc);
     //
     int nMetaMagic = GetMetaMagicFeat();
     float fDelay;

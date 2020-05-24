@@ -42,7 +42,7 @@ void main()
 
 
     object oTarget;
-    effect eCharm = EffectCharmed();
+    effect eCharm = EffectDazed();
     effect eMind = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_NEGATIVE);
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_NORMAL_20);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);

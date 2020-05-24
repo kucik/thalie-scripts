@@ -25,6 +25,7 @@
 #include "sh_classes_inc_e"
 #include "nw_i0_spells"
 #include "x2_i0_spells"
+#include "sh_effects_const"
 
 // Test if the object oMyWeapon has been enchantment with temporaly ITEM_PROPERTY_DAMAGE_BONUS,
 // if so, the function removes the enchantment.
@@ -72,44 +73,18 @@ void main()
     int iDmgTypeID = ITEM_VISUAL_FIRE;    // default dmg type
 
 
-    //Determine subradial type
-    if (nSpell == 953)     // acid dmg
-    {
-      iCastingVisualEffectID = VFX_IMP_MAGBLUE;
-      iItemVisualTypeID = ITEM_VISUAL_ACID;
-      iDmgTypeID = IP_CONST_DAMAGETYPE_ACID;
-    }
-    else if (nSpell == 954)         // cold dmg
-    {
-      iCastingVisualEffectID = VFX_IMP_PULSE_COLD;
-      iItemVisualTypeID = ITEM_VISUAL_COLD;
-      iDmgTypeID = IP_CONST_DAMAGETYPE_COLD;
-    }
-    else if (nSpell == 955)    // electrical dmg
-    {
-      iCastingVisualEffectID = VFX_IMP_PULSE_WIND;
-      iItemVisualTypeID = ITEM_VISUAL_ELECTRICAL;
-      iDmgTypeID = IP_CONST_DAMAGETYPE_ELECTRICAL;
-    }
-    else
-    // fire dmg
-    {
-      iCastingVisualEffectID = VFX_IMP_PULSE_FIRE; // change casting effect to default (_PULSE_FIRE))
-      iItemVisualTypeID = ITEM_VISUAL_FIRE;
-      iDmgTypeID = IP_CONST_DAMAGETYPE_FIRE;
-    }
-
     effect eVis = EffectVisualEffect(iCastingVisualEffectID);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int nCasterLvl = GetCasterLevel(OBJECT_SELF)+1;
     nCasterLvl = GetThalieCaster(OBJECT_SELF, oTarget, nCasterLvl,FALSE);
     int nDuration = 2 * nCasterLvl;
     int nMetaMagic = GetMetaMagicFeat();
-    int iBonus = d6()+nCasterLvl/4;
+    int iBonus = nCasterLvl;
     if (iBonus > 10)
     {
         iBonus = 10;
     }
+    int iDamage = d4()+ iBonus;
     itemproperty ip = ItemPropertyDamageBonus(iDmgTypeID, GetIPDamageBonusByValue(iBonus));
 
     if (nMetaMagic == METAMAGIC_EXTEND)
@@ -118,26 +93,6 @@ void main()
     }
     float fDuration = RoundsToSeconds(nDuration);
     object oMyWeapon = oTarget;
-
-    // ---------------- TARGETED ON BOLT  -------------------
-    if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)
-    {
-        // special handling for blessing crossbow bolts that can slay rakshasa's
-        int iItemType = GetBaseItemType(oTarget);
-        if (iItemType == BASE_ITEM_BOLT ||
-            iItemType == BASE_ITEM_ARROW ||
-            iItemType == BASE_ITEM_BULLET)
-        {
-          //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-          if (nDuration>0) {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
-            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
-            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-            return;
-          }
-        }
-    }
 
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
@@ -148,6 +103,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
+            SetItemPropertySpellId  (ip,EFFECT_IP_ABSOLUTE);
             AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
             IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
 
@@ -156,68 +112,6 @@ void main()
 
 
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
-    if(GetIsObjectValid(oMyWeapon) )
-    {
-        TestAndRemoveTemporalDmgBonus(oMyWeapon);
-        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
-        {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
-            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
-            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-
-        }
-
-    }
-
-
-    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_ARMS,oTarget);
-    if(GetIsObjectValid(oMyWeapon) && GetBaseItemType(oMyWeapon) == BASE_ITEM_GLOVES )
-    {
-        TestAndRemoveTemporalDmgBonus(oMyWeapon);
-        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
-        {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
-            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
-        }
-
-    }
-    oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B,oTarget);
-    if(GetIsObjectValid(oMyWeapon) )
-    {
-        TestAndRemoveTemporalDmgBonus(oMyWeapon);
-        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
-        {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
-            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
-            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-
-        }
-
-    }
-
-   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L,oTarget);
-    if(GetIsObjectValid(oMyWeapon) )
-    {
-        TestAndRemoveTemporalDmgBonus(oMyWeapon);
-        //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
-        if (nDuration>0)
-        {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, fDuration);
-            AddItemProperty(DURATION_TYPE_TEMPORARY, ip, oMyWeapon, fDuration);
-            IPSafeAddItemProperty(oMyWeapon, ItemPropertyVisualEffect(iItemVisualTypeID), fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
-
-        }
-
-    }
-
-   oMyWeapon = GetItemInSlot(INVENTORY_SLOT_CWEAPON_R,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
         TestAndRemoveTemporalDmgBonus(oMyWeapon);

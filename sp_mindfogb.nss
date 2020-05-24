@@ -41,11 +41,29 @@ void main()
                 if(GetEffectType(eAOE) == EFFECT_TYPE_SAVING_THROW_DECREASE)
                 {
                     RemoveEffect(oTarget, eAOE);
+                    bValid = TRUE;
                 }
             }
             //Get the next effect on the creation
             eAOE = GetNextEffect(oTarget);
          }
     }
-
+    if(bValid == TRUE)
+    {
+        //Enter Metamagic conditions
+        if (nMetaMagic == METAMAGIC_MAXIMIZE)
+        {
+            nDuration = 12;
+        }
+        else if (nMetaMagic == METAMAGIC_EMPOWER)
+        {
+            nDuration = nDuration + (nDuration/2); //Damage/Healing is +50%
+        }
+        else if (nMetaMagic == METAMAGIC_EXTEND)
+        {
+            nDuration = nDuration * 2; //Duration is +100%
+        }
+        //Apply the new temporary version of the effect
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+    }
 }

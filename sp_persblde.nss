@@ -14,6 +14,7 @@
 
 #include "x2_i0_spells"
 #include "x2_inc_spellhook"
+#include "nwnx_funcs"
 
 //Creates the weapon that the creature will be using.
 void spellsCreateItemForSummoned(object oCaster, float fDuration)
@@ -44,8 +45,32 @@ void spellsCreateItemForSummoned(object oCaster, float fDuration)
             AddItemProperty(DURATION_TYPE_TEMPORARY, ItemPropertyAttackBonus(nStat), oWeapon,fDuration);
         }
         AddItemProperty(DURATION_TYPE_TEMPORARY, ItemPropertyDamageReduction(IP_CONST_DAMAGEREDUCTION_1,5),oWeapon,fDuration);
+        // Boost summon
+        int iBonus = 0;
+        if (GetHasFeat(FEAT_SPELL_FOCUS_EVOCATION))
+        {
+            iBonus +=2;
+        }
+        if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_EVOCATION))
+        {
+            iBonus +=2;
+        }
+        if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_EVOCATION))
+        {
+            iBonus +=2;
+        }
+        if (iBonus>0)
+        {
+            SetAbilityScore(oSummon,ABILITY_DEXTERITY,GetAbilityScore(oSummon,ABILITY_DEXTERITY,TRUE)+iBonus);
+            SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+iBonus);
+            SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+iBonus);
+        }
+
     }
 }
+
+
+
 
 
 void main()

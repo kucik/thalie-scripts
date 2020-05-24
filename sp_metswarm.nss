@@ -42,6 +42,8 @@ void main()
     int nDamage;
     effect eFire;
     effect eMeteor = EffectVisualEffect(VFX_FNF_METEOR_SWARM);
+    int nLevel = GetCasterLevel(OBJECT_SELF);
+    nLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nLevel,FALSE);
     effect eVis = EffectVisualEffect(VFX_IMP_FLAME_M);
     //Apply the meteor swarm VFX area impact
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eMeteor, GetLocation(OBJECT_SELF));
@@ -62,7 +64,7 @@ void main()
                 if (!MyResistSpell(OBJECT_SELF, oTarget, 0.5))
                 {
                       //Roll damage
-                      nDamage = d6(40);
+                      nDamage = d6(nLevel);
 
                       //Enter Metamagic conditions
                       if (nMetaMagic == METAMAGIC_MAXIMIZE)

@@ -29,11 +29,12 @@ void main()
     int nDamage;
     int nMetaMagic = GetMetaMagicFeat();
     int nCasterLevel = GetCasterLevel(oCaster);
+    nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
     int nFire = GetLocalInt(OBJECT_SELF, "NW_SPELL_DELAY_BLAST_FIREBALL");
     //Limit caster level
-    if (nCasterLevel > 25)
+    if (nCasterLevel > 20)
     {
-        nCasterLevel = 25;
+        nCasterLevel = 20;
     }
     effect eDam;
     effect eExplode = EffectVisualEffect(VFX_FNF_FIREBALL);

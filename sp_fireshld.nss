@@ -42,7 +42,6 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     object oTarget = OBJECT_SELF;
     int iBonus = nDuration;
-    if (iBonus > 10) iBonus = 10;
     effect eShield = EffectDamageShield(iBonus, DAMAGE_BONUS_1d6, DAMAGE_TYPE_FIRE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eCold = EffectDamageImmunityIncrease(DAMAGE_TYPE_COLD, 50);

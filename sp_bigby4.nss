@@ -110,18 +110,21 @@ void main()
 
         if(nResult  == 0)
         {
-            int nCasterModifier = GetCasterAbilityModifier(OBJECT_SELF);
-            effect eHand = EffectVisualEffect(VFX_DUR_BIGBYS_CLENCHED_FIST);
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eHand, oTarget, RoundsToSeconds(nDuration));
+            if (!MySavingThrow(SAVING_THROW_REFLEX,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF),SAVING_THROW_TYPE_SPELL) )
+            {
+                int nCasterModifier = GetCasterAbilityModifier(OBJECT_SELF);
+                effect eHand = EffectVisualEffect(VFX_DUR_BIGBYS_CLENCHED_FIST);
+                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eHand, oTarget, RoundsToSeconds(nDuration));
 
-            //----------------------------------------------------------
-            // GZ: 2003-Oct-15
-            // Save the current save DC on the character because
-            // GetSpellSaveDC won't work when delayed
-            //----------------------------------------------------------
-            SetLocalInt(oTarget,"XP2_L_SPELL_SAVE_DC_" + IntToString (nSpellID), GetSpellSaveDC());
-            object oSelf = OBJECT_SELF;
-            RunHandImpact(oTarget,OBJECT_SELF );
+                //----------------------------------------------------------
+                // GZ: 2003-Oct-15
+                // Save the current save DC on the character because
+                // GetSpellSaveDC won't work when delayed
+                //----------------------------------------------------------
+                SetLocalInt(oTarget,"XP2_L_SPELL_SAVE_DC_" + IntToString (nSpellID), GetSpellSaveDC());
+                object oSelf = OBJECT_SELF;
+                RunHandImpact(oTarget,OBJECT_SELF );
+           }
 
         }
     }

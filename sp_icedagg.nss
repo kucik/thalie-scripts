@@ -50,9 +50,9 @@ void main()
     //Get the spell target location as opposed to the spell target.
     location lTarget = GetSpellTargetLocation();
     //Limit Caster level for the purposes of damage
-    if (nCasterLvl >10)
+    if (nCasterLvl >5)
     {
-        nCasterLvl = 10;
+        nCasterLvl = 5;
     }
     if(!GetIsReactionTypeFriendly(oTarget))
     {

@@ -97,6 +97,7 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel,FALSE);
+    int iHD = GetHitDice(OBJECT_SELF);
     int nDuration = 2 + nCasterLevel/3;
     nDuration = GetScaledDuration(nDuration, oTarget);
     int nRacial = GetRacialType(oTarget);
@@ -125,7 +126,7 @@ void main()
                         nDuration = nDuration * 2;
                     }
                     //omezeni na HD - Shaman88
-                    if (GetHitDice(oTarget) > nCasterLevel || GetIsBoss(oTarget))
+                    if ((GetHitDice(oTarget) > iHD) || GetIsBoss(oTarget))
                     {
                        SendMessageToPC(OBJECT_SELF,"Nelze ovládnout. NPC má vyšší úroveò než je vaše úroveò sesílatele.");
                        return;

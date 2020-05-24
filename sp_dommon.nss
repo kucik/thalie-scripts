@@ -54,6 +54,7 @@ void main()
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel,FALSE);
     int nDuration = 3 + nCasterLevel/2;
+    int iHD = GetHitDice(OBJECT_SELF);
 
     nDuration = GetScaledDuration(nDuration, oTarget);
     int nRacial = GetRacialType(oTarget);
@@ -74,9 +75,9 @@ void main()
                         nDuration = nDuration * 2;
                     }
                     //omezeni na HD - Shaman88
-                    if (GetHitDice(oTarget) > nCasterLevel || GetIsBoss(oTarget))
+                    if ((GetHitDice(oTarget) >iHD) || GetIsBoss(oTarget))
                     {
-                       SendMessageToPC(OBJECT_SELF,"Nelze ovládnout. NPC má vyšší úroveò než je vaše úroveò sesílatele.");
+                       SendMessageToPC(OBJECT_SELF,"Nelze ovládnout. NPC má vyšší úroveò než je vaše.");
                        return;
                     }
                     //Apply linked effects and VFX Impact

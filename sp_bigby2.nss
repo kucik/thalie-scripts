@@ -5,7 +5,7 @@
 //:://////////////////////////////////////////////
 /*
     dazed vs strength check (+14 on strength check); Target knocked down.
-    Target dazed down for (1+ caster lvl / 4) rounds if fails refex throw. 
+    Target dazed down for (1+ caster lvl / 4) rounds if fails refex throw.
 
 */
 //:://////////////////////////////////////////////
@@ -40,8 +40,8 @@ void main()
 
     //Declare major variables
     object oTarget = GetSpellTargetObject();
-    float fDurationSec;  
-    fDurationSec = RoundsToSeconds(1 + GetCasterLevel(OBJECT_SELF) / 4); // length of spell, (1 + 1/4 lvl)rounds 
+    float fDurationSec;
+    fDurationSec = RoundsToSeconds(3);
     int nMetaMagic = GetMetaMagicFeat();
     //Check for metamagic extend
     if (nMetaMagic == METAMAGIC_EXTEND) //Duration is +100%

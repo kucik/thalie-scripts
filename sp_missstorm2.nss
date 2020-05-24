@@ -37,7 +37,7 @@ void main()
 
 
 
-    DoMissileStorm(2, 20, SPELL_ISAACS_GREATER_MISSILE_STORM);
+    DoMissileStorm(2, 10, SPELL_ISAACS_GREATER_MISSILE_STORM);
 }
 
 

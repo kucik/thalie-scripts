@@ -39,6 +39,7 @@ void main()
 
 
     int nDamage =  GetCasterLevel(OBJECT_SELF);
+    nDamage = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nDamage,FALSE);
     if (nDamage > 15)
         nDamage = 15;
 

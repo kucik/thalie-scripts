@@ -22,7 +22,7 @@ void main()
     //Declare major variables
     object oTarget = GetEnteringObject();
     effect eVis = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_NEGATIVE);
-    effect eLower = EffectSavingThrowDecrease(SAVING_THROW_WILL, 8);
+    effect eLower = EffectSavingThrowDecrease(SAVING_THROW_WILL, 10);
     effect eLink = EffectLinkEffects(eVis, eLower);
     int bValid = FALSE;
     float fDelay = GetRandomDelay(1.0, 2.2);
@@ -56,12 +56,15 @@ void main()
             if(!MyResistSpell(OBJECT_SELF, oTarget))
             {
 
-
+                //Make Will save to negate
+                if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_MIND_SPELLS))
+                {
                     if ( GetIsImmune(oTarget, IMMUNITY_TYPE_MIND_SPELLS, GetAreaOfEffectCreator()) == FALSE )
                     {
                         //Apply VFX impact and lowered save effect
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget));
                     }
+                }
 
             }
         }

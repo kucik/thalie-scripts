@@ -53,11 +53,11 @@ void main()
             if(!MyResistSpell(GetAreaOfEffectCreator(), oTarget))
             {
                 //Roll damage.
-            nDamage = d6(15);
+            nDamage = d6(4);
             //Enter Metamagic conditions
                 if (nMetaMagic == METAMAGIC_MAXIMIZE)
                 {
-                   nDamage = 90;//Damage is at max
+                   nDamage = 24;//Damage is at max
                 }
                 if (nMetaMagic == METAMAGIC_EMPOWER)
                 {
@@ -69,7 +69,7 @@ void main()
             if (GetIsPC( oTarget ) ) // DEBUG
             { // DEBUG
                 SendMessageToPC(oTarget, "DEBUG 2: knock-test result = " + IntToString(nDebug)); // DEBUG
-            }     // DEBUG          
+            }     // DEBUG
             //if (!MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_REFLEX) )
             if (nDebug == 0 )
             { // target fails in reflex save - knock it down

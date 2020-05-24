@@ -36,11 +36,11 @@ void main()
         if(!MyResistSpell(GetAreaOfEffectCreator(), oTarget))
         {
             //Roll damage.
-            nDamage = d6(15);
+            nDamage = d6(4);
             //Enter Metamagic conditions
                 if (nMetaMagic == METAMAGIC_MAXIMIZE)
                 {
-                   nDamage = 90;//Damage is at max
+                   nDamage = 24;//Damage is at max
                 }
                 if (nMetaMagic == METAMAGIC_EMPOWER)
                 {

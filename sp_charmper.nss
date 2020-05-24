@@ -42,7 +42,7 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_CHARM);
     effect eMind = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_NEGATIVE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
-    effect eCharm = EffectCharmed();
+    effect eCharm = EffectDazed();
     eCharm = GetScaledEffect(eCharm, oTarget);
 
     //Link persistant effects
@@ -93,7 +93,7 @@ void main()
                         nDuration = ReduceShortSpellDurationForBoss_int(oTarget, nDuration, nDuration);
                         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
                       }
-                      else 
+                      else
                         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oTarget);
                     }
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);

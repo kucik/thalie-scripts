@@ -62,7 +62,7 @@ void main()
                      nDamage = nDamage + (nDamage/2); //Damage/Healing is +50%
                 }
                 //Adjust damage for Reflex Save, Evasion and Improved Evasion
-                //nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC(),SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
+                nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC(),SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
                 // Apply effects to the currently selected target.
                 eDam = EffectDamage(nDamage, DAMAGE_TYPE_FIRE);
                 if(nDamage > 0)
@@ -70,8 +70,6 @@ void main()
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                 }
-                effect eBlind = EffectBlindness();
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eBlind,oTarget,7.0);
             }
         }
         //Select the next target within the spell shape.
