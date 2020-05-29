@@ -70,7 +70,7 @@ void main()
     int nSpell = GetSpellId();
     int iCastingVisualEffectID = VFX_IMP_PULSE_FIRE; // default casting visual effect
     int iItemVisualTypeID = ITEM_VISUAL_FIRE; // default on-weapon visual effect
-    int iDmgTypeID = ITEM_VISUAL_FIRE;    // default dmg type
+    int iDmgTypeID = IP_CONST_DAMAGETYPE_FIRE;    // default dmg type
 
 
     effect eVis = EffectVisualEffect(iCastingVisualEffectID);

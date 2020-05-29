@@ -71,6 +71,13 @@ void UnequipItemsAfterDelevel(object oPC) {
 
 }
 
+void JumpToCleric(object oCleric)
+{
+    ClearAllActions();
+    DelayCommand(1.0,JumpToObject(oCleric));
+}
+
+
 void FindAndRaisePlayer(int iSpell,object oCaster,string sPlayerName, string sCharacterName, int iDestroyObjectSelf, location lRaise)
 {
         object oPC = GetFirstPC();
@@ -98,8 +105,7 @@ void FindAndRaisePlayer(int iSpell,object oCaster,string sPlayerName, string sCh
                   DeleteLocalInt(oSoulItem,"isDead");
                   //end Sylm
 
-                  AssignCommand(oPC, ClearAllActions());
-                  AssignCommand(oPC, JumpToLocation(lRaise));
+                  AssignCommand(oPC, JumpToCleric(oCaster));
                   if (iSpell == 972 )                           //Epic spell ressurection
                   {
                         effect eDam1 = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING,100);

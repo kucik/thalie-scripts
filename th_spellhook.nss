@@ -80,6 +80,7 @@ void CheckComponent(object oCaster, int iComponentCount)
 
 void main()
 {
+    return;
     object oCaster = OBJECT_SELF;
     int iSpellId = GetSpellId();
     int iClass = GetLastSpellCastClass();

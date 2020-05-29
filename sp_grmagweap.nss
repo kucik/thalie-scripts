@@ -95,7 +95,7 @@ void main()
     } // end of if (iCasterLevel < 1)
 
     //Finish declaration of major variables
-    int iBonus = iCasterLevel /4;
+    int iBonus = iCasterLevel /5 +1;
     int nDuration =  iCasterLevel ;
     int nMetaMagic = GetMetaMagicFeat();
 
