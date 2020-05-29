@@ -98,6 +98,7 @@ void main()
             nPoly = POLYMORPH_TYPE_ZOMBIE;
         }
     }
+    SendMessageToPC(OBJECT_SELF,"Promena-"+IntToString(nPoly));
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_POLYMORPH_SELF, FALSE));

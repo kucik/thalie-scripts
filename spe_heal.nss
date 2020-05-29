@@ -68,6 +68,11 @@ void main()
     }
     else
     {
+        if (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget)==TRUE)
+        {
+            return;
+        }
+
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_HEAL, FALSE));
         //Set the heal effect

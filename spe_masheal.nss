@@ -86,7 +86,7 @@ void main()
       else
       {
             //Make a faction check
-            if(GetIsFriend(oTarget) && GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
+            if(GetIsFriend(oTarget) && (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD) && (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget)==FALSE))
             {
                 //Fire cast spell at event for the specified target
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_MASS_HEAL, FALSE));

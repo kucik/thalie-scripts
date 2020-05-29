@@ -127,6 +127,11 @@ void spellsCure(int nDamage, int nMaxExtraDamage, int nMaximized, int vfx_impact
     int nMetaMagic = GetMetaMagicFeat();
     effect eHeal, eDam;
 
+    if (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget)==TRUE)
+    {
+        return;
+    }
+
     int nExtraDamage = GetCasterLevel(OBJECT_SELF); // * figure out the bonus damage
     if (nExtraDamage > nMaxExtraDamage)
     {
@@ -158,6 +163,7 @@ void spellsCure(int nDamage, int nMaxExtraDamage, int nMaximized, int vfx_impact
     {
         nDamage = nDamage + (nDamage/2);
     }
+
 
 
     if (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD)
