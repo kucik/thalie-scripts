@@ -57,13 +57,9 @@ void main()
 
 
     effect eHaste = EffectHaste();
-    effect eACdec = EffectACDecrease(3);
-    effect eABinc = EffectAttackIncrease(1);
     effect eVis = EffectVisualEffect(VFX_IMP_HASTE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eLink = EffectLinkEffects(eHaste, eDur);
-    eLink = EffectLinkEffects(eLink, eACdec);
-    eLink = EffectLinkEffects(eLink, eABinc);
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     int nMetaMagic = GetMetaMagicFeat();

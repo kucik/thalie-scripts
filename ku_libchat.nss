@@ -140,7 +140,7 @@ void ku_RunChatCommand(object oPC,int cmdn, string param) {
     }
 */
     /* DISLIKE */
-    case 6: {
+    case 27: {
       object oTarget = GetFirstPC();
       int iFaction = GetFactionId (oPC);
       while(GetIsObjectValid(oTarget)) {
@@ -437,7 +437,7 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(KU_CHAT_CMD_FEAT,"feat");
    ku_DefineChatCommand(KU_CHAT_CMD_FEAT,"odbornost");
 //   ku_DefineChatCommand(5,"create"); //create item
-   ku_DefineChatCommand(6,"dislike");
+
    ku_DefineChatCommand(7,"?");
    ku_DefineChatCommand(7,"help");
    ku_DefineChatCommand(8,"portrait");
@@ -462,6 +462,7 @@ void ku_ChatCommandsInit() {
    ku_DefineChatCommand(24,"strip");
    ku_DefineChatCommand(25,"kostky");
    ku_DefineChatCommand(26,"item");
+   ku_DefineChatCommand(27,"dislike");
 }
 
 void ku_SlowMe(int speed) {

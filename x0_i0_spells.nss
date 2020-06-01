@@ -454,7 +454,7 @@ void DoDirgeEffect(object oTarget)
         {
 
             //Make a Fortitude Save to avoid the effects of the movement hit.
-            if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_ALL, GetAreaOfEffectCreator()))
+            if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+3, SAVING_THROW_ALL, GetAreaOfEffectCreator()))
             {
                 int nGetLastPenalty = GetLocalInt(oTarget, "X0_L_LASTPENALTY");
                 // * increase penalty by 2

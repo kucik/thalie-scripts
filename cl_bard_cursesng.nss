@@ -43,23 +43,22 @@ void main()
     int nPerform = nRanks;
     int nDuration = 10; //+ nChr;
 
+
     effect eAttack;
     effect eDamage;
     effect eWill;
     effect eFort;
     effect eReflex;
-    effect eHP;
     effect eAC;
     effect eSkill;
 
-    int nAttack;
-    int nDamage;
-    int nWill;
-    int nFort;
-    int nReflex;
-    int nHP;
-    int nAC;
-    int nSkill;
+    int nAttack = 0;
+    int nDamage= 0;
+    int nWill= 0;
+    int nFort= 0;
+    int nReflex= 0;
+    int nAC= 0;
+    int nSkill= 0;
     //Check to see if the caster has Lasting Impression and increase duration.
     if(GetHasFeat(870))
     {
@@ -71,369 +70,143 @@ void main()
         nDuration += 5;
     }
 
-    if(nPerform >= 100 && nLevel >= 40)
-    {
-        nAttack = 4;
-        nDamage = 5;
-        nWill = 5;
-        nFort = 4;
-        nReflex = 4;
-        nHP = 70;
-        nAC = 10;
-        nSkill = 25;
-    }
-    else if(nPerform >= 98 && nLevel >= 39)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 4;
-        nFort = 3;
-        nReflex = 4;
-        nHP = 66;
-        nAC = 9;
-        nSkill = 23;
-    }
-    else if(nPerform >= 96 && nLevel >= 38)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 4;
-        nFort = 3;
-        nReflex = 4;
-        nHP = 64;
-        nAC = 9;
-        nSkill = 23;
-    }
-    else if(nPerform >= 94 && nLevel >= 37)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 4;
-        nFort = 3;
-        nReflex = 4;
-        nHP = 62;
-        nAC = 8;
-        nSkill = 22;
-    }
-    else if(nPerform >= 92 && nLevel >= 36)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 4;
-        nFort = 3;
-        nReflex = 3;
-        nHP = 60;
-        nAC = 8;
-        nSkill = 22;
-    }
-    else if(nPerform >= 90 && nLevel >= 35)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 3;
-        nFort = 3;
-        nReflex = 3;
-        nHP = 58;
-        nAC = 7;
-        nSkill = 51;
-    }
-    else if(nPerform >= 88 && nLevel >= 34)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 3;
-        nHP = 56;
-        nAC = 7;
-        nSkill = 21;
-    }
-    else if(nPerform >= 86 && nLevel >= 33)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 3;
-        nHP = 54;
-        nAC = 7;
-        nSkill = 20;
-    }
-    else if(nPerform >= 84 && nLevel >= 32)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 3;
-        nHP = 52;
-        nAC = 7;
-        nSkill = 20;
-    }
-    else if(nPerform >= 82 && nLevel >= 31)
-    {
-        nAttack = 3;
-        nDamage = 4;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 3;
-        nHP = 50;
-        nAC = 7;
-        nSkill = 19;
-    }
-    else if(nPerform >= 80 && nLevel >= 30)
+    if(nPerform >= 100 && nLevel >= 30)
     {
         nAttack = 2;
         nDamage = 4;
         nWill = 3;
         nFort = 2;
         nReflex = 2;
-        nHP = 48;
         nAC = 7;
-        nSkill = 19;
-    }
-    else if(nPerform >= 77 && nLevel >= 29)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 46;
-        nAC = 6;
-        nSkill = 18;
-    }
-    else if(nPerform >= 74 && nLevel >= 28)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 44;
-        nAC = 6;
-        nSkill = 17;
-    }
-    else if(nPerform >= 71 && nLevel >= 27)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 42;
-        nAC = 6;
         nSkill = 16;
     }
-    else if(nPerform >= 68 && nLevel >= 26)
+    else if(nPerform >= 90 && nLevel >= 29)
     {
         nAttack = 2;
         nDamage = 3;
         nWill = 3;
         nFort = 2;
         nReflex = 2;
-        nHP = 40;
         nAC = 6;
-        nSkill = 15;
-    }
-    else if(nPerform >= 65 && nLevel >= 25)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 38;
-        nAC = 6;
-        nSkill = 14;
-    }
-    else if(nPerform >= 62 && nLevel >= 24)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 36;
-        nAC = 5;
         nSkill = 13;
     }
-    else if(nPerform >= 59 && nLevel >= 23)
+    else if(nPerform >= 90 && nLevel >= 28)
     {
         nAttack = 2;
         nDamage = 3;
         nWill = 3;
         nFort = 2;
         nReflex = 2;
-        nHP = 34;
-        nAC = 5;
+        nAC = 6;
         nSkill = 12;
     }
-    else if(nPerform >= 56 && nLevel >= 22)
+    else if(nPerform >= 90 && nLevel >= 27)
     {
         nAttack = 2;
         nDamage = 3;
         nWill = 3;
         nFort = 2;
         nReflex = 2;
-        nHP = 32;
-        nAC = 5;
+        nAC = 6;
         nSkill = 11;
     }
-    else if(nPerform >= 53 && nLevel >= 21)
+    else if(nPerform >= 90 && nLevel >= 26)
     {
         nAttack = 2;
         nDamage = 3;
         nWill = 3;
         nFort = 2;
         nReflex = 2;
-        nHP = 30;
-        nAC = 5;
-        nSkill = 9;
+        nAC = 6;
+        nSkill = 10;
     }
-    else if(nPerform >= 50 && nLevel >= 20)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 28;
-        nAC = 4;
-        nSkill = 8;
-    }
-    else if(nPerform >= 45 && nLevel >= 19)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 26;
-        nAC = 4;
-        nSkill = 7;
-    }
-    else if(nPerform >= 40 && nLevel >= 18)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 24;
-        nAC = 4;
-        nSkill = 6;
-    }
-    else if(nPerform >= 35 && nLevel >= 17)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 22;
-        nAC = 4;
-        nSkill = 5;
-    }
-    else if(nPerform >= 30 && nLevel >= 16)
-    {
-        nAttack = 2;
-        nDamage = 3;
-        nWill = 3;
-        nFort = 2;
-        nReflex = 2;
-        nHP = 20;
-        nAC = 3;
-        nSkill = 4;
-    }
-    else if(nPerform >= 24 && nLevel >= 15)
+    else if(nPerform >= 82 && nLevel >= 25)
     {
         nAttack = 2;
         nDamage = 3;
         nWill = 2;
         nFort = 2;
         nReflex = 2;
-        nHP = 16;
+        nAC = 5;
+        nSkill = 8;
+    }
+    else if(nPerform >= 74 && nLevel >= 24)
+    {
+        nAttack = 2;
+        nDamage = 3;
+        nWill = 2;
+        nFort = 1;
+        nReflex = 1;
+        nAC = 5;
+        nSkill = 6;
+    }
+    else if(nPerform >= 66 && nLevel >= 23)
+    {
+        nAttack = 2;
+        nDamage = 3;
+        nWill = 2;
+        nFort = 1;
+        nReflex = 1;
+        nAC = 4;
+        nSkill = 4;
+    }
+    else if(nPerform >= 58 && nLevel >= 22)
+    {
+        nAttack = 2;
+        nDamage = 3;
+        nWill = 1;
+        nAC = 4;
+        nSkill = 2;
+    }
+    else if(nPerform >= 55 && nLevel >= 21)
+    {
+        nAttack = 2;
+        nDamage = 3;
+        nWill = 1;
         nAC = 3;
-        nSkill = 3;
+    }
+    else if(nPerform >= 35 && nLevel >= 17)
+    {
+        nAttack = 2;
+        nDamage = 3;
+        nAC = 3;
     }
     else if(nPerform >= 21 && nLevel >= 14)
     {
         nAttack = 2;
         nDamage = 3;
-        nWill = 1;
-        nFort = 1;
-        nReflex = 1;
-        nHP = 16;
-        nAC = 3;
-        nSkill = 2;
-    }
-    else if(nPerform >= 18 && nLevel >= 11)
-    {
-        nAttack = 2;
-        nDamage = 2;
-        nWill = 1;
-        nFort = 1;
-        nReflex = 1;
-        nHP = 8;
         nAC = 2;
-        nSkill = 2;
     }
     else if(nPerform >= 15 && nLevel >= 8)
     {
         nAttack = 2;
         nDamage = 2;
-        nWill = 1;
-        nFort = 1;
-        nReflex = 1;
-        nHP = 8;
         nAC = 2;
-        nSkill = 1;
     }
     else if(nPerform >= 12 && nLevel >= 6)
     {
         nAttack = 1;
         nDamage = 2;
-        nWill = 1;
-        nFort = 1;
-        nReflex = 1;
-        nHP = 0;
         nAC = 2;
-        nSkill = 1;
     }
     else if(nPerform >= 9 && nLevel >= 3)
     {
         nAttack = 1;
         nDamage = 2;
-        nWill = 1;
-        nFort = 1;
-        nReflex = 0;
-        nHP = 0;
         nAC = 1;
-        nSkill = 0;
     }
-    else if(nPerform >= 6 && nLevel >= 2)
+    else  if(nPerform >= 6 && nLevel >= 2)
     {
         nAttack = 1;
         nDamage = 1;
-        nWill = 1;
-        nFort = 0;
-        nReflex = 0;
-        nHP = 0;
         nAC = 1;
-        nSkill = 0;
     }
     else if(nPerform >= 3 && nLevel >= 1)
     {
         nAttack = 1;
         nDamage = 1;
-        nWill = 0;
-        nFort = 0;
-        nReflex = 0;
-        nHP = 0;
-        nAC = 0;
-        nSkill = 0;
     }
+
     effect eVis = EffectVisualEffect(VFX_IMP_DOOM);
 
     eAttack = EffectAttackDecrease(nAttack);
@@ -455,12 +228,6 @@ void main()
         eReflex = EffectSavingThrowDecrease(SAVING_THROW_REFLEX, nReflex);
         eLink = EffectLinkEffects(eLink, eReflex);
     }
-    if(nHP > 0)
-    {
-        //SpeakString("HP Bonus " + IntToString(nHP));
-        eHP = EffectDamage(nHP, DAMAGE_TYPE_SONIC, DAMAGE_POWER_NORMAL);
-//        eLink = EffectLinkEffects(eLink, eHP);
-    }
     if(nAC > 0)
     {
         eAC = EffectACDecrease(nAC, AC_DODGE_BONUS);
@@ -481,7 +248,6 @@ void main()
 
     object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));
 
-    eHP = ExtraordinaryEffect(eHP);
     eLink = ExtraordinaryEffect(eLink);
 
     if(!GetHasFeatEffect(871, oTarget)&& !GetHasSpellEffect(GetSpellId(),oTarget))
@@ -498,12 +264,6 @@ void main()
             {
                 if(!GetHasFeatEffect(871, oTarget)&& !GetHasSpellEffect(GetSpellId(),oTarget))
                 {
-                    if (nHP > 0)
-                    {
-                        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SONIC), oTarget);
-                        DelayCommand(0.01, ApplyEffectToObject(DURATION_TYPE_INSTANT, eHP, oTarget));
-                    }
-
                     if (!GetIsDead(oTarget))
                     {
                         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
