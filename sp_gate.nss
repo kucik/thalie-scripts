@@ -75,17 +75,13 @@ void main()
         {
            if (!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
            {
-               //Boss exception
-               if(GetIsBoss(oTarget)) {
-                   DelayCommand(0.25,ApplyBossInstantKillDamage(oTarget, nCasterLevel,TRUE));
-               }
-               else {
+
                             effect eKill = EffectDamage(GetCurrentHitPoints(oTarget));
                             //just to be extra-sure... :)
                             effect eDeath = EffectDeath(FALSE, FALSE);
                             DelayCommand(0.25, ApplyEffectToObject(DURATION_TYPE_INSTANT, eKill, oTarget));
                             DelayCommand(0.25, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
-               }
+
 
            }
 

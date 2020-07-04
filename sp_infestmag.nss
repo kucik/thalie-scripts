@@ -158,11 +158,7 @@ void RunInfestImpact(object oTarget, object oCaster, int nSaveDC, int nMetaMagic
                  {
                      FloatingTextStrRefOnCreature(100932,oTarget);
                      effect eKill = EffectDamage(GetCurrentHitPoints(oTarget)+1);
-                     //Boss exception
-                     if(GetIsBoss(oTarget))
-                       ApplyBossInstantKillDamage(oTarget, GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF),FALSE),FALSE);
-                     else
-                       ApplyEffectToObject(DURATION_TYPE_INSTANT,eKill,oTarget);
+                     ApplyEffectToObject(DURATION_TYPE_INSTANT,eKill,oTarget);
                      effect eVfx = EffectVisualEffect(VFX_IMP_DEATH_L);
                      ApplyEffectToObject(DURATION_TYPE_INSTANT,eVfx,oTarget);
                  }

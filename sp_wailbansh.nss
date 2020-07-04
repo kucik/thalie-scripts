@@ -79,11 +79,7 @@ void main()
                         //Apply the delay VFX impact and death effect
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                         effect eDeath = EffectDeath();
-                        //Boss exception
-                        if(GetIsBoss(oTarget))
-                           DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE));
-                        else
-                          DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget)); // no delay
+                        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget)); // no delay
                     }
                 }
             }

@@ -82,11 +82,7 @@ void main()
                     if (GetRacialType(oTarget) == RACIAL_TYPE_OUTSIDER || GetRacialType(oTarget) == RACIAL_TYPE_ELEMENTAL)
                     {
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eUnsummon, oTarget));
-                        //Boss exception
-                        if(GetIsBoss(oTarget))
-                          DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, nCasterLevel,TRUE));
-                        else
-                          DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
+                        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                     }
 
                     ///----------------------------------------------------------

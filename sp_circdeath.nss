@@ -79,10 +79,7 @@ void main()
                 //Make a Fort Save versus death effects
                 if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DEATH, OBJECT_SELF, fDelay))
                 {
-                  if(GetIsBoss(oTarget))
-                    DelayCommand(fDelay, ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE));
-                  else
-                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
+                  DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                 }
 
 

@@ -69,10 +69,6 @@ void main()
                  //Make Forttude save
                  if (!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DEATH))
                  {
-                    // Bos exception
-                    if(GetIsBoss(oTarget))
-                      ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE);
-                    else
                     //Apply the death effect and VFX impact
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(), oTarget);
                     //ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);

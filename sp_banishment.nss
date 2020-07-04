@@ -94,11 +94,7 @@ void main()
 
                          nPool = nPool - GetHitDice(oTarget);
                          ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetLocation(oTarget));
-                         //Boss exception
-                         if(GetIsBoss(oTarget)) {
-                           DelayCommand(0.25,ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),TRUE));
-                         }
-                         else if (CanCreatureBeDestroyed(oTarget) == TRUE)
+                         if (CanCreatureBeDestroyed(oTarget) == TRUE)
                          {
                             //bugfix: Simply destroying the object won't fire it's OnDeath script.
                             //Which is bad when you have plot-specific things being done in that

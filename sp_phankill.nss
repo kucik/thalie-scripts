@@ -93,15 +93,12 @@ void main()
                     }
                     else
                     {
-                       if(GetIsBoss(oTarget))
-                         ApplyBossInstantKillDamage(oTarget, GetCasterLevel(OBJECT_SELF),FALSE);
-                       else {
                          //Apply the death effect and VFX impact
                          // Immunity to death magic, should not make you immune to Phantasmal Killer.
                          // So we need to make the effect supernatural.
                          ApplyEffectToObject(DURATION_TYPE_INSTANT, SupernaturalEffect(EffectDeath()), oTarget);
                          //ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-                       }
+
                     }
                 }
             }

@@ -110,11 +110,7 @@ void main()
                                     effect eDeath = EffectDeath();
                                     // Need to make this supernatural, so that it ignores death immunity.
                                     eDeath = SupernaturalEffect( eDeath );
-                                    //Boss exception
-                                    if(GetIsBoss(oTarget))
-                                      DelayCommand(fDelay,ApplyBossInstantKillDamage(oTarget, nCasterLvl,FALSE));
-                                    else
-                                      DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
+                                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget));
                                 }
                             } // Will save
                         }
