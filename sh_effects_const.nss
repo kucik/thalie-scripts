@@ -11,8 +11,8 @@ const string AKTIVNI_POSTOJ_OBRANCE= "postoj";
 const string OBCAN_THALIE = "obcan_thalie";
 const string AKTIVNI_SAMURAJ_BOURE_UDERU = "samuraj_boure_uderu";
 const string ULOZENI_EXORCISTA_NARUSENI_MAGIE = "exorcista_naruseni_magie";
-const string ULOZENI_CERNOKNEZNIK_TYP_ESENCE = "typ_esence";
-const string ULOZENI_CERNOKNEZNIK_OHAVNA_RANA = "ohavna_rana";
+const string ULOZENI_VAZAC_TAJEMNY_VYBUCH = "vazac_tajemny_vybuch";
+
 
 
 
@@ -35,8 +35,6 @@ const int EFFECT_SERMIR_PROPRACOVANA_OBRANA_DODGE_AC = 2013;
 const int EFFECT_SAMURAJ_BOURE_UDERU_AB_POSTIH = 2014;
 const int EFFECT_RANGER_NATURAL_SKILLS = 2015;
 const int IP_REGENERATION = 2016;
-const int EFFECT_CERNOKNEZNIK_VABIVY_VLIV = 2017;
-const int EFFECT_CERNOKNEZNIK_PEKELNA_ESENCE = 2018;
 const int EFFECT_CONCEALMENT = 2019;
 const int EFFECT_BRUTALNI_VRH  = 2020;
 const int EFFECT_SPRAVEDLIVY_UDER = 2021;

@@ -2,6 +2,7 @@
 #include "ku_exp_time"
 #include "subraces"
 #include "ja_lib"
+#include "sh_classes_inc"
 
 #include "tc_ds_system_inc"
 
@@ -57,6 +58,7 @@ void main()
             continue;
         }
         DelayCommand(fPCDelay, HeartbeatPCActions(oPC, t));
+        OnHBClassSystem(oPC);
         fPCDelay = fPCDelay + fPCDelayStep;
         oPC = GetNextPC();
         i++;

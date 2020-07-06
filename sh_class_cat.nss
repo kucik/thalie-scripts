@@ -312,28 +312,7 @@ void AddSkillIPBonuses(object oPC, object oPCSkin)
          if (GetHasFeat(FEAT_EXORCISTA_ZNALOST_MAGIE,oPC) == TRUE)
          {
                 iSpellcraft +=15;
-
          }
-         /*CERNOKNEZNIK osaleni predmetu*/
-         if (GetHasFeat(FEAT_CERNOKNEZNI_OSALENI_PREDMETU,oPC) == TRUE)
-         {
-                iSpellcraft +=4;
-
-         }
-         /*Cernokneznik - mlznz ukryt*/
-         if (GetHasFeat(FEAT_CERNOKNEZNIK_INVOKACE1_MLZNY_UKRYT,oPC) == TRUE)
-         {
-               iHide +=4;
-               iMoveSilently+= 4;
-         }
-
-        /*Cernokneznik -nadpozemsky sepot*/
-         if (GetHasFeat(FEAT_CERNOKNEZNIK_INVOKACE1_NADPOZEMSKY_SEPOT,oPC) == TRUE)
-         {
-               iLore +=6;
-               iSpellcraft+= 6;
-         }
-
         /*GENERAL FEAT - ALERTNESS*/
          if (GetHasFeat(FEAT_ALERTNESS,oPC) == TRUE)
          {
@@ -444,6 +423,7 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     int iDamageReductionCold = 0;
     int iDamageReductionAcid = 0;
     int iDamageReductionElec = 0;
+    int iDamageReductionMagic = 0;
 
     int iVulnerabilityFire = 0;
     int iVulnerabilityCold = 0;
@@ -492,6 +472,12 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         break;
 
     }
+    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF) ;//vazac
+    if (iCasterLevel >= 18)
+    {
+        iDamageReductionMagic = 10;
+    }
+
     itemproperty ip;
     effect ef,eSup;
     //pohlceni
@@ -516,6 +502,12 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     if (iDamageReductionElec >0)
     {
         ip = ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_ELECTRICAL,GetIPDamageReductionHPResistConstant(iDamageReductionElec));
+        SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
+        AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
+    }
+    if (iDamageReductionMagic >0)
+    {
+        ip = ItemPropertyDamageResistance(IP_CONST_DAMAGETYPE_MAGICAL,GetIPDamageReductionHPResistConstant(iDamageReductionElec));
         SetItemPropertySpellId(ip,IP_DAMAGE_REDUCTION);
         AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oPCSkin,99999.0);
     }
@@ -582,14 +574,7 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
 /*Bonusy do regenerace*/
 void ApplyRegeneration(object oPC, object oPCSkin)
 {
-
-    int iRegeneration = 0;
     int iDDRegen = 0;
-    /*CERNOKNEZNIK Dábelská prunost*/
-    if (GetHasFeat(FEAT_CERNOKNEZNI_DABELSKA_PRUZNOST,oPC) == TRUE)
-    {
-         iRegeneration += (GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,oPC)-8)/5+1;
-    }
     /*Rychle hojeni*/
     if (GetHasFeat(FEAT_EPICGENERAL_RYCHLE_HOJENI_1,oPC) == TRUE)
     {
@@ -606,13 +591,6 @@ void ApplyRegeneration(object oPC, object oPCSkin)
          iDDRegen = 20;
     }
     itemproperty eRegen;
-    if (iRegeneration >0)
-    {
-        eRegen = ItemPropertyRegeneration(iRegeneration);
-        SetItemPropertySpellId(eRegen,IP_REGENERATION);
-        AddItemProperty(DURATION_TYPE_TEMPORARY,eRegen,oPCSkin,43200.0);
-
-    }
     if (iDDRegen >0)
     {
         eRegen = ItemPropertyRegeneration(iDDRegen);
@@ -623,24 +601,6 @@ void ApplyRegeneration(object oPC, object oPCSkin)
 }
 
 
-void ApplyConcealment(object oPC, object oPCSkin)
-{
-
-    int iConcealment = 0;
-    /*CERNOKNEZNIK  mlznz ukryt*/
-    if (GetHasFeat(FEAT_CERNOKNEZNIK_INVOKACE1_MLZNY_UKRYT,oPC) == TRUE)
-    {
-        iConcealment+= 20;
-    }
-    if (iConcealment >0)
-    {
-        effect ef =  EffectConcealment(iConcealment,MISS_CHANCE_TYPE_VS_RANGED);
-        effect eLink = SupernaturalEffect(ef);
-        SetEffectSpellId (eLink,EFFECT_CONCEALMENT);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-
-    }
-}
 /*Rychlost*/
 void ApplySpeed(object oPC, object oPCSkin)
 {

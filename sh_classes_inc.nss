@@ -221,6 +221,69 @@ void ApplyLilithDmgShield(object oPC)
     }
 }
 
+void CastBlast(object oPC)
+{
+    if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH1,oPC)==FALSE) return;
+    if (GetLocalInt(oPC,ULOZENI_VAZAC_TAJEMNY_VYBUCH)==FALSE) return;
+    object oSlotOffHand = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
+    if (GetIsObjectValid(oSlotOffHand)==FALSE) return;
+    string sOffHandTag = GetTag(oSlotOffHand);
+    if (sOffHandTag!="sys_orb1") return;
+
+    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF) ;//vazac
+    int iDice = 1+(iCasterLevel-1)/2;
+
+    object oTarget = GetNearestCreature(CREATURE_TYPE_PERCEPTION,PERCEPTION_SEEN,oPC,1,CREATURE_TYPE_RACIAL_TYPE,REPUTATION_TYPE_ENEMY);
+    if (GetDistanceBetween(oPC,oTarget) > 20.0) return;
+    //Hlavni kod
+    int iCharismaMod = GetAbilityModifier(ABILITY_CHARISMA,oPC);
+    int iTargetSpellResistance = GetSpellResistance(oTarget);
+    int iSRMod = 0;
+    if (iTargetSpellResistance>10)
+    {
+        iSRMod = (iTargetSpellResistance-10)*2;
+        if (iSRMod > 100 )
+        {
+           iSRMod = 100;
+        }
+    }
+    if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH2,oPC)==TRUE)
+    {
+        iDice = iDice +5;
+    }
+    if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH3,oPC)==TRUE)
+    {
+        iDice = iDice +5;
+    }
+    int iDamage = 0;
+    if (GetHasFeat(FEAT_VAZAC_OHNIVY_VYBUCH,oPC)==TRUE)
+    {
+        iDamage = d10(iDice)+iCharismaMod;
+    }
+    else
+    {
+        iDamage = d4(iDice)+iCharismaMod;
+    }
+    iDamage = FloatToInt(  IntToFloat(iDamage) * (100.0- IntToFloat(iSRMod) )/100.0);
+    if (iDamage == 0) return;
+    if (GetHasFeat(FEAT_VAZAC_OHNIVY_VYBUCH,oPC)==TRUE)
+    {
+        effect eDamage = EffectDamage(iDamage,DAMAGE_TYPE_FIRE);
+        ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage,oTarget);
+    }
+    else
+    {
+        effect eDamage = EffectDamage(iDamage,DAMAGE_TYPE_MAGICAL);
+        ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage,oTarget);
+    }
+    //Konec hlavniho kodu
+    effect eRay = EffectBeam(VFX_BEAM_BLACK, oPC, BODY_NODE_CHEST);
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eRay, oTarget, 1.7);
+
+
+
+}
+
 
 
 ///***------------------------------------------------------------------------------------------------------------------
@@ -259,7 +322,6 @@ void OnLvlupClassSystem(object oPC)
    RefreshBonusACNaturalBase(oPC,oPCSkin);
    ApplyBonusSaves(oPC,oPCSkin);
    ApplyRegeneration(oPC,oPCSkin);
-   ApplyConcealment(oPC,oPCSkin);
    ApplySpeed(oPC,oPCSkin);
    ApplyDamageReduction(oPC,oPCSkin);
    ApplyLilithDmgShield(oPC);
@@ -277,6 +339,11 @@ void OnRestClassSystem(object oPC)
    DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK");
    DeleteLocalInt(oSoul,"KURTIZANA_KZEMI");
 
+}
+
+void OnHBClassSystem(object oPC)
+{
+    CastBlast(oPC);
 }
 
 void OnEquipClassSystem(object oPC, object oItem)
