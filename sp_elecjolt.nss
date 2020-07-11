@@ -13,7 +13,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
-#include "sh_classes_inc_e"
+#include "sh_classes_inc"
 
 void main()
 {
@@ -50,6 +50,7 @@ void main()
             //Set damage effect
             effect eBad = EffectDamage(MaximizeOrEmpower(3, nDices, GetMetaMagicFeat()), DAMAGE_TYPE_ELECTRICAL);
             //Apply the VFX impact and damage effect
+            CastBlast(OBJECT_SELF,oTarget);
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eBad, oTarget);
         }

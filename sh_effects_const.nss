@@ -11,7 +11,7 @@ const string AKTIVNI_POSTOJ_OBRANCE= "postoj";
 const string OBCAN_THALIE = "obcan_thalie";
 const string AKTIVNI_SAMURAJ_BOURE_UDERU = "samuraj_boure_uderu";
 const string ULOZENI_EXORCISTA_NARUSENI_MAGIE = "exorcista_naruseni_magie";
-const string ULOZENI_VAZAC_TAJEMNY_VYBUCH = "vazac_tajemny_vybuch";
+
 
 
 

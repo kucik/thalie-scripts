@@ -58,7 +58,6 @@ void main()
             continue;
         }
         DelayCommand(fPCDelay, HeartbeatPCActions(oPC, t));
-        OnHBClassSystem(oPC);
         fPCDelay = fPCDelay + fPCDelayStep;
         oPC = GetNextPC();
         i++;

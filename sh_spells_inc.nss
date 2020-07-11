@@ -5,10 +5,12 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
     int iModifiedCasterLevel =iCasterLevel;                                   //zustalo po zruseni dobrodruha kvuli proměnným
     if (GetLevelByClass(47,oCaster)>0)  //CLASS_TYPE_EXORCISTA
     {
-         iModifiedCasterLevel+= GetLevelByClass(47,oCaster);
+        iModifiedCasterLevel+= GetLevelByClass(47,oCaster);
     }
-
-
+    if (GetHasFeat(FEAT_TOUGH_AS_BONE,oCaster))
+    {
+        iModifiedCasterLevel+= 7;
+    }
     /* Underdark penalty */
     /* UNDERDARK_SETTING == KU_AREA_UNDERDARK */
     if(GetLocalInt( oCaster, "UNDERDARK_SETTING") == 300 ) {

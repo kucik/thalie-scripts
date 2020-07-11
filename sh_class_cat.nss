@@ -472,8 +472,11 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         break;
 
     }
-    int iCasterLevel = GetLevelByClass(44,OBJECT_SELF) ;//vazac
-    if (iCasterLevel >= 18)
+    if (GetHasFeat(FEAT_VAZAC_POHLT_MAGII_1,oPC)==TRUE)
+    {
+        iDamageReductionMagic = 5;
+    }
+    if (GetHasFeat(FEAT_VAZAC_POHLT_MAGII_2,oPC)==TRUE)
     {
         iDamageReductionMagic = 10;
     }
