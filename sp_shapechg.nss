@@ -10,6 +10,7 @@
 
 #include "x2_inc_spellhook"
 #include "X0_I0_SPELLS"
+#include "sh_spells_inc"
 void main()
 {
 
@@ -72,7 +73,7 @@ void main()
     }
     else
     {
-                //Determine Polymorph subradial type
+        //Determine Polymorph subradial type
         if(nSpell == 392)
         {
             nPoly = POLYMORPH_TYPE_RED_DRAGON;
@@ -98,7 +99,11 @@ void main()
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target
     SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELL_SHAPECHANGE, FALSE));
-
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION))
+    {
+        PolymorphWihtMerge(nPoly,eVis,nDuration);
+        return;
+    }
     //Apply the VFX impact and effects
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetLocation(OBJECT_SELF));
     DelayCommand(0.4, AssignCommand(OBJECT_SELF, ClearAllActions())); // prevents an exploit

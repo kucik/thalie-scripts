@@ -98,10 +98,14 @@ void main()
             nPoly = POLYMORPH_TYPE_ZOMBIE;
         }
     }
-    SendMessageToPC(OBJECT_SELF,"Promena-"+IntToString(nPoly));
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_POLYMORPH_SELF, FALSE));
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION))
+    {
+        PolymorphWihtMerge(nPoly,eVis,nDuration);
+        return;
+    }
 
     //Apply the VFX impact and effects
     AssignCommand(oTarget, ClearAllActions()); // prevents an exploit

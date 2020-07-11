@@ -77,3 +77,62 @@ int GetThalieEpicSpellDCBonus(object oPC)
     int iHD = GetHitDice(oPC);
     return iHD / 3 +1;
 }
+
+
+void PolymorphWihtMerge(int nPoly, effect eVis, int nDuration)
+{
+    int bWeapon = StringToInt(Get2DAString("polymorph","MergeW",nPoly)) == 1;
+    int bArmor  = StringToInt(Get2DAString("polymorph","MergeA",nPoly)) == 1;
+    int bItems  = StringToInt(Get2DAString("polymorph","MergeI",nPoly)) == 1;
+
+    object oWeaponOld = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,OBJECT_SELF);
+    object oArmorOld = GetItemInSlot(INVENTORY_SLOT_CHEST,OBJECT_SELF);
+    object oRing1Old = GetItemInSlot(INVENTORY_SLOT_LEFTRING,OBJECT_SELF);
+    object oRing2Old = GetItemInSlot(INVENTORY_SLOT_RIGHTRING,OBJECT_SELF);
+    object oAmuletOld = GetItemInSlot(INVENTORY_SLOT_NECK,OBJECT_SELF);
+    object oCloakOld  = GetItemInSlot(INVENTORY_SLOT_CLOAK,OBJECT_SELF);
+    object oBootsOld  = GetItemInSlot(INVENTORY_SLOT_BOOTS,OBJECT_SELF);
+    object oBeltOld = GetItemInSlot(INVENTORY_SLOT_BELT,OBJECT_SELF);
+    object oHelmetOld = GetItemInSlot(INVENTORY_SLOT_HEAD,OBJECT_SELF);
+    object oShield    = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,OBJECT_SELF);
+    object oGloves    = GetItemInSlot(INVENTORY_SLOT_ARMS,OBJECT_SELF);
+    if (GetIsObjectValid(oShield))
+    {
+        if (GetBaseItemType(oShield) !=BASE_ITEM_LARGESHIELD &&
+            GetBaseItemType(oShield) !=BASE_ITEM_SMALLSHIELD &&
+            GetBaseItemType(oShield) !=BASE_ITEM_TOWERSHIELD)
+        {
+            oShield = OBJECT_INVALID;
+        }
+    }
+    effect ePoly = EffectPolymorph(nPoly);
+    //Apply the VFX impact and effects
+    ClearAllActions(); // prevents an exploit
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ePoly, OBJECT_SELF, HoursToSeconds(nDuration));
+
+    object oWeaponNew = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,OBJECT_SELF);
+    object oArmorNew = GetItemInSlot(INVENTORY_SLOT_CARMOUR,OBJECT_SELF);
+
+    if (bWeapon)
+    {
+            IPWildShapeCopyItemProperties(oWeaponOld,oWeaponNew, TRUE);
+    }
+    if (bArmor)
+    {
+        IPWildShapeCopyItemProperties(oHelmetOld,oArmorNew);
+        IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
+        IPWildShapeCopyItemProperties(oShield,oArmorNew);
+        IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
+    }
+    if (bItems)
+    {
+        IPWildShapeCopyItemProperties(oRing1Old,oArmorNew);
+        IPWildShapeCopyItemProperties(oRing2Old,oArmorNew);
+        IPWildShapeCopyItemProperties(oAmuletOld,oArmorNew);
+        IPWildShapeCopyItemProperties(oCloakOld,oArmorNew);
+        IPWildShapeCopyItemProperties(oBootsOld,oArmorNew);
+        IPWildShapeCopyItemProperties(oBeltOld,oArmorNew);
+    }
+
+}
