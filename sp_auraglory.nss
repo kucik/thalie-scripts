@@ -81,19 +81,6 @@ void main()
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
             //Fire cast spell at event for the specified target
-            eFear = GetFirstEffect(oTarget);
-            //Get the first effect on the current target
-            while(GetIsEffectValid(eFear))
-            {
-                if (GetEffectType(eFear) == EFFECT_TYPE_FRIGHTENED)
-                {
-                    //Remove any fear effects and apply the VFX impact
-                    RemoveEffect(oTarget, eFear);
-                    ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-                }
-                //Get the next effect on the target
-                eFear = GetNextEffect(oTarget);
-            }
         }
         //Get the next target in the specified area around the caster
         oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));

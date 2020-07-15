@@ -61,7 +61,7 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-
+    nDuration = nDuration/2;
     object oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )
     {
@@ -70,7 +70,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
-            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
         }
 
     }
@@ -84,7 +84,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
-            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
         }
 
     }
@@ -98,7 +98,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget,TurnsToSeconds(nDuration));
-            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
         }
 
     }
@@ -111,7 +111,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
-            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
         }
 
     }
@@ -124,7 +124,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
-            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
         }
 
     }
@@ -137,7 +137,7 @@ void main()
         {
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, oTarget, TurnsToSeconds(nDuration));
-            AddDeafeningClangEffectToWeapon(oMyWeapon, RoundsToSeconds(nDuration));
+            AddDeafeningClangEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration));
         }
 
     }

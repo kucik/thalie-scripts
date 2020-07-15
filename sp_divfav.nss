@@ -46,7 +46,7 @@ void main()
 
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_HOLY_30);
 
-    int nScale = GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF),FALSE)/ 5;
+    int nScale = GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF),FALSE)/ 5 +1;
     // * must fall between +1 and +5
     if (nScale < 1)
         nScale = 1;
@@ -62,11 +62,6 @@ void main()
     effect eLink = EffectLinkEffects(eAttack, eDamage);
     eLink = EffectLinkEffects(eLink, eDur);
 
-    int nDuration = 1; // * Duration 1 turn
-    if ( nMetaMagic == METAMAGIC_EXTEND )
-    {
-        nDuration = nDuration * 2;
-    }
 
     //Apply Impact
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eImpact, GetSpellTargetLocation());
@@ -76,7 +71,7 @@ void main()
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 414, FALSE));
     //Apply VFX impact and bonus effects
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(1));
 
 }
 

@@ -59,7 +59,7 @@ void main()
     effect eLink = EffectLinkEffects(eAttack, eSave);
 
 
-
+ /*
     if (GetThalieClericDeity(OBJECT_SELF)==DEITY_DEI_ANANG)
     {
         iDamageBonus = DAMAGE_BONUS_1d4;
@@ -137,7 +137,7 @@ void main()
         eLink = EffectLinkEffects(eLink, eHelg);
     }
 
-
+                  */
 
 
 
@@ -174,7 +174,7 @@ void main()
             //Apply VFX impact and bonus effects
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration)));
-
+            /*
             if (GetThalieClericDeity(OBJECT_SELF)==DEITY_XIAN)
             {
                 iDamageBonus = IP_CONST_FEAT_SNEAK_ATTACK_1D6;
@@ -225,7 +225,8 @@ void main()
                 {
                     IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusFeat(iDamageBonus), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE);
                 }
-            }
+
+            }  */
         }
         //Get the next target in the specified area around the caster
         oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(OBJECT_SELF));

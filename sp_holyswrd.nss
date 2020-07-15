@@ -15,14 +15,17 @@
 
 #include "nw_i0_spells"
 #include "x2_i0_spells"
-
+#include "sh_deity_inc"
 #include "x2_inc_spellhook"
 
 
 void  AddHolyAvengerEffectToWeapon(object oMyWeapon, float fDuration)
 {
    //IPSafeAddItemProperty(oMyWeapon,ItemPropertyEnhancementBonus(2), fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING ,FALSE,TRUE);
-   IPSafeAddItemProperty(oMyWeapon,ItemPropertyHolyAvenger(), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
+   IPSafeAddItemProperty(oMyWeapon,ItemPropertyEnhancementBonus(5), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
+   IPSafeAddItemProperty(oMyWeapon,ItemPropertyDamageBonusVsAlign(IP_CONST_ALIGNMENTGROUP_EVIL,IP_CONST_DAMAGETYPE_DIVINE,IP_CONST_DAMAGEBONUS_1d6), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
+   IPSafeAddItemProperty(oMyWeapon,ItemPropertyBonusSpellResistance(IP_CONST_SPELLRESISTANCEBONUS_16), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
+   IPSafeAddItemProperty(oMyWeapon,ItemPropertyOnHitCastSpell(IP_CONST_ONHIT_CASTSPELL_GREATER_DISPELLING,15), fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING,TRUE,TRUE);
    return;
 }
 
@@ -52,6 +55,7 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_GOOD_HELP);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int nDuration = GetCasterLevel(OBJECT_SELF);
+    nDuration = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nDuration,FALSE);
     int nMetaMagic = GetMetaMagicFeat();
 
    if (nMetaMagic == METAMAGIC_EXTEND)
