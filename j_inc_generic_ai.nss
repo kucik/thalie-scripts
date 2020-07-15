@@ -4212,54 +4212,6 @@ int AI_CompareTimeStopStored(int nSpell, int nSpell2 = 0, int nSpell3 = 0, int n
     }
     return FALSE;
 }
-/*::///////////////////////////////////////////////
-//:: Name: AI_GetBestFriendyAreaSpellTarget
-//::///////////////////////////////////////////////
- Returns the object to the specifications:
- Within nRange (float)
- The most targets around the creature in nRange, in nSpread.
- Can be the caster, of course
-//:://///////////////////////////////////////////*/
-/* UNCOMMENT
-object AI_GetBestFriendyAreaSpellTarget(float fRange, float fSpread, int nShape)
-{
-    object oGroupies, oSpellTarget, oTarget;
-    int iCountOnPerson, iMostOnPerson, nCnt;
-    location lTarget;
-    // Will always at least return ourselves.
-    oSpellTarget = OBJECT_SELF;
-    nCnt = i1;
-    // Gets the nearest friend...the loops takes care of range.
-    oTarget = GetLocalObject(OBJECT_SELF, ARRAY_ALLIES_RANGE_SEEN + IntToString(nCnt));
-    // Start loop. Checks range here.
-    while(GetIsObjectValid(oTarget) && GetDistanceToObject(oTarget) <= fRange)
-    {
-        lTarget = GetLocation(oTarget);
-        // Starts the count at 0, as first object in shape will also include the target.
-        iCountOnPerson = i0;
-        // Reset/Start counting the spread on oTarget.
-        oGroupies = GetFirstObjectInShape(nShape, fSpread, lTarget);
-        // If oGroupies is invalid, nothing.
-        while(GetIsObjectValid(oGroupies))
-        {
-            // Only add one if the person is an friend
-            if(GetIsFriend(oGroupies))
-            {
-                iCountOnPerson++;
-            }
-            oGroupies = GetNextObjectInShape(nShape, fSpread, lTarget);
-        }
-        if(iCountOnPerson > iMostOnPerson)
-        {
-            iMostOnPerson = iCountOnPerson;
-            oSpellTarget = oTarget;
-        }
-        nCnt++;
-        oTarget = GetLocalObject(OBJECT_SELF, ARRAY_ALLIES_RANGE + IntToString(nCnt));
-    }
-    // Will always return self if anything
-    return oSpellTarget;
-}      END UNCOMMENT*/
 // If the target will always save against iSaveType, and will take no damage, returns TRUE
 // * Target is GlobalSpellTarget. Save is GlobalSpellTargetWill ETC.
 // * iSaveType - SAVING_THROW WILL/REFLEX/FORTITUDE
@@ -13530,7 +13482,7 @@ int AI_SetUpAllObjects(object oInputBackup)
     else
     {
         GlobalTotalPeople = FALSE;// Reset
-        oSetUpTarget = GetFirstObjectInShape(SHAPE_SPHERE, f50, lSelf, TRUE);
+        oSetUpTarget = GetFirstObjectInShape(SHAPE_SPHERE, f30, lSelf, TRUE);
         while(GetIsObjectValid(oSetUpTarget))
         {
             // We totally ignore DM's, and AI_IGNORE people
@@ -13564,7 +13516,7 @@ int AI_SetUpAllObjects(object oInputBackup)
                     }
                 }
             }
-            oSetUpTarget = GetNextObjectInShape(SHAPE_SPHERE, f50, lSelf, TRUE);
+            oSetUpTarget = GetNextObjectInShape(SHAPE_SPHERE, f30, lSelf, TRUE);
         }
         // The first simple one is therefore done :-)
 //        SendMessageToPC(GetFirstPC(), IntToString(GlobalTotalPeople) + "," + IntToString(GlobalTotalAllies));
@@ -14306,7 +14258,7 @@ int AI_SetUpAllObjects(object oInputBackup)
             // HP Maximum        - Used for both spells and melee (TARGETING_HP_MAXIMUM)
 
                 // 0. Sneak attack check
-                if(GetHasFeat(FEAT_SNEAK_ATTACK))
+                /*if(GetHasFeat(FEAT_SNEAK_ATTACK))
                 {
                     // We normally get the nearest enemy who is not attacking us, and
                     // actually stop!
@@ -14321,9 +14273,9 @@ int AI_SetUpAllObjects(object oInputBackup)
                     }
                     // If we have trouble using that one, IE they are attacking us, we
                     // just use normal methods.
-                }
+                }     */
                 // 1. AC
-                iMinimum = GetAIInteger(TARGETING_AC + MINIMUM);
+                /*iMinimum = GetAIInteger(TARGETING_AC + MINIMUM);
                 // Do we do AC? And over one target...
                 // - iCnt2 is the total target stored in the last array.
                 if(iMinimum && iRemainingTargets >= i2)
@@ -14343,7 +14295,7 @@ int AI_SetUpAllObjects(object oInputBackup)
                     // - After iMinimum we make sure the AC differences is not a major one of
                     // over 5.
                     iRemainingTargets = AI_TargetingArrayLimitTargets(ARRAY_MELEE_ENEMY, iTypeOfTarget, i5, iMinimum, iMaximum);
-                }
+                }                                   */
                 // Most others are similar (and all integer values so easy to check)
                 // 2. Phisical protections.
                 iMinimum = GetAIInteger(TARGETING_PHISICALS + MINIMUM);
@@ -14559,7 +14511,7 @@ int AI_SetUpAllObjects(object oInputBackup)
         // HP Current        - Used for both spells and phisical attacks (TARGETING_HP_CURRENT)
         // HP Maximum        - Used for both spells and phisical attacks (TARGETING_HP_MAXIMUM)
                 // 0. Sneak attack check
-                if(GetHasFeat(FEAT_SNEAK_ATTACK))
+                /*if(GetHasFeat(FEAT_SNEAK_ATTACK))
                 {
                     // We normally get the nearest enemy who is not attacking us, and
                     // actually stop!
@@ -14577,7 +14529,7 @@ int AI_SetUpAllObjects(object oInputBackup)
 
                     // Delete temp array
                     AI_TargetingArrayDelete(ARRAY_TEMP_ARRAY);
-                }
+                }*/
                 iMinimum = GetAIInteger(TARGETING_RANGE + MINIMUM);
                 // 1. Do we do range?
                 if(iMinimum && iRemainingTargets >= i2)
@@ -14593,7 +14545,7 @@ int AI_SetUpAllObjects(object oInputBackup)
                     iRemainingTargets = AI_TargetingArrayLimitTargetsFloat(ARRAY_RANGED_ENEMY, iTypeOfTarget, f5, iMinimum, iMaximum);
                 }
                 // 2. AC
-                iMinimum = GetAIInteger(TARGETING_AC + MINIMUM);
+                /*iMinimum = GetAIInteger(TARGETING_AC + MINIMUM);
                 // Do we do AC? And over one target...
                 if(iMinimum && iRemainingTargets >= i2)
                 {
@@ -14612,7 +14564,7 @@ int AI_SetUpAllObjects(object oInputBackup)
                     // - After iMinimum we make sure the AC differences is not a major one of
                     // over 5.
                     iRemainingTargets = AI_TargetingArrayLimitTargets(ARRAY_RANGED_ENEMY, iTypeOfTarget, i5, iMinimum, iMaximum);
-                }
+                }     */
                 // Most others are similar (and all integer values so easy to check)
                 // 3. Phisical protections.
                 iMinimum = GetAIInteger(TARGETING_PHISICALS + MINIMUM);

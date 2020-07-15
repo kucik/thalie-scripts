@@ -155,7 +155,7 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
 
    // * Craft Feats: Use this to disable Item Creation Feats if you do not want
    // * them in your module
-    SetModuleSwitch (MODULE_SWITCH_DISABLE_ITEM_CREATION_FEATS, TRUE);
+    SetModuleSwitch (MODULE_SWITCH_DISABLE_ITEM_CREATION_FEATS, FALSE);
 
    // * Palemaster: Deathless master touch in PnP only affects creatures up to a certain size.
    // * We do not support this check for balancing reasons, but you can still activate it...

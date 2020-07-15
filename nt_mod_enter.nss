@@ -191,7 +191,7 @@ void GiveStartpackage(object oPC) {
     CreateItemOnObject("sh_it_elx10_heal", oPC, 10);
   }
   // Lekarny
-  CreateItemOnObject("sh_it_band1", oPC, 10);
+  CreateItemOnObject("it_medkit_001", oPC, 10);
   oItem = CreateItemOnObject("sy_cutora_full", oPC, 1);
   SetLocalInt(oItem,"VodaType",1);
   //Jídlo
