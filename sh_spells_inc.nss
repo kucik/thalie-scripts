@@ -1,3 +1,4 @@
+#include "x2_inc_itemprop"
 //#include "sh_classes_const"
 /*Nastavit bChange CL na FALSE, pokud nechceme omezovat podle caster level targetu*/
 int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL = TRUE,string params = "")

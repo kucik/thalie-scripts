@@ -9,7 +9,7 @@ void main()
     {
         return;
     }
-    itemproperty ip = ItemPropertyOnHitCastSpell(862,10);
+    itemproperty ip = ItemPropertyOnHitCastSpell(141,10);
     AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oRightHandWeapon,99999.0);
 
 

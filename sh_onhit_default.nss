@@ -18,7 +18,7 @@ void main()
     }
 
 
-
+    SetLocalInt(oPC, "LAST_USE",iCurrentPeriod);
     int iCasterLevel = GetLevelByClass(44,oPC) ;//vazac
     int iDice = 1+(iCasterLevel-1)/2;
 
@@ -42,7 +42,7 @@ void main()
     }
     effect eDamage = EffectDamage(iDamage,DAMAGE_TYPE_MAGICAL);
     AssignCommand(oPC,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage,oTarget));
-    SetLocalInt(oPC, "LAST_USE",iLastUse);
+
 
     if (GetHasFeat(FEAT_VAZAC_OHAVNA_RANA_OSLABENI,oPC)==TRUE)
     {
