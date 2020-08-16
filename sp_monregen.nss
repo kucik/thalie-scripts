@@ -64,7 +64,9 @@ void main()
     effect eRegen = EffectRegenerate(iRegen, 6.0);
     effect eLink = EffectLinkEffects(eRegen, eDur);
     // Stacking Spellpass, 2003-07-07, Georg   ... just in case
-    RemoveEffectsFromSpell(oTarget, GetSpellId());
+    RemoveEffectsFromSpell(oTarget, SPELL_REGENERATE);
+    RemoveEffectsFromSpell(oTarget, SPELL_MONSTROUS_REGENERATION);
+
 
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
 

@@ -34,7 +34,7 @@ void main()
         {
 
 
-            effect eCon= EffectAbilityIncrease(ABILITY_CONSTITUTION,4);
+            effect eCon= EffectAbilityIncrease(ABILITY_CONSTITUTION,2);
             effect eSpeed = EffectMovementSpeedIncrease(20);
             effect eLink = EffectLinkEffects(eCon, eSpeed);
             eLink = EffectLinkEffects(eLink, eDur);

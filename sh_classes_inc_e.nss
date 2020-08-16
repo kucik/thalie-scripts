@@ -299,7 +299,6 @@ int GetIsTwoHandedWeapon(object oPC, int iWeaponType)
             case BASE_ITEM_LONGSWORD:
             case BASE_ITEM_RAPIER:
             case BASE_ITEM_SCIMITAR:
-            case BASE_ITEM_SHORTBOW:
             case BASE_ITEM_WARHAMMER:
             case BASE_ITEM_BASTARDSWORD:
             case BASE_ITEM_DWARVENWARAXE:

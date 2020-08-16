@@ -61,7 +61,8 @@ void main()
 
     effect eLink = EffectLinkEffects(eRegen, eDur);
 
-
+    RemoveEffectsFromSpell(oTarget, SPELL_REGENERATE);
+    RemoveEffectsFromSpell(oTarget, SPELL_MONSTROUS_REGENERATION);
 
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_REGENERATE, FALSE));
     //Apply effects and VFX

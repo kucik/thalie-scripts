@@ -199,6 +199,24 @@ void GiveStartpackage(object oPC) {
 
 }
 
+
+void CheckObcanAndBAN(object oPC)
+{
+    int iRogueClass = GetClassByLevel(oPC,CLASS_TYPE_ROGUE);
+    int iHasRogueWeapons = GetHasFeat(FEAT_WEAPON_PROFICIENCY_ROGUE,oPC);
+    object oTarget = GetObjectByTag("sh_invalidchar");
+    if ((iRogueClass>0)&&(iHasRogueWeapons==FALSE))
+    {
+        DelayCommand(1.0,AssignCommand(oPC,JumpToObject(oTarget)));
+        DelayCommand(2.0,AssignCommand(oPC,JumpToObject(oTarget)));
+        DelayCommand(5.0,AssignCommand(oPC,JumpToObject(oTarget)));
+        DelayCommand(10.0,AssignCommand(oPC,JumpToObject(oTarget)));
+        DelayCommand(20.0,AssignCommand(oPC,JumpToObject(oTarget)));
+        DelayCommand(60.0,AssignCommand(oPC,JumpToObject(oTarget)));
+    }
+}
+
+
 void main()
 {
     object oPC = GetEnteringObject();
@@ -348,7 +366,7 @@ void main()
  {
     SetLocalInt(oSoulStone,"T2_CLASS3VALID",TRUE);
  }
-
+ CheckObcanAndBAN(oPC);
  // Subdual damage
  SetLocalInt(oPC,"SUBDUAL_MODE",GetLocalInt(oSoulStone,"SUBDUAL_MODE"));
 
