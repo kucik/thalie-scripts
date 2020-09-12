@@ -5,30 +5,13 @@
 #include "quest_inc"
 
 const float INTERVAL = 0.2;    //check interval in seconds
-const string IN_HIDE = "JA_WAS_IN_HIDE";
+
 
 
 //declaration
-void sdRun(object oPC);
-
-void sdRun(object oPC)
-{
-        if( GetLocalInt( oPC, IN_HIDE ) ){
-             if (! GetActionMode(oPC, ACTION_MODE_STEALTH)){
-                effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 100 ));
-                effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 100 ));
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 10.0f);
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 10.0f);
-                DeleteLocalInt( oPC, IN_HIDE );
-             }
-        }
-        else if( GetActionMode(oPC, ACTION_MODE_STEALTH) ) {
-            SetLocalInt( oPC, IN_HIDE, 1 );
-        }
 
 
-    DelayCommand(INTERVAL, sdRun(oPC));
-}
+
 
 void RandomBypass(object oPC)
 {
@@ -144,8 +127,13 @@ void main()
 
             if (nSubID == ACTION_MODE_STEALTH)
             {
-                if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED) { //Unhide penalty
-                    sdRun(oPC);
+                if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED)
+                { //Unhide penalty
+                    effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 100 ));
+                    effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 100 ));
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 10.0f);
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 10.0f);
+                    DelayCommand(10.8,SendMessageToPC(oPC,"Nyni se lze znovu ukryt."));
                 }
             }
             break;

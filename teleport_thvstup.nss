@@ -42,14 +42,6 @@ void main()
     object oSoul = GetSoulStone(oPC);
     int iPlayed = GetLocalInt(oSoul, "PLAYED");
     location lLoc;
-    //Test na 3. povolani
-    int iClass3 = GetLevelByPosition(3,oPC);
-    int iIsClass3Valid = GetLocalInt(oSoul,"T2_CLASS3VALID");
-    if ((iClass3>0) & (iIsClass3Valid==FALSE))
-    {
-       SendMessageToPC(oPC,"Mas nevalidni 3. povolani.");
-       return;
-    }
     //Test na 30. level
     int iHD = GetHitDice(oPC);
     if (iHD>30)

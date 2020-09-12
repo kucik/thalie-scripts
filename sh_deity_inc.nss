@@ -3,6 +3,7 @@
 
 int GetIsDeityAndDomainsValid(object oPC);
 void SetDomainsByDeity(object oPC, int iDeity);
+int GetHasDomain(object oPC, int iDomain);
 //DEITY
 const string DEITY_DEI_ANANG = "Dei-Anang";
 const string DEITY_JUANA = "Juana";

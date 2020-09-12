@@ -20,6 +20,13 @@ void main()
   check x2_inc_spellhook.nss to find out more
 
 */
+    if (GetHasFeat(FEAT_PRESTIGE_IMBUE_ARROW))
+    {
+        if (IsImbueArrow(GetSpellTargetObject(), GetSpellId()))
+        {
+            return;
+        }
+    }
 
     if (!X2PreSpellCastCode())
     {

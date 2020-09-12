@@ -40,6 +40,7 @@
 #include "sh_spells_inc"
 #include "ja_inc_stamina"
 
+
 const int DEBUG = FALSE;
 
 const int X2_EVENT_CONCENTRATION_BROKEN = 12400;
@@ -538,6 +539,128 @@ int X2PreSpellCastCode()
    }
 
    return nContinue;
+}
+
+int IsImbueArrow(object oTarget, int iSpell)
+{
+    object oCastItem = GetSpellCastItem();
+    if (GetObjectType(oTarget)!=OBJECT_TYPE_ITEM)
+    {
+        return FALSE;
+    }
+    if (GetBaseItemType(oTarget)!=BASE_ITEM_ARROW)
+    {
+        return FALSE;
+    }
+    itemproperty ip;
+    switch (iSpell)
+    {
+        case SPELL_FIREBALL:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d4);
+        break;
+
+        case SPELL_LIGHTNING_BOLT:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_1d4);
+        break;
+
+        case SPELL_MESTILS_ACID_BREATH:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_1d4);
+        break;
+
+        case SPELL_NEGATIVE_ENERGY_BURST:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_NEGATIVE,IP_CONST_DAMAGEBONUS_1d4);
+        break;
+
+        case SPELL_ICE_STORM:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_WALL_OF_FIRE:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_BALL_LIGHTNING:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_CONE_OF_COLD:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_COLD,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_FIREBRAND:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_ACID_FOG:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ACID,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_CHAIN_LIGHTNING:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_CIRCLE_OF_DEATH:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_NEGATIVE,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        case SPELL_DELAYED_BLAST_FIREBALL:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d8);
+        break;
+
+        case SPELL_GREAT_THUNDERCLAP:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_ELECTRICAL,IP_CONST_DAMAGEBONUS_1d8);
+        break;
+
+        case SPELL_HORRID_WILTING:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_NEGATIVE,IP_CONST_DAMAGEBONUS_1d8);
+        break;
+
+        case SPELL_INCENDIARY_CLOUD:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d8);
+        break;
+
+        case SPELL_SUNBURST:
+        ip = ItemPropertyDamageBonusVsRace(RACIAL_TYPE_UNDEAD,IP_CONST_DAMAGETYPE_POSITIVE,IP_CONST_DAMAGEBONUS_1d10);
+        break;
+
+        case SPELL_METEOR_SWARM:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d10);
+        break;
+
+        case TALKVOLUME_WHISPER:
+        ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d6);
+        break;
+
+        default:
+        return FALSE;
+    }
+
+
+    object oPC = GetItemPossessor(oTarget);
+    if (GetItemInSlot(INVENTORY_SLOT_ARROWS,oPC)!=oTarget)
+    {
+        SendMessageToPC(oPC,"Lze seslat jen na vyvavene sipy.");
+        return TRUE;
+    }
+
+    if (GetIsObjectValid(oCastItem))
+    {
+        SendMessageToPC(oPC,"Sipy nelze ocarovat pomoci kouzel z predmetu.");
+        return TRUE;
+    }
+    itemproperty ipLoop = GetFirstItemProperty(oTarget);
+    while (GetIsItemPropertyValid(ipLoop))
+    {
+        if (GetItemPropertyType(ipLoop)== IP_IMBUEARROW)
+        {
+            RemoveItemProperty(oTarget,ipLoop);
+        }
+        ipLoop = GetNextItemProperty(oTarget);
+    }
+    SetItemPropertySpellId(ip,IP_IMBUEARROW);
+    AddItemProperty(DURATION_TYPE_TEMPORARY,ip,oTarget,HoursToSeconds(10));
+    SendMessageToPC(oPC,"Sipy byly ocarovany.");
+    return TRUE;
 }
 
 

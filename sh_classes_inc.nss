@@ -197,10 +197,24 @@ void ApplyClassConditions(object oPC)
     int iRace = GetRacialType(oPC);
     if (((iRace == RACIAL_TYPE_HALFELF) &&  Subraces_GetCharacterSubrace(oPC)==NT2_SUBRACE_HALFELF)   ||
        (iRace == RACIAL_TYPE_ELF))
-       {
-            SetLocalInt(oPC,"X1_AllowArcher",1);
-       }
-
+    {
+        SetLocalInt(oPC,"X1_AllowArcher",1);
+    }
+    //kontrola pro SD
+    if (
+    (GetHasFeat(FEAT_DODGE,oPC))   &&
+    (GetHasFeat(FEAT_MOBILITY,oPC))   &&
+    (GetSkillRank(SKILL_HIDE,oPC,TRUE)>=10) &&
+    (GetSkillRank(SKILL_MOVE_SILENTLY,oPC,TRUE)>=8) &&
+    (GetSkillRank(SKILL_TUMBLE,oPC,TRUE)>=5)
+    )
+    {
+        SetLocalInt(oPC,"X1_AllowShadow",1);
+    }
+    if (GetHasDomain(oPC,DOMAIN_TEMNOTA))
+    {
+        SetLocalInt(oPC,"X1_AllowShadow",1);
+    }
 }
 
 void CastBlast(object oPC, object oTarget)

@@ -54,6 +54,7 @@ const int EFFECT_PYTEL_NA_HLAVU= 2034;
 const int EFFECT_TWOHANDED_2AB = 2035;
 const int EFFECT_IP_ABSOLUTE   = 2036;
 const int EFFECT_PRESNY_BOD    = 2037;
+const int IP_IMBUEARROW = 2038;
 
 //
 const int EFFECT_ELIXIR_STR = 3001;

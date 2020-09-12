@@ -23,7 +23,6 @@
 
 void main()
 {
-
     //Declare major variables
     int nMetaMagic = GetMetaMagicFeat();
     int nDamage;

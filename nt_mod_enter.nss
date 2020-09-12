@@ -359,13 +359,6 @@ void main()
  // Get soul
  oSoulStone = CreateSoulStone(oPC);
 
- //Nastaveni 3. povolani
- int iClass3 = GetLevelByPosition(3,oPC);
- int iIsClass3Valid = GetLocalInt(oSoulStone,"T2_CLASS3VALID");
- if ((iClass3==0) & (iIsClass3Valid==FALSE))
- {
-    SetLocalInt(oSoulStone,"T2_CLASS3VALID",TRUE);
- }
  CheckObcanAndBAN(oPC);
  // Subdual damage
  SetLocalInt(oPC,"SUBDUAL_MODE",GetLocalInt(oSoulStone,"SUBDUAL_MODE"));

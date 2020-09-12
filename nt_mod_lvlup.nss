@@ -59,13 +59,6 @@ void main()
     int nClass2 = GetClassByPosition(2, oPC);
     int nClass3 = GetClassByPosition(3, oPC);
 
-    if (nClass3 != CLASS_TYPE_INVALID)
-    {
-        SendMessageToPC(oPC, "</c>Na Thalii neni povoleno 3. povolani.</c>");
-        sy_relevel(oPC, nLevel);
-        return;
-    }
-
     int iPaladinLevel = GetLevelByClass(CLASS_TYPE_PALADIN,oPC);
     if (iPaladinLevel >0)
     {

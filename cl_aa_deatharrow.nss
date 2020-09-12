@@ -16,29 +16,18 @@ void main()
 {
     int nBonus = ArcaneArcherCalculateBonus();
     int iCasterLvl = GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER);
-    int iDex = GetAbilityModifier(ABILITY_DEXTERITY);
     object oTarget = GetSpellTargetObject();
-    int iDC = 15 + iCasterLvl/2 + iDex;
-    if (GetHasFeat(FEAT_EPICGENERAL_VYLEPSENY_SIP_SMRTI_1,OBJECT_SELF) == TRUE)
+    int iAbilityBonus;
+    if (GetLevelByClass(CLASS_TYPE_WIZARD))
     {
-        iDC += 2;
+        iAbilityBonus = GetAbilityModifier(ABILITY_INTELLIGENCE);
     }
-        if (GetHasFeat(FEAT_EPICGENERAL_VYLEPSENY_SIP_SMRTI_2,OBJECT_SELF) == TRUE)
+    else
     {
-        iDC += 2;
+        iAbilityBonus = GetAbilityModifier(ABILITY_CHARISMA);
     }
-        if (GetHasFeat(FEAT_EPICGENERAL_VYLEPSENY_SIP_SMRTI_3,OBJECT_SELF) == TRUE)
-    {
-        iDC += 2;
-    }
-        if (GetHasFeat(FEAT_EPICGENERAL_VYLEPSENY_SIP_SMRTI_4,OBJECT_SELF) == TRUE)
-    {
-        iDC += 2;
-    }
-        if (GetHasFeat(FEAT_EPICGENERAL_VYLEPSENY_SIP_SMRTI_5,OBJECT_SELF) == TRUE)
-    {
-        iDC += 2;
-    }
+    int iDC = 10 + iCasterLvl + iAbilityBonus;
+
     if (GetIsObjectValid(oTarget) == TRUE)
     {
         int nTouch = TouchAttackRanged(oTarget, TRUE);
@@ -47,7 +36,7 @@ void main()
             int nDamage = ArcaneArcherDamageDoneByBow((nTouch ==2));
             if (nDamage > 0)
             {
-                effect ePhysical = EffectDamage(nDamage, DAMAGE_TYPE_PIERCING,IPGetDamagePowerConstantFromNumber(nBonus));
+                effect ePhysical = EffectDamage(nDamage, DAMAGE_TYPE_PIERCING,DAMAGE_POWER_PLUS_TEN);
                 effect eMagic = EffectDamage(nBonus, DAMAGE_TYPE_MAGICAL);
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, ePhysical, oTarget);
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eMagic, oTarget);
@@ -56,7 +45,7 @@ void main()
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
 
 
-                if (MySavingThrow(SAVING_THROW_FORT, oTarget, iDC) == 0)
+                if (MySavingThrow(SAVING_THROW_FORT, oTarget, iDC,SAVING_THROW_TYPE_DEATH) == 0)
                 {
                     effect eDeath = EffectDeath();
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oTarget);

@@ -24,7 +24,13 @@ void main()
   If you want to make changes to all spells,
   check x2_inc_spellhook.nss to find out more
   */
-
+    if (GetHasFeat(FEAT_PRESTIGE_IMBUE_ARROW))
+    {
+        if (IsImbueArrow(GetSpellTargetObject(), GetSpellId()))
+        {
+            return;
+        }
+    }
     if (!X2PreSpellCastCode())
     {
       // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
