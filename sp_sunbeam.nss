@@ -78,6 +78,11 @@ void main()
                 if (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
                 {
                     //Roll damage and save
+                    if (nCasterLevel>20)
+                    {
+                        nCasterLevel = 20;
+                    }
+
                     nDamage = d6(nCasterLevel);
                     nMax = 6;
                 }
@@ -85,7 +90,6 @@ void main()
                 {
                     //Roll damage and save
                     nDamage = d6(3);
-                    nOrgDam = nDamage;
                     nMax = 6;
                     nCasterLevel = 3;
                     //Get the adjusted damage due to Reflex Save, Evasion or Improved Evasion

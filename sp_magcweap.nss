@@ -99,10 +99,6 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_NORD)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
-    }
 
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
     if(GetIsObjectValid(oMyWeapon) )

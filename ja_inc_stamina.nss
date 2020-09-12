@@ -23,10 +23,10 @@ float getStamina(object oPC){
 }
 
 void woundStamina(object oPC, float f, int ignoreConst = FALSE){
-    //KURTIZANA JE IMUNNI NA UNAVU
-    if (GetHasFeat(1599,oPC) == TRUE) //FEAT_KURTIZANA_CELE_NOCI_OKA_NEZAMHOURI
+    //Klerik s domenou putovani je o 15% odolnejsi
+    if (GetHasFeat(FEAT_TRAVEL_DOMAIN_POWER,oPC) == TRUE)
     {
-        return;
+        if (d100(1)<=15) return;
     }
     float fStamina = GetLocalFloat(oPC, "JA_STAMINA");
     int iConst = GetAbilityScore(oPC,ABILITY_CONSTITUTION, TRUE);

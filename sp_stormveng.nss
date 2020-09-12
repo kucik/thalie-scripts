@@ -34,22 +34,21 @@ void main()
 
 // End of Spell Cast Hook
 
-     int nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,GetCasterLevel(OBJECT_SELF),FALSE) / 2;
-
-     if (nCasterLevel < 10) nCasterLevel=10;
-     if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-     {
-        nCasterLevel= nCasterLevel + nCasterLevel/5;
-     }
     //Declare major variables including Area of Effect Object
     effect eAOE = EffectAreaOfEffect(AOE_PER_STORM);
     effect eVis = EffectVisualEffect(VFX_FNF_STORM);
 
     location lTarget = GetSpellTargetLocation();
+    int nMetaMagic = GetMetaMagicFeat();
+    int nDuration = 10;
+    if (nMetaMagic == METAMAGIC_EXTEND)
+    {
+       nDuration = nDuration * 2;    //Duration is +100%
+    }
 
     ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lTarget);
     //Create an instance of the AOE Object using the Apply Effect function
-    ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eAOE, lTarget, RoundsToSeconds(nCasterLevel));
+    ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eAOE, lTarget, RoundsToSeconds(nDuration));
 }
 
 

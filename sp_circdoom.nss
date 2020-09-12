@@ -45,11 +45,7 @@ void main()
     effect eHeal;
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
-    //Limit Caster Level
-    if(nCasterLevel > 20)
-    {
-        nCasterLevel = 20;
-    }
+
     int nMetaMagic = GetMetaMagicFeat();
     int nDamage;
     float fDelay;
@@ -59,17 +55,41 @@ void main()
     while (GetIsObjectValid(oTarget))
     {
         fDelay = GetRandomDelay();
-        //Roll damage
-        nDamage = d8(nCasterLevel/2);
-        //Make metamagic checks
-        if (nMetaMagic == METAMAGIC_MAXIMIZE)
+        if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_NECROMANCY))
         {
-            nDamage = 8*(nCasterLevel/2);
+            int iBonus =  nCasterLevel;
+            if (iBonus>15)
+            {
+                iBonus = 15;
+            }
+            //Roll damage
+            nDamage = d8(iBonus);
+            //Make metamagic checks
+            if (nMetaMagic == METAMAGIC_MAXIMIZE)
+            {
+                nDamage = 8*iBonus;
+            }
+            nDamage = nDamage+ nCasterLevel;
+            if (nMetaMagic == METAMAGIC_EMPOWER)
+            {
+                nDamage = nDamage + (nDamage/2);
+            }
         }
-        else if (nMetaMagic == METAMAGIC_EMPOWER)
+        else
         {
-            nDamage = nDamage + (nDamage/2) + nCasterLevel;
-        }
+            //Roll damage
+            nDamage = d8(1);
+            //Make metamagic checks
+            if (nMetaMagic == METAMAGIC_MAXIMIZE)
+            {
+                nDamage = 8;
+            }
+            nDamage = nDamage+ nCasterLevel;
+            if (nMetaMagic == METAMAGIC_EMPOWER)
+            {
+                nDamage = nDamage + (nDamage/2);
+            }
+         }
         //If the target is an allied undead it is healed
         if(GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
         {

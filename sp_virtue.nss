@@ -39,7 +39,7 @@ void main()
     int nMetaMagic = GetMetaMagicFeat();
     object oTarget = GetSpellTargetObject();
     effect eVis = EffectVisualEffect(VFX_IMP_HOLY_AID);
-    effect eHP = EffectTemporaryHitpoints(3);
+    effect eHP = EffectTemporaryHitpoints(1);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eLink = EffectLinkEffects(eHP, eDur);
 

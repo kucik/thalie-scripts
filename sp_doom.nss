@@ -59,7 +59,7 @@ void main()
 
         //* GZ Engine fix for mind affecting spell
 
-        int nResult =       WillSave(oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS);
+        int nResult =       WillSave(oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+4, SAVING_THROW_TYPE_MIND_SPELLS);
         if (nResult == 2)
         {
             if (GetIsPC(OBJECT_SELF)) // only display immune feedback for PCs

@@ -51,7 +51,7 @@ void main()
       object oTarget = GetSpellTargetObject();
       int iBonus = 0;
       int iBonusHPMax = 0;
-      if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)|| (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)))
+      if ((GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)))
       {
         iBonus = 25;
         iBonusHPMax = 10;

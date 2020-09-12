@@ -84,3 +84,4 @@ void main()
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(nDuration));
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
 }
+

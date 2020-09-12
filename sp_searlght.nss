@@ -49,7 +49,7 @@ void main()
     int nCasterLevel = GetCasterLevel(oCaster);
     int nDamage;
     int nMax;
-    int iResistSpellResult;    
+    int iResistSpellResult;
     effect eDam;
     effect eVis = EffectVisualEffect(VFX_IMP_SUNSTRIKE);
     effect eRay = EffectBeam(VFX_BEAM_HOLY, OBJECT_SELF, BODY_NODE_HAND);
@@ -63,7 +63,7 @@ void main()
         // 1 = spell resistance
         // 2 = magic immunity
         // 3 = spell absobtion
-        iResistSpellResult = ResistSpell(oCaster, oTarget);  // !!! don't use this function outside of spell scripts defined by spells.2da file!!!      
+        iResistSpellResult = ResistSpell(oCaster, oTarget);  // !!! don't use this function outside of spell scripts defined by spells.2da file!!!
         if ((iResistSpellResult == 2) || (iResistSpellResult == 3))
         {
           // spell resisted via magic immunity (2) or via spell absorption (3)
@@ -71,7 +71,7 @@ void main()
         }
         else  // either spell resistance (which should be ignored) or no spell resistance at all
         //Make an SR Check
-        //if (!MyResistSpell(oCaster, oTarget))
+        if (!MyResistSpell(oCaster, oTarget))
         {   // do dmg to oTarget
             //Limit caster level
             if (nCasterLevel > 10)

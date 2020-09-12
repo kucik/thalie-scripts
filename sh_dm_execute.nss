@@ -951,19 +951,7 @@ void main()
         case 90:SetLocalInt(oSoulTarget,"NT_XP_BONUS_LEVEL",iDMSetNumber);break;
         //bozstva
         case 20:
-        iSet = DM_SetThalieDeity(oTarget,sDMstring);
-        if (iSet == 1)
-        {
-            SendMessageToPC(oMySpeaker,"Bozstvo bylo nastaveno.");
-        }
-        else if (iSet == 0)
-        {
-            SendMessageToPC(oMySpeaker,"Nerozpoznan nazev boha.");
-        }
-        else
-        {
-            SendMessageToPC(oMySpeaker,"Postava ma spatne nastavene domeny.");
-        }
+            SetDeity(oTarget,sDMstring);
         break;//buh
         case 21:ChangeDomain(oTarget,iDMSetNumber, 1 );break;//domena1
 

@@ -1024,7 +1024,7 @@ int SEI_NWNXParseTrait( object oPC, string a_sTrait )
         KU_SUB_GiveFeat( oPC, FEAT_WEAPON_FINESSE );  //FEAT_WEAPON_FINESSE
         return 1;
     }
-    
+
     if( a_sTrait == "zamereni_ocarovani" )
     {
         KU_SUB_GiveFeat( oPC, FEAT_SPELL_FOCUS_ENCHANTMENT );  //FEAT_SPELL_FOCUS_ENCHANTMENT

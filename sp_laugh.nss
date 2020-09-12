@@ -65,10 +65,7 @@ void main()
         nModifier = 4;
     }
 
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_MORUS)
-    {
-        nModifier = 0;
-    }
+
     if(!GetIsReactionTypeFriendly(oTarget))
     {
         //Fire cast spell at event for the specified target

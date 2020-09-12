@@ -46,10 +46,6 @@ void main()
   location lLoc =  GetSpellTargetLocation();
   int iCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,GetCasterLevel(OBJECT_SELF),FALSE);
   int iHeal = iCasterLevel * 10;
-  if (iHeal > 250)
-  {
-    iHeal = 250;
-  }
   //Apply VFX area impact
   ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eStrike, lLoc);
   //Get first target in spell area
@@ -94,6 +90,10 @@ void main()
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_MASS_HEAL, FALSE));
                 //Determine amount to heal
                                 //Set the damage effect
+                if (GetHasFeat(FEAT_HEALING_DOMAIN_POWER))
+                {
+                    iHeal = GetMaxHitPoints(oTarget);
+                }
                 eHeal = EffectHeal(iHeal);
                 //Apply the VFX impact and heal effect
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eHeal, oTarget));

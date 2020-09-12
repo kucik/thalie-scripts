@@ -39,10 +39,6 @@ void main()
 
     //Declare major variables
     int iBonus = 10;
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
-    {
-        iBonus = 15;
-    }
     effect eSpot = EffectSkillIncrease(SKILL_SPOT, iBonus);
     effect eListen = EffectSkillIncrease(SKILL_LISTEN, iBonus);
     effect eVis = EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT);

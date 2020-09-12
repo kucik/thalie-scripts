@@ -44,10 +44,7 @@ void main()
     int nLevel = GetCasterLevel(oTarget);
     nLevel = GetThalieCaster(OBJECT_SELF,oTarget,nLevel,FALSE);
     int nBonus = 10 + (nLevel / 2);
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
-    {
-        nBonus += nBonus/2;
-    }
+
     effect eLore = EffectSkillIncrease(SKILL_LORE, nBonus);
     effect eVis = EffectVisualEffect(VFX_IMP_MAGICAL_VISION);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);

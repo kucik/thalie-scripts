@@ -662,7 +662,8 @@ int X2_UMD()
             }
 
         }
-
+        //Oziv nemrtve
+        if (iSpellId== SPELL_RAISE_DEAD) nAbility = TRUE;
 
     if (
         (!UMD_ON) || // do not run if UMD is turned off

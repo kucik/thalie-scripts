@@ -57,18 +57,11 @@ void main()
       iValue = 10*(10+iHereticLevel);
     }
 
-    if (iValue >= 250)
-    {
-        iValue = 250;
-    }
     if (nMetaMagic == METAMAGIC_EMPOWER)
     {
        iValue =  iValue+ (iValue/2);
     }
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_ZEIR)
-    {
-        iValue =  iValue+ (iValue/2);
-    }
+
     //Check that the target is undead
     if (GetRacialType(oTarget) == RACIAL_TYPE_UNDEAD)
     {

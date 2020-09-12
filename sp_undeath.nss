@@ -90,10 +90,6 @@ void main()
      int nLow = 9999;
      object oLow;
      int nHDLeft = nLevel *d4();
-     if (GetThalieClericDeity(OBJECT_SELF)==DEITY_DEI_ANANG)
-     {
-        nHDLeft = FloatToInt( IntToFloat(nHDLeft) * 1.5 );
-     }
     //Enter Metamagic conditions
     if (nMetaMagic == METAMAGIC_MAXIMIZE)
     {

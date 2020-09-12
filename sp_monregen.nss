@@ -57,10 +57,6 @@ void main()
     {
         iRegen *= 2;
     }
-    if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_LOTHIAN) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_AZHAR))
-    {
-        iRegen *= 2;
-    }
     effect eRegen = EffectRegenerate(iRegen, 6.0);
     effect eLink = EffectLinkEffects(eRegen, eDur);
     // Stacking Spellpass, 2003-07-07, Georg   ... just in case

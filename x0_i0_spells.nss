@@ -1489,7 +1489,7 @@ void doAura(int nAlign, int nVis1, int nVis2, int nDamageType)
     }
 
     effect eVis = EffectVisualEffect(nVis1);
-    effect eAC = EffectACIncrease(4, AC_DODGE_BONUS);
+    effect eAC = EffectACIncrease(4, AC_NATURAL_BONUS);
     //Change the effects so that it only applies when the target is evil
     effect eImmune = EffectImmunity(IMMUNITY_TYPE_MIND_SPELLS);
     effect eSR = EffectSpellResistanceIncrease(25); //Check if this is a bonus or a setting.
@@ -1519,7 +1519,15 @@ void doAura(int nAlign, int nVis1, int nVis2, int nDamageType)
 
     //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_ABJURATION))
+    {
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, 4*RoundsToSeconds(nDuration));
+    }
+    else
+    {
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+    }
+
 }
 
 // * Does a stinking cloud. If oTarget is Invalid, then does area effect, otherwise

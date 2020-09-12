@@ -46,7 +46,7 @@ void main()
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     int nLimit = nDuration * 10;
     int nMetaMagic = GetMetaMagicFeat();
-    if ((GetHasFeat(FEAT_SPELL_FOCUS_DIVINATION)) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL))
+    if ((GetHasFeat(FEAT_SPELL_FOCUS_DIVINATION)) )
     {
         nLimit +=100;
     }

@@ -85,10 +85,6 @@ void main()
                       {
                          nDamage = nDamage + (nDamage/2);//Damage/Healing is +50%
                       }
-                      if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LILITH)
-                      {
-                        nDamage = nDamage + (nDamage/2);
-                      }
                       //Save versus both holy and fire damage
                       nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DIVINE);
                       nDamage = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_FIRE);

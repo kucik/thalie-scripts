@@ -44,10 +44,6 @@ void main()
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel,FALSE);
     nMetaMagic = GetMetaMagicFeat();
     int iValue = 10*(iCasterLevel);
-    if (iValue >= 250)
-    {
-        iValue = 250;
-    }
     if (nMetaMagic == METAMAGIC_EMPOWER)
     {
        iValue =  iValue+ (iValue/2);
@@ -93,6 +89,10 @@ void main()
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_HEAL, FALSE));
         //Set the heal effect
+        if (GetHasFeat(FEAT_HEALING_DOMAIN_POWER))
+        {
+            iValue = GetMaxHitPoints(oTarget);
+        }
         eHeal = EffectHeal(iValue);
         //Apply the heal effect and the VFX impact
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eHealVis, oTarget);

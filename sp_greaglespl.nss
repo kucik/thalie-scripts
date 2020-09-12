@@ -48,7 +48,7 @@ void main()
         //SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_EAGLES_SPLENDOR));
 
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
+    if ((nMetaMagic == METAMAGIC_EMPOWER))
     {
         nRaise = 12; //Damage/Healing is +50%
     }

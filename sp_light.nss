@@ -86,7 +86,7 @@ void main()
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_LIGHT, FALSE));
 
         //Apply the VFX impact and effects
-        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration));
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(nDuration));
     }
     RestoreCantripsSlots(OBJECT_SELF);
 }

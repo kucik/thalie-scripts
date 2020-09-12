@@ -48,7 +48,7 @@ void main()
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_FOXS_CUNNING, FALSE));
 
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
+    if (nMetaMagic == METAMAGIC_EMPOWER)
     {
         nModify = nModify+nModify/2;
     }

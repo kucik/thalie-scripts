@@ -27,7 +27,7 @@ void GrantProtection(object oTarget)
     effect eAbil = EffectImmunity(IMMUNITY_TYPE_ABILITY_DECREASE);
     effect ePoison = EffectImmunity(IMMUNITY_TYPE_POISON);
     effect eDisease = EffectImmunity(IMMUNITY_TYPE_DISEASE);
-    effect eAC = EffectACIncrease(4);
+    effect eAC = EffectACIncrease(4,AC_NATURAL_BONUS);
 
     int nDuration = GetCasterLevel(OBJECT_SELF);
     int nMetaMagic = GetMetaMagicFeat();
@@ -36,6 +36,11 @@ void GrantProtection(object oTarget)
     if (nMetaMagic == METAMAGIC_EXTEND)
     {
         nDuration = nDuration *2; //Duration is +100%
+    }
+    int iDomainCoef = 1;
+    if (GetHasFeat(FEAT_SUN_DOMAIN_POWER))
+    {
+        iDomainCoef = 10;
     }
 
     //Link Effects
@@ -47,7 +52,7 @@ void GrantProtection(object oTarget)
 
     //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, iDomainCoef*RoundsToSeconds(nDuration));
 
 }
 

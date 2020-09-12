@@ -58,10 +58,6 @@ void main()
     {
         nDuration = 4;
     }
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL)
-    {
-        nBonus += nBonus /2;
-    }
 
     //Make sure the spell has not already been applied
     if(!GetHasSpellEffect(SPELL_IDENTIFY, OBJECT_SELF) || !GetHasSpellEffect(SPELL_LEGEND_LORE, OBJECT_SELF)) //Use Legend Lore constant later

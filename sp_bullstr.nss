@@ -46,10 +46,6 @@ void main()
     //Signal the spell cast at event
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_BULLS_STRENGTH, FALSE));
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
-    {
-        nModify = nModify+nModify/2;
-    }
     if ((nMetaMagic == METAMAGIC_MAXIMIZE))
     {
         nModify = 5;

@@ -50,10 +50,6 @@ void main()
     {
         iRegen = 9;
     }
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_AZHAR)
-    {
-        iRegen *= 2;
-    }
 
     effect eRegen = EffectRegenerate(iRegen, 6.0);
     effect eVis = EffectVisualEffect(VFX_IMP_HEAD_NATURE);

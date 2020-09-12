@@ -44,7 +44,7 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_ENDURANCE, FALSE));
     //Check for metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
+    if (nMetaMagic == METAMAGIC_EMPOWER)
     {
         nModify = nModify+nModify/2;
     }

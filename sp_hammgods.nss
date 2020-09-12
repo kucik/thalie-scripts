@@ -57,9 +57,9 @@ void main()
         nDamageDice = 1;
     }
     //Limit caster level
-    if (nDamageDice > 10)
+    if (nDamageDice > 5)
     {
-        nDamageDice = 10;
+        nDamageDice = 5;
     }
     int nDamage;
     //Apply the holy strike VFX
@@ -87,10 +87,7 @@ void main()
                 {
                     nDamage = FloatToInt( IntToFloat(nDamage) * 1.5 );
                 }
-                if (GetThalieClericDeity(OBJECT_SELF)==DEITY_DEI_ANANG)
-                {
-                    nDamage = FloatToInt( IntToFloat(nDamage) * 1.5 );
-                }
+
 
                 //Make a will save for half damage and negation of daze effect
                 if (MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DIVINE, OBJECT_SELF, 0.5))
@@ -99,8 +96,6 @@ void main()
                 }
                 else
                 {
-                  // Boss exception
-                  if(!GetIsBoss(oTarget))
                     //Apply daze effect
                     DelayCommand(0.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(d6())));
                 }

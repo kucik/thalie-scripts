@@ -73,7 +73,12 @@ void main()
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_SILENCE, FALSE));
         //Create an instance of the AOE Object using the Apply Effect function
-        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eAOE, oTarget, RoundsToSeconds(nDuration));
+        float fDuration = RoundsToSeconds(nDuration);
+        if ((oTarget==OBJECT_SELF) && (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_ILLUSION)))
+        {
+            fDuration = TurnsToSeconds(nDuration);
+        }
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eAOE, oTarget, fDuration);
     }
 }
 

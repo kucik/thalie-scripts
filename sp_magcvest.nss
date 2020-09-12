@@ -53,13 +53,13 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_GLOBE_USE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     object oTarget = GetSpellTargetObject();
-    int iIP,bHasArmorBonus = FALSE,iRandom = d100(10);
+    int iIP,bHasArmorBonus = FALSE;
     itemproperty ip;
     int iCasterLevel  = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel);
     int nDuration  = iCasterLevel;
     int nMetaMagic = GetMetaMagicFeat();
-    int nAmount = iCasterLevel/4;
+    int nAmount = 1+iCasterLevel/5;
     if (nDuration<=4)
     {
          nDuration = 5;
@@ -76,53 +76,25 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-    /*
-    else
-    {
-      if (nMetaMagic == METAMAGIC_EMPOWER )
-      { // spell is empowered
-           nAmount = 3*nAmount / 2;
-      }
-    }
-    */
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_NORD)
-    {
-        nDuration = nDuration * 2; //Duration is +100%
-    }
-    object oArmor = GetItemInSlot(INVENTORY_SLOT_CHEST,oTarget);
 
-    if(GetIsObjectValid(oArmor))
-    {
-        itemproperty ipLoop = GetFirstItemProperty(oArmor);
-        while (GetIsItemPropertyValid(ipLoop))
-        {
-            if(GetItemPropertyType(ipLoop) == ITEM_PROPERTY_AC_BONUS &&
-               GetItemPropertyDurationType(ipLoop) == DURATION_TYPE_TEMPORARY)
-            {
-                bHasArmorBonus = TRUE;
-                break;
-            }
-            ipLoop = GetNextItemProperty(oArmor);
-        }
-    }
     object oShield = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);
-    if(   (bHasArmorBonus==TRUE) &&
-          (GetIsObjectValid(oShield)) &&
+    if(   (GetIsObjectValid(oShield)) &&
           ( (GetBaseItemType(oShield) == BASE_ITEM_LARGESHIELD) ||
             (GetBaseItemType(oShield) == BASE_ITEM_SMALLSHIELD) ||
             (GetBaseItemType(oShield) == BASE_ITEM_TOWERSHIELD)))
     {
         DelayCommand(1.3f, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
         ip = ItemPropertyACBonus(nAmount);
+        SetItemPropertySpellId  (ip,EFFECT_IP_ABSOLUTE);
         IPSafeAddItemProperty(oShield,ip, TurnsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_REPLACE_EXISTING ,FALSE,TRUE);
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
     }
-    else
+    object oArmor = GetItemInSlot(INVENTORY_SLOT_CHEST,oTarget);
+    if(   (GetIsObjectValid(oArmor)))
     {
         DelayCommand(1.3f, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
         ip = ItemPropertyACBonus(nAmount);
-        SetLocalInt(OBJECT_SELF,"MAGIC_VESTMENT_ARMOR",iRandom);
-        SetItemPropertyInteger(ip,1,iRandom);
+        SetItemPropertySpellId  (ip,EFFECT_IP_ABSOLUTE);
         IPSafeAddItemProperty(oArmor,ip, TurnsToSeconds(nDuration), X2_IP_ADDPROP_POLICY_REPLACE_EXISTING ,FALSE,TRUE);
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
 

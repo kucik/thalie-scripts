@@ -87,11 +87,7 @@ void main()
                 {
                       nDamage = nDamage + (nDamage/2);
                 }
-                if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LILITH)
-                {
-                    nDamage = nDamage + (nDamage/2);
-                }
-                //Adjust the damage based on Reflex Save, Evasion and Improved Evasion
+                  //Adjust the damage based on Reflex Save, Evasion and Improved Evasion
                 nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DIVINE);
                 nDamage = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
                 //Make a faction check so that only enemies receieve the full brunt of the damage.

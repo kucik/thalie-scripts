@@ -19,7 +19,7 @@ int StartingConditional()
     object oSoul = GetSoulStone(oTarget);
     int iNTBonus = GetLocalInt(oSoul,"NT_XP_BONUS_LEVEL");
     int iHead =GetCreatureBodyPart(CREATURE_PART_HEAD,oTarget);
-    string sDeity = GetDeityName(oTarget);
+    string sDeity = GetDeity(oTarget);
 
 
 

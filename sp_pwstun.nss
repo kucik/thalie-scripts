@@ -44,7 +44,7 @@ void main()
 
 // End of Spell Cast Hook
     int iBonus = 0;
-    if ((GetThalieClericDeity(OBJECT_SELF)==DEITY_THAL) || (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)))
+    if ((GetHasFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)))
     {
       iBonus = 25;
     }

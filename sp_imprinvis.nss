@@ -13,6 +13,7 @@
 //:://////////////////////////////////////////////
 
 #include "x2_inc_spellhook"
+#include "sh_deity_inc"
 
 void main()
 {
@@ -42,7 +43,18 @@ void main()
 
     effect eVis = EffectVisualEffect(VFX_DUR_INVISIBILITY);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-    effect eCover = EffectConcealment(30);
+    int iConcealment = 30;
+
+    if (GetHasDomain(OBJECT_SELF,DOMAIN_GNOM))
+    {
+        int iBonus = GetLevelByClass(CLASS_TYPE_CLERIC);
+        if (iBonus>20)
+        {
+            iBonus = 20;
+        }
+        iConcealment+=iBonus;
+    }
+    effect eCover = EffectConcealment(iConcealment);
     effect eLink = EffectLinkEffects(eDur, eCover);
     eLink = EffectLinkEffects(eLink, eVis);
 
@@ -57,6 +69,7 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
+
     //Apply the VFX impact and effects
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eImpact, oTarget);
 

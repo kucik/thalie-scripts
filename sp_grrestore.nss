@@ -98,6 +98,14 @@ void main()
         {
             nHeal = nHeal + nHeal /2;
         }
+        if (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget))
+        {
+            return;
+        }
+        if (GetHasFeat(FEAT_HEALING_DOMAIN_POWER))
+        {
+            nHeal = GetMaxHitPoints(oTarget);
+        }
         effect eHeal = EffectHeal(nHeal);
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eHeal, oTarget);
     }

@@ -75,7 +75,7 @@ void main()
 
     effect eVis = EffectVisualEffect(iCastingVisualEffectID);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-    int nCasterLvl = GetCasterLevel(OBJECT_SELF)+1;
+    int nCasterLvl = GetCasterLevel(OBJECT_SELF);
     nCasterLvl = GetThalieCaster(OBJECT_SELF, oTarget, nCasterLvl,FALSE);
     int nDuration = 2 * nCasterLvl;
     int nMetaMagic = GetMetaMagicFeat();

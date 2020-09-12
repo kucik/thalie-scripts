@@ -20,8 +20,8 @@ BONUSY PRO POSTAVY SPECIFICKE PODLE KATEGORII
 #include "nwnx_funcs"
 #include "nwnx_structs"
 #include "subraces"
-#include "sh_deity_inc"
 #include "sh_effects_const"
+#include "sh_deity_inc"
 //Subraces_GetCharacterSubrace
 
 /*
@@ -479,6 +479,10 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
     if (GetHasFeat(FEAT_VAZAC_POHLT_MAGII_2,oPC)==TRUE)
     {
         iDamageReductionMagic = 10;
+    }
+    if (GetHasDomain(oPC,DOMAIN_BOURE))
+    {
+        iDamageReductionElec = 10;
     }
 
     itemproperty ip;

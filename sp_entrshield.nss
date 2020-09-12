@@ -53,7 +53,12 @@ void main()
          nDuration = nDuration * 2;
     }
     //Set the four unique armor bonuses
-    effect eShield =  EffectConcealment(20, MISS_CHANCE_TYPE_VS_RANGED);
+    int iBonus=20;
+    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_ABJURATION))
+    {
+        iBonus=40;
+    }
+    effect eShield =  EffectConcealment(iBonus, MISS_CHANCE_TYPE_VS_RANGED);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
 
     effect eLink = EffectLinkEffects(eShield, eDur);

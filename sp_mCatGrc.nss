@@ -52,7 +52,7 @@ void main()
     float fRadius = YardsToMeters((25 + 5*nCasterLvl / 2.0)); // radius, in meters, i.e. (25 ft. + 5 ft./2 levels)
 
     //Enter Metamagic conditions
-   if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
+   if ((nMetaMagic == METAMAGIC_EMPOWER))
     {
         nModify = nModify+nModify/2;
     }

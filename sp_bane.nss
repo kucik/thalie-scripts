@@ -44,10 +44,6 @@ void main()
     effect eImpact = EffectVisualEffect(VFX_FNF_LOS_EVIL_30);
     int iBonus = 1;
     int nDuration = GetCasterLevel(OBJECT_SELF);
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_ZEIR)
-    {
-        iBonus = (nDuration/10) +2;
-    }
     effect eAttack = EffectAttackDecrease(iBonus);
     effect eSave = EffectSavingThrowDecrease(SAVING_THROW_ALL, iBonus, SAVING_THROW_TYPE_FEAR);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
@@ -79,7 +75,15 @@ void main()
              {
 
                 /*Will Save*/
-                int nWillResult = WillSave(oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS);
+                int nWillResult = 0;
+                if (GetIsDeityAndDomainsValid(OBJECT_SELF))
+                {
+                    nWillResult = 0;
+                }
+                else
+                {
+                    nWillResult = WillSave(oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS);
+                }
                 // * Bane is a mind affecting spell BUT its affects are not classified
                 // * as mind affecting. To make this work I have to only apply
                 // * the effects on the case of a failure, unlike most other spells.

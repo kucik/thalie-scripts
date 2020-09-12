@@ -51,7 +51,6 @@ void CheckAndApplyEpicRageFeats(int nRounds);
 //bonusy dle kategorii
 #include "sei_subraceslst"
 
-#include "sh_deity_inc"
 
 
 void ApplyExorcistBonuses(object oPC)
@@ -81,11 +80,21 @@ void ApplyExorcistBonuses(object oPC)
         SetEffectSpellId(eLink,EFFECT_EXORCISTA_PASSIVE);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
     }
-
-
-
-
-
+    //domeny
+    if (GetHasDomain(oPC,DOMAIN_SEN))
+    {
+        effect eLink = EffectImmunity(IMMUNITY_TYPE_FEAR);
+        eLink = SupernaturalEffect(eLink);
+        SetEffectSpellId(eLink,EFFECT_EXORCISTA_PASSIVE);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+    }
+    if (GetHasDomain(oPC,DOMAIN_PULCIK))
+    {
+        effect eLink = EffectRegenerate(2,6.0);
+        eLink = SupernaturalEffect(eLink);
+        SetEffectSpellId(eLink,EFFECT_EXORCISTA_PASSIVE);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+    }
 }
 
 
@@ -194,33 +203,6 @@ void ApplyClassConditions(object oPC)
 
 }
 
-
-void RepairDeities(object oPC)
-{
-    if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC) > 0)  //zkontroluj domeny
-    {
-        int iDeity = GetThalieDeity(oPC);
-        int iDomain1 = GetClericDomain(oPC,1);
-        int iDomain2 = GetClericDomain(oPC,2);
-        if (!GetIsDeityAndDomainsValid(iDeity, iDomain1,iDomain2))
-        {
-            SetDomainsByDeity(oPC,iDeity);
-        }
-    }
-}
-
-void ApplyLilithDmgShield(object oPC)
-{
-    if (GetThalieClericDeity(OBJECT_SELF)==DEITY_LILITH)
-    {
-        int iDamage = GetLevelByClass(CLASS_TYPE_CLERIC,oPC) /2;
-        if (iDamage = 0) iDamage=1;
-        effect ef1 =EffectDamageShield(iDamage,DAMAGE_BONUS_1,DAMAGE_TYPE_FIRE);
-        SetEffectSpellId(ef1,EFFECT_LILITH_PASSIVE);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef1,oPC);
-    }
-}
-
 void CastBlast(object oPC, object oTarget)
 {
     if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH1,oPC)==FALSE) return;
@@ -296,11 +278,8 @@ void OnLvlupClassSystem(object oPC)
    ApplyRegeneration(oPC,oPCSkin);
    ApplySpeed(oPC,oPCSkin);
    ApplyDamageReduction(oPC,oPCSkin);
-   ApplyLilithDmgShield(oPC);
    // nastaveni poctu featu na den
    RestoreFeatUses(oPC);
-   RepairDeities(oPC);
-
 }
 
 void OnRestClassSystem(object oPC)
@@ -352,6 +331,5 @@ void OnEnterClassSystem(object oPC)
     object oSoul = GetSoulStone(oPC);
     DeleteLocalInt(oSoul,"KURTIZANA_KZEMI");
     OnLvlupClassSystem(oPC);
-    RepairDeities(oPC);
  }
 

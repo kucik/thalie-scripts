@@ -46,7 +46,7 @@ void main()
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
     //Enter Metamagic conditions
-    if ((nMetaMagic == METAMAGIC_EMPOWER) || (GetThalieClericDeity(OBJECT_SELF)==DEITY_GORDUL))
+    if ((nMetaMagic == METAMAGIC_EMPOWER))
     {
         nModify = nModify+nModify/2;
     }

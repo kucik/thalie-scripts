@@ -52,6 +52,22 @@ void main()
     }
     //Set the summoning effect
     eSummon = EffectSwarm(FALSE, "su_el_vz_09", "su_el_vo_09","su_el_ze_09","su_el_oh_09");
+    if (GetHasFeat(FEAT_FIRE_DOMAIN_POWER))
+    {
+        eSummon = EffectSwarm(FALSE, "su_el_oh_09", "su_el_oh_09","su_el_oh_09","su_el_oh_09");
+    }
+    else if (GetHasFeat(FEAT_EARTH_DOMAIN_POWER))
+    {
+        eSummon = EffectSwarm(FALSE, "su_el_ze_09", "su_el_ze_09","su_el_ze_09","su_el_ze_09");
+    }
+    else if (GetHasFeat(FEAT_AIR_DOMAIN_POWER))
+    {
+        eSummon = EffectSwarm(FALSE, "su_el_vz_09", "su_el_vz_09","su_el_vz_09","su_el_vz_09");
+    }
+    else if (GetHasFeat(FEAT_WATER_DOMAIN_POWER))
+    {
+        eSummon = EffectSwarm(FALSE, "su_el_vo_09", "su_el_vo_09","su_el_vo_09","su_el_vo_09");
+    }
     //Apply the summon effect
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSummon, OBJECT_SELF, TurnsToSeconds(nDuration));
 }

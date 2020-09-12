@@ -202,7 +202,7 @@ void GiveStartpackage(object oPC) {
 
 void CheckObcanAndBAN(object oPC)
 {
-    int iRogueClass = GetClassByLevel(oPC,CLASS_TYPE_ROGUE);
+    int iRogueClass = GetLevelByClass(CLASS_TYPE_ROGUE,oPC);
     int iHasRogueWeapons = GetHasFeat(FEAT_WEAPON_PROFICIENCY_ROGUE,oPC);
     object oTarget = GetObjectByTag("sh_invalidchar");
     if ((iRogueClass>0)&&(iHasRogueWeapons==FALSE))
@@ -420,6 +420,10 @@ void main()
 
  SetLocalFloat(oPC, "JA_STAMINA", fStamina);
 //~stamina
+
+//Test domen
+ CheckDomainRules(oPC);
+//~Test domen
 
 //needs
     float fWaterR = GetPersistentFloat(oPC, VARNAME_WATER);

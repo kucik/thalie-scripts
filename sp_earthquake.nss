@@ -42,7 +42,6 @@ void main()
     int nCasterLvl = GetCasterLevel(oCaster);
     nCasterLvl = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLvl,FALSE);
     int nDamage;
-    effect eKnockdown = EffectKnockdown();
     float fDelay;
     float nSize =  RADIUS_SIZE_COLOSSAL;
     effect eExplode = EffectVisualEffect(VFX_FNF_LOS_NORMAL_30);
@@ -64,17 +63,15 @@ void main()
     //Cycle through the targets within the spell shape until an invalid object is captured.
     while (GetIsObjectValid(oTarget))
     {
-        if (spellsIsTarget(oTarget, SPELL_TARGET_SELECTIVEHOSTILE, OBJECT_SELF))
+        if ((oTarget != OBJECT_SELF) && (GetMaster(oTarget) != OBJECT_SELF))
         {
             //Fire cast spell at event for the specified target
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_EARTHQUAKE));
             //Get the distance between the explosion and the target to calculate delay
             fDelay = GetDistanceBetweenLocations(lTarget, GetLocation(oTarget))/20;
-// Earthquake does not allow spell resistance
-//            if (!MyResistSpell(OBJECT_SELF, oTarget, fDelay))
             {
 
-                nDamage = d6(nCasterLvl/2);
+                nDamage = d6(nCasterLvl);
                 //Adjust the damage based on the Reflex Save, Evasion and Improved Evasion. (Don't bother for caster)
                 if (oTarget != oCaster)
                 {
@@ -91,11 +88,6 @@ void main()
                     //This visual effect is applied to the target object not the location as above.  This visual effect
                     //represents the flame that erupts on the target not on the ground.
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
-                }
-                if (!GetIsBoss(oTarget) && !MySavingThrow(SAVING_THROW_REFLEX,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
-                {
-
-                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockdown, oTarget,RoundsToSeconds(2)));
                 }
              }
         }
