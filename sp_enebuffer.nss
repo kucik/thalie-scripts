@@ -67,10 +67,6 @@ void main()
     {
         nDuration = nDuration *2; //Duration is +100%
     }
-     if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
 
      RemoveEffectsFromSpell(oTarget, GetSpellId());
 

@@ -59,11 +59,6 @@ void main()
     {
         nCasterLvl = 15;
     }
-    int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        iDruidSpec= 2;
-    }
     //Declare the spell shape, size and the location.  Capture the first target object in the shape.
     object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_HUGE, lTarget, TRUE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
     //Cycle through the targets within the spell shape until an invalid object is captured.
@@ -89,7 +84,7 @@ void main()
                    nDamage = nDamage + nDamage / 2;
                 }
                 //Adjust the damage based on the Reflex Save, Evasion and Improved Evasion.
-                nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_ELECTRICITY);
+                nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_ELECTRICITY);
                 //Set the damage effect
                 eDam = EffectDamage(nDamage, DAMAGE_TYPE_ELECTRICAL);
                 if(nDamage > 0)

@@ -18,7 +18,7 @@ void main()
     object oTarget = OBJECT_SELF;
     effect eVis = EffectVisualEffect(VFX_DUR_GLOBE_INVULNERABILITY);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-    effect eSpell = EffectSpellLevelAbsorption(8, 0);
+    effect eSpell = EffectSpellLevelAbsorption(9, 0);
     effect eSpell2 = EffectSpellFailure();
     //Link Effects
     effect eLink = EffectLinkEffects(eVis, eSpell);
@@ -26,6 +26,10 @@ void main()
     eLink = EffectLinkEffects(eLink, eSpell2);
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
+    if (nDuration>35)
+    {
+        nDuration = 35;
+    }
     int nMetaMagic = GetMetaMagicFeat();
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_GLOBE_OF_INVULNERABILITY, FALSE));

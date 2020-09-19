@@ -54,11 +54,6 @@ void main()
     {
        nDuration = nDuration *2;    //Duration is +100%
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
-    {
-        nDuration = nDuration +nDuration / 5;
-
-    }
     //Create an instance of the AOE Object using the Apply Effect function
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eAOE, lTarget, RoundsToSeconds(nDuration));
 }

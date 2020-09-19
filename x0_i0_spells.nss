@@ -502,10 +502,6 @@ void DoCamoflage(object oTarget)
     int nDuration = GetCasterLevel(OBJECT_SELF);
     nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
     nDuration = 10 * nDuration; // * Duration 10 turn/level
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
     if (nMetaMagic == METAMAGIC_EXTEND)    //Duration is +100%
     {
          nDuration = nDuration * 2;
@@ -875,10 +871,6 @@ void DoMagicFang(int nPower, int nDamagePower)
     if (nMetaMagic == METAMAGIC_EXTEND)    //Duration is +100%
     {
          nDuration = nDuration * 2;
-    }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA))
-    {
-        nDuration= nDuration + nDuration/5;
     }
     //Fire spell cast at event for target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));

@@ -24,8 +24,6 @@ void main()
 
     //Declare major variables
     object oCaster = OBJECT_SELF;
-    int nCasterLvl = GetCasterLevel(oCaster);
-    nCasterLvl = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLvl,FALSE);
     effect eExplode = EffectVisualEffect(VFX_FNF_LOS_EVIL_20); //Replace with Negative Pulse
     int nSpellDC = GetEpicSpellSaveDC(OBJECT_SELF)+GetThalieEpicSpellDCBonus(OBJECT_SELF);
     effect eVis = EffectVisualEffect(VFX_IMP_NEGATIVE_ENERGY);
@@ -47,7 +45,7 @@ void main()
        if((GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD) && (GetRacialType(oTarget) != RACIAL_TYPE_CONSTRUCT)&& (oTarget!= OBJECT_SELF))
        {
             //Roll damage for each target
-            nDamage = d6(nCasterLvl);
+            nDamage = d6(25);
             //Get the distance between the explosion and the target to calculate delay
             fDelay = GetDistanceBetweenLocations(lTarget, GetLocation(oTarget))/20;
             if (MySavingThrow(SAVING_THROW_FORT,oTarget,nSpellDC,SAVING_THROW_TYPE_DEATH) >0)

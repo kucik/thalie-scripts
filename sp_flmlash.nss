@@ -41,11 +41,6 @@ void main()
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel,FALSE);
     int nMetaMagic = GetMetaMagicFeat();
-    int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        iDruidSpec= 2;
-    }
     if(nCasterLevel > 2)
     {
         nCasterLevel = (nCasterLevel-3)/3;
@@ -75,7 +70,7 @@ void main()
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_FLAME_LASH));
         if (!MyResistSpell(OBJECT_SELF, oTarget, 1.0))
         {
-            nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_FIRE);
+            nDamage = GetReflexAdjustedDamage(nDamage, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
             effect eDam = EffectDamage(nDamage, DAMAGE_TYPE_FIRE);
             if(nDamage > 0)
             {

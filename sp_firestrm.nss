@@ -44,11 +44,6 @@ void main()
     int nDamage2;
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
-    int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        iDruidSpec= 2;
-    }
     if(nCasterLevel > 20)
     {
         nCasterLevel == 20;
@@ -86,8 +81,8 @@ void main()
                          nDamage = nDamage + (nDamage/2);//Damage/Healing is +50%
                       }
                       //Save versus both holy and fire damage
-                      nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DIVINE);
-                      nDamage = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_FIRE);
+                      nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DIVINE);
+                      nDamage = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
                     if(nDamage > 0)
                     {
                           // Apply effects to the currently selected target.  For this spell we have used

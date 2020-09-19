@@ -22,7 +22,7 @@ void main()
   {
       fDelay = GetRandomDelay();
       //Make a faction check
-      if(GetIsFriend(oTarget))
+      if((GetIsFriend(oTarget)) &&(oTarget!=OBJECT_SELF))
       {
                 //Fire cast spell at event for the specified target
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_MASS_HEAL, FALSE));

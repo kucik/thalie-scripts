@@ -67,18 +67,12 @@ void main()
     {
        nDuration = nDuration * 2;
     }
-    int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
-    {
-        nDuration = nDuration +nDuration / 5;
-        iDruidSpec= 2;
-    }
     //--------------------------------------------------------------------------
     // Setup DC, effects and projectile timing
     //--------------------------------------------------------------------------
     float  fDist   = GetDistanceToObject(oTarget);
     float  fDelay  = fDist/25.0;
-    int    nDC     = GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec;
+    int    nDC     = GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF);
     effect eDur = EffectVisualEffect   ( VFX_DUR_FLIES );
 
     //--------------------------------------------------------------------------
@@ -87,7 +81,7 @@ void main()
     if(!GetIsReactionTypeFriendly(oTarget))
     {
 
-        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec));
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId()+GetThalieSpellDCBonus(OBJECT_SELF)));
 
         if(MyResistSpell(OBJECT_SELF, oTarget, fDelay) == 0)
         {

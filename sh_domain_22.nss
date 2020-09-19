@@ -1,8 +1,7 @@
-#include "nwnx_funcs"
+#include "sh_deity_inc"
 void main()
 {
     object oNPC = OBJECT_SELF;
-    int iDomainOrder= GetLocalInt(oNPC,"DOMAIN");
     object oPC = GetPCSpeaker();
-    SetClericDomain(oPC,iDomainOrder,22);
+    DialogSetDomain(oPC,oNPC,22);
 }

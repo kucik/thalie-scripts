@@ -47,11 +47,6 @@ void main()
     effect eExplode = EffectVisualEffect(VFX_FNF_METEOR_SWARM);
     effect eVis = EffectVisualEffect(VFX_IMP_FLAME_M);
     effect eDam;
-    int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        iDruidSpec= 2;
-    }
     //Get the spell target location as opposed to the spell target.
     location lTarget = GetSpellTargetLocation();
     //Limit Caster level for the purposes of damage
@@ -86,7 +81,7 @@ void main()
                 {
                    nDamage = nDamage + nDamage / 2;
                 }
-                if (MySavingThrow(SAVING_THROW_FORT,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec,SAVING_THROW_TYPE_ALL))
+                if (MySavingThrow(SAVING_THROW_FORT,oTarget,GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF),SAVING_THROW_TYPE_ALL))
                 {
                     nDamage = nDamage /2;
                 }

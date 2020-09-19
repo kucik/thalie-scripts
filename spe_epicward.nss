@@ -46,7 +46,7 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
     effect eDur = EffectVisualEffect(495);
-    effect eProt = EffectDamageReduction(40, DAMAGE_POWER_PLUS_TWENTY,50*iCasterLevel);
+    effect eProt = EffectDamageReduction(30, DAMAGE_POWER_PLUS_TWENTY,50*iCasterLevel);
     effect eLink = EffectLinkEffects(eDur, eProt);
     eLink = EffectLinkEffects(eLink, eDur);
 
@@ -55,6 +55,6 @@ void main()
 
     RemoveEffectsFromSpell(OBJECT_SELF, GetSpellId());
     //Apply the armor bonuses and the VFX impact
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(iCasterLevel));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(24));
 
 }

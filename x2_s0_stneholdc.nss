@@ -32,11 +32,6 @@ void main()
     object oTarget;
     object oCreator;
     float fDelay;
-    int iSpecBonus = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA) || GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
-    {
-        iSpecBonus= 2;
-    }
     //--------------------------------------------------------------------------
     // GZ 2003-Oct-15
     // When the caster is no longer there, all functions calling
@@ -58,11 +53,11 @@ void main()
             {
                 if(!MyResistSpell(GetAreaOfEffectCreator(), oTarget))
                 {
-                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iSpecBonus, SAVING_THROW_TYPE_MIND_SPELLS))
+                    if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS))
                     {
                        nRounds = MaximizeOrEmpower(6, 1, nMetaMagic);
                        fDelay = GetRandomDelay(0.75, 1.75);
-                       // Boss exception 
+                       // Boss exception
                        if(GetIsBoss(oTarget))
                          DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSlow, oTarget, RoundsToSeconds(nRounds)));
                        else

@@ -58,11 +58,7 @@ void main()
   {
     nCasterLvl = 15;
   }
-  int iDruidSpec = 0;
-  if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-  {
-        iDruidSpec= 2;
-  }
+
 
   //Declare the spell shape, size and the location.  Capture the first target object in the shape.
   oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_MEDIUM, GetSpellTargetLocation(), FALSE, OBJECT_TYPE_CREATURE|OBJECT_TYPE_PLACEABLE|OBJECT_TYPE_DOOR);
@@ -88,7 +84,7 @@ void main()
                       nDamage = nDamage + (nDamage/2);
                 }
                   //Adjust the damage based on Reflex Save, Evasion and Improved Evasion
-                nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec, SAVING_THROW_TYPE_DIVINE);
+                nDamage2 = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_DIVINE);
                 nDamage = GetReflexAdjustedDamage(nDamage/2, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_FIRE);
                 //Make a faction check so that only enemies receieve the full brunt of the damage.
                 if(!GetIsFriend(oTarget))

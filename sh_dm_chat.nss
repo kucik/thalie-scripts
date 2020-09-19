@@ -5,6 +5,7 @@
 #include "mys_music"
 #include "mys_dmlisten_lib"
 #include "ku_write_inc"
+#include "sh_classes_inc"
 
     /*
     int    TALKVOLUME_TALK          = 0;
@@ -174,6 +175,7 @@ void main()
                     SetLocalInt(oSoulStone,"RELEVEL_COUNT",iRelevelCount+1);
                     SetXP(oSpeaker,0);
                     DelayCommand(1.0,SetXP(oSpeaker,iXP));
+                    ApplyClassConditions(oSpeaker);
                     return;
                 }
             }

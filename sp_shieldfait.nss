@@ -43,9 +43,9 @@ void main()
     int nCasterLvl = GetCasterLevel(OBJECT_SELF);
     nCasterLvl = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLvl);
 
-    int nValue = (nCasterLvl)/5;
-    if (nValue > 5)  nValue = 5; // * Max of 5
-    if (nValue == 0)  nValue = 1; // * Min of 1
+    int nValue = 2 + (nCasterLvl)/6;
+    if (nValue > 5)
+     nValue = 5; // * Max of 5
 
     effect eAC = EffectACIncrease(nValue, AC_DEFLECTION_BONUS);
 

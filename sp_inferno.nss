@@ -64,10 +64,6 @@ void main()
     {
         nDuration = 1;
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
     //--------------------------------------------------------------------------
     // Flamethrower VFX, thanks to Alex
     //--------------------------------------------------------------------------

@@ -30,9 +30,9 @@ void main()
     {
         iCasterLevel = 1;
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
+    if (GetHasFeat(FEAT_EPIC_DRUID))
     {
-        iCasterLevel= iCasterLevel + iCasterLevel/5;
+        iCasterLevel= iCasterLevel + 3;
     }
 
     effect eRay      = EffectBeam(444,OBJECT_SELF,BODY_NODE_CHEST);

@@ -211,9 +211,13 @@ void ApplyClassConditions(object oPC)
     {
         SetLocalInt(oPC,"X1_AllowShadow",1);
     }
-    if (GetHasDomain(oPC,DOMAIN_TEMNOTA))
+    else if (GetHasDomain(oPC,DOMAIN_TEMNOTA))
     {
         SetLocalInt(oPC,"X1_AllowShadow",1);
+    }
+    else
+    {
+        SetLocalInt(oPC,"X1_AllowShadow",0);
     }
 }
 
@@ -280,6 +284,7 @@ void OnLvlupClassSystem(object oPC)
    //volani kuze postavy musi byt v kratke chvili jen jednou jinak hrozi jeji duplikovani
    object oDuse = GetSoulStone(oPC);
    object oPCSkin = GetPCSkin(oPC);
+   ApplyClassConditions(oPC);
    //vymazani bonusu
    RemoveClassItemPropertyAndEffects(oPC,oPCSkin);
    //  puvodni

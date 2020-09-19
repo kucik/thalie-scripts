@@ -45,10 +45,6 @@ void main()
     {
         nDuration = 1;
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
     //Create an instance of the AOE Object using the Apply Effect function
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eAOE, lTarget, RoundsToSeconds(nDuration));
 }

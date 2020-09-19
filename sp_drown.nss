@@ -48,12 +48,7 @@ void main()
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,nCasterLevel,FALSE);
     int nDam = GetCurrentHitPoints(oTarget);
-    int iDruidSpec = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
-    {
 
-        iDruidSpec= 2;
-    }
     //Set visual effect
     effect eVis = EffectVisualEffect(VFX_IMP_FROST_S);
     effect eDam;
@@ -71,7 +66,7 @@ void main()
                 &&(GetRacialType(oTarget) != RACIAL_TYPE_ELEMENTAL))
             {
                 //Make a fortitude save
-                if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iDruidSpec))
+                if(!MySavingThrow(SAVING_THROW_FORT, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
                 {
                     nDam = FloatToInt(nDam * 0.9);
                     eDam = EffectDamage(nDam, DAMAGE_TYPE_BLUDGEONING);

@@ -40,6 +40,6 @@ void main()
     RemoveEffectsFromSpell(oTarget, GetSpellId());
 
     //Apply the VFX impact and effects
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(iCasterLevel));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(30));
 }
 

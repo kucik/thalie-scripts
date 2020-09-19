@@ -56,7 +56,7 @@ void main()
 
     // End of Spell Cast Hook
     //Declare major variables
-    int nDamage1, nDamage2, nDamage3, nDamage4;
+    int nDamage1, nDamage2, nDamage3, nDamage4,nDamage5;
     float fDelay;
     effect eExplode = EffectVisualEffect(464);
     effect eVis = EffectVisualEffect(VFX_IMP_FLAME_M);
@@ -66,7 +66,7 @@ void main()
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,iCasterLevel,FALSE);
 
-    effect eDam1, eDam2, eDam3, eDam4, eKnock;
+    effect eDam1, eDam2, eDam3, eDam4,eDam5, eKnock;
     eKnock= EffectKnockdown();
 
     location lTarget = GetSpellTargetLocation();
@@ -85,10 +85,11 @@ void main()
 
         fDelay = GetDistanceBetweenLocations(lTarget, GetLocation(oTarget))/20 + 0.5f;
            //Roll damage for each target
-            nDamage1 = d6(iCasterLevel/3);
-            nDamage2 = d6(iCasterLevel/3);
-            nDamage3 = d6(iCasterLevel/3);
-            nDamage4 = d6(iCasterLevel/3);
+            nDamage1 = d6(10);
+            nDamage2 = d6(10);
+            nDamage3 = d6(10);
+            nDamage4 = d6(10);
+            nDamage5 = d6(10);
             // no we don't care about evasion. there is no evasion to hellball
             if (MySavingThrow(SAVING_THROW_REFLEX,oTarget,nSpellDC,SAVING_THROW_TYPE_SPELL,OBJECT_SELF,fDelay) >0)
             {
@@ -96,17 +97,19 @@ void main()
                 nDamage2 /=2;
                 nDamage3 /=2;
                 nDamage4 /=2;
+                nDamage5 /=2;
             }
-            nTotalDamage = nDamage1+nDamage2+nDamage3+nDamage4;
+            nTotalDamage = nDamage1+nDamage2+nDamage3+nDamage4+nDamage5;
             //Set the damage effect
             eDam1 = EffectDamage(nDamage1, DAMAGE_TYPE_ACID);
             eDam2 = EffectDamage(nDamage2, DAMAGE_TYPE_ELECTRICAL);
             eDam3 = EffectDamage(nDamage3, DAMAGE_TYPE_FIRE);
             eDam4 = EffectDamage(nDamage4, DAMAGE_TYPE_SONIC);
+            eDam5 = EffectDamage(nDamage5, DAMAGE_TYPE_BLUDGEONING);
 
             if(nTotalDamage > 0)
             {
-                if (nTotalDamage > 100)
+                if (nTotalDamage > 90)
                 {
                     DelayCommand(fDelay+0.3f, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnock, oTarget,6.0f));
                 }
@@ -116,6 +119,7 @@ void main()
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam2, oTarget));
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam3, oTarget));
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam4, oTarget));
+                DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam5, oTarget));
                 //This visual effect is applied to the target object not the location as above.  This visual effect
                 //represents the flame that erupts on the target not on the ground.
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));

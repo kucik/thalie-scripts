@@ -59,10 +59,6 @@ void main()
     {
          nDuration = nDuration * 2;
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
     //Fire spell cast at event for target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 420, FALSE));
     //Apply VFX impact and bonus effects

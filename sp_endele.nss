@@ -67,10 +67,6 @@ void main()
     {
          nDuration = nDuration + nDuration / 2;
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
 
     //Enter Metamagic conditions
     if (nMetaMagic == METAMAGIC_EXTEND)

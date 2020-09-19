@@ -73,10 +73,7 @@ void main()
     {
          nDuration = nDuration + nDuration / 2;
     }
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_ELEMENTARNI))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
+
         RemoveEffectsFromSpell(oTarget, GetSpellId());
 
     //Apply the VFX impact and effects

@@ -45,20 +45,11 @@ void main()
     effect eVis2 = EffectVisualEffect(VFX_IMP_BREACH);
     effect eNature = EffectVisualEffect(VFX_FNF_NATURES_BALANCE);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
-    int iSpecBonus = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA))
-    {
-        iSpecBonus= 2;
-    }
     int nRand, nNumDice;
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
     //Determine spell duration as an integer for later conversion to Rounds, Turns or Hours.
     int nDuration = nCasterLevel/3;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA))
-    {
-        nDuration= nDuration + nDuration/5;
-    }
     int nMetaMagic = GetMetaMagicFeat();
     float fDelay;
     //Set off fire and forget visual
@@ -115,7 +106,7 @@ void main()
             if(!GetIsReactionTypeFriendly(oTarget))
             {
                 //Check for saving throw
-                if (!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iSpecBonus))
+                if (!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)))
                 {
                       nRand = d4(nNumDice);
                       //Enter Metamagic conditions

@@ -30,11 +30,6 @@ void main()
     object oTarget;
     object oCreator;
     float fDelay;
-    int iSpecBonus = 0;
-    if (GetHasFeat(FEAT_DRUID_SPECIALIZACE_PRIRODA) || GetHasFeat(FEAT_DRUID_SPECIALIZACE_MOROVY))
-    {
-        iSpecBonus= 2;
-    }
     int nMetaMagic = GetMetaMagicFeat();
     effect eLink = EffectLinkEffects(eDur,eHold);
     effect eSlow = EffectLinkEffects(eDur, EffectSlow());
@@ -48,14 +43,14 @@ void main()
             if(!MyResistSpell(GetAreaOfEffectCreator(), oTarget))
             {
                 //Make a Fort Save
-                if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF)+iSpecBonus, SAVING_THROW_TYPE_MIND_SPELLS))
+                if(!MySavingThrow(SAVING_THROW_WILL, oTarget, GetSpellSaveDC()+GetThalieSpellDCBonus(OBJECT_SELF), SAVING_THROW_TYPE_MIND_SPELLS))
                 {
                    nRounds = MaximizeOrEmpower(6, 1, nMetaMagic);
                    fDelay = GetRandomDelay(0.45, 1.85);
-                   // Boss exception 
+                   // Boss exception
                    if(GetIsBoss(oTarget))
                      DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eSlow, oTarget, RoundsToSeconds(nRounds)));
-                   else 
+                   else
                      //Apply the VFX impact and linked effects
                      DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nRounds)));
                 }

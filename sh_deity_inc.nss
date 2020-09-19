@@ -278,6 +278,10 @@ int GetIsDeityAndDomainsValid(object oPC)
 
 int GetHasDomain(object oPC, int iDomain)
 {
+    if (GetLevelByClass(CLASS_TYPE_CLERIC,oPC)==0)
+    {
+        return FALSE;
+    }
     return  (GetClericDomain(oPC,1)==iDomain) || (GetClericDomain(oPC,2)==iDomain);
 }
 
@@ -329,5 +333,36 @@ void CheckDomainRules(object oPC)
     //Kontrola na rasove domeny
     CheckRacialDomain(oPC,1,DOMAIN_BEZVEREC1);
     CheckRacialDomain(oPC,2,DOMAIN_BEZVEREC2);
+}
 
+
+void RepairDomainFeats(object oPC,int iOldDomain,int iNewDomain)
+{
+    //Odstraneni puvodniho featu
+    string sOldFeat = Get2DAString("domains", "GrantedFeat", iOldDomain);
+    int iOldFeat = StringToInt(sOldFeat);
+    if(iOldFeat>0)
+    {
+        RemoveKnownFeat(oPC,iOldFeat);
+    }
+    //Pridani noveho featu
+    string sNewFeat = Get2DAString("domains", "GrantedFeat", iNewDomain);
+    int iNewFeat = StringToInt(sNewFeat);
+    if(iNewFeat>0)
+    {
+        AddKnownFeat(oPC,iNewFeat);
+    }
+    SendMessageToPC(oPC, "Prosim provedte relog.");
+}
+
+
+
+void DialogSetDomain(object oPC,object oNPC,int iNewDomain)
+{
+    int iDomainOrder= GetLocalInt(oNPC,"DOMAIN");
+    int iOldDomain = GetClericDomain(oPC,iDomainOrder);
+    SetClericDomain(oPC,iDomainOrder,iNewDomain);
+    SendMessageToPC(oPC,"Puvodni domena: "+IntToString(iOldDomain));
+    SendMessageToPC(oPC,"Nova domena: "+IntToString(iNewDomain));
+    RepairDomainFeats(oPC,iOldDomain,iNewDomain);
 }

@@ -91,7 +91,7 @@ void main()
     {
         nDuration = nDuration * 2; //Duration is +100%
     }
-    float fDuration = RoundsToSeconds(nDuration);
+    float fDuration = TurnsToSeconds(nDuration);
     object oMyWeapon = oTarget;
 
     oMyWeapon = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oTarget);

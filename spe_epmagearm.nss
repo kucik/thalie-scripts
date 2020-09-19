@@ -59,6 +59,6 @@ void main()
     eLink = ExtraordinaryEffect(eLink);
 
     //Apply the armor bonuses and the VFX impact
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, HoursToSeconds(iCasterLevel));
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(2*iCasterLevel));
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oTarget,1.0);
 }
