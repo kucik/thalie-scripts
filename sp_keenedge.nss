@@ -73,7 +73,7 @@ void main()
     effect eVis = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     object oTarget   =  GetSpellTargetObject();
-    int nDuration = 10 * GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF));
+    int nDuration = GetThalieCaster(OBJECT_SELF,oTarget,GetCasterLevel(OBJECT_SELF));
     int nMetaMagic = GetMetaMagicFeat();
 
 
