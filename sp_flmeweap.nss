@@ -77,7 +77,7 @@ void main()
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     int nCasterLvl = GetCasterLevel(OBJECT_SELF);
     nCasterLvl = GetThalieCaster(OBJECT_SELF, oTarget, nCasterLvl,FALSE);
-    int nDuration = 2 * nCasterLvl;
+    int nDuration = nCasterLvl / 2;
     int nMetaMagic = GetMetaMagicFeat();
     int iBonus = nCasterLvl;
     if (iBonus > 10)
