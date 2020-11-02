@@ -1,16 +1,28 @@
 #include "x2_inc_itemprop"
-//#include "sh_classes_const"
+#include "sh_classes_const"
 /*Nastavit bChange CL na FALSE, pokud nechceme omezovat podle caster level targetu*/
 int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL = TRUE,string params = "")
 {
+    int iLastSpellCastClass = GetLastSpellCastClass();
     int iModifiedCasterLevel =iCasterLevel;                                   //zustalo po zruseni dobrodruha kvuli proměnným
+    object oItem = GetSpellCastItem();
+    int iSpellId = GetSpellId();
+    if (GetIsObjectValid(oItem))
+    {
+        //Seslano z predmetu
+        return iCasterLevel;
+    }
     if (GetLevelByClass(47,oCaster)>0)  //CLASS_TYPE_EXORCISTA
     {
-        iModifiedCasterLevel+= GetLevelByClass(47,oCaster);
-    }
-    if (GetHasFeat(FEAT_TOUGH_AS_BONE,oCaster))
-    {
-        iModifiedCasterLevel+= 7;
+        if (
+        (iLastSpellCastClass==CLASS_TYPE_DRUID) ||
+        (iLastSpellCastClass==CLASS_TYPE_CLERIC) ||
+        (iLastSpellCastClass==CLASS_TYPE_RANGER) ||
+        (iLastSpellCastClass==CLASS_TYPE_PALADIN)
+        )
+        {
+            iModifiedCasterLevel+= GetLevelByClass(47,oCaster);
+        }
     }
     /* Underdark penalty */
     /* UNDERDARK_SETTING == KU_AREA_UNDERDARK */
@@ -19,7 +31,7 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
     }
     //Pan smrti
     int iPaleMasterLevel = GetLevelByClass(CLASS_TYPE_PALE_MASTER,oCaster);
-    if (iPaleMasterLevel>0)
+    if ((iPaleMasterLevel>0) && (iLastSpellCastClass==CLASS_TYPE_WIZARD))
     {
         int iIsNecro = FALSE;
         string sSchool = Get2DAString("spells","School",GetSpellId());
@@ -36,7 +48,26 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
             }
         }
     }
+    //Vazac magie
+    int iVazacLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,oCaster);
+    if (iVazacLevel > 0)
+    {
+        switch (iSpellId)
+        {
+            case SPELL_GREASE:
+            case SPELL_CLOUD_OF_BEWILDERMENT:
+            case SPELL_GUST_OF_WIND:
+            case SPELL_MIND_FOG:
+            case SPELL_CLOUDKILL:
+            case SPELL_STINKING_CLOUD:
+            case SPELL_ACID_FOG:
+            case SPELL_INCENDIARY_CLOUD:
+            case SPELL_STONEHOLD:
+            iModifiedCasterLevel += iVazacLevel;
+            break;
 
+        }
+    }
     /* For boost spells always reduce caster level. Cannot be higher than caster
        level*/
     if (bChangeCL)

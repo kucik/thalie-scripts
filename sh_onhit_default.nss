@@ -1,24 +1,32 @@
 #include "sh_classes_const"
+void ActivateFeat(object oPC)
+{
+    SetLocalInt(oPC,"OHAVNA_BLOK",0);
+}
+
+
+
 void main()
 {
     object oPC = OBJECT_SELF;
     object oTarget = GetSpellTargetObject();
-
+    //kontrola na feat ohavne rany
     if (GetHasFeat(FEAT_VAZAC_OHAVNA_RANA,oPC)==FALSE) return;
+    //Kontrola na orb
     object oSlotOffHand = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
     if (GetIsObjectValid(oSlotOffHand)==FALSE) return;
     string sOffHandTag = GetTag(oSlotOffHand);
     if (sOffHandTag!="sys_orb1") return;
 
-    int iCurrentPeriod = GetLocalInt(GetModule(), "TIME");
-    int iLastUse =   GetLocalInt(oPC, "LAST_USE");
-    if (iCurrentPeriod <= (iLastUse+5))
+    int iBlok = GetLocalInt(oPC,"OHAVNA_BLOK");
+    //Pokud je zablokovany tak konec
+    if (iBlok)
     {
         return;
     }
+    //Zablokuji
+    SetLocalInt(oPC,"OHAVNA_BLOK",1);
 
-
-    SetLocalInt(oPC, "LAST_USE",iCurrentPeriod);
     int iCasterLevel = GetLevelByClass(44,oPC) ;//vazac
     int iDice = 1+(iCasterLevel-1)/2;
 
@@ -33,16 +41,22 @@ void main()
         iDice = iDice +5;
     }
     int iDamage = d4(iDice)+iCharismaMod;
+    int iIsCritical = FALSE;
     if (GetHasFeat(FEAT_VAZAC_KRITICKY_VYBUCH,oPC)==TRUE)
     {
         if (d10() == 5)
         {
             iDamage = 2*iDamage;
+            iIsCritical = TRUE;
         }
     }
     effect eDamage = EffectDamage(iDamage,DAMAGE_TYPE_MAGICAL);
     AssignCommand(oPC,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage,oTarget));
-
+    int iDuration = 3;
+    if (iIsCritical)
+    {
+        iDuration = 5;
+    }
 
     if (GetHasFeat(FEAT_VAZAC_OHAVNA_RANA_OSLABENI,oPC)==TRUE)
     {
@@ -54,7 +68,7 @@ void main()
         eLink = EffectLinkEffects(eVulCold,eLink);
         eLink = EffectLinkEffects(eVulElec,eLink);
         eLink = SupernaturalEffect(eLink);
-        ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLink,oTarget,18.0);
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLink,oTarget,RoundsToSeconds(iDuration));
     }
 
 
@@ -62,19 +76,13 @@ void main()
     (GetHasFeat(FEAT_VAZAC_OHAVNA_RANA_UNIKNUTI,oPC)==TRUE))
     {
         effect eHeal;
-        if (
-        (GetLevelByClass(CLASS_TYPE_CLERIC,oPC)>=1) ||
-        (GetLevelByClass(CLASS_TYPE_DRUID,oPC)>=1) ||
-        (GetLevelByClass(CLASS_TYPE_PALADIN,oPC)>=1) ||
-        (GetLevelByClass(CLASS_TYPE_RANGER,oPC)>=1)
-        )
+        int iHeal = 20;
+
+        if (iIsCritical)
         {
-            eHeal = EffectHeal(20);
+            iHeal = 30;
         }
-        else
-        {
-            eHeal = EffectHeal(10);
-        }
+        eHeal = EffectHeal(iHeal);
         effect eHaste = EffectMovementSpeedIncrease(50);
 
         object oListTarget = GetFirstObjectInShape(SHAPE_SPHERE,15.0,GetLocation(oPC));
@@ -89,10 +97,16 @@ void main()
                 }
                 if (GetHasFeat(FEAT_VAZAC_OHAVNA_RANA_UNIKNUTI,oPC)==TRUE)
                 {
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eHaste,oListTarget,12.0);
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eHaste,oListTarget,RoundsToSeconds(iDuration));
                 }
             }
             oListTarget = GetNextObjectInShape(SHAPE_SPHERE,15.0,GetLocation(oPC));
         }
     }
+
+
+
+
+
+    DelayCommand(30.0,ActivateFeat(oPC));
 }
