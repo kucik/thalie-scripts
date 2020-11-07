@@ -63,7 +63,7 @@ void main()
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nDuration));
     if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_DIVINATION))
     {
-       ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectTrueSeeing(), oTarget, TurnsToSeconds(3));
+       ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectTrueSeeing(), oTarget, RoundsToSeconds(3));
     }
 }
 
