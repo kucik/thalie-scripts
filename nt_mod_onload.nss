@@ -119,9 +119,6 @@ Subraces_InitSubraces();
  Subraces_SetDefaultAreaSettings( KU_AREA_SURFACE + AREA_DARK + SEI_AREA_UNDERGROUND );
 //lode
 KU_DefineShips();
-//Sila potrebna pro zbrane
-KU_DefineWeaponPrereq();
-
 //Inicializace chat commandu
 ku_ChatCommandsInit();
 

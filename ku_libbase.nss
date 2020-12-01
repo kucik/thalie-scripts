@@ -79,88 +79,89 @@ int ku_CheckItemRestrictions(object oPC, object oItem)
    return TRUE;
  if(!GetIsPC(oPC))
    return FALSE;
-
- // Stity
- if(iItemType == BASE_ITEM_TOWERSHIELD) {
-   if(iPCStrength < 18 )
-     return FALSE;
+ //Test validity equipu
+ //Zda se jedna o testvane base_items
+ switch (iItemType)
+ {
+    case BASE_ITEM_AMULET:
+    case BASE_ITEM_ARMOR:
+    case BASE_ITEM_BASTARDSWORD:
+    case BASE_ITEM_BATTLEAXE:
+    case BASE_ITEM_BELT:
+    case BASE_ITEM_BOOTS:
+    case BASE_ITEM_BRACER:
+    case BASE_ITEM_CLOAK:
+    case BASE_ITEM_CLUB:
+    case BASE_ITEM_DAGGER:
+    case BASE_ITEM_DART:
+    case BASE_ITEM_DIREMACE:
+    case BASE_ITEM_DOUBLEAXE:
+    case BASE_ITEM_DWARVENWARAXE:
+    case BASE_ITEM_GLOVES:
+    case BASE_ITEM_GREATAXE:
+    case BASE_ITEM_GREATSWORD:
+    case BASE_ITEM_HALBERD:
+    case BASE_ITEM_HANDAXE:
+    case BASE_ITEM_HEAVYCROSSBOW:
+    case BASE_ITEM_HEAVYFLAIL:
+    case BASE_ITEM_HELMET:
+    case BASE_ITEM_KAMA:
+    case BASE_ITEM_KATANA:
+    case BASE_ITEM_KUKRI:
+    case BASE_ITEM_LARGESHIELD:
+    case BASE_ITEM_LIGHTCROSSBOW:
+    case BASE_ITEM_LIGHTFLAIL:
+    case BASE_ITEM_LIGHTHAMMER:
+    case BASE_ITEM_LIGHTMACE:
+    case BASE_ITEM_LONGBOW:
+    case BASE_ITEM_LONGSWORD:
+    case BASE_ITEM_MAGICSTAFF:
+    case BASE_ITEM_MORNINGSTAR:
+    case BASE_ITEM_QUARTERSTAFF:
+    case BASE_ITEM_RAPIER:
+    case BASE_ITEM_RING:
+    case BASE_ITEM_SCIMITAR:
+    case BASE_ITEM_SCYTHE:
+    case BASE_ITEM_SHORTBOW:
+    case BASE_ITEM_SHORTSPEAR:
+    case BASE_ITEM_SHORTSWORD:
+    case BASE_ITEM_SHURIKEN:
+    case BASE_ITEM_SICKLE:
+    case BASE_ITEM_SLING:
+    case BASE_ITEM_SMALLSHIELD:
+    case BASE_ITEM_THROWINGAXE:
+    case BASE_ITEM_TOWERSHIELD:
+    case BASE_ITEM_TRIDENT:
+    case BASE_ITEM_TWOBLADEDSWORD:
+    case BASE_ITEM_WARHAMMER:
+    case BASE_ITEM_WHIP:
+        int bHasLimitation = FALSE;
+        itemproperty ip = GetFirstItemProperty(oItem);
+        while (GetIsItemPropertyValid(ip))
+        {
+            if (GetItemPropertyType(ip)==ITEM_PROPERTY_USE_LIMITATION_CLASS)
+            {
+                bHasLimitation = TRUE;
+                int iLimitationClass =  GetItemPropertyParam1Value(ip);
+                if (GetLevelByClass(iLimitationClass,oPC)>0)
+                {
+                    return TRUE;
+                }
+            }
+            ip = GetNextItemProperty(oItem);
+        }
+        if (bHasLimitation)
+        {
+            return -1;
+        }
+    break;
  }
- if(iItemType == BASE_ITEM_LARGESHIELD) {
-   if(iPCStrength < 12 )
-     return FALSE;
- }
- if(iItemType == BASE_ITEM_SMALLSHIELD) {
-   if(iPCStrength < 8 )
-     return FALSE;
- }
-
- // Jdem rozpoznavat zbroj
- if(iItemType == BASE_ITEM_ARMOR) {
-
-   int iArmorWeight = GetWeight(oItem);
-   int iClass1 = GetClassByPosition(1,oPC);
-   int iClass2 = GetClassByPosition(2,oPC);
-   int iClass3 = GetClassByPosition(3,oPC);
-
-   // Pokud je druid, tak nesmi zbroj nad 30 liber vcetne.
-   if( ( (iClass1 == CLASS_TYPE_DRUID) ||
-         (iClass2 == CLASS_TYPE_DRUID) ||
-         (iClass3 == CLASS_TYPE_DRUID) ) &&
-       ( iArmorWeight >= 300           ) )
-    return FALSE;
-
-   // Budem porovnavat podle vahy zbroje
-   if( ( iArmorWeight >= 50) && (iPCStrength < 7 ) )
-     return FALSE;
-   if( ( iArmorWeight >= 100) && (iPCStrength < 8 ) )
-     return FALSE;
-   if( ( iArmorWeight >= 150) && (iPCStrength < 9 ) )
-     return FALSE;
-   if( ( iArmorWeight >= 300) && (iPCStrength < 12 ) )
-     return FALSE;
-   if( ( iArmorWeight >= 400) && (iPCStrength < 14 ) )
-     return FALSE;
-   if( ( iArmorWeight >= 450) && (iPCStrength < 16 ) )
-     return FALSE;
-   if( ( iArmorWeight >= 500) && (iPCStrength < 17 ) )
-     return FALSE;
-
-   return TRUE;
- }
-
- int iWPenalty = 0;
- // Ted zbrane;
- object oMod = GetModule();
- int iRestrict = GetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(iItemType));
- if(iPCStrength < iRestrict)
-   iWPenalty = iRestrict - iPCStrength;
 
 
- if(iWPenalty>0) {
-   SetLocalObject(oItem,"KU_OWNER",oPC);
-   SetLocalInt(oItem,"KU_WPENALTY",iWPenalty);
-   ExecuteScript("ku_weapon_equip",oItem);
-   return TRUE;
- }
 
 
-  // A ted helmu
- if( (iItemType == BASE_ITEM_HELMET                     ) &&
-     ( (iPCStrength < 10                              ) ||
-       (!GetHasFeat(FEAT_ARMOR_PROFICIENCY_MEDIUM,oPC)) ) ) {
-   if(GetLocalInt(oItem,"ku_kapuce"))
-     return TRUE;
 
-//   SendMessageToPC(oPC,"helmet appearance = "+IntToString(GetItemAppearance(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL,0)));
-   switch(GetItemAppearance(oItem,ITEM_APPR_TYPE_SIMPLE_MODEL,0)) {
-     case 33: return TRUE; break;
-     case 47: return TRUE; break;
-     case 26: return TRUE; break;
-     case 40: return TRUE; break;
-     case 83: return TRUE; break;
-     default : return -1; break;
-   }
- }
+
  return TRUE;
 }
 
@@ -280,51 +281,6 @@ void KU_ChangeArmorDust(object oPC,object oArmor,object oDust = OBJECT_INVALID, 
 
 }
 
-void KU_DefineWeaponPrereq() {
-
- object oMod = GetModule();
-
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_BASTARDSWORD),16);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_BATTLEAXE),12);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_CLUB),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_DAGGER),4);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_DART),4);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_DIREMACE),16);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_DOUBLEAXE),18);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_DWARVENWARAXE),16);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_GREATAXE),18);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_GREATSWORD),18);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_HALBERD),14);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_HANDAXE),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_HEAVYCROSSBOW),10);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_HEAVYFLAIL),17);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_KAMA),8);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_KATANA),16);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_KUKRI),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_LIGHTCROSSBOW),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_LIGHTFLAIL),11);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_LIGHTHAMMER),5);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_LIGHTMACE),9);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_LONGBOW),11);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_LONGSWORD),11);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_MORNINGSTAR),12);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_QUARTERSTAFF),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_RAPIER),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SCIMITAR),8);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SCYTHE),15);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SHORTBOW),8);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SHORTSPEAR),11);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SHORTSWORD),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SHURIKEN),4);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SICKLE),6);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_SLING),4);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_THROWINGAXE),4);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_TRIDENT),11);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_TWOBLADEDSWORD),14);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_WARHAMMER),12);
- SetLocalInt(oMod,"KU_WEAPON_REQ_"+IntToString(BASE_ITEM_WHIP),4);
-
-}
 
 void ku_GetMunitionFromPack(object oPC, string sPack,int iBaseItem,int count) {
   int i;
