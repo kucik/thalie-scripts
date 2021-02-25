@@ -2,6 +2,8 @@
 
 #include "ja_lib"
 #include "ku_exp_inc"
+#include "x2_inc_switches"
+
 
 
 string sy_num_to_percent(string sText, float fMax, float fAkt, int nInvert = 0)

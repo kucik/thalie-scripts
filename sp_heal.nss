@@ -13,6 +13,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "sh_classes_inc"
 
 void main()
 {
@@ -82,16 +83,16 @@ void main()
     }
     else
     {
-        if (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget))
-        {
-            return;
-        }
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_HEAL, FALSE));
         //Set the heal effect
         if (GetHasFeat(FEAT_HEALING_DOMAIN_POWER))
         {
             iValue = GetMaxHitPoints(oTarget);
+        }
+        if (GetHasFeat(FEAT_TOUGH_AS_BONE,oTarget))
+        {
+            iValue = ModifyHealForPalemaster(oTarget,iValue);
         }
         eHeal = EffectHeal(iValue);
         //Apply the heal effect and the VFX impact

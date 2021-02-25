@@ -33,20 +33,7 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
     int iPaleMasterLevel = GetLevelByClass(CLASS_TYPE_PALE_MASTER,oCaster);
     if ((iPaleMasterLevel>0) && (iLastSpellCastClass==CLASS_TYPE_WIZARD))
     {
-        int iIsNecro = FALSE;
-        string sSchool = Get2DAString("spells","School",GetSpellId());
-        if (sSchool=="Necromancy")
-        {
-            iIsNecro = TRUE;
-            iModifiedCasterLevel+= iPaleMasterLevel;
-        }
-        if (GetHasFeat(FEAT_TOUGH_AS_BONE,oCaster))
-        {
-            if (iIsNecro==FALSE)
-            {
-                iModifiedCasterLevel = 1; //Tvrdost kosti - u jinych nez nekromancie nastavi level sesilatele na 1
-            }
-        }
+        iModifiedCasterLevel+= iPaleMasterLevel;
     }
     //Vazac magie
     int iVazacLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,oCaster);

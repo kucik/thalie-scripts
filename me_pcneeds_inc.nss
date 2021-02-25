@@ -1,4 +1,4 @@
-#include "me_pcneeds_inc_a"
+
 
 const float MAX_FOOD = 1200.0;
 const float MAX_WATER = 1200.0;
@@ -345,82 +345,5 @@ void PC_NeedsNegativeEff(object oPC, string sNeed, int iEffLVL)
 
 }
 
-
-
-void effAlcohol1( object oPC)
-{
-            switch(Random(4)){
-                case 0:
-                    DrunkenFoolOne( oPC);
-                    break;
-                case 1:
-                    DrunkenFoolTwo( oPC);
-                    break;
-                case 2:
-                    DrunkenFoolThree( oPC);
-                    break;
-                case 3:
-                    DrunkenFoolSix( oPC);
-                    break;
-             }
-}
-void effAlcohol2( object oPC)
-{
-            switch(Random(9)){
-                case 0:
-                    DrunkenFoolOne( oPC);
-                    break;
-                case 1:
-                    DrunkenFoolTwo( oPC);
-                    break;
-                case 2:
-                    DrunkenFoolThree( oPC);
-                    break;
-                case 3:
-                    DrunkenFoolSix( oPC);
-                    break;
-                case 4:
-                    DrunkenFoolFour( oPC);
-                    break;
-                case 5:
-                    DrunkenFoolFive( oPC);
-                    break;
-                case 6:
-                    DrunkenFoolSeven( oPC);
-                    break;
-                case 7:
-                    DrunkenFoolTen( oPC);
-                    break;
-                case 8:
-                    DrunkenFoolSeven( oPC);
-                    break;
-             }
-}
-void effAlcohol3( object oPC)
-{
-        switch(Random(7)){
-            case 0:
-                DrunkenFoolTwo( oPC);
-                break;
-            case 1:
-                DrunkenFoolThree( oPC);
-                break;
-            case 2:
-                DrunkenFoolFour( oPC);
-                break;
-            case 3:
-                DrunkenFoolFive( oPC);
-                break;
-            case 4:
-                DrunkenFoolSeven( oPC);
-                break;
-            case 5:
-                DrunkenFoolTen( oPC);
-                break;
-            case 6:
-                DrunkenFoolSeven( oPC);
-                break;
-         }
-}
 
 

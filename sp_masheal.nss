@@ -13,6 +13,7 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "sh_classes_inc"
 
 void main()
 {
@@ -84,7 +85,7 @@ void main()
       else
       {
             //Make a faction check
-            if((GetIsFriend(oTarget)) && (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD) && (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget)==FALSE))
+            if((GetIsFriend(oTarget)) && (GetRacialType(oTarget) != RACIAL_TYPE_UNDEAD))
             {
                 //Fire cast spell at event for the specified target
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_MASS_HEAL, FALSE));
@@ -93,6 +94,10 @@ void main()
                 if (GetHasFeat(FEAT_HEALING_DOMAIN_POWER))
                 {
                     iHeal = GetMaxHitPoints(oTarget);
+                }
+                if (GetHasFeat(FEAT_TOUGH_AS_BONE,oTarget))
+                {
+                    iHeal = ModifyHealForPalemaster(oTarget,iHeal);
                 }
                 eHeal = EffectHeal(iHeal);
                 //Apply the VFX impact and heal effect

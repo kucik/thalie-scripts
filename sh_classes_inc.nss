@@ -51,7 +51,16 @@ void CheckAndApplyEpicRageFeats(int nRounds);
 //bonusy dle kategorii
 #include "sei_subraceslst"
 
+int ModifyHealForPalemaster(object oPaleMaster,int iHealValue)
+{
+    float fPercentLoose = 25.0;                  //Zakladni ztrata 25%
+    //Za kazde epicke kouzlo zvysit o 10%
 
+    //
+    if (fPercentLoose >  100.0)   fPercentLoose =  100.0;
+    SendMessageToPC(oPaleMaster,"Ucinek leceni snizen o "+IntToString(FloatToInt(fPercentLoose)) +"%.");
+    return FloatToInt(iHealValue * (100.0- fPercentLoose)/100.0);
+}
 
 void ApplyExorcistBonuses(object oPC)
 {

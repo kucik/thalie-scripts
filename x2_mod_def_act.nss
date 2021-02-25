@@ -5,6 +5,7 @@
 #include "me_pcneeds_inc"
 #include "mys_hen_lib"
 #include "mys_mount_lib"
+#include "x2_inc_switches"
 
 void DeadBody(object oActivator, object oItem);
 void SkinningKnife(object oActivator, object oItem);

@@ -28,23 +28,17 @@
 #include "X0_I0_SPELLS"
 void main()
 {
-    int nBonus = 0;
-    nBonus = ArcaneArcherCalculateBonus() + GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER);
-
     object oTarget = GetSpellTargetObject();
 
     if (GetIsObjectValid(oTarget) == TRUE)
     {
-        int nDamage = ArcaneArcherDamageDoneByBow() *2 + GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER);
+        int nDamage = ArcaneArcherCalculateBonus() + GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER)*2 + ArcaneArcherDamageDoneByBow() *2;
         if (nDamage > 0)
         {
-            effect ePhysical = EffectDamage(nDamage, DAMAGE_TYPE_PIERCING,DAMAGE_POWER_PLUS_TEN);
-            effect eMagic = EffectDamage(nBonus, DAMAGE_TYPE_MAGICAL);
+            effect eMagic = EffectDamage(nDamage, DAMAGE_TYPE_MAGICAL);
 
           //Fire cast spell at event for the specified target
             SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 601));
-
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, ePhysical, oTarget);
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eMagic, oTarget);
 
         }

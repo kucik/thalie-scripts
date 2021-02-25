@@ -103,7 +103,7 @@ void main()
         else
         {
             // * May 2003: Heal Neutrals as well
-            if ((!GetIsReactionTypeHostile(oTarget) || GetFactionEqual(oTarget)) && (GetHasFeat(FEAT_DEATHLESS_MASTERY,oTarget)==FALSE))
+            if ((!GetIsReactionTypeHostile(oTarget) || GetFactionEqual(oTarget)))
             {
                 //Fire cast spell at event for the specified target
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_HEALING_CIRCLE, FALSE));
