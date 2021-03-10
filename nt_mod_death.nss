@@ -16,7 +16,6 @@
 //:://////////////////////////////////////////////
 #include "raiseinc"
 #include "ja_lib"
-#include "sy_main_lib"
 #include "sh_classes_inc"
 #include "pc_lib"
 
@@ -294,7 +293,7 @@ void main()
     DelayCommand(1.0f, AssignCommand(oPC, JumpToObject(wpDeath)));
 
     //edit Sylm : na zaver ulozim do duse bytosti premennu isDead = 1
-    object oSoulItem = sy_has_soulitem(oPC);
+    object oSoulItem = GetSoulStone(oPC);
     SetLocalInt(oSoulItem, "isDead", 1);
     //end Sylm
 

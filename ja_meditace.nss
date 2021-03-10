@@ -76,11 +76,16 @@ void main()
 
     object oPC = OBJECT_SELF;
     object oSoul = GetSoulStone(oPC);
-
+    object oArea = GetArea(oPC);
     // No meditation if mounted
     if (GetLocalInt(oSoul, "MOUNTED"))
     {
         SendMessageToPC(oPC, "Akci nelze provést v sedle.");
+        return;
+    }
+    if (GetLocalInt(oArea,"NO_REST"))
+    {
+        SendMessageToPC(oPC, "V teto oblasti nelze meditovat.");
         return;
     }
 

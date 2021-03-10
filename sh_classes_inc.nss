@@ -146,32 +146,32 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     if (iEquip)
     {
         object oItem = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
-        int iItemTypeM = GetBaseItemType(oItem);
-        if ((GetHasFeat(EFFECT_SPRAVEDLIVY_UDER,oPC) == TRUE) && (iItemTypeM == BASE_ITEM_INVALID) )
-        {
-
-            effect eLink = EffectDamageIncrease(DAMAGE_BONUS_2d6,DAMAGE_TYPE_DIVINE);
-            eLink = VersusAlignmentEffect(eLink,ALIGNMENT_CHAOTIC);
-            eLink = SupernaturalEffect(eLink);
-            SetEffectSpellId(eLink,EFFECT_SPRAVEDLIVY_UDER);
-            ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
-        }
-            /*Exorcistuv dmg divine*/
+        int iBaseItem = GetBaseItemType(oItem);
+        /*Exorcistuv dmg divine*/
         if (GetHasFeat(FEAT_EXORCISTA_ZHOUBA_ZLA,oPC))
         {
-         int iWis = GetAbilityModifier(ABILITY_WISDOM,oPC);
-         int iLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-         if (iWis > iLevel) iWis = iLevel;
-         int iDamage = GetDamageBonusByValue(iWis);
-         effect ef = EffectDamageIncrease(iDamage,DAMAGE_TYPE_DIVINE);
-         effect eLink = SupernaturalEffect(ef);
-         SetEffectSpellId(eLink,EFFECT_EXOR_DAMAGE_DIVINE);
-         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+         //Zakazane zbrane - luk, prak, vrhaci sekera, shuriken, vrhaci sipka
+         if (
+              (iBaseItem != BASE_ITEM_LONGBOW) &&
+              (iBaseItem != BASE_ITEM_SHORTBOW) &&
+              (iBaseItem != BASE_ITEM_SHURIKEN) &&
+              (iBaseItem != BASE_ITEM_DART) &&
+              (iBaseItem != BASE_ITEM_THROWINGAXE))
+         {
+             int iWis = GetAbilityModifier(ABILITY_WISDOM,oPC);
+             int iLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
+             if (iWis > iLevel) iWis = iLevel;
+             int iDamage = GetDamageBonusByValue(iWis);
+             effect ef = EffectDamageIncrease(iDamage,DAMAGE_TYPE_DIVINE);
+             effect eLink = SupernaturalEffect(ef);
+             SetEffectSpellId(eLink,EFFECT_EXOR_DAMAGE_DIVINE);
+             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+         }
 
         }
         if (GetIsObjectValid(oItem))
         {
-            if (GetIsTwoHandedWeapon(oPC, iItemTypeM))
+            if (GetIsTwoHandedWeapon(oPC, iBaseItem))
             {
                 effect ef = EffectAttackIncrease(2);
                 effect eLink = SupernaturalEffect(ef);
@@ -179,7 +179,7 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
                 ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
 
             }
-            int iBaseItem = GetBaseItemType(oItem);
+
             if (
               (iBaseItem == BASE_ITEM_LONGSWORD) ||
               (iBaseItem == BASE_ITEM_SHORTSWORD) ||

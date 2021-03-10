@@ -12,7 +12,6 @@ void main()
     object oItem = GetPCItemLastUnequipped();
     object oPC   = GetPCItemLastUnequippedBy();
     OnUnEquipClassSystem(oPC,oItem);
-    //sy_on_unequip (oPC, oItem);
     //pytel na hlavu - perma slepota
     if (GetTag(oItem)=="sys_blind_helmet")
     {
@@ -40,9 +39,7 @@ void main()
       ExecuteScript("ku_weapon_equip",oItem);
     }*/
 
-   // Shinobi - boure uderu
-   if(GetLocalInt(oPC,AKTIVNI_SAMURAJ_BOURE_UDERU))
-     ExecuteScript("cl_sa_boure", oPC);  // stop this of weapon switched
+
 }
 
 

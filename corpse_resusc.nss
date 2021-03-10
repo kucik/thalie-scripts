@@ -1,6 +1,5 @@
 #include "aps_include"
 #include "raiseinc"
-#include "sy_main_lib"
 
 void main()
 {
@@ -25,7 +24,7 @@ void main()
                   DelayCommand(0.2f, ApplyEffectToObject(DURATION_TYPE_INSTANT,eDmg,oPC));
 
                   //edit Sylm : po oziveni zmazem priznak smrti isDead = 0
-                  object oSoulItem = sy_has_soulitem(oPC);
+                  object oSoulItem = GetSoulStone(oPC);
                   DeleteLocalInt(oSoulItem,"isDead");
                   //end Sylm
 

@@ -2,7 +2,7 @@
     - funkcia sluzi na odvolanie pritelicka ak nieje pod vplyvom negativneho efektu
 */
 
-#include "sy_main_lib"
+#include "me_soul_inc"
 
 /*
     zistujem rozne negativne efekty ci ma na sebe potvora, ak ano neda sa odvolat
@@ -50,7 +50,7 @@ void main()
     object oPC        = GetPCSpeaker();
     object oFamiliar  = GetAssociate(ASSOCIATE_TYPE_FAMILIAR, oPC);
     object oAnimal    = GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION, oPC);
-    object oSoulStone = sy_has_soulitem(oPC);
+    object oSoulStone = GetSoulStone(oPC);
     int    nHP;
 
     if (oAnimal!=OBJECT_INVALID)

@@ -38,13 +38,13 @@ void main()
             effect eSpeed = EffectMovementSpeedIncrease(20);
             effect eLink = EffectLinkEffects(eCon, eSpeed);
             eLink = EffectLinkEffects(eLink, eDur);
-            eLink = SupernaturalEffect(eLink);
+            eLink = ExtraordinaryEffect(eLink);
 
             // * Do not allow this to stack
             RemoveEffectsFromSpell(oTarget, GetSpellId());
 
             //Fire cast spell at event for the specified target
-            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 1483, FALSE));
+            SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
 
             //Apply Link and VFX effects to the target
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(nCharismaBonus));

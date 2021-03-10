@@ -627,7 +627,7 @@ int IsImbueArrow(object oTarget, int iSpell)
         ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_FIRE,IP_CONST_DAMAGEBONUS_1d10);
         break;
 
-        case TALKVOLUME_WHISPER:
+        case SPELL_WOUNDING_WHISPERS:
         ip = ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_SONIC,IP_CONST_DAMAGEBONUS_1d6);
         break;
 

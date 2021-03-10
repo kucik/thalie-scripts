@@ -46,7 +46,7 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_INVISIBILITY, FALSE));
     int nDuration = GetCasterLevel(OBJECT_SELF);
-    nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration);
+    nDuration = GetThalieCaster(OBJECT_SELF,oTarget,nDuration,FALSE);
     int nMetaMagic = GetMetaMagicFeat();
     //Enter Metamagic conditions
     if (nMetaMagic == METAMAGIC_EXTEND)

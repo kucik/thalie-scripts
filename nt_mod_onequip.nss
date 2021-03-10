@@ -50,108 +50,20 @@ void main()
 
     int allowed = ku_CheckItemRestrictions(oPC, oItem);
 
-// Zakomentovat tuhle radku pro zapnuti omezeni zbrani
-//    allowed = TRUE;
-  /*
-    if(allowed == FALSE) {
-      DelayCommand(0.3,AssignCommand(oPC,ActionUnequipItem(oItem)));
-      SendMessageToPC(oPC,"Pro toto vybaveni nemas dost sily!");
-      return;
-    }
-    if(allowed == -1) {
-      DelayCommand(0.3,AssignCommand(oPC,ActionUnequipItem(oItem)));
-      SendMessageToPC(oPC,"Pro nasazeni teto prilby potrebujes odbornost strednich zbroji!");
-      return;
-    }   */
-    //ak je to zbran z lavej ruky oznacim si ju
-    //je to koli efektom pre dualwield zbrani
-    /*
-    if (GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC)==oItem)
-        sy_on_equip(oPC, oItem, 1);
-    else
+    int iFeatReq = GetLocalInt(oItem,"FEAT_REQ");
+    if (iFeatReq>0)
     {
-        sy_on_equip(oPC, oItem, 0);
-    }
-       */
-    // Pokud je to behem boje je moznost, ze se jedna o sipy sipky, nebo neco podobneho
-//    if(GetIsInCombat(oPC)) {
-    if(FALSE) {
-      object oSoul=GetSoulStone(oPC);
-      //Sipy - zkontroluj, zda se nemely brat z toulce
-      switch(GetBaseItemType(oItem)) {
-         //Sipy - zkontroluj, zda se nemely brat z toulce
-         case BASE_ITEM_ARROW: {
-           object oSoul=GetSoulStone(oPC);
-           string sArrows = GetLocalString(oSoul,"ku_ammo_20");
-           if(sArrows != "") {
-             if(GetTag(oItem)!=sArrows)
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_20"),20,1);
-             else
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_20"),20,1);
-           }
-           break;
-         }
-         //Sipky do kuse
-         case BASE_ITEM_BOLT: {
-           object oSoul=GetSoulStone(oPC);
-           string sArrows = GetLocalString(oSoul,"ku_ammo_25");
-           if(sArrows != "") {
-             if(GetTag(oItem)!=sArrows)
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_25"),25,1);
-             else
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_25"),25,1);
-           }
-           break;
-         }
-         //Kameny do praku
-         case BASE_ITEM_BULLET: {
-           object oSoul=GetSoulStone(oPC);
-           string sArrows = GetLocalString(oSoul,"ku_ammo_27");
-           if(sArrows != "") {
-             if(GetTag(oItem)!=sArrows)
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_27"),27,1);
-             else
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_27"),27,1);
-           }
-           break;
-         }
-         //Sipky
-         case BASE_ITEM_DART: {
-           object oSoul=GetSoulStone(oPC);
-           string sArrows = GetLocalString(oSoul,"ku_ammo_31");
-           if(sArrows != "") {
-             if(GetTag(oItem)!=sArrows)
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_31"),31,1);
-             else
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_31"),31,1);
-           }
-           break;
-         }
-         case BASE_ITEM_SHURIKEN: {
-           object oSoul=GetSoulStone(oPC);
-           string sArrows = GetLocalString(oSoul,"ku_ammo_59");
-           if(sArrows != "") {
-             if(GetTag(oItem)!=sArrows)
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_59"),59,1);
-             else
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_59"),59,1);
-           }
-           break;
-         }
-         case BASE_ITEM_THROWINGAXE: {
-           object oSoul=GetSoulStone(oPC);
-           string sArrows = GetLocalString(oSoul,"ku_ammo_63");
-           if(sArrows != "") {
-             if(GetTag(oItem)!=sArrows)
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_63"),63,1);
-             else
-               ku_GetMunitionFromPack(oPC,GetLocalString(oSoul,"ku_ammo_pack_63"),63,1);
-           }
-           break;
-         }
-      }
+        if (GetHasFeat(iFeatReq,oPC)==FALSE)
+        {
+            allowed = FALSE;
+        }
     }
 
+    if(allowed == FALSE) {
+      DelayCommand(0.3,AssignCommand(oPC,ActionUnequipItem(oItem)));
+      SendMessageToPC(oPC,"Tento predmet nelze vybavit!");
+      return;
+    }
 }
 
 

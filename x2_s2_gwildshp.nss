@@ -355,9 +355,6 @@ void main()
     // spells in the polymorph radial
     //--------------------------------------------------------------------------
     ShifterSetGWildshapeSpellLimits(nSpell);
-
-    //SYLMOVA UPRAVA KOLI DYNAMICKYM EFEKTOM
-    sy_redraw_efx(oTarget, oTarget); //oTarget neni dolezity
 }
 
 

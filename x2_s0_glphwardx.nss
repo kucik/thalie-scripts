@@ -57,7 +57,7 @@ void main()
         return;
     }
 
-    int nDice = nCasterLevel /2;
+    int nDice = nCasterLevel;
 
     if (nDice > 10)
         nDice = 10;
@@ -86,7 +86,7 @@ void main()
 
                     if (nMetaMagic == METAMAGIC_MAXIMIZE)
                     {
-                        nDamage = 8 * 5;//Damage is at max
+                        nDamage = 8 * 10;//Damage is at max
                     }
                     else if (nMetaMagic == METAMAGIC_EMPOWER)
                     {
@@ -105,6 +105,19 @@ void main()
                     else
                     {
                         DoDamage(nDamage,oTarget);
+                    }
+                    //Zruseni hipsu
+                    SetActionMode(oTarget,ACTION_MODE_STEALTH,FALSE);
+                    //Zruseni neviditelnosti
+                    effect eLoop = GetFirstEffect(oTarget);
+                    while (GetIsEffectValid(eLoop))
+                    {
+                        int iEffectType = GetEffectType(eLoop);
+                        if (iEffectType== EFFECT_TYPE_INVISIBILITY)
+                        {
+                            RemoveEffect(oTarget,eLoop);
+                        }
+                        eLoop = GetNextEffect(oTarget);
                     }
 
                 }

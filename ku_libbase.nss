@@ -152,7 +152,7 @@ int ku_CheckItemRestrictions(object oPC, object oItem)
         }
         if (bHasLimitation)
         {
-            return -1;
+            return FALSE;
         }
     break;
  }

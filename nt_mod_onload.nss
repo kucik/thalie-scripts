@@ -321,12 +321,30 @@ ExecuteScript("ig_art_inicmod", OBJECT_SELF);
 
 void __InitWeaponsFeats() {
 
-
-
+  SetWeaponFocusFeat(203,1117);// Short Spear
+  SetWeaponFocusFeat(318,1128);// Maul
+  //Improved critical
+  SetWeaponImprovedCriticalFeat(203,1136);// Short Spear
+  SetWeaponImprovedCriticalFeat(318,1147);// Maul
+  //Weapon specialization
+  SetWeaponSpecializationFeat(203,1155);// Short Spear
+  SetWeaponSpecializationFeat(318,1166);// Maul
+  //Weapon of choice
+  SetWeaponOfChoiceFeat(203,1174);// Short Spear
+  SetWeaponOfChoiceFeat(318,1185);// Maul
+  //Overhelming critical
+  SetWeaponOverwhelmingCriticalFeat(203,1193);// Short Spear
+  SetWeaponOverwhelmingCriticalFeat(318,1204);// Maul
+  //Epic Weapon focus
+  SetWeaponEpicFocusFeat(203,1231);// Short Spear
+  SetWeaponEpicFocusFeat(318,1242);// Maul
+  //Epic Weapon specialization
+  SetWeaponEpicSpecializationFeat(203,1250);// Short Spear
+  SetWeaponEpicSpecializationFeat(318,1261);// Maul
 
   SetWeaponIsMonkWeapon (BASE_ITEM_SHURIKEN,1); // shuriken jako monk weapon
   SetWeaponIsMonkWeapon (BASE_ITEM_QUARTERSTAFF,1); // hul jako monk weapon
-
+  SetWeaponFinesseSize(BASE_ITEM_CLUB,2);
 
   DelayCommand(30.0,__AllowLogin());
 
