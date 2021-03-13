@@ -69,7 +69,6 @@ void main()
             //Set damage effect
             eDam = EffectDamage(nDam, DAMAGE_TYPE_COLD);
             //Apply the VFX impact and damage effect
-            CastBlast(OBJECT_SELF,oTarget);
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget);
         }

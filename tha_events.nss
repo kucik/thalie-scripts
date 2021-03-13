@@ -116,14 +116,6 @@ void main()
             nSubID = GetEventSubType();  //ACTION_MODE_*
             //WriteTimestampedLogEntry(GetName(oPC)+" toggled mode  #"+IntToString(nSubID));
             //FloatingTextStringOnCreature(GetName(oPC)+" toggled mode  #"+IntToString(nSubID), oPC, FALSE);
-            if ((nSubID==ACTION_MODE_EXPERTISE) || (nSubID==ACTION_MODE_IMPROVED_EXPERTISE) || (nSubID==ACTION_MODE_IMPROVED_POWER_ATTACK) || (nSubID==ACTION_MODE_POWER_ATTACK))
-            {
-                if (GetLocalInt(oSoulStone,AKTIVNI_POSTOJ_OBRANCE) == 1)
-                {
-                    //odebrani efektu
-                    DecrementRemainingFeatUses(oPC,FEAT_POSTOJ_TRPASLICI_OBRANCE1);
-                }
-            }
 
             if (nSubID == ACTION_MODE_STEALTH)
             {

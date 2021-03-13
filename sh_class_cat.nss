@@ -51,11 +51,9 @@ void RemoveClassItemPropertyAndEffects(object oPC, object oPCSkin)
         iEffect = GetEffectSpellId(eLoop);
         if (
         (iEffect== EFFECT_AB_AC_DMG)
-        || (iEffect == EFFECT_CONCEALMENT )
-        || (iEffect == EFFECT_SPEED)
         || (iEffect == EFFECT_DAMAGE_REDUCTION)
         || (iEffect == EFFECT_EXORCISTA_PASSIVE)
-        || (iEffect == EFFECT_LILITH_PASSIVE)
+        || (iEffect == EFFECT_RED_DRAGON)
         )
         {
             RemoveEffect(oPC,eLoop);
@@ -472,13 +470,10 @@ void ApplyDamageReduction(object oPC, object oPCSkin)
         break;
 
     }
-    if (GetHasFeat(FEAT_VAZAC_POHLT_MAGII_1,oPC)==TRUE)
+    int iRDDLevel = GetLevelByClass(CLASS_TYPE_DRAGON_DISCIPLE_NEW,oPC);
+    if ((iRDDLevel>=10) && (GetHasFeat(FEAT_DRAGON_IMMUNE_FIRE,oPC)==FALSE))
     {
-        iDamageReductionMagic = 5;
-    }
-    if (GetHasFeat(FEAT_VAZAC_POHLT_MAGII_2,oPC)==TRUE)
-    {
-        iDamageReductionMagic = 10;
+        iImmunityFire = 50;
     }
     if (GetHasDomain(oPC,DOMAIN_BOURE))
     {

@@ -46,6 +46,23 @@ void main()
         return;
     }
 
+    // Generator efektu - pro hrace, napr. divadlo
+    if (GetTag(oItem) == "effect_util")
+    {
+        int iEffect = GetLocalInt(oItem,"EFFECT_UTIL_TYPE");
+        float fDuration = IntToFloat(GetLocalInt(oItem,"EFFECT_UTIL_DUR"));
+        if (GetIsObjectValid(oTarget))
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY,EffectVisualEffect(iEffect),oTarget,fDuration);
+        }
+        else
+        {
+            ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY,EffectVisualEffect(iEffect),GetItemActivatedTargetLocation(),fDuration);
+        }
+        return;
+    }
+
+
     // Dead PC body
     if (GetResRef(oItem) == "mrtvola")
     {

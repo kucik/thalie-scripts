@@ -35,26 +35,6 @@ int GetThalieCaster(object oCaster,object oTarget,int iCasterLevel,int bChangeCL
     {
         iModifiedCasterLevel+= iPaleMasterLevel;
     }
-    //Vazac magie
-    int iVazacLevel = GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,oCaster);
-    if (iVazacLevel > 0)
-    {
-        switch (iSpellId)
-        {
-            case SPELL_GREASE:
-            case SPELL_CLOUD_OF_BEWILDERMENT:
-            case SPELL_GUST_OF_WIND:
-            case SPELL_MIND_FOG:
-            case SPELL_CLOUDKILL:
-            case SPELL_STINKING_CLOUD:
-            case SPELL_ACID_FOG:
-            case SPELL_INCENDIARY_CLOUD:
-            case SPELL_STONEHOLD:
-            iModifiedCasterLevel += iVazacLevel;
-            break;
-
-        }
-    }
     /* For boost spells always reduce caster level. Cannot be higher than caster
        level*/
     if (bChangeCL)

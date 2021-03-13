@@ -101,6 +101,34 @@ void main()
             }
 
         }
+        if (GetStringLeft(sSpoke, 6)=="/pheno")
+        {
+            int iConvert = StringToInt(GetStringRight(sSpoke, iLength - 7));
+            SetPhenoType(iConvert,oSpeaker);
+
+        }
+        if (GetStringLeft(sSpoke, 12)=="/visual_type")
+        {
+            object oCreatorItem = GetItemPossessedBy(oSpeaker,"effect_util");
+            if (GetIsObjectValid(oCreatorItem))
+            {
+                int iConvert = StringToInt(GetStringRight(sSpoke, iLength - 13));
+                SetLocalInt(oCreatorItem,"EFFECT_UTIL_TYPE",iConvert);
+                SendMessageToPC(oSpeaker,"Effect nastaven na "+IntToString(iConvert)+".");
+            }
+        }
+        if (GetStringLeft(sSpoke, 12)=="/visual_time")
+        {
+            object oCreatorItem = GetItemPossessedBy(oSpeaker,"effect_util");
+            if (GetIsObjectValid(oCreatorItem))
+            {
+                int iConvert = StringToInt(GetStringRight(sSpoke, iLength - 13));
+                SetLocalInt(oCreatorItem,"EFFECT_UTIL_DUR",iConvert);
+                SendMessageToPC(oSpeaker,"Trvani efektu nastavenon na "+IntToString(iConvert)+" sekund.");
+            }
+        }
+
+
 
         // DM commands
         if ((iDM || iDMp) && sLeft3 == "/dm")

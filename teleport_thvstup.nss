@@ -49,18 +49,6 @@ void main()
        SendMessageToPC(oPC,"Do sveta jsou pousteny jen postavy s urovni do 30.");
        return;
     }
-    if (GetLocalInt(oSoul,AKTIVNI_RAGE) == 1)
-    {
-       SendMessageToPC(oPC,"Postavy se zapnutou zurivosti nebudou pusteny do sveta. Pozadej o DM relevel");
-       return;
-    }
-    if (GetLocalInt(oSoul,AKTIVNI_POSTOJ_OBRANCE) == 1)
-    {
-       SendMessageToPC(oPC,"Postavy se zapnutym postojem nebudou pusteny do sveta. Pozadej o DM relevel");
-       return;
-    }
-
-
 
     if(iPlayed)
     {

@@ -65,21 +65,6 @@ int ModifyHealForPalemaster(object oPaleMaster,int iHealValue)
 void ApplyExorcistBonuses(object oPC)
 {
     int iLevel = GetLevelByClass(CLASS_TYPE_EXORCISTA,oPC);
-    if (iLevel >= 5)
-    {
-        int iBonus = 2* (iLevel/5);
-        effect eMind = EffectSavingThrowIncrease(SAVING_THROW_WILL,iBonus,SAVING_THROW_TYPE_MIND_SPELLS);
-        eMind = SupernaturalEffect(eMind);
-        SetEffectSpellId(eMind,EFFECT_EXORCISTA_PASSIVE);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eMind,oPC);
-    }
-    if (iLevel >= 10)
-    {
-        effect eDom = EffectImmunity(IMMUNITY_TYPE_DOMINATE);
-        effect eSup = SupernaturalEffect(eDom);
-        SetEffectSpellId(eSup,EFFECT_EXORCISTA_PASSIVE);
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eSup,oPC);
-    }
     if (GetHasFeat(FEAT_EXORCISTA_POZEHNANE_VIDENI,oPC))
     {
         effect eUlt = EffectUltravision();
@@ -103,6 +88,104 @@ void ApplyExorcistBonuses(object oPC)
         eLink = SupernaturalEffect(eLink);
         SetEffectSpellId(eLink,EFFECT_EXORCISTA_PASSIVE);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink,oPC);
+    }
+}
+
+void ApplyRedDragonBonuses(object oPC)
+{
+    int iRDDLevel = GetLevelByClass(CLASS_TYPE_DRAGON_DISCIPLE_NEW,oPC);
+    if (iRDDLevel<=0) return;
+
+    int iReductionBonus;
+    int iReductionPower;
+    int iStr = 0;
+    int iCon = 0;
+    int iInt = 0;
+    int iCha = 0;
+
+    if (iRDDLevel ==20)
+    {
+        iReductionBonus = 25;
+        iReductionPower = DAMAGE_POWER_PLUS_FIVE;
+    }
+    else if (iRDDLevel >= 15)
+    {
+        iReductionBonus = 20;
+        iReductionPower = DAMAGE_POWER_PLUS_FOUR;
+    }
+    else if (iRDDLevel >=10)
+    {
+        iReductionBonus = 15;
+        iReductionPower = DAMAGE_POWER_PLUS_THREE;
+    }
+    else if (iRDDLevel >= 5)
+    {
+        iReductionBonus = 10;
+        iReductionPower = DAMAGE_POWER_PLUS_TWO;
+    }
+    else
+    {
+        iReductionBonus = 5;
+        iReductionPower = DAMAGE_POWER_PLUS_ONE;
+    }
+    //Vlastnosti
+    if (iRDDLevel>=2)
+    {
+        iStr+=2;
+    }
+    if (iRDDLevel>=4)
+    {
+        iStr+=2;
+    }
+    if (iRDDLevel>=7)
+    {
+        iCon+=2;
+    }
+    if (iRDDLevel>=9)
+    {
+        iInt+=2;
+    }
+    if (iRDDLevel>=10)
+    {
+        iStr+=4;
+        iCha+=2;
+    }
+    effect ef =  EffectDamageReduction(iReductionBonus,iReductionPower);
+    ef = SupernaturalEffect(ef);
+    SetEffectSpellId(ef,EFFECT_RED_DRAGON);
+    ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
+
+    if (iStr>=0)
+    {
+        ef =  EffectAbilityIncrease(ABILITY_STRENGTH,iStr);
+        ef = SupernaturalEffect(ef);
+        SetEffectSpellId(ef,EFFECT_RED_DRAGON);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
+    }
+    if (iCon>=0)
+    {
+        ef =  EffectAbilityIncrease(ABILITY_CONSTITUTION,iCon);
+        ef = SupernaturalEffect(ef);
+        SetEffectSpellId(ef,EFFECT_RED_DRAGON);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
+    }
+    if (iInt>=0)
+    {
+        ef =  EffectAbilityIncrease(ABILITY_INTELLIGENCE,iInt);
+        ef = SupernaturalEffect(ef);
+        SetEffectSpellId(ef,EFFECT_RED_DRAGON);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
+    }
+    if (iCha>=0)
+    {
+        ef =  EffectAbilityIncrease(ABILITY_CHARISMA,iCha);
+        ef = SupernaturalEffect(ef);
+        SetEffectSpellId(ef,EFFECT_RED_DRAGON);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
+    }
+    if (iRDDLevel>=9)
+    {
+        SetCreatureWingType(CREATURE_WING_TYPE_DRAGON,oPC);
     }
 }
 
@@ -137,7 +220,7 @@ void RefreshOnEquipSpecialBonuses(object oPC,int iEquip)
     while (GetIsEffectValid(eLoop))
     {
         iEffect = GetEffectSpellId(eLoop);
-        if ((iEffect== EFFECT_BRUTALNI_VRH) || (iEffect==EFFECT_SPRAVEDLIVY_UDER) || (iEffect==EFFECT_EXOR_DAMAGE_DIVINE) || (iEffect==EFFECT_TWOHANDED_2AB) || (iEffect==EFFECT_PRESNY_BOD))
+        if ((iEffect==EFFECT_EXOR_DAMAGE_DIVINE) || (iEffect==EFFECT_TWOHANDED_2AB) || (iEffect==EFFECT_PRESNY_BOD))
         {
             RemoveEffect(oPC,eLoop);
         }
@@ -228,42 +311,22 @@ void ApplyClassConditions(object oPC)
     {
         SetLocalInt(oPC,"X1_AllowShadow",0);
     }
-}
-
-void CastBlast(object oPC, object oTarget)
-{
-    if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH1,oPC)==FALSE) return;
-    object oSlotOffHand = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
-    if (GetIsObjectValid(oSlotOffHand)==FALSE) return;
-    string sOffHandTag = GetTag(oSlotOffHand);
-    if (sOffHandTag!="sys_orb1") return;
-
-    int iCasterLevel = GetLevelByClass(44,oPC) ;//vazac
-    int iDice = 1+(iCasterLevel-1)/2;
-
-    //Hlavni kod
-    int iCharismaMod = GetAbilityModifier(ABILITY_CHARISMA,oPC);
-    if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH2,oPC)==TRUE)
+    if (Subraces_GetCharacterSubrace(oPC)==NT2_SUBRACE_GNOME_PIXIE)
     {
-        iDice = iDice +5;
-    }
-    if (GetHasFeat(FEAT_VAZAC_TAJEMNY_VYBUCH3,oPC)==TRUE)
-    {
-        iDice = iDice +5;
-    }
-    int iDamage = d4(iDice)+iCharismaMod;
-    if (GetHasFeat(FEAT_VAZAC_KRITICKY_VYBUCH,oPC)==TRUE)
-    {
-        if (d10() == 5)
+        if (GetLevelByClass(CLASS_TYPE_PIXIE,oPC)>0)
         {
-            iDamage = 2*iDamage;
+            SetLocalInt(oPC,"AllowBase",0);          //Muze zakladni classy
+            SetLocalInt(oPC,"X2_AllowPixie",1);      //Nesmi pixie
+        }
+        else
+        {
+            SetLocalInt(oPC,"AllowBase",1);          //Nesmi zakladni classy
+            SetLocalInt(oPC,"X2_AllowPixie",0);      //Mussi pixie
         }
     }
-    effect eDamage = EffectDamage(iDamage,DAMAGE_TYPE_MAGICAL);
-    AssignCommand(oPC,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage,oTarget));
-
-    //Konec hlavniho kodu
 }
+
+
 
 
 
@@ -306,6 +369,7 @@ void OnLvlupClassSystem(object oPC)
    ApplyRegeneration(oPC,oPCSkin);
    ApplySpeed(oPC,oPCSkin);
    ApplyDamageReduction(oPC,oPCSkin);
+   ApplyRedDragonBonuses(oPC);
    // nastaveni poctu featu na den
    RestoreFeatUses(oPC);
 }
@@ -351,11 +415,8 @@ void OnEnterClassSystem(object oPC)
 {
     //ReequipSkin(oPC);
     ApplyClassConditions(oPC);
-    DeleteLocalString(oPC,"OZNACEN"); //odstraneni znacky assassina
-    DeleteLocalInt(oPC,"UderDoTepny"); //zruseni ucinku krvaceni
-    DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK");
-    DeleteLocalInt(oPC,"KURTIZANA_ODHALENY_ZIVUTEK_TARGET");
     SetLocalInt(oPC,"BARBARIAN_RAGE",0);
+    SetLocalInt(oPC,"BREATH",0);
     object oSoul = GetSoulStone(oPC);
     DeleteLocalInt(oSoul,"KURTIZANA_KZEMI");
     OnLvlupClassSystem(oPC);

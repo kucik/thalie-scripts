@@ -42,7 +42,7 @@ void main()
     //Declare major variables including Area of Effect Object
     effect eAOE = EffectAreaOfEffect(AOE_PER_DARKNESS);
     location lTarget = GetSpellTargetLocation();
-    int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_SHADOWDANCER,OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_CERNOKNEZNIK,OBJECT_SELF);
+    int nDuration = GetCasterLevel(OBJECT_SELF)+GetLevelByClass(CLASS_TYPE_SHADOWDANCER,OBJECT_SELF);
     if(GetSpellId() == 842) //SD darkness
       nDuration = 5 + GetLevelByClass(CLASS_TYPE_SHADOWDANCER,OBJECT_SELF);
 

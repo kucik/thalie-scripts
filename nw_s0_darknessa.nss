@@ -26,8 +26,6 @@ void main()
     effect eLink = EffectLinkEffects(eDark, eDur);
 
     effect eLink2 =  EffectLinkEffects(eInvis, eDur);
-    SetEffectSpellId(eLink2,EFFECT_TEMNOTA);
-
     object oTarget = GetEnteringObject();
 
     // * July 2003: If has darkness then do not put it on it again

@@ -142,7 +142,7 @@ int ku_CheckItemRestrictions(object oPC, object oItem)
             if (GetItemPropertyType(ip)==ITEM_PROPERTY_USE_LIMITATION_CLASS)
             {
                 bHasLimitation = TRUE;
-                int iLimitationClass =  GetItemPropertyParam1Value(ip);
+                int iLimitationClass =  GetItemPropertySubType(ip);
                 if (GetLevelByClass(iLimitationClass,oPC)>0)
                 {
                     return TRUE;
