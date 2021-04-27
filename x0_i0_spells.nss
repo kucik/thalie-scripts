@@ -778,6 +778,7 @@ void DoMissileStorm(int nD6Dice, int nCap, int nSpell, int nMIRV = VFX_IMP_MIRV,
                         {
                               nDam = nDam + nDam/2; //Damage/Healing is +50%
                         }
+                        /*
                         // Jan. 29, 2004 - Jonathan Epp
                         // Reflex save was not being calculated for Firebrand
                         if(nReflexSave)
@@ -791,7 +792,7 @@ void DoMissileStorm(int nD6Dice, int nCap, int nSpell, int nMIRV = VFX_IMP_MIRV,
                                 nDam = GetReflexAdjustedDamage(nDam, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_FIRE);
                             }
                         }
-
+                        */
                         fTime = fDelay;
                         fDelay2 += 0.1;
                         fTime += fDelay2;

@@ -253,7 +253,11 @@ void main()
         object oZviera = CreateObject(OBJECT_TYPE_CREATURE,sTag,GetLocation(oPlayer),TRUE,sPetTag);
         if (sMeno!="ziadne") SetName(oZviera,sMeno);
         SetLocalString(oZviera,"sy_majitel",GetName(oPlayer,TRUE));
-        if (GetHenchman(oPlayer)==OBJECT_INVALID) AddHenchman(oPlayer,oZviera);
+        if (GetHenchman(oPlayer)==OBJECT_INVALID)
+        {
+            SetLocalObject(oPlayer,"HENCHMAN",oZviera);//SH- Podpora pro mluveni pres /h
+            AddHenchman(oPlayer,oZviera);
+        }
         return;
     }
     //Teleportace
