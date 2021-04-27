@@ -51,40 +51,16 @@ void AddLanguagesOnClientEnter(object oPC)
              AddLanguage(oPC,LANGUAGE_ELVEN);
              break;
 
-             case NT2_SUBRACE_ELF_DROW:
-             AddLanguage(oPC,LANGUAGE_UNDERCOMMON);
-             break;
-
              case NT2_SUBRACE_DWARF_NONE:
              AddLanguage(oPC,LANGUAGE_DWARVEN);
-             break;
-
-             case NT2_SUBRACE_DWARF_DUERGAR:
-             AddLanguage(oPC,LANGUAGE_GOBLIN);
              break;
 
              case NT2_SUBRACE_ORC_NONE:
              AddLanguage(oPC,LANGUAGE_ORC);
              break;
 
-             case NT2_SUBRACE_ORC_DEEP:
-             AddLanguage(oPC,LANGUAGE_GIANT);
-             break;
-
-             case NT2_SUBRACE_ORC_HIRAN:
-             AddLanguage(oPC,LANGUAGE_GIANT);
-             break;
-
              case NT2_SUBRACE_GNOME_NONE:
              AddLanguage(oPC,LANGUAGE_GNOME);
-             break;
-
-             case NT2_SUBRACE_GNOME_SWIRFNEBLIN:
-             AddLanguage(oPC,LANGUAGE_IGNAN);
-             break;
-
-             case NT2_SUBRACE_GNOME_GOBLIN_DEEP:
-             AddLanguage(oPC,LANGUAGE_GIANT);
              break;
 
              case NT2_SUBRACE_GNOME_PIXIE:

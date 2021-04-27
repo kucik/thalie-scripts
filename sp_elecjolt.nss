@@ -13,7 +13,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
-#include "sh_classes_inc"
+#include "sh_classes_inc_e"
 
 void main()
 {

@@ -101,12 +101,6 @@ void main()
             }
 
         }
-        if (GetStringLeft(sSpoke, 6)=="/pheno")
-        {
-            int iConvert = StringToInt(GetStringRight(sSpoke, iLength - 7));
-            SetPhenoType(iConvert,oSpeaker);
-
-        }
         if (GetStringLeft(sSpoke, 12)=="/visual_type")
         {
             object oCreatorItem = GetItemPossessedBy(oSpeaker,"effect_util");
@@ -176,7 +170,7 @@ void main()
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
-        else if (sSpoke == "/relevel")
+        /*else if (sSpoke == "/relevel")
         {
             if (iDM)
             {
@@ -193,21 +187,16 @@ void main()
             }
             else
             {
-                int iHasRelevel = GetLocalInt(oSpeaker,"HAS_RELEVEL");
-                if (iHasRelevel==FALSE)
-                {
-                    int iXP = GetXP(oSpeaker);
-                    SetLocalInt(oSpeaker,"HAS_RELEVEL",1);
-                    object oSoulStone = GetSoulStone(oSpeaker);
-                    int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
-                    SetLocalInt(oSoulStone,"RELEVEL_COUNT",iRelevelCount+1);
-                    SetXP(oSpeaker,0);
-                    DelayCommand(1.0,SetXP(oSpeaker,iXP));
-                    ApplyClassConditions(oSpeaker);
-                    return;
-                }
+                int iXP = GetXP(oSpeaker);
+                object oSoulStone = GetSoulStone(oSpeaker);
+                int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
+                SetLocalInt(oSoulStone,"RELEVEL_COUNT",iRelevelCount+1);
+                SetXP(oSpeaker,0);
+                DelayCommand(1.0,SetXP(oSpeaker,iXP));
+                ApplyClassConditions(oSpeaker);
+                return;
             }
-        }
+        }   */
         /*else if (sLeft3 == "/-xp")
         {
             if (GetTag(GetArea(oSpeaker))=="th_vitejte") return;
