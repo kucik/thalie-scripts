@@ -49,10 +49,6 @@ void main()
     //Fire cast spell at event for the specified target
     SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, 997, FALSE));
 
-    int bWeapon = StringToInt(Get2DAString("polymorph","MergeW",iShape)) == 1;
-    int bArmor  = StringToInt(Get2DAString("polymorph","MergeA",iShape)) == 1;
-    int bItems  = StringToInt(Get2DAString("polymorph","MergeI",iShape)) == 1;
-
     object oWeaponOld = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,OBJECT_SELF);
     object oArmorOld = GetItemInSlot(INVENTORY_SLOT_CHEST,OBJECT_SELF);
     object oRing1Old = GetItemInSlot(INVENTORY_SLOT_LEFTRING,OBJECT_SELF);
@@ -73,9 +69,6 @@ void main()
             oShield = OBJECT_INVALID;
         }
     }
-
-
-
     //Apply the VFX impact and effects
     ClearAllActions(); // prevents an exploit
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
@@ -83,27 +76,15 @@ void main()
 
     object oWeaponNew = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,OBJECT_SELF);
     object oArmorNew = GetItemInSlot(INVENTORY_SLOT_CARMOUR,OBJECT_SELF);
-
-    if (bWeapon)
-    {
-            IPWildShapeCopyItemProperties(oWeaponOld,oWeaponNew, TRUE);
-    }
-    if (bArmor)
-    {
-        IPWildShapeCopyItemProperties(oHelmetOld,oArmorNew);
-        IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
-        IPWildShapeCopyItemProperties(oShield,oArmorNew);
-        IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
-    }
-    if (bItems)
-    {
-        IPWildShapeCopyItemProperties(oRing1Old,oArmorNew);
-        IPWildShapeCopyItemProperties(oRing2Old,oArmorNew);
-        IPWildShapeCopyItemProperties(oAmuletOld,oArmorNew);
-        IPWildShapeCopyItemProperties(oCloakOld,oArmorNew);
-        IPWildShapeCopyItemProperties(oBootsOld,oArmorNew);
-        IPWildShapeCopyItemProperties(oBeltOld,oArmorNew);
-    }
-
-
+    IPWildShapeCopyItemProperties(oWeaponOld,oWeaponNew, TRUE);
+    IPWildShapeCopyItemProperties(oHelmetOld,oArmorNew);
+    IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
+    IPWildShapeCopyItemProperties(oShield,oArmorNew);
+    IPWildShapeCopyItemProperties(oArmorOld,oArmorNew);
+    IPWildShapeCopyItemProperties(oRing1Old,oArmorNew);
+    IPWildShapeCopyItemProperties(oRing2Old,oArmorNew);
+    IPWildShapeCopyItemProperties(oAmuletOld,oArmorNew);
+    IPWildShapeCopyItemProperties(oCloakOld,oArmorNew);
+    IPWildShapeCopyItemProperties(oBootsOld,oArmorNew);
+    IPWildShapeCopyItemProperties(oBeltOld,oArmorNew);
 }

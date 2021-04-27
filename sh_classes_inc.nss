@@ -97,7 +97,6 @@ void ApplyRedDragonBonuses(object oPC)
     if (iRDDLevel<=0) return;
 
     int iReductionBonus;
-    int iReductionPower;
     int iStr = 0;
     int iCon = 0;
     int iInt = 0;
@@ -106,27 +105,22 @@ void ApplyRedDragonBonuses(object oPC)
     if (iRDDLevel ==20)
     {
         iReductionBonus = 25;
-        iReductionPower = DAMAGE_POWER_PLUS_FIVE;
     }
     else if (iRDDLevel >= 15)
     {
         iReductionBonus = 20;
-        iReductionPower = DAMAGE_POWER_PLUS_FOUR;
     }
     else if (iRDDLevel >=10)
     {
         iReductionBonus = 15;
-        iReductionPower = DAMAGE_POWER_PLUS_THREE;
-    }
+     }
     else if (iRDDLevel >= 5)
     {
         iReductionBonus = 10;
-        iReductionPower = DAMAGE_POWER_PLUS_TWO;
     }
     else
     {
         iReductionBonus = 5;
-        iReductionPower = DAMAGE_POWER_PLUS_ONE;
     }
     //Vlastnosti
     if (iRDDLevel>=2)
@@ -150,7 +144,7 @@ void ApplyRedDragonBonuses(object oPC)
         iStr+=4;
         iCha+=2;
     }
-    effect ef =  EffectDamageReduction(iReductionBonus,iReductionPower);
+    effect ef =  EffectDamageReduction(iReductionBonus,DAMAGE_POWER_PLUS_FIVE);
     ef = SupernaturalEffect(ef);
     SetEffectSpellId(ef,EFFECT_RED_DRAGON);
     ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
@@ -311,6 +305,7 @@ void ApplyClassConditions(object oPC)
     {
         SetLocalInt(oPC,"X1_AllowShadow",0);
     }
+    SetLocalInt(oPC,"X2_AllowPixie",1);      //Nesmi pixie
     if (Subraces_GetCharacterSubrace(oPC)==NT2_SUBRACE_GNOME_PIXIE)
     {
         if (GetLevelByClass(CLASS_TYPE_PIXIE,oPC)>0)

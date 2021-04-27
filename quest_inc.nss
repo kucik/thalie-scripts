@@ -1,5 +1,5 @@
 
-const int QUEST_DEBUG = 1;
+const int QUEST_DEBUG = 0;
 
 const int QUEST_TYPE_ENTER_TRIGGER = 1;                                         //TargetTag
 const int QUEST_TYPE_ENTER_AREA = 2;                                            //TargetAreaTag

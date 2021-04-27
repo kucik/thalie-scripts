@@ -18,6 +18,7 @@ INSERT INTO th_task (QuestId, Label,QuestType,TargetAreaTag,TargetName,TargetCou
 
 */
 #include "aps_include"
+#include "strings_inc"
 string QUEST_GetTaskSuperString(int iTaskType, string sTargetAreaTag, string sTargetTag)
 {
     string sTaskSuperTag = "";
@@ -121,6 +122,7 @@ int QUEST_GetIsQuestValid(object oPC, object oBoard, int iQuest)
 string QUEST_LoadQuestInfo(int iOrder,object oPC,int iQuestId)
 {
     string sResult = "";
+    object oMod = GetModule();
     string sName,sQuestState,sState,sSuperString,sText,sAreaTag,sTargetTag,sTargetCount;
     int iTaskType,iTaskValue;
     string sSql = "SELECT Q.Name FROM th_quest Q where Q.Id="+IntToString(iQuestId);
@@ -133,13 +135,13 @@ string QUEST_LoadQuestInfo(int iOrder,object oPC,int iQuestId)
         {
             sQuestState = " - ODEVZDANO";
         }
-        sName = SQLGetData(1);
+        sName = StrEncodeToCZ(oMod,SQLGetData(1));
         sResult = sResult + sName+sQuestState+"\n";
         string sSql = "SELECT T.Text,T.TaskType,T.TargetAreaTag,TargetTag,TargetCount FROM th_task T where T.QuestId="+IntToString(iQuestId);
         SQLExecDirect(sSql);
         while (SQLFetch() == SQL_SUCCESS)
         {
-            sText = SQLGetData(1);
+            sText = StrEncodeToCZ(oMod,SQLGetData(1));
             iTaskType = StringToInt(SQLGetData(2));
             sAreaTag = SQLGetData(3);
             sTargetTag = SQLGetData(4);
@@ -169,9 +171,9 @@ string QUEST_LoadQuestInfo(int iOrder,object oPC,int iQuestId)
                     }
                 break;
             }
-            sResult += "- "+sText+sState+"\n";
+            sResult += "- "+sText+sState+"\n\n";
         }
-        sResult += "\n";
+        sResult += "\n\n\n";
     }
     return sResult;
 }
@@ -188,19 +190,20 @@ void QUEST_ProcessReward(int iOrder,object oPC,int iQuestId)
     }
 
     string sResult = "";
-    string sName,sState,sSuperString,sText,sAreaTag,sTargetTag;
+    string sName,sState,sSuperString,sText,sAreaTag,sTargetTag,sQuestItemResRef;
     int iTaskType,iTaskValue;
     int iXPReward = 0;
     int iGPReward = 0;
     string sQuestName;
     //Zjistim zlato a zkusenosti
-    string sSql = "SELECT Q.XPReward,Q.GPReward,Q.Name FROM th_quest Q where Q.Id="+IntToString(iQuestId);
+    string sSql = "SELECT Q.XPReward,Q.GPReward,Q.Name,Q.ItemRewardResRef FROM th_quest Q where Q.Id="+IntToString(iQuestId);
     SQLExecDirect(sSql);
     if (SQLFetch() == SQL_SUCCESS)
     {
         iXPReward =StringToInt(SQLGetData(1));
         iGPReward = StringToInt(SQLGetData(2));
         sQuestName = SQLGetData(3);
+        sQuestItemResRef =SQLGetData(4);
     }
     else
     {
@@ -234,4 +237,8 @@ void QUEST_ProcessReward(int iOrder,object oPC,int iQuestId)
     //Vyplatim odmenu
     SetXP(oPC,GetXP(oPC)+iXPReward);
     GiveGoldToCreature(oPC,iGPReward);
+    if (sQuestItemResRef!="")
+    {
+        CreateItemOnObject(sQuestItemResRef,oPC);
+    }
 }

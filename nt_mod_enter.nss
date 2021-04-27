@@ -487,12 +487,23 @@ void main()
   if(__checkPolymorf(oPC) == FALSE )
     SetPersistentString(oPC, "PORTRAIT", GetPortrait(oPC));
 
- //rp_list
- if(!GetIsObjectValid(GetItemPossessedBy(oPC, "rp_list"))){
-       CreateItemOnObject("rp_list", oPC);
+ //rp_list- smazat
+  object oRuneRP =  GetItemPossessedBy(oPC, "rp_list");
+  if(GetIsObjectValid(oRuneRP))
+  {
+       DestroyObject(oRuneRP,0.1);
+  }
+  if(!GetIsObjectValid(GetItemPossessedBy(oPC, "quest_log"))){
+       CreateItemOnObject("quest_log", oPC);
   }
   //ku_EtherealClientEnter(oPC);
   SkinCleanup(oPC);
+  //Defaultni phenotype
+  int iPhenoType = GetPhenoType(oPC);
+  if (iPhenoType < 50) //nejedna se o bojovy styl
+  {
+    SetLocalInt(oSoulStone,"DEFAULT_PHENO",iPhenoType);
+  }
 }
 
 void DismountAfterActions(object oPC, object oSoul)
