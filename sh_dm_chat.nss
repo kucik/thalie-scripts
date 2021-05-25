@@ -170,7 +170,7 @@ void main()
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
-        /*else if (sSpoke == "/relevel")
+        else if (sSpoke == "/relevel")
         {
             if (iDM)
             {
@@ -196,21 +196,7 @@ void main()
                 ApplyClassConditions(oSpeaker);
                 return;
             }
-        }   */
-        /*else if (sLeft3 == "/-xp")
-        {
-            if (GetTag(GetArea(oSpeaker))=="th_vitejte") return;
-            string sXP = GetStringRight(sSpoke, iLength - 4);
-            sXP = StrTrim(sXP," ");
-            int iXPToRemove = StringToInt(sXP);
-            if (iXPToRemove>0)
-            {
-                int iXP = GetXP(oSpeaker);
-                int iNewXP = iXP-iXPToRemove;
-                SetXP(oSpeaker,iNewXP);
-            }
-            return;
-        }*/
+        }
         else
         {
             PCEmoteFunction();

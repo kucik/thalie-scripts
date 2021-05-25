@@ -234,6 +234,9 @@ int PWFXP_GetLevel(object oPC)
   // Kucik zapocitej ECL
 //  return RetLevel + ku_GetECLClass(oPC);
 //  return Subraces_GetEffectiveCharacterLevel(oPC);
+  if (RetLevel > 30)
+    RetLevel = 30;
+
   return RetLevel;
 }
 

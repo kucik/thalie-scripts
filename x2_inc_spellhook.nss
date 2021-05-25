@@ -664,4 +664,30 @@ int IsImbueArrow(object oTarget, int iSpell)
 }
 
 
-
+void __boostSummon(int iSF1, int iSF2, int iSF3) {
+    // Boost summon
+    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
+    SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
+    int iAC = 0;
+    int iAB = 0;
+    if (GetHasFeat(iSF1))
+    {
+        iAC +=1;
+    }
+    if (GetHasFeat(iSF2))
+    {
+        iAC +=2;
+    }
+    if (GetHasFeat(iSF3))
+    {
+        iAB +=2;
+    }
+    if (iAC>0)
+    {
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,EffectACIncrease(iAC),oSummon);
+    }
+    if (iAB>0)
+    {
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,EffectAttackIncrease(iAB),oSummon);
+    }
+}

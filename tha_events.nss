@@ -116,18 +116,6 @@ void main()
             nSubID = GetEventSubType();  //ACTION_MODE_*
             //WriteTimestampedLogEntry(GetName(oPC)+" toggled mode  #"+IntToString(nSubID));
             //FloatingTextStringOnCreature(GetName(oPC)+" toggled mode  #"+IntToString(nSubID), oPC, FALSE);
-
-            if (nSubID == ACTION_MODE_STEALTH)
-            {
-                if(GetStealthMode(oPC)==STEALTH_MODE_ACTIVATED)
-                { //Unhide penalty
-                    effect e = ExtraordinaryEffect(EffectSkillDecrease( SKILL_HIDE, 100 ));
-                    effect e2 = ExtraordinaryEffect(EffectSkillDecrease( SKILL_MOVE_SILENTLY, 100 ));
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, oPC, 10.0f);
-                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e2, oPC, 10.0f);
-                    DelayCommand(10.8,SendMessageToPC(oPC,"Nyni se lze znovu ukryt."));
-                }
-            }
             break;
 
         case EVENT_TYPE_VALIDATE_CHARACTER:

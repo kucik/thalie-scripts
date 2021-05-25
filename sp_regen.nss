@@ -48,7 +48,7 @@ void main()
     }
     if (nMeta == METAMAGIC_EMPOWER)
     {
-        iRegen = 9;
+        iRegen = 7;
     }
 
     effect eRegen = EffectRegenerate(iRegen, 6.0);

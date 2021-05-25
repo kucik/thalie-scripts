@@ -13,31 +13,6 @@ void CreateBalor();
 #include "ku_boss_inc"
 #include "nwnx_funcs"
 
-void __boostSummon() {
-    // Boost summon
-    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
-    SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
-    int iBonus = 0;
-    if (GetHasFeat(FEAT_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (iBonus>0)
-    {
-        SetAbilityScore(oSummon,ABILITY_DEXTERITY,GetAbilityScore(oSummon,ABILITY_DEXTERITY,TRUE)+iBonus);
-        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+iBonus);
-        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+iBonus);
-    }
-}
-
 void main()
 {
 
@@ -105,13 +80,13 @@ void main()
         eSummon = EffectSummonCreature("ry_s_dracspl", VFX_FNF_SUMMON_GATE, 3.0);
         float fSeconds = RoundsToSeconds(nDuration);
         DelayCommand(3.0, ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, lSpellTargetLOC, fSeconds));
-        DelayCommand(4.2,__boostSummon());
+        DelayCommand(4.2,__boostSummon(FEAT_SPELL_FOCUS_CONJURATION,FEAT_GREATER_SPELL_FOCUS_CONJURATION,FEAT_EPIC_SPELL_FOCUS_CONJURATION));
     }
     else if(Alignment == ALIGNMENT_NEUTRAL){
         eSummon = EffectSummonCreature("ry_s_bslaad", VFX_FNF_SUMMON_GATE, 3.0);
         float fSeconds = RoundsToSeconds(nDuration);
         DelayCommand(3.0, ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, lSpellTargetLOC, fSeconds));
-        DelayCommand(4.2,__boostSummon());
+        DelayCommand(4.2,__boostSummon(FEAT_SPELL_FOCUS_CONJURATION,FEAT_GREATER_SPELL_FOCUS_CONJURATION,FEAT_EPIC_SPELL_FOCUS_CONJURATION));
     }
 
     else if(GetHasSpellEffect(SPELL_PROTECTION_FROM_EVIL) ||
@@ -121,7 +96,7 @@ void main()
         eSummon = EffectSummonCreature("NW_S_BALOR",VFX_FNF_SUMMON_GATE,3.0);
         float fSeconds = RoundsToSeconds(nDuration);
         DelayCommand(3.0, ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, lSpellTargetLOC, fSeconds));
-        DelayCommand(4.2,__boostSummon());
+        DelayCommand(4.2,__boostSummon(FEAT_SPELL_FOCUS_CONJURATION,FEAT_GREATER_SPELL_FOCUS_CONJURATION,FEAT_EPIC_SPELL_FOCUS_CONJURATION));
 
     }
     else

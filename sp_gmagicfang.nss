@@ -48,7 +48,7 @@ void main()
 
     int nCasterLevel = GetCasterLevel(OBJECT_SELF);
     nCasterLevel = GetThalieCaster(OBJECT_SELF,OBJECT_SELF,nCasterLevel,FALSE);
-    int nPower = (nCasterLevel-2) / 3;
+    int nPower = (nCasterLevel-2) / 3 +1;
     if (nPower < 1)  nPower = 1;  // * min of +1 bonus
     int nDamagePower = DAMAGE_POWER_PLUS_ONE;
 

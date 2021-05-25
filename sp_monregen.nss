@@ -47,7 +47,7 @@ void main()
     int nMeta = GetMetaMagicFeat();
     int iCasterLevel = GetCasterLevel(OBJECT_SELF);
     iCasterLevel = GetThalieCaster(OBJECT_SELF,oTarget,iCasterLevel);
-    int nLevel = (iCasterLevel/2)+1;
+    int nLevel = (iCasterLevel/2);
 
     if (nMeta == METAMAGIC_EXTEND)
     {
@@ -55,7 +55,7 @@ void main()
     }
     if (nMeta == METAMAGIC_EMPOWER)
     {
-        iRegen *= 2;
+        iRegen = 4;
     }
     effect eRegen = EffectRegenerate(iRegen, 6.0);
     effect eLink = EffectLinkEffects(eRegen, eDur);

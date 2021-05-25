@@ -28,9 +28,7 @@ void DoAttack(object oTarget)
         if (nDamage > 0)
         {
             // * GZ: Added correct damage power
-            effect ePhysical = EffectDamage(nDamage, DAMAGE_TYPE_PIERCING, DAMAGE_POWER_PLUS_TEN);
-            effect eMagic = EffectDamage(nBonus, DAMAGE_TYPE_MAGICAL);
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, ePhysical, oTarget);
+            effect eMagic = EffectDamage(nDamage+nBonus, DAMAGE_TYPE_MAGICAL);
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eMagic, oTarget);
         }
     }

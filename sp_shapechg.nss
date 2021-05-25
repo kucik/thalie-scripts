@@ -99,7 +99,7 @@ void main()
     ePoly = EffectPolymorph(nPoly);
     //Fire cast spell at event for the specified target
     SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELL_SHAPECHANGE, FALSE));
-    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION))
+    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_TRANSMUTATION))
     {
         PolymorphWihtMerge(nPoly,eVis,nDuration);
         return;

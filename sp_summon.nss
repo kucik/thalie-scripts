@@ -87,32 +87,6 @@ string __chooseSummon(int iLevel) {
   return sSummon;
 }
 
-void __boostSummon() {
-    // Boost summon
-    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
-    SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
-    int iBonus = 0;
-    if (GetHasFeat(FEAT_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (iBonus>0)
-    {
-        SetAbilityScore(oSummon,ABILITY_DEXTERITY,GetAbilityScore(oSummon,ABILITY_DEXTERITY,TRUE)+iBonus);
-        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+iBonus);
-        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+iBonus);
-    }
-    SetName(oSummon,"Povolany");
-
-}
 
 void main()
 {
@@ -155,6 +129,7 @@ void main()
 
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), HoursToSeconds(nDuration));
 
-    DelayCommand(0.2,__boostSummon());
+    DelayCommand(0.2,__boostSummon(FEAT_SPELL_FOCUS_CONJURATION,FEAT_GREATER_SPELL_FOCUS_CONJURATION,FEAT_EPIC_SPELL_FOCUS_CONJURATION));
+    DelayCommand(0.4,SetName(GetAssociate(ASSOCIATE_TYPE_SUMMONED),"Povolany"));
 }
 

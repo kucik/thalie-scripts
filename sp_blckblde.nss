@@ -16,30 +16,6 @@
 #include "x2_i0_spells"
 #include "nwnx_funcs"
 
-void __boostSummon() {
-    // Boost summon
-    object oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED);
-    SendMessageToPC(OBJECT_SELF,"Summon name is"+GetName(oSummon));
-    int iBonus = 0;
-    if (GetHasFeat(FEAT_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (GetHasFeat(FEAT_GREATER_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_CONJURATION))
-    {
-        iBonus +=2;
-    }
-    if (iBonus>0)
-    {
-        SetAbilityScore(oSummon,ABILITY_DEXTERITY,GetAbilityScore(oSummon,ABILITY_DEXTERITY,TRUE)+iBonus);
-        SetAbilityScore(oSummon,ABILITY_STRENGTH,GetAbilityScore(oSummon,ABILITY_STRENGTH,TRUE)+iBonus);
-        SetAbilityScore(oSummon,ABILITY_CONSTITUTION,GetAbilityScore(oSummon,ABILITY_CONSTITUTION,TRUE)+iBonus);
-    }
-}
 
 //Creates the weapon that the creature will be using.
 void spellsCreateItemForSummoned()
@@ -133,5 +109,4 @@ void main()
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eVis, GetSpellTargetLocation());
     ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), RoundsToSeconds(nDuration));
     DelayCommand(1.5, spellsCreateItemForSummoned());
-    DelayCommand(3.0,__boostSummon());
 }
