@@ -81,12 +81,12 @@ void CheckComponent(object oCaster, int iComponentCount)
 void main()
 {
     return;
-    object oCaster = OBJECT_SELF;
+    /*object oCaster = OBJECT_SELF;
     int iSpellId = GetSpellId();
     int iClass = GetLastSpellCastClass();
     //Neplati pro magicke predmety
     object oItem = GetSpellCastItem();
     if (GetIsObjectValid(oItem)) return;
     int iComponentCount = getSpellComponentCount(iSpellId,iClass);
-    CheckComponent(oCaster,iComponentCount);
+    CheckComponent(oCaster,iComponentCount);    */
 }

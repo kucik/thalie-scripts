@@ -1,7 +1,6 @@
 //#include "x2_inc_switches" // included in me_pcneeds_inc
 #include "ku_exp_time"
 #include "sh_cr_potions"
-#include "sh_cr_bandages"
 #include "me_pcneeds_inc"
 #include "mys_hen_lib"
 #include "mys_mount_lib"
@@ -29,7 +28,6 @@ void main()
 
     // Bandages and potions
     sh_ModuleOnActivationItemCheckElixirs(oItem, oTarget, oActivator);
-    sh_ModuleOnActivationItemCheckBandages(oItem, oTarget, oActivator);
 
     // Food and water
     if (GetStringLeft(sTag, 5) == "water" || GetStringLeft(sTag, 4) == "food")

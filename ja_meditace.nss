@@ -83,12 +83,6 @@ void main()
         SendMessageToPC(oPC, "Akci nelze provést v sedle.");
         return;
     }
-    if (GetLocalInt(oArea,"NO_REST"))
-    {
-        SendMessageToPC(oPC, "V teto oblasti nelze meditovat.");
-        return;
-    }
-
     int restStyle = getRestStyle(oPC);
     if(restStyle == SPANEK){
         SendMessageToPC(oPC, "Pokud chces spat, zmackni R nebo klikni na ikonku spani.");
