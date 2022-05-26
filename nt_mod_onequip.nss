@@ -47,23 +47,6 @@ void main()
         SetEffectSpellId(ef,EFFECT_PYTEL_NA_HLAVU);
         ApplyEffectToObject(DURATION_TYPE_PERMANENT,ef,oPC);
     }
-
-    int allowed = ku_CheckItemRestrictions(oPC, oItem);
-
-    int iFeatReq = GetLocalInt(oItem,"FEAT_REQ");
-    if (iFeatReq>0)
-    {
-        if (GetHasFeat(iFeatReq,oPC)==FALSE)
-        {
-            allowed = FALSE;
-        }
-    }
-
-    if(allowed == FALSE) {
-      DelayCommand(0.3,AssignCommand(oPC,ActionUnequipItem(oItem)));
-      SendMessageToPC(oPC,"Tento predmet nelze vybavit!");
-      return;
-    }
 }
 
 
