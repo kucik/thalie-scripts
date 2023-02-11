@@ -26,7 +26,7 @@ void __setDescriptionWithItems(object oPC)
     string sTag = SQLDecodeSpecialChars(SQLGetData(2));
     string sVal = SQLDecodeSpecialChars(SQLGetData(3));
 
-    sDescr = sDescr + "\n" + sTag + sVal + " kusù døeva.";
+    sDescr = sDescr + " \n" + sTag + sVal + " kusù døeva.";
   }
 
   SetDescription(OBJECT_SELF, sDescr, TRUE);
