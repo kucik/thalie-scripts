@@ -6,7 +6,27 @@
 
 const float INTERVAL = 0.2;    //check interval in seconds
 
+void __setDescriptionWithItems(object oBedna)
+{
+  // Definovani nazvu persistentni promenne
+  string sVarName = "craft_truhla_pocet_"+GetTag(oBedna);
+  string sSqlVar = SQLEncodeSpecialChars(sVarName);
 
+  string sSQL = "SELECT player, tag, val FROM pwdata WHERE name = '"+sSqlVar+"';";
+  SQLExecDirect(sSQL);
+
+  string sDescr = "";
+  while(SQLFetch() == SQL_SUCCESS)
+  {
+    string sPlayer = SQLDecodeSpecialChars(SQLGetData(1));
+    string sTag = SQLDecodeSpecialChars(SQLGetData(2));
+    string sVal = SQLDecodeSpecialChars(SQLGetData(3));
+
+    sDescr = sDescr + " \n" + sTag + " "+ sVal + " kusù dreva.";
+  }
+
+  SetDescription(oBedna, sDescr, TRUE);
+}
 
 //declaration
 
@@ -108,6 +128,10 @@ void main()
             ku_HireCheckHireLeft(oTarget);
             QUEST_QuestBoardExamine(oPC,oTarget);
             QUEST_QuestLogExamine(oTarget);
+            if (GetTag(oTarget)=="fr_skladbedna")
+            {
+                __setDescriptionWithItems(oTarget);
+            }
             break;
 
         case EVENT_TOGGLE_MODE:
