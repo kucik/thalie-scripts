@@ -170,33 +170,34 @@ void main()
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
-        else if (sSpoke == "/relevel")
-        {
-            if (iDM)
-            {
-                SendMessageToPC(oSpeaker,"Relevely:");
-                object oPC = GetFirstPC();
-                while (GetIsObjectValid(oPC))
-                {
-                    object oSoulStone = GetSoulStone(oPC);
-                    int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
-                    SendMessageToPC(oSpeaker,GetName(oPC)+":"+IntToString(iRelevelCount));
-                    oPC = GetNextPC();
-                }
-                return;
-            }
-            else
-            {
-                int iXP = GetXP(oSpeaker);
-                object oSoulStone = GetSoulStone(oSpeaker);
-                int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
-                SetLocalInt(oSoulStone,"RELEVEL_COUNT",iRelevelCount+1);
-                SetXP(oSpeaker,0);
-                DelayCommand(1.0,SetXP(oSpeaker,iXP));
-                ApplyClassConditions(oSpeaker);
-                return;
-            }
-        }
+        // PC relevel pomoci prikazu "/relevel"
+        //else if (sSpoke == "/relevel")
+        //{
+        //    if (iDM)
+        //    {
+        //        SendMessageToPC(oSpeaker,"Relevely:");
+        //        object oPC = GetFirstPC();
+        //        while (GetIsObjectValid(oPC))
+        //        {
+        //            object oSoulStone = GetSoulStone(oPC);
+        //            int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
+        //            SendMessageToPC(oSpeaker,GetName(oPC)+":"+IntToString(iRelevelCount));
+        //            oPC = GetNextPC();
+        //       }
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        int iXP = GetXP(oSpeaker);
+        //        object oSoulStone = GetSoulStone(oSpeaker);
+        //        int iRelevelCount = GetLocalInt(oSoulStone,"RELEVEL_COUNT");
+        //        SetLocalInt(oSoulStone,"RELEVEL_COUNT",iRelevelCount+1);
+        //        SetXP(oSpeaker,0);
+        //        DelayCommand(1.0,SetXP(oSpeaker,iXP));
+        //        ApplyClassConditions(oSpeaker);
+        //        return;
+        //    }
+        //}
         else
         {
             PCEmoteFunction();
