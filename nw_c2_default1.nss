@@ -70,6 +70,45 @@ void main()
     // AI status check. Is the AI on?
     if(GetAIOff() || GetSpawnInCondition(AI_FLAG_OTHER_LAG_IGNORE_HEARTBEAT, AI_OTHER_MASTER)) return;
 
+
+    int IsNight = GetIsNight();
+    if(IsNight){
+        int iForce = GetLocalInt(OBJECT_SELF, "JA_NIGHT_LIMBO");
+        if(GetIsCommoner(OBJECT_SELF) || iForce ){ //in night we'll disappear
+          if(!GetLocalInt(GetArea(OBJECT_SELF), "JA_NIGHT_NOLIMBO") || iForce){
+            if(IsNight){
+                int l = GetLocalInt(OBJECT_SELF, "JA_COMMONER_LIMBO");
+                if(l == 0){
+                    if(Random(100) < 80 || iForce){    //80% - limbo
+                        SetLocalInt(OBJECT_SELF, "JA_COMMONER_LIMBO", 1);
+                        effect eDis = EffectDisappearAppear(GetLocation(OBJECT_SELF), 1);
+                        int iDuration;
+
+                        iDuration = GetTimeHour();
+
+                        if(iDuration >= 19)
+                            iDuration = 31-iDuration;
+                        else
+                            iDuration = 7-iDuration;
+
+                        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDis, OBJECT_SELF, HoursToSeconds(iDuration));
+                        return;
+                    }
+                    else{                    //do not limbo
+                        SetLocalInt(OBJECT_SELF, "JA_COMMONER_LIMBO", 2);
+                    }
+                }
+            }
+            else{
+                SetLocalInt(OBJECT_SELF, "JA_COMMONER_LIMBO", 0);
+            }
+          }
+        }
+    }
+
+
+
+
     //pridani special heartbeat scriptu
     string sSpecial = GetLocalString(OBJECT_SELF, "AI_HEARTBEAT");
     if(sSpecial != ""){
