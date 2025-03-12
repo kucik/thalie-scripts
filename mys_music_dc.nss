@@ -787,7 +787,7 @@ int StartingConditional()
     {
         return MusicGetMusicianPerformRank(oPC, 35);
     }
-    
+
     // *************************************************************************
     // Buben
     // *************************************************************************
@@ -859,6 +859,194 @@ int StartingConditional()
     else if (sText == "1:15 Vojenský pochod 2")
     {
         return MusicGetMusicianPerformRank(oPC, 25);
+    }
+    else if (sText == "Thalie - Boj 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 03")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 04")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 05")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 06")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 07")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 08")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 09")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 10")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Boj 11")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pøepad 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pøepad 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Darkmere")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 03")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 04")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 05")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 06")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Napìtí 07")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 03")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 04")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 05")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 06")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 07")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 08")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 09")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 10")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Pochod 11")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Cesta 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Na moøi 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Procesí 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Prohra 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Prohra 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Prohra 03")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Výhra 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Výhra 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Epic")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Písky 01")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Písky 02")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Písky 03")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Písky 04")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Písky 05")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
+    }
+    else if (sText == "Thalie - Písky 06")
+    {
+        return MusicGetMusicianPerformRank(oPC, 120);
     }
 
     // *************************************************************************
