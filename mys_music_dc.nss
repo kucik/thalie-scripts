@@ -860,13 +860,13 @@ int StartingConditional()
     {
         return MusicGetMusicianPerformRank(oPC, 25);
     }
-    else if (sText == "Thalie - Boj 01")
+    else if (sText == "3:14 Thalie - Boj 01")
     {
         return MusicGetMusicianPerformRank(oPC, 90);
     }
     else if (sText == "Thalie - Boj 02")
     {
-        return MusicGetMusicianPerformRank(oPC, 90);
+        return MusicGetMusicianPerformRank(oPC, 50);
     }
     else if (sText == "Thalie - Boj 03")
     {
