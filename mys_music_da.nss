@@ -138,7 +138,10 @@ void main()
     {
         MusicQueueAddTrack(oPC, 197, 5,18);
     }
-
+    else if (sText == "3:11 Pád Har-Ganethu")
+    {
+        MusicQueueAddTrack(oPC, 252, 3,11);
+    }
 
     // *************************************************************************
     // Harfa
@@ -857,7 +860,7 @@ void main()
     {
         MusicQueueAddTrack(oPC, 204, 1,15);
     }
-    else if (sText == "3:14 Thalie - Boj 01")
+    else if (sText == "Thalie - Boj 01")
     {
         MusicQueueAddTrack(oPC, 205, 3,14);
     }
