@@ -170,6 +170,21 @@ void main()
             ExecuteScript("mys_chat_debug", OBJECT_SELF);
             return;
         }
+
+        else if (sLeft3 == "/-xp")
+        {
+             if (GetTag(GetArea(oSpeaker))=="th_vitejte") return;
+             string sXP = GetStringRight(sSpoke, iLength - 4);
+             sXP = StrTrim(sXP," ");
+             int iXPToRemove = StringToInt(sXP);
+             if (iXPToRemove>0)
+             {
+                 int iXP = GetXP(oSpeaker);
+                 int iNewXP = iXP-iXPToRemove;
+                 SetXP(oSpeaker,iNewXP);
+             }
+             return;
+             }
         // PC relevel pomoci prikazu "/relevel"
         //else if (sSpoke == "/relevel")
         //{
