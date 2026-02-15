@@ -13,7 +13,7 @@ void main()
     // Reagujeme na:
     // - normální hráèe
     // - DM-possessed NPC (GetIsDM == TRUE)
-    if (!(GetIsPC(oPC) || GetIsDM(oPC)))
+    if (!(GetIsPC(oPC)))
         return;
 
     int iID   = GetLocalInt(OBJECT_SELF, "sy_id");
