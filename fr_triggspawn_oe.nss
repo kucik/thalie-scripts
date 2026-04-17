@@ -1,25 +1,29 @@
 // On Enter skript pro jednorazovy spawn pomoci waypointu
 // Spousti pouze PC (DM possesed NPC)
-// NPC se spawnout v nahodnych rozestupech +- 1m
+// NPC se spawnou v nahodnem kruhovem rozestupu podle promennych MAX_DIST a MIN_DIST
 
 // Promenne k pouziti:
 // MAX_TYPES int = pocet typu NPC co se objevi na spawnu (typ znamena unikatni resref)
 // SPAWN_WP string = tag waypointu kde se maji NPC spawnout
 // RESREF1 string = resref NPC ke spawnuti (pro dalsi typ NPC se pouzije RESREF2, RESREF3 atd.)
 // COUNT1 int = pocet NPC odkazujici na RESREF1 co se ma spawnout (COUNT1 patri k RESREF1, COUNT2 k RESREF2 atd.)
+// MAX_DIST = maximalni rozestup od dalsi spawnute NPC v kruhu
+// MIN_DIST = minimalni rozestup od dalsi spawnute NPC v kruhu
 
 void main()
 {
     object oPC = GetEnteringObject();
     if (!GetIsPC(oPC)) return;
 
-    // zabrání opakovanému spawnování
+    // Zabrání opakovanému spawnování
     if (GetLocalInt(OBJECT_SELF, "spawned") == 1)
         return;
 
     SetLocalInt(OBJECT_SELF, "spawned", 1);
 
-    // waypoint
+    // ----------------------------------------------------
+    // Waypoint
+    // ----------------------------------------------------
     string sWP = GetLocalString(OBJECT_SELF, "SPAWN_WP");
     object oWP = GetWaypointByTag(sWP);
 
@@ -29,32 +33,78 @@ void main()
         return;
     }
 
-    location lBase = GetLocation(oWP);
     vector vBase = GetPosition(oWP);
 
-    // poèet typù NPC naètený z triggeru
+    // ----------------------------------------------------
+    // Parametry spawnu
+    // ----------------------------------------------------
     int nMaxTypes = GetLocalInt(OBJECT_SELF, "MAX_TYPES");
-    if (nMaxTypes <= 0) nMaxTypes = 1; // bezpeèný fallback
+    if (nMaxTypes <= 0) nMaxTypes = 1;
 
+    float fMaxDist = GetLocalFloat(OBJECT_SELF, "MAX_DIST");
+    if (fMaxDist <= 0.0) fMaxDist = 5.0;
+
+    float fMinDist = GetLocalFloat(OBJECT_SELF, "MIN_DIST");
+    if (fMinDist <= 0.0) fMinDist = 2.0;
+
+    // ----------------------------------------------------
+    // Hlavní spawnovací smyèka
+    // ----------------------------------------------------
     int iType;
     for (iType = 1; iType <= nMaxTypes; iType++)
     {
         string sResRef = GetLocalString(OBJECT_SELF, "RESREF" + IntToString(iType));
-        int nCount = GetLocalInt(OBJECT_SELF, "COUNT" + IntToString(iType));
+        int nCount     = GetLocalInt(OBJECT_SELF, "COUNT" + IntToString(iType));
 
         if (sResRef != "" && nCount > 0)
         {
             int i;
             for (i = 0; i < nCount; i++)
             {
-                // náhodné rozhození kolem waypointu (±1 metr)
-                vector vRand = vBase;
-                vRand.x += (Random(200) - 100) / 100.0; // -1.0 až +1.0
-                vRand.y += (Random(200) - 100) / 100.0;
+                // ----------------------------------------------------
+                // Blok pro výpoèet pozice a spawn NPC
+                // ----------------------------------------------------
+                {
+                    vector vRand;
+                    int nAttempts = 0;
+                    int bValid = FALSE;
 
-                location lSpawn = Location(GetArea(oWP), vRand, GetFacing(oWP));
+                    // Hledání pozice s minimální vzdáleností od ostatních NPC
+                    while (!bValid && nAttempts < 20)
+                    {
+                        nAttempts++;
 
-                CreateObject(OBJECT_TYPE_CREATURE, sResRef, lSpawn);
+                        float fDist  = (IntToFloat(Random(100)) / 100.0) * fMaxDist;
+                        float fAngle = IntToFloat(Random(360));
+
+                        vRand = vBase;
+                        vRand.x += fDist * cos(fAngle * 3.14159 / 180.0);
+                        vRand.y += fDist * sin(fAngle * 3.14159 / 180.0);
+
+                        bValid = TRUE;
+
+                        object oCheck = GetNearestObject(OBJECT_TYPE_CREATURE, oWP, 1);
+                        while (oCheck != OBJECT_INVALID)
+                        {
+                            float fD = GetDistanceBetweenLocations(
+                                Location(GetArea(oWP), vRand, 0.0),
+                                GetLocation(oCheck)
+                            );
+
+                            if (fD < fMinDist)
+                            {
+                                bValid = FALSE;
+                                break;
+                            }
+
+                            oCheck = GetNearestObject(OBJECT_TYPE_CREATURE, oCheck, 1);
+                        }
+                    }
+
+                    // Spawn NPC
+                    location lSpawn = Location(GetArea(oWP), vRand, GetFacing(oWP));
+                    CreateObject(OBJECT_TYPE_CREATURE, sResRef, lSpawn);
+                }
             }
         }
     }
