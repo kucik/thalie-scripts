@@ -1,17 +1,28 @@
 /*
-    Trigger se aktivuje, kdyû na nÏj vstoupÌ hr·Ë nebo DM-possessed NPC.
-    sy_id    = typ akce (1 = zobrazenÌ pro vöechny, 2 = zobrazenÌ skrze NPC)
-    sy_npc   = doplÚ tag NPC, skrze kterou se m· zobrazit text
-    sy_str   = text zpr·vy
-    sy_once  = 0 = opakovanÏ, 1 = jen jednou pro kaûdÈho hr·Ëe/DM
-    sy_first = 1 = text se zobrazÌ pouze prvnÌmu hr·Ëi, kter˝ vstoupÌ
+    Trigger se aktivuje, kdyz na nej vstoupi hrac nebo DM-possessed NPC.
+    sy_id    = typ akce (1 = zobrazeni pro vsechny, 2 = zobrazeni skrze NPC)
+    sy_npc   = dopln tag NPC, skrze kterou se ma zobrazit text
+    sy_str   = text zpravy
+    sy_once  = 0 = opakovane, 1 = jen jednou pro kazdeho hrace/DM
+    sy_first = 1 = text se zobrazi pouze prvnimu hraci nebo DM-possessed NPC
+    sy_test  = 1 = DM avatar muze spustit sy_first (testovaci rezim)
 */
 
 void main()
 {
     object oPC = GetEnteringObject();
 
+    // Pouze hraci a DM (avatar nebo possessed)
     if (!GetIsPC(oPC))
+        return;
+
+    // Testovaci rezim
+    int iTest = GetLocalInt(OBJECT_SELF, "sy_test");
+
+    // DM avatar ignorovat, pokud neni testovaci rezim
+    // DM avatar: GetIsDM == TRUE && GetMaster == OBJECT_INVALID
+    // DM possessed NPC: GetIsDM == TRUE && GetMaster != OBJECT_INVALID
+    if (GetIsDM(oPC) && GetMaster(oPC) == OBJECT_INVALID && iTest == 0)
         return;
 
     int iID     = GetLocalInt(OBJECT_SELF, "sy_id");
@@ -19,39 +30,36 @@ void main()
     int iFirst  = GetLocalInt(OBJECT_SELF, "sy_first");
     string sTX  = GetLocalString(OBJECT_SELF, "sy_str");
 
-    // --- NOV¡ LOGIKA: sy_first ---
-    // KlÌË pro hr·Ëe ñ unik·tnÌ podle triggeru
-    string sFirstKey = "sy_first_shown_" + GetTag(OBJECT_SELF);
-
-    // Pokud je sy_first aktivnÌ a hr·Ë uû to vidÏl õ konec
-    if (iFirst == 1 && GetLocalInt(oPC, sFirstKey) == 1)
-        return;
-
-    // Pokud je sy_first aktivnÌ a hr·Ë to jeötÏ nevidÏl õ oznaËÌme ho
+    // --- sy_first: zobrazit jen prvnimu hraci nebo DM possessed NPC ---
     if (iFirst == 1)
     {
-        SetLocalInt(oPC, sFirstKey, 1);
+        if (GetLocalInt(OBJECT_SELF, "sy_first_shown") == 1)
+            return;
+
+        // Oznacit, ze uz nekdo videl
+        SetLocalInt(OBJECT_SELF, "sy_first_shown", 1);
     }
 
-    // --- PŸVODNÕ LOGIKA: sy_once (pro kaûdÈho hr·Ëe zvl·öù) ---
-    string sOnceKey = "sy_once_" + GetTag(OBJECT_SELF);
+    // --- sy_once: jednou pro kazdeho hrace/DM pokud neni nastavena promenna
+    // sy_first na 1 ---
+    string sKey = "sy_once_" + GetTag(OBJECT_SELF);
 
-    if (iOnce == 1 && GetLocalInt(oPC, sOnceKey) == 1)
+    if (iOnce == 1 && GetLocalInt(oPC, sKey) == 1)
         return;
 
     if (iOnce == 1)
-        SetLocalInt(oPC, sOnceKey, 1);
+        SetLocalInt(oPC, sKey, 1);
 
-    // --- VlastnÌ akce ---
+    // --- Vlastni akce ---
     switch (iID)
     {
-        case 1: // soukrom· zpr·va hr·Ëi/DM
+        case 1: // soukroma zprava hraci/DM
         {
             SendMessageToPC(oPC, sTX);
             break;
         }
 
-        case 2: // ve¯ejn· zpr·va skrz NPC
+        case 2: // verejna zprava skrz NPC
         {
             string sNPC = GetLocalString(OBJECT_SELF, "sy_npc");
             object oNPC = GetNearestObjectByTag(sNPC, oPC, 10);
