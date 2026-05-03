@@ -2,7 +2,7 @@
 // Verze 100% kompatibilni s NWN 1.69
 
 /* Nastavitelne promenne na triggeru:
-sy_env_type int =    typ postredi (1 voa,2 ostatni)
+sy_env_type int =    typ postredi (1 voda,2 ostatni)
 sy_slow_const int = procento zpomaleni
 sy_text_enter string = vlastni text pri vstupu
 sy_text_exit string = vlastni text pri vystupu
@@ -10,6 +10,7 @@ sy_text_exit string = vlastni text pri vystupu
 Nastavitelne promenne na NPC:
 sy_swimmer int 1 = ignoruje vodni zpomaleni
 sy_crawler int 1 = ignoruje zpomaleni pro ostatni tereny
+sy_ignore_slow int 1 = ignoruje slow efekt (napr. letajici summon)
 */
 
 void RemoveFreedomOfMovement(object oPC)
@@ -30,8 +31,16 @@ void main()
     object oPC = GetEnteringObject();
     if (!GetIsObjectValid(oPC)) return;
 
-    // Povolit hrace a DM-possessed NPC
-    if (!GetIsPC(oPC) && !GetIsObjectValid(GetMaster(oPC)))
+    // Povolit vsechny creature (PC, DM-possessed NPC, bezne NPC)
+    if (GetObjectType(oPC) != OBJECT_TYPE_CREATURE)
+        return;
+
+    // Vylouceni familiaru
+    if (GetAssociateType(oPC) == ASSOCIATE_TYPE_FAMILIAR)
+        return;
+
+    // Vylouceni vybranych summonù (napr. letajicich)
+    if (GetLocalInt(oPC, "sy_ignore_slow") == 1)
         return;
 
     // Typ prostredi
@@ -52,11 +61,27 @@ void main()
 
     SetLocalInt(oPC, sFlag, 1);
 
-    // Odstraneni Freedom of Movement
+    // Zjistime, zda mel PC aktivni Freedom of Movement
+    int bHadFoM = FALSE;
+    effect eCheck = GetFirstEffect(oPC);
+    while (GetIsEffectValid(eCheck))
+    {
+    if (GetEffectSpellId(eCheck) == SPELL_FREEDOM_OF_MOVEMENT)
+    {
+        bHadFoM = TRUE;
+        break;
+    }
+    eCheck = GetNextEffect(oPC);
+}
+
+// Odstraneni Freedom of Movement
     RemoveFreedomOfMovement(oPC);
 
-    if (GetIsPC(oPC))
-        SendMessageToPC(oPC, "Magicka ochrana proti omezeni pohybu je potlacena prirodnimi podminkami.");
+// Hlaseni jen pokud mel PC FoM
+    if (bHadFoM && GetIsPC(oPC))
+    {
+    SendMessageToPC(oPC, "Magicka ochrana proti omezeni pohybu je potlacena prirodnimi podminkami.");
+    }
 
     // Aplikace PERMANENT slow efektu
     int iSlow = GetLocalInt(OBJECT_SELF, "sy_slow_const");
@@ -73,9 +98,9 @@ void main()
         else
         {
             if (iEnv == 1)
-                SendMessageToPC(oPC, "Brodis vodou.");
+                SendMessageToPC(oPC, "Brodis se vodou.");
             else
-                SendMessageToPC(oPC, "Brodis piskem nebo snehem.");
+                SendMessageToPC(oPC, "Prochazis narocnym terenem.");
         }
     }
 }
