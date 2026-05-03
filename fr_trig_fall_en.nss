@@ -13,7 +13,7 @@
 // fr_sound string = zvuk, ktery se prehrava pri padu kameni/laviny
 // ------------------------------------------------------
 
-void Lavina(string sTagTriggeru,
+void PadKameniLavina(
             int nDefChance,
             string sDefSound,
             int nDefDamage,
@@ -23,9 +23,7 @@ void Lavina(string sTagTriggeru,
             float fDefRadiusSmall,
             float fDefRadiusBig)
 {
-    object oTrap = GetObjectByTag(sTagTriggeru);
-    if (!GetIsObjectValid(oTrap)) return;
-
+    object oTrap = OBJECT_SELF;          // OPRAVA na OBJECT_SELF
     object oEnter = GetEnteringObject();
     if (!GetIsObjectValid(oEnter)) return;
 
@@ -118,23 +116,16 @@ void Lavina(string sTagTriggeru,
 
         effect eDam = EffectDamage(nDamage, DAMAGE_TYPE_BLUDGEONING);
 
-        // Spolecne pro oba mody
         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectKnockdown(), oTarget, fKnock));
 
-        // ------------------------------------------------------
-        // VIZUALNI EFEKTY PODLE MODU
-        // ------------------------------------------------------
-
         if (nMode == 1)
         {
-            // Pad kamenu – jeden prachovy dopad
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
                 EffectVisualEffect(VFX_FNF_SMOKE_PUFF), oTarget));
         }
         else
         {
-            // Lavina – kombinace dvou efektu
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
                 EffectVisualEffect(VFX_FNF_SMOKE_PUFF), oTarget));
 
@@ -167,7 +158,7 @@ void Lavina(string sTagTriggeru,
 
 void main()
 {
-    Lavina("GenericTrigger",
+    PadKameniLavina(
            50,
            "as_rockcrumble3",
            10,
