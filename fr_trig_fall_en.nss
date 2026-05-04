@@ -23,7 +23,7 @@ void PadKameniLavina(
             float fDefRadiusSmall,
             float fDefRadiusBig)
 {
-    object oTrap = OBJECT_SELF;          // OPRAVA na OBJECT_SELF
+    object oTrap = OBJECT_SELF;
     object oEnter = GetEnteringObject();
     if (!GetIsObjectValid(oEnter)) return;
 
@@ -50,15 +50,12 @@ void PadKameniLavina(
     if (fKnock <= 0.0) fKnock = fDefKnock;
 
     int nMode = GetLocalInt(oTrap, "fr_mode");
-    if (nMode <= 0) nMode = 2; // 1 = pad kamenu, 2 = lavina
+    if (nMode <= 0) nMode = 2;
 
     float fRadius = GetLocalFloat(oTrap, "fr_radius");
     if (fRadius <= 0.0)
         fRadius = (nMode == 1 ? fDefRadiusSmall : fDefRadiusBig);
 
-    // ------------------------------------------------------
-    // Konfigurovatelna hlaska
-    // ------------------------------------------------------
     string sMsgFinal = GetLocalString(oTrap, "fr_msg");
     if (sMsgFinal == "")
         sMsgFinal = "Spadla na tebe lavina!";
@@ -89,7 +86,7 @@ void PadKameniLavina(
     effect eShake = EffectVisualEffect(VFX_FNF_SCREEN_SHAKE);
 
     // ------------------------------------------------------
-    // Otras obrazovky pro vsechny hrace v oblasti
+    // Otras obrazovky pro vsechny PC v oblasti
     // ------------------------------------------------------
     object oPC = GetFirstObjectInShape(SHAPE_SPHERE, fRadius, lLoc, TRUE, OBJECT_TYPE_CREATURE);
 
@@ -111,24 +108,49 @@ void PadKameniLavina(
     {
         float fDelay = GetDistanceBetweenLocations(lLoc, GetLocation(oTarget)) / 5.0;
 
+        // ------------------------------------------------------
+        // Damage + reflex save + knockdown logika
+        // ------------------------------------------------------
         int nDamage = (GetMaxHitPoints(oTarget) * nDamagePct) / 100;
-        nDamage = GetReflexAdjustedDamage(nDamage, oTarget, nDC, SAVING_THROW_TYPE_ALL);
 
-        effect eDam = EffectDamage(nDamage, DAMAGE_TYPE_BLUDGEONING);
-
-        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
-        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectKnockdown(), oTarget, fKnock));
+        int bSave = ReflexSave(oTarget, nDC, SAVING_THROW_TYPE_ALL);
+        int bApplyKnock = TRUE;
 
         if (nMode == 1)
         {
-            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
-                EffectVisualEffect(VFX_FNF_SMOKE_PUFF), oTarget));
+            // Pad kamenu: uspech = 0 damage + zadny knockdown
+            if (bSave)
+            {
+                nDamage = 0;
+                bApplyKnock = FALSE;
+            }
         }
         else
         {
-            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
-                EffectVisualEffect(VFX_FNF_SMOKE_PUFF), oTarget));
+            // Lavina: uspech = polovicni damage
+            if (bSave)
+            {
+                nDamage = nDamage / 2;
+            }
+        }
 
+        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
+            EffectDamage(nDamage, DAMAGE_TYPE_BLUDGEONING), oTarget));
+
+        if (bApplyKnock)
+        {
+            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY,
+                EffectKnockdown(), oTarget, fKnock));
+        }
+
+        // ------------------------------------------------------
+        // VFX podle modu
+        // ------------------------------------------------------
+        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
+            EffectVisualEffect(VFX_FNF_SMOKE_PUFF), oTarget));
+
+        if (nMode == 2)
+        {
             DelayCommand(fDelay + 0.2, ApplyEffectToObject(DURATION_TYPE_INSTANT,
                 EffectVisualEffect(VFX_FNF_GAS_EXPLOSION_ACID), oTarget));
         }
