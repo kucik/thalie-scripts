@@ -1,8 +1,8 @@
-// OnEnter skript pro zpomaleni podle typu prostredi a odstraneni Freedom of Movement
+// OnEnter skript pro zpomaleni podle typu prostredi a odstraneni FoM a Haste
 // Verze 100% kompatibilni s NWN 1.69
 
 /* Nastavitelne promenne na triggeru:
-sy_env_type int =    typ postredi (1 voda,2 ostatni)
+sy_env_type int = typ prostredi (1 voda, 2 ostatni)
 sy_slow_const int = procento zpomaleni
 sy_text_enter string = vlastni text pri vstupu
 sy_text_exit string = vlastni text pri vystupu
@@ -22,7 +22,20 @@ void RemoveFreedomOfMovement(object oPC)
         {
             RemoveEffect(oPC, e);
         }
-        e = GetNextEffect(oPC);
+        e = GetNextEffect(oPC); // 1.69 kompatibilni
+    }
+}
+
+void RemoveHasteEffect(object oPC)
+{
+    effect e = GetFirstEffect(oPC);
+    while (GetIsEffectValid(e))
+    {
+        if (GetEffectType(e) == EFFECT_TYPE_HASTE)
+        {
+            RemoveEffect(oPC, e);
+        }
+        e = GetNextEffect(oPC); // 1.69 kompatibilni
     }
 }
 
@@ -35,11 +48,7 @@ void main()
     if (GetObjectType(oPC) != OBJECT_TYPE_CREATURE)
         return;
 
-    // Vylouceni familiaru
-    if (GetAssociateType(oPC) == ASSOCIATE_TYPE_FAMILIAR)
-        return;
-
-    // Vylouceni vybranych summonù (napr. letajicich)
+    // Vylouceni podle sy_ignore_slow
     if (GetLocalInt(oPC, "sy_ignore_slow") == 1)
         return;
 
@@ -61,32 +70,46 @@ void main()
 
     SetLocalInt(oPC, sFlag, 1);
 
-    // Zjistime, zda mel PC aktivni Freedom of Movement
+    // Kontrola FoM
     int bHadFoM = FALSE;
     effect eCheck = GetFirstEffect(oPC);
     while (GetIsEffectValid(eCheck))
     {
-    if (GetEffectSpellId(eCheck) == SPELL_FREEDOM_OF_MOVEMENT)
-    {
-        bHadFoM = TRUE;
-        break;
+        if (GetEffectSpellId(eCheck) == SPELL_FREEDOM_OF_MOVEMENT)
+        {
+            bHadFoM = TRUE;
+            break;
+        }
+        eCheck = GetNextEffect(oPC); // OPRAVA
     }
-    eCheck = GetNextEffect(oPC);
-}
 
-// Odstraneni Freedom of Movement
+    // Kontrola Haste
+    int bHadHaste = FALSE;
+    effect eH = GetFirstEffect(oPC);
+    while (GetIsEffectValid(eH))
+    {
+        if (GetEffectType(eH) == EFFECT_TYPE_HASTE)
+        {
+            bHadHaste = TRUE;
+            break;
+        }
+        eH = GetNextEffect(oPC); // OPRAVA
+    }
+
+    // Odstraneni FoM a Haste
     RemoveFreedomOfMovement(oPC);
+    RemoveHasteEffect(oPC);
 
-// Hlaseni jen pokud mel PC FoM
-    if (bHadFoM && GetIsPC(oPC))
+    // Univerzalni hlaseni pro PC a DM-possessed NPC
+    if ((bHadFoM || bHadHaste) && GetIsPC(oPC))
     {
-    SendMessageToPC(oPC, "Magicka ochrana proti omezeni pohybu je potlacena prirodnimi podminkami.");
+        SendMessageToPC(oPC, "Magicke efekty ovlivnujici pohyb jsou potlaceny prirodnimi podminkami.");
     }
 
-    // Aplikace PERMANENT slow efektu
+    // Aplikace slow s malym zpozdenim (engine fix)
     int iSlow = GetLocalInt(OBJECT_SELF, "sy_slow_const");
     effect eSlow = EffectMovementSpeedDecrease(iSlow);
-    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eSlow, oPC);
+    DelayCommand(0.1, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eSlow, oPC));
 
     // Text
     string sCustom = GetLocalString(OBJECT_SELF, "sy_text_enter");
