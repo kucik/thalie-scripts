@@ -47,7 +47,7 @@ void PadKameniLavina(
     if (fCooldown <= 0.0) fCooldown = fDefCooldown;
 
     float fKnock = GetLocalFloat(oTrap, "fr_knockdown");
-    if (fKnock <= 0.0) fKnock = fDefKnock;
+    int bKnockEnabled = (fKnock > 0.0); // knockdown jen pokud je explicitne nastaven
 
     int nMode = GetLocalInt(oTrap, "fr_mode");
     if (nMode <= 0) nMode = 2;
@@ -108,35 +108,52 @@ void PadKameniLavina(
     {
         float fDelay = GetDistanceBetweenLocations(lLoc, GetLocation(oTarget)) / 5.0;
 
-        // ------------------------------------------------------
-        // Damage + reflex save + knockdown logika
-        // ------------------------------------------------------
         int nDamage = (GetMaxHitPoints(oTarget) * nDamagePct) / 100;
 
         int bSave = ReflexSave(oTarget, nDC, SAVING_THROW_TYPE_ALL);
         int bApplyKnock = TRUE;
 
+        // ------------------------------------------------------
+        // OPRAVENA LOGIKA KNOCKDOWNU
+        // ------------------------------------------------------
+
         if (nMode == 1)
         {
-            // Pad kamenu: uspech = 0 damage + zadny knockdown
+            // PAD KAMENU
             if (bSave)
             {
                 nDamage = 0;
                 bApplyKnock = FALSE;
             }
+            else
+            {
+                // Knockdown jen pokud je explicitne nastaven fr_knockdown
+                if (!bKnockEnabled)
+                    bApplyKnock = FALSE;
+            }
         }
         else
         {
-            // Lavina: uspech = polovicni damage
+            // LAVINA
             if (bSave)
             {
                 nDamage = nDamage / 2;
             }
+
+            // Pokud knockdown neni nastaven, pouzij default
+            if (!bKnockEnabled)
+                fKnock = fDefKnock;
         }
 
+        // ------------------------------------------------------
+        // Damage
+        // ------------------------------------------------------
         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
             EffectDamage(nDamage, DAMAGE_TYPE_BLUDGEONING), oTarget));
 
+        // ------------------------------------------------------
+        // Knockdown (jen pokud ma byt)
+        // ------------------------------------------------------
         if (bApplyKnock)
         {
             DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY,
@@ -144,7 +161,7 @@ void PadKameniLavina(
         }
 
         // ------------------------------------------------------
-        // VFX podle modu
+        // VFX
         // ------------------------------------------------------
         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,
             EffectVisualEffect(VFX_FNF_SMOKE_PUFF), oTarget));
@@ -181,12 +198,12 @@ void PadKameniLavina(
 void main()
 {
     PadKameniLavina(
-           50,
-           "as_rockcrumble3",
-           10,
-           15.0,
-           100,
-           5.0,
-           12.0,
-           20.0);
+           50,            // default chance
+           "as_rockcrumble3", // default sound
+           10,            // default damage %
+           15.0,          // default cooldown
+           100,           // default reflex DC
+           5.0,           // default knockdown (pouze lavina)
+           12.0,          // default radius small (pad kamenu)
+           20.0);         // default radius big (lavina)
 }
